@@ -1,4 +1,5 @@
-// Draws one storyboard frame as a pencil sketch, from a short list of things placed in the real 1920x1080 frame.
+// Draws one storyboard frame as a pencil sketch, from a short list of things placed in the real frame's coordinates
+// (1920x1080 for a landscape film, 1080x1920 for a portrait one).
 // The drawing is the plan: what is sketched at (x, y) here is built at (x, y) in the film, so a shot can be cut
 // into its pieces straight from its frames.
 //
@@ -158,11 +159,11 @@ const DRAW = {
   person: ([x, y, s]) =>
     `<circle cx="${x}" cy="${f(y - s * 0.86)}" r="${f(s * 0.13)}" fill="${INK}"/><path d="M${x} ${f(y - s * 0.72)} V${f(y - s * 0.3)} M${x} ${f(y - s * 0.3)} L${f(x - s * 0.14)} ${y} M${x} ${f(y - s * 0.3)} L${f(x + s * 0.14)} ${y} M${f(x - s * 0.16)} ${f(y - s * 0.56)} L${x} ${f(y - s * 0.64)} L${f(x + s * 0.2)} ${f(y - s * 0.8)}" stroke="${INK}" stroke-width="${f(s * 0.07)}" fill="none"/>`,
   horizon: ([y]) =>
-    `<path d="M0 ${y + 20} C240 ${y - 40} 420 ${y + 30} 700 ${y - 6} S1180 ${y - 50} 1460 ${y + 4} S1800 ${y - 30} 1920 ${y + 10} V1080 H0 Z" fill="url(#hatch2)" stroke="${INK}" stroke-width="7"/>`,
+    `<path d="M0 ${y + 20} C240 ${y - 40} 420 ${y + 30} 700 ${y - 6} S1180 ${y - 50} 1460 ${y + 4} S1800 ${y - 30} 1920 ${y + 10} V${SIZE.h} H0 Z" transform="scale(${f(SIZE.w / 1920)} 1)" fill="url(#hatch2)" stroke="${INK}" stroke-width="7"/>`,
   sky: ([y0, y1], t) => {
     const tones = t.tone === "dusk" ? ["#5350c4", "#d9382e", "#e8891a"] : ["#2f6fd6", "#2f6fd6", "#9cc0f2"];
     const step = (y1 - y0) / 3;
-    return tones.map((c, i) => `<rect x="0" y="${f(y0 + step * i)}" width="1920" height="${f(step)}" fill="${c}" opacity="${0.16 + (t.tone === "dusk" ? 0.1 : 0) * i}"/><path d="M0 ${f(y0 + step * (i + 0.5))} H1920" stroke="${c}" stroke-width="3" stroke-dasharray="40 26" opacity=".7"/>`).join("");
+    return tones.map((c, i) => `<rect x="0" y="${f(y0 + step * i)}" width="${SIZE.w}" height="${f(step)}" fill="${c}" opacity="${0.16 + (t.tone === "dusk" ? 0.1 : 0) * i}"/><path d="M0 ${f(y0 + step * (i + 0.5))} H${SIZE.w}" stroke="${c}" stroke-width="3" stroke-dasharray="40 26" opacity=".7"/>`).join("");
   },
   magnifier: ([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fbfaf5" stroke="${INK}" stroke-width="9"/><path d="M${f(x + r * 0.72)} ${f(y + r * 0.72)} L${f(x + r * 1.5)} ${f(y + r * 1.5)}" stroke="${INK}" stroke-width="16"/>`,
   dot: ([x, y, r], t) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${colour(t.colour)}" stroke="${INK}" stroke-width="4"/>`,
@@ -173,42 +174,57 @@ const DRAW = {
   // Direction, in blue pencil.
   move: (p, t) => `${arrow(p, BLUE, 9, 'stroke-dasharray="34 14"')}${t.text ? lettering([(p[0] + p[2]) / 2, Math.min(p[1], p[3]) - 26], t.text, 48, { fill: BLUE, weight: 700 }) : ""}`,
   camera: (kind, t) => {
-    const label = { push: "KAMERA MAJU", pull: "KAMERA MUNDUR", up: "KAMERA NAIK", down: "KAMERA TURUN", left: "GESER KIRI", right: "GESER KANAN", orbit: "KAMERA MENGORBIT" }[kind] ?? String(kind).toUpperCase();
+    const { w, h } = SIZE;
+    const words = SIZE.lang === "id"
+      ? { push: "KAMERA MAJU", pull: "KAMERA MUNDUR", up: "KAMERA NAIK", down: "KAMERA TURUN", left: "GESER KIRI", right: "GESER KANAN", orbit: "KAMERA MENGORBIT" }
+      : { push: "CAMERA PUSHES IN", pull: "CAMERA PULLS BACK", up: "CAMERA RISES", down: "CAMERA DROPS", left: "PAN LEFT", right: "PAN RIGHT", orbit: "CAMERA ORBITS" };
+    const label = words[kind] ?? String(kind).toUpperCase();
     let marks = "";
     if (kind === "push" || kind === "pull") {
       const inner = kind === "push";
       for (const [cx, cy, sx, sy] of [
         [150, 120, 1, 1],
-        [1770, 120, -1, 1],
-        [150, 960, 1, -1],
-        [1770, 960, -1, -1],
+        [w - 150, 120, -1, 1],
+        [150, h - 120, 1, -1],
+        [w - 150, h - 120, -1, -1],
       ]) {
         const from = inner ? [cx, cy] : [cx + sx * 130, cy + sy * 80];
         const to = inner ? [cx + sx * 130, cy + sy * 80] : [cx, cy];
         marks += arrow([...from, ...to], BLUE, 8);
       }
-      marks += `<rect x="${inner ? 330 : 90}" y="${inner ? 230 : 70}" width="${inner ? 1260 : 1740}" height="${inner ? 620 : 940}" fill="none" stroke="${BLUE}" stroke-width="5" stroke-dasharray="26 18" rx="14"/>`;
+      const box = inner ? [w * 0.17, h * 0.21, w * 0.66, h * 0.58] : [90, 70, w - 180, h - 140];
+      marks += `<rect x="${f(box[0])}" y="${f(box[1])}" width="${f(box[2])}" height="${f(box[3])}" fill="none" stroke="${BLUE}" stroke-width="5" stroke-dasharray="26 18" rx="14"/>`;
     } else if (kind === "orbit") {
-      marks += `<path d="M560 1000 Q960 1076 1360 1000" fill="none" stroke="${BLUE}" stroke-width="8"/>${arrow([1300, 1014, 1366, 998], BLUE, 8)}`;
+      const half = Math.min(400, w * 0.3);
+      marks += `<path d="M${f(w / 2 - half)} ${h - 80} Q${f(w / 2)} ${h - 4} ${f(w / 2 + half)} ${h - 80}" fill="none" stroke="${BLUE}" stroke-width="8"/>${arrow([w / 2 + half - 60, h - 66, w / 2 + half + 6, h - 82], BLUE, 8)}`;
     } else {
-      const v = { up: [960, 250, 960, 110], down: [960, 830, 960, 970], left: [330, 540, 150, 540], right: [1590, 540, 1770, 540] }[kind];
+      const v = { up: [w / 2, 250, w / 2, 110], down: [w / 2, h - 250, w / 2, h - 110], left: [330, h / 2, 150, h / 2], right: [w - 330, h / 2, w - 150, h / 2] }[kind];
       if (v) marks += arrow(v, BLUE, 10);
     }
     return `${marks}<g><rect x="40" y="28" width="${80 + (t.text ?? label).length * 27}" height="78" rx="12" fill="#eaf0ff" stroke="${BLUE}" stroke-width="4"/>${lettering([74, 84], t.text ?? label, 46, { align: "start", fill: BLUE, weight: 700 })}</g>`;
   },
-  cut: (text) => `<g><rect x="${1880 - (90 + String(text).length * 26)}" y="974" width="${90 + String(text).length * 26}" height="78" rx="12" fill="#eaf0ff" stroke="${BLUE}" stroke-width="4"/>${lettering([1850, 1030], `→ ${text}`, 46, { align: "end", fill: BLUE, weight: 700 })}</g>`,
+  cut: (text) => {
+    const { w, h } = SIZE;
+    const wide = Math.min(w - 80, 90 + String(text).length * 26);
+    return `<g><rect x="${w - 40 - wide}" y="${h - 106}" width="${wide}" height="78" rx="12" fill="#eaf0ff" stroke="${BLUE}" stroke-width="4"/>${lettering([w - 70, h - 50], `→ ${text}`, 46, { align: "end", fill: BLUE, weight: 700 })}</g>`;
+  },
 };
 export const THINGS = Object.keys(DRAW);
+// The size of the frame being drawn; sketch() sets it.
+const SIZE = { w: 1920, h: 1080, lang: "en" };
 
 // One frame as an SVG string. id keeps the clip paths of different frames apart on one page.
-export function sketch(frame, id = "f") {
+export function sketch(frame, id = "f", { width = 1920, height = 1080, lang = "en" } = {}) {
+  SIZE.w = width;
+  SIZE.h = height;
+  SIZE.lang = lang;
   let body = "";
   (frame.draw ?? []).forEach((thing, i) => {
     // A thing is named by its first key; the keys after it are its options.
     const kind = Object.keys(thing)[0];
     if (kind in DRAW) body += DRAW[kind](thing[kind], thing, `${id}-${i}`);
   });
-  return `<svg viewBox="0 0 1920 1080" class="sketch" xmlns="http://www.w3.org/2000/svg">
+  return `<svg viewBox="0 0 ${width} ${height}" class="sketch" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <filter id="pencil-${id}" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="${(id.length * 7 + id.charCodeAt(id.length - 1)) % 90}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
       <filter id="grain-${id}"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
@@ -216,9 +232,9 @@ export function sketch(frame, id = "f") {
       <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="${INK}" stroke-width="2.6"/></pattern>
       <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="${INK}" stroke-width="1.8" opacity=".7"/></pattern>
     </defs>
-    <rect width="1920" height="1080" fill="#f6f3ec"/>
+    <rect width="${width}" height="${height}" fill="#f6f3ec"/>
     <g filter="url(#pencil-${id})" stroke-linecap="round" stroke-linejoin="round">${body}</g>
-    <rect width="1920" height="1080" filter="url(#grain-${id})"/>
-    <rect x="6" y="6" width="1908" height="1068" rx="22" fill="none" stroke="${INK}" stroke-width="10"/>
+    <rect width="${width}" height="${height}" filter="url(#grain-${id})"/>
+    <rect x="6" y="6" width="${width - 12}" height="${height - 12}" rx="22" fill="none" stroke="${INK}" stroke-width="10"/>
   </svg>`;
 }

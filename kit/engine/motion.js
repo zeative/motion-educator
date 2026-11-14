@@ -24,14 +24,30 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   const $ = (sel) => (typeof sel === "string" ? document.querySelector(sel) : sel);
   const $$ = (sel) => (typeof sel === "string" ? [...document.querySelectorAll(sel)] : [].concat(sel));
   await document.fonts.ready;
+  // The frame's size comes from the storyboard: "1920x1080" for a landscape film, "1080x1920" for a short.
+  const [W, H] = (storyboard?.format ?? "1920x1080").split("x").map(Number);
+  const portrait = H > W;
+  document.documentElement.style.setProperty("--W", `${W}px`);
+  document.documentElement.style.setProperty("--H", `${H}px`);
+  document.documentElement.dataset.format = portrait ? "portrait" : "landscape";
+  // The narration's measured lines, when the film has any (kit/audio/voice.mjs writes them).
+  let voiced = {};
+  if ((storyboard?.shots ?? []).some((shot) => shot.voice)) {
+    try {
+      const response = await fetch("voice/voice.json");
+      if (response.ok) voiced = (await response.json()).lines ?? {};
+    } catch {}
+  }
 
   // The parts every film has: the stage canvas behind the scenes, a flash and a vignette over them, filter defs.
   const root = $("#root");
   let canvas = $("#backdrop");
   if (!canvas) {
-    canvas = Object.assign(document.createElement("canvas"), { id: "backdrop", width: 1920, height: 1080 });
+    canvas = Object.assign(document.createElement("canvas"), { id: "backdrop", width: W, height: H });
     root.prepend(canvas);
   }
+  // A film's own canvases are the size of the frame unless they say otherwise.
+  for (const own of root.querySelectorAll("canvas:not([width])")) Object.assign(own, { width: W, height: H });
   for (const id of ["flash", "vignette"]) {
     if (!$(`#${id}`)) root.append(Object.assign(document.createElement("div"), { id }));
   }
@@ -146,9 +162,9 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   };
   // A whip pan between two scenes: the outgoing one leaves, the blur peaks on the cut, and the stage travels too.
   const whip = (from, to, at, { vertical = false, blur } = {}) => {
-    tl.to(from, vertical ? { y: -900, duration: 0.3, ease: "power3.in" } : { x: -1100, duration: 0.3, ease: "power3.in" }, at - 0.3);
+    tl.to(from, vertical ? { y: -H * 0.83, duration: 0.3, ease: "power3.in" } : { x: -W * 0.57, duration: 0.3, ease: "power3.in" }, at - 0.3);
     tl.set(from, { autoAlpha: 0 }, at);
-    tl.fromTo(to, vertical ? { y: 760 } : { x: 900 }, { x: 0, y: 0, duration: 0.5, ease: "expo.out", immediateRender: false }, at);
+    tl.fromTo(to, vertical ? { y: H * 0.7 } : { x: W * 0.47 }, { x: 0, y: 0, duration: 0.5, ease: "expo.out", immediateRender: false }, at);
     tl.set(to, { autoAlpha: 1 }, at);
     blur?.(at - 0.26, 0.56, vertical ? 0 : 70, vertical ? 56 : 0);
     tl.to(stage, vertical ? { camy: "+=3.2", duration: 0.6, ease: "power3.inOut" } : { camx: "+=3.4", duration: 0.6, ease: "power3.inOut" }, at - 0.3);
@@ -185,38 +201,85 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   // ── Captions ─────────────────────────────────────────────────────────────
   // Every shot's caption from the storyboard, set at the bottom of the frame and read in by word. Words wrapped in
   // *stars* in the storyboard take the accent colour. One source of truth: change the storyboard, the film follows.
-  const captions = ({ lead = 0.12, tail = 0.1 } = {}) => {
+  // What is said in a shot, on screen. The text is the shot's caption, or its spoken line when it has no caption.
+  // Two styles: "pill" (a glass bar of subtitles, the default for landscape) and "pop" (a few large words at a time,
+  // the default for portrait shorts). With narration, the words keep time with the voice: exactly when the recording
+  // came with word times, otherwise spread evenly across the spoken line.
+  const VOICE_LEAD = 0.15;
+  const captions = ({ lead = 0.12, tail = 0.1, style = storyboard.captions ?? (portrait ? "pop" : "pill"), chunk } = {}) => {
     let box = $("#captions");
     if (!box) {
       box = Object.assign(document.createElement("div"), { id: "captions" });
       $("#vignette").before(box);
     }
+    box.dataset.style = style;
+    const limit = chunk ?? (style === "pop" ? { words: 3, chars: 18 } : { words: 99, chars: portrait ? 56 : 92 });
     for (const shot of storyboard.shots) {
-      if (!shot.caption) continue;
-      const line = Object.assign(document.createElement("p"), { className: "caption" });
-      // A film can restyle one shot's caption: .caption[data-shot="s03"] .key { ... }
-      line.dataset.shot = shot.id;
-      for (const part of shot.caption.split(/(\*[^*]+\*)/)) {
+      const text = shot.caption ?? shot.voice;
+      if (!text) continue;
+      // Words, each knowing whether it carries the accent.
+      const tokens = [];
+      for (const part of text.split(/(\*[^*]+\*)/)) {
         if (!part) continue;
         const strong = part.startsWith("*");
-        for (const word of (strong ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean)) {
-          // Punctuation stays against the word before it, even when that word carries the accent.
-          if (line.childNodes.length && !/^[.,;:!?)]/.test(word)) line.append(" ");
-          line.append(Object.assign(document.createElement("span"), { className: strong ? "cw key" : "cw", textContent: word }));
-        }
+        for (const word of (strong ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean)) tokens.push({ word, strong });
       }
-      box.append(line);
-      const words = [...line.querySelectorAll(".cw")];
-      const start = shot.start + lead;
-      const end = shot.end - tail;
-      gsap.set(line, { autoAlpha: 0 });
-      gsap.set(words, { opacity: 0, y: 14, filter: "blur(6px)" });
-      // The pill arrives with its first word, never empty.
-      tl.to(line, { autoAlpha: 1, duration: 0.16, ease: "power1.out" }, start);
-      // The words take about a third of the shot to arrive, never slower than a calm reading pace.
-      const step = Math.min(0.09, ((end - start) * 0.34) / words.length);
-      tl.to(words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: step }, start);
-      tl.to(line, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power1.in" }, end - 0.2);
+      // When each word is said. Known exactly, or spread by length across the time there is.
+      const line = voiced[shot.id];
+      const from = line ? shot.start + VOICE_LEAD : shot.start + lead;
+      const until = line ? Math.min(shot.end - 0.05, from + line.speech) : shot.end - tail;
+      const exact = line?.words?.length === tokens.length && !shot.caption;
+      const weight = tokens.map((token) => token.word.length + 2);
+      const total = weight.reduce((a, b) => a + b, 0);
+      let run = 0;
+      tokens.forEach((token, i) => {
+        token.at = exact ? shot.start + VOICE_LEAD + line.words[i][0] - (line.lead ?? 0) : from + ((until - from) * run) / total;
+        run += weight[i];
+      });
+      // Groups of words shown together: a new group at the limit, or after a sentence ends.
+      const groups = [[]];
+      for (const token of tokens) {
+        const now = groups.at(-1);
+        const chars = now.reduce((n, t) => n + t.word.length + 1, 0);
+        const ended = now.length && /[.!?]$/.test(now.at(-1).word) && style === "pop";
+        if (now.length && (now.length >= limit.words || chars + token.word.length > limit.chars || ended)) groups.push([token]);
+        else now.push(token);
+      }
+      groups.forEach((group, g) => {
+        const el = Object.assign(document.createElement("p"), { className: `caption ${style}` });
+        // A film can restyle one shot's caption: .caption[data-shot="s03"] .key { ... }
+        el.dataset.shot = shot.id;
+        for (const token of group) {
+          // Punctuation stays against the word before it, even when that word carries the accent.
+          if (el.childNodes.length && !/^[.,;:!?)]/.test(token.word)) el.append(" ");
+          el.append(Object.assign(document.createElement("span"), { className: token.strong ? "cw key" : "cw", textContent: token.word }));
+        }
+        box.append(el);
+        const words = [...el.querySelectorAll(".cw")];
+        const start = g === 0 ? Math.min(group[0].at, shot.start + lead) : group[0].at;
+        const end = g < groups.length - 1 ? groups[g + 1][0].at : shot.end - tail;
+        gsap.set(el, { autoAlpha: 0 });
+        if (style === "pop") {
+          // The group arrives as one, each word lighting as it is said.
+          gsap.set(el, { scale: 0.86, y: 18 });
+          gsap.set(words, { opacity: 0.38 });
+          tl.to(el, { autoAlpha: 1, scale: 1, y: 0, duration: 0.2, ease: "back.out(2.2)" }, start);
+          group.forEach((token, i) => tl.to(words[i], { opacity: 1, duration: 0.12, ease: "power1.out" }, Math.max(start, token.at)));
+          tl.set(el, { autoAlpha: 0 }, end);
+        } else {
+          gsap.set(words, { opacity: 0, y: 14, filter: "blur(6px)" });
+          // The pill arrives with its first word, never empty.
+          tl.to(el, { autoAlpha: 1, duration: 0.16, ease: "power1.out" }, start);
+          if (line) {
+            group.forEach((token, i) => tl.to(words[i], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, Math.max(start, token.at - 0.06)));
+          } else {
+            // Read, not heard: the words take about a third of the time to arrive, never slower than a calm reading pace.
+            const step = Math.min(0.09, ((end - start) * 0.34) / words.length);
+            tl.to(words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: step }, start);
+          }
+          tl.to(el, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power1.in" }, end - 0.2);
+        }
+      });
     }
   };
 
@@ -265,5 +328,5 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     }
   };
 
-  return { gsap, tl, $, $$, stage, shots, duration, each, show, hide, scene, land, pop, split, typeIn, typeOut, sheen, motionBlur, hit, whip, light, tintTo, draw, count, captions, chapters, finish };
+  return { gsap, tl, $, $$, W, H, portrait, voiced, stage, shots, duration, each, show, hide, scene, land, pop, split, typeIn, typeOut, sheen, motionBlur, hit, whip, light, tintTo, draw, count, captions, chapters, finish };
 }

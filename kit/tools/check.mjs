@@ -15,7 +15,7 @@ const probe = (file, entries) => execFileSync("ffprobe", ["-v", "error", "-selec
 const [rate, frames] = probe(picture, "stream=r_frame_rate,nb_read_frames").split(",");
 const duration = Number(probe(picture, "format=duration"));
 const fps = Number(rate.split("/")[0]) / Number(rate.split("/")[1] ?? 1);
-console.log(`picture: ${frames} frames, ${duration.toFixed(3)} s at ${fps} fps${Math.abs(Number(frames) - duration * fps) < 1.5 ? "" : "  <- frame count does not match the length"}`);
+console.log(`picture: ${probe(picture, "stream=width,height").replace(",", "x")}, ${frames} frames, ${duration.toFixed(3)} s at ${fps} fps${Math.abs(Number(frames) - duration * fps) < 1.5 ? "" : "  <- frame count does not match the length"}`);
 const errors = spawnSync("ffmpeg", ["-v", "error", "-i", picture, "-f", "null", "-"]).stderr.toString().trim();
 console.log(errors ? `decode errors:\n${errors}` : "decodes cleanly");
 
@@ -23,7 +23,9 @@ console.log(errors ? `decode errors:\n${errors}` : "decodes cleanly");
 const sheets = join(film, "out", "sheets");
 mkdirSync(sheets, { recursive: true });
 const count = Math.ceil((duration * 2) / 36);
-execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", picture, "-vf", "fps=2,scale=384:-1,tile=6x6:padding=4:color=0x444444", "-frames:v", String(count), join(sheets, "sheet-%02d.png")]);
+const [width, height] = probe(picture, "stream=width,height").split(",").map(Number);
+const tile = height > width ? "scale=216:-1,tile=9x4" : "scale=384:-1,tile=6x6";
+execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", picture, "-vf", `fps=2,${tile}:padding=4:color=0x444444`, "-frames:v", String(count), join(sheets, "sheet-%02d.png")]);
 console.log(`${count} contact sheet(s) in ${sheets}: look at every one`);
 
 // Frozen time: stretches where the picture barely changes, sampled ten times a second.

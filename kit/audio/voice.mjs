@@ -44,7 +44,9 @@ function measure(file) {
   const ends = [...log.matchAll(/silence_end: ([\d.]+)/g)].map((m) => Number(m[1]));
   const lead = starts[0] !== undefined && starts[0] < 0.02 && ends[0] !== undefined ? ends[0] : 0;
   const last = starts.at(-1);
-  const tail = last !== undefined && (ends.length < starts.length || ends.at(-1) >= duration - 0.02) && last > lead ? duration - last : 0;
+  // The last silence counts as the tail when it runs to the end of the file (an encoder pads the end by a few
+  // hundredths of a second, so "the end" is taken loosely).
+  const tail = last !== undefined && (ends.length < starts.length || ends.at(-1) >= duration - 0.12) && last > lead ? duration - last : 0;
   const round = (n) => Math.round(n * 1000) / 1000;
   return { duration: round(duration), lead: round(lead), tail: round(tail), speech: round(duration - lead - tail) };
 }

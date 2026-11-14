@@ -56,8 +56,8 @@
 }
 html,
 body {
-  width: 1920px;
-  height: 1080px;
+  width: var(--W, 1920px);
+  height: var(--H, 1080px);
   overflow: hidden;
   background: var(--bg);
 }
@@ -85,8 +85,8 @@ u {
 canvas {
   position: absolute;
   inset: 0;
-  width: 1920px;
-  height: 1080px;
+  width: var(--W, 1920px);
+  height: var(--H, 1080px);
   pointer-events: none;
 }
 
@@ -339,8 +339,8 @@ canvas {
 svg.ink {
   position: absolute;
   inset: 0;
-  width: 1920px;
-  height: 1080px;
+  width: var(--W, 1920px);
+  height: var(--H, 1080px);
   overflow: visible;
 }
 svg.ink path,
@@ -369,5 +369,89 @@ svg.ink circle {
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse 78% 80% at 50% 48%, transparent 58%, rgb(0 0 0 / 0.42) 100%);
+  pointer-events: none;
+}
+
+/* ── Portrait (1080 x 1920): a short for a phone ─────────────────────────────
+   The apps draw over the frame: a header at the top, the caption and the sound's name at the bottom, buttons down
+   the right. Keep what must be read inside --safe-*; the stage and pictures may run to the edges. */
+:root {
+  --safe-top: 54px;
+  --safe-bottom: 54px;
+  --safe-left: 96px;
+  --safe-right: 96px;
+}
+:root[data-format="portrait"] {
+  --safe-top: 230px;
+  --safe-bottom: 430px;
+  --safe-left: 64px;
+  --safe-right: 150px;
+}
+:root[data-format="portrait"] body {
+  font-size: 26px;
+}
+:root[data-format="portrait"] .display.huge {
+  font-size: 118px;
+}
+:root[data-format="portrait"] .display.mid {
+  font-size: 84px;
+}
+:root[data-format="portrait"] .rail {
+  left: var(--safe-left);
+  top: var(--safe-top);
+  gap: 10px;
+  font-size: 22px;
+}
+:root[data-format="portrait"] .rail i {
+  width: 28px;
+}
+:root[data-format="portrait"] #captions {
+  bottom: var(--safe-bottom);
+  height: 300px;
+}
+:root[data-format="portrait"] .caption.pill {
+  max-width: 880px;
+  font-size: 44px;
+  left: calc(50% - 43px);
+}
+
+/* Pop captions: a few large words at a time, lit as they are said. */
+.caption.pop {
+  left: 50%;
+  bottom: 40px;
+  max-width: 1400px;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: #fff;
+  font: 700 84px / 1.08 var(--brand);
+  letter-spacing: -0.03em;
+  text-shadow:
+    0 4px 0 rgb(0 0 0 / 0.55),
+    0 0 28px rgb(0 0 0 / 0.75),
+    0 0 4px rgb(0 0 0 / 0.9);
+  white-space: nowrap;
+}
+.caption.pop .key {
+  color: var(--accent);
+}
+:root[data-format="portrait"] .caption.pop {
+  left: calc(50% - 43px);
+  bottom: 60px;
+  max-width: 860px;
+  font-size: 96px;
+  white-space: normal;
+}
+
+/* render.mjs --safe: shows where an app would cover the frame. Never in a finished render. */
+:root[data-safe] #root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  border-style: solid;
+  border-color: rgb(255 40 90 / 0.28);
+  border-width: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
   pointer-events: none;
 }

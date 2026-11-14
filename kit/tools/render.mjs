@@ -4,13 +4,16 @@
 //   node kit/tools/render.mjs films/NAME --only 12-16       re-render only the segments that touch 12 s to 16 s
 //   node kit/tools/render.mjs films/NAME --stills 1,5.5     finished PNG stills at those seconds -> out/stills/
 //   node kit/tools/render.mjs films/NAME --serve            serve the film to watch it live in a browser (#play)
-//   --fps 30 halves the frames, --jobs 1 uses one browser, --raw skips the finishing pass, --dir writes elsewhere.
+//   --fps 30 halves the frames, --jobs 1 uses one browser, --raw skips the finishing pass, --dir writes elsewhere,
+//   --safe (stills only) shades the parts of the frame an app would cover.
+//
+// The frame's size is the storyboard's "format": 1920x1080 unless it says otherwise (1080x1920 for a short).
 //
 // The picture is rendered in four-second segments, each its own file that starts on a keyframe. A fix to one shot
 // re-renders its segments and the rest are reused, which is what makes a review loop affordable.
 // Needs `npm install` in the workspace, Playwright with Chromium, and FFmpeg on PATH.
 import { spawn } from "node:child_process";
-import { createReadStream, existsSync, mkdirSync, renameSync, statSync, unlinkSync, writeFileSync } from "node:fs";
+import { createReadStream, existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import { availableParallelism } from "node:os";
@@ -31,6 +34,9 @@ const out = resolve(flag("--dir") ?? join(film, "out"));
 const fps = Number(flag("--fps") ?? 60);
 const jobs = Number(flag("--jobs") ?? Math.min(4, availableParallelism()));
 const SEGMENT = Number(flag("--segment") ?? 4);
+const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8")) : {};
+const [W, H] = (flag("--size") ?? plan.format ?? "1920x1080").split("x").map(Number);
+if (!(W > 0 && H > 0) || W % 2 || H % 2) throw new Error(`the frame size "${W}x${H}" must be two even numbers, like 1920x1080`);
 
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml" };
 Object.assign(TYPES, { ".png": "image/png", ".jpg": "image/jpeg", ".woff2": "font/woff2", ".json": "application/json", ".mp3": "audio/mpeg" });
@@ -54,7 +60,7 @@ if (args.includes("--serve")) {
   // One browser per job: pages in the same browser share a compositor and would take turns.
   async function openFilm() {
     const browser = await chromium.launch({ args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"] });
-    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+    const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
     page.on("pageerror", (error) => console.error(`page error: ${error.message}`));
     page.on("console", (message) => message.type() === "error" && console.error(`page: ${message.text()}`));
     await page.goto(url);
@@ -77,7 +83,7 @@ if (args.includes("--serve")) {
   // The finishing pass: highlights bloom into their surroundings (blurred at quarter size, which is far cheaper and
   // looks the same), then fine grain that changes every frame.
   const FINISH =
-    "format=gbrp,split[a][b];[b]scale=480:270,curves=all='0/0 0.56/0 1/1',gblur=sigma=6.5,scale=1920:1080:flags=bicubic[glow];[a][glow]blend=all_mode=screen:all_opacity=0.34,noise=alls=5:allf=t,format=yuv420p";
+    `format=gbrp,split[a][b];[b]scale=${W / 4}:${H / 4},curves=all='0/0 0.56/0 1/1',gblur=sigma=6.5,scale=${W}:${H}:flags=bicubic[glow];[a][glow]blend=all_mode=screen:all_opacity=0.34,noise=alls=5:allf=t,format=yuv420p`;
   const finish = args.includes("--raw") ? ["-pix_fmt", "yuv420p"] : ["-filter_complex", FINISH];
 
   const stills = flag("--stills")?.split(",").map(Number);
@@ -85,6 +91,7 @@ if (args.includes("--serve")) {
     const dir = flag("--dir") ? out : join(out, "stills");
     mkdirSync(dir, { recursive: true });
     const { browser, page } = await openFilm();
+    if (args.includes("--safe")) await page.evaluate(() => document.documentElement.setAttribute("data-safe", ""));
     for (const time of stills) {
       await seek(page, time);
       const raw = join(dir, `.raw-${time.toFixed(2)}.png`);

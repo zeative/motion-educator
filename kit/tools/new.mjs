@@ -1,6 +1,8 @@
 // Starts a film: makes a workspace if there is none (the kit and its package.json), then films/NAME from the template.
 //
-//   node <skill>/kit/tools/new.mjs <workspace> <film-name>
+//   node <skill>/kit/tools/new.mjs <workspace> <film-name> [--portrait]
+//
+// --portrait starts a 1080x1920 short; without it the film is 1920x1080.
 //
 // Afterwards: cd <workspace> && npm install && sh kit/audio/fetch.sh. Write storyboard.json first.
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -8,9 +10,10 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const skill = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const [workspaceArg, name] = process.argv.slice(2);
+const [workspaceArg, name] = process.argv.slice(2).filter((arg) => !arg.startsWith("--"));
+const portrait = process.argv.includes("--portrait");
 if (!workspaceArg || !name || !/^[a-z0-9][a-z0-9-]*$/.test(name)) {
-  console.error("usage: node kit/tools/new.mjs <workspace> <film-name>   (the name in lower case, digits and dashes)");
+  console.error("usage: node kit/tools/new.mjs <workspace> <film-name> [--portrait]   (the name in lower case, digits and dashes)");
   process.exit(1);
 }
 const workspace = resolve(workspaceArg);
@@ -32,4 +35,8 @@ if (existsSync(film)) {
   process.exit(1);
 }
 cpSync(join(skill, "templates", "film"), film, { recursive: true });
+if (portrait) {
+  const plan = join(film, "storyboard.json");
+  writeFileSync(plan, readFileSync(plan, "utf8").replace('"format": "1920x1080"', '"format": "1080x1920"'));
+}
 console.log(`made ${film}\nnext: write ${join(film, "storyboard.json")}, then: node kit/tools/storyboard.mjs films/${name} --png`);

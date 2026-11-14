@@ -49,7 +49,7 @@ const FACE = `
 // ── The hero ───────────────────────────────────────────────────────────────
 const shot = (id) => sb.shots.find((s) => s.id === id);
 const mid = (id, at = 0.6) => shot(id).start + (shot(id).end - shot(id).start) * at;
-const board = sketch(shot("s15").frames.at(-1), "hero");
+const board = sketch(shot("s15").frames.at(-1), "hero", { lang: sb.language });
 await shoot(
   `<!doctype html><meta charset="utf-8"><style>${FACE}
   body{width:1600px;height:640px;overflow:hidden;background:#07080b;color:#f2f2f5;font-family:"Inter"}
@@ -84,7 +84,7 @@ const pairs = [["s02", 1], ["s05", 2], ["s11", 2], ["s14", 2], ["s15", 2]].map((
   const s = shot(id);
   const frame = s.frames[Math.min(k, s.frames.length - 1)];
   const time = Math.min(s.end - 0.35, s.start + (s.end - s.start) * frame.at);
-  return `<figure><div>${sketch(frame, `p-${id}`)}</div><img src="${grab(time, `p-${id}`, 640)}"><figcaption><b>${id}</b>${s.caption ? s.caption.replaceAll("*", "") : ""}</figcaption></figure>`;
+  return `<figure><div>${sketch(frame, `p-${id}`, { lang: sb.language })}</div><img src="${grab(time, `p-${id}`, 640)}"><figcaption><b>${id}</b>${s.caption ? s.caption.replaceAll("*", "") : ""}</figcaption></figure>`;
 });
 await shoot(
   `<!doctype html><meta charset="utf-8"><style>${FACE}

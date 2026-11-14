@@ -6,6 +6,7 @@
 //   node kit/tools/storyboard.mjs films/NAME --png      also write storyboard/storyboard-01.png ... (needs Playwright)
 //
 // Exit code 1 when a rule is broken. Nothing is built until this passes and the person has seen the board.
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join, relative, resolve } from "node:path";
@@ -26,6 +27,13 @@ const READING = { warn: 17, error: 21, longest: 104 };
 // Frames: a shot is drawn at its start and at its end at least, and once more when it runs long; across the film,
 // about one frame for every 1.25 seconds, so the board shows what happens and not only where things sit.
 const FRAMES = { each: 2, long: 3.4, perSecond: 1 / 1.25 };
+// Narration: a line starts LEAD after its shot and ends TAIL before the shot does. Before it is recorded its length
+// is guessed from its characters (speech runs at about 15 a second); once recorded, the measured length is used.
+const VOICE = { lead: 0.15, tail: 0.2, guess: 15, warn: 16.5 };
+const [W, H] = (sb.format ?? "1920x1080").split("x").map(Number);
+const portrait = H > W;
+const recorded = existsSync(join(film, "voice", "voice.json")) ? (JSON.parse(readFileSync(join(film, "voice", "voice.json"), "utf8")).lines ?? {}) : {};
+const lineSha = (text) => createHash("sha256").update(`${sb.voice?.voice_id ?? ""}\n${text}`).digest("hex").slice(0, 16);
 
 const errors = [];
 const warns = [];
@@ -38,6 +46,9 @@ const need = (obj, key, where, min = 1) => {
 
 for (const key of ["title", "question", "audience", "promise", "language"]) need(sb, key, "storyboard", key === "promise" ? 30 : 2);
 if (!(sb.duration > 0)) err("storyboard", '"duration" in seconds is missing');
+if (!(W > 0 && H > 0) || W % 2 || H % 2) err("storyboard", `"format" must be like "1920x1080" (landscape) or "1080x1920" (portrait); got "${sb.format}"`);
+const narrated = (sb.shots ?? []).some((shot) => shot.voice);
+if (narrated && !sb.voice?.voice_id) err("storyboard", 'shots have "voice" lines but the storyboard names no voice: add "voice": { "voice_id", "name", "model", "language" }');
 if (!sb.look?.accent) err("storyboard", '"look.accent" is missing: the one colour that carries the point');
 need(sb.look ?? {}, "mood", "look", 20);
 if (!sb.music?.bpm) warn("storyboard", '"music.bpm" is missing: cuts cannot be checked against the beat');
@@ -70,7 +81,20 @@ shots.forEach((shot, i) => {
   if (dur < SHOT.shortest) err(where, `${dur.toFixed(2)} s is too short to read (minimum ${SHOT.shortest} s)`);
   if (dur > SHOT.longest) err(where, `${dur.toFixed(2)} s is too long without a new picture (maximum ${SHOT.longest} s): split it`);
   previousEnd = shot.end;
-  // Captions are read, so they get a reading-speed check.
+  // A spoken line has to fit inside its shot.
+  if (shot.voice) {
+    const room = dur - VOICE.lead - VOICE.tail;
+    const line = recorded[shot.id];
+    if (line && line.sha === lineSha(shot.voice)) {
+      if (line.speech > room + 0.01) err(where, `the recorded line is ${line.speech.toFixed(2)} s but the shot has room for ${room.toFixed(2)} s: lengthen the shot or shorten the line`);
+    } else {
+      const speed = shot.voice.length / Math.max(0.3, room);
+      if (speed > VOICE.guess * 1.25) err(where, `the spoken line is ${shot.voice.length} characters for ${room.toFixed(1)} s of room: it will not fit (speech runs at about ${VOICE.guess} characters a second)`);
+      else if (speed > VOICE.warn) warn(where, `the spoken line may not fit (${speed.toFixed(0)} characters a second): record it, then run kit/audio/voice.mjs`);
+    }
+    if (/\d/.test(shot.voice) && !(shot.facts?.length > 0)) err(where, "the spoken line states a number but the shot cites no fact");
+  }
+  // Captions are read, so they get a reading-speed check. (A shot with no caption shows its spoken line instead.)
   if (shot.caption) {
     const text = shot.caption.replaceAll("*", "");
     const speed = text.length / Math.max(0.5, dur - 0.5);
@@ -115,7 +139,7 @@ if (frameCount < fewestFrames) err("storyboard", `${frameCount} drawn frames for
 if (new Set(shots.map((shot) => shot.type)).size < 4) err("storyboard", "fewer than four kinds of shot: vary the picture (type, 3D, diagram, chart, macro, wide...)");
 // A shot made of type says its line itself; every other shot needs a caption.
 const spoken = shots.filter((shot) => !["type", "endcard"].includes(shot.type));
-if (spoken.length && spoken.filter((shot) => shot.caption).length / spoken.length < 0.85) err("storyboard", "fewer than 85% of the shots that are not type carry a caption: the film must explain itself with the sound off");
+if (spoken.length && spoken.filter((shot) => shot.caption || shot.voice).length / spoken.length < 0.85) err("storyboard", "fewer than 85% of the shots that are not type carry a caption: the film must explain itself with the sound off");
 if (shots.length && !["recap", "endcard"].includes(shots.at(-1).type)) err("storyboard", 'the last shot must be a "recap" or an "endcard"');
 if (shots.length && !shots.some((shot) => shot.type === "recap")) err("storyboard", "no recap shot: say again, in one frame, what the viewer now knows");
 for (const act of acts.keys()) if (!shots.some((shot) => shot.act === act)) err(`act ${act}`, "has no shots");
@@ -131,17 +155,18 @@ const all = [];
 const frameOf = (shot, frame, k) => {
   number++;
   const at = shot.start + (shot.end - shot.start) * frame.at;
-  const svg = sketch(frame, `${shot.id}-${k}`);
+  const svg = sketch(frame, `${shot.id}-${k}`, { width: W, height: H, lang: sb.language });
   all.push({ n: number, shot, at, svg, frame });
   return `<figure><div class="pic">${svg}</div><figcaption><span>frame ${number} · ${time(at)}</span>${esc(frame.note)}</figcaption></figure>`;
 };
 const row = (shot, i) => `
   <article class="shot">
     <header><b>${esc(shot.id)}</b><span class="t">${time(shot.start)} → ${time(shot.end)} · ${(shot.end - shot.start).toFixed(2)} s</span><em class="ty">${esc(shot.type)}</em><em>${esc(acts.get(shot.act)?.title ?? shot.act)}</em>
-      ${shot.caption ? `<q>${rich(shot.caption)}</q>` : "<q class='none'>no caption: the lettering in the frame is the line</q>"}<i>${i + 1} / ${shots.length}</i></header>
+      ${shot.caption ? `<q>${rich(shot.caption)}</q>` : shot.voice ? "<q class='none'>the spoken line is the caption</q>" : "<q class='none'>no caption: the lettering in the frame is the line</q>"}<i>${i + 1} / ${shots.length}</i></header>
     <div class="body">
       <div class="frames n${(shot.frames ?? []).length}">${(shot.frames ?? []).map((frame, k) => frameOf(shot, frame, k)).join("")}</div>
       <dl>
+        ${shot.voice ? `<dt>Voice</dt><dd class="say">${esc(shot.voice)}${recorded[shot.id]?.sha === lineSha(shot.voice) ? ` <u>${recorded[shot.id].speech.toFixed(1)} s</u>` : " <u>not recorded</u>"}</dd>` : ""}
         <dt>Teaches</dt><dd>${esc(shot.teaches)}</dd>
         <dt>On screen</dt><dd>${esc(shot.screen)}</dd>
         <dt>Motion</dt><dd>${esc(shot.motion)}</dd>
@@ -157,7 +182,7 @@ const PER_PAGE = 3;
 const rows = shots.map(row);
 const pages = [];
 for (let i = 0; i < rows.length; i += PER_PAGE) pages.push(rows.slice(i, i + PER_PAGE).join(""));
-const SHEET = 24;
+const SHEET = portrait ? 36 : 24;
 const sheets = [];
 for (let i = 0; i < all.length; i += SHEET) {
   sheets.push(
@@ -191,12 +216,13 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
   .sketch{display:block;width:100%;border-radius:8px}.sketch .hand{font-family:"Hand","Comic Sans MS",ui-sans-serif,sans-serif}
   figure{min-width:0}.pic{position:relative}.pic>b{position:absolute;left:8px;top:8px;min-width:30px;padding:4px 8px;border-radius:8px;background:#26262b;color:#fff;font:650 14px/1.2 ui-monospace,monospace;text-align:center}
   figcaption{margin-top:7px;color:#c9c9cf;font-size:13px;line-height:1.35}figcaption span{display:block;color:${accent};font:600 12px/1.5 ui-monospace,monospace}figcaption b{color:${accent}}
-  .sheet{display:grid;grid-template-columns:repeat(6,1fr);gap:16px 14px}
+  .sheet{display:grid;grid-template-columns:repeat(${portrait ? 12 : 6},1fr);gap:16px 14px}dd.say{color:#fff;font-size:14.5px;font-style:italic}
   .shot{margin-bottom:22px;border:1px solid #26262a;border-radius:16px;background:#111113;overflow:hidden}
   .shot header{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid #222226}.shot header>b{color:${accent};font:650 20px/1 ui-monospace,monospace}.shot .t{color:#a9a9b0;font:500 13px/1 ui-monospace,monospace}
   .shot em{font-style:normal;padding:4px 10px;border-radius:99px;background:#1d1d20;color:#a9a9b0;font-size:12px}.shot em.ty{background:${accent}22;color:${accent}}.shot header i{margin-left:auto;color:#55555c;font:500 12px/1 ui-monospace,monospace;font-style:normal}
   .shot q{quotes:"“" "”";margin-left:10px;font:550 19px/1.3 ui-sans-serif,system-ui}.shot q b{color:${accent}}.shot q.none{color:#6b6b72;font:italic 400 14px/1.3 ui-sans-serif,system-ui;quotes:none}
   .body{display:grid;grid-template-columns:1fr 470px;gap:20px;padding:16px 18px 18px}.frames{display:grid;gap:12px;align-content:start}.frames.n2{grid-template-columns:repeat(2,1fr)}.frames.n3{grid-template-columns:repeat(3,1fr)}.frames.n4{grid-template-columns:repeat(4,1fr)}
+  ${portrait ? ".body{grid-template-columns:auto 1fr}.frames,.frames.n2,.frames.n3,.frames.n4{grid-template-columns:repeat(4,230px)}dl{grid-template-columns:96px 1fr}dd{font-size:14.5px}" : ""}
   dl{display:grid;grid-template-columns:86px 1fr;gap:6px 12px;align-content:start}dt{color:#85858d;font:600 10.5px/1.7 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}dd{color:#d5d5da;font-size:13px}dd u{text-decoration:none;padding:2px 7px;border-radius:6px;background:#1d1d20;color:${accent};font:600 12px/1 ui-monospace,monospace}
   .report{margin:18px 0;padding:14px 18px;border-radius:12px;font:500 14px/1.6 ui-monospace,monospace}.ok{background:#12251a;color:#7fe0a8}.bad{background:#2a1512;color:#f7a898}.warn{background:#2a2412;color:#f1d48a}
   h2{margin:26px 0 12px;font:650 22px/1 ui-sans-serif,system-ui}h2 small{margin-left:12px;color:#85858d;font:400 14px/1 ui-sans-serif,system-ui}
@@ -205,7 +231,7 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
   <h1>${esc(sb.title)}<small>${esc(sb.question)}</small></h1>
   <div class="meta">
     <div><b>Promise</b>${esc(sb.promise)}</div><div><b>Audience</b>${esc(sb.audience)}</div>
-    <div><b>Length</b>${sb.duration} s · ${shots.length} shots · ${frameCount} drawn frames · ${sb.fps ?? 60} fps · ${esc(sb.language)}</div>
+    <div><b>Length</b>${sb.duration} s · ${shots.length} shots · ${frameCount} drawn frames · ${W}×${H} · ${sb.fps ?? 60} fps · ${esc(sb.language)}${narrated ? ` · voice: ${esc(sb.voice?.name ?? sb.voice?.voice_id ?? "?")}` : " · captions only"}</div>
     <div><b>Look</b><span class="sw" style="background:${accent}"></span>${accent}${sb.look?.accent2 ? ` <span class="sw" style="background:${esc(sb.look.accent2)};margin-left:10px"></span>${esc(sb.look.accent2)}` : ""}<br>${esc(sb.look?.mood)}</div>
   </div>
   <div class="report ${errors.length ? "bad" : "ok"}">${errors.length ? `${errors.length} rule(s) broken:<br>${errors.map(esc).join("<br>")}` : `The storyboard passes the standard: ${shots.length} shots, ${frameCount} drawn frames, ${facts.size} facts, ${acts.size} acts.`}</div>

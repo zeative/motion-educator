@@ -4,3 +4,4 @@ kit/audio/lib/
 .DS_Store
 *.log
 engines/
+__pycache__/

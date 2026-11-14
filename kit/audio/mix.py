@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Mixes a film's sound: one music bed plus the sound effects in its cue sheet, laid onto the silent picture.
+"""Mixes a film's sound: the narration (when the film has one), one music bed and the sound effects in its cue
+sheet, laid onto the silent picture.
 
-    python3 kit/audio/mix.py films/NAME [--no-music] [--no-sfx] [--lufs -14] [--picture FILE] [--out FILE]
+    python3 kit/audio/mix.py films/NAME [--no-music] [--no-sfx] [--no-voice] [--lufs -14] [--picture FILE] [--out FILE]
 
 Reads films/NAME/cues.json and films/NAME/out/picture.mp4, writes films/NAME/out/NAME.mp4.
 The sounds themselves live in kit/audio/lib (kit/audio/fetch.sh downloads them); a cue names one by its path there.
@@ -12,6 +13,9 @@ cues.json:
             align "peak" puts the sound's loudest moment on t, "end" its last moment, "start" its first sample.
             db is the level of the sound's own peak, in dBFS, before the master gain.
             duck true dips the music under the sound, so a hit lands in a hole.
+    voice:  {lufs, lead, duck_db, sfx_db}   optional; the lines themselves are films/NAME/voice/*.mp3, one a shot,
+            placed "lead" seconds after their shot starts (kit/audio/voice.mjs records and measures them).
+            While someone speaks the music sits duck_db lower and the effects sfx_db lower.
 
 The picture is copied untouched. Needs ffmpeg and numpy. A report of every placed sound goes beside the film as
 NAME.mix.txt, headed by the loudness and true peak measured on the finished file.
@@ -123,7 +127,44 @@ for e in events:
         fx[a:b] += s[a - i : b - i]
     report.append(f"{e['t']:6.2f}s  {e['db']:+5.1f} dB  {align:5s}  {e['file']}  {e.get('note', '')}")
 
-mix = music + fx
+# Narration: one line a shot, started on its first sound, all of it brought to one level. The music and the effects
+# make room while someone is speaking.
+voice = np.zeros((N, 2))
+spoken = 0
+lines_file = film / "voice" / "voice.json"
+if lines_file.exists() and "--no-voice" not in args:
+    v = plan.get("voice", {})
+    lines = json.loads(lines_file.read_text()).get("lines", {})
+    shots = json.loads((film / "storyboard.json").read_text())["shots"]
+    edge = int(0.006 * SR)
+    for shot in shots:
+        line = lines.get(shot["id"])
+        if not line or not shot.get("voice"):
+            continue
+        s = load(film / "voice" / line["file"])
+        a, b = int(line.get("lead", 0) * SR), len(s) - max(0, int(line.get("tail", 0) * SR) - int(0.06 * SR))
+        s = s[max(0, a - edge) : b].copy()
+        s[:edge] *= np.linspace(0, 1, edge)[:, None]
+        s[-edge:] *= np.linspace(1, 0, edge)[:, None]
+        i = int((shot["start"] + v.get("lead", 0.15)) * SR)
+        a, b = max(0, i), min(N, i + len(s))
+        if b > a:
+            voice[a:b] += s[a - i : b - i]
+            spoken += 1
+            report.append(f"{shot['start'] + v.get('lead', 0.15):6.2f}s  voice        {line['file']}  {line.get('speech', 0):.2f} s  {shot['voice'][:60]}")
+    if spoken:
+        voice *= gain(v.get("lufs", -16) - loudness(voice)[0])
+        # Where speech is: its envelope, opened a little early and closed slowly, so the bed breathes instead of pumping.
+        hop = SR // 100
+        level = np.abs(voice).max(axis=1)[: N // hop * hop].reshape(-1, hop).max(axis=1)
+        talking = (level > gain(-45)).astype(np.float64)
+        reach = np.ones(31) / 31
+        talking = np.clip(np.convolve(np.maximum.reduce([np.roll(talking, -k) for k in range(0, 12)]), reach, mode="same") * 1.6, 0, 1)
+        env = np.interp(np.arange(N), np.arange(len(talking)) * hop + hop / 2, talking)
+        music *= gain(v.get("duck_db", -9) * env)[:, None]
+        fx *= gain(v.get("sfx_db", -4) * env)[:, None]
+
+mix = music + fx + voice
 target = float(opt("--lufs", "-14"))
 before = loudness(mix)
 mix *= gain(target - before[0])
@@ -134,7 +175,7 @@ subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-
 cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-i", str(wav), "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy", "-af", "alimiter=limit=0.8:attack=4:release=80:level=false", "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", str(out)]
 subprocess.run(cmd, check=True)
 after = loudness(load(out))
-report.insert(0, f"mix: {after[0]:.1f} LUFS, range {after[1]:.1f} LU, true peak {after[2]:.1f} dBFS ({len(events)} effects, master gain {target - before[0]:+.1f} dB)")
+report.insert(0, f"mix: {after[0]:.1f} LUFS, range {after[1]:.1f} LU, true peak {after[2]:.1f} dBFS ({len(events)} effects, {spoken} voice lines, master gain {target - before[0]:+.1f} dB)")
 wav.unlink()
 out.with_suffix(".mix.txt").write_text("\n".join(report) + "\n")
 print(report[0])
