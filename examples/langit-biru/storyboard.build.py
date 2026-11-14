@@ -72,9 +72,9 @@ FRAMES = {
         fr(0.0, "Prisma naik dari bawah ke posisinya; sinar putih merambat ke arahnya.",
            {"beam": [80, 540, 420, 64]}, {"prism": [800, 540, 170]}, {"move": [800, 980, 800, 760], "text": "prisma naik"}, {"camera": "up"}),
         fr(0.5, "Sinar menyentuh prisma; kipas warna mulai membuka dari merah.",
-           {"beam": [80, 540, 760, 64]}, {"prism": [800, 540, 170]}, {"fan": [878, 540, 1790, 280, 520], "n": 4}, {"move": [1300, 250, 1700, 250], "text": "membuka"}),
-        fr(1.0, "Tujuh pita terbuka penuh, merah di atas sampai ungu di bawah.",
-           {"beam": [80, 540, 760, 64]}, {"prism": [800, 540, 170]}, {"fan": [878, 540, 1790, 280, 790]}, {"text": [1820, 276], "text": "merah", "size": 36, "align": "end", "colour": "red"}, {"text": [1820, 836], "text": "ungu", "size": 36, "align": "end", "colour": "violet"}, {"camera": "push"}, {"cut": "pita meluruskan diri"}),
+           {"beam": [80, 540, 760, 64]}, {"prism": [800, 540, 170]}, {"fan": [905, 555, 1790, 628, 760], "n": 4}, {"move": [1300, 540, 1700, 540], "text": "membuka"}),
+        fr(1.0, "Tujuh pita terbuka penuh, semuanya membelok ke arah alas prisma: merah paling sedikit, ungu paling banyak.",
+           {"beam": [80, 540, 760, 64]}, {"prism": [800, 540, 170]}, {"fan": [905, 555, 1790, 628, 892]}, {"text": [1820, 606], "text": "merah", "size": 36, "align": "end", "colour": "red"}, {"text": [1820, 950], "text": "ungu", "size": 36, "align": "end", "colour": "violet"}, {"camera": "push"}, {"cut": "pita meluruskan diri"}),
     ],
     "s06": [
         fr(0.0, "Pita-pita meluruskan diri menjadi tujuh garis sejajar; prisma memudar.",

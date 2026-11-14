@@ -614,20 +614,20 @@
             },
             {
               "fan": [
-                878,
-                540,
+                905,
+                555,
                 1790,
-                280,
-                520
+                628,
+                760
               ],
               "n": 4
             },
             {
               "move": [
                 1300,
-                250,
+                540,
                 1700,
-                250
+                540
               ],
               "text": "membuka"
             }
@@ -635,7 +635,7 @@
         },
         {
           "at": 1.0,
-          "note": "Tujuh pita terbuka penuh, merah di atas sampai ungu di bawah.",
+          "note": "Tujuh pita terbuka penuh, semuanya membelok ke arah alas prisma: merah paling sedikit, ungu paling banyak.",
           "draw": [
             {
               "beam": [
@@ -654,11 +654,11 @@
             },
             {
               "fan": [
-                878,
-                540,
+                905,
+                555,
                 1790,
-                280,
-                790
+                628,
+                892
               ]
             },
             {

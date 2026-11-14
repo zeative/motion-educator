@@ -391,7 +391,7 @@ svg.ink circle {
   font-size: 26px;
 }
 :root[data-format="portrait"] .display.huge {
-  font-size: 118px;
+  font-size: 96px;
 }
 :root[data-format="portrait"] .display.mid {
   font-size: 84px;
