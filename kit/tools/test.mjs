@@ -35,6 +35,11 @@ const assert = (ok, message) => {
   if (!ok) throw new Error(message);
 };
 const probe = (file, entries) => execFileSync("ffprobe", ["-v", "error", "-show_entries", entries, "-of", "csv=p=0", file]).toString().trim();
+// A picture's size as "WxH". Read by pattern: some ffprobe builds add fields after the two numbers.
+const size = (file) => {
+  const out = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=s=x:p=0", file]).toString();
+  return out.match(/(\d+)x(\d+)/)?.[0] ?? out.trim();
+};
 // Mean brightness of an image, 0 to 255: a blank frame is under 5.
 const brightness = (file) => {
   const out = spawnSync("ffmpeg", ["-hide_banner", "-i", file, "-vf", "format=gray,signalstats,metadata=print:key=lavfi.signalstats.YAVG", "-frames:v", "1", "-f", "null", "-"], { encoding: "utf8" }).stderr;
@@ -72,12 +77,12 @@ try {
     assert(/error/.test(out), "expected rule errors for the one-shot template");
   });
 
-  for (const [name, size] of [["wide", "1920x1080"], ["tall", "1080x1920"]]) {
-    test(`${name}: a still is ${size} and not blank`, () => {
+  for (const [name, want] of [["wide", "1920x1080"], ["tall", "1080x1920"]]) {
+    test(`${name}: a still is ${want} and not blank`, () => {
       const film = join(workspace, "films", name);
       run("node", [join(workspace, "kit", "tools", "render.mjs"), film, "--stills", "1.5"]);
       const still = join(film, "out", "stills", "still-001.50.png");
-      assert(probe(still, "stream=width,height").replace(",", "x") === size, `the still is ${probe(still, "stream=width,height")}`);
+      assert(size(still) === want, `the still is ${size(still)}`);
       assert(brightness(still) > 8, `the still is nearly black (mean ${brightness(still)})`);
     });
   }
@@ -104,7 +109,7 @@ try {
   test("tall: a short render has every frame, at 1080x1920", () => {
     run("node", [join(workspace, "kit", "tools", "render.mjs"), tall, "--fps", "10", "--jobs", "2"]);
     const picture = join(tall, "out", "picture.mp4");
-    assert(probe(picture, "stream=width,height").replace(",", "x") === "1080x1920", "the picture is not 1080x1920");
+    assert(size(picture) === "1080x1920", `the picture is ${size(picture)}, not 1080x1920`);
     const frames = Number(execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-count_frames", "-show_entries", "stream=nb_read_frames", "-of", "csv=p=0", picture]).toString());
     assert(Math.abs(frames - 28) <= 1, `${frames} frames, expected 28 (2.791 s at 10 fps)`);
   });
