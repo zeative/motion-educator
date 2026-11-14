@@ -123,10 +123,11 @@ tl.to("#chip-n2, #chip-o2", { opacity: 0, duration: 0.25 }, s.s09.start - 0.3);
 // ── s09: far smaller than a wave of light ──────────────────────────────────
 film.scene("#s09", s.s09.start, s.s10.start);
 // The wave is already arriving as the molecules clear, so the frame is never empty between the two.
-tl.set(L.fan, { solo: 1, open: 0 }, s.s09.start - 0.34);
+// (The blue band is the fifth of seven, so it starts to draw once "open" passes 4/7.)
+tl.set(L.fan, { solo: 1, open: 4 / 7 }, s.s09.start - 0.42);
 tl.set(L.mol, { cluster: 1, push: 0 }, s.s09.start);
-tl.to(L.fan, { a: 1, duration: 0.2 }, s.s09.start - 0.32);
-tl.to(L.fan, { open: 1, duration: 1.0, ease: "power2.out" }, s.s09.start - 0.32);
+tl.to(L.fan, { a: 1, duration: 0.15 }, s.s09.start - 0.4);
+tl.to(L.fan, { open: 5 / 7, duration: 0.8, ease: "power2.out" }, s.s09.start - 0.4);
 tl.to(L.marks, { blue: 1, duration: 0.5, ease: "power3.out" }, s.s09.start + 0.4);
 tl.to(L.mag, { a: 1, duration: 0.3 }, s.s09.start + 0.55);
 tl.to(L.mag, { s: 1, duration: 0.6, ease: "back.out(1.7)" }, s.s09.start + 0.55);
@@ -295,7 +296,8 @@ tl.to("#s18", { opacity: 0, duration: 0.25 }, s.s19.start - 0.3);
 // ── s19: the blue is lost on the way ───────────────────────────────────────
 film.scene("#s19", s.s19.start, s.s20.start);
 tl.to(stage, { floor: 0.7, duration: 0.4 }, s.s19.start);
-tl.to(L.path, { a: 1, duration: 0.3 }, s.s19.start - 0.05);
+// The road and its molecules arrive as the Earth leaves, so the two cross.
+tl.to(L.path, { a: 1, duration: 0.3 }, s.s19.start - 0.34);
 tl.to(L.path, { p: 1, duration: 2.05, ease: "power1.inOut" }, s.s19.start + 0.1);
 gsap.set("#left-fill", { scaleX: 1 });
 film.land("#left", s.s19.start + 0.25);
@@ -310,7 +312,8 @@ tl.to("#left", { opacity: 0, duration: 0.22 }, s.s20.start - 0.3);
 tl.set(K, { dusk: 1, lit: 1, sunx: 0.4, suny: 0.44 }, s.s20.start - 0.3);
 tl.to(K, { vis: 1, duration: 0.35 }, s.s20.start - 0.25);
 tl.to(K, { suny: 0.29, duration: s.s20.dur + 0.2, ease: "none" }, s.s20.start - 0.2);
-tl.to(K, { vis: 0, duration: 0.4 }, s.s21.start - 0.4);
+// The sunset is still fading as the cards rise over it.
+tl.to(K, { vis: 0, duration: 0.4 }, s.s21.start - 0.25);
 
 // ── s21: the recap ─────────────────────────────────────────────────────────
 film.scene("#s21", s.s21.start - 0.3, s.s22.start);
@@ -318,7 +321,7 @@ film.tintTo(BLUE, s.s21.start - 0.2, 0.8);
 tl.to(stage, { floor: 1, horizon: -0.3, lx: 0.5, ly: 0.56, glow: 0.8, duration: 0.6 }, s.s21.start - 0.2);
 film.land("#recap-over", s.s21.start - 0.28);
 gsap.set(".rc", { opacity: 0, y: 110, rotationX: -18 });
-tl.to(".rc", { opacity: 1, y: 0, rotationX: 0, duration: 0.75, ease: "expo.out", stagger: 0.32 }, s.s21.start + 0.02);
+tl.to(".rc", { opacity: 1, y: 0, rotationX: 0, duration: 0.75, ease: "expo.out", stagger: 0.32 }, s.s21.start - 0.2);
 tl.to(".rc", { y: -10, duration: 1.6, ease: "sine.inOut", stagger: 0.2, yoyo: true, repeat: 1 }, s.s21.start + 1.7);
 tl.to(".rc", { scale: 0.1, x: (i) => (1 - i) * 570, y: -40, opacity: 0, duration: 0.4, ease: "power3.in" }, s.s22.start - 0.4);
 tl.to("#recap-over", { opacity: 0, duration: 0.25 }, s.s22.start - 0.35);
