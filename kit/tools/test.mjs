@@ -110,7 +110,7 @@ try {
     run("node", [join(workspace, "kit", "tools", "render.mjs"), tall, "--fps", "10", "--jobs", "2"]);
     const picture = join(tall, "out", "picture.mp4");
     assert(size(picture) === "1080x1920", `the picture is ${size(picture)}, not 1080x1920`);
-    const frames = Number(execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-count_frames", "-show_entries", "stream=nb_read_frames", "-of", "csv=p=0", picture]).toString());
+    const frames = Number(execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-count_frames", "-show_entries", "stream=nb_read_frames", "-of", "csv=p=0", picture]).toString().match(/\d+/)?.[0]);
     assert(Math.abs(frames - 28) <= 1, `${frames} frames, expected 28 (2.791 s at 10 fps)`);
   });
 
