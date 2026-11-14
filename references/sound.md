@@ -81,9 +81,9 @@ These are peaks in dBFS before the master gain, against music at -17 to -18 LUFS
 
 - **A sound for a real event only**: something lands, opens, locks, arrives. No sound for decoration.
 - **One whoosh per real transition**, soft and short. Repeated boomy whooshes are the first thing people hate.
-- **A riser must lose to its hit.** Keep the riser 12 dB or more under the hit it leads to (at 7 dB under, a
-  reviewer measured the hit lifting only 2.5 dB over the riser: masked), and cut the previous hit's tail (`trim`,
-  `fade`) so the next one is heard.
+- **A riser must lose to its hit.** In a calm film, leave the riser out: twice a reviewer measured the hit failing
+  to rise above the riser's own last 20 ms, at 7 dB under and again at 14 dB under. If the moment needs a lead-in,
+  let the picture do it. Cut the previous hit's tail (`trim`, `fade`) so the next one is heard.
 - **Small sounds get buried.** Measure the lift of each event over the half second before it; under about 5 dB it
   will not be heard. Raise it or duck the music.
 - **Explaining is not a trailer.** Keep the hits few and the effects small; the film is talking.

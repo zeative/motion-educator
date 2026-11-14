@@ -153,14 +153,14 @@ export function createLab(canvas) {
       g.addColorStop(1, "rgba(255,255,255,0)");
       ctx.fillStyle = g;
       ctx.fillRect(x0, y - w, x1 - x0, w * 2);
-      ctx.fillStyle = `rgba(255,255,255,${0.75 * a})`;
+      ctx.fillStyle = `rgba(255,255,255,${0.32 * a})`;
       for (let i = 0; i < 26; i++) {
         const px = x0 + ((i * 131 + travel * (1.4 + (i % 5) * 0.25)) % Math.max(1, x1 - x0));
         const py = y + Math.sin(i * 2.4) * w * 0.26;
         ctx.fillRect(px, py, 14 + (i % 4) * 9, 2);
       }
       // The beam's end is soft, so it never shows as a cut edge while it grows.
-      if (x1 < 1900) {
+      if (x1 - L.beam.soft < 1920) {
         const soft = Math.min(L.beam.soft, x1 - x0);
         const fade = ctx.createLinearGradient(x1 - soft, 0, x1, 0);
         fade.addColorStop(0, "rgba(0,0,0,0)");
@@ -437,7 +437,7 @@ export function createLab(canvas) {
         ctx.lineWidth = 13;
         ctx.strokeStyle = `rgba(6,28,96,${0.5 * a})`;
         ctx.stroke();
-        arrow(p.x + (dx / len) * 26, p.y + (dy / len) * 26, p.x + dx * stop * grow, p.y + dy * stop * grow, [118, 186, 255], a, 5.5);
+        arrow(p.x + (dx / len) * 26, p.y + (dy / len) * 26, p.x + dx * stop * grow, p.y + dy * stop * grow, [64, 140, 255], a, 6);
         // A bead of light running down each arrow keeps the picture alive once it has drawn.
         const bead = (t * 0.55 + i * 0.17) % 1;
         if (bead < grow) {

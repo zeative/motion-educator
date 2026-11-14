@@ -60,5 +60,12 @@ each cut.
   (`.caption[data-shot="s03"] .key`).
 - A diagram that states a ratio in text and draws a different one (a meter filled 11 to 1 beside "5,9x"). Every
   drawn quantity is computed from the fact, or is labelled as not to scale.
+- A small copy of a diagram (an icon on a recap card) that still shows what the big one got wrong. When a
+  diagram is corrected, find every place it is drawn.
+- A thing that grows to fill the frame showing its own edge on the way. Let it run well past the frame with a soft
+  end several hundred pixels long.
+- An incoming element that starts large and settles (a band at six times its height) lying across the shot before
+  it. Bring it in at its own size.
+- Blue arrows on a blue sky, drawn light: they read as white. Give them a saturated core and a dark edge under it.
 - The explanation's central step told only by the caption. If the caption says "blue comes from the whole sky",
   the picture has to show light going in, a molecule, and blue arriving at the eye.

@@ -63,12 +63,13 @@ tl.to(E, { x: 570, y: 0, size: 460, tilt: 0.28, duration: 1.0, ease: "power3.inO
 film.light({ lx: 0.06, ly: 0.5, glow: 1.0 }, s.s03.start, 1.0);
 film.tintTo(WHITE, s.s03.start, 1.0);
 tl.set(L.beam, { a: 1, x0: 0, x1: 0, y: 540, w: 96, soft: 180 }, s.s03.start + 0.6);
-tl.to(L.beam, { x1: 1336, duration: 1.1, ease: "power2.out" }, s.s03.start + 0.65);
+tl.to(L.beam, { x1: 1380, duration: 1.1, ease: "power2.out" }, s.s03.start + 0.65);
 tl.to(L.beam, { soft: 64, duration: 0.5 }, s.s03.start + 1.2);
 film.land("#chip-sun", s.s03.start + 1.0);
 film.hit(s.s03.start + 1.75, 0.3, 0.3);
 // Into the beam: it swells until the frame is light.
-tl.to(L.beam, { w: 1500, x1: 1920, duration: 0.42, ease: "power3.in" }, s.s04.start - 0.42);
+// The swell runs off the frame with a long soft end, so it never shows an edge.
+tl.to(L.beam, { w: 1500, x1: 2900, soft: 900, duration: 0.42, ease: "power3.in" }, s.s04.start - 0.42);
 tl.to(E, { vis: 0, duration: 0.3, ease: "power1.in" }, s.s04.start - 0.34);
 
 // ── s04: the question, stated ──────────────────────────────────────────────
@@ -148,6 +149,9 @@ tl.to(L.ray, { pass: 1, duration: 1.7, ease: "none" }, s.s10.start + 0.2);
 tl.to(L.ray, { scatter: 0.2, duration: 0.6 }, s.s10.start + 0.85);
 film.land("#chip-red", s.s10.start + 0.15);
 film.land("#meter", s.s10.start + 0.5);
+// The meter is the colour of the ray it measures.
+tl.set("#meter-fill", { background: "linear-gradient(90deg, #9a2a22, #ff6a5c)", boxShadow: "0 0 16px #ff4034" }, s.s10.start);
+tl.set("#meter-fill", { background: "linear-gradient(90deg, #1f5fb0, #7fc0ff)", boxShadow: "0 0 16px #4da3ff" }, s.s11.start + 0.6);
 // The meter's two readings stand in the ratio the film states: 1 to 5.9.
 tl.to("#meter-fill", { scaleX: 0.155, duration: 0.7, ease: "power2.out" }, s.s10.start + 1.1);
 film.land("#meter-red", s.s10.start + 1.25, { from: 10 });
@@ -175,7 +179,7 @@ tl.to(L.mol, { a: 0, duration: 0.15 }, s.s12.start - 0.02);
 const NAME = { scale: 0.3, x: 520, y: -358 };
 // The scene outlives its shot: the name stays on as the title of the chart in s13 and s14.
 film.scene("#s12", s.s12.start, s.s15.start);
-film.hit(s.s12.start, 0.8, 0.45);
+film.hit(s.s12.start, 0.42, 0.45);
 film.split("#name");
 slam("#name", s.s12.start + 0.04);
 film.land("#name-over", s.s12.start + 0.02, { from: -16 });
@@ -243,12 +247,14 @@ $("#again-glow").setAttribute("d", again);
 film.scene("#s16", s.s16.start - 0.3, s.s18.start);
 gsap.set("#bar-violet, #bar-blue, #bar-red", { scaleY: 0 });
 gsap.set("#qmark, #reasons, #seen", { opacity: 0 });
-gsap.set("#band", { scaleY: 6, opacity: 0 });
-tl.to("#band", { scaleY: 1, opacity: 1, duration: 0.6, ease: "power3.out" }, s.s16.start - 0.3);
+// The band arrives at its own size: nothing large passes over the sky it follows.
+gsap.set("#band", { scaleX: 0.7, opacity: 0 });
+tl.to("#band", { scaleX: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, s.s16.start - 0.16);
 tl.to("#bar-red", { scaleY: 1, duration: 0.4, ease: "back.out(1.4)" }, s.s16.start + 0.25);
 film.draw("#again-curve, #again-glow", s.s16.start + 0.35, 1.2, "power2.in");
 tl.to("#bar-blue", { scaleY: 1, duration: 0.55, ease: "back.out(1.4)" }, s.s16.start + 0.95);
-tl.to("#bar-violet", { scaleY: 1, duration: 0.7, ease: "back.out(1.3)" }, s.s16.start + 1.3);
+// Violet rises with blue and is never the shorter of the two.
+tl.to("#bar-violet", { scaleY: 1, duration: 0.75, ease: "back.out(1.3)" }, s.s16.start + 0.95);
 film.land("#formula2", s.s16.start + 1.5);
 tl.fromTo("#qmark", { opacity: 0, y: 40, scale: 0.5 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2.2)" }, s.s16.start + 2.15);
 film.light({ lx: 0.18, ly: 0.62, glow: 0.8 }, s.s16.start, 1.0);
@@ -289,7 +295,7 @@ film.draw("#road-dusk", s.s18.start + 1.1, 0.55, "none");
 film.draw("#in-dusk", s.s18.start + 1.6, 0.4, "none");
 tl.to("#pin-dusk", { scale: 1, duration: 0.4, ease: "back.out(2.4)" }, s.s18.start + 1.1);
 film.land("#chip-dusk", s.s18.start + 1.3);
-film.land("#scale-note", s.s18.start + 1.7);
+film.land("#scale-note", s.s18.start + 0.9);
 tl.to(E, { vis: 0, duration: 0.3 }, s.s19.start - 0.32);
 tl.to("#s18", { opacity: 0, duration: 0.25 }, s.s19.start - 0.3);
 
