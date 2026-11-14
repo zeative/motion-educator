@@ -15,7 +15,7 @@
 // Exit code 1 when a line is missing, stale (its text changed since it was recorded) or too long for its shot.
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const args = process.argv.slice(2);
@@ -57,6 +57,8 @@ function record(shot, source, extra = {}) {
   copyFileSync(source, join(dir, file));
   manifest.lines[shot.id] = { text: shot.voice, sha: sha(shot.voice), file, ...measure(join(dir, file)), ...extra };
   save();
+  // What was fetched or decoded on the way in is not kept.
+  if (source.includes(".incoming-")) rmSync(source, { force: true });
   return manifest.lines[shot.id];
 }
 

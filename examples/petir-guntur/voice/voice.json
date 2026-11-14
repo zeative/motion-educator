@@ -1,0 +1,73 @@
+{
+  "voice": {
+    "voice_id": "1ijzBXcD3AIVH8RGMcQd",
+    "name": "Jefri",
+    "model": "eleven_multilingual_v2",
+    "language": "id"
+  },
+  "lines": {
+    "s01": {
+      "text": "Kenapa petir terlihat dulu, baru guntur terdengar?",
+      "sha": "08b87cbde90f36f6",
+      "file": "s01.mp3",
+      "duration": 3.788,
+      "lead": 0,
+      "tail": 0.275,
+      "speech": 3.513
+    },
+    "s02": {
+      "text": "Padahal keduanya lahir bersamaan.",
+      "sha": "ac4ee91d2e5e0ea0",
+      "file": "s02.mp3",
+      "duration": 2.821,
+      "lead": 0.096,
+      "tail": 0.285,
+      "speech": 2.44
+    },
+    "s03": {
+      "text": "Cahayanya sampai nyaris seketika.",
+      "sha": "8aea247030a9e65b",
+      "file": "s03.mp3",
+      "duration": 2.638,
+      "lead": 0.078,
+      "tail": 0.3,
+      "speech": 2.261
+    },
+    "s04": {
+      "text": "Suara cuma tiga ratus empat puluh tiga meter per detik.",
+      "sha": "ef89967c33d8620b",
+      "file": "s04.mp3",
+      "duration": 3.527,
+      "lead": 0,
+      "tail": 0.399,
+      "speech": 3.127
+    },
+    "s06": {
+      "text": "Cahaya hampir sejuta kali lebih cepat.",
+      "sha": "41e8b25c773991d5",
+      "file": "s06.mp3",
+      "duration": 2.325,
+      "lead": 0,
+      "tail": 0.436,
+      "speech": 1.889
+    },
+    "s07": {
+      "text": "Jadi, lihat kilat, lalu hitung detiknya.",
+      "sha": "b86f758c7d503420",
+      "file": "s07.mp3",
+      "duration": 3.37,
+      "lead": 0,
+      "tail": 0.334,
+      "speech": 3.036
+    },
+    "s08": {
+      "text": "Tiga detik? Petirnya sekitar satu kilometer.",
+      "sha": "d020598550c732dc",
+      "file": "s08.mp3",
+      "duration": 3.422,
+      "lead": 0.099,
+      "tail": 0.325,
+      "speech": 2.998
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "music": {"file": "lib/music/xceed_thru_johann.mp3", "start": 0.679, "lufs": -21, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "ride": [[0, 0], [16, 0], [22, -1.5], [25, -2.5], [27.6, -3.5]], "note": "86 BPM, started 0.679 s in so a beat falls on frame 0; cuts sit on its half beats. A bed under the voice: -21 LUFS, and ridden down as the track itself swells. The path points at this film's own link to the sound library because kit/audio/lib was a broken link when the film was made; with the kit's library in place it is lib/music/xceed_thru_johann.mp3."},
+  "voice": {"lufs": -16, "lead": 0.15, "duck_db": -9, "sfx_db": -4},
+  "events": [
+    {"t": 4.196, "file": "lib/sfx/impact_big_3.mp3", "db": -7, "align": "peak", "duck": 0.7, "trim": [0, 1.2], "fade": 0.8, "note": "the hook's thunder: nothing sounded at its flash, 3.9 s ago"},
+    {"t": 4.196, "file": "lib/sfx/sub_drop_1.mp3", "db": -12, "align": "peak", "trim": [0, 1.1], "fade": 0.5, "note": "its body, with harmonics a phone can play"},
+    {"t": 4.686, "file": "lib/sfx/shimmer_2.mp3", "db": -21, "align": "peak", "note": "close on the channel as it flares"},
+    {"t": 6.927, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -17, "align": "peak", "note": "the camera pulls back to the whole scene"},
+    {"t": 7.977, "file": "lib/sfx/tick_1.mp3", "db": -7, "align": "peak", "pan": 0.3, "note": "the light's row is filled (the flash itself is silent)"},
+    {"t": 10.067, "file": "lib/sfx/tension_1.mp3", "db": -23, "align": "start", "trim": [0, 3.3], "fade_in": 1.4, "fade": 0.7, "note": "a low hum while the sound travels"},
+    {"t": 13.805, "file": "lib/sfx/impact_big_3.mp3", "db": -4, "align": "peak", "duck": true, "trim": [0, 1.5], "fade": 1.0, "note": "THE THUNDER reaches you, 6.00 s after its flash"},
+    {"t": 13.805, "file": "lib/sfx/sub_drop_1.mp3", "db": -7, "align": "peak", "trim": [0, 1.35], "fade": 0.5, "note": "its body"},
+    {"t": 13.805, "file": "lib/sfx/impact_big_1.mp3", "db": -9, "align": "peak", "trim": [0, 1.4], "fade": 1.0, "note": "its depth, for full-range speakers"},
+    {"t": 15.698, "file": "lib/sfx/card_2.mp3", "db": -7, "align": "peak", "note": "874.000x lands"},
+    {"t": 15.698, "file": "lib/sfx/impact_big_3.mp3", "db": -13, "align": "peak", "duck": 0.5, "trim": [0, 0.9], "fade": 0.6, "note": "weight under it"},
+    {"t": 17.761, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -17, "align": "peak", "note": "the figure is thrown up, cut to your own view"},
+    {"t": 19.279, "file": "lib/sfx/tick_2.mp3", "db": -5, "align": "peak", "pan": 0.35, "note": "one"},
+    {"t": 20.279, "file": "lib/sfx/tick_2.mp3", "db": -5, "align": "peak", "pan": 0.35, "note": "two"},
+    {"t": 21.284, "file": "lib/sfx/impact_big_3.mp3", "db": -3, "align": "peak", "duck": 0.8, "trim": [0, 1.2], "fade": 0.8, "note": "three: the thunder, 3.00 s after its flash, on the cut"},
+    {"t": 21.284, "file": "lib/sfx/sub_drop_1.mp3", "db": -7, "align": "peak", "trim": [0, 1.1], "fade": 0.5, "note": "its body"},
+    {"t": 22.119, "file": "lib/sfx/tick_1.mp3", "db": -11, "align": "peak", "pan": 0.4, "note": "x 343 m"},
+    {"t": 22.539, "file": "lib/sfx/tick_1.mp3", "db": -8, "align": "peak", "pan": 0.4, "note": "= 1.029 m"},
+    {"t": 23.379, "file": "lib/sfx/success_1.mp3", "db": -9, "align": "peak", "pan": -0.2, "note": "the distance lands: about 1 km"},
+    {"t": 24.747, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -18, "align": "peak", "note": "the recap rises"},
+    {"t": 25.067, "file": "lib/sfx/impact_big_3.mp3", "db": -5, "align": "peak", "duck": 0.8, "trim": [0, 1.6], "fade": 1.1, "note": "the poster line"}
+  ]
+}

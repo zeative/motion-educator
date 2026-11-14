@@ -1,0 +1,6567 @@
+{
+  "title": "Kenapa petir terlihat dulu, baru guntur terdengar?",
+  "question": "Kenapa petir terlihat dulu, baru guntur terdengar?",
+  "audience": "Remaja dan orang dewasa di Indonesia yang menonton video pendek di ponsel. Mereka tahu petir dan guntur, pernah dengar bahwa 'cahaya lebih cepat', tapi belum tahu seberapa jauh bedanya dan belum pernah memakainya untuk mengukur jarak.",
+  "promise": "Kilat dan guntur lahir di saat yang sama, tapi cahaya hampir sejuta kali lebih cepat daripada suara. Jadi hitung detik dari kilat sampai guntur: tiap detik kira-kira 343 meter, tiga detik kira-kira satu kilometer.",
+  "language": "id",
+  "format": "1080x1920",
+  "captions": "pop",
+  "duration": 27.558,
+  "fps": 60,
+  "voice": {
+    "voice_id": "1ijzBXcD3AIVH8RGMcQd",
+    "name": "Jefri",
+    "model": "eleven_multilingual_v2",
+    "language": "id"
+  },
+  "look": {
+    "accent": "#a98bff",
+    "accent2": "#ffb347",
+    "mood": "A night storm over the kit's graphite floor: a shader sky of drifting cloud lit from inside, the floor's grid as the ground. Violet-white is light (the bolt, its rays, the count); amber is sound (the front, its clock). The stage light sits on the bolt when it strikes and travels to the observer with the sound, turning amber when the thunder lands."
+  },
+  "music": {
+    "track": "Xceed Thru Johann (Mixkit 556)",
+    "bpm": 172,
+    "beat": 0.348837,
+    "offset": 0,
+    "start": 0.679,
+    "note": "An 86 BPM track tagged investigation and tension, with no drop. The grid is its half beat (172 to the minute) so that shots can be as short as the narration allows; it starts 0.679 s in, which puts a beat on frame 0. Kept at -21 LUFS under the voice."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "Light travels at 299 792 458 m/s in vacuum (exact, by definition of the metre); in air it is 0,03% slower (refractive index about 1,0003), so about 299 700 km/s. The film rounds this to '≈ 300.000 km/detik' and uses the exact figure in the division.",
+      "source": "BIPM, The International System of Units (SI Brochure), 9th edition, 2019: definition of the metre. Refractive index of air: Ciddor 1996, Applied Optics 35, 1566."
+    },
+    {
+      "id": "f2",
+      "claim": "Sound travels at about 343 m/s in dry air at 20 °C: 331,3 x sqrt(1 + 20/273,15) = 343,2 m/s. It depends on temperature (347 m/s at 27 °C, 349 m/s at 30 °C), so every distance in the film is marked '≈'. Simplification: the film uses the 20 °C figure everywhere; on a 30 °C evening the true distances are 1,7% larger.",
+      "source": "Standard formula for an ideal gas, e.g. US National Weather Service, Speed of Sound Calculator (weather.gov/epz/wxcalc_speedofsound); Kinsler et al., Fundamentals of Acoustics, 4th ed."
+    },
+    {
+      "id": "f3",
+      "claim": "Light is about 874 000 times faster than sound in air: 299 792 458 / 343 = 874 030. Spoken as 'hampir sejuta kali' (nearly a million), written as '≈ 874.000×'.",
+      "source": "Arithmetic from f1 and f2."
+    },
+    {
+      "id": "f4",
+      "claim": "Thunder is made by the lightning itself: the stroke heats the air in its channel to about 50 000 °F = (50 000 - 32) x 5/9 = 27 760 °C ≈ 28 000 °C within microseconds, the air expands explosively, and that shock becomes the sound. So the flash and the thunder start at the same moment and place. Simplification: thunder comes from the whole length of the channel, which is why it rumbles; the film draws the front as the channel's outline moving outward and times the arrival from the nearest point, the strike point.",
+      "source": "NOAA National Severe Storms Laboratory, Severe Weather 101: Lightning Basics and FAQ (nssl.noaa.gov/education/svrwx101/lightning); US National Weather Service, Understanding Lightning: Thunder (weather.gov/safety/lightning-science-thunder)."
+    },
+    {
+      "id": "f5",
+      "claim": "Over the 2 058 m of the first strike, light takes 2 058 / 299 792 458 = 0,0000069 s (shown as 0,000007 detik) and sound takes 2 058 / 343 = 6,00 s. The scene is drawn at 0,31 px a metre, so 2 058 m is 638 px and the front moves 343 x 0,31 = 106,3 px a second, in real time. The human figure is not to scale, and neither is the light in time: its shell is drawn crossing the scene in 0,15 s (4 200 px a second) because its true speed would be a millionth of a frame; the board gives the true figure.",
+      "source": "Arithmetic from f1 and f2."
+    },
+    {
+      "id": "f6",
+      "claim": "Distance to a strike ≈ seconds between flash and thunder x 343 m. Three seconds: 3 x 343 = 1 029 m ≈ 1 km (one kilometre takes 1 000 / 343 = 2,9 s). The US weather service gives the same rule in miles: count the seconds and divide by five (1 609 m / 343 m/s = 4,7 s a mile).",
+      "source": "US National Weather Service, Understanding Lightning: Thunder (weather.gov/safety/lightning-science-thunder); arithmetic from f2."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "Pertanyaan",
+      "goal": "Ask the question in the viewer's words while it happens on screen: a flash now, its thunder seconds later.",
+      "rail": false
+    },
+    {
+      "id": "sebab",
+      "title": "Lahir bersamaan",
+      "goal": "Set the tension: both start at the same instant, so the delay needs an explanation.",
+      "rail": false
+    },
+    {
+      "id": "balapan",
+      "title": "Balapan",
+      "goal": "Show the mechanism as a race in real time and to scale: light arrives at once, sound takes six seconds, then the ratio.",
+      "rail": false
+    },
+    {
+      "id": "hitung",
+      "title": "Hitung",
+      "goal": "Turn the delay into a tool: count the seconds, multiply by 343 metres.",
+      "rail": false
+    },
+    {
+      "id": "recap",
+      "title": "Rangkuman",
+      "goal": "The three ideas in one frame and the line to remember.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "wide",
+      "start": 0.0,
+      "end": 4.186,
+      "voice": "Kenapa petir terlihat dulu, baru guntur terdengar?",
+      "teaches": "Asks the question the film answers, and shows it happening: the flash comes at 0.25 s, its thunder only on the cut.",
+      "screen": "Night storm, the camera placed so the bolt stands at x 430 and the ground at y 1000. A cloud deck fills the top to y 360, lit from inside. A violet-white bolt runs from the cloud base to the ground. On the dark floor below the horizon, inside the safe area, the question in four lines of metal type at 104 px: 'Kenapa petir / terlihat dulu, / baru guntur / terdengar?', 'petir' in the violet of light and 'guntur' in the amber of sound.",
+      "motion": "Frame 0 already holds the first line and a leader half way down. At 0.25 s the return stroke: two frames of full flash, a flicker, an afterglow. The other three lines slam in one by one in step with the voice. Clouds drift, rain falls, the camera pushes 4 percent.",
+      "carries": "The bolt's channel and its strike point: the camera goes to it.",
+      "transition": "The lettering lifts away and the camera pushes into the strike point; no cut in the picture.",
+      "sound": "Music from the first frame, low. The flash is silent on purpose. No effect until the thunder, which lands on the cut to s02.",
+      "check": "The question is readable inside the safe area by 1.5 s and never under the app's buttons. The flash is at 0.25 s. Nothing sounds at the flash.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Frame 0 is finished: storm sky, the leader already half way down, the first line of the question in place.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                360
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  397.7
+                ],
+                [
+                  40,
+                  380.2
+                ],
+                [
+                  100,
+                  305.7
+                ],
+                [
+                  160,
+                  305.5
+                ],
+                [
+                  220,
+                  366.8
+                ],
+                [
+                  280,
+                  375.7
+                ],
+                [
+                  340,
+                  387.3
+                ],
+                [
+                  400,
+                  371.6
+                ],
+                [
+                  460,
+                  391.4
+                ],
+                [
+                  520,
+                  380.1
+                ],
+                [
+                  580,
+                  361.5
+                ],
+                [
+                  640,
+                  316.9
+                ],
+                [
+                  700,
+                  329.2
+                ],
+                [
+                  760,
+                  330.9
+                ],
+                [
+                  820,
+                  367.6
+                ],
+                [
+                  880,
+                  403.6
+                ],
+                [
+                  940,
+                  413.6
+                ],
+                [
+                  1000,
+                  388.9
+                ],
+                [
+                  1060,
+                  374.6
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1000
+              ]
+            },
+            {
+              "curve": [
+                [
+                  500.0,
+                  350.0
+                ],
+                [
+                  484.6,
+                  400.0
+                ],
+                [
+                  497.6,
+                  450.0
+                ],
+                [
+                  449.8,
+                  500.0
+                ],
+                [
+                  482.0,
+                  550.0
+                ],
+                [
+                  458.0,
+                  600.0
+                ],
+                [
+                  415.0,
+                  650.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 6
+            },
+            {
+              "glow": [
+                470,
+                520,
+                330
+              ],
+              "colour": "violet"
+            },
+            {
+              "title": [
+                497,
+                1130
+              ],
+              "text": "Kenapa petir",
+              "size": 104,
+              "accent": "petir"
+            },
+            {
+              "move": [
+                470,
+                560,
+                440,
+                860
+              ],
+              "text": "leader turun"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.3,
+          "note": "0.25 s: the bolt strikes, silent. The whole sky is lit; the lines of the question land with the voice.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                360
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  397.7
+                ],
+                [
+                  40,
+                  380.2
+                ],
+                [
+                  100,
+                  305.7
+                ],
+                [
+                  160,
+                  305.5
+                ],
+                [
+                  220,
+                  366.8
+                ],
+                [
+                  280,
+                  375.7
+                ],
+                [
+                  340,
+                  387.3
+                ],
+                [
+                  400,
+                  371.6
+                ],
+                [
+                  460,
+                  391.4
+                ],
+                [
+                  520,
+                  380.1
+                ],
+                [
+                  580,
+                  361.5
+                ],
+                [
+                  640,
+                  316.9
+                ],
+                [
+                  700,
+                  329.2
+                ],
+                [
+                  760,
+                  330.9
+                ],
+                [
+                  820,
+                  367.6
+                ],
+                [
+                  880,
+                  403.6
+                ],
+                [
+                  940,
+                  413.6
+                ],
+                [
+                  1000,
+                  388.9
+                ],
+                [
+                  1060,
+                  374.6
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1000
+              ]
+            },
+            {
+              "curve": [
+                [
+                  500.0,
+                  350.0
+                ],
+                [
+                  484.6,
+                  400.0
+                ],
+                [
+                  497.6,
+                  450.0
+                ],
+                [
+                  449.8,
+                  500.0
+                ],
+                [
+                  482.0,
+                  550.0
+                ],
+                [
+                  458.0,
+                  600.0
+                ],
+                [
+                  415.0,
+                  650.0
+                ],
+                [
+                  463.2,
+                  700.0
+                ],
+                [
+                  405.0,
+                  750.0
+                ],
+                [
+                  445.0,
+                  800.0
+                ],
+                [
+                  411.9,
+                  850.0
+                ],
+                [
+                  417.9,
+                  900.0
+                ],
+                [
+                  433.2,
+                  950.0
+                ],
+                [
+                  430.0,
+                  1000.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 12
+            },
+            {
+              "scatter": [
+                430,
+                1000,
+                9,
+                30,
+                130
+              ],
+              "colour": "violet"
+            },
+            {
+              "glow": [
+                440,
+                640,
+                480
+              ],
+              "colour": "violet"
+            },
+            {
+              "title": [
+                497,
+                1130
+              ],
+              "text": "Kenapa petir\nterlihat dulu,",
+              "size": 104,
+              "accent": "petir"
+            },
+            {
+              "move": [
+                880,
+                1300,
+                880,
+                1210
+              ],
+              "text": "baris demi baris"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "All four lines read; the bolt is an afterglow. The thunder has still not come: it lands on the cut.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                360
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  397.7
+                ],
+                [
+                  40,
+                  380.2
+                ],
+                [
+                  100,
+                  305.7
+                ],
+                [
+                  160,
+                  305.5
+                ],
+                [
+                  220,
+                  366.8
+                ],
+                [
+                  280,
+                  375.7
+                ],
+                [
+                  340,
+                  387.3
+                ],
+                [
+                  400,
+                  371.6
+                ],
+                [
+                  460,
+                  391.4
+                ],
+                [
+                  520,
+                  380.1
+                ],
+                [
+                  580,
+                  361.5
+                ],
+                [
+                  640,
+                  316.9
+                ],
+                [
+                  700,
+                  329.2
+                ],
+                [
+                  760,
+                  330.9
+                ],
+                [
+                  820,
+                  367.6
+                ],
+                [
+                  880,
+                  403.6
+                ],
+                [
+                  940,
+                  413.6
+                ],
+                [
+                  1000,
+                  388.9
+                ],
+                [
+                  1060,
+                  374.6
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1000
+              ]
+            },
+            {
+              "curve": [
+                [
+                  500.0,
+                  350.0
+                ],
+                [
+                  484.6,
+                  400.0
+                ],
+                [
+                  497.6,
+                  450.0
+                ],
+                [
+                  449.8,
+                  500.0
+                ],
+                [
+                  482.0,
+                  550.0
+                ],
+                [
+                  458.0,
+                  600.0
+                ],
+                [
+                  415.0,
+                  650.0
+                ],
+                [
+                  463.2,
+                  700.0
+                ],
+                [
+                  405.0,
+                  750.0
+                ],
+                [
+                  445.0,
+                  800.0
+                ],
+                [
+                  411.9,
+                  850.0
+                ],
+                [
+                  417.9,
+                  900.0
+                ],
+                [
+                  433.2,
+                  950.0
+                ],
+                [
+                  430.0,
+                  1000.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 5
+            },
+            {
+              "title": [
+                497,
+                1130
+              ],
+              "text": "Kenapa petir\nterlihat dulu,\nbaru guntur\nterdengar?",
+              "size": 104,
+              "accent": "petir"
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "maju ke titik sambaran"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "sebab",
+      "type": "macro",
+      "start": 4.186,
+      "end": 6.977,
+      "voice": "Padahal keduanya lahir bersamaan.",
+      "caption": "Padahal keduanya lahir *bersamaan*.",
+      "teaches": "The tension: light and sound start at the same instant, from the same channel, because the stroke heats the air.",
+      "screen": "Close on the strike point (2.2 times), which sits at (497, 1180); the channel runs up and out of the top of the frame. When it flares, white shells of light and short rays leave it on both sides and are out of the frame in a few frames, while an amber front of sound, the channel's own outline, begins to swell away from it. Three chips sit on their things: 'kilat = cahaya' on the rays, 'guntur = suara' on the front, 'udara ≈ 28.000 °C' on the channel.",
+      "motion": "0.45 s in, a new stroke flares. A shell of light leaves with the stroke and with each of its three re-strikes and crosses the frame in a tenth of a second, short rays keep streaming while the channel glows; the front grows at the diagram's true speed (106 px a second in the world, 234 on screen). Chips pop as their thing appears. The stage light sits on the channel.",
+      "carries": "The front of sound and the colour code: violet is light, amber is sound.",
+      "transition": "The camera pulls back fast to the whole scene; the old front fades as a new leader starts down.",
+      "sound": "The hook's thunder (a deep drum impact with a falling body under it, trimmed short) on the cut, before the line. A very soft sparkle when the channel flares.",
+      "check": "Rays and front start on the same frame. The front is amber, the rays violet. 28 000 °C matches the fact sheet. The caption does not sit on the bright channel.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The camera arrives 2.2 times closer on the strike point; the old channel is a faint trace. The hook's thunder lands here.",
+          "draw": [
+            {
+              "horizon": [
+                1180
+              ]
+            },
+            {
+              "curve": [
+                [
+                  560.0,
+                  -20.0
+                ],
+                [
+                  557.2,
+                  72.3
+                ],
+                [
+                  577.9,
+                  164.6
+                ],
+                [
+                  542.3,
+                  256.9
+                ],
+                [
+                  541.5,
+                  349.2
+                ],
+                [
+                  547.2,
+                  441.5
+                ],
+                [
+                  487.1,
+                  533.8
+                ],
+                [
+                  527.7,
+                  626.2
+                ],
+                [
+                  538.2,
+                  718.5
+                ],
+                [
+                  550.1,
+                  810.8
+                ],
+                [
+                  473.9,
+                  903.1
+                ],
+                [
+                  493.9,
+                  995.4
+                ],
+                [
+                  488.1,
+                  1087.7
+                ],
+                [
+                  497.0,
+                  1180.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 5
+            },
+            {
+              "glow": [
+                497,
+                700,
+                380
+              ],
+              "colour": "violet"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.3,
+          "note": "A new stroke: the channel flares white. In the same instant rays of light leave it and the air around it swells.",
+          "draw": [
+            {
+              "horizon": [
+                1180
+              ]
+            },
+            {
+              "curve": [
+                [
+                  560.0,
+                  -20.0
+                ],
+                [
+                  557.2,
+                  72.3
+                ],
+                [
+                  577.9,
+                  164.6
+                ],
+                [
+                  542.3,
+                  256.9
+                ],
+                [
+                  541.5,
+                  349.2
+                ],
+                [
+                  547.2,
+                  441.5
+                ],
+                [
+                  487.1,
+                  533.8
+                ],
+                [
+                  527.7,
+                  626.2
+                ],
+                [
+                  538.2,
+                  718.5
+                ],
+                [
+                  550.1,
+                  810.8
+                ],
+                [
+                  473.9,
+                  903.1
+                ],
+                [
+                  493.9,
+                  995.4
+                ],
+                [
+                  488.1,
+                  1087.7
+                ],
+                [
+                  497.0,
+                  1180.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 16
+            },
+            {
+              "scatter": [
+                520,
+                420,
+                10,
+                60,
+                300
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "scatter": [
+                500,
+                900,
+                10,
+                60,
+                300
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  429.7,
+                  0
+                ],
+                [
+                  432.3,
+                  70
+                ],
+                [
+                  433.5,
+                  140
+                ],
+                [
+                  436.7,
+                  210
+                ],
+                [
+                  432.3,
+                  280
+                ],
+                [
+                  436.3,
+                  350
+                ],
+                [
+                  416.6,
+                  420
+                ],
+                [
+                  426.2,
+                  490
+                ],
+                [
+                  436.8,
+                  560
+                ],
+                [
+                  430.3,
+                  630
+                ],
+                [
+                  435.8,
+                  700
+                ],
+                [
+                  418.5,
+                  770
+                ],
+                [
+                  426.3,
+                  840
+                ],
+                [
+                  421.4,
+                  910
+                ],
+                [
+                  428.0,
+                  980
+                ],
+                [
+                  428.6,
+                  1050
+                ],
+                [
+                  416.3,
+                  1120
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  561.0,
+                  0
+                ],
+                [
+                  577.2,
+                  70
+                ],
+                [
+                  558.8,
+                  140
+                ],
+                [
+                  571.5,
+                  210
+                ],
+                [
+                  557.9,
+                  280
+                ],
+                [
+                  561.4,
+                  350
+                ],
+                [
+                  578.0,
+                  420
+                ],
+                [
+                  560.6,
+                  490
+                ],
+                [
+                  570.1,
+                  560
+                ],
+                [
+                  566.1,
+                  630
+                ],
+                [
+                  566.0,
+                  700
+                ],
+                [
+                  566.9,
+                  770
+                ],
+                [
+                  560.2,
+                  840
+                ],
+                [
+                  574.3,
+                  910
+                ],
+                [
+                  558.0,
+                  980
+                ],
+                [
+                  561.2,
+                  1050
+                ],
+                [
+                  556.4,
+                  1120
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "chip": [
+                560,
+                300
+              ],
+              "text": "kilat = cahaya"
+            },
+            {
+              "chip": [
+                64,
+                640
+              ],
+              "text": "udara ≈ 28.000 °C"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The light is long gone; the front of sound is a dome 500 px out, moving at its true speed for this scale.",
+          "draw": [
+            {
+              "horizon": [
+                1180
+              ]
+            },
+            {
+              "curve": [
+                [
+                  560.0,
+                  -20.0
+                ],
+                [
+                  557.2,
+                  72.3
+                ],
+                [
+                  577.9,
+                  164.6
+                ],
+                [
+                  542.3,
+                  256.9
+                ],
+                [
+                  541.5,
+                  349.2
+                ],
+                [
+                  547.2,
+                  441.5
+                ],
+                [
+                  487.1,
+                  533.8
+                ],
+                [
+                  527.7,
+                  626.2
+                ],
+                [
+                  538.2,
+                  718.5
+                ],
+                [
+                  550.1,
+                  810.8
+                ],
+                [
+                  473.9,
+                  903.1
+                ],
+                [
+                  493.9,
+                  995.4
+                ],
+                [
+                  488.1,
+                  1087.7
+                ],
+                [
+                  497.0,
+                  1180.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 7
+            },
+            {
+              "curve": [
+                [
+                  99.7,
+                  0
+                ],
+                [
+                  102.3,
+                  70
+                ],
+                [
+                  103.5,
+                  140
+                ],
+                [
+                  106.7,
+                  210
+                ],
+                [
+                  102.3,
+                  280
+                ],
+                [
+                  106.3,
+                  350
+                ],
+                [
+                  86.6,
+                  420
+                ],
+                [
+                  96.2,
+                  490
+                ],
+                [
+                  106.8,
+                  560
+                ],
+                [
+                  100.3,
+                  630
+                ],
+                [
+                  105.8,
+                  700
+                ],
+                [
+                  88.5,
+                  770
+                ],
+                [
+                  96.3,
+                  840
+                ],
+                [
+                  91.4,
+                  910
+                ],
+                [
+                  98.0,
+                  980
+                ],
+                [
+                  98.6,
+                  1050
+                ],
+                [
+                  86.3,
+                  1120
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  891.0,
+                  0
+                ],
+                [
+                  907.2,
+                  70
+                ],
+                [
+                  888.8,
+                  140
+                ],
+                [
+                  901.5,
+                  210
+                ],
+                [
+                  887.9,
+                  280
+                ],
+                [
+                  891.4,
+                  350
+                ],
+                [
+                  908.0,
+                  420
+                ],
+                [
+                  890.6,
+                  490
+                ],
+                [
+                  900.1,
+                  560
+                ],
+                [
+                  896.1,
+                  630
+                ],
+                [
+                  896.0,
+                  700
+                ],
+                [
+                  896.9,
+                  770
+                ],
+                [
+                  890.2,
+                  840
+                ],
+                [
+                  904.3,
+                  910
+                ],
+                [
+                  888.0,
+                  980
+                ],
+                [
+                  891.2,
+                  1050
+                ],
+                [
+                  886.4,
+                  1120
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  851.0,
+                  0
+                ],
+                [
+                  867.2,
+                  70
+                ],
+                [
+                  848.8,
+                  140
+                ],
+                [
+                  861.5,
+                  210
+                ],
+                [
+                  847.9,
+                  280
+                ],
+                [
+                  851.4,
+                  350
+                ],
+                [
+                  868.0,
+                  420
+                ],
+                [
+                  850.6,
+                  490
+                ],
+                [
+                  860.1,
+                  560
+                ],
+                [
+                  856.1,
+                  630
+                ],
+                [
+                  856.0,
+                  700
+                ],
+                [
+                  856.9,
+                  770
+                ],
+                [
+                  850.2,
+                  840
+                ],
+                [
+                  864.3,
+                  910
+                ],
+                [
+                  848.0,
+                  980
+                ],
+                [
+                  851.2,
+                  1050
+                ],
+                [
+                  846.4,
+                  1120
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "chip": [
+                560,
+                300
+              ],
+              "text": "kilat = cahaya"
+            },
+            {
+              "chip": [
+                470,
+                900
+              ],
+              "text": "guntur = suara"
+            },
+            {
+              "move": [
+                560,
+                1060,
+                860,
+                1060
+              ],
+              "text": "mengembang"
+            },
+            {
+              "cut": "kamera mundur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "balapan",
+      "type": "diagram",
+      "start": 6.977,
+      "end": 9.767,
+      "voice": "Cahayanya sampai nyaris seketika.",
+      "caption": "Cahayanya sampai *nyaris seketika*.",
+      "teaches": "Light crosses the two kilometres to you in seven millionths of a second: you see the flash the moment it happens.",
+      "screen": "The whole scene from the side, to scale (0.31 px a metre): cloud deck to y 400, ground at y 1100, the bolt striking at x 190, you standing at x 828, which is 2 058 m away. A glass board at (400, 500), 'tiba di kamu', with two rows: 'cahaya' and 'suara'. A chip 'kamu' over the figure. After the stroke: a violet ray from the channel to your eye, the chip '≈ 300.000 km/detik' on the ray, and the first row reading '0,000007 detik'.",
+      "motion": "A leader comes down for 0.8 s, then the stroke: flash, a shell of light sweeps the scene and the ray is at your eye within nine frames, your figure is rim lit and the first row is filled at its value. The amber front leaves the channel on the same frame and creeps right at 106 px a second while the second row starts counting tenths.",
+      "carries": "The front of sound, still on its way, and the board with its second row counting.",
+      "transition": "No cut in the picture: the light's chip fades and the sound's chip arrives.",
+      "sound": "The flash is silent. One small tick when the first row is filled.",
+      "check": "The ray reaches the eye within 0.16 s of the flash. The row reads 0,000007 detik. The front moves 106 px a second. The figure is not hidden by the board.",
+      "facts": [
+        "f1",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The camera pulls back to the whole scene: the storm on the left, you on the right, 2 km apart. A leader comes down.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  250.0,
+                  395.0
+                ],
+                [
+                  246.4,
+                  449.2
+                ],
+                [
+                  235.2,
+                  503.5
+                ],
+                [
+                  242.5,
+                  557.7
+                ],
+                [
+                  241.1,
+                  611.9
+                ],
+                [
+                  189.5,
+                  666.2
+                ]
+              ],
+              "colour": "violet",
+              "width": 6
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "chip": [
+                744,
+                820
+              ],
+              "text": "kamu"
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   …",
+                "suara   …"
+              ]
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 0.32,
+          "note": "0.83 s: the stroke. A ray of light crosses to your eye at once and the first row of the board is filled at its value.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  250.0,
+                  395.0
+                ],
+                [
+                  246.4,
+                  449.2
+                ],
+                [
+                  235.2,
+                  503.5
+                ],
+                [
+                  242.5,
+                  557.7
+                ],
+                [
+                  241.1,
+                  611.9
+                ],
+                [
+                  189.5,
+                  666.2
+                ],
+                [
+                  177.8,
+                  720.4
+                ],
+                [
+                  248.5,
+                  774.6
+                ],
+                [
+                  192.4,
+                  828.8
+                ],
+                [
+                  188.3,
+                  883.1
+                ],
+                [
+                  234.1,
+                  937.3
+                ],
+                [
+                  198.0,
+                  991.5
+                ],
+                [
+                  202.0,
+                  1045.8
+                ],
+                [
+                  190.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 10
+            },
+            {
+              "arrow": [
+                215,
+                800,
+                800,
+                958
+              ],
+              "colour": "violet",
+              "width": 8
+            },
+            {
+              "glow": [
+                828,
+                960,
+                110
+              ],
+              "colour": "violet"
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "chip": [
+                300,
+                760
+              ],
+              "text": "≈ 300.000 km/detik"
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   …"
+              ]
+            },
+            {
+              "curve": [
+                [
+                  217.7,
+                  420
+                ],
+                [
+                  220.3,
+                  490
+                ],
+                [
+                  221.5,
+                  560
+                ],
+                [
+                  224.7,
+                  630
+                ],
+                [
+                  220.3,
+                  700
+                ],
+                [
+                  224.3,
+                  770
+                ],
+                [
+                  204.6,
+                  840
+                ],
+                [
+                  214.2,
+                  910
+                ],
+                [
+                  224.8,
+                  980
+                ],
+                [
+                  218.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 6
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The light has arrived; the sound has gone 670 m. Its front creeps right while the second row counts.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  250.0,
+                  395.0
+                ],
+                [
+                  246.4,
+                  449.2
+                ],
+                [
+                  235.2,
+                  503.5
+                ],
+                [
+                  242.5,
+                  557.7
+                ],
+                [
+                  241.1,
+                  611.9
+                ],
+                [
+                  189.5,
+                  666.2
+                ],
+                [
+                  177.8,
+                  720.4
+                ],
+                [
+                  248.5,
+                  774.6
+                ],
+                [
+                  192.4,
+                  828.8
+                ],
+                [
+                  188.3,
+                  883.1
+                ],
+                [
+                  234.1,
+                  937.3
+                ],
+                [
+                  198.0,
+                  991.5
+                ],
+                [
+                  202.0,
+                  1045.8
+                ],
+                [
+                  190.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 5
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "chip": [
+                300,
+                760
+              ],
+              "text": "≈ 300.000 km/detik"
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   1,9 detik…"
+              ]
+            },
+            {
+              "curve": [
+                [
+                  400.7,
+                  420
+                ],
+                [
+                  403.3,
+                  490
+                ],
+                [
+                  404.5,
+                  560
+                ],
+                [
+                  407.7,
+                  630
+                ],
+                [
+                  403.3,
+                  700
+                ],
+                [
+                  407.3,
+                  770
+                ],
+                [
+                  387.6,
+                  840
+                ],
+                [
+                  397.2,
+                  910
+                ],
+                [
+                  407.8,
+                  980
+                ],
+                [
+                  401.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  366.7,
+                  420
+                ],
+                [
+                  369.3,
+                  490
+                ],
+                [
+                  370.5,
+                  560
+                ],
+                [
+                  373.7,
+                  630
+                ],
+                [
+                  369.3,
+                  700
+                ],
+                [
+                  373.3,
+                  770
+                ],
+                [
+                  353.6,
+                  840
+                ],
+                [
+                  363.2,
+                  910
+                ],
+                [
+                  373.8,
+                  980
+                ],
+                [
+                  367.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  332.7,
+                  420
+                ],
+                [
+                  335.3,
+                  490
+                ],
+                [
+                  336.5,
+                  560
+                ],
+                [
+                  339.7,
+                  630
+                ],
+                [
+                  335.3,
+                  700
+                ],
+                [
+                  339.3,
+                  770
+                ],
+                [
+                  319.6,
+                  840
+                ],
+                [
+                  329.2,
+                  910
+                ],
+                [
+                  339.8,
+                  980
+                ],
+                [
+                  333.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "move": [
+                430,
+                1000,
+                590,
+                1000
+              ],
+              "text": "suara"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "balapan",
+      "type": "diagram",
+      "start": 9.767,
+      "end": 13.605,
+      "voice": "Suara cuma tiga ratus empat puluh tiga meter per detik.",
+      "caption": "Suara cuma *343 meter* per detik.",
+      "teaches": "Sound is slow: 343 metres a second. The viewer watches it take its real six seconds to cross.",
+      "screen": "The same scene. The amber front, a standing wavy line with fainter fronts behind it, is between the bolt and you. A chip '≈ 343 m/detik' travels just behind the front; the chip 'kamu' leaves a second before the two would meet. The board's second row shows the running time in tenths of a second.",
+      "motion": "The front crosses from x 400 to x 806 in real time, the chip with it. The camera pushes 5 percent toward you. The stage light follows the front along the ground.",
+      "carries": "The front, a few metres from you, and the running clock.",
+      "transition": "A cut to a close shot of you, 0.2 s before the front arrives.",
+      "sound": "A low hum rides under the front, very quiet under the voice.",
+      "check": "At every frame the front's distance from the strike point is 343 m/s times the time since the flash, at 0.31 px a metre. The chip never leaves the safe area.",
+      "facts": [
+        "f2",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Same scene, one thing changed: the label is now on the sound. Its chip travels with the front.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  250.0,
+                  395.0
+                ],
+                [
+                  246.4,
+                  449.2
+                ],
+                [
+                  235.2,
+                  503.5
+                ],
+                [
+                  242.5,
+                  557.7
+                ],
+                [
+                  241.1,
+                  611.9
+                ],
+                [
+                  189.5,
+                  666.2
+                ],
+                [
+                  177.8,
+                  720.4
+                ],
+                [
+                  248.5,
+                  774.6
+                ],
+                [
+                  192.4,
+                  828.8
+                ],
+                [
+                  188.3,
+                  883.1
+                ],
+                [
+                  234.1,
+                  937.3
+                ],
+                [
+                  198.0,
+                  991.5
+                ],
+                [
+                  202.0,
+                  1045.8
+                ],
+                [
+                  190.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   2,0 detik…"
+              ]
+            },
+            {
+              "curve": [
+                [
+                  402.7,
+                  420
+                ],
+                [
+                  405.3,
+                  490
+                ],
+                [
+                  406.5,
+                  560
+                ],
+                [
+                  409.7,
+                  630
+                ],
+                [
+                  405.3,
+                  700
+                ],
+                [
+                  409.3,
+                  770
+                ],
+                [
+                  389.6,
+                  840
+                ],
+                [
+                  399.2,
+                  910
+                ],
+                [
+                  409.8,
+                  980
+                ],
+                [
+                  403.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  368.7,
+                  420
+                ],
+                [
+                  371.3,
+                  490
+                ],
+                [
+                  372.5,
+                  560
+                ],
+                [
+                  375.7,
+                  630
+                ],
+                [
+                  371.3,
+                  700
+                ],
+                [
+                  375.3,
+                  770
+                ],
+                [
+                  355.6,
+                  840
+                ],
+                [
+                  365.2,
+                  910
+                ],
+                [
+                  375.8,
+                  980
+                ],
+                [
+                  369.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  334.7,
+                  420
+                ],
+                [
+                  337.3,
+                  490
+                ],
+                [
+                  338.5,
+                  560
+                ],
+                [
+                  341.7,
+                  630
+                ],
+                [
+                  337.3,
+                  700
+                ],
+                [
+                  341.3,
+                  770
+                ],
+                [
+                  321.6,
+                  840
+                ],
+                [
+                  331.2,
+                  910
+                ],
+                [
+                  341.8,
+                  980
+                ],
+                [
+                  335.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "chip": [
+                64,
+                860
+              ],
+              "text": "≈ 343 m/detik"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Half way: 3.9 s gone, the front at 1 340 m. The clock on the board runs in real time.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  250.0,
+                  395.0
+                ],
+                [
+                  246.4,
+                  449.2
+                ],
+                [
+                  235.2,
+                  503.5
+                ],
+                [
+                  242.5,
+                  557.7
+                ],
+                [
+                  241.1,
+                  611.9
+                ],
+                [
+                  189.5,
+                  666.2
+                ],
+                [
+                  177.8,
+                  720.4
+                ],
+                [
+                  248.5,
+                  774.6
+                ],
+                [
+                  192.4,
+                  828.8
+                ],
+                [
+                  188.3,
+                  883.1
+                ],
+                [
+                  234.1,
+                  937.3
+                ],
+                [
+                  198.0,
+                  991.5
+                ],
+                [
+                  202.0,
+                  1045.8
+                ],
+                [
+                  190.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   3,9 detik…"
+              ]
+            },
+            {
+              "curve": [
+                [
+                  607.7,
+                  420
+                ],
+                [
+                  610.3,
+                  490
+                ],
+                [
+                  611.5,
+                  560
+                ],
+                [
+                  614.7,
+                  630
+                ],
+                [
+                  610.3,
+                  700
+                ],
+                [
+                  614.3,
+                  770
+                ],
+                [
+                  594.6,
+                  840
+                ],
+                [
+                  604.2,
+                  910
+                ],
+                [
+                  614.8,
+                  980
+                ],
+                [
+                  608.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  573.7,
+                  420
+                ],
+                [
+                  576.3,
+                  490
+                ],
+                [
+                  577.5,
+                  560
+                ],
+                [
+                  580.7,
+                  630
+                ],
+                [
+                  576.3,
+                  700
+                ],
+                [
+                  580.3,
+                  770
+                ],
+                [
+                  560.6,
+                  840
+                ],
+                [
+                  570.2,
+                  910
+                ],
+                [
+                  580.8,
+                  980
+                ],
+                [
+                  574.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  539.7,
+                  420
+                ],
+                [
+                  542.3,
+                  490
+                ],
+                [
+                  543.5,
+                  560
+                ],
+                [
+                  546.7,
+                  630
+                ],
+                [
+                  542.3,
+                  700
+                ],
+                [
+                  546.3,
+                  770
+                ],
+                [
+                  526.6,
+                  840
+                ],
+                [
+                  536.2,
+                  910
+                ],
+                [
+                  546.8,
+                  980
+                ],
+                [
+                  540.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "chip": [
+                170,
+                860
+              ],
+              "text": "≈ 343 m/detik"
+            },
+            {
+              "move": [
+                640,
+                1000,
+                780,
+                1000
+              ],
+              "text": "merambat"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "5.8 s: the front is a few metres from you. The cut comes just before it arrives.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  250.0,
+                  395.0
+                ],
+                [
+                  246.4,
+                  449.2
+                ],
+                [
+                  235.2,
+                  503.5
+                ],
+                [
+                  242.5,
+                  557.7
+                ],
+                [
+                  241.1,
+                  611.9
+                ],
+                [
+                  189.5,
+                  666.2
+                ],
+                [
+                  177.8,
+                  720.4
+                ],
+                [
+                  248.5,
+                  774.6
+                ],
+                [
+                  192.4,
+                  828.8
+                ],
+                [
+                  188.3,
+                  883.1
+                ],
+                [
+                  234.1,
+                  937.3
+                ],
+                [
+                  198.0,
+                  991.5
+                ],
+                [
+                  202.0,
+                  1045.8
+                ],
+                [
+                  190.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   5,8 detik…"
+              ]
+            },
+            {
+              "curve": [
+                [
+                  808.7,
+                  420
+                ],
+                [
+                  811.3,
+                  490
+                ],
+                [
+                  812.5,
+                  560
+                ],
+                [
+                  815.7,
+                  630
+                ],
+                [
+                  811.3,
+                  700
+                ],
+                [
+                  815.3,
+                  770
+                ],
+                [
+                  795.6,
+                  840
+                ],
+                [
+                  805.2,
+                  910
+                ],
+                [
+                  815.8,
+                  980
+                ],
+                [
+                  809.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  774.7,
+                  420
+                ],
+                [
+                  777.3,
+                  490
+                ],
+                [
+                  778.5,
+                  560
+                ],
+                [
+                  781.7,
+                  630
+                ],
+                [
+                  777.3,
+                  700
+                ],
+                [
+                  781.3,
+                  770
+                ],
+                [
+                  761.6,
+                  840
+                ],
+                [
+                  771.2,
+                  910
+                ],
+                [
+                  781.8,
+                  980
+                ],
+                [
+                  775.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  740.7,
+                  420
+                ],
+                [
+                  743.3,
+                  490
+                ],
+                [
+                  744.5,
+                  560
+                ],
+                [
+                  747.7,
+                  630
+                ],
+                [
+                  743.3,
+                  700
+                ],
+                [
+                  747.3,
+                  770
+                ],
+                [
+                  727.6,
+                  840
+                ],
+                [
+                  737.2,
+                  910
+                ],
+                [
+                  747.8,
+                  980
+                ],
+                [
+                  741.3,
+                  1050
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "chip": [
+                370,
+                860
+              ],
+              "text": "≈ 343 m/detik"
+            },
+            {
+              "cut": "potong dekat ke kamu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "balapan",
+      "type": "macro",
+      "start": 13.605,
+      "end": 15.0,
+      "caption": "Baru *terdengar*.",
+      "teaches": "The answer to the question in one picture: the thunder reaches you six seconds after the light did.",
+      "screen": "Close on you (twice the size), feet at (560, 1180). The amber front sweeps over the figure; small arcs of sound at the ears; the figure shakes. The board, in the same place, locks its second row at '6,0 detik' in amber.",
+      "motion": "0.2 s after the cut the front reaches you: a hit, a ring from the stage, the light turns amber for a moment. The row locks with a tick. The front keeps travelling right.",
+      "carries": "The two speeds, as their chips.",
+      "transition": "The camera returns to the whole scene as the two chips fly to the middle and stack.",
+      "sound": "THE THUNDER: a big impact with a sub drop under it, on the frame the front arrives. No voice in this shot.",
+      "check": "The front touches the figure exactly 6.00 s after the flash of s03. The row reads 6,0 detik.",
+      "facts": [
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Close on you, twice the size. The front is a hand's width away; 0.2 s later it hits and the thunder lands.",
+          "draw": [
+            {
+              "horizon": [
+                1180
+              ]
+            },
+            {
+              "person": [
+                560,
+                1180,
+                300
+              ]
+            },
+            {
+              "curve": [
+                [
+                  522.7,
+                  300
+                ],
+                [
+                  525.3,
+                  370
+                ],
+                [
+                  526.5,
+                  440
+                ],
+                [
+                  529.7,
+                  510
+                ],
+                [
+                  525.3,
+                  580
+                ],
+                [
+                  529.3,
+                  650
+                ],
+                [
+                  509.6,
+                  720
+                ],
+                [
+                  519.2,
+                  790
+                ],
+                [
+                  529.8,
+                  860
+                ],
+                [
+                  523.3,
+                  930
+                ],
+                [
+                  528.8,
+                  1000
+                ],
+                [
+                  511.5,
+                  1070
+                ],
+                [
+                  519.3,
+                  1140
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  488.7,
+                  300
+                ],
+                [
+                  491.3,
+                  370
+                ],
+                [
+                  492.5,
+                  440
+                ],
+                [
+                  495.7,
+                  510
+                ],
+                [
+                  491.3,
+                  580
+                ],
+                [
+                  495.3,
+                  650
+                ],
+                [
+                  475.6,
+                  720
+                ],
+                [
+                  485.2,
+                  790
+                ],
+                [
+                  495.8,
+                  860
+                ],
+                [
+                  489.3,
+                  930
+                ],
+                [
+                  494.8,
+                  1000
+                ],
+                [
+                  477.5,
+                  1070
+                ],
+                [
+                  485.3,
+                  1140
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  454.7,
+                  300
+                ],
+                [
+                  457.3,
+                  370
+                ],
+                [
+                  458.5,
+                  440
+                ],
+                [
+                  461.7,
+                  510
+                ],
+                [
+                  457.3,
+                  580
+                ],
+                [
+                  461.3,
+                  650
+                ],
+                [
+                  441.6,
+                  720
+                ],
+                [
+                  451.2,
+                  790
+                ],
+                [
+                  461.8,
+                  860
+                ],
+                [
+                  455.3,
+                  930
+                ],
+                [
+                  460.8,
+                  1000
+                ],
+                [
+                  443.5,
+                  1070
+                ],
+                [
+                  451.3,
+                  1140
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   5,8 detik…"
+              ]
+            },
+            {
+              "move": [
+                330,
+                1060,
+                500,
+                1060
+              ],
+              "text": "tiba"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The front passes over you, the second row locks at 6,0 detik and takes the sound's colour.",
+          "draw": [
+            {
+              "horizon": [
+                1180
+              ]
+            },
+            {
+              "person": [
+                560,
+                1180,
+                300
+              ]
+            },
+            {
+              "curve": [
+                [
+                  762.7,
+                  300
+                ],
+                [
+                  765.3,
+                  370
+                ],
+                [
+                  766.5,
+                  440
+                ],
+                [
+                  769.7,
+                  510
+                ],
+                [
+                  765.3,
+                  580
+                ],
+                [
+                  769.3,
+                  650
+                ],
+                [
+                  749.6,
+                  720
+                ],
+                [
+                  759.2,
+                  790
+                ],
+                [
+                  769.8,
+                  860
+                ],
+                [
+                  763.3,
+                  930
+                ],
+                [
+                  768.8,
+                  1000
+                ],
+                [
+                  751.5,
+                  1070
+                ],
+                [
+                  759.3,
+                  1140
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  728.7,
+                  300
+                ],
+                [
+                  731.3,
+                  370
+                ],
+                [
+                  732.5,
+                  440
+                ],
+                [
+                  735.7,
+                  510
+                ],
+                [
+                  731.3,
+                  580
+                ],
+                [
+                  735.3,
+                  650
+                ],
+                [
+                  715.6,
+                  720
+                ],
+                [
+                  725.2,
+                  790
+                ],
+                [
+                  735.8,
+                  860
+                ],
+                [
+                  729.3,
+                  930
+                ],
+                [
+                  734.8,
+                  1000
+                ],
+                [
+                  717.5,
+                  1070
+                ],
+                [
+                  725.3,
+                  1140
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  694.7,
+                  300
+                ],
+                [
+                  697.3,
+                  370
+                ],
+                [
+                  698.5,
+                  440
+                ],
+                [
+                  701.7,
+                  510
+                ],
+                [
+                  697.3,
+                  580
+                ],
+                [
+                  701.3,
+                  650
+                ],
+                [
+                  681.6,
+                  720
+                ],
+                [
+                  691.2,
+                  790
+                ],
+                [
+                  701.8,
+                  860
+                ],
+                [
+                  695.3,
+                  930
+                ],
+                [
+                  700.8,
+                  1000
+                ],
+                [
+                  683.5,
+                  1070
+                ],
+                [
+                  691.3,
+                  1140
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "scatter": [
+                560,
+                900,
+                8,
+                70,
+                150
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "panel": [
+                400,
+                500,
+                530,
+                230
+              ],
+              "title": "tiba di kamu",
+              "rows": [
+                "cahaya   0,000007 detik",
+                "suara   6,0 detik ✓"
+              ]
+            },
+            {
+              "cut": "kedua kecepatan jadi pecahan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "balapan",
+      "type": "compare",
+      "start": 15.0,
+      "end": 17.791,
+      "voice": "Cahaya hampir sejuta kali lebih cepat.",
+      "caption": "Cahaya hampir *sejuta kali* lebih cepat.",
+      "teaches": "The number, once, with what it is computed from: 299 792 458 divided by 343 is about 874 000.",
+      "screen": "Over the dimmed scene, a fraction made of the two chips: 'cahaya 299.792.458 m/detik' above a rule, 'suara 343 m/detik' below it. Under the fraction the result in metal type at 138 px, '≈ 874.000×', and beneath it 'lebih cepat'.",
+      "motion": "The chips land as a fraction, the rule draws, the result slams in at its value on the beat with a ring, a sheen crosses it. It holds a second and a half; the camera pushes 4 percent.",
+      "carries": "The storm itself: the same sky, now seen from where you stand.",
+      "transition": "A hard cut on the beat to your own view of the storm; the figure is thrown upward as it goes.",
+      "sound": "A soft thud with a short deep impact under the figure, ducked under the voice.",
+      "check": "874.000 agrees with 299 792 458 / 343 = 874 030. The figure never counts up. It is inside the safe area.",
+      "facts": [
+        "f1",
+        "f2",
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The two speed chips leave their things and stack as a fraction over the dimmed scene.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "chip": [
+                150,
+                470
+              ],
+              "text": "cahaya 299.792.458 m/detik"
+            },
+            {
+              "line": [
+                150,
+                584,
+                852,
+                584
+              ],
+              "width": 6
+            },
+            {
+              "chip": [
+                270,
+                610
+              ],
+              "text": "suara 343 m/detik"
+            },
+            {
+              "move": [
+                300,
+                820,
+                300,
+                720
+              ],
+              "text": "jadi pecahan"
+            }
+          ]
+        },
+        {
+          "at": 0.4,
+          "note": "The result slams in at its value, on the beat, with a ring from the stage.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "chip": [
+                150,
+                470
+              ],
+              "text": "cahaya 299.792.458 m/detik"
+            },
+            {
+              "line": [
+                150,
+                584,
+                852,
+                584
+              ],
+              "width": 6
+            },
+            {
+              "chip": [
+                270,
+                610
+              ],
+              "text": "suara 343 m/detik"
+            },
+            {
+              "number": [
+                497,
+                880
+              ],
+              "text": "≈ 874.000×",
+              "size": 150
+            },
+            {
+              "glow": [
+                497,
+                820,
+                360
+              ],
+              "colour": "violet"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held for a second and a half with its unit; a sheen crosses the figure.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                400
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  387.4
+                ],
+                [
+                  40,
+                  391.9
+                ],
+                [
+                  100,
+                  367.6
+                ],
+                [
+                  160,
+                  381.8
+                ],
+                [
+                  220,
+                  392.1
+                ],
+                [
+                  280,
+                  368.8
+                ],
+                [
+                  340,
+                  381.4
+                ],
+                [
+                  400,
+                  448.7
+                ],
+                [
+                  460,
+                  407.1
+                ],
+                [
+                  520,
+                  394.0
+                ],
+                [
+                  580,
+                  430.5
+                ],
+                [
+                  640,
+                  378.8
+                ],
+                [
+                  700,
+                  397.6
+                ],
+                [
+                  760,
+                  376.7
+                ],
+                [
+                  820,
+                  401.7
+                ],
+                [
+                  880,
+                  384.5
+                ],
+                [
+                  940,
+                  431.6
+                ],
+                [
+                  1000,
+                  451.6
+                ],
+                [
+                  1060,
+                  420.1
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "person": [
+                828,
+                1100,
+                150
+              ]
+            },
+            {
+              "chip": [
+                150,
+                470
+              ],
+              "text": "cahaya 299.792.458 m/detik"
+            },
+            {
+              "line": [
+                150,
+                584,
+                852,
+                584
+              ],
+              "width": 6
+            },
+            {
+              "chip": [
+                270,
+                610
+              ],
+              "text": "suara 343 m/detik"
+            },
+            {
+              "number": [
+                497,
+                880
+              ],
+              "text": "≈ 874.000×",
+              "size": 150
+            },
+            {
+              "title": [
+                497,
+                980
+              ],
+              "text": "lebih cepat",
+              "size": 64
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "potong ke sudut pandangmu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "hitung",
+      "type": "wide",
+      "start": 17.791,
+      "end": 21.279,
+      "voice": "Jadi, lihat kilat, lalu hitung detiknya.",
+      "caption": "Jadi, lihat kilat, lalu *hitung detiknya*.",
+      "teaches": "What to do with it: start counting seconds when you see the flash.",
+      "screen": "Your own view over your shoulder: the back of your head and shoulders dark in the lower right, a low cloud deck to y 560, the horizon at y 1100 and a thin bolt far off at x 330. To the right of the bolt, at (775, 700), the count in violet figures 300 px tall, under a small label 'detik sejak kilat'.",
+      "motion": "The bolt flashes 0.49 s after the cut, as the voice says 'lihat kilat', silent. Exactly one second later '1' pops, a second after that '2'. Each figure replaces the last on one frame. The afterglow fades; clouds flicker far away.",
+      "carries": "The count, in the same place on screen.",
+      "transition": "A hard cut on the count of three, as the thunder lands.",
+      "sound": "No thunder yet. A soft tick with each figure, between the words.",
+      "check": "The figures land 1.00 s and 2.00 s after the flash. They are inside the safe area and clear of the caption.",
+      "facts": [
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0.14,
+          "note": "Your own view, over your shoulder. Half a second in, a new bolt far off: a silent flash. Start counting.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                560
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  547.3
+                ],
+                [
+                  40,
+                  521.0
+                ],
+                [
+                  100,
+                  529.4
+                ],
+                [
+                  160,
+                  510.4
+                ],
+                [
+                  220,
+                  513.0
+                ],
+                [
+                  280,
+                  552.3
+                ],
+                [
+                  340,
+                  604.7
+                ],
+                [
+                  400,
+                  606.1
+                ],
+                [
+                  460,
+                  602.5
+                ],
+                [
+                  520,
+                  553.1
+                ],
+                [
+                  580,
+                  558.4
+                ],
+                [
+                  640,
+                  525.2
+                ],
+                [
+                  700,
+                  511.2
+                ],
+                [
+                  760,
+                  510.8
+                ],
+                [
+                  820,
+                  532.0
+                ],
+                [
+                  880,
+                  598.9
+                ],
+                [
+                  940,
+                  605.2
+                ],
+                [
+                  1000,
+                  607.3
+                ],
+                [
+                  1060,
+                  599.5
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  360.0,
+                  555.0
+                ],
+                [
+                  361.2,
+                  596.9
+                ],
+                [
+                  363.6,
+                  638.8
+                ],
+                [
+                  370.7,
+                  680.8
+                ],
+                [
+                  362.6,
+                  722.7
+                ],
+                [
+                  372.2,
+                  764.6
+                ],
+                [
+                  318.1,
+                  806.5
+                ],
+                [
+                  341.8,
+                  848.5
+                ],
+                [
+                  366.4,
+                  890.4
+                ],
+                [
+                  346.6,
+                  932.3
+                ],
+                [
+                  352.9,
+                  974.2
+                ],
+                [
+                  323.8,
+                  1016.2
+                ],
+                [
+                  331.9,
+                  1058.1
+                ],
+                [
+                  330.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 7
+            },
+            {
+              "glow": [
+                340,
+                800,
+                420
+              ],
+              "colour": "violet"
+            },
+            {
+              "dot": [
+                790,
+                1085,
+                80
+              ],
+              "colour": "ink"
+            },
+            {
+              "curve": [
+                [
+                  560,
+                  1500
+                ],
+                [
+                  600,
+                  1260
+                ],
+                [
+                  700,
+                  1180
+                ],
+                [
+                  880,
+                  1180
+                ],
+                [
+                  980,
+                  1260
+                ],
+                [
+                  1020,
+                  1500
+                ]
+              ],
+              "colour": "ink",
+              "width": 14
+            },
+            {
+              "title": [
+                775,
+                450
+              ],
+              "text": "detik sejak kilat",
+              "size": 46
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "One second after the flash the first figure pops, large, where the eye already is.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                560
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  547.3
+                ],
+                [
+                  40,
+                  521.0
+                ],
+                [
+                  100,
+                  529.4
+                ],
+                [
+                  160,
+                  510.4
+                ],
+                [
+                  220,
+                  513.0
+                ],
+                [
+                  280,
+                  552.3
+                ],
+                [
+                  340,
+                  604.7
+                ],
+                [
+                  400,
+                  606.1
+                ],
+                [
+                  460,
+                  602.5
+                ],
+                [
+                  520,
+                  553.1
+                ],
+                [
+                  580,
+                  558.4
+                ],
+                [
+                  640,
+                  525.2
+                ],
+                [
+                  700,
+                  511.2
+                ],
+                [
+                  760,
+                  510.8
+                ],
+                [
+                  820,
+                  532.0
+                ],
+                [
+                  880,
+                  598.9
+                ],
+                [
+                  940,
+                  605.2
+                ],
+                [
+                  1000,
+                  607.3
+                ],
+                [
+                  1060,
+                  599.5
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  360.0,
+                  555.0
+                ],
+                [
+                  361.2,
+                  596.9
+                ],
+                [
+                  363.6,
+                  638.8
+                ],
+                [
+                  370.7,
+                  680.8
+                ],
+                [
+                  362.6,
+                  722.7
+                ],
+                [
+                  372.2,
+                  764.6
+                ],
+                [
+                  318.1,
+                  806.5
+                ],
+                [
+                  341.8,
+                  848.5
+                ],
+                [
+                  366.4,
+                  890.4
+                ],
+                [
+                  346.6,
+                  932.3
+                ],
+                [
+                  352.9,
+                  974.2
+                ],
+                [
+                  323.8,
+                  1016.2
+                ],
+                [
+                  331.9,
+                  1058.1
+                ],
+                [
+                  330.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "dot": [
+                790,
+                1085,
+                80
+              ],
+              "colour": "ink"
+            },
+            {
+              "curve": [
+                [
+                  560,
+                  1500
+                ],
+                [
+                  600,
+                  1260
+                ],
+                [
+                  700,
+                  1180
+                ],
+                [
+                  880,
+                  1180
+                ],
+                [
+                  980,
+                  1260
+                ],
+                [
+                  1020,
+                  1500
+                ]
+              ],
+              "colour": "ink",
+              "width": 14
+            },
+            {
+              "title": [
+                775,
+                450
+              ],
+              "text": "detik sejak kilat",
+              "size": 46
+            },
+            {
+              "number": [
+                775,
+                700
+              ],
+              "text": "1",
+              "size": 300
+            },
+            {
+              "move": [
+                930,
+                760,
+                930,
+                640
+              ],
+              "text": "pop"
+            }
+          ]
+        },
+        {
+          "at": 0.75,
+          "note": "Two. Nothing heard yet: the figures are the only thing that changes, in real time.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                560
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  547.3
+                ],
+                [
+                  40,
+                  521.0
+                ],
+                [
+                  100,
+                  529.4
+                ],
+                [
+                  160,
+                  510.4
+                ],
+                [
+                  220,
+                  513.0
+                ],
+                [
+                  280,
+                  552.3
+                ],
+                [
+                  340,
+                  604.7
+                ],
+                [
+                  400,
+                  606.1
+                ],
+                [
+                  460,
+                  602.5
+                ],
+                [
+                  520,
+                  553.1
+                ],
+                [
+                  580,
+                  558.4
+                ],
+                [
+                  640,
+                  525.2
+                ],
+                [
+                  700,
+                  511.2
+                ],
+                [
+                  760,
+                  510.8
+                ],
+                [
+                  820,
+                  532.0
+                ],
+                [
+                  880,
+                  598.9
+                ],
+                [
+                  940,
+                  605.2
+                ],
+                [
+                  1000,
+                  607.3
+                ],
+                [
+                  1060,
+                  599.5
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  360.0,
+                  555.0
+                ],
+                [
+                  361.2,
+                  596.9
+                ],
+                [
+                  363.6,
+                  638.8
+                ],
+                [
+                  370.7,
+                  680.8
+                ],
+                [
+                  362.6,
+                  722.7
+                ],
+                [
+                  372.2,
+                  764.6
+                ],
+                [
+                  318.1,
+                  806.5
+                ],
+                [
+                  341.8,
+                  848.5
+                ],
+                [
+                  366.4,
+                  890.4
+                ],
+                [
+                  346.6,
+                  932.3
+                ],
+                [
+                  352.9,
+                  974.2
+                ],
+                [
+                  323.8,
+                  1016.2
+                ],
+                [
+                  331.9,
+                  1058.1
+                ],
+                [
+                  330.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 3
+            },
+            {
+              "dot": [
+                790,
+                1085,
+                80
+              ],
+              "colour": "ink"
+            },
+            {
+              "curve": [
+                [
+                  560,
+                  1500
+                ],
+                [
+                  600,
+                  1260
+                ],
+                [
+                  700,
+                  1180
+                ],
+                [
+                  880,
+                  1180
+                ],
+                [
+                  980,
+                  1260
+                ],
+                [
+                  1020,
+                  1500
+                ]
+              ],
+              "colour": "ink",
+              "width": 14
+            },
+            {
+              "title": [
+                775,
+                450
+              ],
+              "text": "detik sejak kilat",
+              "size": 46
+            },
+            {
+              "number": [
+                775,
+                700
+              ],
+              "text": "2",
+              "size": 300
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "tepat di hitungan 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "hitung",
+      "type": "diagram",
+      "start": 21.279,
+      "end": 24.767,
+      "voice": "Tiga detik? Petirnya sekitar satu kilometer.",
+      "caption": "Tiga detik? Petirnya sekitar *satu kilometer*.",
+      "teaches": "Seconds times 343 metres is the distance: three seconds is about one kilometre.",
+      "screen": "The counted strike from the side, to the same scale, camera 1.3 times closer: strike point at x 150, you at x 565, which is 1 029 m away. The front is on you. The count '3' at (775, 700) with 'detik' under it; below, a glass card with '× 343 m' and '= 1.029 m'. Along the ground a ruler from the strike point to you, and over it, large, '≈ 1 km'.",
+      "motion": "On the cut the front arrives: hit, ring, the figure shakes, '3' pops. The card's two rows land one after the other, then the ruler draws from the bolt to you and '≈ 1 km' lands on it. The front moves on to the right.",
+      "carries": "The rule: three seconds, about a kilometre.",
+      "transition": "The scene sinks as the recap cards rise over the storm.",
+      "sound": "The thunder on the cut, shorter and lighter than the first (it is nearer but the film is talking). A tick for each row, a soft chime when the distance lands.",
+      "check": "The front reaches the figure exactly 3.00 s after the flash of s07. 3 x 343 = 1 029 is written correctly. The ruler ends at the figure's feet.",
+      "facts": [
+        "f2",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Cut to the side on the count of three: the front has just reached you, the thunder lands on the cut.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                190
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  216.3
+                ],
+                [
+                  40,
+                  201.4
+                ],
+                [
+                  100,
+                  165.7
+                ],
+                [
+                  160,
+                  147.9
+                ],
+                [
+                  220,
+                  138.3
+                ],
+                [
+                  280,
+                  200.6
+                ],
+                [
+                  340,
+                  203.4
+                ],
+                [
+                  400,
+                  233.3
+                ],
+                [
+                  460,
+                  205.1
+                ],
+                [
+                  520,
+                  221.5
+                ],
+                [
+                  580,
+                  169.9
+                ],
+                [
+                  640,
+                  192.0
+                ],
+                [
+                  700,
+                  180.2
+                ],
+                [
+                  760,
+                  162.4
+                ],
+                [
+                  820,
+                  184.7
+                ],
+                [
+                  880,
+                  211.7
+                ],
+                [
+                  940,
+                  190.7
+                ],
+                [
+                  1000,
+                  219.6
+                ],
+                [
+                  1060,
+                  229.8
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  230.0,
+                  185.0
+                ],
+                [
+                  220.8,
+                  255.4
+                ],
+                [
+                  200.9,
+                  325.8
+                ],
+                [
+                  235.8,
+                  396.2
+                ],
+                [
+                  164.8,
+                  466.5
+                ],
+                [
+                  199.5,
+                  536.9
+                ],
+                [
+                  232.6,
+                  607.3
+                ],
+                [
+                  145.3,
+                  677.7
+                ],
+                [
+                  185.8,
+                  748.1
+                ],
+                [
+                  184.2,
+                  818.5
+                ],
+                [
+                  138.0,
+                  888.8
+                ],
+                [
+                  156.7,
+                  959.2
+                ],
+                [
+                  161.0,
+                  1029.6
+                ],
+                [
+                  150.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 5
+            },
+            {
+              "person": [
+                565,
+                1100,
+                195
+              ]
+            },
+            {
+              "curve": [
+                [
+                  567.7,
+                  230
+                ],
+                [
+                  570.3,
+                  300
+                ],
+                [
+                  571.5,
+                  370
+                ],
+                [
+                  574.7,
+                  440
+                ],
+                [
+                  570.3,
+                  510
+                ],
+                [
+                  574.3,
+                  580
+                ],
+                [
+                  554.6,
+                  650
+                ],
+                [
+                  564.2,
+                  720
+                ],
+                [
+                  574.8,
+                  790
+                ],
+                [
+                  568.3,
+                  860
+                ],
+                [
+                  573.8,
+                  930
+                ],
+                [
+                  556.5,
+                  1000
+                ],
+                [
+                  564.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  533.7,
+                  230
+                ],
+                [
+                  536.3,
+                  300
+                ],
+                [
+                  537.5,
+                  370
+                ],
+                [
+                  540.7,
+                  440
+                ],
+                [
+                  536.3,
+                  510
+                ],
+                [
+                  540.3,
+                  580
+                ],
+                [
+                  520.6,
+                  650
+                ],
+                [
+                  530.2,
+                  720
+                ],
+                [
+                  540.8,
+                  790
+                ],
+                [
+                  534.3,
+                  860
+                ],
+                [
+                  539.8,
+                  930
+                ],
+                [
+                  522.5,
+                  1000
+                ],
+                [
+                  530.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  499.7,
+                  230
+                ],
+                [
+                  502.3,
+                  300
+                ],
+                [
+                  503.5,
+                  370
+                ],
+                [
+                  506.7,
+                  440
+                ],
+                [
+                  502.3,
+                  510
+                ],
+                [
+                  506.3,
+                  580
+                ],
+                [
+                  486.6,
+                  650
+                ],
+                [
+                  496.2,
+                  720
+                ],
+                [
+                  506.8,
+                  790
+                ],
+                [
+                  500.3,
+                  860
+                ],
+                [
+                  505.8,
+                  930
+                ],
+                [
+                  488.5,
+                  1000
+                ],
+                [
+                  496.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "scatter": [
+                565,
+                930,
+                8,
+                60,
+                130
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "number": [
+                775,
+                700
+              ],
+              "text": "3",
+              "size": 300
+            },
+            {
+              "title": [
+                775,
+                790
+              ],
+              "text": "detik",
+              "size": 56
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "The sum arrives under the count, then the distance is measured along the ground.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                190
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  216.3
+                ],
+                [
+                  40,
+                  201.4
+                ],
+                [
+                  100,
+                  165.7
+                ],
+                [
+                  160,
+                  147.9
+                ],
+                [
+                  220,
+                  138.3
+                ],
+                [
+                  280,
+                  200.6
+                ],
+                [
+                  340,
+                  203.4
+                ],
+                [
+                  400,
+                  233.3
+                ],
+                [
+                  460,
+                  205.1
+                ],
+                [
+                  520,
+                  221.5
+                ],
+                [
+                  580,
+                  169.9
+                ],
+                [
+                  640,
+                  192.0
+                ],
+                [
+                  700,
+                  180.2
+                ],
+                [
+                  760,
+                  162.4
+                ],
+                [
+                  820,
+                  184.7
+                ],
+                [
+                  880,
+                  211.7
+                ],
+                [
+                  940,
+                  190.7
+                ],
+                [
+                  1000,
+                  219.6
+                ],
+                [
+                  1060,
+                  229.8
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  230.0,
+                  185.0
+                ],
+                [
+                  220.8,
+                  255.4
+                ],
+                [
+                  200.9,
+                  325.8
+                ],
+                [
+                  235.8,
+                  396.2
+                ],
+                [
+                  164.8,
+                  466.5
+                ],
+                [
+                  199.5,
+                  536.9
+                ],
+                [
+                  232.6,
+                  607.3
+                ],
+                [
+                  145.3,
+                  677.7
+                ],
+                [
+                  185.8,
+                  748.1
+                ],
+                [
+                  184.2,
+                  818.5
+                ],
+                [
+                  138.0,
+                  888.8
+                ],
+                [
+                  156.7,
+                  959.2
+                ],
+                [
+                  161.0,
+                  1029.6
+                ],
+                [
+                  150.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 5
+            },
+            {
+              "person": [
+                565,
+                1100,
+                195
+              ]
+            },
+            {
+              "curve": [
+                [
+                  692.7,
+                  230
+                ],
+                [
+                  695.3,
+                  300
+                ],
+                [
+                  696.5,
+                  370
+                ],
+                [
+                  699.7,
+                  440
+                ],
+                [
+                  695.3,
+                  510
+                ],
+                [
+                  699.3,
+                  580
+                ],
+                [
+                  679.6,
+                  650
+                ],
+                [
+                  689.2,
+                  720
+                ],
+                [
+                  699.8,
+                  790
+                ],
+                [
+                  693.3,
+                  860
+                ],
+                [
+                  698.8,
+                  930
+                ],
+                [
+                  681.5,
+                  1000
+                ],
+                [
+                  689.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  658.7,
+                  230
+                ],
+                [
+                  661.3,
+                  300
+                ],
+                [
+                  662.5,
+                  370
+                ],
+                [
+                  665.7,
+                  440
+                ],
+                [
+                  661.3,
+                  510
+                ],
+                [
+                  665.3,
+                  580
+                ],
+                [
+                  645.6,
+                  650
+                ],
+                [
+                  655.2,
+                  720
+                ],
+                [
+                  665.8,
+                  790
+                ],
+                [
+                  659.3,
+                  860
+                ],
+                [
+                  664.8,
+                  930
+                ],
+                [
+                  647.5,
+                  1000
+                ],
+                [
+                  655.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  624.7,
+                  230
+                ],
+                [
+                  627.3,
+                  300
+                ],
+                [
+                  628.5,
+                  370
+                ],
+                [
+                  631.7,
+                  440
+                ],
+                [
+                  627.3,
+                  510
+                ],
+                [
+                  631.3,
+                  580
+                ],
+                [
+                  611.6,
+                  650
+                ],
+                [
+                  621.2,
+                  720
+                ],
+                [
+                  631.8,
+                  790
+                ],
+                [
+                  625.3,
+                  860
+                ],
+                [
+                  630.8,
+                  930
+                ],
+                [
+                  613.5,
+                  1000
+                ],
+                [
+                  621.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "number": [
+                775,
+                700
+              ],
+              "text": "3",
+              "size": 300
+            },
+            {
+              "title": [
+                775,
+                790
+              ],
+              "text": "detik",
+              "size": 56
+            },
+            {
+              "panel": [
+                600,
+                830,
+                330,
+                180
+              ],
+              "rows": [
+                "× 343 m",
+                "= 1.029 m"
+              ]
+            },
+            {
+              "bracket": [
+                150,
+                565,
+                1040
+              ],
+              "text": "≈ 1 km",
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Everything holds; the front has moved on past you. The scene rises toward the recap.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                190
+              ],
+              "tone": "dusk"
+            },
+            {
+              "curve": [
+                [
+                  -20,
+                  216.3
+                ],
+                [
+                  40,
+                  201.4
+                ],
+                [
+                  100,
+                  165.7
+                ],
+                [
+                  160,
+                  147.9
+                ],
+                [
+                  220,
+                  138.3
+                ],
+                [
+                  280,
+                  200.6
+                ],
+                [
+                  340,
+                  203.4
+                ],
+                [
+                  400,
+                  233.3
+                ],
+                [
+                  460,
+                  205.1
+                ],
+                [
+                  520,
+                  221.5
+                ],
+                [
+                  580,
+                  169.9
+                ],
+                [
+                  640,
+                  192.0
+                ],
+                [
+                  700,
+                  180.2
+                ],
+                [
+                  760,
+                  162.4
+                ],
+                [
+                  820,
+                  184.7
+                ],
+                [
+                  880,
+                  211.7
+                ],
+                [
+                  940,
+                  190.7
+                ],
+                [
+                  1000,
+                  219.6
+                ],
+                [
+                  1060,
+                  229.8
+                ]
+              ],
+              "colour": "ink",
+              "width": 7
+            },
+            {
+              "horizon": [
+                1100
+              ]
+            },
+            {
+              "curve": [
+                [
+                  230.0,
+                  185.0
+                ],
+                [
+                  220.8,
+                  255.4
+                ],
+                [
+                  200.9,
+                  325.8
+                ],
+                [
+                  235.8,
+                  396.2
+                ],
+                [
+                  164.8,
+                  466.5
+                ],
+                [
+                  199.5,
+                  536.9
+                ],
+                [
+                  232.6,
+                  607.3
+                ],
+                [
+                  145.3,
+                  677.7
+                ],
+                [
+                  185.8,
+                  748.1
+                ],
+                [
+                  184.2,
+                  818.5
+                ],
+                [
+                  138.0,
+                  888.8
+                ],
+                [
+                  156.7,
+                  959.2
+                ],
+                [
+                  161.0,
+                  1029.6
+                ],
+                [
+                  150.0,
+                  1100.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 4
+            },
+            {
+              "person": [
+                565,
+                1100,
+                195
+              ]
+            },
+            {
+              "curve": [
+                [
+                  922.7,
+                  230
+                ],
+                [
+                  925.3,
+                  300
+                ],
+                [
+                  926.5,
+                  370
+                ],
+                [
+                  929.7,
+                  440
+                ],
+                [
+                  925.3,
+                  510
+                ],
+                [
+                  929.3,
+                  580
+                ],
+                [
+                  909.6,
+                  650
+                ],
+                [
+                  919.2,
+                  720
+                ],
+                [
+                  929.8,
+                  790
+                ],
+                [
+                  923.3,
+                  860
+                ],
+                [
+                  928.8,
+                  930
+                ],
+                [
+                  911.5,
+                  1000
+                ],
+                [
+                  919.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "curve": [
+                [
+                  888.7,
+                  230
+                ],
+                [
+                  891.3,
+                  300
+                ],
+                [
+                  892.5,
+                  370
+                ],
+                [
+                  895.7,
+                  440
+                ],
+                [
+                  891.3,
+                  510
+                ],
+                [
+                  895.3,
+                  580
+                ],
+                [
+                  875.6,
+                  650
+                ],
+                [
+                  885.2,
+                  720
+                ],
+                [
+                  895.8,
+                  790
+                ],
+                [
+                  889.3,
+                  860
+                ],
+                [
+                  894.8,
+                  930
+                ],
+                [
+                  877.5,
+                  1000
+                ],
+                [
+                  885.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "curve": [
+                [
+                  854.7,
+                  230
+                ],
+                [
+                  857.3,
+                  300
+                ],
+                [
+                  858.5,
+                  370
+                ],
+                [
+                  861.7,
+                  440
+                ],
+                [
+                  857.3,
+                  510
+                ],
+                [
+                  861.3,
+                  580
+                ],
+                [
+                  841.6,
+                  650
+                ],
+                [
+                  851.2,
+                  720
+                ],
+                [
+                  861.8,
+                  790
+                ],
+                [
+                  855.3,
+                  860
+                ],
+                [
+                  860.8,
+                  930
+                ],
+                [
+                  843.5,
+                  1000
+                ],
+                [
+                  851.3,
+                  1070
+                ]
+              ],
+              "colour": "orange",
+              "width": 3
+            },
+            {
+              "number": [
+                775,
+                700
+              ],
+              "text": "3",
+              "size": 300
+            },
+            {
+              "title": [
+                775,
+                790
+              ],
+              "text": "detik",
+              "size": 56
+            },
+            {
+              "panel": [
+                600,
+                830,
+                330,
+                180
+              ],
+              "rows": [
+                "× 343 m",
+                "= 1.029 m"
+              ]
+            },
+            {
+              "bracket": [
+                150,
+                565,
+                1040
+              ],
+              "text": "≈ 1 km",
+              "colour": "blue"
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "kartu rangkuman naik"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "recap",
+      "type": "recap",
+      "start": 24.767,
+      "end": 27.558,
+      "teaches": "The three ideas in one frame, and the line to remember: see the flash, count the seconds.",
+      "screen": "The hook's framing of the storm. Three glass cards, 866 px wide, at y 270, 500 and 730, each with a small picture and a line: a bolt with a ring of sound, 'Kilat dan guntur lahir bersamaan'; a long violet arrow that runs off the card over a short amber one, 'Cahaya ≈ 874.000× lebih cepat'; a large 3 over a ruler, '3 detik ≈ 1 km / tiap detik ≈ 343 m'. Below, where the question stood in s01, the poster line in metal type at 106 px: 'Lihat kilat, / hitung detiknya.'.",
+      "motion": "The cards rise in one after another in the first 0.6 s, the two lines of the poster slam in, a sheen crosses them. Then everything holds for two seconds with a 3 percent push while the clouds drift.",
+      "transition": "The film ends on this frame; it can cut back to frame 0, which has the same sky and lettering in the same place.",
+      "sound": "A short whoosh as the cards rise, a soft low impact under the poster line, the music faded over the last 1.8 s. No voice.",
+      "check": "Every figure matches the fact sheet. The poster line is fully readable for at least two seconds. Nothing is outside the safe area.",
+      "facts": [
+        "f3",
+        "f4",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The hook's framing again. Three cards rise, each with its small picture; the first line of the poster lands.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                360
+              ],
+              "tone": "dusk"
+            },
+            {
+              "horizon": [
+                1000
+              ]
+            },
+            {
+              "card": [
+                64,
+                270,
+                866,
+                210
+              ]
+            },
+            {
+              "curve": [
+                [
+                  190.0,
+                  300.0
+                ],
+                [
+                  191.5,
+                  311.5
+                ],
+                [
+                  181.2,
+                  323.1
+                ],
+                [
+                  177.7,
+                  334.6
+                ],
+                [
+                  191.6,
+                  346.2
+                ],
+                [
+                  188.5,
+                  357.7
+                ],
+                [
+                  185.5,
+                  369.2
+                ],
+                [
+                  173.9,
+                  380.8
+                ],
+                [
+                  180.5,
+                  392.3
+                ],
+                [
+                  178.6,
+                  403.8
+                ],
+                [
+                  176.1,
+                  415.4
+                ],
+                [
+                  168.6,
+                  426.9
+                ],
+                [
+                  171.1,
+                  438.5
+                ],
+                [
+                  170.0,
+                  450.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 6
+            },
+            {
+              "curve": [
+                [
+                  100.0,
+                  450.0
+                ],
+                [
+                  101.5,
+                  435.4
+                ],
+                [
+                  106.1,
+                  421.5
+                ],
+                [
+                  113.4,
+                  408.9
+                ],
+                [
+                  123.2,
+                  398.0
+                ],
+                [
+                  135.0,
+                  389.4
+                ],
+                [
+                  148.4,
+                  383.4
+                ],
+                [
+                  162.7,
+                  380.4
+                ],
+                [
+                  177.3,
+                  380.4
+                ],
+                [
+                  191.6,
+                  383.4
+                ],
+                [
+                  205.0,
+                  389.4
+                ],
+                [
+                  216.8,
+                  398.0
+                ],
+                [
+                  226.6,
+                  408.9
+                ],
+                [
+                  233.9,
+                  421.5
+                ],
+                [
+                  238.5,
+                  435.4
+                ],
+                [
+                  240.0,
+                  450.0
+                ]
+              ],
+              "colour": "orange",
+              "width": 7
+            },
+            {
+              "title": [
+                560,
+                392
+              ],
+              "text": "lahir bersamaan",
+              "size": 56
+            },
+            {
+              "card": [
+                64,
+                500,
+                866,
+                210
+              ]
+            },
+            {
+              "title": [
+                497,
+                1140
+              ],
+              "text": "Lihat kilat,",
+              "size": 96
+            },
+            {
+              "move": [
+                980,
+                800,
+                980,
+                600
+              ],
+              "text": "kartu naik"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The whole recap: born together, light about 874 000 times faster, three seconds for a kilometre.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                360
+              ],
+              "tone": "dusk"
+            },
+            {
+              "horizon": [
+                1000
+              ]
+            },
+            {
+              "card": [
+                64,
+                270,
+                866,
+                210
+              ]
+            },
+            {
+              "curve": [
+                [
+                  190.0,
+                  300.0
+                ],
+                [
+                  191.5,
+                  311.5
+                ],
+                [
+                  181.2,
+                  323.1
+                ],
+                [
+                  177.7,
+                  334.6
+                ],
+                [
+                  191.6,
+                  346.2
+                ],
+                [
+                  188.5,
+                  357.7
+                ],
+                [
+                  185.5,
+                  369.2
+                ],
+                [
+                  173.9,
+                  380.8
+                ],
+                [
+                  180.5,
+                  392.3
+                ],
+                [
+                  178.6,
+                  403.8
+                ],
+                [
+                  176.1,
+                  415.4
+                ],
+                [
+                  168.6,
+                  426.9
+                ],
+                [
+                  171.1,
+                  438.5
+                ],
+                [
+                  170.0,
+                  450.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 6
+            },
+            {
+              "curve": [
+                [
+                  100.0,
+                  450.0
+                ],
+                [
+                  101.5,
+                  435.4
+                ],
+                [
+                  106.1,
+                  421.5
+                ],
+                [
+                  113.4,
+                  408.9
+                ],
+                [
+                  123.2,
+                  398.0
+                ],
+                [
+                  135.0,
+                  389.4
+                ],
+                [
+                  148.4,
+                  383.4
+                ],
+                [
+                  162.7,
+                  380.4
+                ],
+                [
+                  177.3,
+                  380.4
+                ],
+                [
+                  191.6,
+                  383.4
+                ],
+                [
+                  205.0,
+                  389.4
+                ],
+                [
+                  216.8,
+                  398.0
+                ],
+                [
+                  226.6,
+                  408.9
+                ],
+                [
+                  233.9,
+                  421.5
+                ],
+                [
+                  238.5,
+                  435.4
+                ],
+                [
+                  240.0,
+                  450.0
+                ]
+              ],
+              "colour": "orange",
+              "width": 7
+            },
+            {
+              "title": [
+                560,
+                392
+              ],
+              "text": "lahir bersamaan",
+              "size": 56
+            },
+            {
+              "card": [
+                64,
+                500,
+                866,
+                210
+              ]
+            },
+            {
+              "arrow": [
+                110,
+                580,
+                290,
+                580
+              ],
+              "colour": "violet"
+            },
+            {
+              "arrow": [
+                110,
+                640,
+                150,
+                640
+              ],
+              "colour": "orange"
+            },
+            {
+              "title": [
+                600,
+                622
+              ],
+              "text": "cahaya ≈ 874.000× lebih cepat",
+              "size": 46
+            },
+            {
+              "card": [
+                64,
+                730,
+                866,
+                210
+              ]
+            },
+            {
+              "number": [
+                180,
+                870
+              ],
+              "text": "3",
+              "size": 120
+            },
+            {
+              "title": [
+                600,
+                852
+              ],
+              "text": "3 detik ≈ 1 km",
+              "size": 60
+            },
+            {
+              "title": [
+                497,
+                1140
+              ],
+              "text": "Lihat kilat,\nhitung detiknya.",
+              "size": 96,
+              "accent": "hitung detiknya."
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The poster holds for two seconds, breathing, and can cut back to frame 0 without a jolt.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                360
+              ],
+              "tone": "dusk"
+            },
+            {
+              "horizon": [
+                1000
+              ]
+            },
+            {
+              "card": [
+                64,
+                270,
+                866,
+                210
+              ]
+            },
+            {
+              "curve": [
+                [
+                  190.0,
+                  300.0
+                ],
+                [
+                  191.5,
+                  311.5
+                ],
+                [
+                  181.2,
+                  323.1
+                ],
+                [
+                  177.7,
+                  334.6
+                ],
+                [
+                  191.6,
+                  346.2
+                ],
+                [
+                  188.5,
+                  357.7
+                ],
+                [
+                  185.5,
+                  369.2
+                ],
+                [
+                  173.9,
+                  380.8
+                ],
+                [
+                  180.5,
+                  392.3
+                ],
+                [
+                  178.6,
+                  403.8
+                ],
+                [
+                  176.1,
+                  415.4
+                ],
+                [
+                  168.6,
+                  426.9
+                ],
+                [
+                  171.1,
+                  438.5
+                ],
+                [
+                  170.0,
+                  450.0
+                ]
+              ],
+              "colour": "violet",
+              "width": 6
+            },
+            {
+              "curve": [
+                [
+                  100.0,
+                  450.0
+                ],
+                [
+                  101.5,
+                  435.4
+                ],
+                [
+                  106.1,
+                  421.5
+                ],
+                [
+                  113.4,
+                  408.9
+                ],
+                [
+                  123.2,
+                  398.0
+                ],
+                [
+                  135.0,
+                  389.4
+                ],
+                [
+                  148.4,
+                  383.4
+                ],
+                [
+                  162.7,
+                  380.4
+                ],
+                [
+                  177.3,
+                  380.4
+                ],
+                [
+                  191.6,
+                  383.4
+                ],
+                [
+                  205.0,
+                  389.4
+                ],
+                [
+                  216.8,
+                  398.0
+                ],
+                [
+                  226.6,
+                  408.9
+                ],
+                [
+                  233.9,
+                  421.5
+                ],
+                [
+                  238.5,
+                  435.4
+                ],
+                [
+                  240.0,
+                  450.0
+                ]
+              ],
+              "colour": "orange",
+              "width": 7
+            },
+            {
+              "title": [
+                560,
+                392
+              ],
+              "text": "lahir bersamaan",
+              "size": 56
+            },
+            {
+              "card": [
+                64,
+                500,
+                866,
+                210
+              ]
+            },
+            {
+              "arrow": [
+                110,
+                580,
+                290,
+                580
+              ],
+              "colour": "violet"
+            },
+            {
+              "arrow": [
+                110,
+                640,
+                150,
+                640
+              ],
+              "colour": "orange"
+            },
+            {
+              "title": [
+                600,
+                622
+              ],
+              "text": "cahaya ≈ 874.000× lebih cepat",
+              "size": 46
+            },
+            {
+              "card": [
+                64,
+                730,
+                866,
+                210
+              ]
+            },
+            {
+              "number": [
+                180,
+                870
+              ],
+              "text": "3",
+              "size": 120
+            },
+            {
+              "title": [
+                600,
+                852
+              ],
+              "text": "3 detik ≈ 1 km",
+              "size": 60
+            },
+            {
+              "title": [
+                497,
+                1140
+              ],
+              "text": "Lihat kilat,\nhitung detiknya.",
+              "size": 96,
+              "accent": "hitung detiknya."
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "kembali ke awal"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

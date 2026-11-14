@@ -1,0 +1,275 @@
+/* "Why do we have seasons?": this film's own pieces, on top of the kit's look.
+   Amber is sunlight and summer; the cool blue is winter. They keep those meanings all film. */
+:root {
+  --accent: #ffb43a;
+  --accent-2: #5fb0ff;
+  --warm: #ffd591;
+  --cool: #a9d4ff;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+}
+#groundview {
+  visibility: hidden;
+  opacity: 0;
+}
+#space {
+  opacity: 0;
+}
+
+/* The title, the answer and the last line say themselves: no subtitle under them. */
+.caption[data-shot="s01"],
+.caption[data-shot="s05"],
+.caption[data-shot="s14"] {
+  display: none;
+}
+/* Winter words take the winter colour, not the Sun's. */
+.caption[data-shot="s04"] .key,
+.caption[data-shot="s10"] .key {
+  color: var(--accent-2);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--accent-2) 55%, transparent);
+}
+
+/* Headings */
+.display.left {
+  position: absolute;
+  left: 104px;
+  top: 356px;
+  font-size: 126px;
+  text-align: left;
+}
+#cause {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 318px;
+  font-size: 150px;
+  line-height: 1.16;
+}
+#tiltword {
+  display: inline-block;
+  transform-origin: 6% 86%;
+}
+#last {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 556px;
+  font-size: 124px;
+}
+#last-micro {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 884px;
+  font-size: 26px;
+}
+.over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 128px;
+  color: var(--t1);
+  font: 600 56px / 1 var(--brand);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+/* Labels in the diagrams */
+.scene .chip {
+  position: absolute;
+  font-size: 32px;
+  padding: 16px 26px;
+}
+.scene .chip b {
+  color: var(--t1);
+  font: 600 32px / 1 var(--brand);
+}
+.chip.centre {
+  justify-content: center;
+}
+.chip.warm,
+.chip.warm b {
+  color: var(--warm);
+}
+.chip.cool,
+.chip.cool b {
+  color: var(--cool);
+}
+#chip-guess b {
+  color: var(--accent);
+}
+.sw {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+.sw.warm {
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+}
+.sw.cool {
+  background: var(--accent-2);
+  box-shadow: 0 0 14px var(--accent-2);
+}
+.note {
+  position: absolute;
+  color: var(--t2);
+  font: 500 23px / 1 var(--mono);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+#note-scale {
+  right: 96px;
+  top: 66px;
+}
+.dist {
+  position: absolute;
+  width: 440px;
+  font: 600 42px / 1 var(--brand);
+  letter-spacing: -0.03em;
+  text-align: center;
+  white-space: nowrap;
+}
+.dist.warm {
+  color: #ffc766;
+  text-shadow: 0 0 26px rgb(255 180 58 / 0.55);
+}
+.dist.cool {
+  color: #9ccbff;
+  text-shadow: 0 0 26px rgb(95 176 255 / 0.5);
+}
+.tell {
+  position: absolute;
+  color: #ffc766;
+  font: 600 34px / 1 var(--brand);
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-shadow: 0 0 24px rgb(255 180 58 / 0.5);
+}
+.bignum {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bignum b {
+  font-size: 216px;
+  line-height: 1;
+  background: linear-gradient(180deg, #fff1cf 14%, #ffb43a 58%, #b3741a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 34px rgb(255 180 58 / 0.42));
+}
+.bignum span {
+  padding-left: 8px;
+  color: var(--t1);
+  font: 500 38px / 1 var(--sans);
+}
+
+/* The readings beside the ground */
+#panel {
+  position: absolute;
+  left: 110px;
+  top: 236px;
+  width: 640px;
+}
+#panel .phead {
+  height: 76px;
+  font-size: 30px;
+}
+#panel .phead em {
+  position: relative;
+  width: 200px;
+  height: 30px;
+  color: var(--t1);
+  font: 500 27px / 30px var(--mono);
+}
+#panel .prow {
+  position: relative;
+  height: 78px;
+  color: var(--t2);
+  font-size: 30px;
+}
+#panel .prow b {
+  position: absolute;
+  right: 28px;
+  font-size: 46px;
+}
+.swap {
+  position: absolute;
+  right: 0;
+}
+.swap.a {
+  color: var(--warm);
+}
+.swap.b {
+  color: var(--cool);
+  opacity: 0;
+}
+.gauge {
+  position: absolute;
+  right: 28px;
+  width: 250px;
+  height: 16px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.09);
+  overflow: hidden;
+}
+.gauge u {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #b3741a, #ffd591);
+  box-shadow: 0 0 16px var(--accent);
+  transform-origin: 0 50%;
+}
+
+/* The recap */
+.rc {
+  position: absolute;
+  top: 250px;
+  width: 520px;
+  height: 420px;
+  border-radius: 30px;
+  text-align: center;
+}
+#rc1 {
+  left: 120px;
+}
+#rc2 {
+  left: 700px;
+}
+#rc3 {
+  left: 1280px;
+}
+.rc svg {
+  position: absolute;
+  left: 60px;
+  top: 34px;
+  width: 400px;
+  height: 240px;
+  overflow: visible;
+}
+.rc > b {
+  position: absolute;
+  left: 30px;
+  top: 26px;
+  color: var(--accent);
+  font: 500 24px / 1 var(--mono);
+}
+.rc p {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 322px;
+  color: var(--t1);
+  font: 500 38px / 1.22 var(--sans);
+  letter-spacing: -0.015em;
+}
+.rc p em {
+  color: var(--accent);
+  font-weight: 650;
+}

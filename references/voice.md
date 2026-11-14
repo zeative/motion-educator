@@ -29,10 +29,13 @@ Name the voice once, and give each shot its line:
 
 ## Length: the voice decides
 
-Speech runs at about 15 characters a second in Indonesian and English (a calm explaining pace). A line starts
-0.15 s after its shot and has to end 0.2 s before the shot does, so a shot needs `0.35 s + the line`.
+How fast a voice speaks depends on the voice far more than on the language: of the voices used so far, an
+Indonesian explainer voice ran at 13 to 20 characters a second (15 on average) and an American English one at 17
+to 24 (21 on average). So do not plan the film's length from a guess. A line starts 0.15 s after its shot and has
+to end 0.2 s before the shot does, so a shot needs `0.35 s + the line`.
 
-1. Write every line. Give each shot a first length from `characters / 15 + 0.35`, rounded up to whole beats.
+1. Write every line. Give each shot a first length from `characters / 18 + 0.35`, rounded up to whole beats, and
+   expect to change it. (A plan made at 15 a second for a voice that speaks at 21 came out a quarter too long.)
 2. Record (below). `voice.mjs` then prints, for every shot, the measured length, the room to spare, and how many
    beats the shot needs.
 3. Change the shot lengths in the storyboard to fit and run the storyboard check again. Do this before building:

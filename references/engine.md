@@ -44,7 +44,7 @@ film.finish();                                     // always last
 | `sheen(sel, at)` | a band of light across a `.display` heading |
 | `motionBlur(sceneSel)` -> `blur(at, dur, x, y)` | directional blur for a whole scene during a fast move |
 | `hit(at, strength, ring)` | a flash and a shock ring on the stage, for the moments the sound lands on. A full-frame canvas of your own (a sky, a scene) covers the stage: give it its own flash |
-| `whip(from, to, at, { vertical, blur })` | a whip pan between two scenes; the stage travels too |
+| `whip(from, to, at, { vertical, blur })` | a whip pan between two scenes; the stage travels too. The outgoing scene is left where it flew to: `tl.set(from, { x: 0, y: 0 })` before showing it again |
 | `light({ lx, ly, glow, floor, ... }, at, dur)`, `tintTo("#hex", at, dur)` | move and recolour the stage's light |
 | `draw(pathSel, at, dur)` | draws SVG paths from their start (give the path `pathLength="1"`) |
 | `count(sel, from, to, at, dur, format)` | counts a number in an element |

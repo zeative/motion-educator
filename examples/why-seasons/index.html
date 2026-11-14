@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why do we have seasons?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Space: the orbit, the Sun and the rays (2D), and over them the Earth (3D). -->
+      <div class="layer" id="spaceview">
+        <canvas id="under"></canvas>
+        <canvas id="space"></canvas>
+      </div>
+      <!-- The ground at 40° N: the beam, the patch it lights, the Sun's path across the sky. -->
+      <div class="layer" id="groundview">
+        <canvas id="diagram"></canvas>
+      </div>
+
+      <!-- s01: the question, over the Earth and its axis -->
+      <section class="scene" id="s01">
+        <h1 class="display left" id="title"><span class="ln">Why do we</span><span class="ln">have <em class="key">seasons?</em></span></h1>
+      </section>
+
+      <!-- The orbit views (s02, s03, s07, s10) are a circle seen at an angle, and say so. -->
+      <section class="scene" id="orbitnote">
+        <p class="note" id="note-scale">the orbit is almost a circle, seen at an angle · sizes not to scale</p>
+      </section>
+
+      <!-- s02: the guess -->
+      <section class="scene" id="s02">
+        <span class="chip" id="chip-guess" style="left: 1090px; top: 524px">closer = summer<b>?</b></span>
+      </section>
+
+      <!-- s03: closest in early January -->
+      <section class="scene" id="s03">
+        <p class="dist warm" id="d-near" style="left: 1055px; top: 352px">147.1 million km</p>
+        <span class="chip" id="chip-near" style="left: 1330px; top: 142px"><i class="sw warm"></i>closest · <b>early January</b></span>
+        <p class="dist cool" id="d-far" style="left: 412px; top: 516px">152.1 million km</p>
+        <span class="chip" id="chip-far" style="left: 404px; top: 388px"><i class="sw cool"></i>farthest · <b>early July</b></span>
+      </section>
+
+      <!-- s04: and yet it is winter in the north -->
+      <section class="scene" id="s04">
+        <svg class="ink"><path id="lead-nw" pathLength="1" d="M1498 242 L1366 296" stroke="#a9d4ff" stroke-width="2.5" /></svg>
+        <span class="chip" id="chip-jan" style="left: 150px; top: 150px">early January</span>
+        <span class="chip cool" id="chip-nwinter" style="left: 1500px; top: 204px">north: <b>winter</b></span>
+      </section>
+
+      <!-- s05: the answer, named -->
+      <section class="scene" id="s05">
+        <h2 class="display" id="cause"><span class="ln">The real cause</span><span class="ln">is the <em class="key" id="tiltword">tilt.</em></span></h2>
+      </section>
+
+      <!-- s06: what the tilt is -->
+      <section class="scene" id="s06">
+        <span class="chip" id="chip-plane" style="left: 130px; top: 494px">orbit's plane</span>
+        <span class="chip" id="chip-axis" style="left: 878px; top: 92px">axis</span>
+        <div class="bignum" id="tiltnum" style="left: 1150px; top: 236px"><b class="num">23.4°</b><span>the tilt of Earth's axis</span></div>
+      </section>
+
+      <!-- s07: the axis keeps its direction -->
+      <section class="scene" id="s07">
+        <span class="chip" id="m-dec" style="left: 1522px; top: 532px">December</span>
+        <span class="chip" id="m-mar" style="left: 1022px; top: 150px">March</span>
+        <span class="chip" id="m-sep" style="left: 1022px; top: 690px">September</span>
+        <span class="chip" id="m-jun" style="left: 252px; top: 566px">June</span>
+        <p class="tell" id="same" style="left: 660px; top: 560px; width: 620px">same direction, all year</p>
+      </section>
+
+      <!-- s08: June, the north leans toward the Sun -->
+      <section class="scene" id="s08">
+        <svg class="ink"><path id="lead-40" pathLength="1" d="M1118 330 L1052 360" stroke="#ffe2b0" stroke-width="2.5" /></svg>
+        <span class="chip" id="chip-jun" style="left: 150px; top: 150px">June</span>
+        <span class="chip warm" id="chip-nsummer" style="left: 1210px; top: 150px">north: <b>summer</b></span>
+        <span class="chip cool" id="chip-swinter" style="left: 1210px; top: 734px">south: <b>winter</b></span>
+        <span class="chip" id="chip-40" style="left: 1108px; top: 264px">noon at 40° N</span>
+      </section>
+
+      <!-- s09 and s11: the readings beside the ground diagram -->
+      <section class="scene" id="s09">
+        <div class="persp">
+          <div class="panel" id="panel">
+            <div class="phead">Noon at 40° N<em><span class="swap a">June</span><span class="swap b">December</span></em></div>
+            <div class="prow" id="row-h"><span>Sun's height</span><b class="num swap a">73°</b><b class="num swap b">27°</b></div>
+            <div class="prow" id="row-g"><span>Ground one beam lights</span><b class="num swap a">1×</b><b class="num swap b">2.1×</b></div>
+            <div class="prow" id="row-l"><span>Light on each m²</span><i class="gauge"><u id="gauge-fill"></u></i></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- s10: December, the north leans away -->
+      <section class="scene" id="s10">
+        <span class="chip" id="m10-jun" style="left: 252px; top: 566px">June</span>
+        <span class="chip" id="m10-dec" style="left: 1522px; top: 580px">December</span>
+        <span class="chip cool" id="chip-nw2" style="left: 1330px; top: 146px">north: <b>winter</b></span>
+      </section>
+
+      <!-- s12: the Sun's path, and how long it is up -->
+      <section class="scene" id="s12">
+        <p class="note" id="chart-title" style="right: 110px; top: 150px">the Sun's path · 40° N</p>
+        <span class="chip warm centre" id="chip-june" style="left: 710px; top: 186px; width: 500px">June · <b>15 h</b> of daylight</span>
+        <span class="chip cool centre" id="chip-dec" style="left: 730px; top: 478px; width: 460px">December · <b>9 h 20 min</b></span>
+      </section>
+
+      <!-- s13: the recap -->
+      <section class="scene" id="s13">
+        <p class="over" id="recap-over">What makes a summer</p>
+        <div class="persp">
+          <article class="rc glass" id="rc1">
+            <svg viewBox="0 0 400 240" id="rc-tilt"></svg>
+            <b>1</b>
+            <p>The axis leans <em>23.4°</em></p>
+          </article>
+          <article class="rc glass" id="rc2">
+            <svg viewBox="0 0 400 240" id="rc-beam"></svg>
+            <b>2</b>
+            <p><em>Steep light,</em> small patch</p>
+          </article>
+          <article class="rc glass" id="rc3">
+            <svg viewBox="0 0 400 240" id="rc-days"></svg>
+            <b>3</b>
+            <p><em>Long days:</em> 15 h against 9</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- s14: the line to remember -->
+      <section class="scene" id="s14">
+        <h2 class="display" id="last"><span class="ln">It's the <em class="key">tilt,</em></span><span class="ln">not the distance.</span></h2>
+        <p class="micro" id="last-micro">Earth's axis <i></i> 23.4°</p>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

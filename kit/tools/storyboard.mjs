@@ -28,8 +28,9 @@ const READING = { warn: 17, error: 21, longest: 104 };
 // about one frame for every 1.25 seconds, so the board shows what happens and not only where things sit.
 const FRAMES = { each: 2, long: 3.4, perSecond: 1 / 1.25 };
 // Narration: a line starts LEAD after its shot and ends TAIL before the shot does. Before it is recorded its length
-// is guessed from its characters (speech runs at about 15 a second); once recorded, the measured length is used.
-const VOICE = { lead: 0.15, tail: 0.2, guess: 15, warn: 16.5 };
+// can only be guessed: voices measured so far run from 13 to 24 characters a second. So the check warns above 20 and
+// refuses above 27, which no voice reaches; once a line is recorded, its measured length is used instead.
+const VOICE = { lead: 0.15, tail: 0.2, warn: 20, refuse: 27 };
 const [W, H] = (sb.format ?? "1920x1080").split("x").map(Number);
 const portrait = H > W;
 const recorded = existsSync(join(film, "voice", "voice.json")) ? (JSON.parse(readFileSync(join(film, "voice", "voice.json"), "utf8")).lines ?? {}) : {};
@@ -89,7 +90,7 @@ shots.forEach((shot, i) => {
       if (line.speech > room + 0.01) err(where, `the recorded line is ${line.speech.toFixed(2)} s but the shot has room for ${room.toFixed(2)} s: lengthen the shot or shorten the line`);
     } else {
       const speed = shot.voice.length / Math.max(0.3, room);
-      if (speed > VOICE.guess * 1.25) err(where, `the spoken line is ${shot.voice.length} characters for ${room.toFixed(1)} s of room: it will not fit (speech runs at about ${VOICE.guess} characters a second)`);
+      if (speed > VOICE.refuse) err(where, `the spoken line is ${shot.voice.length} characters for ${room.toFixed(1)} s of room (${speed.toFixed(0)} a second): no voice speaks that fast`);
       else if (speed > VOICE.warn) warn(where, `the spoken line may not fit (${speed.toFixed(0)} characters a second): record it, then run kit/audio/voice.mjs`);
     }
     if (/\d/.test(shot.voice) && !(shot.facts?.length > 0)) err(where, "the spoken line states a number but the shot cites no fact");

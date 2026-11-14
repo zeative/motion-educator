@@ -77,6 +77,10 @@ These are peaks in dBFS before the master gain, against music at -17 to -18 LUFS
 | Counter ticks, typing | -22 | -14 |
 | Beds (a hum, typing) | -21 | -9 to -12 |
 
+Under narration these are too quiet: a pop at -14 measured a lift of 0 to 3 dB against the voice and the bed. With
+a voice in the film, small effects sit at -8 to -11, they go between the words (not under them), and the music bed
+drops to -20 LUFS or lower. Measure the lift of each one; raise what lifts less than about 4 dB.
+
 ## Rules
 
 - **A sound for a real event only**: something lands, opens, locks, arrives. No sound for decoration.

@@ -28,9 +28,11 @@ const tile = height > width ? "scale=216:-1,tile=9x4" : "scale=384:-1,tile=6x6";
 execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", picture, "-vf", `fps=2,${tile}:padding=4:color=0x444444`, "-frames:v", String(count), join(sheets, "sheet-%02d.png")]);
 console.log(`${count} contact sheet(s) in ${sheets}: look at every one`);
 
-// Frozen time: stretches where the picture barely changes, sampled ten times a second.
-const diff = spawnSync("ffmpeg", ["-hide_banner", "-i", picture, "-vf", "fps=10,scale=320:-1,format=gray,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG", "-an", "-f", "null", "-"]).stderr.toString();
-const still = [...diff.matchAll(/YAVG=([0-9.]+)/g)].map((m, i) => ({ t: (i + 1) / 10, v: Number(m[1]) })).filter((sample) => sample.v < 0.35);
+// Frozen time: stretches where nothing in the picture moves, sampled ten times a second. The film's grain changes
+// every frame, so the picture is averaged down to 96 pixels wide first, and the measure is the largest change
+// anywhere in the frame: a held picture scores 2 or less, anything moving scores far more.
+const diff = spawnSync("ffmpeg", ["-hide_banner", "-i", picture, "-vf", "fps=10,scale=96:-1:flags=area,format=gray,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YMAX", "-an", "-f", "null", "-"]).stderr.toString();
+const still = [...diff.matchAll(/YMAX=([0-9.]+)/g)].map((m, i) => ({ t: (i + 1) / 10, v: Number(m[1]) })).filter((sample) => sample.v <= 2.5);
 const runs = [];
 for (const sample of still) {
   const last = runs.at(-1);
