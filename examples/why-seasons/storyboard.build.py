@@ -444,6 +444,7 @@ storyboard = {
     "format": "1920x1080",
     "duration": duration,
     "fps": 60,
+    "poster": 17.5,
     "captions": "pill",
     "voice": {"voice_id": "1FmDfZG0Nx2dCk793S1a", "name": "Megan", "model": "eleven_multilingual_v2", "language": "en"},
     "look": {

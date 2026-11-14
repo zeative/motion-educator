@@ -182,7 +182,9 @@ reproducible.
 <!-- gallery:start -->
 | | Film | Format | Language | Narration |
 | --- | --- | --- | --- | --- |
-| <img src="docs/media/langit-biru.jpg" width="220" /> | [**Kenapa langit berwarna biru?**](examples/langit-biru)<br/>Rayleigh scattering in 67 seconds: 22 shots, 63 storyboard frames, 9 sourced facts. | 1920×1080 | Indonesian | captions only |
+| <a href="docs/media/films/langit-biru.mp4"><img src="docs/media/langit-biru.jpg" width="230" /></a> | [**Kenapa langit berwarna biru?**](examples/langit-biru)<br/>67 s · 22 shots · 63 storyboard frames · 9 sourced facts<br/>[▶ watch](docs/media/films/langit-biru.mp4) · [storyboard](examples/langit-biru/storyboard) · [source](examples/langit-biru/film.js) | 1920×1080 | Indonesian | captions only |
+| <a href="docs/media/films/why-seasons.mp4"><img src="docs/media/why-seasons.jpg" width="230" /></a> | [**Why do we have seasons?**](examples/why-seasons)<br/>44 s · 14 shots · 38 storyboard frames · 8 sourced facts<br/>[▶ watch](docs/media/films/why-seasons.mp4) · [storyboard](examples/why-seasons/storyboard) · [source](examples/why-seasons/film.js) | 1920×1080 | English | ElevenLabs (Megan) |
+| <a href="docs/media/films/petir-guntur.mp4"><img src="docs/media/petir-guntur.jpg" width="130" /></a> | [**Kenapa petir terlihat dulu, baru guntur terdengar?**](examples/petir-guntur)<br/>28 s · 9 shots · 26 storyboard frames · 6 sourced facts<br/>[▶ watch](docs/media/films/petir-guntur.mp4) · [storyboard](examples/petir-guntur/storyboard) · [source](examples/petir-guntur/film.js) | 1080×1920 | Indonesian | ElevenLabs (Jefri) |
 <!-- gallery:end -->
 
 ## Narration

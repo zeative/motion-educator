@@ -480,6 +480,7 @@ storyboard = {
     "language": "id",
     "duration": round(96 * BEAT, 3),
     "fps": 60,
+    "poster": 40.9,
     "format": "1920x1080",
     "look": {
         "accent": "#4da3ff",

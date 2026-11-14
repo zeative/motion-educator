@@ -334,6 +334,7 @@ storyboard = {
     "captions": "pop",
     "duration": round(duration, 3),
     "fps": 60,
+    "poster": 5.3,
     "voice": {"voice_id": "1ijzBXcD3AIVH8RGMcQd", "name": "Jefri", "model": "eleven_multilingual_v2", "language": "id"},
     "look": {
         "accent": "#a98bff",
