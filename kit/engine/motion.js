@@ -215,7 +215,8 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     box.dataset.style = style;
     const limit = chunk ?? (style === "pop" ? { words: 3, chars: 18 } : { words: 99, chars: portrait ? 56 : 92 });
     for (const shot of storyboard.shots) {
-      const text = shot.caption ?? shot.voice;
+      // "caption": false keeps a voiced shot's line off the screen (when the picture itself letters it).
+      const text = shot.caption === false ? null : (shot.caption ?? shot.voice);
       if (!text) continue;
       // Words, each knowing whether it carries the accent.
       const tokens = [];

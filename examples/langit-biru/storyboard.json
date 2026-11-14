@@ -136,6 +136,10 @@
               ]
             },
             {
+              "label": [
+                560,
+                560
+              ],
               "text": "(judul belum masuk)",
               "size": 40,
               "colour": "white"
@@ -662,12 +666,20 @@
               ]
             },
             {
+              "label": [
+                1820,
+                606
+              ],
               "text": "merah",
               "size": 36,
               "align": "end",
               "colour": "red"
             },
             {
+              "label": [
+                1820,
+                950
+              ],
               "text": "ungu",
               "size": 36,
               "align": "end",
@@ -1399,6 +1411,10 @@
               "text": "1.500×"
             },
             {
+              "label": [
+                1560,
+                500
+              ],
               "text": "lebih kecil",
               "size": 40
             },
@@ -1853,6 +1869,10 @@
               ]
             },
             {
+              "label": [
+                960,
+                330
+              ],
               "text": "namanya",
               "size": 54
             },
@@ -1874,6 +1894,10 @@
           "note": "Nama lengkap terbaca; garis mikro naik; kilau menyapu.",
           "draw": [
             {
+              "label": [
+                960,
+                330
+              ],
               "text": "namanya",
               "size": 54
             },
@@ -1887,6 +1911,10 @@
               "accent": "Rayleigh"
             },
             {
+              "label": [
+                960,
+                690
+              ],
               "text": "LORD RAYLEIGH — 1871",
               "size": 40
             },
@@ -2271,6 +2299,10 @@
               "colour": "red"
             },
             {
+              "label": [
+                1560,
+                680
+              ],
               "text": "1×",
               "size": 60,
               "colour": "red"
@@ -2386,6 +2418,10 @@
               "colour": "red"
             },
             {
+              "label": [
+                1560,
+                680
+              ],
               "text": "1×",
               "size": 60,
               "colour": "red"
@@ -2526,6 +2562,10 @@
               "colour": "red"
             },
             {
+              "label": [
+                1560,
+                680
+              ],
               "text": "1×",
               "size": 60,
               "colour": "red"
@@ -2556,6 +2596,10 @@
               "size": 150
             },
             {
+              "label": [
+                770,
+                462
+              ],
               "text": "lebih kuat",
               "size": 40
             },
@@ -2872,10 +2916,18 @@
               "label": ""
             },
             {
+              "label": [
+                472,
+                730
+              ],
               "text": "biru",
               "size": 40
             },
             {
+              "label": [
+                260,
+                730
+              ],
               "text": "ungu",
               "size": 40
             },
@@ -2923,10 +2975,18 @@
               "label": ""
             },
             {
+              "label": [
+                472,
+                730
+              ],
               "text": "biru",
               "size": 40
             },
             {
+              "label": [
+                260,
+                730
+              ],
               "text": "ungu",
               "size": 40
             },
@@ -3070,6 +3130,10 @@
               "colour": "blue"
             },
             {
+              "label": [
+                1570,
+                760
+              ],
               "text": "yang kita lihat",
               "size": 40
             },
@@ -3258,6 +3322,10 @@
               "text": "senja · ≈ 38×"
             },
             {
+              "label": [
+                1640,
+                830
+              ],
               "text": "gambar tidak berskala",
               "size": 34,
               "colour": "white"
@@ -3399,6 +3467,10 @@
               "colour": "blue"
             },
             {
+              "label": [
+                1000,
+                440
+              ],
               "text": "kuning",
               "size": 38,
               "colour": "yellow"
@@ -3476,16 +3548,28 @@
               "colour": "blue"
             },
             {
+              "label": [
+                1000,
+                440
+              ],
               "text": "kuning",
               "size": 38,
               "colour": "yellow"
             },
             {
+              "label": [
+                1400,
+                440
+              ],
               "text": "jingga",
               "size": 38,
               "colour": "orange"
             },
             {
+              "label": [
+                1740,
+                440
+              ],
               "text": "merah",
               "size": 38,
               "colour": "red"
@@ -3598,11 +3682,19 @@
               ]
             },
             {
+              "label": [
+                1500,
+                160
+              ],
               "text": "biru tua",
               "size": 40,
               "colour": "blue"
             },
             {
+              "label": [
+                1500,
+                660
+              ],
               "text": "jingga · merah",
               "size": 40,
               "colour": "orange"
@@ -3651,6 +3743,10 @@
           "note": "Judul kecil masuk; kartu pertama naik dengan miring 3D.",
           "draw": [
             {
+              "label": [
+                960,
+                160
+              ],
               "text": "Jadi, kenapa langit biru?",
               "size": 58
             },
@@ -3686,6 +3782,10 @@
           "note": "Tiga kartu sejajar; gambar mini di tiap kartu bergerak sedikit.",
           "draw": [
             {
+              "label": [
+                960,
+                160
+              ],
               "text": "Jadi, kenapa langit biru?",
               "size": 58
             },
@@ -3771,6 +3871,10 @@
           "note": "Kilau menyapu tiap kartu bergantian; lalu ketiganya mengecil ke satu titik di tengah.",
           "draw": [
             {
+              "label": [
+                960,
+                160
+              ],
               "text": "Jadi, kenapa langit biru?",
               "size": 58
             },
@@ -3978,6 +4082,10 @@
               "accent": "hamburan Rayleigh."
             },
             {
+              "label": [
+                960,
+                930
+              ],
               "text": "MOTION EDUCATOR — FILM UJI",
               "size": 36,
               "colour": "white"

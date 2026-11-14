@@ -114,6 +114,22 @@ try {
     assert(Math.abs(frames - 28) <= 1, `${frames} frames, expected 28 (2.791 s at 10 fps)`);
   });
 
+  test("tall: rendering again with nothing changed reuses every segment", () => {
+    const out = run("node", [join(workspace, "kit", "tools", "render.mjs"), tall, "--fps", "10", "--jobs", "2"]);
+    assert(/every segment is reused/.test(out) && /0 of 1 segments rendered/.test(out), out.trim().split("\n").slice(-2).join(" | "));
+  });
+
+  test("the sketcher draws every kind of thing, and the check refuses a thing without its numbers", () => {
+    const things = [{ ring: [540, 900, 200] }, { cloud: [540, 300, 400] }, { bolt: [540, 300, 500, 1200] }, { path: "M100 100 L300 400" }, { label: [540, 1500], text: "343 m/s" }];
+    const svg = sketch({ at: 0, note: "", draw: things }, "k", { width: 1080, height: 1920 });
+    assert((svg.match(/<circle|<path|<text/g) ?? []).length >= 5, "some things drew nothing");
+    const plan = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
+    plan.shots[0].frames[0].draw.push({ ring: "540" });
+    writeFileSync(join(workspace, "films", "wide", "storyboard.json"), `${JSON.stringify({ ...plan, format: "1920x1080" }, null, 2)}\n`);
+    const out = run("node", [join(workspace, "kit", "tools", "storyboard.mjs"), join(workspace, "films", "wide")], { expect: 1 });
+    assert(/"ring" needs its numbers in a list/.test(out), "the check did not refuse a ring without numbers");
+  });
+
   test("tall: the mixer lays the narration on the picture at the target loudness", () => {
     writeFileSync(join(tall, "cues.json"), '{ "music": { "file": "none" }, "events": [] }\n');
     const out = run("python3", [join(workspace, "kit", "audio", "mix.py"), tall, "--no-music"]);

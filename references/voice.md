@@ -22,6 +22,8 @@ Name the voice once, and give each shot its line:
   caption when the screen should carry a shorter line than the voice says, or to mark the accent word with
   `*stars*`.
 - One sentence a shot, sometimes two short ones. A line that needs a breath in the middle is two shots.
+- `"caption": false` keeps a shot's line off the screen when the picture itself letters it (a title card that is
+  also spoken).
 - Write for the ear: short words, the subject first, the new thing last. Read it aloud; if you run out of air, cut.
 - A number said aloud is a claim like any other: the shot cites its fact.
 
@@ -35,6 +37,9 @@ Speech runs at about 15 characters a second in Indonesian and English (a calm ex
    beats the shot needs.
 3. Change the shot lengths in the storyboard to fit and run the storyboard check again. Do this before building:
    retiming a built film moves every shot after the change.
+
+A short has no room for whole bars of slack. Count its shots in half beats (set `music.beat` to half the track's
+beat) so a line of 2.1 seconds gets a 2.4 second shot, not a 2.8 second one.
 
 Prefer changing the line to stretching a shot past five seconds. A shot whose line leaves more than a second and a
 half of silence is too long: trim it, or give the silence a purpose (the picture finishing what the voice began).

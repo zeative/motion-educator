@@ -2,6 +2,7 @@
 //
 //   node kit/tools/render.mjs films/NAME                    the whole picture -> films/NAME/out/picture.mp4 (silent)
 //   node kit/tools/render.mjs films/NAME --only 12-16       re-render only the segments that touch 12 s to 16 s
+//   node kit/tools/render.mjs films/NAME --force            re-render every segment
 //   node kit/tools/render.mjs films/NAME --stills 1,5.5     finished PNG stills at those seconds -> out/stills/
 //   node kit/tools/render.mjs films/NAME --serve            serve the film to watch it live in a browser (#play)
 //   --fps 30 halves the frames, --jobs 1 uses one browser, --raw skips the finishing pass, --dir writes elsewhere,
@@ -11,9 +12,13 @@
 //
 // The picture is rendered in four-second segments, each its own file that starts on a keyframe. A fix to one shot
 // re-renders its segments and the rest are reused, which is what makes a review loop affordable.
+// Without --only, every segment is rendered again when anything the picture is made from has changed (the film's
+// pages, scripts, styles and storyboard, its narration's timings, the kit's engine and look) and none when nothing
+// has: a change to the cue sheet alone costs no rendering.
 // Needs `npm install` in the workspace, Playwright with Chromium, and FFmpeg on PATH.
 import { spawn } from "node:child_process";
-import { createReadStream, existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
 import { availableParallelism } from "node:os";
@@ -86,7 +91,8 @@ if (args.includes("--serve")) {
     `format=gbrp,split[a][b];[b]scale=${W / 4}:${H / 4},curves=all='0/0 0.56/0 1/1',gblur=sigma=6.5,scale=${W}:${H}:flags=bicubic[glow];[a][glow]blend=all_mode=screen:all_opacity=0.34,noise=alls=5:allf=t,format=yuv420p`;
   const finish = args.includes("--raw") ? ["-pix_fmt", "yuv420p"] : ["-filter_complex", FINISH];
 
-  const stills = flag("--stills")?.split(",").map(Number);
+  // In time order: a film whose state cannot run backwards would draw a wrong frame after a seek back.
+  const stills = flag("--stills")?.split(",").map(Number).sort((a, b) => a - b);
   if (stills) {
     const dir = flag("--dir") ? out : join(out, "stills");
     mkdirSync(dir, { recursive: true });
@@ -110,11 +116,29 @@ if (args.includes("--serve")) {
     mkdirSync(segDir, { recursive: true });
     const file = (i) => join(segDir, `seg-${String(i).padStart(3, "0")}-${fps}.mp4`);
     const only = flag("--only")?.split("-").map(Number);
+    // What the picture is made from, as one fingerprint.
+    const fingerprint = createHash("sha256");
+    const walk = (dir, skip) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+        const path = join(dir, entry.name);
+        if (skip(entry.name, path)) continue;
+        if (entry.isDirectory()) walk(path, skip);
+        else if (entry.isFile()) fingerprint.update(entry.name).update(readFileSync(path));
+      }
+    };
+    walk(film, (name) => ["out", "storyboard", "node_modules"].includes(name) || /^cues\.|^storyboard\.html$|\.mp3$|\.wav$|\.py$|^\./.test(name));
+    walk(join(workspace, "kit", "engine"), () => false);
+    walk(join(workspace, "kit", "css"), () => false);
+    fingerprint.update(`${W}x${H}@${fps}/${SEGMENT}${args.includes("--raw") ? "raw" : ""}`);
+    const source = fingerprint.digest("hex");
+    const stamp = join(segDir, `source-${fps}.sha`);
+    const unchanged = existsSync(stamp) && readFileSync(stamp, "utf8") === source;
     const wanted = [];
     for (let i = 0; i < segments; i++) {
-      const touches = !only || (i * SEGMENT < only[1] && (i + 1) * SEGMENT > only[0]);
+      const touches = only ? i * SEGMENT < only[1] && (i + 1) * SEGMENT > only[0] : args.includes("--force") || !unchanged;
       if (touches || !existsSync(file(i))) wanted.push(i);
     }
+    if (!wanted.length) console.log("nothing the picture is made from has changed: every segment is reused (--force renders them anyway)");
     const perSegment = Math.round(SEGMENT * fps);
     const total = Math.round(duration * fps);
     const encode = [...finish, "-c:v", "libx264", "-preset", "fast", "-crf", "15", "-r", String(fps)];
@@ -146,6 +170,7 @@ if (args.includes("--serve")) {
         await browser.close();
       }),
     );
+    writeFileSync(stamp, source);
     const list = join(segDir, "list.txt");
     writeFileSync(list, Array.from({ length: segments }, (_, i) => `file '${file(i)}'\n`).join(""));
     const picture = flag("--out") ?? join(out, "picture.mp4");

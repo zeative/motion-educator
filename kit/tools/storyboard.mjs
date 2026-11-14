@@ -119,7 +119,10 @@ shots.forEach((shot, i) => {
     if (!(frame.at >= 0 && frame.at <= 1)) err(at, '"at" must say where in the shot this frame is, from 0 (its start) to 1 (its end)');
     if (!(frame.draw?.length >= 2)) err(at, "draws fewer than two things: sketch the subject and what is around it");
     for (const thing of frame.draw ?? []) {
-      if (!THINGS.includes(Object.keys(thing)[0])) err(at, `draws something the sketcher does not know: ${JSON.stringify(thing).slice(0, 60)}`);
+      const kind = Object.keys(thing)[0];
+      if (!THINGS.includes(kind)) err(at, `draws something the sketcher does not know: ${JSON.stringify(thing).slice(0, 60)}`);
+      else if (kind === "text") warn(at, 'uses "text" as a thing, which draws nothing: write { "label": [x, y], "text": "..." }');
+      else if (!["camera", "cut", "path"].includes(kind) && !Array.isArray(thing[kind])) err(at, `"${kind}" needs its numbers in a list, like { "${kind}": [x, y, ...] }; got ${JSON.stringify(thing[kind]).slice(0, 40)}`);
     }
     if (k > 0 && !(frame.at > frames[k - 1].at)) err(at, "comes before the frame before it");
   });

@@ -72,11 +72,15 @@ if (args.includes("--add")) {
   if (!shot || !source) throw new Error("usage: --add <shot id that has a voice line> <file or https URL>");
   let local = source;
   if (/^https:\/\//.test(source)) {
-    const response = await fetch(source);
-    if (!response.ok) throw new Error(`could not fetch the recording: ${response.status}`);
     mkdirSync(dir, { recursive: true });
     local = join(dir, `.incoming-${id}`);
-    writeFileSync(local, Buffer.from(await response.arrayBuffer()));
+    // curl first: it honours a proxy set in the environment, which Node's own fetch does not.
+    const viaCurl = spawnSync("curl", ["-fsSL", "--max-time", "120", "-o", local, source]);
+    if (viaCurl.status !== 0) {
+      const response = await fetch(source);
+      if (!response.ok) throw new Error(`could not fetch the recording: ${response.status}`);
+      writeFileSync(local, Buffer.from(await response.arrayBuffer()));
+    }
   }
   const line = record(shot, local);
   console.log(`${id}: ${line.speech.toFixed(2)} s of speech (file ${line.duration.toFixed(2)} s)`);

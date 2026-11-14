@@ -43,7 +43,7 @@ film.finish();                                     // always last
 | `split(sel)`, `typeIn(chars, at)`, `typeOut(chars, at)` | a heading as characters that arrive and leave one by one |
 | `sheen(sel, at)` | a band of light across a `.display` heading |
 | `motionBlur(sceneSel)` -> `blur(at, dur, x, y)` | directional blur for a whole scene during a fast move |
-| `hit(at, strength, ring)` | a flash and a shock ring, for the moments the sound lands on |
+| `hit(at, strength, ring)` | a flash and a shock ring on the stage, for the moments the sound lands on. A full-frame canvas of your own (a sky, a scene) covers the stage: give it its own flash |
 | `whip(from, to, at, { vertical, blur })` | a whip pan between two scenes; the stage travels too |
 | `light({ lx, ly, glow, floor, ... }, at, dur)`, `tintTo("#hex", at, dur)` | move and recolour the stage's light |
 | `draw(pathSel, at, dur)` | draws SVG paths from their start (give the path `pathLength="1"`) |
@@ -108,7 +108,12 @@ What was learned about speed on a machine with no GPU (four cores, software WebG
   captures JPEG at quality 98.
 - Pages in one browser take turns, so each job runs its own browser.
 - The bloom is blurred at quarter size: same look, a fraction of the cost.
-- Segments are what make review affordable: fix a shot, re-render its segments, and the rest are reused.
-  A change that moves every later shot (a retime) invalidates everything after it.
+- Segments are what make review affordable: fix a shot, re-render its segments (`--only`), and the rest are
+  reused. A change that moves every later shot (a retime) invalidates everything after it.
+- Without `--only`, the renderer compares what the picture is made from (the film's pages, scripts, styles,
+  storyboard and narration timings, the kit's engine and look) with the last render. Nothing changed: nothing is
+  rendered, so a new cue sheet costs only a mix. Something changed: every segment is rendered, because it cannot
+  know which frames your edit touched. You know: say so with `--only`.
+- Give `--stills` any times you like; they are drawn in time order.
 
 `references/raea.md` covers rendering with raea on a machine with a GPU.

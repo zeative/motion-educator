@@ -114,7 +114,9 @@ that is what makes the build cuttable from the board. Each thing is one object w
 | `{ "axes": [x, y, w, h], "xlabel": "", "ylabel": "" }`, `{ "curve": [[x, y], ...] }`, `{ "bar": [x, y, w, h] }`, `{ "strip": [x, y, w, h] }` | chart parts; the spectrum |
 | `{ "panel": [x, y, w, h], "title": "", "rows": [] }`, `{ "card": [x, y, w, h], "label": "" }`, `{ "chip": [x, y], "text": "" }` | a window with rows; a card; a small label |
 | `{ "title": [x, y], "text": "two\nlines", "size": 130, "align": "start", "accent": "word" }` | the big lettering the viewer reads |
-| `{ "text": [x, y], "text": "" }`, `{ "number": [x, y], "text": "5,9x" }`, `{ "bracket": [x0, x1, y], "text": "450 nm" }` | smaller lettering; a big figure; a measure |
+| `{ "label": [x, y], "text": "" }`, `{ "number": [x, y], "text": "5,9x" }`, `{ "bracket": [x0, x1, y], "text": "450 nm" }` | smaller lettering; a big figure; a measure |
+| `{ "ring": [x, y, r] }`, `{ "cloud": [x, y, w] }`, `{ "bolt": [x0, y0, x1, y1] }` | a circle's outline (an orbit, a front of sound); a cloud; a jagged line |
+| `{ "path": "M100 100 L300 400 ...", "colour": "blue", "fill": "blue" }` | any shape the list lacks, as an SVG path in the frame's coordinates |
 | `{ "person": [x, y, size] }`, `{ "horizon": [y] }`, `{ "sky": [y0, y1], "tone": "dusk" }` | someone standing; the ground; a graded sky |
 | `{ "magnifier": [x, y, r] }`, `{ "dot": [x, y, r] }`, `{ "line": [x0, y0, x1, y1], "dashed": true }`, `{ "arrow": [x0, y0, x1, y1] }`, `{ "glow": [x, y, r] }` | a lens, marks, where the stage's light sits |
 

@@ -21,7 +21,7 @@
 //   { card: [x, y, w, h], label? }                       a plain rounded card
 //   { chip: [x, y], text }                               a small label
 //   { title: [x, y], text, size?, align?, accent? }      big lettering (the words the viewer reads)
-//   { text: [x, y], text, size?, align? }                smaller lettering
+//   { label: [x, y], text, size?, align?, colour? }      smaller lettering
 //   { number: [x, y], text, size? }                      a big figure
 //   { person: [x, y, size] }                             someone standing
 //   { horizon: [y] }                                     the ground line with low hills
@@ -30,6 +30,10 @@
 //   { dot: [x, y, r], colour? } { line: [x0, y0, x1, y1], dashed? } { arrow: [x0, y0, x1, y1], colour? }
 //   { bracket: [x0, x1, y], text }                       a measure with its value
 //   { glow: [x, y, r], colour? }                         where the stage's light sits
+//   { ring: [x, y, r], colour?, dashed? }                a circle's outline: an orbit, a front of sound
+//   { cloud: [x, y, w] }                                 a cloud, w wide
+//   { bolt: [x0, y0, x1, y1], seed? }                    a jagged line: lightning, a crack, a spark
+//   { path: "M0 0 L10 10 ...", colour?, width?, fill?, dashed? }   any shape the list above lacks, as an SVG path
 // Direction, drawn in blue pencil the way a storyboard artist marks it:
 //   { move: [x0, y0, x1, y1], text? }                    this thing travels along the arrow
 //   { camera: "push" | "pull" | "up" | "down" | "left" | "right" | "orbit", text? }   what the camera does
@@ -154,7 +158,27 @@ const DRAW = {
       })
       .join("");
   },
-  text: ([x, y], t) => lettering([x, y], t.text, Math.max(46, t.size ?? 50), { align: t.align ?? "middle", fill: colour(t.colour) }),
+  label: ([x, y], t) => lettering([x, y], t.text, Math.max(46, t.size ?? 50), { align: t.align ?? "middle", fill: colour(t.colour) }),
+  // An older spelling of label. It cannot be written in JSON with its words (the key "text" twice), so the
+  // storyboard check warns about it; kept so an old board still draws.
+  text: (at, t) => (Array.isArray(at) ? lettering(at, t.label ?? "", Math.max(46, t.size ?? 50), { align: t.align ?? "middle", fill: colour(t.colour) }) : ""),
+  ring: ([x, y, r], t) => `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${colour(t.colour)}" stroke-width="${t.width ?? 6}" ${t.dashed ? 'stroke-dasharray="22 16"' : ""}/>`,
+  cloud: ([x, y, w]) => {
+    const r = w / 5;
+    return `<path d="M${f(x - w / 2)} ${y} a${f(r * 0.8)} ${f(r * 0.8)} 0 0 1 ${f(r * 0.9)} ${f(-r * 0.9)} a${f(r * 1.1)} ${f(r * 1.1)} 0 0 1 ${f(r * 1.9)} ${f(-r * 0.5)} a${f(r)} ${f(r)} 0 0 1 ${f(r * 1.7)} ${f(r * 0.5)} a${f(r * 0.8)} ${f(r * 0.8)} 0 0 1 ${f(r * 0.5)} ${f(r * 0.9)} Z" fill="url(#hatch3)" stroke="${INK}" stroke-width="6"/>`;
+  },
+  bolt: ([x0, y0, x1, y1], t) => {
+    const next = seeded(t.seed ?? 5);
+    const steps = 7;
+    let d = `M${x0} ${y0}`;
+    for (let i = 1; i <= steps; i++) {
+      const k = i / steps;
+      const side = i === steps ? 0 : (next() - 0.5) * Math.hypot(x1 - x0, y1 - y0) * 0.16;
+      d += ` L${f(x0 + (x1 - x0) * k + side)} ${f(y0 + (y1 - y0) * k - side * 0.3)}`;
+    }
+    return `<path d="${d}" fill="none" stroke="${colour(t.colour)}" stroke-width="${t.width ?? 8}"/>`;
+  },
+  path: (d, t) => `<path d="${esc(d)}" fill="${t.fill ? colour(t.fill) : "none"}" ${t.fill ? 'fill-opacity=".25"' : ""} stroke="${colour(t.colour)}" stroke-width="${t.width ?? 6}" ${t.dashed ? 'stroke-dasharray="22 16"' : ""}/>`,
   number: ([x, y], t) => lettering([x, y], t.text, t.size ?? 150, { fill: colour(t.colour, BLUE), weight: 700 }),
   person: ([x, y, s]) =>
     `<circle cx="${x}" cy="${f(y - s * 0.86)}" r="${f(s * 0.13)}" fill="${INK}"/><path d="M${x} ${f(y - s * 0.72)} V${f(y - s * 0.3)} M${x} ${f(y - s * 0.3)} L${f(x - s * 0.14)} ${y} M${x} ${f(y - s * 0.3)} L${f(x + s * 0.14)} ${y} M${f(x - s * 0.16)} ${f(y - s * 0.56)} L${x} ${f(y - s * 0.64)} L${f(x + s * 0.2)} ${f(y - s * 0.8)}" stroke="${INK}" stroke-width="${f(s * 0.07)}" fill="none"/>`,
