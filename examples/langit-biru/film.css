@@ -1,0 +1,429 @@
+/* "Kenapa langit berwarna biru?": this film's own pieces, on top of the kit's look. */
+:root {
+  --accent: #4da3ff;
+  --accent-2: #ffb21a;
+}
+#sky,
+#space,
+#lab {
+  opacity: 0;
+}
+
+.display.left {
+  position: absolute;
+  left: 104px;
+  top: 330px;
+  font-size: 124px;
+  text-align: left;
+}
+.display.giant {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 380px;
+  font-size: 176px;
+}
+#ask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 330px;
+  font-size: 160px;
+}
+#last {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 470px;
+}
+#last-micro {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 902px;
+}
+.over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 300px;
+  color: var(--t2);
+  font: 500 44px / 1 var(--brand);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+#name-micro {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 640px;
+}
+#recap-over {
+  top: 110px;
+  color: var(--t1);
+  font-size: 58px;
+  font-weight: 600;
+}
+
+/* Labels in the diagrams */
+.scene .chip {
+  position: absolute;
+  font-size: 32px;
+  padding: 16px 26px;
+}
+.scene .chip b {
+  color: var(--t1);
+  font: 600 32px / 1 var(--brand);
+}
+.chip.big {
+  font-size: 38px;
+  padding: 18px 30px;
+}
+.chip.big b {
+  font: 600 38px / 1 var(--brand);
+  color: var(--t1);
+}
+.ball {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+.ball.n {
+  background: radial-gradient(circle at 34% 30%, #fff, #96b9ff 40%, #1e3478);
+}
+.ball.o {
+  background: radial-gradient(circle at 34% 30%, #fff, #ff8c96 40%, #6e1e2e);
+}
+.swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 14px currentColor;
+}
+.bignum {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.bignum b {
+  font-size: 150px;
+  line-height: 1;
+  background: linear-gradient(180deg, #fff 20%, #b9b9c2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.bignum.blue b {
+  background-image: linear-gradient(180deg, #d5e9ff 16%, #4da3ff 60%, #1f5fb0);
+  filter: drop-shadow(0 0 30px rgb(77 163 255 / 0.5));
+}
+.bignum span {
+  color: var(--t2);
+  font: 500 34px / 1 var(--sans);
+}
+.meter {
+  position: absolute;
+  right: 110px;
+  bottom: 250px;
+  display: flex;
+  width: 470px;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 26px;
+  border-radius: 20px;
+  font: 500 26px / 1 var(--mono);
+  color: var(--t2);
+}
+.meter.wide {
+  left: 600px;
+  right: auto;
+  bottom: 240px;
+  width: 720px;
+}
+.meter i {
+  position: relative;
+  flex: 1;
+  height: 14px;
+  border-radius: 7px;
+  background: rgb(255 255 255 / 0.08);
+  overflow: hidden;
+}
+.meter u {
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #1f5fb0, #7fc0ff);
+  box-shadow: 0 0 16px #4da3ff;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* The curve */
+#chart .axis {
+  stroke: rgb(237 237 240 / 0.75);
+  stroke-width: 3;
+}
+#chart text {
+  fill: var(--t2);
+  font: 500 24px var(--mono);
+  text-anchor: middle;
+}
+#chart .tick {
+  stroke: rgb(237 237 240 / 0.4);
+  stroke-width: 2;
+}
+#curve {
+  stroke: #fff;
+  stroke-width: 6;
+}
+#curve-glow {
+  stroke: var(--accent);
+  stroke-width: 22;
+  opacity: 0.32;
+}
+#chart .guide {
+  stroke: rgb(237 237 240 / 0.5);
+  stroke-width: 2.5;
+}
+#pt-red {
+  fill: #ff4034;
+  stroke: #fff;
+  stroke-width: 4;
+}
+#pt-blue {
+  fill: #4696ff;
+  stroke: #fff;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 18px #4da3ff);
+}
+.axis-label {
+  position: absolute;
+  color: var(--t2);
+  font: 500 26px / 1 var(--mono);
+  white-space: nowrap;
+}
+.axis-label.up {
+  transform: rotate(-90deg);
+  transform-origin: 0 0;
+}
+.formula {
+  position: absolute;
+  left: 1190px;
+  top: 190px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font: 600 96px / 1 var(--brand);
+  letter-spacing: -0.03em;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 78px;
+}
+.frac i {
+  width: 150px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--t1);
+}
+.tag {
+  position: absolute;
+  color: #ff8a80;
+  font-size: 56px;
+}
+.calc {
+  position: absolute;
+  left: 1130px;
+  top: 470px;
+  padding: 26px 36px;
+  border-radius: 24px;
+  font: 500 50px / 1 var(--mono);
+  white-space: nowrap;
+}
+.calc b {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Someone looking up */
+#observer circle {
+  fill: #050506;
+  stroke: none;
+}
+#observer path {
+  stroke: #050506;
+  stroke-width: 9;
+}
+
+/* Why not violet */
+.band {
+  position: absolute;
+  left: 200px;
+  top: 600px;
+  width: 1520px;
+  height: 70px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #a854ff 0%, #4696ff 16.7%, #3cd264 43%, #ffd61e 60%, #ff9214 74%, #ff4034 100%);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.4),
+    0 20px 60px rgb(0 0 0 / 0.5);
+  transform-origin: 50% 50%;
+}
+.bar {
+  position: absolute;
+  bottom: 494px;
+  width: 104px;
+  border-radius: 14px 14px 4px 4px;
+  transform-origin: 50% 100%;
+  box-shadow: inset 0 2px 0 rgb(255 255 255 / 0.45);
+}
+.bar span {
+  position: absolute;
+  left: 50%;
+  bottom: -128px;
+  color: var(--t1);
+  font: 600 30px / 1 var(--sans);
+  transform: translateX(-50%);
+}
+.bar.violet {
+  left: 208px;
+  height: 300px;
+  background: linear-gradient(180deg, #d0a8ff, #a854ff 40%, #5a2a9a);
+}
+.bar.blue {
+  left: 420px;
+  height: 188px;
+  background: linear-gradient(180deg, #bcdcff, #4696ff 40%, #1f4f9a);
+}
+.qmark {
+  position: absolute;
+  left: 216px;
+  top: 150px;
+  width: 90px;
+  font-size: 110px;
+  line-height: 1;
+  text-align: center;
+  color: #d0a8ff;
+  filter: drop-shadow(0 0 24px rgb(168 84 255 / 0.7));
+}
+.reasons {
+  position: absolute;
+  left: 200px;
+  top: 330px;
+  width: 1090px;
+}
+.reasons .prow {
+  height: 128px;
+  gap: 28px;
+  font-size: 38px;
+}
+.reasons .prow b {
+  display: grid;
+  width: 60px;
+  height: 60px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--accent) 60%, transparent);
+  color: var(--accent);
+  font: 600 28px / 1 var(--mono);
+}
+.seen {
+  position: absolute;
+  left: 1400px;
+  top: 342px;
+  width: 340px;
+  text-align: center;
+}
+.seen i {
+  display: block;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 28%, #cfe6ff, #4da3ff 55%, #1d5fb8);
+  box-shadow:
+    inset 0 4px 0 rgb(255 255 255 / 0.5),
+    0 0 90px rgb(77 163 255 / 0.5);
+}
+.seen span {
+  display: block;
+  margin-top: 26px;
+  color: var(--t2);
+  font: 500 30px / 1 var(--mono);
+}
+
+/* The long road */
+.road {
+  stroke: rgb(255 255 255 / 0.8);
+  stroke-width: 4;
+}
+.road.in {
+  stroke: #ffd98a;
+  stroke-width: 16;
+  filter: drop-shadow(0 0 16px #ffb21a);
+}
+.pin {
+  fill: #fff;
+  stroke: #0b0b0c;
+  stroke-width: 4;
+}
+.note {
+  position: absolute;
+  right: 96px;
+  bottom: 250px;
+  color: var(--t3);
+  font: 400 24px / 1 var(--mono);
+}
+
+/* The recap */
+.rc {
+  position: absolute;
+  top: 236px;
+  width: 520px;
+  height: 540px;
+  padding: 40px 40px 0;
+  border-radius: 30px;
+  overflow: hidden;
+}
+#rc1 {
+  left: 130px;
+}
+#rc2 {
+  left: 700px;
+}
+#rc3 {
+  left: 1270px;
+}
+.rc svg {
+  display: block;
+  width: 440px;
+  height: 250px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rc b {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin: 26px 0 16px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--accent) 60%, transparent);
+  color: var(--accent);
+  font: 600 26px / 1 var(--mono);
+}
+.rc p {
+  font: 600 37px / 1.24 var(--brand);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.rc em {
+  color: var(--accent);
+}

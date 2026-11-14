@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="hyperframes" content="duration:66.977,fps:60,width:1920,height:1080" />
+    <title>Kenapa langit berwarna biru?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <canvas id="sky" width="1920" height="1080"></canvas>
+      <canvas id="space" width="1920" height="1080"></canvas>
+      <canvas id="lab" width="1920" height="1080"></canvas>
+
+      <!-- s01: the question, over the Earth -->
+      <section class="scene" id="s01">
+        <h1 class="display huge left" id="title"><span class="ln">Kenapa langit</span><span class="ln">berwarna <em class="key">biru?</em></span></h1>
+      </section>
+
+      <!-- s02: the thin blue line -->
+      <section class="scene" id="s02">
+        <svg class="ink"><path id="lead-air" pathLength="1" d="M1250 300 L1180 396" stroke="#ededf0" stroke-width="2.5" /><circle id="dot-air" cx="1180" cy="398" r="7" fill="#fff" stroke="none" /></svg>
+        <span class="chip" id="chip-air" style="left: 1240px; top: 236px">atmosfer</span>
+      </section>
+
+      <!-- s03: sunlight is white -->
+      <section class="scene" id="s03">
+        <span class="chip" id="chip-sun" style="left: 300px; top: 356px">cahaya Matahari</span>
+      </section>
+
+      <!-- s04: the question, stated -->
+      <section class="scene" id="s04">
+        <h2 class="display huge" id="ask"><span class="ln">Jadi, dari mana</span><span class="ln"><em class="key">birunya?</em></span></h2>
+      </section>
+
+      <!-- s08: what air is made of -->
+      <section class="scene" id="s08">
+        <span class="chip big" id="chip-n2" style="left: 1320px; top: 170px"><i class="ball n"></i>N₂ <b>78%</b></span>
+        <span class="chip big" id="chip-o2" style="left: 1320px; top: 262px"><i class="ball o"></i>O₂ <b>21%</b></span>
+      </section>
+
+      <!-- s09: how small -->
+      <section class="scene" id="s09">
+        <span class="chip" id="chip-mol" style="left: 1150px; top: 660px">molekul ≈ 0,3 nm</span>
+        <div class="bignum" id="times" style="left: 190px; top: 590px"><b class="num" id="times-n">1</b><span>× lebih kecil</span></div>
+      </section>
+
+      <!-- s10 and s11: the experiment -->
+      <section class="scene" id="s10">
+        <span class="chip" id="chip-red" style="left: 120px; top: 236px"><i class="swatch" style="background: #ff4034"></i>merah · 700 nm</span>
+        <span class="chip" id="chip-blue" style="left: 120px; top: 236px"><i class="swatch" style="background: #4696ff"></i>biru · 450 nm</span>
+        <div class="meter glass" id="meter"><span>terhambur</span><i><u id="meter-fill"></u></i></div>
+      </section>
+
+      <!-- s12: its name -->
+      <section class="scene" id="s12">
+        <p class="over" id="name-over">namanya</p>
+        <h2 class="display giant" id="name">Hamburan <em class="key">Rayleigh</em></h2>
+        <p class="micro" id="name-micro">Lord Rayleigh <i></i> 1871</p>
+      </section>
+
+      <!-- s13 and s14: the curve -->
+      <section class="scene" id="s13">
+        <svg class="ink" id="chart">
+          <defs>
+            <linearGradient id="spectrum" x1="0" x2="1">
+              <stop offset="0" stop-color="#a854ff" /><stop offset="0.167" stop-color="#4696ff" /><stop offset="0.43" stop-color="#3cd264" /><stop offset="0.6" stop-color="#ffd61e" /><stop offset="0.74" stop-color="#ff9214" /><stop offset="1" stop-color="#ff4034" />
+            </linearGradient>
+          </defs>
+          <path class="axis" id="axis" pathLength="1" d="M320 190 V770 H1650" />
+          <rect id="strip" x="320" y="790" width="1320" height="26" rx="6" fill="url(#spectrum)" />
+          <g id="ticks"></g>
+          <path id="curve-glow" pathLength="1" />
+          <path id="curve" pathLength="1" />
+          <path class="guide" id="guide-red" pathLength="1" d="M1640 770 V712" />
+          <path class="guide" id="guide-blue" pathLength="1" d="M540 770 V428" />
+          <circle id="pt-red" cx="1640" cy="712" r="13" />
+          <circle id="pt-blue" cx="540" cy="428" r="15" />
+        </svg>
+        <span class="axis-label" style="left: 800px; top: 872px">panjang gelombang (nm)</span>
+        <span class="axis-label up" style="left: 232px; top: 480px">kekuatan hamburan</span>
+        <div class="formula" id="formula">∝ <span class="frac">1<i></i>λ⁴</span></div>
+        <span class="tag" id="tag-red" style="left: 1520px; top: 626px"><b class="num">1×</b></span>
+        <div class="bignum blue" id="tag-blue" style="left: 640px; top: 196px"><b class="num" id="blue-n">1,0</b><span>× lebih kuat</span></div>
+        <div class="calc glass" id="calc">(700 / 450)⁴ ≈ <b>5,9</b></div>
+      </section>
+
+      <!-- s15 and s20: someone looking up -->
+      <section class="scene" id="ground">
+        <svg class="ink"><g id="observer" transform="translate(960 792)"><circle cx="0" cy="-58" r="11" /><path d="M0 -46 V-14 M0 -14 L-11 12 M0 -14 L11 12 M-13 -36 L0 -42 L15 -52" /></g></svg>
+      </section>
+
+      <!-- s16 and s17: why not violet -->
+      <section class="scene" id="s16">
+        <div class="band" id="band"></div>
+        <div class="bar violet" id="bar-violet"><span>ungu</span></div>
+        <div class="bar blue" id="bar-blue"><span>biru</span></div>
+        <b class="qmark num" id="qmark">?</b>
+        <div class="panel reasons" id="reasons">
+          <div class="prow"><b>1</b>Matahari memancarkan lebih sedikit ungu</div>
+          <div class="prow"><b>2</b>Sebagian diserap di atmosfer atas</div>
+          <div class="prow"><b>3</b>Mata kita kurang peka pada ungu</div>
+        </div>
+        <div class="seen" id="seen"><i id="seen-fill"></i><span>yang kita lihat</span></div>
+      </section>
+
+      <!-- s18: the long road at dusk -->
+      <section class="scene" id="s18">
+        <svg class="ink">
+          <path class="road" id="road-noon" pathLength="1" d="M170 820 H392" />
+          <path class="road in" id="in-noon" pathLength="1" d="M392 820 H460" />
+          <path class="road" id="road-dusk" pathLength="1" d="M170 320 H686" />
+          <path class="road in" id="in-dusk" pathLength="1" d="M686 320 H960" />
+          <circle class="pin" id="pin-noon" cx="460" cy="820" r="10" />
+          <circle class="pin" id="pin-dusk" cx="960" cy="320" r="10" />
+        </svg>
+        <span class="chip" id="chip-noon" style="left: 150px; top: 716px">siang · <b class="num">1×</b></span>
+        <span class="chip" id="chip-dusk" style="left: 1010px; top: 222px">senja · ≈ <b class="num" id="dusk-n">1</b><b class="num">×</b></span>
+        <span class="note" id="scale-note">gambar tidak berskala</span>
+      </section>
+
+      <!-- s19: the blue that is left -->
+      <section class="scene" id="s19">
+        <div class="meter glass wide" id="left"><span>sisa biru</span><i><u id="left-fill"></u></i></div>
+      </section>
+
+      <!-- s21: the recap -->
+      <section class="scene" id="s21">
+        <p class="over" id="recap-over">Jadi, kenapa langit biru?</p>
+        <div class="persp">
+          <article class="rc glass" id="rc1">
+            <svg viewBox="0 0 240 150"><path d="M10 78 H96" stroke="#fff" stroke-width="7" /><path d="M96 28 L150 122 H42 Z" fill="rgb(255 255 255 / .1)" stroke="#fff" stroke-width="3" /><g stroke-width="6"><path d="M132 70 L232 32" stroke="#ff4034" /><path d="M134 78 L232 60" stroke="#ffd61e" /><path d="M136 86 L232 88" stroke="#3cd264" /><path d="M138 94 L232 116" stroke="#4696ff" /><path d="M140 102 L232 142" stroke="#a854ff" /></g></svg>
+            <b>1</b>
+            <p>Cahaya putih = <em>semua warna</em></p>
+          </article>
+          <article class="rc glass" id="rc2">
+            <svg viewBox="0 0 240 150"><g stroke="#4696ff" stroke-width="5"><path d="M120 75 L48 28 M120 75 L192 28 M120 75 L36 86 M120 75 L204 86 M120 75 L72 136 M120 75 L168 136 M120 75 L120 12" /></g><circle cx="108" cy="75" r="17" fill="#96b9ff" stroke="none" /><circle cx="132" cy="75" r="17" fill="#6f9cf5" stroke="none" /></svg>
+            <b>2</b>
+            <p>Udara menghamburkan biru <em>≈ 5,9×</em> lebih kuat</p>
+          </article>
+          <article class="rc glass" id="rc3">
+            <svg viewBox="0 0 240 150"><defs><linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2450" /><stop offset=".6" stop-color="#b9485a" /><stop offset="1" stop-color="#ff8a2a" /></linearGradient></defs><rect x="8" y="8" width="224" height="112" rx="12" fill="url(#dusk)" stroke="none" /><circle cx="120" cy="112" r="26" fill="#ffd9a0" stroke="none" /><rect x="8" y="112" width="224" height="30" fill="#0d0d10" stroke="none" /></svg>
+            <b>3</b>
+            <p>Senja: jalur panjang, <em>tinggal jingga</em></p>
+          </article>
+        </div>
+      </section>
+
+      <!-- s22: the line to remember -->
+      <section class="scene" id="s22">
+        <h2 class="display huge" id="last"><span class="ln">Langit biru =</span><span class="ln"><em class="key">hamburan Rayleigh.</em></span></h2>
+        <p class="micro" id="last-micro">Motion Educator <i></i> film uji</p>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

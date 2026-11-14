@@ -1,0 +1,6 @@
+node_modules/
+out/
+kit/audio/lib/
+.DS_Store
+*.log
+engines/
