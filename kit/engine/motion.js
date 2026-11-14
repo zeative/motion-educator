@@ -233,7 +233,11 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       for (const part of text.split(/(\*[^*]+\*)/)) {
         if (!part) continue;
         const strong = part.startsWith("*");
-        for (const word of (strong ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean)) tokens.push({ word, strong });
+        for (const word of (strong ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean)) {
+          // Punctuation left outside the stars ("*Suara*?") belongs to the word before it.
+          if (/^[.,;:!?)…]+$/.test(word) && tokens.length) tokens.at(-1).word += word;
+          else tokens.push({ word, strong });
+        }
       }
       // When each word is said. Known exactly, or spread by length across the time there is.
       const line = voiced[shot.id];

@@ -59,7 +59,8 @@ function takeText() {
   }
   return sb.voice?.direction ? `${sb.voice.direction} ${text}` : text;
 }
-const sha = () => createHash("sha256").update(`${sb.voice?.voice_id ?? ""}\n${sb.voice?.model ?? ""}\n${takeText()}`).digest("hex").slice(0, 16);
+// What makes a take stale: other words, another voice or model. Not where the acts fall: that only moves a breath.
+const sha = () => createHash("sha256").update(`${sb.voice?.voice_id ?? ""}\n${sb.voice?.model ?? ""}\n${sb.voice?.direction ?? ""}\n${speaking.map((shot) => shot.voice.replaceAll("*", "").trim()).join(" ")}`).digest("hex").slice(0, 16);
 
 if (args.includes("--script")) {
   console.log(JSON.stringify({ voice: sb.voice ?? null, characters: takeText().length, take: takeText(), shots: speaking.map((shot) => ({ id: shot.id, text: shot.voice })) }, null, 2));
@@ -192,73 +193,75 @@ function timeline() {
   const L = manifest.lines;
   const pieces = [];
   const times = {};
+  const stretch = {}; // which stretch of the take each line is in
   let film = 0; // where the film is
   let piece = null; // the stretch of take now playing: { from, to, at }
   let last = null; // the last speaking shot
+  const order = speaking.map((shot) => shot.id);
+  const after = (id) => L[order[order.indexOf(id) + 1]];
+  // A stretch ends a little after its last word and the next begins a little before its first: never more than
+  // half the performer's pause each, so two stretches cannot hold the same sound.
+  const close = (id, keep) => {
+    const room = after(id) ? Math.max(0, after(id).from - L[id].to) : 0.5;
+    piece.to = Math.min(manifest.take.duration, L[id].to + (keep ?? Math.min(0.18, room / 2)));
+    pieces.push(piece);
+    const end = piece.at + (piece.to - piece.from);
+    piece = null;
+    return end;
+  };
+  const open = (line, wordAt, keep) => {
+    const room = last ? Math.max(0, line.from - L[last].to) : line.from;
+    const pre = keep ?? Math.min(0.12, room / 2);
+    piece = { from: line.from - pre, at: wordAt - pre };
+  };
   for (const shot of shots) {
     const line = L[shot.id];
     if (!line) {
       // A silent beat: the take stops for as long as the shot was given.
       const length = Math.max(0.4, shot.end - shot.start || 1.5);
-      if (piece) {
-        piece.to = Math.min(manifest.take.duration, L[last].to + 0.18);
-        film = Math.max(film, piece.at + (piece.to - piece.from));
-        pieces.push(piece);
-        piece = null;
-      }
+      if (piece) film = Math.max(film, close(last));
       times[shot.id] = { start: film, end: film + length };
       film += length;
       continue;
     }
     if (!piece) {
-      // The take starts, or resumes after a silent beat: this line's first word comes FIRST after the cut.
-      const from = Math.max(0, line.from - 0.12);
-      const at = film + (last === null && film === 0 ? cut.first : cut.lead) - (line.from - from);
-      piece = { from, at: Math.max(film, at) };
+      // The take starts, or resumes after a silent beat: the first word comes FIRST (or LEAD) after the cut.
+      open(line, film + (last === null && film === 0 ? cut.first : cut.lead));
+      if (piece.at < film) piece.at = film;
       times[shot.id] = { start: film };
     } else {
       const gap = line.from - L[last].to;
       const extra = shots.find((s) => s.id === last).hold ?? 0;
       if (gap > cut.pause + 0.05 || extra > 0) {
-        // Close the stretch after the last line, and open a new one before this line: the pause becomes PAUSE
-        // (plus any hold).
-        const keep = Math.min(gap, cut.pause);
-        piece.to = L[last].to + keep / 2;
-        pieces.push(piece);
-        const at = piece.at + (piece.to - piece.from) + extra;
-        piece = { from: line.from - keep / 2, at };
+        // A pause held too long becomes PAUSE; a hold adds its silence. The take is opened in the middle of the pause.
+        const keep = Math.min(gap, cut.pause) / 2;
+        const end = close(last, keep);
+        open(line, end + extra + keep, keep);
       }
       // The cut to this shot falls just before its first word.
-      const start = piece.at + (line.from - piece.from) - Math.min(cut.lead, Math.max(0.02, gap / 2));
+      const start = piece.at + (line.from - piece.from) - Math.min(cut.lead, Math.max(0.02, Math.min(gap, cut.pause) / 2));
       times[last].end = start;
       times[shot.id] = { start };
     }
+    stretch[shot.id] = piece;
     film = piece.at + (line.to - piece.from);
     last = shot.id;
     // A speaking shot ends where the next one starts; until one does, it ends after its last word.
-    times[shot.id].end = film + cut.tail + (shot.hold ?? 0);
     const next = shots[shots.indexOf(shot) + 1];
-    if (next && !L[next.id]) {
-      times[shot.id].end = film + 0.3 + (shot.hold ?? 0);
-      film = times[shot.id].end;
-    }
+    times[shot.id].end = film + (next && !L[next.id] ? 0.3 : cut.tail) + (shot.hold ?? 0);
+    if (next && !L[next.id]) film = times[shot.id].end;
   }
-  if (piece) {
-    piece.to = Math.min(manifest.take.duration, L[last].to + 0.25);
-    pieces.push(piece);
-  }
-  const lastShot = shots.at(-1);
-  const duration = times[lastShot.id].end;
-  for (const p of pieces) Object.assign(p, { from: round(p.from), to: round(p.to), at: round(p.at) });
-  for (const t of Object.values(times)) Object.assign(t, { start: round(t.start), end: round(t.end) });
+  if (piece) close(last, 0.25);
+  const duration = times[shots.at(-1).id].end;
   // Each line's words in the film's own time, for captions that keep step with the voice.
   const said = {};
   for (const shot of speaking) {
     const line = L[shot.id];
-    const p = pieces.find((candidate) => line.from >= candidate.from - 0.001 && line.from <= candidate.to + 0.001) ?? pieces.at(-1);
-    const shift = p.at - p.from;
+    const shift = stretch[shot.id].at - stretch[shot.id].from;
     said[shot.id] = { from: round(line.from + shift), to: round(line.to + shift), words: line.words.map(([a, b, w]) => [round(a + shift), round(b + shift), w]) };
   }
+  for (const p of pieces) Object.assign(p, { from: round(p.from), to: round(p.to), at: round(p.at) });
+  for (const t of Object.values(times)) Object.assign(t, { start: round(t.start), end: round(t.end) });
   return { pieces, times, said, duration: round(duration) };
 }
 

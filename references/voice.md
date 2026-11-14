@@ -26,7 +26,8 @@ chunked generation causes "abrupt changes in prosody from one chunk to another".
 - A shot with no `voice` is a silent beat and keeps the length it is given (a poster, a picture that needs a
   moment). `"hold": 0.6` on a speaking shot adds that much silence after its line.
 - `caption` in a narrated film is a key phrase for the screen, not the spoken line again (`narration.md`).
-  `*stars*` mark the accent word, in a caption or in a `voice` line (they are not spoken).
+  `*stars*` mark the accent word, in a caption or in a `voice` line (they are not spoken). Punctuation can sit
+  inside or outside the stars.
 - `direction` is one delivery tag placed before the whole take. Tags can also sit inside a line where the delivery
   changes: `"voice": "[short pause] Makanya, habis lihat kilat, coba hitung detiknya."`
 
@@ -92,6 +93,10 @@ node kit/audio/voice.mjs films/NAME --take AUDIO_URL --words WORDS_URL
 ```
 
 Each generation spends the owner's credits. Do not generate again unless the script changed or a listener asked.
+
+With a connector, the word list that comes back is the script laid against the audio, not an independent hearing
+of it: "100% heard as written" then only means the alignment worked. It cannot tell you a word was mispronounced.
+A person has to listen.
 
 ## What the tool does with the take
 

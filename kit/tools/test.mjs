@@ -124,7 +124,21 @@ try {
     assert(Math.abs(b.start - (voice.film.s02.from - 0.1)) < 0.03, "a shot should start just before its first word");
     assert(voice.film.s03.from - voice.film.s02.to < 0.85, "a pause held too long should be shortened");
     assert(Math.abs(d.end - d.start - 1.5) < 0.01 && Math.abs(cut.duration - d.end) < 0.001, "the silent shot keeps its length and ends the film");
+    for (let k = 1; k < voice.pieces.length; k++) assert(voice.pieces[k].from >= voice.pieces[k - 1].to - 0.001, "two stretches of the take overlap");
     assert(/film:/.test(run("node", [voiceTool, tall])), "the status should pass once the film is cut to the take");
+    // A silent beat right after a line the performer barely paused after: the stretches must not share sound,
+    // and the next line's words must come after the beat.
+    const tight = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
+    tight.shots.splice(1, 0, { ...base, id: "s01b", start: 0, end: 1.0 });
+    delete tight.shots[1].voice;
+    writeFileSync(join(tall, "storyboard.json"), `${JSON.stringify(tight, null, 2)}\n`);
+    run("node", [voiceTool, tall, "--retime"]);
+    const again = JSON.parse(readFileSync(join(tall, "voice", "voice.json"), "utf8"));
+    const beat = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8")).shots[1];
+    for (let k = 1; k < again.pieces.length; k++) assert(again.pieces[k].from >= again.pieces[k - 1].to - 0.001, "stretches overlap around a silent beat");
+    assert(again.film.s02.from >= beat.end + 0.05, `the line after a silent beat starts at ${again.film.s02.from}, before the beat ends at ${beat.end}`);
+    writeFileSync(join(tall, "storyboard.json"), `${JSON.stringify(cut, null, 2)}\n`);
+    run("node", [voiceTool, tall, "--retime"]);
   });
 
   test("tall: the check reads the script as a listener would", () => {
