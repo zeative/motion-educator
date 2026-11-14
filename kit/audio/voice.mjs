@@ -87,7 +87,8 @@ function readWords(file) {
   const list = Array.isArray(data) ? data : (data.words ?? data.transcripts?.[0]?.words ?? []);
   return list
     .map((w) => (Array.isArray(w) ? { start: w[0], end: w[1], text: w[2] } : { start: w.start ?? w.start_time, end: w.end ?? w.end_time, text: w.text ?? w.word, type: w.type }))
-    .filter((w) => w.text?.trim() && (w.type ?? "word") === "word" && Number.isFinite(w.start) && Number.isFinite(w.end));
+    // A delivery tag such as [warmly] can come back in the list as if it were a word; it was not said.
+    .filter((w) => w.text?.trim() && !/^\[.*\]$/.test(w.text.trim()) && (w.type ?? "word") === "word" && Number.isFinite(w.start) && Number.isFinite(w.end));
 }
 // Lines the heard words up with the written ones (longest common run of matching words), then gives every written
 // word a time: its own where it was heard, otherwise shared out between its neighbours by length.
