@@ -18,6 +18,7 @@ Read only the reference your current step needs.
 | Writing and drawing the storyboard (the gate) | `references/storyboard.md` |
 | Choosing the look, the accent, the stage light, 3D | `references/look.md` |
 | Building the film with the kit | `references/engine.md`, then `references/motion.md` |
+| Narration: writing lines, recording with ElevenLabs, captions in step with the voice | `references/voice.md` |
 | Music, sound effects, the mix | `references/sound.md` |
 | Checking the render, independent review | `references/review.md` |
 | Rendering with raea instead of the browser | `references/raea.md` |
@@ -56,11 +57,13 @@ cd <workspace> && npm install                            # three.js, GSAP, the f
 sh kit/audio/fetch.sh                                    # the sound library (not committed: licence)
 ```
 
-Needs Node 20+, Playwright with Chromium, FFmpeg, and Python 3 with numpy for the mix.
+Needs Node 20+, Playwright with Chromium, FFmpeg, and Python 3 with numpy for the mix. `node kit/tools/doctor.mjs`
+checks all of it and says what to install. Add `--portrait` to `new.mjs` for a 1080x1920 short.
 
 ### 1. Brief (a few lines, in the storyboard's head)
 Who is watching, what they already know, and the **promise**: the one sentence they can say after watching. One
-film, one promise. If the topic needs two promises, it is two films. Pick the language the audience reads.
+film, one promise. If the topic needs two promises, it is two films. Pick the language the audience reads, the
+format (landscape for a lesson, portrait for a short) and whether the film speaks or explains with captions alone.
 
 ### 2. Research and the fact sheet
 List every claim the film will make, each with its source, as `facts` in `storyboard.json`. Prefer primary and
@@ -77,6 +80,14 @@ node kit/tools/storyboard.mjs films/NAME --png     # zero errors, then show film
 ```
 
 Send the pages to the person. The contact sheets (the whole film in frames) go first.
+
+If the film speaks (`references/voice.md`): write every shot's line in the storyboard, record them, and let the
+measured lengths set the shot lengths before anything is built.
+
+```sh
+node kit/audio/voice.mjs films/NAME --generate     # or --script and --add, with a speech connector instead of a key
+node kit/audio/voice.mjs films/NAME                # every line's length and whether it fits its shot
+```
 
 ### 4. Build, one shot at a time
 Follow `references/engine.md`. Give each shot a `<section class="scene">` and animate it between
@@ -107,6 +118,9 @@ python3 kit/audio/mix.py films/NAME                   # out/NAME.mp4, loudness m
 python3 kit/audio/mix.py films/NAME --no-sfx --out films/NAME/out/NAME-music-only.mp4
 ```
 
+`node kit/tools/make.mjs films/NAME` runs steps 3 to 7's commands in order (check, voice, render, mix, measure, a
+share copy) and stops at the first that fails. It does not replace looking at stills while you build.
+
 ### 7. Review, fix, verify
 Follow `references/review.md`: `node kit/tools/check.mjs films/NAME` (contact sheets, frozen time, loudness), then a
 fresh reviewer with the film, the storyboard and the person's own words. Fix the largest gaps, re-render only what
@@ -129,6 +143,7 @@ films/NAME/
   film.css            this film's pieces, on top of kit/css/film.css
   film.js             the timeline, built with kit/engine/motion.js
   cues.json           the music bed and every sound, on the film's clock
+  voice/              the narration: one recording a shot, and voice.json with their measured lengths
   out/                renders (never committed)
 ```
 

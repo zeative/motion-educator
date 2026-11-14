@@ -21,6 +21,7 @@ music, frames written with a few helper functions, and the JSON generated from t
   "audience": "who is watching and what they already know",
   "promise": "the one thing the viewer can say in their own words afterwards",
   "language": "id",
+  "format": "1920x1080",
   "duration": 66.977,
   "fps": 60,
   "look": { "accent": "#4da3ff", "accent2": "#ffb21a", "mood": "one or two sentences on the stage, the light and the materials" },
@@ -32,6 +33,10 @@ music, frames written with a few helper functions, and the JSON generated from t
 ```
 
 `rail: false` keeps an act (the hook, the recap) out of the chapter rail the film shows.
+
+`format` is the frame: `"1920x1080"` for a landscape film, `"1080x1920"` for a portrait short. Every coordinate in
+the drawn frames is in that frame. A film that speaks also names its `voice` and gives shots a spoken line; see
+`voice.md`.
 
 ## A shot
 
@@ -69,10 +74,11 @@ music, frames written with a few helper functions, and the JSON generated from t
 | A new picture | about every 3.2 s (at least duration / 3.2 shots) | a held picture stops teaching |
 | Shot length | 1 s to 6 s | shorter cannot be read, longer wants a new picture |
 | Drawn frames | 2 per shot, 3 when it runs 3.4 s or more; about one per 1.25 s over the film | a single frame shows where things sit, not what happens |
-| Captions | on at least 85% of shots that are not pure type | the film must explain itself on mute |
+| Captions | a caption or a spoken line on at least 85% of shots that are not pure type | the film must explain itself on mute |
 | Reading speed | caption characters / (shot length - 0.5 s): 17 is comfortable, 21 is the limit | a caption nobody can finish teaches nothing |
 | Caption length | 104 characters | two lines |
-| Numbers | a caption with a digit must cite a fact | a number is a claim |
+| Numbers | a caption or a spoken line with a digit must cite a fact | a number is a claim |
+| Spoken lines | a recorded line fits its shot with 0.35 s to spare; an unrecorded one is judged at 15 characters a second | the voice must never be cut off by the next shot |
 | Variety | at least four types; never three of the same in a row | the eye needs a new kind of picture |
 | Shape | starts at 0, no gaps, ends on the duration; at least three acts; a `recap` shot; ends on `recap` or `endcard` | |
 | Beat | shot starts within 0.05 s of a beat (warning) | cuts on the grid feel intended |

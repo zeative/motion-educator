@@ -37,6 +37,7 @@ film.finish();                                     // always last
 | Helper | Does |
 | --- | --- |
 | `shots` | every storyboard shot by id, with `start`, `end`, `dur` |
+| `W`, `H`, `portrait` | the frame's size, from the storyboard's `format` |
 | `scene(sel, start, end)` | shows a `.scene` for that window |
 | `show`, `hide`, `land(sel, at)`, `pop(sel, at)` | fade; rise into place; pop in with overshoot |
 | `split(sel)`, `typeIn(chars, at)`, `typeOut(chars, at)` | a heading as characters that arrive and leave one by one |
@@ -47,7 +48,7 @@ film.finish();                                     // always last
 | `light({ lx, ly, glow, floor, ... }, at, dur)`, `tintTo("#hex", at, dur)` | move and recolour the stage's light |
 | `draw(pathSel, at, dur)` | draws SVG paths from their start (give the path `pathLength="1"`) |
 | `count(sel, from, to, at, dur, format)` | counts a number in an element |
-| `captions()`, `chapters({ from, until })` | generated from the storyboard |
+| `captions({ style })`, `chapters({ from, until })` | generated from the storyboard; captions keep time with the narration when there is one (`voice.md`) |
 | `each(fn)` | a job run on every frame, after the timeline: draw canvases and anything GSAP cannot hold |
 | `stage` | the stage's state: `lx ly glow r g b floor horizon camx camy pr ps flash streak silk` |
 
@@ -96,6 +97,8 @@ node kit/tools/render.mjs films/NAME                       # the picture, in fou
 node kit/tools/render.mjs films/NAME --only 12-16          # re-render only the segments touching 12 s to 16 s
 node kit/tools/render.mjs films/NAME --serve               # watch it live: open the printed URL
 node kit/tools/render.mjs films/NAME --fps 30              # a faster draft
+node kit/tools/render.mjs films/NAME --stills 3 --safe     # a still with the app-covered areas shaded
+node kit/tools/make.mjs films/NAME                         # everything in order: check, voice, render, mix, measure
 ```
 
 What was learned about speed on a machine with no GPU (four cores, software WebGL):

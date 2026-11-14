@@ -44,6 +44,22 @@ storyboard's `mood` and each shot's `motion`. Move it toward what the viewer sho
   the object's scale: multiply its power by `scale ** 1.75`), or the object washes out at small sizes.
 - **Tone mapping shifts colours.** Measure a rendered still when a brand colour has to match.
 
+## Portrait
+
+A short is 1080x1920 and is watched in an app that draws over it. Set `"format": "1080x1920"` in the storyboard and
+the stage, the renderer and the board follow.
+
+- **Safe areas.** The app covers about 230 px at the top, 430 px at the bottom and 150 px down the right. What must
+  be read stays inside (`--safe-top`, `--safe-bottom`, `--safe-left`, `--safe-right` in CSS); the stage and
+  pictures run to the edges. `render.mjs --stills ... --safe` shades the covered parts so you can see.
+- **Stack, do not shrink.** A landscape layout scaled down is unreadable. Put the subject in the upper two thirds,
+  the caption under it, one thing a screen. A diagram that ran left to right now runs top to bottom.
+- **Bigger type.** Headings 100 px and up, labels 36 px or more, the smallest lettering 28 px.
+- **Faster.** A new picture every two to three seconds, the question in the first second and a half, and the first
+  frame already moving: the viewer decides whether to stay before the first cut.
+- **Pop captions** by default: two or three large words at a time, in step with the voice (`voice.md`).
+- **The last frame loops.** End on a frame that can cut back to the first without a jolt.
+
 ## A new subject
 
 Pick the accent from the subject (sky blue for the sky, a leaf green for photosynthesis, amber for electricity).
