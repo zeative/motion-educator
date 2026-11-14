@@ -1,18 +1,21 @@
 // The storm: a shader sky and one 2D canvas for everything in the world (bolts, fronts of sound, the observer).
 // Nothing here keeps time. Both layers are drawn from plain state and the film's time, so any frame can be seeked.
 //
-// The world is flat and to scale: 0.31 px for a metre. Sound (343 m/s) therefore moves 106.33 px a second, and a
-// front of sound is drawn as the channel's own outline pushed outward by exactly that much, in real time.
-export const PXM = 0.31;
+// The world is flat and to scale. You stand at x 828 and the race's bolt strikes at x 190, 3 087 m away (9 x 343),
+// so 0.2067 px is a metre. Sound (343 m/s) therefore moves 70.9 px a second, and a front of sound is drawn as the
+// channel's own outline pushed outward by exactly that much, in real time.
+export const YOU = 828; // where you stand, all film long
+export const RACE_M = 9 * 343;
+export const PXM = (YOU - 190) / RACE_M;
 export const SOUND = 343 * PXM;
 // Light cannot be drawn at its speed (it would cross this world in a millionth of a frame). Its shell is drawn at
 // 4 200 px a second, fast enough to be gone in a few frames, and the film says in figures how long it really takes.
 export const LIGHT = 4200;
 export const G = 1100; // the ground
-export const FOOT = { x: 190, y: G }; // where every bolt strikes
+export const FOOT = { x: 190, y: G }; // where the race's bolt strikes: 9 s of sound from you
+export const FOOT3 = { x: YOU - 3 * 343 * PXM, y: G }; // the counted strike: 3 s away
+export const FOOT1 = { x: YOU - 343 * PXM, y: G }; // the last strike: 1 s away
 export const CLOUD = 400; // the cloud base
-export const YOU2 = FOOT.x + 2058 * PXM; // the observer of the race, 6 x 343 m away
-export const YOU1 = FOOT.x + 1029 * PXM; // the observer of the counted strike, 3 x 343 m away
 export const W = 1080;
 export const H = 1920;
 
@@ -50,8 +53,7 @@ function jag(a, b, rand, rough, depth) {
 }
 const lengthOf = (pts) => pts.reduce((n, p, i) => (i ? n + Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1]) : 0), 0);
 // The nearest point of a channel to an observer must be its strike point, or the thunder would arrive early.
-const clear = (pts, margin = 10) =>
-  pts.every(([x, y]) => [YOU1, YOU2].every((you) => Math.hypot(you - x, G - y) >= you - FOOT.x + (y < G - 1 ? margin : 0) - 0.01));
+const clear = (pts, foot, margin = 10) => pts.every(([x, y]) => Math.hypot(YOU - x, G - y) >= YOU - foot[0] + (y < G - 1 ? margin : 0) - 0.01);
 
 // free: a bolt that is only looked at (the one on the horizon), with no observer to keep clear of.
 export function makeBolt(seed, top = [250, 330], foot = [FOOT.x, FOOT.y], { rough = 0.2, branches = 4, free = false, reach: far = 1 } = {}) {
@@ -74,10 +76,10 @@ export function makeBolt(seed, top = [250, 330], foot = [FOOT.x, FOOT.y], { roug
     const rise = 0.6 + rand() * 0.4;
     const build = (s) => jag(from, [from[0] + s * len * reach, Math.min(foot[1] - 60, from[1] + len * rise)], seeded(seed * 31 + b * 7 + 1), 0.26, 4);
     let twig = build(side);
-    if (!free && !clear(twig)) twig = build(-1);
-    if (free || clear(twig)) twigs.push({ pts: twig, at: at / (main.length - 1) });
+    if (!free && !clear(twig, foot)) twig = build(-1);
+    if (free || clear(twig, foot)) twigs.push({ pts: twig, at: at / (main.length - 1) });
   }
-  if (!free && !clear(main, 0)) throw new Error(`bolt ${seed}: the strike point is not the nearest point to the observer`);
+  if (!free && !clear(main, foot, 0)) throw new Error(`bolt ${seed}: the strike point is not the nearest point to the observer`);
   // Fronts of light and sound are drawn around the main channel only: with the twigs the outline is a blot nobody
   // can read, and the twigs are kept clear of the observer so they never change when the sound arrives.
   const path = new Path2D();
@@ -473,8 +475,8 @@ export function createWorld(canvas) {
     //   cam {x, y, z}, pov (0 or 1), flash, dim
     //   strikes: [{ bolt, tau, lead, ghost, front (alpha), rays (alpha), far (the bolt as seen from the observer) }]
     //   ray: { a, p, from: [x, y], to: [x, y] }   the light on its way to the eye
-    //   you2, you1: { a, rim, hear }
-    //   ruler: { p, x0, x1 }
+    //   you: { a, rim, hear }
+    //   ruler: { p, x0, x1 }      the distance measured along the floor, drawn from x0 as far as p says
     draw(v, t) {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, W, H);
@@ -563,36 +565,40 @@ export function createWorld(canvas) {
       }
       camera(v.cam);
       if (v.ruler.p > 0.002) {
-        // The distance, measured along the ground: a tick every 100 m.
+        // The distance, measured along the floor: a tick every 100 m on a short ruler, every 500 m on a long one,
+        // and a taller one at each kilometre.
         const { x0: a, x1: b, p } = v.ruler;
         const end = a + (b - a) * p;
-        const y = G + 30;
+        const y = G + 30 / v.cam.z;
+        const k = 1 / v.cam.z;
+        const metres = (b - a) / PXM;
+        const step = metres > 1500 ? 500 : 100;
         ctx.strokeStyle = "rgba(244,238,255,0.92)";
-        ctx.lineWidth = 3.2;
+        ctx.lineWidth = 3.2 * k;
         ctx.lineCap = "round";
         ctx.beginPath();
         ctx.moveTo(a, y);
         ctx.lineTo(end, y);
-        ctx.moveTo(a, y - 13);
-        ctx.lineTo(a, y + 13);
+        ctx.moveTo(a, y - 13 * k);
+        ctx.lineTo(a, y + 13 * k);
         if (p > 0.995) {
-          ctx.moveTo(b, y - 13);
-          ctx.lineTo(b, y + 13);
+          ctx.moveTo(b, y - 13 * k);
+          ctx.lineTo(b, y + 13 * k);
         }
         ctx.stroke();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = "rgba(244,238,255,0.5)";
-        ctx.beginPath();
-        for (let m = 100; m < 1029; m += 100) {
+        for (let m = step; m < metres - 1; m += step) {
           const x = a + m * PXM;
           if (x > end) break;
-          ctx.moveTo(x, y - 6);
-          ctx.lineTo(x, y + 6);
+          const tall = m % 1000 === 0 ? 10 : 6;
+          ctx.lineWidth = (m % 1000 === 0 ? 2.8 : 2) * k;
+          ctx.strokeStyle = m % 1000 === 0 ? "rgba(244,238,255,0.85)" : "rgba(244,238,255,0.5)";
+          ctx.beginPath();
+          ctx.moveTo(x, y - tall * k);
+          ctx.lineTo(x, y + tall * k);
+          ctx.stroke();
         }
-        ctx.stroke();
       }
-      person(YOU2, 150, { ...v.you2, alpha: v.you2.a, t });
-      person(YOU1, 150, { ...v.you1, alpha: v.you1.a, t });
+      person(YOU, 150, { ...v.you, alpha: v.you.a, t });
     },
   };
 }

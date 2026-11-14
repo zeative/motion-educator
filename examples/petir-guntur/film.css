@@ -56,7 +56,8 @@
 .pin .chip {
   position: absolute;
 }
-#pin-kamu .chip {
+#pin-kamu .chip,
+#pin-kamu2 .chip {
   left: 0;
   bottom: 0;
   translate: -50% 0;
@@ -80,9 +81,9 @@
   position: absolute;
   left: 64px;
   width: 866px;
-  top: 1042px;
-  font-size: 100px;
-  line-height: 1.1;
+  top: 1050px;
+  font-size: 88px;
+  line-height: 1.12;
   text-shadow: none;
 }
 #q .ln,
@@ -100,7 +101,7 @@
 .board {
   position: absolute;
   left: 400px;
-  top: 500px;
+  top: 570px;
   width: 530px;
   overflow: hidden;
   border-radius: 28px;
@@ -112,6 +113,7 @@
   background: linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent);
   color: var(--t2);
   font: 500 28px / 62px var(--mono);
+  white-space: nowrap;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -142,12 +144,58 @@
   transform-origin: 100% 50%;
 }
 
-/* s06: the two speeds as a fraction, and what it comes to */
+/* s03: the length of the race, written over the middle of its ruler */
+.measure {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  translate: -50% 0;
+  color: var(--t1);
+  font-size: 56px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow:
+    0 0 18px rgb(0 0 0 / 0.9),
+    0 3px 10px rgb(0 0 0 / 0.9);
+}
+
+/* s13: the three counts and what each comes to; the figures stand at the feet of their bolts */
+#steps {
+  left: 236px;
+  top: 560px;
+  width: 366px;
+}
+#steps .brow {
+  height: 80px;
+  padding: 0 26px;
+  font-size: 37px;
+}
+#steps .brow span {
+  color: var(--accent);
+  font-weight: 600;
+}
+#steps .brow b {
+  font-size: 37px;
+}
+.tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  translate: -50% 0;
+  color: var(--accent);
+  font-size: 72px;
+  line-height: 1;
+  text-shadow:
+    0 0 22px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 3px 12px rgb(0 0 0 / 0.9);
+}
+
+/* s08: the two speeds as a fraction, and what it comes to */
 .fraction {
   position: absolute;
   left: 64px;
   width: 866px;
-  top: 452px;
+  top: 502px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -168,21 +216,21 @@
   position: absolute;
   left: 64px;
   width: 866px;
-  top: 742px;
+  top: 792px;
   font-size: 138px;
   line-height: 1.1;
 }
 #res-sub {
   left: 64px;
   width: 866px;
-  top: 918px;
+  top: 968px;
 }
 
 /* s07 and s08: the count, in the same place in both */
 #count-label {
   left: 620px;
   width: 310px;
-  top: 400px;
+  top: 460px;
   color: var(--t1);
   font: 500 30px / 1.2 var(--mono);
   text-align: center;
@@ -192,7 +240,7 @@
   position: absolute;
   left: 620px;
   width: 310px;
-  top: 440px;
+  top: 500px;
   font-size: 300px;
   line-height: 1;
   letter-spacing: 0;
@@ -201,21 +249,21 @@
 #detik {
   left: 620px;
   width: 310px;
-  top: 748px;
+  top: 808px;
 }
 .sum {
   position: absolute;
-  left: 618px;
-  top: 832px;
-  width: 312px;
+  left: 632px;
+  top: 892px;
+  width: 298px;
   border-radius: 26px;
   overflow: hidden;
 }
 .srow {
   height: 84px;
-  padding: 0 24px;
+  padding: 0 22px;
   border-bottom: 1px solid var(--line);
-  font-size: 48px;
+  font-size: 46px;
   line-height: 84px;
   white-space: nowrap;
 }
@@ -224,9 +272,9 @@
 }
 .km {
   position: absolute;
-  left: 157px;
+  left: 147px;
   width: 400px;
-  top: 952px;
+  top: 1046px;
   color: var(--accent);
   font-size: 92px;
   line-height: 1;
@@ -276,12 +324,9 @@
   line-height: 1.12;
 }
 
-/* Captions. The question in s01 is lettered in the picture, so its caption is not shown twice. */
-.caption[data-shot="s01"] {
-  display: none;
-}
+/* The spoken words. (The question in s01 is lettered in the picture: its shot has "caption": false.) */
 /* Amber is sound: in the shots about sound the accent words take its colour. */
-.caption[data-shot="s04"] .key,
-.caption[data-shot="s05"] .key {
+.caption[data-shot="s05"] .key,
+.caption[data-shot="s07"] .key {
   color: var(--accent-2);
 }

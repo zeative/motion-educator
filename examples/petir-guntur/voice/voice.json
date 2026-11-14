@@ -1,73 +1,927 @@
 {
+  "version": 2,
   "voice": {
-    "voice_id": "1ijzBXcD3AIVH8RGMcQd",
-    "name": "Jefri",
-    "model": "eleven_multilingual_v2",
+    "voice_id": "xlBOShi2835jfBgaEld4",
+    "name": "Rafiq",
+    "model": "eleven_v4",
     "language": "id"
   },
+  "sha": "34f73b9b52c50451",
+  "source": "take and transcription",
+  "take": {
+    "file": "take.mp3",
+    "duration": 33.567
+  },
+  "agreement": 1,
+  "missed": [],
   "lines": {
     "s01": {
-      "text": "Kenapa petir terlihat dulu, baru guntur terdengar?",
-      "sha": "08b87cbde90f36f6",
-      "file": "s01.mp3",
-      "duration": 3.788,
-      "lead": 0,
-      "tail": 0.275,
-      "speech": 3.513
+      "text": "[curious] Kenapa sih *kilat* selalu kelihatan duluan, baru *gunturnya* nyusul?",
+      "from": 0.133,
+      "to": 3.76,
+      "words": [
+        [
+          0.133,
+          0.4,
+          "Kenapa"
+        ],
+        [
+          0.48,
+          0.64,
+          "sih"
+        ],
+        [
+          0.88,
+          1.12,
+          "kilat"
+        ],
+        [
+          1.2,
+          1.44,
+          "selalu"
+        ],
+        [
+          1.48,
+          1.84,
+          "kelihatan"
+        ],
+        [
+          1.893,
+          2.56,
+          "duluan,"
+        ],
+        [
+          2.68,
+          2.8,
+          "baru"
+        ],
+        [
+          2.88,
+          3.2,
+          "gunturnya"
+        ],
+        [
+          3.24,
+          3.76,
+          "nyusul?"
+        ]
+      ]
     },
     "s02": {
-      "text": "Padahal keduanya lahir bersamaan.",
-      "sha": "ac4ee91d2e5e0ea0",
-      "file": "s02.mp3",
-      "duration": 2.821,
-      "lead": 0.096,
-      "tail": 0.285,
-      "speech": 2.44
+      "text": "[warmly] Padahal dua-duanya lahir *barengan,* lho.",
+      "from": 4.12,
+      "to": 6.32,
+      "words": [
+        [
+          4.12,
+          4.64,
+          "Padahal"
+        ],
+        [
+          4.72,
+          5.2,
+          "dua-duanya"
+        ],
+        [
+          5.28,
+          5.44,
+          "lahir"
+        ],
+        [
+          5.52,
+          6,
+          "barengan,"
+        ],
+        [
+          6.04,
+          6.32,
+          "lho."
+        ]
+      ]
     },
     "s03": {
-      "text": "Cahayanya sampai nyaris seketika.",
-      "sha": "8aea247030a9e65b",
-      "file": "s03.mp3",
-      "duration": 2.638,
-      "lead": 0.078,
-      "tail": 0.3,
-      "speech": 2.261
+      "text": "Bedanya cuma di *kecepatan.*",
+      "from": 6.64,
+      "to": 8.4,
+      "words": [
+        [
+          6.64,
+          7.28,
+          "Bedanya"
+        ],
+        [
+          7.36,
+          7.52,
+          "cuma"
+        ],
+        [
+          7.56,
+          7.6,
+          "di"
+        ],
+        [
+          7.68,
+          8.4,
+          "kecepatan."
+        ]
+      ]
     },
     "s04": {
-      "text": "Suara cuma tiga ratus empat puluh tiga meter per detik.",
-      "sha": "ef89967c33d8620b",
-      "file": "s04.mp3",
-      "duration": 3.527,
-      "lead": 0,
-      "tail": 0.399,
-      "speech": 3.127
+      "text": "Cahaya *ngebut* banget, jadi kilatnya langsung sampai ke mata kamu.",
+      "from": 8.8,
+      "to": 12.8,
+      "words": [
+        [
+          8.8,
+          9.28,
+          "Cahaya"
+        ],
+        [
+          9.44,
+          9.84,
+          "ngebut"
+        ],
+        [
+          9.92,
+          10.4,
+          "banget,"
+        ],
+        [
+          10.6,
+          10.8,
+          "jadi"
+        ],
+        [
+          10.88,
+          11.28,
+          "kilatnya"
+        ],
+        [
+          11.44,
+          11.76,
+          "langsung"
+        ],
+        [
+          11.84,
+          12.04,
+          "sampai"
+        ],
+        [
+          12.08,
+          12.16,
+          "ke"
+        ],
+        [
+          12.24,
+          12.4,
+          "mata"
+        ],
+        [
+          12.44,
+          12.8,
+          "kamu."
+        ]
+      ]
+    },
+    "s05": {
+      "text": "*Suara?* Jauh lebih santai.",
+      "from": 13.2,
+      "to": 15.2,
+      "words": [
+        [
+          13.2,
+          13.76,
+          "Suara?"
+        ],
+        [
+          13.92,
+          14.36,
+          "Jauh"
+        ],
+        [
+          14.4,
+          14.56,
+          "lebih"
+        ],
+        [
+          14.64,
+          15.2,
+          "santai."
+        ]
+      ]
     },
     "s06": {
-      "text": "Cahaya hampir sejuta kali lebih cepat.",
-      "sha": "41e8b25c773991d5",
-      "file": "s06.mp3",
-      "duration": 2.325,
-      "lead": 0,
-      "tail": 0.436,
-      "speech": 1.889
-    },
-    "s07": {
-      "text": "Jadi, lihat kilat, lalu hitung detiknya.",
-      "sha": "b86f758c7d503420",
-      "file": "s07.mp3",
-      "duration": 3.37,
-      "lead": 0,
-      "tail": 0.334,
-      "speech": 3.036
+      "text": "Cuma sekitar tiga ratus empat puluh meter per detik.",
+      "from": 15.44,
+      "to": 18.08,
+      "words": [
+        [
+          15.44,
+          15.68,
+          "Cuma"
+        ],
+        [
+          15.72,
+          16,
+          "sekitar"
+        ],
+        [
+          16.16,
+          16.32,
+          "tiga"
+        ],
+        [
+          16.36,
+          16.56,
+          "ratus"
+        ],
+        [
+          16.72,
+          16.84,
+          "empat"
+        ],
+        [
+          16.88,
+          17.04,
+          "puluh"
+        ],
+        [
+          17.12,
+          17.36,
+          "meter"
+        ],
+        [
+          17.44,
+          17.52,
+          "per"
+        ],
+        [
+          17.64,
+          18.08,
+          "detik."
+        ]
+      ]
     },
     "s08": {
-      "text": "Tiga detik? Petirnya sekitar satu kilometer.",
-      "sha": "d020598550c732dc",
-      "file": "s08.mp3",
-      "duration": 3.422,
-      "lead": 0.099,
-      "tail": 0.325,
-      "speech": 2.998
+      "text": "Artinya, cahaya hampir *sejuta kali* lebih cepat.",
+      "from": 18.24,
+      "to": 21.44,
+      "words": [
+        [
+          18.24,
+          18.88,
+          "Artinya,"
+        ],
+        [
+          19.04,
+          19.52,
+          "cahaya"
+        ],
+        [
+          19.6,
+          19.92,
+          "hampir"
+        ],
+        [
+          20,
+          20.56,
+          "sejuta"
+        ],
+        [
+          20.6,
+          20.72,
+          "kali"
+        ],
+        [
+          20.8,
+          20.96,
+          "lebih"
+        ],
+        [
+          21.04,
+          21.44,
+          "cepat."
+        ]
+      ]
+    },
+    "s09": {
+      "text": "Nah, ini bisa *kamu* pakai.",
+      "from": 21.84,
+      "to": 23.44,
+      "words": [
+        [
+          21.84,
+          22.24,
+          "Nah,"
+        ],
+        [
+          22.32,
+          22.56,
+          "ini"
+        ],
+        [
+          22.613,
+          22.72,
+          "bisa"
+        ],
+        [
+          22.8,
+          22.96,
+          "kamu"
+        ],
+        [
+          23.08,
+          23.44,
+          "pakai."
+        ]
+      ]
+    },
+    "s10": {
+      "text": "Begitu lihat *kilat,* hitung detiknya sampai gunturnya kedengaran.",
+      "from": 23.76,
+      "to": 27.44,
+      "words": [
+        [
+          23.76,
+          24,
+          "Begitu"
+        ],
+        [
+          24.08,
+          24.32,
+          "lihat"
+        ],
+        [
+          24.44,
+          24.88,
+          "kilat,"
+        ],
+        [
+          24.96,
+          25.28,
+          "hitung"
+        ],
+        [
+          25.36,
+          25.84,
+          "detiknya"
+        ],
+        [
+          25.92,
+          26.24,
+          "sampai"
+        ],
+        [
+          26.32,
+          26.72,
+          "gunturnya"
+        ],
+        [
+          26.8,
+          27.44,
+          "kedengaran."
+        ]
+      ]
+    },
+    "s12": {
+      "text": "Tiap tiga detik, kira-kira *satu kilometer.*",
+      "from": 27.6,
+      "to": 30.4,
+      "words": [
+        [
+          27.6,
+          27.76,
+          "Tiap"
+        ],
+        [
+          27.84,
+          28,
+          "tiga"
+        ],
+        [
+          28.08,
+          28.56,
+          "detik,"
+        ],
+        [
+          28.613,
+          29.12,
+          "kira-kira"
+        ],
+        [
+          29.28,
+          29.44,
+          "satu"
+        ],
+        [
+          29.52,
+          30.4,
+          "kilometer."
+        ]
+      ]
+    },
+    "s13": {
+      "text": "Makin *cepat* gunturnya datang, makin *dekat* petirnya.",
+      "from": 30.48,
+      "to": 33.6,
+      "words": [
+        [
+          30.48,
+          30.64,
+          "Makin"
+        ],
+        [
+          30.72,
+          30.88,
+          "cepat"
+        ],
+        [
+          30.96,
+          31.36,
+          "gunturnya"
+        ],
+        [
+          31.48,
+          32,
+          "datang,"
+        ],
+        [
+          32.107,
+          32.32,
+          "makin"
+        ],
+        [
+          32.4,
+          32.72,
+          "dekat"
+        ],
+        [
+          32.8,
+          33.6,
+          "petirnya."
+        ]
+      ]
     }
-  }
+  },
+  "pieces": [
+    {
+      "from": 0.067,
+      "at": 0.083,
+      "to": 3.94
+    },
+    {
+      "from": 3.94,
+      "at": 4.507,
+      "to": 18.16
+    },
+    {
+      "from": 18.16,
+      "at": 20.467,
+      "to": 27.52
+    },
+    {
+      "from": 27.52,
+      "at": 31.317,
+      "to": 33.567
+    }
+  ],
+  "film": {
+    "s01": {
+      "from": 0.15,
+      "to": 3.777,
+      "words": [
+        [
+          0.15,
+          0.417,
+          "Kenapa"
+        ],
+        [
+          0.497,
+          0.657,
+          "sih"
+        ],
+        [
+          0.897,
+          1.137,
+          "kilat"
+        ],
+        [
+          1.217,
+          1.457,
+          "selalu"
+        ],
+        [
+          1.497,
+          1.857,
+          "kelihatan"
+        ],
+        [
+          1.91,
+          2.577,
+          "duluan,"
+        ],
+        [
+          2.697,
+          2.817,
+          "baru"
+        ],
+        [
+          2.897,
+          3.217,
+          "gunturnya"
+        ],
+        [
+          3.257,
+          3.777,
+          "nyusul?"
+        ]
+      ]
+    },
+    "s02": {
+      "from": 4.687,
+      "to": 6.887,
+      "words": [
+        [
+          4.687,
+          5.207,
+          "Padahal"
+        ],
+        [
+          5.287,
+          5.767,
+          "dua-duanya"
+        ],
+        [
+          5.847,
+          6.007,
+          "lahir"
+        ],
+        [
+          6.087,
+          6.567,
+          "barengan,"
+        ],
+        [
+          6.607,
+          6.887,
+          "lho."
+        ]
+      ]
+    },
+    "s03": {
+      "from": 7.207,
+      "to": 8.967,
+      "words": [
+        [
+          7.207,
+          7.847,
+          "Bedanya"
+        ],
+        [
+          7.927,
+          8.087,
+          "cuma"
+        ],
+        [
+          8.127,
+          8.167,
+          "di"
+        ],
+        [
+          8.247,
+          8.967,
+          "kecepatan."
+        ]
+      ]
+    },
+    "s04": {
+      "from": 9.367,
+      "to": 13.367,
+      "words": [
+        [
+          9.367,
+          9.847,
+          "Cahaya"
+        ],
+        [
+          10.007,
+          10.407,
+          "ngebut"
+        ],
+        [
+          10.487,
+          10.967,
+          "banget,"
+        ],
+        [
+          11.167,
+          11.367,
+          "jadi"
+        ],
+        [
+          11.447,
+          11.847,
+          "kilatnya"
+        ],
+        [
+          12.007,
+          12.327,
+          "langsung"
+        ],
+        [
+          12.407,
+          12.607,
+          "sampai"
+        ],
+        [
+          12.647,
+          12.727,
+          "ke"
+        ],
+        [
+          12.807,
+          12.967,
+          "mata"
+        ],
+        [
+          13.007,
+          13.367,
+          "kamu."
+        ]
+      ]
+    },
+    "s05": {
+      "from": 13.767,
+      "to": 15.767,
+      "words": [
+        [
+          13.767,
+          14.327,
+          "Suara?"
+        ],
+        [
+          14.487,
+          14.927,
+          "Jauh"
+        ],
+        [
+          14.967,
+          15.127,
+          "lebih"
+        ],
+        [
+          15.207,
+          15.767,
+          "santai."
+        ]
+      ]
+    },
+    "s06": {
+      "from": 16.007,
+      "to": 18.647,
+      "words": [
+        [
+          16.007,
+          16.247,
+          "Cuma"
+        ],
+        [
+          16.287,
+          16.567,
+          "sekitar"
+        ],
+        [
+          16.727,
+          16.887,
+          "tiga"
+        ],
+        [
+          16.927,
+          17.127,
+          "ratus"
+        ],
+        [
+          17.287,
+          17.407,
+          "empat"
+        ],
+        [
+          17.447,
+          17.607,
+          "puluh"
+        ],
+        [
+          17.687,
+          17.927,
+          "meter"
+        ],
+        [
+          18.007,
+          18.087,
+          "per"
+        ],
+        [
+          18.207,
+          18.647,
+          "detik."
+        ]
+      ]
+    },
+    "s08": {
+      "from": 20.547,
+      "to": 23.747,
+      "words": [
+        [
+          20.547,
+          21.187,
+          "Artinya,"
+        ],
+        [
+          21.347,
+          21.827,
+          "cahaya"
+        ],
+        [
+          21.907,
+          22.227,
+          "hampir"
+        ],
+        [
+          22.307,
+          22.867,
+          "sejuta"
+        ],
+        [
+          22.907,
+          23.027,
+          "kali"
+        ],
+        [
+          23.107,
+          23.267,
+          "lebih"
+        ],
+        [
+          23.347,
+          23.747,
+          "cepat."
+        ]
+      ]
+    },
+    "s09": {
+      "from": 24.147,
+      "to": 25.747,
+      "words": [
+        [
+          24.147,
+          24.547,
+          "Nah,"
+        ],
+        [
+          24.627,
+          24.867,
+          "ini"
+        ],
+        [
+          24.92,
+          25.027,
+          "bisa"
+        ],
+        [
+          25.107,
+          25.267,
+          "kamu"
+        ],
+        [
+          25.387,
+          25.747,
+          "pakai."
+        ]
+      ]
+    },
+    "s10": {
+      "from": 26.067,
+      "to": 29.747,
+      "words": [
+        [
+          26.067,
+          26.307,
+          "Begitu"
+        ],
+        [
+          26.387,
+          26.627,
+          "lihat"
+        ],
+        [
+          26.747,
+          27.187,
+          "kilat,"
+        ],
+        [
+          27.267,
+          27.587,
+          "hitung"
+        ],
+        [
+          27.667,
+          28.147,
+          "detiknya"
+        ],
+        [
+          28.227,
+          28.547,
+          "sampai"
+        ],
+        [
+          28.627,
+          29.027,
+          "gunturnya"
+        ],
+        [
+          29.107,
+          29.747,
+          "kedengaran."
+        ]
+      ]
+    },
+    "s12": {
+      "from": 31.397,
+      "to": 34.197,
+      "words": [
+        [
+          31.397,
+          31.557,
+          "Tiap"
+        ],
+        [
+          31.637,
+          31.797,
+          "tiga"
+        ],
+        [
+          31.877,
+          32.357,
+          "detik,"
+        ],
+        [
+          32.41,
+          32.917,
+          "kira-kira"
+        ],
+        [
+          33.077,
+          33.237,
+          "satu"
+        ],
+        [
+          33.317,
+          34.197,
+          "kilometer."
+        ]
+      ]
+    },
+    "s13": {
+      "from": 34.277,
+      "to": 37.397,
+      "words": [
+        [
+          34.277,
+          34.437,
+          "Makin"
+        ],
+        [
+          34.517,
+          34.677,
+          "cepat"
+        ],
+        [
+          34.757,
+          35.157,
+          "gunturnya"
+        ],
+        [
+          35.277,
+          35.797,
+          "datang,"
+        ],
+        [
+          35.904,
+          36.117,
+          "makin"
+        ],
+        [
+          36.197,
+          36.517,
+          "dekat"
+        ],
+        [
+          36.597,
+          37.397,
+          "petirnya."
+        ]
+      ]
+    }
+  },
+  "duration": 40.397
 }

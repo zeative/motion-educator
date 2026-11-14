@@ -18,10 +18,10 @@
       <canvas id="world" width="1080" height="1920"></canvas>
       <div id="bolt-flash"></div>
 
-      <!-- s01: the question, under the storm -->
+      <!-- s01: the question as it is asked, under the storm -->
       <section class="scene" id="s01">
         <h1 class="display" id="q">
-          <span class="ln">Kenapa <em class="key">petir</em></span><span class="ln">terlihat dulu,</span><span class="ln">baru <em class="key2">guntur</em></span><span class="ln">terdengar?</span>
+          <span class="ln">Kenapa sih <em class="key">kilat</em></span><span class="ln">selalu kelihatan</span><span class="ln">duluan, baru</span><span class="ln"><em class="key2">gunturnya</em> nyusul?</span>
         </h1>
       </section>
 
@@ -32,20 +32,24 @@
         <div class="pin" id="pin-sound2"><span class="chip" id="chip-sound2"><i class="dot sound"></i>guntur = suara</span></div>
       </section>
 
-      <!-- s03 to s05: the race, with the board that says when each arrives -->
+      <!-- s03 to s07: the race, with the board that says when each arrives -->
       <section class="scene" id="s03">
         <div class="pin" id="pin-kamu"><span class="chip small" id="chip-kamu">kamu</span></div>
+        <div class="pin" id="pin-km3"><b class="measure num" id="km3">≈ 3 km</b></div>
         <div class="board glass" id="board">
           <div class="bhead">tiba di kamu</div>
-          <div class="brow" id="row-light"><i class="dot light"></i><span>cahaya</span><b class="num" id="t-light">0,000007 detik</b></div>
+          <div class="brow" id="row-light"><i class="dot light"></i><span>cahaya</span><b class="num" id="t-light">0,00001 detik</b></div>
           <div class="brow" id="row-sound"><i class="dot sound"></i><span>suara</span><b class="num" id="t-sound">…</b></div>
         </div>
-        <span class="chip" id="chip-c" style="left: 300px; top: 752px"><i class="dot light"></i>≈ 300.000 km/detik</span>
-        <div class="pin" id="pin-sound"><span class="chip" id="chip-v"><i class="dot sound"></i>≈ 343 m/detik</span></div>
+        <span class="chip" id="chip-c" style="left: 300px; top: 832px"><i class="dot light"></i>≈ 300.000 km/detik</span>
+        <div class="pin" id="pin-sound">
+          <span class="chip" id="chip-n"><i class="dot sound"></i>suara</span>
+          <span class="chip" id="chip-v"><i class="dot sound"></i>≈ 343 m/detik</span>
+        </div>
       </section>
 
-      <!-- s06: the ratio -->
-      <section class="scene" id="s06">
+      <!-- s08: the ratio -->
+      <section class="scene" id="s08">
         <div class="fraction">
           <span class="chip" id="fr-a"><i class="dot light"></i>cahaya <b>299.792.458 m/detik</b></span>
           <i class="rule" id="fr-rule"></i>
@@ -55,14 +59,16 @@
         <p class="sub" id="res-sub">lebih cepat</p>
       </section>
 
-      <!-- s07 and s08: the count -->
-      <section class="scene" id="s07">
+      <!-- s09 to s12: the count, in the same place all the way -->
+      <section class="scene" id="s09">
+        <div class="pin" id="pin-kamu2"><span class="chip small" id="chip-kamu2">kamu</span></div>
         <p class="label" id="count-label">detik sejak kilat</p>
+        <b class="display digit" id="d0"><em class="key">0</em></b>
         <b class="display digit" id="d1"><em class="key">1</em></b>
         <b class="display digit" id="d2"><em class="key">2</em></b>
         <b class="display digit" id="d3"><em class="key">3</em></b>
       </section>
-      <section class="scene" id="s08">
+      <section class="scene" id="s11">
         <p class="sub" id="detik">detik</p>
         <div class="sum glass" id="sum">
           <div class="srow num" id="sum-a">× 343 m</div>
@@ -71,8 +77,21 @@
         <b class="km num" id="km">≈ 1 km</b>
       </section>
 
-      <!-- s09: the recap and the line to remember -->
-      <section class="scene" id="s09">
+      <!-- s13: the sooner the thunder, the nearer the strike -->
+      <section class="scene" id="s13">
+        <div class="board glass" id="steps">
+          <div class="bhead">detik → jarak</div>
+          <div class="brow" id="step-9"><span class="num">9 detik</span><b class="num">≈ 3 km</b></div>
+          <div class="brow" id="step-3"><span class="num">3 detik</span><b class="num">≈ 1 km</b></div>
+          <div class="brow" id="step-1"><span class="num">1 detik</span><b class="num">≈ 343 m</b></div>
+        </div>
+        <div class="pin" id="pin-9"><b class="tag num" id="tag-9">9</b></div>
+        <div class="pin" id="pin-3"><b class="tag num" id="tag-3">3</b></div>
+        <div class="pin" id="pin-1"><b class="tag num" id="tag-1">1</b></div>
+      </section>
+
+      <!-- s14: the recap and the line to remember -->
+      <section class="scene" id="s14">
         <div class="rc glass" id="rc1" style="top: 270px">
           <svg viewBox="0 0 200 200" class="pic">
             <path d="M40 150 A62 62 0 0 1 164 150" stroke="#ffb347" stroke-width="6" fill="none" stroke-linecap="round" />
@@ -81,7 +100,7 @@
             <path d="M112 24 L92 70 L110 78 L86 118 L104 124 L102 150" stroke="#a98bff" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".3" />
             <path d="M14 152 H190" stroke="#ededf0" stroke-width="3" opacity=".5" stroke-linecap="round" />
           </svg>
-          <p>Kilat dan guntur<br /><b>lahir bersamaan</b></p>
+          <p>Kilat dan guntur<br /><b>lahir barengan</b></p>
         </div>
         <div class="rc glass" id="rc2" style="top: 495px">
           <svg viewBox="0 0 200 200" class="pic">
