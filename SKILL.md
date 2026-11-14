@@ -18,7 +18,8 @@ Read only the reference your current step needs.
 | Writing and drawing the storyboard (the gate) | `references/storyboard.md` |
 | Choosing the look, the accent, the stage light, 3D | `references/look.md` |
 | Building the film with the kit | `references/engine.md`, then `references/motion.md` |
-| Narration: writing lines, recording with ElevenLabs, captions in step with the voice | `references/voice.md` |
+| Writing the narration: talk, not captions; Indonesian and English register | `references/narration.md` |
+| The voice: choosing it, performing one take with ElevenLabs, cutting the film to it | `references/voice.md` |
 | Music, sound effects, the mix | `references/sound.md` |
 | Checking the render, independent review | `references/review.md` |
 | Rendering with raea instead of the browser | `references/raea.md` |
@@ -43,7 +44,10 @@ Read only the reference your current step needs.
    and the chapter rail are generated from it. Change the plan there, never by hand in the film.
 6. **You do not grade your own work.** Stills of every shot are looked at before a full render, measurements are
    run on the render, and a fresh reviewer who did not build it judges the result (`references/review.md`).
-7. **Say what was not checked.** You cannot hear. Say that the mix was set by measurement, name what a person
+7. **A film that speaks is written as talk and performed as one take.** The script is written whole and said
+   aloud before any shot exists; it is performed once, start to finish, and the picture is cut to the voice. Never
+   one sentence a shot, never one recording a sentence, never a pause trimmed to fit a plan.
+8. **Say what was not checked.** You cannot hear. Say that the mix was set by measurement, name what a person
    should listen for, and deliver a music-only version beside the full mix.
 
 ## Workflow
@@ -70,7 +74,12 @@ List every claim the film will make, each with its source, as `facts` in `storyb
 institutional sources. Do the arithmetic yourself and show it (a number like "5,9x" is written with what it is
 computed from). Write down what you are simplifying, and decide how the film will be honest about it.
 
-### 3. The storyboard: the gate
+### 3. The script, if the film speaks
+Follow `references/narration.md`: one question, written as continuous talk in the audience's own register, said
+aloud and timed, before there is a shot list. Then cut it into shots: each speaking shot's `voice` is its run of
+the script.
+
+### 4. The storyboard: the gate
 Follow `references/storyboard.md`. In short: acts, then shots (a new picture about every three seconds), each shot
 with what it teaches, its caption, what is on screen, the motion, what carries into the next shot, the transition,
 the sound, what to check, the facts it cites, and **two or three drawn frames**. Cut on the music's beat.
@@ -81,15 +90,18 @@ node kit/tools/storyboard.mjs films/NAME --png     # zero errors, then show film
 
 Send the pages to the person. The contact sheets (the whole film in frames) go first.
 
-If the film speaks (`references/voice.md`): write every shot's line in the storyboard, record them, and let the
-measured lengths set the shot lengths before anything is built.
+### 5. The take, if the film speaks
+Follow `references/voice.md`: choose a voice native to the language (let the person hear two or three if you can),
+perform the whole script as one take, and cut the film to it. The storyboard's times are the take's from here on.
 
 ```sh
-node kit/audio/voice.mjs films/NAME --generate     # or --script and --add, with a speech connector instead of a key
-node kit/audio/voice.mjs films/NAME                # every line's length and whether it fits its shot
+node kit/audio/voice.mjs films/NAME --script                       # the take to perform
+node kit/audio/voice.mjs films/NAME --generate                     # with an API key: the take and its word times
+node kit/audio/voice.mjs films/NAME --take AUDIO --words WORDS     # with a speech connector: hand both back
+node kit/audio/voice.mjs films/NAME                                # every shot's time, and the words to listen to
 ```
 
-### 4. Build, one shot at a time
+### 6. Build, one shot at a time
 Follow `references/engine.md`. Give each shot a `<section class="scene">` and animate it between
 `s.sNN.start` and `s.sNN.end`. Build in storyboard order and look at a still of each shot as you finish it:
 
@@ -99,7 +111,7 @@ node kit/tools/render.mjs films/NAME --stills 1.5,4.2,7.9      # finished frames
 
 Compare each still with its drawn frame. What the frame placed at (x, y) is at (x, y).
 
-### 5. Render
+### 7. Render
 
 ```sh
 node kit/tools/render.mjs films/NAME                  # out/picture.mp4, in four-second segments
@@ -109,7 +121,7 @@ node kit/tools/render.mjs films/NAME --only 12-16     # after a fix: only the se
 A minute of film at 60 fps is about half an hour on four CPU cores. Run it in the background and write the cue
 sheet meanwhile.
 
-### 6. Sound
+### 8. Sound
 Follow `references/sound.md`: one music bed whose beat the cuts already sit on, and small clean effects on real
 events, written as `films/NAME/cues.json`.
 
@@ -118,17 +130,17 @@ python3 kit/audio/mix.py films/NAME                   # out/NAME.mp4, loudness m
 python3 kit/audio/mix.py films/NAME --no-sfx --out films/NAME/out/NAME-music-only.mp4
 ```
 
-`node kit/tools/make.mjs films/NAME` runs steps 3 to 7's commands in order (check, voice, render, mix, measure, a
+`node kit/tools/make.mjs films/NAME` runs the commands of steps 4 to 9 in order (check, voice, render, mix, measure, a
 share copy) and stops at the first that fails. It does not replace looking at stills while you build.
 
-### 7. Review, fix, verify
+### 9. Review, fix, verify
 Follow `references/review.md`: `node kit/tools/check.mjs films/NAME` (contact sheets, frozen time, loudness), then a
 fresh reviewer with the film, the storyboard and the person's own words. Fix the largest gaps, re-render only what
 changed, and have a new reviewer verify the list. Stop at the quality bar or when the gains turn cosmetic. When a
 fix changes what a shot shows, change the storyboard to say so and redraw the board: the plan and the film never
 disagree.
 
-### 8. Deliver
+### 10. Deliver
 The MP4 (H.264, 1080p60, about -14 LUFS, true peak under -1 dBFS), a lighter copy for sharing, the music-only
 version, the storyboard pages, and a short honest note: what was measured, what was only looked at, what nobody has
 listened to, and what you would do next.
@@ -143,7 +155,7 @@ films/NAME/
   film.css            this film's pieces, on top of kit/css/film.css
   film.js             the timeline, built with kit/engine/motion.js
   cues.json           the music bed and every sound, on the film's clock
-  voice/              the narration: one recording a shot, and voice.json with their measured lengths
+  voice/              the narration: take.mp3, the time of every word, the cut (voice.json), subtitles.srt
   out/                renders (never committed)
 ```
 

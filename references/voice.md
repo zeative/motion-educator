@@ -1,114 +1,152 @@
-# Narration
+# The voice: performing the narration and cutting to it
 
-A film can explain with captions alone, or it can speak. When it speaks, the voice sets the clock: a shot is as long
-as its line needs, and the captions keep time with the voice.
+`narration.md` is about what is said. This page is about who says it and how: choosing the voice, performing the
+script as one take, cutting the film to that take, and making the voice sit in the mix.
+
+The rule that everything else follows from: **the narration is one continuous performance, and the picture is cut
+to it.** A voice generated one sentence at a time restarts its intonation on every line, and trimming its pauses
+and re-spacing the pieces finishes the job of making it sound like a machine. ElevenLabs' own documentation says
+chunked generation causes "abrupt changes in prosody from one chunk to another".
 
 ## In the storyboard
-
-Name the voice once, and give each shot its line:
 
 ```json
 {
   "language": "id",
-  "voice": { "voice_id": "1ijzBXcD3AIVH8RGMcQd", "name": "Jefri", "model": "eleven_multilingual_v2", "language": "id" },
-  "captions": "pill",
-  "shots": [{ "id": "s03", "voice": "Padahal, cahaya Matahari itu putih.", "caption": "Cahaya Matahari itu *putih*." }]
+  "voice": { "voice_id": "...", "name": "Jefri", "model": "eleven_v4", "language": "id", "direction": "[warmly]" },
+  "shots": [
+    { "id": "s01", "voice": "Kenapa sih kilat selalu kelihatan duluan, baru gunturnya nyusul?" },
+    { "id": "s02", "voice": "Padahal dua-duanya muncul barengan, lho.", "caption": "muncul *barengan*" },
+    { "id": "s09", "start": 0, "end": 2.5 }
+  ]
 }
 ```
 
-- `voice` on a shot is exactly what is said, written the way it should be spoken: numbers as words where the
-  reading is not obvious ("lima koma sembilan kali", "nineteen seventy-one"), no symbols the voice would stumble on.
-- `caption` is optional once there is a voice. With no caption, the spoken line is shown as the subtitle. Give a
-  caption when the screen should carry a shorter line than the voice says, or to mark the accent word with
-  `*stars*`.
-- One sentence a shot, sometimes two short ones. A line that needs a breath in the middle is two shots.
-- `"caption": false` keeps a shot's line off the screen when the picture itself letters it (a title card that is
-  also spoken).
-- Write for the ear: short words, the subject first, the new thing last. Read it aloud; if you run out of air, cut.
-- A number said aloud is a claim like any other: the shot cites its fact.
+- A speaking shot's `voice` is its run of the script, in order. Read one after another, they are the script.
+- A shot with no `voice` is a silent beat and keeps the length it is given (a poster, a picture that needs a
+  moment). `"hold": 0.6` on a speaking shot adds that much silence after its line.
+- `caption` in a narrated film is a key phrase for the screen, not the spoken line again (`narration.md`).
+  `*stars*` mark the accent word, in a caption or in a `voice` line (they are not spoken).
+- `direction` is one delivery tag placed before the whole take. Tags can also sit inside a line where the delivery
+  changes: `"voice": "[short pause] Makanya, habis lihat kilat, coba hitung detiknya."`
 
-## Length: the voice decides
+## Choosing the voice
 
-How fast a voice speaks depends on the voice far more than on the language: of the voices used so far, an
-Indonesian explainer voice ran at 13 to 20 characters a second (15 on average) and an American English one at 17
-to 24 (21 on average). So do not plan the film's length from a guess. A line starts 0.15 s after its shot and has
-to end 0.2 s before the shot does, so a shot needs `0.35 s + the line`.
+The docs call this "the most significant decision", and it is the one an agent is worst placed to make: you cannot
+hear. So:
 
-1. Write every line. Give each shot a first length from `characters / 18 + 0.35`, rounded up to whole beats, and
-   expect to change it. (A plan made at 15 a second for a voice that speaks at 21 came out a quarter too long.)
-2. Record (below). `voice.mjs` then prints, for every shot, the measured length, the room to spare, and how many
-   beats the shot needs.
-3. Change the shot lengths in the storyboard to fit and run the storyboard check again. Do this before building:
-   retiming a built film moves every shot after the change.
+1. **Native to the language.** Filter the voice library by language and take professional voices recorded in it.
+   Pre-made and generated voices are English voices speaking other languages with an accent.
+2. **Match the register of the script**: a warm, conversational voice for everyday talk; not an announcer, a news
+   reader or a voice whose own description says "formal" or "stiff".
+3. **Shortlist two or three, and let a person choose.** Every library voice has a preview recording. Better: perform
+   the film's first two sentences in each shortlisted voice and send those, so the person hears their own script.
+   It costs a few hundred characters and saves a film in the wrong voice.
+4. One voice a film; the same voice across a series.
 
-A short has no room for whole bars of slack. Count its shots in half beats (set `music.beat` to half the track's
-beat) so a line of 2.1 seconds gets a 2.4 second shot, not a 2.8 second one.
+If nobody can listen before the film is made, say which voice you chose and why, and that it is a guess.
 
-Prefer changing the line to stretching a shot past five seconds. A shot whose line leaves more than a second and a
-half of silence is too long: trim it, or give the silence a purpose (the picture finishing what the voice began).
-
-## Recording
+## Performing the script: one take
 
 ```sh
-node kit/audio/voice.mjs films/NAME                 # status: every line, its recording, its length, its fit
-node kit/audio/voice.mjs films/NAME --generate      # with ELEVENLABS_API_KEY: records what is missing or stale
-node kit/audio/voice.mjs films/NAME --script        # without a key: the lines to record, as JSON
-node kit/audio/voice.mjs films/NAME --add s03 URL   # ...and each recording handed back, as a file or an https URL
+node kit/audio/voice.mjs films/NAME --script      # the take to perform, and each shot's part of it
 ```
 
-Recordings live in `films/NAME/voice/sNN.mp3` beside `voice.json`, which keeps each line's text, length and the
-silence at its ends. A line whose text changed after it was recorded is reported as stale.
+**Model.** `eleven_v4` first: ElevenLabs' current model, recommended by them for narration, Indonesian among its
+languages, and it takes delivery tags. `eleven_multilingual_v2` is the steadier fallback (no tags, but `speed` and
+`<break time="0.6s" />`). Do not use a model because it is the one you used last time.
 
-**With an API key**, `--generate` calls ElevenLabs once per line and also stores the time of every word, so the
-captions land exactly on the voice.
+**Length.** A 20 to 60 second film is 300 to 900 characters: one request. Past about 900 characters quality can
+drift; split longer scripts at paragraphs (acts) and keep continuity with request stitching
+(`previous_request_ids`) when you have the API.
 
-**With a speech connector instead of a key** (an agent that has ElevenLabs tools but no key in the environment):
-take the lines from `--script`, generate each one with the storyboard's `voice_id` (one take, not several: the
-choice is yours to make by listening to nothing, so do not pay for variations nobody will compare), and pass the
-audio URL the connector returns to `--add`. Captions are then spread across each line by word length, which is
-close but not exact: say so when you deliver.
+**Preparing the text** (what is performed, not what is shown):
 
-Never paste a key into the storyboard, a script or a commit. It lives in the environment.
+- Numbers, units, years and percentages as words, in the script's language. The tool warns about digits.
+- Acronyms and foreign names the way they should sound; on v4 a word can be replaced by its IPA between slashes.
+- Punctuation is the performance: commas and full stops are pauses, a dash is a short beat, a question mark lifts.
+  An ellipsis reads as hesitation: keep it out of confident explaining.
+- Capitals for emphasis, at most once or twice a film.
+- Tags (v4, v3 only), sparingly: one calm direction at the top (`[warmly]`), `[short pause]` before the turn or the
+  payoff. A tag holds until the next one. Tags describe how a line is spoken, not what happens.
+- Leave voice settings at their defaults (stability about 0.5, similarity about 0.75, style 0) unless a listener
+  asks for a change: steadier is higher stability, livelier is lower. Style above zero makes pace and pronunciation
+  unstable.
 
-## Choosing a voice
+**With an API key** (`ELEVENLABS_API_KEY`):
 
-- Match the audience and the language first, then the register: calm and clear for a lesson, quicker and more
-  casual for a short.
-- One voice a film. Keep the same `voice_id` across a series.
-- For Indonesian, use a voice recorded in Indonesian; a multilingual English voice reads Indonesian with an accent.
-- You cannot hear it. Pick by the voice's description and labels, say which you picked, and ask the person to
-  listen to the first line before recording the rest when the film is long.
+```sh
+node kit/audio/voice.mjs films/NAME --generate    # the take and the time of every word, in one request
+```
+
+**With a speech connector and no key** (an agent that has ElevenLabs tools):
+
+1. Take the `take` text from `--script`. Generate it once: the storyboard's `voice_id`, model `eleven_v4`, one
+   variation. Poll until it completes and keep the audio URL.
+2. Transcribe that same audio with word times (the connector's speech-to-text on the generated node) and keep the
+   URL of the word list.
+3. Hand both back:
+
+```sh
+node kit/audio/voice.mjs films/NAME --take AUDIO_URL --words WORDS_URL
+```
+
+Each generation spends the owner's credits. Do not generate again unless the script changed or a listener asked.
+
+## What the tool does with the take
+
+It lines the heard words up with the written ones, and reports how much of the script was heard as written and
+which words were not. Those words are the places to listen to: a number read differently, a name, a word the model
+got wrong. Then it cuts the film to the take:
+
+- A shot starts a tenth of a second before its first word. The film's first word comes 0.15 s in.
+- The take plays through unbroken wherever one line follows another: the performer's own pauses are kept.
+- It is opened only at a silent shot, a `hold`, or a pause held longer than 0.75 s (shortened to that).
+- Every shot's `start` and `end` in `storyboard.json`, and the film's `duration`, are rewritten from the take.
+
+```sh
+node kit/audio/voice.mjs films/NAME               # the script, the take, the agreement, every shot's time
+node kit/audio/voice.mjs films/NAME --retime      # again, after storyboard.json was regenerated
+```
+
+If the storyboard is written by a script of your own (a `storyboard.build.py`), run `--retime` after it each time:
+the build writes the plan, the take sets the times. Build the film only after the take exists; a shot's length is
+a guess until then.
+
+**After the take, look at the cut.** A shot under a second and a half is a line too short to carry a picture: join
+it to its neighbour. A shot over six seconds needs a second picture: split the line at a clause. Then fix the
+script, not the audio, and perform it again.
+
+The cuts follow the voice, so they no longer sit on the music's beat. That is how narrated explainers are cut. Put
+the big hits on the cuts that matter and let the bed run under.
 
 ## In the mix
 
-The mixer places each line on its shot, brings the whole narration to one level (-16 LUFS before the master), and
-makes room for it: while someone speaks the music sits 9 dB lower and the effects 4 dB lower, opening a little
-before each line and closing slowly after it. Change these in `cues.json`:
+The mixer plays the take in the stretches the cut made, through a voice chain, and makes room for it:
+
+| Step | Default | Why |
+| --- | --- | --- |
+| High-pass | 85 Hz | rumble a voice does not need |
+| Low-mid dip, presence lift | -1.5 dB at 220 Hz, +2 dB at 2.4 kHz | clarity on a phone speaker |
+| De-esser | light | generated voices hiss on s and c |
+| Compression | 3:1, soft knee | even level without pumping |
+| Level | -16 LUFS before the master | the voice is the loudest thing in the film |
+| Music under speech | 11 dB lower while someone speaks | with a bed at -22 LUFS, that is about 18 dB under the voice |
+| Effects under speech | 4 dB lower | they go between the words anyway |
+
+Change any of it in `cues.json`:
 
 ```json
-{ "voice": { "lufs": -16, "lead": 0.15, "duck_db": -9, "sfx_db": -4 } }
+{ "music": { "file": "lib/music/xceed_thru_johann.mp3", "lufs": -22 }, "voice": { "lufs": -16, "duck_db": -11, "sfx_db": -4 } }
 ```
 
-- Under narration the music is a bed. Choose a track without a lead melody, and set it 2 to 3 dB lower than you
-  would for a silent film (`"lufs": -20`).
-- Effects go between the words, not on them. A hit lands on the cut, before the line starts.
+- Choose a bed without a lead melody, and keep it low: under a voice, music is felt more than heard.
+- Effects go between the words. A hit lands on a cut, before the line starts.
 - `mix.py --no-voice` makes the version without narration, for tracing a complaint to the right layer.
-
-## Captions with a voice
-
-`film.captions()` shows the caption (or the spoken line) in one of two styles:
-
-| Style | Looks like | Use |
-| --- | --- | --- |
-| `pill` | a glass bar of subtitles near the bottom | landscape films; the default there |
-| `pop` | two or three large words at a time, each lighting as it is said | portrait shorts; the default there |
-
-Set `"captions": "pill"` or `"pop"` in the storyboard to choose. A long line is cut into groups that follow one
-another; with `pop`, a group is at most three words. In a caption that the screen shows instead of the spoken line,
-the words are paced across the time the line takes.
 
 ## What to say when you deliver
 
-That nobody has listened: the voice was chosen by its description, the mix was set by measurement, and the captions
-follow the voice exactly (word times) or approximately (paced by length), whichever is true. Name the voice. Ask
-the person to check the pronunciation of names, numbers and any foreign word.
+That nobody has listened. Name the voice and the model. Give the measured pace (words a minute) and the words the
+tool did not hear as written. Ask the person to listen for: the voice itself (is it the right person for this?),
+pronunciation of names and numbers, any place the tone restarts or a pause feels wrong, and whether the music
+crowds the voice. Offer the same film in a second voice if they hesitate about the first.

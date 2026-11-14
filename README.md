@@ -136,7 +136,7 @@ cd ~/films && npm install && sh kit/audio/fetch.sh
 node kit/tools/storyboard.mjs films/moon-face --png
 
 # 2. Record the narration (optional) and let it set the shot lengths
-node kit/audio/voice.mjs films/moon-face --generate      # needs ELEVENLABS_API_KEY
+node kit/audio/voice.mjs films/moon-face --generate      # one take, and the film cut to it (ELEVENLABS_API_KEY)
 
 # 3. Build index.html, film.css and film.js, looking at stills as you go
 node kit/tools/render.mjs films/moon-face --stills 1.5,4.2 --safe
@@ -155,10 +155,11 @@ a second, so a minute of film takes around half an hour.
 ```mermaid
 flowchart LR
     A([Brief]) --> B[Fact sheet]
-    B --> C[Storyboard<br/>drawn frames]
+    B --> S[Script<br/>written as talk]
+    S --> C[Storyboard<br/>drawn frames]
     C --> D{Check<br/>+ your yes}
     D -- no --> C
-    D -- yes --> V[Narration<br/>sets shot lengths]
+    D -- yes --> V[One take<br/>the cut follows the voice]
     V --> E[Build<br/>one shot at a time]
     E --> F[Render<br/>4 s segments]
     F --> G[Mix<br/>voice · music · SFX]
@@ -189,20 +190,25 @@ reproducible.
 
 ## Narration
 
-A film can explain with captions alone, or speak. When it speaks, the voice sets the clock: each shot gets its line
-in the storyboard, the lines are recorded with [ElevenLabs](https://elevenlabs.io), and the measured length of each
-decides how long its shot runs. Captions then keep time with the voice, and the mixer lowers the music while
-someone is talking.
+A film can explain with captions alone, or speak. When it speaks, it is written as one piece of talk, performed as
+one continuous take with [ElevenLabs](https://elevenlabs.io), and the picture is cut to the voice: a shot starts
+just before its first word, and the performer's own pauses are kept. The take's word times drive captions that
+light up as each word is said, and the mixer runs the voice through a de-esser and compression and pulls the music
+down under it.
 
 ```json
 {
-  "voice": { "voice_id": "…", "name": "Jefri", "model": "eleven_multilingual_v2", "language": "id" },
-  "shots": [{ "id": "s03", "voice": "Padahal, cahaya Matahari itu putih.", "caption": "Cahaya Matahari itu *putih*." }]
+  "voice": { "voice_id": "…", "name": "Jefri", "model": "eleven_v4", "language": "id", "direction": "[warmly]" },
+  "shots": [
+    { "id": "s01", "voice": "Kenapa sih kilat selalu kelihatan duluan, baru gunturnya nyusul?" },
+    { "id": "s02", "voice": "Padahal dua-duanya muncul barengan, lho.", "caption": "muncul *barengan*" }
+  ]
 }
 ```
 
-With an API key, `voice.mjs --generate` records every line and keeps the time of each word. Without one, an agent
-with an ElevenLabs connector records from `voice.mjs --script` and hands each file back with `--add`. Details:
+The storyboard check reads the script as a listener would: sentences too long for the ear, clipped sentences in a
+row, digits in a spoken line, textbook Indonesian ("tidak", "hanya", "oleh karena itu") and phrases that give a
+machine away. How to write it: [`references/narration.md`](references/narration.md). How to perform and cut it:
 [`references/voice.md`](references/voice.md).
 
 ## The kit
@@ -215,7 +221,7 @@ with an ElevenLabs connector records from `voice.mjs --script` and hands each fi
 | [`kit/css/film.css`](kit/css/film.css) | the look: tokens, glass, metal type, captions, panels, safe areas |
 | [`kit/tools/storyboard.mjs`](kit/tools/storyboard.mjs), [`sketch.mjs`](kit/tools/sketch.mjs) | the storyboard check and the pencil board |
 | [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview |
-| [`kit/audio/voice.mjs`](kit/audio/voice.mjs) | narration: record, measure, check each line fits its shot |
+| [`kit/audio/voice.mjs`](kit/audio/voice.mjs) | narration: one take, matched to the script word by word, and the film cut to it |
 | [`kit/audio/mix.py`](kit/audio/mix.py) | the mixer: voice, music, effects, ducking, mastering, measurement |
 | [`kit/tools/check.mjs`](kit/tools/check.mjs) | contact sheets, frozen time, loudness |
 | [`kit/tools/make.mjs`](kit/tools/make.mjs) | the whole pipeline in one command |
@@ -238,7 +244,8 @@ motion-educator/
 | writing and drawing the storyboard | [`references/storyboard.md`](references/storyboard.md) |
 | choosing the look, or making a portrait short | [`references/look.md`](references/look.md) |
 | building a film with the kit | [`references/engine.md`](references/engine.md), [`references/motion.md`](references/motion.md) |
-| writing and recording narration | [`references/voice.md`](references/voice.md) |
+| writing narration that sounds like talk | [`references/narration.md`](references/narration.md) |
+| choosing a voice, performing the take, cutting to it | [`references/voice.md`](references/voice.md) |
 | choosing music and placing sounds | [`references/sound.md`](references/sound.md) |
 | checking a render and briefing a reviewer | [`references/review.md`](references/review.md) |
 | rendering with raea instead of the browser | [`references/raea.md`](references/raea.md) |

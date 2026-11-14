@@ -79,6 +79,21 @@ Audio: loudness, true peak, the lift of each named event.
 Under 500 words. End with SHIP or ONE MORE PASS (at most three fixes, each concrete).
 ```
 
+### Script review (before the take, for any film that speaks)
+
+```
+You did not write this. Read this narration script as the listener would hear it: <language>, for <audience>.
+Script: <the take text from voice.mjs --script>. The standard it was written to: <path to references/narration.md>.
+Do not rewrite it into your own style. Mark every sentence that sounds written rather than said, that does not lean
+on the sentence before it, that a person of this audience would not say this way in this language, or that only
+names what the picture shows. For Indonesian: mark written-register words, forced slang, particles overused, and
+numbers that would be read awkwardly. Then: does it open on one question and end by answering it? Give the three
+changes that matter most, each as the line now and the line as it should be said. Under 400 words.
+```
+
+A model reviewing a script is a weak stand-in for a person listening. Say so when you deliver, and ask the person
+to listen to the take before the film is built whenever they are reachable.
+
 ### Storyboard review (before building, when the stakes justify it)
 
 ```

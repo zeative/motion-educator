@@ -6,7 +6,6 @@
 //   node kit/tools/storyboard.mjs films/NAME --png      also write storyboard/storyboard-01.png ... (needs Playwright)
 //
 // Exit code 1 when a rule is broken. Nothing is built until this passes and the person has seen the board.
-import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join, relative, resolve } from "node:path";
@@ -27,14 +26,19 @@ const READING = { warn: 17, error: 21, longest: 104 };
 // Frames: a shot is drawn at its start and at its end at least, and once more when it runs long; across the film,
 // about one frame for every 1.25 seconds, so the board shows what happens and not only where things sit.
 const FRAMES = { each: 2, long: 3.4, perSecond: 1 / 1.25 };
-// Narration: a line starts LEAD after its shot and ends TAIL before the shot does. Before it is recorded its length
-// can only be guessed: voices measured so far run from 13 to 24 characters a second. So the check warns above 20 and
-// refuses above 27, which no voice reaches; once a line is recorded, its measured length is used instead.
-const VOICE = { lead: 0.15, tail: 0.2, warn: 20, refuse: 27 };
+// Narration. A film that speaks is cut to one continuous take (kit/audio/voice.mjs): once the take exists, the
+// storyboard's times are the take's. Before that, a shot's length is only a plan.
 const [W, H] = (sb.format ?? "1920x1080").split("x").map(Number);
 const portrait = H > W;
-const recorded = existsSync(join(film, "voice", "voice.json")) ? (JSON.parse(readFileSync(join(film, "voice", "voice.json"), "utf8")).lines ?? {}) : {};
-const lineSha = (text) => createHash("sha256").update(`${sb.voice?.voice_id ?? ""}\n${text}`).digest("hex").slice(0, 16);
+const take = existsSync(join(film, "voice", "voice.json")) ? JSON.parse(readFileSync(join(film, "voice", "voice.json"), "utf8")) : null;
+const cutToTake = take?.version === 2 && Boolean(take.pieces);
+const plain = (text) => text.replace(/\[[^\]]*\]/g, " ").replaceAll("*", "").replace(/\s+/g, " ").trim();
+// Words that make Indonesian narration sound like a textbook, with what people say instead.
+const STIFF_ID = { tidak: "nggak", hanya: "cuma", mengapa: "kenapa", bagaimana: "gimana", merupakan: "itu / adalah dihilangkan", namun: "tapi", anda: "kamu", apakah: "(tanya langsung, atau: ... nggak?)", sangat: "banget", kemudian: "terus / habis itu", tersebut: "itu / tadi", yakni: "yaitu dihilangkan", dapat: "bisa", ialah: "itu", saat: "waktu / pas", ketika: "waktu / pas", seperti: "kayak (kalau santai)", telah: "udah / sudah", sebab: "soalnya / karena", agar: "biar / supaya" };
+const STIFF_ID_PHRASES = { "oleh karena itu": "makanya", "di mana": "(pecah jadi dua kalimat)", "yang mana": "(pecah jadi dua kalimat)", "akan tetapi": "tapi", "dengan demikian": "jadi", "selain itu": "terus / lagi pula", "hal ini": "ini", "hal tersebut": "itu" };
+const PERSONA_ID = ["gue", "gua", "gw", "lo", "lu", "elo", "elu"];
+// Phrases that mark a script as machine-made or as an essay read aloud.
+const TELLS = [/\bin this video\b/i, /\blet'?s dive\b/i, /\bdelve\b/i, /\bto understand (why|how|this)\b/i, /\bnot just\b.*\bbut\b/i, /\btestament\b/i, /\bit'?s worth noting\b/i, /\bpada video (kali )?ini\b/i, /\bmari kita\b/i, /\bhalo (teman|sobat|guys)\b/i, /\bbukan hanya\b.*\btetapi juga\b/i, /\bperlu diketahui\b/i];
 
 const errors = [];
 const warns = [];
@@ -50,6 +54,50 @@ if (!(sb.duration > 0)) err("storyboard", '"duration" in seconds is missing');
 if (!(W > 0 && H > 0) || W % 2 || H % 2) err("storyboard", `"format" must be like "1920x1080" (landscape) or "1080x1920" (portrait); got "${sb.format}"`);
 const narrated = (sb.shots ?? []).some((shot) => shot.voice);
 if (narrated && !sb.voice?.voice_id) err("storyboard", 'shots have "voice" lines but the storyboard names no voice: add "voice": { "voice_id", "name", "model", "language" }');
+if (take && take.version !== 2 && narrated) warn("storyboard", "the narration was recorded line by line (the old way): perform the script as one take with kit/audio/voice.mjs");
+
+// ── The script, read as a listener hears it ────────────────────────────────
+// These catch what makes narration sound written or machine-made. They cannot hear it: a person still has to.
+if (narrated) {
+  const lines = (sb.shots ?? []).filter((shot) => shot.voice).map((shot) => ({ id: shot.id, text: plain(shot.voice) }));
+  const script = lines.map((line) => line.text).join(" ");
+  const sentences = script.split(/(?<=[.!?…])\s+/).filter(Boolean);
+  const count = (text) => text.split(/\s+/).filter(Boolean).length;
+  const indonesian = (sb.voice?.language ?? sb.language) === "id";
+  const longest = indonesian ? 18 : 22;
+  for (const sentence of sentences) if (count(sentence) > longest) warn("script", `a sentence of ${count(sentence)} words is too long to follow by ear (keep under ${longest}): "${sentence.slice(0, 60)}..."`);
+  // Captions read aloud: three short sentences in a row, none leaning on the one before.
+  for (let i = 2; i < sentences.length; i++) {
+    if ([sentences[i - 2], sentences[i - 1], sentences[i]].every((sentence) => count(sentence) <= 5)) {
+      warn("script", `three clipped sentences in a row sound like captions read aloud: join them or let one lean on the last ("${sentences[i - 2]} ${sentences[i - 1]} ${sentences[i]}")`);
+      break;
+    }
+  }
+  if (!/\?/.test(sentences.slice(0, 2).join(" "))) warn("script", "the script does not open on a question: the first two sentences should raise the one question the film answers");
+  for (const line of lines) {
+    if (/\d/.test(line.text)) warn(`shot ${line.id}`, `the spoken line has digits ("${line.text.match(/\S*\d\S*/)[0]}"): write numbers the way they are said, in words, and round them`);
+    for (const tell of TELLS) if (tell.test(line.text)) warn(`shot ${line.id}`, `"${line.text.match(tell)[0]}" marks the script as an essay or as machine-made: say the specific thing instead`);
+    if (indonesian) {
+      const words = line.text.toLowerCase().replace(/[^\p{L}\s-]/gu, " ").split(/\s+/);
+      for (const word of words) {
+        if (STIFF_ID[word]) warn(`shot ${line.id}`, `"${word}" is written Indonesian; said aloud it is usually "${STIFF_ID[word]}"`);
+        if (PERSONA_ID.includes(word)) warn(`shot ${line.id}`, `"${word}" belongs to a creator with a persona; a narrator with no face says "kamu" or "kita"`);
+      }
+      for (const [phrase, instead] of Object.entries(STIFF_ID_PHRASES)) if (line.text.toLowerCase().includes(phrase)) warn(`shot ${line.id}`, `"${phrase}" is written Indonesian; said aloud: ${instead}`);
+    }
+  }
+  const total = count(script);
+  if (cutToTake) {
+    const first = take.lines[lines[0].id];
+    const last = take.lines[lines.at(-1).id];
+    const wpm = total / ((last.to - first.from) / 60);
+    const [slow, fast] = indonesian ? [105, 165] : [120, 175];
+    if (wpm < slow || wpm > fast) warn("script", `the take runs at ${wpm.toFixed(0)} words a minute (explaining sits between ${slow} and ${fast}): ${wpm > fast ? "it will feel rushed" : "it will drag"}`);
+    if (take.agreement < 0.9) warn("script", `only ${(take.agreement * 100).toFixed(0)}% of the script was heard as written in the take: listen to ${take.missed.slice(0, 8).join(", ")}`);
+  }
+  // On screen, the narration's own words again: harder to follow, not easier.
+  if (!portrait) for (const shot of sb.shots ?? []) if (shot.voice && shot.caption && plain(shot.caption).toLowerCase() === plain(shot.voice).toLowerCase() && count(plain(shot.caption)) > 5) warn(`shot ${shot.id}`, "the caption repeats the spoken line word for word: make it the key phrase (three or four words), or leave it out");
+}
 if (!sb.look?.accent) err("storyboard", '"look.accent" is missing: the one colour that carries the point');
 need(sb.look ?? {}, "mood", "look", 20);
 if (!sb.music?.bpm) warn("storyboard", '"music.bpm" is missing: cuts cannot be checked against the beat');
@@ -82,18 +130,14 @@ shots.forEach((shot, i) => {
   if (dur < SHOT.shortest) err(where, `${dur.toFixed(2)} s is too short to read (minimum ${SHOT.shortest} s)`);
   if (dur > SHOT.longest) err(where, `${dur.toFixed(2)} s is too long without a new picture (maximum ${SHOT.longest} s): split it`);
   previousEnd = shot.end;
-  // A spoken line has to fit inside its shot.
+  // A spoken line. Once the film is cut to its take, the shot's length is the line's and there is nothing to fit.
   if (shot.voice) {
-    const room = dur - VOICE.lead - VOICE.tail;
-    const line = recorded[shot.id];
-    if (line && line.sha === lineSha(shot.voice)) {
-      if (line.speech > room + 0.01) err(where, `the recorded line is ${line.speech.toFixed(2)} s but the shot has room for ${room.toFixed(2)} s: lengthen the shot or shorten the line`);
-    } else {
-      const speed = shot.voice.length / Math.max(0.3, room);
-      if (speed > VOICE.refuse) err(where, `the spoken line is ${shot.voice.length} characters for ${room.toFixed(1)} s of room (${speed.toFixed(0)} a second): no voice speaks that fast`);
-      else if (speed > VOICE.warn) warn(where, `the spoken line may not fit (${speed.toFixed(0)} characters a second): record it, then run kit/audio/voice.mjs`);
+    if (!cutToTake) {
+      const speed = plain(shot.voice).length / Math.max(0.3, dur - 0.3);
+      if (speed > 27) err(where, `the spoken line is ${plain(shot.voice).length} characters for a ${dur.toFixed(1)} s shot: no voice speaks that fast (the take will set the real length)`);
     }
     if (/\d/.test(shot.voice) && !(shot.facts?.length > 0)) err(where, "the spoken line states a number but the shot cites no fact");
+    else if (/\b(juta|ribu|ratus|persen|miliar|million|thousand|hundred|percent|billion)\b/i.test(shot.voice) && !(shot.facts?.length > 0)) err(where, "the spoken line states a number but the shot cites no fact");
   }
   // Captions are read, so they get a reading-speed check. (A shot with no caption shows its spoken line instead.)
   if (shot.caption) {
@@ -128,7 +172,7 @@ shots.forEach((shot, i) => {
     if (k > 0 && !(frame.at > frames[k - 1].at)) err(at, "comes before the frame before it");
   });
   // Cuts sit on the music's grid when there is one.
-  if (sb.music?.beat && i > 0) {
+  if (sb.music?.beat && i > 0 && !narrated) {
     const off = (((shot.start - (sb.music.offset ?? 0)) % sb.music.beat) + sb.music.beat) % sb.music.beat;
     if (Math.min(off, sb.music.beat - off) > 0.05) warn(where, `starts ${Math.min(off, sb.music.beat - off).toFixed(2)} s off the beat`);
   }
@@ -170,7 +214,7 @@ const row = (shot, i) => `
     <div class="body">
       <div class="frames n${(shot.frames ?? []).length}">${(shot.frames ?? []).map((frame, k) => frameOf(shot, frame, k)).join("")}</div>
       <dl>
-        ${shot.voice ? `<dt>Voice</dt><dd class="say">${esc(shot.voice)}${recorded[shot.id]?.sha === lineSha(shot.voice) ? ` <u>${recorded[shot.id].speech.toFixed(1)} s</u>` : " <u>not recorded</u>"}</dd>` : ""}
+        ${shot.voice ? `<dt>Voice</dt><dd class="say">${esc(shot.voice)}${cutToTake && take.film?.[shot.id] ? ` <u>${(take.film[shot.id].to - take.film[shot.id].from).toFixed(1)} s</u>` : " <u>not performed yet</u>"}</dd>` : ""}
         <dt>Teaches</dt><dd>${esc(shot.teaches)}</dd>
         <dt>On screen</dt><dd>${esc(shot.screen)}</dd>
         <dt>Motion</dt><dd>${esc(shot.motion)}</dd>

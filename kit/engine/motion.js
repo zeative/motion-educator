@@ -35,9 +35,14 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   if ((storyboard?.shots ?? []).some((shot) => shot.voice)) {
     try {
       const response = await fetch("voice/voice.json");
-      if (response.ok) voiced = (await response.json()).lines ?? {};
+      if (response.ok) {
+        const recorded = await response.json();
+        // A film cut to one take knows when every word is said, in the film's own time.
+        voiced = recorded.version === 2 ? Object.fromEntries(Object.entries(recorded.film ?? {}).map(([id, line]) => [id, { ...line, exact: true }])) : (recorded.lines ?? {});
+      }
     } catch {}
   }
+  const narrated = Object.keys(voiced).length > 0;
 
   // The parts every film has: the stage canvas behind the scenes, a flash and a vignette over them, filter defs.
   const root = $("#root");
@@ -201,10 +206,13 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   // ── Captions ─────────────────────────────────────────────────────────────
   // Every shot's caption from the storyboard, set at the bottom of the frame and read in by word. Words wrapped in
   // *stars* in the storyboard take the accent colour. One source of truth: change the storyboard, the film follows.
-  // What is said in a shot, on screen. The text is the shot's caption, or its spoken line when it has no caption.
-  // Two styles: "pill" (a glass bar of subtitles, the default for landscape) and "pop" (a few large words at a time,
-  // the default for portrait shorts). With narration, the words keep time with the voice: exactly when the recording
-  // came with word times, otherwise spread evenly across the spoken line.
+  // The words on screen. Two styles: "pill" (a glass bar near the bottom, the default for landscape) and "pop" (a
+  // few large words at a time, the default for portrait shorts).
+  // In a film with no voice the caption carries the explanation. In a film that speaks, repeating the narration
+  // word for word on screen makes it harder to follow, not easier, so a pill shows only a shot's "caption" (its key
+  // phrase) and stays out of the way otherwise; set "subtitles": true in the storyboard to show every spoken line.
+  // Pop captions do show what is said: a short is often watched with the sound off.
+  // With a take that has word times, each word appears as it is said.
   const VOICE_LEAD = 0.15;
   const captions = ({ lead = 0.12, tail = 0.1, style = storyboard.captions ?? (portrait ? "pop" : "pill"), chunk } = {}) => {
     let box = $("#captions");
@@ -216,7 +224,9 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     const limit = chunk ?? (style === "pop" ? { words: 3, chars: 18 } : { words: 99, chars: portrait ? 56 : 92 });
     for (const shot of storyboard.shots) {
       // "caption": false keeps a voiced shot's line off the screen (when the picture itself letters it).
-      const text = shot.caption === false ? null : (shot.caption ?? shot.voice);
+      const said = shot.voice ? shot.voice.replace(/\[[^\]]*\]/g, " ").replace(/\s+/g, " ").trim() : null;
+      const subtitles = style === "pop" || !narrated || storyboard.subtitles === true;
+      const text = shot.caption === false ? null : (shot.caption ?? (subtitles ? said : null));
       if (!text) continue;
       // Words, each knowing whether it carries the accent.
       const tokens = [];
@@ -227,14 +237,14 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       }
       // When each word is said. Known exactly, or spread by length across the time there is.
       const line = voiced[shot.id];
-      const from = line ? shot.start + VOICE_LEAD : shot.start + lead;
-      const until = line ? Math.min(shot.end - 0.05, from + line.speech) : shot.end - tail;
+      const from = line?.exact ? line.from : line ? shot.start + VOICE_LEAD : shot.start + lead;
+      const until = line?.exact ? line.to : line ? Math.min(shot.end - 0.05, from + line.speech) : shot.end - tail;
       const exact = line?.words?.length === tokens.length && !shot.caption;
       const weight = tokens.map((token) => token.word.length + 2);
       const total = weight.reduce((a, b) => a + b, 0);
       let run = 0;
       tokens.forEach((token, i) => {
-        token.at = exact ? shot.start + VOICE_LEAD + line.words[i][0] - (line.lead ?? 0) : from + ((until - from) * run) / total;
+        token.at = !exact ? from + ((until - from) * run) / total : line.exact ? line.words[i][0] : shot.start + VOICE_LEAD + line.words[i][0] - (line.lead ?? 0);
         run += weight[i];
       });
       // Groups of words shown together: a new group at the limit, or after a sentence ends.
@@ -329,5 +339,5 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     }
   };
 
-  return { gsap, tl, $, $$, W, H, portrait, voiced, stage, shots, duration, each, show, hide, scene, land, pop, split, typeIn, typeOut, sheen, motionBlur, hit, whip, light, tintTo, draw, count, captions, chapters, finish };
+  return { gsap, tl, $, $$, W, H, portrait, voiced, narrated, stage, shots, duration, each, show, hide, scene, land, pop, split, typeIn, typeOut, sheen, motionBlur, hit, whip, light, tintTo, draw, count, captions, chapters, finish };
 }

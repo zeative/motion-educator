@@ -88,22 +88,53 @@ try {
   }
 
   const tall = join(workspace, "films", "tall");
-  test("tall: narration is scripted, taken in, measured and checked for fit", () => {
+  const keepPlain = () => writeFileSync(join(workspace, "films", "tall-plain.json"), readFileSync(join(tall, "storyboard.json")));
+  keepPlain();
+  // A stand-in film that speaks: three speaking shots and a silent last one, and a stand-in take whose "words" are
+  // bursts of tone at known times, with a long pause before the third line.
+  const voiceTool = join(workspace, "kit", "audio", "voice.mjs");
+  test("tall: the script is one take; a performance is taken in, matched to the script and the film is cut to it", () => {
     const plan = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
-    plan.voice = { voice_id: "test-voice", name: "Test", language: "en" };
-    plan.shots[0].voice = "Why is the sky blue?";
+    const base = plan.shots[0];
+    plan.voice = { voice_id: "test-voice", name: "Test", model: "eleven_v4", language: "en" };
+    plan.shots = [
+      { ...base, id: "s01", voice: "Why is the sky *blue*?" },
+      { ...base, id: "s02", voice: "Because air scatters blue light most." },
+      { ...base, id: "s03", voice: "[warmly] That is the whole answer." },
+      { ...base, id: "s04", start: 0, end: 1.5 },
+    ];
     writeFileSync(join(tall, "storyboard.json"), `${JSON.stringify(plan, null, 2)}\n`);
-    const script = JSON.parse(run("node", [join(workspace, "kit", "audio", "voice.mjs"), tall, "--script"]));
-    assert(script.lines.length === 1 && script.lines[0].id === "s01", "the script should list one line, s01");
-    run("node", [join(workspace, "kit", "audio", "voice.mjs"), tall], { expect: 1 }); // missing
-    // A stand-in recording: 0.2 s of silence, 1.4 s of tone, 0.3 s of silence.
+    const script = JSON.parse(run("node", [voiceTool, tall, "--script"]));
+    assert(script.shots.length === 3 && script.take.includes("Because air") && !script.take.includes("*"), "the script should be one take of three lines, without accent marks");
+    run("node", [voiceTool, tall], { expect: 1 }); // no take yet
+    const heard = "why is the sky blue because air scatters blue light most that is the hole answer".split(" ");
+    const starts = [0.3, 0.55, 0.75, 0.95, 1.2, 2.0, 2.4, 2.7, 3.1, 3.4, 3.7, 6.0, 6.3, 6.5, 6.7, 7.0, 7.3];
+    const words = heard.map((text, k) => ({ text, start: starts[k], end: starts[k] + 0.2, type: "word" }));
+    writeFileSync(join(workspace, "words.json"), JSON.stringify({ words }));
     const take = join(workspace, "take.mp3");
-    run("ffmpeg", ["-y", "-loglevel", "error", "-f", "lavfi", "-i", "sine=frequency=220:duration=1.4", "-af", "adelay=200:all=1,apad=pad_dur=0.3", "-ar", "44100", take]);
-    run("node", [join(workspace, "kit", "audio", "voice.mjs"), tall, "--add", "s01", take]);
-    const line = JSON.parse(readFileSync(join(tall, "voice", "voice.json"), "utf8")).lines.s01;
-    assert(Math.abs(line.speech - 1.4) < 0.12, `measured ${line.speech} s of speech, expected about 1.4`);
-    assert(Math.abs(line.lead - 0.2) < 0.08, `measured ${line.lead} s of leading silence, expected about 0.2`);
-    assert(/fits/.test(run("node", [join(workspace, "kit", "audio", "voice.mjs"), tall])), "the line should fit its shot");
+    run("ffmpeg", ["-y", "-loglevel", "error", "-f", "lavfi", "-i", "sine=frequency=220:duration=8", "-ar", "44100", take]);
+    const out = run("node", [voiceTool, tall, "--take", take, "--words", join(workspace, "words.json")]);
+    assert(/retimed: 4 shots/.test(out), out.trim().split("\n")[0]);
+    const voice = JSON.parse(readFileSync(join(tall, "voice", "voice.json"), "utf8"));
+    assert(voice.missed.join() === "whole", `expected only "whole" to be unheard, got ${voice.missed}`);
+    assert(voice.pieces.length === 2, `the long pause should open the take once: ${voice.pieces.length} stretches`);
+    const cut = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
+    const [a, b, c, d] = cut.shots;
+    assert(a.start === 0 && Math.abs(voice.film.s01.from - 0.15) < 0.01, "the first word should come 0.15 s into the film");
+    assert(Math.abs(b.start - (voice.film.s02.from - 0.1)) < 0.03, "a shot should start just before its first word");
+    assert(voice.film.s03.from - voice.film.s02.to < 0.85, "a pause held too long should be shortened");
+    assert(Math.abs(d.end - d.start - 1.5) < 0.01 && Math.abs(cut.duration - d.end) < 0.001, "the silent shot keeps its length and ends the film");
+    assert(/film:/.test(run("node", [voiceTool, tall])), "the status should pass once the film is cut to the take");
+  });
+
+  test("tall: the check reads the script as a listener would", () => {
+    const out = run("node", [join(workspace, "kit", "tools", "storyboard.mjs"), tall], { expect: 1 });
+    assert(!/does not open on a question/.test(out), "a script that opens on a question was flagged");
+    const plan = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
+    const stiff = { ...plan, language: "id", voice: { ...plan.voice, language: "id" }, shots: plan.shots.map((shot, k) => (k === 1 ? { ...shot, voice: "Hal ini tidak hanya terjadi 343 kali." } : shot)) };
+    writeFileSync(join(workspace, "films", "wide", "storyboard.json"), `${JSON.stringify({ ...stiff, format: "1920x1080" }, null, 2)}\n`);
+    const report = run("node", [join(workspace, "kit", "tools", "storyboard.mjs"), join(workspace, "films", "wide")], { expect: 1 });
+    for (const expected of ['"tidak" is written Indonesian', '"hanya" is written Indonesian', "has digits", '"hal ini" is written Indonesian']) assert(report.includes(expected), `the check missed: ${expected}`);
   });
 
   test("tall: a short render has every frame, at 1080x1920", () => {
@@ -111,19 +142,20 @@ try {
     const picture = join(tall, "out", "picture.mp4");
     assert(size(picture) === "1080x1920", `the picture is ${size(picture)}, not 1080x1920`);
     const frames = Number(execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-count_frames", "-show_entries", "stream=nb_read_frames", "-of", "csv=p=0", picture]).toString().match(/\d+/)?.[0]);
-    assert(Math.abs(frames - 28) <= 1, `${frames} frames, expected 28 (2.791 s at 10 fps)`);
+    const expected = Math.round(JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8")).duration * 10);
+    assert(Math.abs(frames - expected) <= 1, `${frames} frames, expected ${expected}`);
   });
 
   test("tall: rendering again with nothing changed reuses every segment", () => {
     const out = run("node", [join(workspace, "kit", "tools", "render.mjs"), tall, "--fps", "10", "--jobs", "2"]);
-    assert(/every segment is reused/.test(out) && /0 of 1 segments rendered/.test(out), out.trim().split("\n").slice(-2).join(" | "));
+    assert(/every segment is reused/.test(out) && /0 of \d+ segments rendered/.test(out), out.trim().split("\n").slice(-2).join(" | "));
   });
 
   test("the sketcher draws every kind of thing, and the check refuses a thing without its numbers", () => {
     const things = [{ ring: [540, 900, 200] }, { cloud: [540, 300, 400] }, { bolt: [540, 300, 500, 1200] }, { path: "M100 100 L300 400" }, { label: [540, 1500], text: "343 m/s" }];
     const svg = sketch({ at: 0, note: "", draw: things }, "k", { width: 1080, height: 1920 });
     assert((svg.match(/<circle|<path|<text/g) ?? []).length >= 5, "some things drew nothing");
-    const plan = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
+    const plan = JSON.parse(readFileSync(join(workspace, "films", "tall-plain.json"), "utf8"));
     plan.shots[0].frames[0].draw.push({ ring: "540" });
     writeFileSync(join(workspace, "films", "wide", "storyboard.json"), `${JSON.stringify({ ...plan, format: "1920x1080" }, null, 2)}\n`);
     const out = run("node", [join(workspace, "kit", "tools", "storyboard.mjs"), join(workspace, "films", "wide")], { expect: 1 });
@@ -133,7 +165,7 @@ try {
   test("tall: the mixer lays the narration on the picture at the target loudness", () => {
     writeFileSync(join(tall, "cues.json"), '{ "music": { "file": "none" }, "events": [] }\n');
     const out = run("python3", [join(workspace, "kit", "audio", "mix.py"), tall, "--no-music"]);
-    assert(/1 voice lines/.test(out), `the mix did not report the voice line: ${out.trim()}`);
+    assert(/2 voice stretches/.test(out), `the mix did not lay both stretches of the take: ${out.trim()}`);
     const lufs = Number(out.match(/mix: (-?[\d.]+) LUFS/)?.[1]);
     assert(Math.abs(lufs + 14) < 1.5, `mixed at ${lufs} LUFS, expected about -14`);
     assert(probe(join(tall, "out", "tall.mp4"), "stream=codec_type").includes("audio"), "the mixed film has no sound");

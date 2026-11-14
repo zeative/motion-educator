@@ -1,150 +1,330 @@
-// The narration. A shot's spoken line is its "voice" in storyboard.json; this tool keeps one recording per line in
-// films/NAME/voice/, measures each, and says whether it fits its shot.
+// The narration. A film that speaks is written as one script, performed as one take, and cut to that take:
+// the voice is never chopped into sentences and re-spaced, because a voice that restarts on every line is the
+// first thing a listener hears as fake.
 //
-//   node kit/audio/voice.mjs films/NAME                    status: every line, its recording, its length, its fit
-//   node kit/audio/voice.mjs films/NAME --script           the lines still to record, as JSON
-//   node kit/audio/voice.mjs films/NAME --add s03 SOURCE   take a recording for shot s03: a file path or an https URL
-//   node kit/audio/voice.mjs films/NAME --generate         record the missing lines with the ElevenLabs API
+//   node kit/audio/voice.mjs films/NAME                  status: the script, the take, how well they agree, the cut
+//   node kit/audio/voice.mjs films/NAME --script         the text to perform, as JSON (the whole take and each shot's part)
+//   node kit/audio/voice.mjs films/NAME --take AUDIO --words WORDS
+//                                                        take in a performance: AUDIO is a file or an https URL, WORDS the
+//                                                        time of every word in it (a transcription with word times: a file
+//                                                        or an https URL)
+//   node kit/audio/voice.mjs films/NAME --generate       perform it with the ElevenLabs API (ELEVENLABS_API_KEY), which
+//                                                        returns the take and its word times together
+//   node kit/audio/voice.mjs films/NAME --retime         set every shot's start and end in storyboard.json from the take
 //
-// Two ways to record. With an API key (ELEVENLABS_API_KEY in the environment) --generate does it all and also keeps
-// the time of every word, so captions follow the voice exactly. Without one, an agent that has a speech connector
-// generates each line from --script and hands the result back with --add; captions are then paced across the line.
+// In storyboard.json each speaking shot has "voice": its part of the script, in order. Read one after another the
+// parts are the script. A shot with no "voice" is a silent beat and keeps the length it was given; "hold": seconds
+// on a speaking shot adds silence after its line. The storyboard names the voice once:
+//   "voice": { "voice_id": "...", "name": "...", "model": "eleven_v3", "language": "id" }
 //
-// The storyboard names the voice once:
-//   "voice": { "voice_id": "...", "name": "Jefri", "model": "eleven_multilingual_v2", "language": "id" }
-// Exit code 1 when a line is missing, stale (its text changed since it was recorded) or too long for its shot.
+// --take and --generate end by retiming. After that the storyboard's times are the take's: a shot starts just before
+// its first word. Exit code 1 when there is no take, the script changed since it was performed, or the storyboard's
+// times are not the take's.
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const args = process.argv.slice(2);
-const film = resolve(args.find((arg) => !arg.startsWith("--") && existsSync(join(arg, "storyboard.json"))) ?? ".");
-if (!existsSync(join(film, "storyboard.json"))) throw new Error("pass the film's folder (the one with storyboard.json)");
-const sb = JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8"));
+const flag = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
+const film = resolve(args.find((arg, i) => !arg.startsWith("--") && !["--take", "--words"].includes(args[i - 1]) && existsSync(join(arg, "storyboard.json"))) ?? ".");
+const boardFile = join(film, "storyboard.json");
+if (!existsSync(boardFile)) throw new Error("pass the film's folder (the one with storyboard.json)");
+const sb = JSON.parse(readFileSync(boardFile, "utf8"));
 const dir = join(film, "voice");
 const manifestFile = join(dir, "voice.json");
-const manifest = existsSync(manifestFile) ? JSON.parse(readFileSync(manifestFile, "utf8")) : { lines: {} };
-// How the mixer places a line: this long after the shot starts, and it must end this long before the shot does.
-const LEAD = 0.15;
-const TAIL = 0.2;
+let manifest = existsSync(manifestFile) ? JSON.parse(readFileSync(manifestFile, "utf8")) : null;
 
-const sha = (text) => createHash("sha256").update(`${sb.voice?.voice_id ?? ""}\n${text}`).digest("hex").slice(0, 16);
-const spoken = (sb.shots ?? []).filter((shot) => typeof shot.voice === "string" && shot.voice.trim());
-const save = () => {
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(manifestFile, `${JSON.stringify({ voice: sb.voice ?? null, lines: manifest.lines }, null, 2)}\n`);
-};
+// How the cut sits on the voice. A shot starts LEAD before its first word; the film's first word comes at FIRST;
+// a pause the performer held longer than PAUSE is shortened to it; the film runs TAIL past the last word when no
+// silent shot follows.
+const cut = { first: 0.15, lead: 0.1, pause: sb.voice?.max_pause ?? 0.75, tail: 0.9 };
+const round = (n) => Math.round(n * 1000) / 1000;
 
-// A recording's length, and the silence at each end of it, so the mixer can start it on the first sound.
-function measure(file) {
-  const duration = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file]).toString());
-  const log = spawnSync("ffmpeg", ["-hide_banner", "-i", file, "-af", "silencedetect=noise=-40dB:d=0.05", "-f", "null", "-"]).stderr.toString();
-  const starts = [...log.matchAll(/silence_start: (-?[\d.]+)/g)].map((m) => Math.max(0, Number(m[1])));
-  const ends = [...log.matchAll(/silence_end: ([\d.]+)/g)].map((m) => Number(m[1]));
-  const lead = starts[0] !== undefined && starts[0] < 0.02 && ends[0] !== undefined ? ends[0] : 0;
-  const last = starts.at(-1);
-  // The last silence counts as the tail when it runs to the end of the file (an encoder pads the end by a few
-  // hundredths of a second, so "the end" is taken loosely).
-  const tail = last !== undefined && (ends.length < starts.length || ends.at(-1) >= duration - 0.12) && last > lead ? duration - last : 0;
-  const round = (n) => Math.round(n * 1000) / 1000;
-  return { duration: round(duration), lead: round(lead), tail: round(tail), speech: round(duration - lead - tail) };
+// ── The script ─────────────────────────────────────────────────────────────
+const shots = sb.shots ?? [];
+const speaking = shots.filter((shot) => typeof shot.voice === "string" && shot.voice.trim());
+// What is performed keeps its direction tags ([warmly], [pause]); what is read and matched does not.
+const plain = (text) => text.replace(/\[[^\]]*\]/g, " ").replaceAll("*", "").replace(/\s+/g, " ").trim();
+const tokensOf = (text) => plain(text).split(" ").filter(Boolean);
+const key = (word) => word.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+// One take, a paragraph an act: a new act is a new breath.
+function takeText() {
+  let text = "";
+  let act = null;
+  for (const shot of speaking) {
+    text += text ? (shot.act !== act ? "\n\n" : " ") : "";
+    text += shot.voice.replaceAll("*", "").trim();
+    act = shot.act;
+  }
+  return sb.voice?.direction ? `${sb.voice.direction} ${text}` : text;
 }
-
-function record(shot, source, extra = {}) {
-  mkdirSync(dir, { recursive: true });
-  const file = `${shot.id}.mp3`;
-  copyFileSync(source, join(dir, file));
-  manifest.lines[shot.id] = { text: shot.voice, sha: sha(shot.voice), file, ...measure(join(dir, file)), ...extra };
-  save();
-  // What was fetched or decoded on the way in is not kept.
-  if (source.includes(".incoming-")) rmSync(source, { force: true });
-  return manifest.lines[shot.id];
-}
+const sha = () => createHash("sha256").update(`${sb.voice?.voice_id ?? ""}\n${sb.voice?.model ?? ""}\n${takeText()}`).digest("hex").slice(0, 16);
 
 if (args.includes("--script")) {
-  const todo = spoken.filter((shot) => manifest.lines[shot.id]?.sha !== sha(shot.voice));
-  console.log(JSON.stringify({ voice: sb.voice ?? null, language: sb.voice?.language ?? sb.language, lines: todo.map((shot) => ({ id: shot.id, text: shot.voice })) }, null, 2));
+  console.log(JSON.stringify({ voice: sb.voice ?? null, characters: takeText().length, take: takeText(), shots: speaking.map((shot) => ({ id: shot.id, text: shot.voice })) }, null, 2));
   process.exit(0);
 }
 
-if (args.includes("--add")) {
-  const [id, source] = args.slice(args.indexOf("--add") + 1);
-  const shot = spoken.find((candidate) => candidate.id === id);
-  if (!shot || !source) throw new Error("usage: --add <shot id that has a voice line> <file or https URL>");
-  let local = source;
+// ── Taking in a performance ────────────────────────────────────────────────
+async function bring(source, name) {
+  mkdirSync(dir, { recursive: true });
+  const local = join(dir, name);
   if (/^https:\/\//.test(source)) {
-    mkdirSync(dir, { recursive: true });
-    local = join(dir, `.incoming-${id}`);
     // curl first: it honours a proxy set in the environment, which Node's own fetch does not.
-    const viaCurl = spawnSync("curl", ["-fsSL", "--max-time", "120", "-o", local, source]);
-    if (viaCurl.status !== 0) {
+    if (spawnSync("curl", ["-fsSL", "--max-time", "180", "-o", local, source]).status !== 0) {
       const response = await fetch(source);
-      if (!response.ok) throw new Error(`could not fetch the recording: ${response.status}`);
+      if (!response.ok) throw new Error(`could not fetch ${name}: ${response.status}`);
       writeFileSync(local, Buffer.from(await response.arrayBuffer()));
     }
+  } else if (resolve(source) !== local) copyFileSync(source, local);
+  return local;
+}
+// Word times arrive in several shapes: { words: [{ text, start, end, type }] } from a transcription, a bare list of
+// the same, or [[start, end, word], ...].
+function readWords(file) {
+  const data = JSON.parse(readFileSync(file, "utf8"));
+  const list = Array.isArray(data) ? data : (data.words ?? data.transcripts?.[0]?.words ?? []);
+  return list
+    .map((w) => (Array.isArray(w) ? { start: w[0], end: w[1], text: w[2] } : { start: w.start ?? w.start_time, end: w.end ?? w.end_time, text: w.text ?? w.word, type: w.type }))
+    .filter((w) => w.text?.trim() && (w.type ?? "word") === "word" && Number.isFinite(w.start) && Number.isFinite(w.end));
+}
+// Lines the heard words up with the written ones (longest common run of matching words), then gives every written
+// word a time: its own where it was heard, otherwise shared out between its neighbours by length.
+function align(heard) {
+  const written = speaking.flatMap((shot) => tokensOf(shot.voice).map((word) => ({ shot: shot.id, word })));
+  const a = written.map((w) => key(w.word));
+  const b = heard.map((w) => key(w.text));
+  const table = Array.from({ length: a.length + 1 }, () => new Uint16Array(b.length + 1));
+  for (let i = a.length - 1; i >= 0; i--) for (let j = b.length - 1; j >= 0; j--) table[i][j] = a[i] && a[i] === b[j] ? table[i + 1][j + 1] + 1 : Math.max(table[i + 1][j], table[i][j + 1]);
+  let i = 0;
+  let j = 0;
+  let matched = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] && a[i] === b[j]) {
+      Object.assign(written[i], { start: heard[j].start, end: heard[j].end, heard: true });
+      matched++;
+      i++;
+      j++;
+    } else if (table[i + 1][j] >= table[i][j + 1]) i++;
+    else j++;
   }
-  const line = record(shot, local);
-  console.log(`${id}: ${line.speech.toFixed(2)} s of speech (file ${line.duration.toFixed(2)} s)`);
+  // Fill the words that were not heard as written (a number read out, a name said another way).
+  for (let k = 0; k < written.length; k++) {
+    if (written[k].heard) continue;
+    let end = k;
+    while (end < written.length && !written[end].heard) end++;
+    const from = k > 0 ? written[k - 1].end : (heard[0]?.start ?? 0);
+    const to = end < written.length ? written[end].start : (heard.at(-1)?.end ?? from);
+    const size = written.slice(k, end).reduce((n, w) => n + w.word.length + 1, 0);
+    let run = 0;
+    for (let m = k; m < end; m++) {
+      written[m].start = from + ((to - from) * run) / size;
+      run += written[m].word.length + 1;
+      written[m].end = from + ((to - from) * run) / size;
+    }
+    k = end;
+  }
+  // What was said that is not in the script, and what is in the script that was not heard: the places to listen to.
+  const missed = written.filter((w) => !w.heard).map((w) => w.word);
+  return { written, matched, missed, agreement: written.length ? matched / written.length : 0 };
+}
+
+function store(takeFile, heard, source) {
+  const duration = Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", takeFile]).toString());
+  const { written, missed, agreement } = align(heard);
+  const lines = {};
+  for (const shot of speaking) {
+    const mine = written.filter((w) => w.shot === shot.id);
+    lines[shot.id] = { text: shot.voice, from: round(mine[0].start), to: round(mine.at(-1).end), words: mine.map((w) => [round(w.start), round(w.end), w.word]) };
+  }
+  manifest = { version: 2, voice: sb.voice ?? null, sha: sha(), source, take: { file: "take.mp3", duration: round(duration) }, agreement: round(agreement), missed, lines };
+}
+
+if (args.includes("--take")) {
+  const takeFile = await bring(flag("--take"), "take.mp3");
+  if (!flag("--words")) throw new Error("--take needs --words: the time of every word in the take (transcribe it with word times, then pass that file or URL)");
+  const wordsFile = await bring(flag("--words"), "words.json");
+  store(takeFile, readWords(wordsFile), "take and transcription");
 }
 
 if (args.includes("--generate")) {
-  const key = process.env.ELEVENLABS_API_KEY;
-  if (!key) throw new Error("--generate needs ELEVENLABS_API_KEY; without a key, record from --script and hand each line back with --add");
+  const apiKey = process.env.ELEVENLABS_API_KEY;
+  if (!apiKey) throw new Error("--generate needs ELEVENLABS_API_KEY; without a key, perform the text from --script with a speech connector and hand it back with --take and --words");
   if (!sb.voice?.voice_id) throw new Error('the storyboard names no voice: add "voice": { "voice_id": "..." }');
-  for (const shot of spoken) {
-    if (manifest.lines[shot.id]?.sha === sha(shot.voice) && existsSync(join(dir, manifest.lines[shot.id].file))) continue;
-    const body = { text: shot.voice, model_id: sb.voice.model ?? "eleven_multilingual_v2", ...(sb.voice.settings ? { voice_settings: sb.voice.settings } : {}) };
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${sb.voice.voice_id}/with-timestamps?output_format=mp3_44100_128`, {
-      method: "POST",
-      headers: { "xi-api-key": key, "content-type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    if (!response.ok) throw new Error(`ElevenLabs answered ${response.status} for ${shot.id}: ${(await response.text()).slice(0, 200)}`);
-    const data = await response.json();
-    mkdirSync(dir, { recursive: true });
-    const incoming = join(dir, `.incoming-${shot.id}`);
-    writeFileSync(incoming, Buffer.from(data.audio_base64, "base64"));
-    // The time of every word, from the time of every character.
-    const words = [];
-    const a = data.alignment;
-    if (a?.characters) {
-      let word = "";
-      let from = 0;
-      a.characters.forEach((ch, i) => {
-        if (/\s/.test(ch)) {
-          if (word) words.push([Math.round(from * 1000) / 1000, Math.round(a.character_end_times_seconds[i - 1] * 1000) / 1000, word]);
-          word = "";
-        } else {
-          if (!word) from = a.character_start_times_seconds[i];
-          word += ch;
-        }
-      });
-      if (word) words.push([Math.round(from * 1000) / 1000, Math.round(a.character_end_times_seconds.at(-1) * 1000) / 1000, word]);
+  const body = { text: takeText(), model_id: sb.voice.model ?? "eleven_v3", ...(sb.voice.language ? { language_code: sb.voice.language } : {}), ...(sb.voice.settings ? { voice_settings: sb.voice.settings } : {}) };
+  const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${sb.voice.voice_id}/with-timestamps?output_format=mp3_44100_128`, {
+    method: "POST",
+    headers: { "xi-api-key": apiKey, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) throw new Error(`ElevenLabs answered ${response.status}: ${(await response.text()).slice(0, 300)}`);
+  const data = await response.json();
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, "take.mp3"), Buffer.from(data.audio_base64, "base64"));
+  // The time of every word, from the time of every character it was given.
+  const heard = [];
+  const a = data.alignment ?? data.normalized_alignment;
+  let word = "";
+  let from = 0;
+  let depth = 0;
+  a?.characters?.forEach((ch, i) => {
+    if (ch === "[") depth++;
+    if (depth === 0 && !/\s/.test(ch)) {
+      if (!word) from = a.character_start_times_seconds[i];
+      word += ch;
+    } else if (word) {
+      heard.push({ text: word, start: from, end: a.character_end_times_seconds[i - 1] });
+      word = "";
     }
-    const line = record(shot, incoming, words.length ? { words } : {});
-    console.log(`${shot.id}: recorded, ${line.speech.toFixed(2)} s of speech`);
-  }
+    if (ch === "]") depth = Math.max(0, depth - 1);
+  });
+  if (word) heard.push({ text: word, start: from, end: a.character_end_times_seconds.at(-1) });
+  writeFileSync(join(dir, "words.json"), `${JSON.stringify({ words: heard.map((w) => ({ ...w, type: "word" })) })}\n`);
+  store(join(dir, "take.mp3"), heard, "ElevenLabs API with timestamps");
 }
 
-// ── Status: does every line exist, is it current, does it fit its shot ──────
-const beat = sb.music?.beat;
-let bad = 0;
-if (!spoken.length) console.log("no shot has a voice line: this film explains with captions only");
-for (const shot of spoken) {
-  const line = manifest.lines[shot.id];
-  const dur = shot.end - shot.start;
-  let state;
-  if (!line || !existsSync(join(dir, line.file))) state = "MISSING";
-  else if (line.sha !== sha(shot.voice)) state = "STALE (the text changed after it was recorded)";
-  else {
-    const slack = dur - LEAD - line.speech - TAIL;
-    const needs = LEAD + line.speech + TAIL;
-    state = slack >= 0 ? `fits, ${slack.toFixed(2)} s to spare` : `TOO LONG by ${(-slack).toFixed(2)} s: the shot needs ${needs.toFixed(2)} s${beat ? ` (${Math.ceil(needs / beat)} beats)` : ""}`;
-    if (slack >= 0 && beat && dur - needs > beat * 1.5) state += `  (could lose ${Math.floor((dur - needs) / beat)} beat(s))`;
+// ── The cut: every shot's time, from the take ──────────────────────────────
+// The take plays through unbroken wherever one line follows another; it is only opened up at a silent beat, a hold,
+// or a pause the performer held too long.
+function timeline() {
+  const L = manifest.lines;
+  const pieces = [];
+  const times = {};
+  let film = 0; // where the film is
+  let piece = null; // the stretch of take now playing: { from, to, at }
+  let last = null; // the last speaking shot
+  for (const shot of shots) {
+    const line = L[shot.id];
+    if (!line) {
+      // A silent beat: the take stops for as long as the shot was given.
+      const length = Math.max(0.4, shot.end - shot.start || 1.5);
+      if (piece) {
+        piece.to = Math.min(manifest.take.duration, L[last].to + 0.18);
+        film = Math.max(film, piece.at + (piece.to - piece.from));
+        pieces.push(piece);
+        piece = null;
+      }
+      times[shot.id] = { start: film, end: film + length };
+      film += length;
+      continue;
+    }
+    if (!piece) {
+      // The take starts, or resumes after a silent beat: this line's first word comes FIRST after the cut.
+      const from = Math.max(0, line.from - 0.12);
+      const at = film + (last === null && film === 0 ? cut.first : cut.lead) - (line.from - from);
+      piece = { from, at: Math.max(film, at) };
+      times[shot.id] = { start: film };
+    } else {
+      const gap = line.from - L[last].to;
+      const extra = shots.find((s) => s.id === last).hold ?? 0;
+      if (gap > cut.pause + 0.05 || extra > 0) {
+        // Close the stretch after the last line, and open a new one before this line: the pause becomes PAUSE
+        // (plus any hold).
+        const keep = Math.min(gap, cut.pause);
+        piece.to = L[last].to + keep / 2;
+        pieces.push(piece);
+        const at = piece.at + (piece.to - piece.from) + extra;
+        piece = { from: line.from - keep / 2, at };
+      }
+      // The cut to this shot falls just before its first word.
+      const start = piece.at + (line.from - piece.from) - Math.min(cut.lead, Math.max(0.02, gap / 2));
+      times[last].end = start;
+      times[shot.id] = { start };
+    }
+    film = piece.at + (line.to - piece.from);
+    last = shot.id;
+    // A speaking shot ends where the next one starts; until one does, it ends after its last word.
+    times[shot.id].end = film + cut.tail + (shot.hold ?? 0);
+    const next = shots[shots.indexOf(shot) + 1];
+    if (next && !L[next.id]) {
+      times[shot.id].end = film + 0.3 + (shot.hold ?? 0);
+      film = times[shot.id].end;
+    }
   }
-  if (/MISSING|STALE|TOO LONG/.test(state)) bad++;
-  console.log(`${shot.id.padEnd(5)} ${dur.toFixed(2).padStart(5)} s  ${line?.speech !== undefined ? `${line.speech.toFixed(2)} s spoken` : "             "}  ${state}`);
+  if (piece) {
+    piece.to = Math.min(manifest.take.duration, L[last].to + 0.25);
+    pieces.push(piece);
+  }
+  const lastShot = shots.at(-1);
+  const duration = times[lastShot.id].end;
+  for (const p of pieces) Object.assign(p, { from: round(p.from), to: round(p.to), at: round(p.at) });
+  for (const t of Object.values(times)) Object.assign(t, { start: round(t.start), end: round(t.end) });
+  // Each line's words in the film's own time, for captions that keep step with the voice.
+  const said = {};
+  for (const shot of speaking) {
+    const line = L[shot.id];
+    const p = pieces.find((candidate) => line.from >= candidate.from - 0.001 && line.from <= candidate.to + 0.001) ?? pieces.at(-1);
+    const shift = p.at - p.from;
+    said[shot.id] = { from: round(line.from + shift), to: round(line.to + shift), words: line.words.map(([a, b, w]) => [round(a + shift), round(b + shift), w]) };
+  }
+  return { pieces, times, said, duration: round(duration) };
 }
-if (spoken.length) console.log(`${spoken.length} line(s), ${bad} to fix${bad ? "" : `, ${spoken.reduce((n, shot) => n + shot.voice.length, 0)} characters`}`);
+
+// Subtitles for the platform's own captions: one cue a shot, in the film's time.
+function writeSubtitles(plan) {
+  const stamp = (t) => {
+    const ms = Math.round(t * 1000);
+    const pad = (n, size = 2) => String(n).padStart(size, "0");
+    return `${pad(Math.floor(ms / 3600000))}:${pad(Math.floor(ms / 60000) % 60)}:${pad(Math.floor(ms / 1000) % 60)},${pad(ms % 1000, 3)}`;
+  };
+  const cues = speaking.map((shot, i) => `${i + 1}\n${stamp(plan.said[shot.id].from)} --> ${stamp(plan.said[shot.id].to + 0.15)}\n${plain(shot.voice)}\n`);
+  writeFileSync(join(dir, "subtitles.srt"), cues.join("\n"));
+}
+
+function retime() {
+  const plan = timeline();
+  Object.assign(manifest, { pieces: plan.pieces, film: plan.said, duration: plan.duration });
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(manifestFile, `${JSON.stringify(manifest, null, 2)}\n`);
+  const board = JSON.parse(readFileSync(boardFile, "utf8"));
+  for (const shot of board.shots) Object.assign(shot, plan.times[shot.id]);
+  board.duration = plan.duration;
+  writeFileSync(boardFile, `${JSON.stringify(board, null, 2)}\n`);
+  for (const shot of shots) Object.assign(shot, plan.times[shot.id]);
+  sb.duration = plan.duration;
+  writeSubtitles(plan);
+  return plan;
+}
+
+if (manifest?.version === 2 && (args.includes("--take") || args.includes("--generate") || args.includes("--retime"))) {
+  const plan = retime();
+  console.log(`retimed: ${shots.length} shots, ${plan.duration.toFixed(2)} s, the take in ${plan.pieces.length} stretch(es)`);
+  for (const junk of [".incoming-take", ".incoming-words"]) rmSync(join(dir, junk), { force: true });
+}
+
+// ── Status ─────────────────────────────────────────────────────────────────
+let bad = 0;
+const problem = (text) => {
+  bad++;
+  console.log(`  FIX  ${text}`);
+};
+if (!speaking.length) {
+  console.log("no shot has a voice line: this film explains with captions only");
+  process.exit(0);
+}
+const text = takeText();
+const words = speaking.reduce((n, shot) => n + tokensOf(shot.voice).length, 0);
+console.log(`script: ${speaking.length} speaking shots, ${words} words, ${text.length} characters${sb.voice?.name ? `, voice ${sb.voice.name}` : ""}${sb.voice?.model ? ` (${sb.voice.model})` : ""}`);
+if (!manifest || manifest.version !== 2) {
+  problem(manifest ? "this film was recorded line by line (the old way): perform the whole script as one take (--script, then --take and --words, or --generate)" : "no take yet: perform the script (--script, then --take and --words, or --generate)");
+} else {
+  if (manifest.sha !== sha()) problem("the script or the voice changed after the take was performed: perform it again");
+  const spoken = manifest.lines[speaking.at(-1).id].to - manifest.lines[speaking[0].id].from;
+  console.log(`take:   ${manifest.take.duration.toFixed(2)} s, ${(words / (spoken / 60)).toFixed(0)} words a minute, ${(manifest.agreement * 100).toFixed(0)}% of the script heard as written`);
+  if (manifest.missed.length) console.log(`        not heard as written (listen to these): ${manifest.missed.slice(0, 16).join(" ")}${manifest.missed.length > 16 ? " ..." : ""}`);
+  if (manifest.agreement < 0.8) problem("less than 80% of the script was heard as written: the take may have gone wrong, or the word times belong to another take");
+  if (!manifest.pieces) problem("the take has not been cut: run --retime");
+  else {
+    const plan = timeline();
+    const drift = shots.some((shot) => Math.abs(shot.start - plan.times[shot.id].start) > 0.02 || Math.abs(shot.end - plan.times[shot.id].end) > 0.02);
+    if (drift) problem("the storyboard's times are not the take's (it was rewritten after the take): run --retime");
+    for (const shot of shots) {
+      const line = manifest.lines[shot.id];
+      const t = plan.times[shot.id];
+      console.log(`${shot.id.padEnd(5)} ${t.start.toFixed(2).padStart(6)} → ${t.end.toFixed(2).padStart(6)}  ${(t.end - t.start).toFixed(2).padStart(5)} s  ${line ? plain(line.text).slice(0, 64) : "(silent)"}`);
+    }
+    console.log(`film:   ${plan.duration.toFixed(2)} s`);
+  }
+}
 process.exit(bad ? 1 : 0);
