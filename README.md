@@ -15,6 +15,7 @@ and sound effects.
 ![output](https://img.shields.io/badge/output-1080p60%20%C2%B7%20landscape%20%2B%20portrait-4da3ff)
 ![voice](https://img.shields.io/badge/narration-ElevenLabs-111111)
 ![skill](https://img.shields.io/badge/works%20as-an%20agent%20skill-d97757)
+[![license](https://img.shields.io/badge/license-MIT-8a8f98)](LICENSE)
 
 [Quick start](#quick-start) · [How it works](#how-it-works) · [Gallery](#gallery) · [The kit](#the-kit) · [Docs](#docs)
 
@@ -248,6 +249,22 @@ motion-educator/
 - **The sound library is not in the repository.** Music and effects come from [Mixkit](https://mixkit.co), whose
   licence allows them inside a video but not passed on as files; `kit/audio/fetch.sh` downloads them.
 - **Narration costs credits** on your ElevenLabs account.
+
+## Licence
+
+[MIT](LICENSE). The films you make with it are yours: the licence covers this repository's code, documents and
+examples, not what you render.
+
+What is not ours to license, and how it is handled:
+
+| Thing | Its terms | In this repository |
+| --- | --- | --- |
+| [GSAP](https://gsap.com) | GSAP's own no-charge licence (not MIT) | a dependency installed from npm, not redistributed |
+| [three.js](https://threejs.org) | MIT | a dependency installed from npm |
+| Sora, Inter, JetBrains Mono, Instrument Serif, Patrick Hand | SIL Open Font License | installed from npm |
+| Music and sound effects | [Mixkit](https://mixkit.co)'s licences: free inside a video, not to be passed on as files | not included; `kit/audio/fetch.sh` downloads them |
+| Narration in the example films | generated with [ElevenLabs](https://elevenlabs.io); your rights to voices you generate depend on your own plan | the examples' recordings are included so they can be re-mixed |
+| Earth maps in the examples | NASA imagery, not copyrighted | included, with [sources](examples/langit-biru/assets/SOURCES.md) |
 
 ## Credits
 
