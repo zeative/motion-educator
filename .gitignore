@@ -1,6 +1,6 @@
-node_modules/
+node_modules
 out/
-kit/audio/lib/
+kit/audio/lib
 .DS_Store
 *.log
 engines/
