@@ -30,9 +30,12 @@ Read only the reference your current step needs.
    straight from them. If the person asked for an unattended run, send the board and keep going; otherwise wait for
    their yes.
 2. **True, with sources.** Every number and every claim on screen is in the storyboard's fact sheet with where it
-   comes from. If you cannot source it, do not say it. A diagram that is not to scale says so on screen.
+   comes from. If you cannot source it, do not say it. What is drawn agrees with what is written: a bar, a meter
+   or a path that stands for a number is computed from that number, a diagram that is not to scale says so on
+   screen, and a number appears at its value (no counting up through values that are false).
 3. **It explains itself on mute.** Captions carry the explanation; the sound makes it land. A first-time viewer
-   with the sound off can say what they learned.
+   with the sound off can say what they learned. The step the whole explanation turns on is drawn as a mechanism
+   (what goes in, what it meets, what comes out, where it ends up), never left to the caption alone.
 4. **One clock.** Every animated value is a function of the timeline's time. No CSS animations, no
    `requestAnimationFrame` loops, no `Date.now()`, no unseeded randomness.
 5. **The storyboard is the source of time.** The film reads shot starts and ends from `storyboard.json`; captions
@@ -107,7 +110,9 @@ python3 kit/audio/mix.py films/NAME --no-sfx --out films/NAME/out/NAME-music-onl
 ### 7. Review, fix, verify
 Follow `references/review.md`: `node kit/tools/check.mjs films/NAME` (contact sheets, frozen time, loudness), then a
 fresh reviewer with the film, the storyboard and the person's own words. Fix the largest gaps, re-render only what
-changed, and have a new reviewer verify the list. Stop at the quality bar or when the gains turn cosmetic.
+changed, and have a new reviewer verify the list. Stop at the quality bar or when the gains turn cosmetic. When a
+fix changes what a shot shows, change the storyboard to say so and redraw the board: the plan and the film never
+disagree.
 
 ### 8. Deliver
 The MP4 (H.264, 1080p60, about -14 LUFS, true peak under -1 dBFS), a lighter copy for sharing, the music-only

@@ -1,5 +1,6 @@
-// The Earth as the film's hero object: a sphere whose oceans, land, ice, clouds, night lights and air are all
-// computed in its shader, so it needs no texture files. The Sun is to the left. Drawn from plain state.
+// The Earth as the film's hero object. Its surface, its night lights and its water are NASA's maps (assets/, see
+// assets/SOURCES.md); the clouds, the Sun's glint and the air are computed in the shader. The Sun is to the left.
+// Drawn from plain state.
 import { createStage3D } from "../../kit/engine/stage3d.js";
 
 const NOISE = `
@@ -10,53 +11,58 @@ float noise(vec3 p){ vec3 i = floor(p), f = fract(p); f = f*f*(3. - 2.*f);
 float fbm(vec3 p){ float a = .5, s = 0.; for(int i = 0; i < 6; i++){ s += a * noise(p); p = p * 2.02 + vec3(7.1, 3.3, 5.7); a *= .5; } return s; }
 `;
 
-export function createEarth(canvas) {
+export async function createEarth(canvas) {
   const space = createStage3D(canvas, { environment: 0 });
   const { THREE } = space;
   // The globe lights itself in its shader, so the stage's studio lights are not needed.
   space.scene.remove(space.key, space.rim);
   const R = 10;
   const sun = new THREE.Vector3(-1, 0.28, 0.42).normalize();
-  const uniforms = { uSun: { value: sun }, uTime: { value: 0 }, uAir: { value: 1 } };
+  // The maps are loaded before the film is ready, so no frame is ever drawn without them.
+  const loader = new THREE.TextureLoader();
+  const map = async (file) => {
+    const texture = await loader.loadAsync(new URL(`assets/${file}`, import.meta.url).href);
+    texture.anisotropy = 8;
+    texture.wrapS = THREE.RepeatWrapping;
+    return texture;
+  };
+  const [day, night, water] = await Promise.all([map("earth-day.jpg"), map("earth-night.jpg"), map("earth-water.jpg")]);
+  const uniforms = { uSun: { value: sun }, uTime: { value: 0 }, uAir: { value: 1 }, uDay: { value: day }, uNight: { value: night }, uWater: { value: water } };
 
   const globe = new THREE.Mesh(
     new THREE.SphereGeometry(R, 160, 120),
     new THREE.ShaderMaterial({
       uniforms,
       vertexShader: `
-        varying vec3 vObj; varying vec3 vNormal; varying vec3 vView;
-        void main(){ vObj = normalize(position); vec4 world = modelMatrix * vec4(position, 1.);
+        varying vec3 vObj; varying vec3 vNormal; varying vec3 vView; varying vec2 vUv;
+        void main(){ vObj = normalize(position); vUv = uv; vec4 world = modelMatrix * vec4(position, 1.);
           vNormal = normalize(mat3(modelMatrix) * normal); vView = normalize(cameraPosition - world.xyz);
           gl_Position = projectionMatrix * viewMatrix * world; }`,
       fragmentShader: `
         precision highp float;
         uniform vec3 uSun; uniform float uTime; uniform float uAir;
-        varying vec3 vObj; varying vec3 vNormal; varying vec3 vView;
+        uniform sampler2D uDay; uniform sampler2D uNight; uniform sampler2D uWater;
+        varying vec3 vObj; varying vec3 vNormal; varying vec3 vView; varying vec2 vUv;
         ${NOISE}
         void main(){
           vec3 n = normalize(vNormal);
-          float height = fbm(vObj * 1.55 + vec3(3.1, 1.7, 0.4));
-          float land = smoothstep(.5, .545, height);
-          float lat = abs(vObj.y);
-          float dry = smoothstep(.45, .7, fbm(vObj * 3.2 + 9.));
-          vec3 ocean = mix(vec3(.012, .07, .22), vec3(.03, .2, .46), smoothstep(.36, .5, height));
-          vec3 ground = mix(vec3(.07, .22, .09), vec3(.36, .31, .17), dry * (1. - smoothstep(.35, .75, lat)));
-          ground = mix(ground, vec3(.2, .18, .15), smoothstep(.6, .72, height));
-          vec3 surface = mix(ocean, ground, land);
-          float ice = smoothstep(.8, .9, lat + .08 * fbm(vObj * 6.));
-          surface = mix(surface, vec3(.86, .9, .95), ice);
-          float cloud = smoothstep(.52, .74, fbm(vObj * 2.6 + vec3(uTime * .016, 0., uTime * .009)) + .12 * fbm(vObj * 9.));
+          vec3 surface = texture2D(uDay, vUv).rgb;
+          // The map is a little flat and green; deepen the sea and lift the land so it holds up under the key light.
+          float sea = texture2D(uWater, vUv).r;
+          surface = mix(surface * vec3(1.12, 1.08, .98), surface * vec3(.62, .84, 1.22) + vec3(0., .012, .05), sea);
+          float cloud = smoothstep(.5, .76, fbm(vObj * 2.6 + vec3(uTime * .016, 0., uTime * .009)) + .14 * fbm(vObj * 9.));
+          cloud *= .85;
 
           float ndl = dot(n, uSun);
           float day = smoothstep(-.14, .3, ndl);
-          vec3 lit = surface * (.06 + 1.25 * max(ndl, 0.));
+          vec3 lit = surface * (.05 + 1.45 * max(ndl, 0.));
           // The Sun glinting off open water.
           vec3 h = normalize(uSun + vView);
-          lit += vec3(1., .93, .8) * pow(max(dot(n, h), 0.), 70.) * (1. - land) * (1. - cloud) * .9 * day;
+          lit += vec3(1., .93, .8) * pow(max(dot(n, h), 0.), 70.) * sea * (1. - cloud) * .9 * day;
           lit = mix(lit, vec3(1.) * (.1 + .95 * max(ndl, 0.)), cloud * .8);
           // Cities on the night side.
-          float towns = smoothstep(.72, .9, fbm(vObj * 24.)) * land * (1. - ice) * (1. - cloud * .8);
-          lit += vec3(1., .72, .36) * towns * (1. - day) * .85;
+          vec3 towns = texture2D(uNight, vUv).rgb;
+          lit += vec3(1., .78, .5) * towns * towns * (1. - day) * (1. - cloud * .7) * 2.2;
           // The air seen edge on: blue over the day side, warm where day meets night.
           float rim = pow(1. - max(dot(n, vView), 0.), 2.6);
           vec3 air = mix(vec3(1., .46, .2), vec3(.3, .62, 1.), smoothstep(-.05, .38, ndl));

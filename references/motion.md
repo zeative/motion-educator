@@ -51,3 +51,14 @@ each cut.
   and a light close enough to draw a falloff.
 - Proof beats that were a heading and one row of chips: slides. Each needs a real object that fills the frame.
 - A scene where one small element sits alone for more than a second.
+- A counter that counts up to its value: for half a second the screen states numbers that are false ("411 nm",
+  "4,2x") while the caption already says the true one. In a film that teaches, a number appears at its value and
+  holds for a second and a half or more. Count only where the counting is the point.
+- A fade through an empty stage between two shots. Start the incoming scene a third of a second early so the two
+  cross, or carry an object over.
+- An accent colour that names a colour: the word "putih" set in the blue accent. Restyle that caption
+  (`.caption[data-shot="s03"] .key`).
+- A diagram that states a ratio in text and draws a different one (a meter filled 11 to 1 beside "5,9x"). Every
+  drawn quantity is computed from the fact, or is labelled as not to scale.
+- The explanation's central step told only by the caption. If the caption says "blue comes from the whole sky",
+  the picture has to show light going in, a molecule, and blue arriving at the eye.

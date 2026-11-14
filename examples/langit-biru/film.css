@@ -57,6 +57,8 @@
   left: 0;
   right: 0;
   top: 640px;
+  color: var(--t1);
+  font-size: 30px;
 }
 #recap-over {
   top: 110px;
@@ -250,13 +252,19 @@
 }
 
 /* Someone looking up */
-#observer circle {
-  fill: #050506;
+#observer circle,
+#observer .body {
+  fill: #040405;
   stroke: none;
 }
-#observer path {
-  stroke: #050506;
-  stroke-width: 9;
+#observer .arm {
+  stroke: #040405;
+  stroke-width: 6;
+}
+/* The light from the sky catches one side of the figure. */
+#observer .rim {
+  stroke: rgb(255 255 255 / 0.5);
+  stroke-width: 1.2;
 }
 
 /* Why not violet */
@@ -276,7 +284,7 @@
 .bar {
   position: absolute;
   bottom: 494px;
-  width: 104px;
+  width: 96px;
   border-radius: 14px 14px 4px 4px;
   transform-origin: 50% 100%;
   box-shadow: inset 0 2px 0 rgb(255 255 255 / 0.45);
@@ -290,21 +298,63 @@
   transform: translateX(-50%);
 }
 .bar.violet {
-  left: 208px;
-  height: 300px;
+  left: 168px;
+  height: 432px;
   background: linear-gradient(180deg, #d0a8ff, #a854ff 40%, #5a2a9a);
 }
 .bar.blue {
-  left: 420px;
-  height: 188px;
+  left: 418px;
+  height: 271px;
   background: linear-gradient(180deg, #bcdcff, #4696ff 40%, #1f4f9a);
+}
+.bar.red {
+  left: 1612px;
+  height: 46px;
+  background: linear-gradient(180deg, #ffb0a8, #ff4034 50%, #9a2a22);
+}
+#band-dim {
+  position: absolute;
+  inset: 0 78% 0 0;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(90deg, rgb(9 9 12 / 0.94), rgb(9 9 12 / 0.8) 50%, transparent);
+  opacity: 0;
+}
+#again path {
+  fill: none;
+  stroke: #cfe0ff;
+  stroke-width: 4;
+  stroke-dasharray: 1;
+}
+#again #again-glow {
+  stroke: #7fb4ff;
+  stroke-width: 16;
+  opacity: 0.22;
+}
+#formula2 {
+  left: 1010px;
+  top: 250px;
+}
+.meter b {
+  position: absolute;
+  right: 26px;
+  top: -44px;
+  color: var(--t1);
+  font: 600 30px / 1 var(--sans);
+  opacity: 0;
+}
+/* The accent is blue, so a caption's accent word must not name another colour in it. */
+.caption[data-shot="s03"] .key {
+  color: #fff;
+}
+.caption[data-shot="s20"] .key {
+  color: #ffa24a;
 }
 .qmark {
   position: absolute;
-  left: 216px;
+  left: 290px;
   top: 150px;
   width: 90px;
-  font-size: 110px;
+  font-size: 130px;
   line-height: 1;
   text-align: center;
   color: #d0a8ff;
@@ -376,8 +426,9 @@
   position: absolute;
   right: 96px;
   bottom: 250px;
-  color: var(--t3);
-  font: 400 24px / 1 var(--mono);
+  color: var(--t1);
+  opacity: 0.85;
+  font: 500 28px / 1 var(--mono);
 }
 
 /* The recap */
@@ -426,4 +477,7 @@
 }
 .rc em {
   color: var(--accent);
+}
+#rc3 em {
+  color: #ffa24a;
 }

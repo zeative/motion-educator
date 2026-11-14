@@ -49,7 +49,9 @@ measurement, not by ear.
 
 `align: "peak"` puts the sound's loudest moment on `t` (use it for anything that must land on a frame), `"end"` its
 last sample (a riser into a hit). `db` is the level of the sound's own peak. `duck` dips the music under a hit.
-`trim` and `fade` cut a long tail so the next sound is heard. `pan` is -1 left to 1 right.
+`trim` and `fade` cut a long tail so the next sound is heard. `pan` is -1 left to 1 right. On the music, `ride` is a
+list of `[seconds, dB]` points that moves its level over time, for a passage where the track itself gets too loud
+(a track that keeps building under a quiet end card).
 
 ```sh
 python3 kit/audio/mix.py films/NAME
@@ -79,8 +81,9 @@ These are peaks in dBFS before the master gain, against music at -17 to -18 LUFS
 
 - **A sound for a real event only**: something lands, opens, locks, arrives. No sound for decoration.
 - **One whoosh per real transition**, soft and short. Repeated boomy whooshes are the first thing people hate.
-- **A riser must lose to its hit.** Keep the riser 5 dB or more under the hit it leads to, and cut the previous
-  hit's tail (`trim`, `fade`) so the next one is heard.
+- **A riser must lose to its hit.** Keep the riser 12 dB or more under the hit it leads to (at 7 dB under, a
+  reviewer measured the hit lifting only 2.5 dB over the riser: masked), and cut the previous hit's tail (`trim`,
+  `fade`) so the next one is heard.
 - **Small sounds get buried.** Measure the lift of each event over the half second before it; under about 5 dB it
   will not be heard. Raise it or duck the music.
 - **Explaining is not a trailer.** Keep the hits few and the effects small; the film is talking.

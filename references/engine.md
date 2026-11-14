@@ -66,7 +66,11 @@ tl.to(lab.L.beam, { x1: 1300, duration: 1.1 }, s.s03.start + 0.65);
 3D uses `kit/engine/stage3d.js`: a three.js canvas with a studio environment, materials that read as real
 (`ceramic`, `gold`, `graphite`, `glass`, `glow`) and a camera set so one world unit is `UNIT` pixels at the plane
 the subject sits on, so things can be placed by pixels with `space.at(x, y)`. `examples/langit-biru/earth.js` is a
-globe drawn entirely by its shader; `earth.render(state, t)` is called from `film.each`.
+globe with NASA's maps for its surface and a shader for its clouds, glint and air; `earth.render(state, t)` is
+called from `film.each`.
+
+Anything loaded from a file (a texture, a font, data) must be loaded before `film.finish()`: `await` it, as
+`createEarth` does. A frame drawn before its texture arrived is a frame that renders differently each time.
 
 ## Rules that keep a film seekable
 

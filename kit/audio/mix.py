@@ -88,6 +88,10 @@ if "--no-music" not in args:
         seg = shape[: N - start]
         duck[start : start + len(seg)] = np.minimum(duck[start : start + len(seg)], seg)
     music *= gain(duck)[:, None]
+    # A ride: [[seconds, dB], ...] moves the music's level between those points, for a passage that sits too loud.
+    if m.get("ride"):
+        points = sorted(m["ride"])
+        music *= gain(np.interp(np.arange(N) / SR, [p[0] for p in points], [p[1] for p in points]))[:, None]
     report.append(f"music {m['file']} from {m.get('start', 0)}s at {m['lufs']} LUFS, duck {depth} dB")
 
 # Effects: each one normalised to its own peak, then placed and levelled as the plan says.

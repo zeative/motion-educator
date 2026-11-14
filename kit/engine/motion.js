@@ -194,6 +194,8 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     for (const shot of storyboard.shots) {
       if (!shot.caption) continue;
       const line = Object.assign(document.createElement("p"), { className: "caption" });
+      // A film can restyle one shot's caption: .caption[data-shot="s03"] .key { ... }
+      line.dataset.shot = shot.id;
       for (const part of shot.caption.split(/(\*[^*]+\*)/)) {
         if (!part) continue;
         const strong = part.startsWith("*");
@@ -209,7 +211,8 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       const end = shot.end - tail;
       gsap.set(line, { autoAlpha: 0 });
       gsap.set(words, { opacity: 0, y: 14, filter: "blur(6px)" });
-      tl.set(line, { autoAlpha: 1 }, start);
+      // The pill arrives with its first word, never empty.
+      tl.to(line, { autoAlpha: 1, duration: 0.16, ease: "power1.out" }, start);
       // The words take about a third of the shot to arrive, never slower than a calm reading pace.
       const step = Math.min(0.09, ((end - start) * 0.34) / words.length);
       tl.to(words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: step }, start);

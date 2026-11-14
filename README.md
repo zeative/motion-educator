@@ -13,7 +13,7 @@ the real frame's coordinates, checked by a tool and shown to the person before a
 - `kit/`: the engine and its tools. Copied into each workspace.
 - `templates/film/`: what a new film starts from.
 - `examples/langit-biru/`: a complete film made with the skill, "Kenapa langit berwarna biru?" (67 s, Indonesian):
-  its storyboard (22 shots, 63 drawn frames, 9 sourced facts), source and cue sheet.
+  its storyboard (22 shots, 63 drawn frames, 9 sourced facts), source, cue sheet and the Earth maps it uses.
 
 ## Install as a skill
 
@@ -67,8 +67,11 @@ numpy.
 
 - [GSAP](https://gsap.com) (its standard licence), [three.js](https://threejs.org) (MIT), and the fonts Sora,
   Inter, JetBrains Mono, Instrument Serif and Patrick Hand (SIL Open Font License), all installed from npm.
+- The Earth in the worked example uses NASA's Blue Marble and Earth at Night maps, which are not copyrighted
+  (`examples/langit-biru/assets/SOURCES.md`).
 - Music and sound effects from [Mixkit](https://mixkit.co) under its free licences. They may be used inside a video
   but not passed on as files, so they are downloaded by `kit/audio/fetch.sh` and never committed.
 - The composition shape (a fixed-size root and one paused timeline exposed as `window.__timelines.root`) follows
   [Null Motion](https://github.com/blixvip/NullMotion)'s HyperFrames convention.
-- `references/raea.md` covers rendering with [raea](https://raea.io) instead of the browser.
+- `references/raea.md` covers rendering with [raea](https://raea.io) instead of the browser, and
+  `examples/raea-proof/` is one shot of the worked example written for it, with two rendered frames.

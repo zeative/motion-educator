@@ -30,7 +30,7 @@ const rgba = ([r, g, b], a) => `rgba(${r},${g},${b},${a})`;
 export function createLab(canvas) {
   const ctx = canvas.getContext("2d");
   const L = {
-    beam: { a: 0, x0: 0, x1: 0, y: 540, w: 90 },
+    beam: { a: 0, x0: 0, x1: 0, y: 540, w: 90, soft: 180 },
     prism: { a: 0, x: 800, y: 540 },
     fan: { a: 0, open: 0, straight: 0, wave: 0, focus: 0, solo: 0 },
     marks: { red: 0, blue: 0, redNm: 0, blueNm: 0 },
@@ -56,7 +56,20 @@ export function createLab(canvas) {
   }));
   const CLUSTER = 14;
   const row = Array.from({ length: 17 }, (_, i) => ({ x: 190 + i * 96, y: 500 + (i % 2 ? 46 : -46) + (rand() - 0.5) * 16, angle: rand() * TAU }));
-  const skyPoints = Array.from({ length: 9 }, (_, i) => ({ x: 170 + i * 198 + (rand() - 0.5) * 60, y: 150 + Math.abs(i - 4) * 46 + rand() * 60 }));
+  // Where in the sky a molecule is shown throwing blue toward the person on the ground, in the order the light reaches them.
+  const SUN = { x: 307, y: 216 };
+  const EYE = { x: 961, y: 724 };
+  const skyPoints = [
+    [520, 330],
+    [700, 170],
+    [905, 300],
+    [1090, 150],
+    [1265, 330],
+    [1450, 190],
+    [1640, 380],
+    [1790, 250],
+    [190, 430],
+  ].map(([x, y], i) => ({ x, y, angle: rand() * TAU, oxygen: i % 4 === 3, far: Math.hypot(x - SUN.x, y - SUN.y) }));
 
   // A line of light: three strokes, wide and faint to narrow and bright, read as a glow once the film blooms.
   const glowStroke = (colour, alpha, width) => {
@@ -146,30 +159,63 @@ export function createLab(canvas) {
         const py = y + Math.sin(i * 2.4) * w * 0.26;
         ctx.fillRect(px, py, 14 + (i % 4) * 9, 2);
       }
+      // The beam's end is soft, so it never shows as a cut edge while it grows.
+      if (x1 < 1900) {
+        const soft = Math.min(L.beam.soft, x1 - x0);
+        const fade = ctx.createLinearGradient(x1 - soft, 0, x1, 0);
+        fade.addColorStop(0, "rgba(0,0,0,0)");
+        fade.addColorStop(1, "rgba(0,0,0,1)");
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fillStyle = fade;
+        ctx.fillRect(x1 - soft, y - w - 2, soft + 2, w * 2 + 4);
+        ctx.globalCompositeOperation = "source-over";
+      }
     }
 
-    // The prism: a glass wedge, bright along its edges.
+    // The prism: a glass wedge. Light bends toward its base going in and again coming out, violet the most.
     if (L.prism.a > 0.005) {
       const { x, y, a } = L.prism;
-      ctx.beginPath();
-      ctx.moveTo(x, y - 190);
-      ctx.lineTo(x + 170, y + 150);
-      ctx.lineTo(x - 170, y + 150);
-      ctx.closePath();
-      const g = ctx.createLinearGradient(x - 170, y - 190, x + 170, y + 150);
-      g.addColorStop(0, `rgba(210,225,255,${0.3 * a})`);
-      g.addColorStop(0.5, `rgba(120,140,180,${0.1 * a})`);
-      g.addColorStop(1, `rgba(220,235,255,${0.24 * a})`);
-      ctx.fillStyle = g;
+      const wedge = (k) => {
+        const cy = y + 37;
+        ctx.beginPath();
+        ctx.moveTo(x, cy + (y - 190 - cy) * k);
+        ctx.lineTo(x + 170 * k, cy + (y + 150 - cy) * k);
+        ctx.lineTo(x - 170 * k, cy + (y + 150 - cy) * k);
+        ctx.closePath();
+      };
+      wedge(1);
+      const body = ctx.createLinearGradient(x - 170, y - 190, x + 170, y + 150);
+      body.addColorStop(0, `rgba(196,214,255,${0.34 * a})`);
+      body.addColorStop(0.45, `rgba(70,84,120,${0.2 * a})`);
+      body.addColorStop(1, `rgba(214,230,255,${0.3 * a})`);
+      ctx.fillStyle = body;
       ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = `rgba(255,255,255,${0.8 * a})`;
+      // Light caught inside the glass, brightest toward the base.
+      const inner = ctx.createRadialGradient(x, y + 150, 10, x, y + 150, 300);
+      inner.addColorStop(0, `rgba(150,190,255,${0.3 * a})`);
+      inner.addColorStop(1, "rgba(150,190,255,0)");
+      ctx.fillStyle = inner;
+      ctx.fill();
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = `rgba(255,255,255,${0.9 * a})`;
+      ctx.stroke();
+      // The bevel: a second, fainter edge just inside the first.
+      wedge(0.86);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = `rgba(255,255,255,${0.22 * a})`;
+      ctx.stroke();
+      // A reflection down the left face.
+      ctx.beginPath();
+      ctx.moveTo(x - 22, y - 122);
+      ctx.lineTo(x - 122, y + 78);
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = `rgba(255,255,255,${0.2 * a})`;
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(x - 20, y - 130);
-      ctx.lineTo(x - 120, y + 70);
-      ctx.lineWidth = 9;
-      ctx.strokeStyle = `rgba(255,255,255,${0.16 * a})`;
+      ctx.moveTo(x - 150, y + 150);
+      ctx.lineTo(x + 150, y + 150);
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = `rgba(190,215,255,${0.5 * a})`;
       ctx.stroke();
     }
 
@@ -187,10 +233,20 @@ export function createLab(canvas) {
         let yLine = 190 + i * 100;
         if (i === RED) yLine = lerp(yLine, 320, f);
         if (i === BLUE) yLine = lerp(lerp(yLine, 650, f), 400, so);
-        const x0 = lerp(L.prism.x + 78, 150, s);
-        const y0 = lerp(L.prism.y - 20 + i * 6, yLine, s);
+        // Out of the prism every colour heads down toward the base: red the least, violet the most.
+        const exitX = L.prism.x + 99 + i * 2;
+        const exitY = L.prism.y + 8 + i * 4;
+        const x0 = lerp(exitX, 150, s);
+        const y0 = lerp(exitY, yLine, s);
         const x1 = lerp(1790, 1770, s);
-        const y1 = lerp(280 + i * 84, yLine, s);
+        const y1 = lerp(L.prism.y + 88 + i * 44, yLine, s);
+        if (L.prism.a > 0.01 && s < 0.99) {
+          // Inside the glass the colours have already begun to part.
+          ctx.beginPath();
+          ctx.moveTo(L.prism.x - 95, L.prism.y);
+          ctx.lineTo(exitX, exitY);
+          glowStroke(band.colour, alpha * L.prism.a * (1 - s) * 0.5, 3);
+        }
         const amp = wave * lerp(lerp(26, 84, f), 112, i === BLUE ? so : 0);
         const scale = lerp(lerp(0.42, 0.9, f), 1.38, i === BLUE ? so : 0);
         const lambda = band.nm * scale;
@@ -326,7 +382,6 @@ export function createLab(canvas) {
       }
       ctx.globalAlpha = 1;
       row.forEach((m, i) => {
-        if (m.x > head + 60) return;
         molecule(m.x, m.y, 15, m.angle + t * 0.4, i % 5 === 4, a, m.x < head ? 0.6 : 0);
         if (m.x > head) return;
         // The further along, the less blue is left to throw out.
@@ -342,21 +397,60 @@ export function createLab(canvas) {
       });
     }
 
-    // Blue arriving from everywhere in the sky, toward the person looking up.
+    // Why the whole sky is blue: sunlight crosses the air, each molecule it meets throws blue in every direction,
+    // and some of that blue comes down to the eye. So blue arrives from wherever the person looks.
     if (L.sky.a > 0.005) {
+      const a = L.sky.a;
+      const reach = L.sky.p * 2300;
       skyPoints.forEach((p, i) => {
-        const grow = smooth(L.sky.p * skyPoints.length - i * 0.8);
+        // The white ray from the Sun to this molecule.
+        const lit = clamp((reach - p.far) / 160);
+        const got = clamp(reach / p.far);
+        const ux = (p.x - SUN.x) / p.far;
+        const uy = (p.y - SUN.y) / p.far;
+        if (got > 0.05) {
+          ctx.beginPath();
+          ctx.moveTo(SUN.x + ux * 96, SUN.y + uy * 96);
+          ctx.lineTo(SUN.x + ux * Math.max(96, p.far * got - 22), SUN.y + uy * Math.max(96, p.far * got - 22));
+          glowStroke([255, 252, 238], a * 0.62, 3);
+        }
+        molecule(p.x, p.y, 17, p.angle + t * 0.5, p.oxygen, a * (0.45 + 0.55 * lit), lit);
+        if (lit < 0.02) return;
+        // Blue thrown out in every direction: short arrows around the molecule.
+        for (let k = 0; k < 5; k++) {
+          const ang = (k / 5) * TAU + i * 0.9 + 0.4;
+          const pulse = (t * 0.7 + k * 0.21 + i * 0.13) % 1;
+          const d0 = 24 + pulse * 46;
+          arrow(p.x + Math.cos(ang) * d0, p.y + Math.sin(ang) * d0, p.x + Math.cos(ang) * (d0 + 22), p.y + Math.sin(ang) * (d0 + 22), BANDS[BLUE].colour, a * lit * (1 - pulse) * 0.7, 2.5);
+        }
+        // And the part of it that comes down to the eye.
+        const grow = smooth(clamp((reach - p.far - 120) / 620));
         if (grow < 0.02) return;
-        const tx = 960 + (p.x - 960) * 0.12;
-        const ty = 742;
-        arrow(p.x, p.y, lerp(p.x, tx, grow * 0.82), lerp(p.y, ty, grow * 0.82), [190, 225, 255], L.sky.a * 0.9, 4);
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 46);
-        g.addColorStop(0, `rgba(255,255,255,${0.85 * L.sky.a * grow})`);
-        g.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.fillStyle = g;
+        const dx = EYE.x - p.x;
+        const dy = EYE.y - p.y;
+        const len = Math.hypot(dx, dy);
+        const stop = (len - 26) / len;
+        // A dark edge under the arrow, so blue reads against a blue sky.
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 46, 0, TAU);
-        ctx.fill();
+        ctx.moveTo(p.x + (dx / len) * 26, p.y + (dy / len) * 26);
+        ctx.lineTo(p.x + dx * stop * grow, p.y + dy * stop * grow);
+        ctx.lineWidth = 13;
+        ctx.strokeStyle = `rgba(6,28,96,${0.5 * a})`;
+        ctx.stroke();
+        arrow(p.x + (dx / len) * 26, p.y + (dy / len) * 26, p.x + dx * stop * grow, p.y + dy * stop * grow, [118, 186, 255], a, 5.5);
+        // A bead of light running down each arrow keeps the picture alive once it has drawn.
+        const bead = (t * 0.55 + i * 0.17) % 1;
+        if (bead < grow) {
+          const bx = p.x + dx * stop * bead;
+          const by = p.y + dy * stop * bead;
+          const g = ctx.createRadialGradient(bx, by, 0, bx, by, 16);
+          g.addColorStop(0, `rgba(225,240,255,${0.95 * a})`);
+          g.addColorStop(1, "rgba(120,180,255,0)");
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(bx, by, 16, 0, TAU);
+          ctx.fill();
+        }
       });
     }
   }

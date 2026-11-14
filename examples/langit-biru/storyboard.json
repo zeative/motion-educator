@@ -968,7 +968,7 @@
       "caption": "Merah *panjang*, biru *pendek*.",
       "teaches": "Angka konkretnya: merah sekitar 700 nm, biru sekitar 450 nm.",
       "screen": "Dua gelombang besar: merah di atas, biru di bawah. Di tiap gelombang satu panjang gelombang ditandai kurung ukur dengan angka: '700 nm' (merah) dan '450 nm' (biru). Label 'panjang gelombang (λ)' kecil di kiri.",
-      "motion": "Kurung ukur membuka dari satu puncak ke puncak berikutnya; angka menghitung naik sampai nilainya. Gelombang tetap merambat.",
+      "motion": "Kurung ukur membuka dari satu puncak ke puncak berikutnya; angka langsung tampil pada nilainya (tidak dihitung naik, supaya tidak pernah ada angka yang salah di layar). Gelombang tetap merambat.",
       "carries": "Gelombang biru dan merah mengecil menjadi dua sinar tipis yang masuk ke udara.",
       "transition": "Kamera menukik masuk ke ruang di antara gelombang: zoom ke skala molekul.",
       "sound": "Dua tick bernada (rendah untuk merah, tinggi untuk biru) saat angka terkunci.",
@@ -1016,7 +1016,7 @@
         },
         {
           "at": 0.6,
-          "note": "Kurung ukur membuka di satu panjang gelombang; angka menghitung naik.",
+          "note": "Kurung ukur membuka di satu panjang gelombang; angkanya langsung tampil pada nilainya.",
           "draw": [
             {
               "wave": [
@@ -1241,10 +1241,10 @@
       "caption": "Jauh lebih kecil dari gelombang cahaya.",
       "teaches": "Skala adalah kuncinya: molekul ~0,3 nm, gelombang biru 450 nm, lebih dari seribu kali lebih besar.",
       "screen": "Perbandingan skala: satu gelombang biru besar melintang di tengah dengan kurung '450 nm'; di bawah satu puncaknya ada titik molekul sangat kecil dengan garis penunjuk dan label 'molekul ≈ 0,3 nm'. Angka besar di kanan: '1.500×'.",
-      "motion": "Gelombang biru masuk dari kiri; kaca pembesar lingkaran membesar di atas titik molekul memperlihatkan molekul dua-atom di dalamnya. Angka '1.500×' menghitung naik.",
+      "motion": "Gelombang biru masuk dari kiri; kaca pembesar lingkaran membesar di atas titik molekul memperlihatkan molekul dua-atom di dalamnya. Angka '1.500×' masuk pada nilainya dan bertahan.",
       "carries": "Molekul dan gelombang: keduanya dipakai di percobaan hamburan.",
       "transition": "Kaca pembesar menutup; molekul berlipat ganda menjadi barisan molekul di tengah layar.",
-      "sound": "Tick penghitung naik; pop saat kaca pembesar terbuka.",
+      "sound": "Pop saat kaca pembesar terbuka; satu tick saat angka mendarat.",
       "check": "Perbandingan 450 / 0,3 = 1.500 tertulis benar. Label menunjuk tepat ke molekul.",
       "facts": [
         "f3",
@@ -1348,7 +1348,7 @@
         },
         {
           "at": 1.0,
-          "note": "Angka pembanding menghitung naik sampai 1.500×.",
+          "note": "Angka pembanding 1.500× masuk dan bertahan.",
           "draw": [
             {
               "wave": [
@@ -1831,8 +1831,8 @@
       "teaches": "Memberi nama pada fenomenanya supaya penonton bisa mencarinya lagi.",
       "screen": "Kartu nama tipografi: tulisan kecil 'namanya' di atas, lalu 'Hamburan Rayleigh' sangat besar di tengah dengan kata 'Rayleigh' beraksen biru; garis mikro di bawah: 'LORD RAYLEIGH · 1871'.",
       "motion": "Judul masuk dengan hentakan (skala 1,5→1, buram→tajam) tepat di ketukan; kilau menyapu; garis mikro naik.",
-      "carries": "Kata 'Rayleigh' mengecil ke pojok kiri atas grafik sebagai judul grafik.",
-      "transition": "Teks mengecil dan terbang ke kiri atas; sumbu grafik digambar dari titik asal.",
+      "carries": "Tulisan 'Hamburan Rayleigh' mengecil ke pojok kanan atas dan tetap di sana sebagai judul grafik.",
+      "transition": "Teks mengecil dan terbang ke kanan atas; sumbu grafik sudah mulai digambar selagi teks berpindah.",
       "sound": "Impact sedang tepat di ketukan; shimmer pendek.",
       "check": "Ejaan 'Rayleigh' benar. Tahun 1871 sesuai lembar fakta.",
       "facts": [
@@ -2153,10 +2153,10 @@
       "caption": "Biru terhambur ≈ *5,9×* lebih kuat dari merah.",
       "teaches": "Angka kuncinya: (700/450)⁴ ≈ 5,9. Biru hampir enam kali lebih kuat terhambur daripada merah.",
       "screen": "Grafik yang sama dengan dua titik bercahaya di kurva: merah di 700 nm (label '1×') dan biru di 450 nm (label besar '5,9×'). Garis putus-putus dari tiap titik ke sumbu. Di kanan: perhitungan '(700 / 450)⁴ ≈ 5,9'.",
-      "motion": "Titik merah muncul dulu; garis putus-putus naik dari sumbu; titik biru muncul dan angkanya menghitung dari 1,0 sampai 5,9. Perhitungan muncul langkah demi langkah.",
+      "motion": "Titik merah muncul dulu; garis putus-putus naik dari sumbu; titik biru muncul dan label 5,9× masuk pada nilainya. Perhitungan muncul setelahnya.",
       "carries": "Titik biru yang bercahaya: ia menjadi butir cahaya biru di langit.",
       "transition": "Titik biru membesar menjadi kilatan biru yang memenuhi layar: masuk ke langit.",
-      "sound": "Penghitung naik (tick cepat), lalu hit lembut saat 5,9× terkunci.",
+      "sound": "Pop per titik, lalu tick dan chime lembut saat 5,9× mendarat.",
       "check": "5,9 konsisten dengan (700/450)^4 = 5,86. Titik berada tepat di kurva.",
       "facts": [
         "f4"
@@ -2279,7 +2279,7 @@
         },
         {
           "at": 0.5,
-          "note": "Titik biru muncul di 450 nm; angkanya menghitung naik.",
+          "note": "Titik biru muncul di 450 nm; label 5,9× mulai masuk.",
           "draw": [
             {
               "axes": [
@@ -2412,7 +2412,7 @@
                 760,
                 400
               ],
-              "text": "3,2×",
+              "text": "5,9×",
               "size": 130
             },
             {
@@ -2422,13 +2422,13 @@
                 760,
                 330
               ],
-              "text": "menghitung"
+              "text": "naik masuk"
             }
           ]
         },
         {
           "at": 1.0,
-          "note": "5,9× terkunci; perhitungannya tampil di kanan.",
+          "note": "5,9× bertahan; perhitungannya tampil di kanan.",
           "draw": [
             {
               "axes": [
@@ -2585,7 +2585,7 @@
       "end": 41.86,
       "caption": "Biru datang dari *seluruh penjuru langit*.",
       "teaches": "Karena biru terhambur ke segala arah, mata kita menerima biru dari mana pun kita memandang langit.",
-      "screen": "Bidikan lebar dari permukaan: siluet cakrawala dan seorang pengamat kecil di bawah, langit siang berupa kubah biru bergradasi (lebih pucat di cakrawala), Matahari di kiri atas. Sinar putih masuk dari Matahari; dari banyak titik di langit, panah biru mengarah ke pengamat.",
+      "screen": "Bidikan lebar dari permukaan: siluet cakrawala dan seorang pengamat kecil di bawah, langit siang berupa kubah biru bergradasi (lebih pucat di cakrawala), Matahari di kiri atas. Sinar putih dari Matahari mengenai molekul-molekul di berbagai titik langit; tiap molekul menyala, menghamburkan biru ke segala arah, dan satu panah biru dari tiap molekul berakhir tepat di kepala pengamat.",
       "motion": "Langit berubah dari gelap menjadi biru mulai dari jalur sinar lalu menyebar ke seluruh kubah. Panah-panah biru tumbuh dari langit menuju pengamat satu per satu. Kamera miring naik pelan.",
       "carries": "Kubah langit biru: warnanya menjadi contoh di pita spektrum.",
       "transition": "Kubah langit memipih menjadi pita spektrum horizontal.",
@@ -2806,7 +2806,7 @@
       "end": 45.349,
       "caption": "Ungu terhambur lebih kuat. Kenapa bukan ungu?",
       "teaches": "Mengantisipasi keberatan yang wajar: menurut kurva tadi, ungu seharusnya menang.",
-      "screen": "Pita spektrum lebar di tengah (ungu di kiri sampai merah di kanan) dengan kurva hamburan di atasnya; penanda di ungu (400 nm) lebih tinggi daripada penanda biru (450 nm). Tanda tanya besar di atas penanda ungu.",
+      "screen": "Pita spektrum lebar di tengah (ungu di kiri sampai merah di kanan) dengan kurva hamburan di atasnya; batang ungu (400 nm) lebih tinggi daripada batang biru (450 nm), dan batang merah (700 nm) yang pendek di kanan sebagai pembanding. Tanda tanya besar di samping batang ungu.",
       "motion": "Pita membuka; penanda biru dan ungu naik seperti batang, ungu melampaui biru. Tanda tanya masuk dengan pantulan kecil.",
       "carries": "Pita spektrum tetap di atas; tiga alasan muncul di bawahnya.",
       "transition": "Pita naik ke bagian atas layar; panel alasan naik dari bawah.",
@@ -3089,10 +3089,10 @@
       "caption": "Saat senja, jalur cahaya *jauh lebih panjang*.",
       "teaches": "Geometri: saat Matahari rendah, sinarnya menempuh atmosfer jauh lebih panjang sebelum sampai ke mata.",
       "screen": "Bumi 3D besar di tengah-bawah dengan lapisan atmosfer tebal yang dibesar-besarkan. Dua pengamat di permukaan: satu di bawah Matahari (siang) dengan jalur sinar pendek tegak lurus, satu di garis senja dengan jalur sinar panjang menyerong menembus atmosfer. Label: 'siang: 1×' dan 'senja: ≈ 38×'.",
-      "motion": "Bumi berputar masuk. Jalur siang digambar pendek; jalur senja digambar panjang perlahan dan angkanya menghitung sampai 38. Atmosfer berpendar di sepanjang jalur.",
+      "motion": "Bumi berputar masuk. Jalur siang digambar pendek; jalur senja digambar panjang dan label ≈ 38× masuk pada nilainya. Atmosfer berpendar di sepanjang jalur.",
       "carries": "Jalur sinar senja yang panjang: ia diluruskan menjadi diagram.",
       "transition": "Kamera mengikuti jalur senja dan meluruskannya menjadi garis horizontal panjang.",
-      "sound": "Whoosh lembut saat Bumi masuk; penghitung naik; nada rendah menahan.",
+      "sound": "Whoosh lembut saat Bumi masuk; pop per jalur; satu tick saat 38× mendarat.",
       "check": "Angka 38× hanya untuk cakrawala (sesuai fakta). Jalur senja jelas lebih panjang di gambar.",
       "facts": [
         "f7"
@@ -3180,7 +3180,7 @@
         },
         {
           "at": 1.0,
-          "note": "Jalur senja digambar panjang menyerong menembus udara; angkanya menghitung sampai 38.",
+          "note": "Jalur senja digambar panjang menyerong menembus udara; label ≈ 38× masuk.",
           "draw": [
             {
               "planet": [
@@ -3632,7 +3632,7 @@
       "type": "recap",
       "start": 57.907,
       "end": 62.791,
-      "caption": "Putih itu semua warna. Biru paling terhambur. Senja tinggal merah.",
+      "caption": "Putih itu semua warna. Biru paling terhambur. Senja tinggal jingga dan merah.",
       "teaches": "Mengulang tiga gagasan inti dalam satu bingkai supaya melekat.",
       "screen": "Tiga kartu kaca sejajar, masing-masing dengan gambar mini dan satu kalimat: (1) prisma mini: 'Cahaya putih = semua warna', (2) molekul dengan panah biru: 'Udara menghamburkan biru ≈ 5,9× lebih kuat', (3) Matahari senja mini: 'Senja: jalur panjang, tinggal jingga'. Judul kecil di atas: 'Jadi, kenapa langit biru?'.",
       "motion": "Kartu naik berurutan dengan miring 3D lalu rata; gambar mini di tiap kartu bergerak sedikit (kipas warna membuka, panah memancar, Matahari turun). Kilau menyapu tiap kartu bergantian.",

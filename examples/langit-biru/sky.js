@@ -16,6 +16,8 @@ void main(){
   vec2 p = vec2(uv.x * uRes.x / uRes.y, uv.y);
   vec2 sun = vec2(uSun.x * uRes.x / uRes.y, uSun.y);
   float ground = .185 + .035 * fbm(vec2(uv.x * 3.2, 4.)) + .012 * noise(vec2(uv.x * 22., 9.));
+  // A second, farther ridge, hazed by the air in front of it.
+  float far = .235 + .06 * fbm(vec2(uv.x * 1.7 + 3., 7.)) + .01 * noise(vec2(uv.x * 14., 2.));
   float h = clamp((uv.y - ground) / (1. - ground), 0., 1.);
   // Noon: deep blue overhead, paler toward the horizon, because that light crossed more air.
   vec3 noon = mix(vec3(.66, .84, 1.), vec3(.06, .3, .8), pow(h, .62));
@@ -25,9 +27,9 @@ void main(){
   dusk = mix(dusk, vec3(.03, .06, .2), smoothstep(.42, 1., h));
   vec3 sky = mix(noon, dusk, uDusk);
   float d = length(p - sun);
-  vec3 sunCol = mix(vec3(1., .98, .9), vec3(1., .5, .16), uDusk);
+  vec3 sunCol = mix(vec3(1., .98, .9), vec3(1., .34, .1), uDusk);
   sky += sunCol * (.9 * exp(-d * d * 60.) + .3 * exp(-d * 6.5) * (1. + uDusk));
-  sky = mix(sky, sunCol * 1.6, smoothstep(.058, .05, d));
+  sky = mix(sky, sunCol * mix(1.6, 1.25, uDusk), smoothstep(.058, .05, d));
   // Thin cloud streaks catch the low light.
   float streak = smoothstep(.56, .8, fbm(vec2(uv.x * 2.4 + uT * .01, uv.y * 13.))) * smoothstep(.05, .4, h) * (1. - smoothstep(.45, .8, h));
   sky += mix(vec3(.25), vec3(1., .5, .25) * .5, uDusk) * streak * (.25 + .5 * uDusk);
@@ -37,7 +39,9 @@ void main(){
   // The land is a silhouette with a thin lit edge.
   float land = smoothstep(ground + .002, ground - .002, uv.y);
   vec3 earth = mix(vec3(.012, .014, .02), vec3(.03, .02, .02), uDusk) + sunCol * .05 * exp(-abs(uv.x - uSun.x) * 4.) * smoothstep(ground - .06, ground, uv.y);
-  vec3 col = mix(sky, earth, land);
+  float ridge = smoothstep(far + .002, far - .002, uv.y);
+  vec3 hazed = mix(sky, mix(vec3(.1, .2, .42), vec3(.3, .1, .12), uDusk), .72);
+  vec3 col = mix(mix(sky, hazed, ridge), earth, land);
   col += (hash(gl_FragCoord.xy + uT) - .5) * 2. / 255.;
   o = vec4(col, 1.);
 }`;
