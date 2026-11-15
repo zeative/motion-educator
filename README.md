@@ -199,13 +199,17 @@ reproducible.
 <table>
 <tr>
 <td valign="top" align="center" width="170"><a href="docs/media/films/luka-sembuh.mp4"><img src="docs/media/previews/luka-sembuh.webp" alt="Gimana sih luka bisa nutup sendiri?" width="170" /></a><br /><sub><a href="examples/luka-sembuh"><b>Gimana sih luka bisa nutup sendiri?</b></a><br />Bahasa Indonesia · 53 s · voice: Livna · <a href="docs/media/films/luka-sembuh.mp4">▶ watch</a> · <a href="examples/luka-sembuh/storyboard">board</a></sub></td>
+<td valign="top" align="center" width="170"><a href="docs/media/films/hoaks-diulang.mp4"><img src="docs/media/previews/hoaks-diulang.webp" alt="Kenapa hoaks yang diulang-ulang lama-lama terasa benar?" width="170" /></a><br /><sub><a href="examples/hoaks-diulang"><b>Kenapa hoaks yang diulang-ulang lama-lama terasa benar?</b></a><br />Bahasa Indonesia · 50 s · voice: Jefri · <a href="docs/media/films/hoaks-diulang.mp4">▶ watch</a> · <a href="examples/hoaks-diulang/storyboard">board</a></sub></td>
+<td valign="top" align="center" width="170"><a href="docs/media/films/hp-lemot.mp4"><img src="docs/media/previews/hp-lemot.webp" alt="Kenapa HP makin lemot pas memorinya hampir penuh?" width="170" /></a><br /><sub><a href="examples/hp-lemot"><b>Kenapa HP makin lemot pas memorinya hampir penuh?</b></a><br />Bahasa Indonesia · 45 s · voice: Rafiq · <a href="docs/media/films/hp-lemot.mp4">▶ watch</a> · <a href="examples/hp-lemot/storyboard">board</a></sub></td>
 <td valign="top" align="center" width="170"><a href="docs/media/films/petir-guntur.mp4"><img src="docs/media/previews/petir-guntur.webp" alt="Kenapa petir terlihat dulu, baru guntur terdengar?" width="170" /></a><br /><sub><a href="examples/petir-guntur"><b>Kenapa petir terlihat dulu, baru guntur terdengar?</b></a><br />Bahasa Indonesia · 40 s · voice: Rafiq · <a href="docs/media/films/petir-guntur.mp4">▶ watch</a> · <a href="examples/petir-guntur/storyboard">board</a></sub></td>
+</tr>
+<tr>
 <td valign="top" align="center" width="170"><a href="docs/media/films/float-math.mp4"><img src="docs/media/previews/float-math.webp" alt="Why does 0.1 + 0.2 not equal 0.3?" width="170" /></a><br /><sub><a href="examples/float-math"><b>Why does 0.1 + 0.2 not equal 0.3?</b></a><br />English · 35 s · captions · <a href="docs/media/films/float-math.mp4">▶ watch</a> · <a href="examples/float-math/storyboard">board</a></sub></td>
 <td valign="top" align="center" width="170"><a href="docs/media/films/es-mengapung.mp4"><img src="docs/media/previews/es-mengapung.webp" alt="Kenapa es malah ngapung di air?" width="170" /></a><br /><sub><a href="examples/es-mengapung"><b>Kenapa es malah ngapung di air?</b></a><br />Bahasa Indonesia · 32 s · captions · <a href="docs/media/films/es-mengapung.mp4">▶ watch</a> · <a href="examples/es-mengapung/storyboard">board</a></sub></td>
 </tr>
 </table>
 
-<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 8 films, each made by an agent following this skill from the brief to the mix.</sub>
+<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 10 films, each made by an agent following this skill from the brief to the mix.</sub>
 <!-- gallery:end -->
 
 ## Narration
