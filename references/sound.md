@@ -47,6 +47,8 @@ than the film and its tail is faded.
 - Then read `node kit/audio/music.mjs films/NAME`: it reports a silent lead-in, silence inside, a loudness range
   over 10 LU, and music that stops before the picture. Each is a reason to compose again; the average level alone
   says nothing about them.
+- The poster is heard as well as seen: the mixer warns when the sound stops more than half a second before the last
+  frame. A composed bed often fades out early; ride it up over its decay or shorten `fade_out` so it rings to the end.
 - One composition per film. Ask again only if the first is clearly wrong (wrong mood, too busy, it stops early, or
   the status above flags it).
 - Nobody can hear it here: say so, and name the prompt in the delivery note so a person can judge it.

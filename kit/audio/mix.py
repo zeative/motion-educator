@@ -193,6 +193,15 @@ cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-i", str(wav), "-map"
 subprocess.run(cmd, check=True)
 after = loudness(load(out))
 report.insert(0, f"mix: {after[0]:.1f} LUFS, range {after[1]:.1f} LU, true peak {after[2]:.1f} dBFS ({len(events)} effects, {spoken} voice stretches, master gain {target - before[0]:+.1f} dB)")
+# A film that goes quiet before its last frame holds its poster in silence: say so, with when it stops.
+hop = SR // 20
+level = np.abs(mix).max(axis=1)[: N // hop * hop].reshape(-1, hop).max(axis=1)
+heard = np.nonzero(level > gain(-50))[0]
+last = (heard[-1] + 1) * hop / SR if len(heard) else 0
+if N / SR - last > 0.5:
+    report.insert(1, f"  <- the sound stops at {last:.2f} s, {N / SR - last:.1f} s before the picture ends: let the music ring to the last frame (ride it up over its decay, a shorter fade_out) or end the picture sooner")
 wav.unlink()
 out.with_suffix(".mix.txt").write_text("\n".join(report) + "\n")
 print(report[0])
+if report[1].startswith("  <-"):
+    print(report[1])
