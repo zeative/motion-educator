@@ -101,12 +101,12 @@
   align-items: baseline;
   gap: 18px;
   margin-bottom: 10px;
-  font: 600 28px / 1.2 var(--sans);
+  font: 600 34px / 1.2 var(--sans);
   white-space: nowrap;
 }
 .who i {
   color: var(--amber);
-  font: 500 26px / 1 var(--mono);
+  font: 500 34px / 1 var(--mono);
   opacity: 0.85;
 }
 .msg {
@@ -266,18 +266,18 @@
   right: 22px;
   top: 0;
   color: var(--blue);
-  font: 600 30px / 52px var(--mono);
+  font: 600 34px / 52px var(--mono);
   opacity: 0;
 }
 .note {
   position: absolute;
   right: 0;
-  color: var(--t3);
-  font: 500 28px / 1 var(--mono);
+  color: var(--t2);
+  font: 500 34px / 1 var(--mono);
   white-space: nowrap;
 }
 #meters .note {
-  top: 168px;
+  top: 162px;
 }
 
 /* ── s14 to s16 ───────────────────────────────────────────────────────────── */
@@ -366,7 +366,7 @@
   left: 94px;
   top: 0;
   width: 776px;
-  padding: 30px 36px 34px;
+  padding: 30px 36px 150px;
   border-radius: 32px;
   --accent: var(--blue);
   opacity: 0;
@@ -377,7 +377,7 @@
   align-items: center;
   gap: 14px;
   color: var(--blue);
-  font: 600 30px / 1 var(--mono);
+  font: 600 34px / 1 var(--mono);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -392,8 +392,8 @@
 }
 .stamp {
   position: absolute;
-  right: 34px;
-  bottom: -34px;
+  right: 40px;
+  bottom: 30px;
   padding: 10px 30px 8px;
   border: 7px solid #ff6a4d;
   border-radius: 18px;
@@ -660,7 +660,7 @@
   left: 64px;
   width: 866px;
   color: var(--t2);
-  font: 500 30px / 1.2 var(--mono);
+  font: 500 34px / 1.2 var(--mono);
   text-align: center;
   white-space: nowrap;
 }
@@ -669,7 +669,6 @@
 }
 .src.tr {
   text-align: right;
-  font-size: 28px;
 }
 
 /* ── s11 and s12: headlines ───────────────────────────────────────────────── */
@@ -711,8 +710,8 @@
 }
 .kick {
   padding: 26px 36px 0;
-  color: var(--t3);
-  font: 500 28px / 1 var(--mono);
+  color: var(--t2);
+  font: 500 34px / 1 var(--mono);
   letter-spacing: 0.02em;
   position: relative;
   height: 54px;
@@ -779,7 +778,7 @@
   align-items: center;
   gap: 22px;
   padding: 4px 36px 32px;
-  font: 600 30px / 1 var(--mono);
+  font: 600 34px / 1 var(--mono);
   color: var(--amber);
   white-space: nowrap;
 }
@@ -823,7 +822,7 @@
   left: 0;
   top: 30px;
   color: #ffd08a;
-  font: 600 30px / 1 var(--mono);
+  font: 600 34px / 1 var(--mono);
   white-space: nowrap;
 }
 #src-p {
@@ -895,7 +894,7 @@
   height: 44px;
 }
 #src-f {
-  top: 480px;
+  top: 990px;
 }
 
 /* ── s17: recap ───────────────────────────────────────────────────────────── */
@@ -959,4 +958,20 @@
 }
 #neq em {
   display: inline-block;
+}
+
+/* Over the grass the spoken words sit on a dark plate, so an accent word never lands on the bright path. */
+.caption.pop.over-grass {
+  padding: 8px 30px 14px;
+  border-radius: 28px;
+  background: rgb(10 10 12 / 0.6);
+  box-shadow: 0 0 46px 26px rgb(10 10 12 / 0.55);
+}
+/* The sky over the field: the same haze the far grass fades into, so there is no flat band above the horizon. */
+#sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 30% at 50% 26%, rgb(255 176 46 / 0.16), transparent 70%),
+    linear-gradient(180deg, #0d0c0b 0%, #1b1712 40%, #2a2219 62%, #2a2219 100%);
 }

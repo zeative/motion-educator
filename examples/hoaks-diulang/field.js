@@ -26,7 +26,7 @@ export async function createField(canvas) {
   camera.near = 0.1;
   camera.far = 200;
   camera.updateProjectionMatrix();
-  scene.fog = new THREE.Fog(0x0b0b0c, 24, 62);
+  scene.fog = new THREE.Fog(0x2a2219, 20, 58);
 
   // Light: a cool key from far left, a warm walker light that travels the path.
   space.key.color.set(0xc8d6ff);

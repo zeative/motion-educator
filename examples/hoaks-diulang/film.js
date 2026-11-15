@@ -41,13 +41,14 @@ const swap = (sels, times, until) => {
 };
 
 // ── State the timeline tweens; drawn every frame ────────────────────────────
-const M = { feel: 0.18, proof: 0, grey: 0, scroll: 0, warm: 0, reader: 0 };
+const M = { feel: 0.14, proof: 0, grey: 0, scroll: 0, warm: 0, reader: 0 };
 const feelBar = $("#feel");
 const proofBar = $("#proof");
 const scroll = $("#scroll");
 const field = await createField($("#field"));
 const F = field.F;
 const pinSign = $("#pin-sign");
+gsap.set("#sky", { opacity: 0 });
 const place = (el, x, y) => (el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`);
 
 // ── Layout read once (fonts are loaded): where every copy sits in the thread ─
@@ -111,6 +112,10 @@ film.each((t) => {
 });
 
 film.captions();
+for (const id of ["s07", "s08", "s09"]) {
+  for (const el of $$(`.caption[data-shot="${id}"]`)) el.classList.add("over-grass");
+  gsap.set(`.caption[data-shot="${id}"] .cw`, { opacity: 0.7 });
+}
 
 // ═════════════ s01 and s02: the same claim, again and again ═══════════════════
 Object.assign(stage, { lx: 0.45, ly: 0.45, glow: 0.45, floor: 0.6, silk: 0.8 });
@@ -120,7 +125,7 @@ gsap.set(".proof", { opacity: 0 });
 gsap.set(bubbles.slice(2), { opacity: 0 });
 gsap.set("#neq, #btns, #result", { autoAlpha: 0 });
 const ARRIVE = [null, 0, said("s01", "diulang-ulang") - 0.04, said("s01", "keluarga") - 0.04, said("s02", "lama-lama") - 0.04];
-const FEEL = [0.18, 0.34, 0.48, 0.6, 0.7, 0.78];
+const FEEL = [0.14, 0.26, 0.36, 0.44, 0.51, 0.6];
 tl.fromTo("#chat", { scale: 1 }, { scale: 1.035, duration: s.s02.end, ease: "none", transformOrigin: "50% 60%", immediateRender: false }, 0);
 // The second copy is already sliding in on frame 0.
 tl.fromTo(bubbles[1], { opacity: 0.35, y: 26 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, 0);
@@ -145,7 +150,7 @@ tl.fromTo(".feel .mlab", { textShadow: "0 0 0px rgba(255,176,46,0)" }, { textSha
 tl.fromTo(".feel .track", { scale: 1 }, { scale: 1.04, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "0% 50%", immediateRender: false }, TERASA);
 
 // ═════════════ s03: the same words, every time; and no evidence ═══════════════
-tl.to("#chat", { scale: 0.88, opacity: 0, duration: 0.22, ease: "power2.in" }, s.s03.start - 0.2);
+tl.to("#chat", { scale: 0.88, opacity: 0, duration: 0.2, ease: "power2.in" }, s.s03.start - 0.22);
 film.scene("#stack", s.s03.start, s.s04.start + 0.3);
 const minis = $$(".mini");
 gsap.set(minis, { opacity: 0, scale: 1.12 });
@@ -160,14 +165,14 @@ tl.fromTo("#zero", { scale: 0.3 }, { scale: 1, duration: 0.4, ease: "back.out(3)
 tl.fromTo(".proof .track", { boxShadow: "inset 0 2px 6px rgb(0 0 0 / 0.7), 0 0 0 2px rgb(90 169 255 / 0.45)" }, { boxShadow: "inset 0 2px 6px rgb(0 0 0 / 0.7), 0 0 30px 6px rgb(90 169 255 / 0.8)", duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, BUKTI);
 lightAt(400, 1110, 0.5, BUKTI - 0.1, 0.4);
 film.tintTo(BLUE, BUKTI - 0.1, 0.3);
-film.tintTo(AMBER, s.s04.start - 0.2, 0.5);
+tl.set(stage, { r: 1, g: 176 / 255, b: 46 / 255 }, s.s04.start - 0.12);
 
 // ═════════════ s04 to s06: the head, and the same sentence read again ═════════
 // The copies fold into one sentence that flies into the head.
 minis.forEach((mini, i) => tl.to(mini, { y: 690 - (262 + i * 148) - 60, scale: 0.55, opacity: 0, duration: 0.38, ease: "power3.in" }, s.s04.start - 0.28 + i * 0.02));
 tl.to(eqs, { opacity: 0, duration: 0.15 }, s.s04.start - 0.3);
 tl.to("#meters", { autoAlpha: 0, duration: 0.25 }, s.s04.start - 0.3);
-film.scene("#head", s.s04.start - 0.12, s.s07.start + 0.25);
+film.scene("#head", s.s04.start - 0.12, s.s07.start - 0.02);
 film.draw("#head-line", s.s04.start - 0.12, 0.75, "power2.out");
 gsap.set("#head-fill", { opacity: 0 });
 tl.to("#head-fill", { opacity: 1, duration: 0.6 }, s.s04.start);
@@ -189,13 +194,15 @@ PASSES.forEach((p, i) => {
 // Closer on the sentence, then a dive along the reading line into the field.
 tl.to("#headcam", { scale: 1.34, duration: s.s06.dur - 0.25, ease: "power2.inOut" }, s.s06.start - 0.1);
 const DIVE = s.s07.start - 0.3;
-tl.to("#headcam", { scale: 4.2, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power3.in" }, DIVE);
-tl.to(".readout", { opacity: 0, duration: 0.25 }, DIVE);
+const CUT = s.s07.start - 0.02; // on the whoosh
+tl.to("#headcam", { scale: 1.9, duration: CUT - DIVE, ease: "power3.in" }, DIVE);
+tl.set("#head", { autoAlpha: 0 }, CUT);
 
 // ═════════════ s07 to s09: the path through the grass ════════════════════════
-Object.assign(F, { cx: 0.6, cy: 2.6, cz: 14.2, lx: 0, ly: 0, lz: 1.6 });
-tl.to(F, { vis: 1, duration: 0.45, ease: "power2.out" }, DIVE + 0.1);
-tl.fromTo(F, { cz: 14.2, cy: 2.4, lz: 1.6 }, { cz: 11.0, cy: 2.9, lz: -2.0, duration: s.s07.end - DIVE, ease: "power1.out", immediateRender: false }, DIVE + 0.05);
+Object.assign(F, { cx: 0.6, cy: 2.6, cz: 14.2, lx: 0, ly: 0, lz: 5.6 });
+tl.set(F, { vis: 1 }, CUT);
+tl.set("#sky", { opacity: 1 }, CUT);
+tl.fromTo(F, { cz: 14.2, cy: 2.6, lz: 5.6 }, { cz: 11.0, cy: 3.0, lz: 2.2, duration: s.s07.end - CUT, ease: "power1.out", immediateRender: false }, CUT);
 film.scene("#path", s.s07.start, s.s10.start + 0.3);
 film.land("#pic-note", s.s07.start + 0.15, { from: -16 });
 lightAt(540, 1100, 0.7, s.s07.start, 0.6);
@@ -217,7 +224,7 @@ tl.to(F, { walk: 1, duration: 0.15 }, WALKS[0].t0 - 0.1);
 tl.to(F, { walk: 0, duration: 0.25 }, WALKS.at(-1).t0 + WALKS.at(-1).dur);
 swap(["#w1", "#w2", "#w3", "#w4", "#w5", "#w6"], WALKS.map((w) => w.t0), s.s08.start + 0.4);
 // s08: the camera rises along the path to where it leads.
-tl.to(F, { cy: 11, cz: 7, cx: 0.4, ly: 0, lz: -16, duration: 1.5, ease: "power2.inOut" }, s.s08.start - 0.1);
+tl.to(F, { cy: 12, cz: 8, cx: 0.4, ly: 0, lz: -12, duration: 1.5, ease: "power2.inOut" }, s.s08.start - 0.1);
 tl.to("#pic-note", { autoAlpha: 0, duration: 0.25 }, s.s08.start);
 gsap.set("#sign", { scale: 0, transformOrigin: "50% 100%" });
 tl.to("#sign", { scale: 1, duration: 0.55, ease: "back.out(1.8)" }, s.s08.start + 0.75);
@@ -245,19 +252,22 @@ tl.to("#sign, #wrong", { opacity: 0, duration: 0.3 }, EQ - 0.2);
 // ═════════════ s10: the name ═════════════════════════════════════════════════
 tl.to("#eqn", { y: -120, opacity: 0, duration: 0.3, ease: "power3.in" }, s.s10.start - 0.15);
 tl.to("#meters", { autoAlpha: 0, duration: 0.25 }, s.s10.start - 0.15);
-tl.to(F, { dim: 0.3, vis: 0.55, cy: 12.5, duration: 1.0, ease: "power2.inOut" }, s.s10.start - 0.1);
+tl.to(F, { dim: 0.3, vis: 0.55, cy: 13, duration: 1.0, ease: "power2.inOut" }, s.s10.start - 0.1);
+tl.to("#sky", { opacity: 0.55, duration: 1.0 }, s.s10.start - 0.1);
 film.scene("#name", s.s10.start - 0.05, s.s11.start + 0.2);
 const nmLines = $$("#nm .ln");
 for (const line of nmLines) film.split(line);
-slam(nmLines[0], said("s10", "efek") - 0.06, 0);
-slam(nmLines[1], said("s10", "kebenaran") - 0.06, 0);
+slam(nmLines[0], said("s10", "namanya") - 0.05, 0);
+slam(nmLines[1], said("s10", "namanya") + 0.12, 0);
 slam(nmLines[2], said("s10", "ilusif") - 0.06, 0);
 hit(said("s10", "ilusif"), 540, 760, 0.25, 0.3);
-film.land("#nm-en", said("s10", "kebenaran") + 0.2, { from: 16 });
-film.land("#nm-src", said("s10", "kebenaran") + 0.35, { from: 16 });
+film.land("#nm-en", said("s10", "efek"), { from: 16 });
+film.land("#nm-src", said("s10", "kebenaran"), { from: 16 });
 film.sheen("#nm", said("s10", "ilusif") + 0.3, 0.8);
-tl.to("#nm, #nm-en, #nm-src", { y: -160, opacity: 0, duration: 0.25, ease: "power3.in", stagger: 0.02 }, s.s11.start - 0.12);
+tl.to("#nm, #nm-en, #nm-src", { y: -160, opacity: 0, duration: 0.22, ease: "power3.in" }, s.s11.start - 0.3);
+tl.set("#name", { autoAlpha: 0 }, s.s11.start - 0.06);
 tl.to(F, { vis: 0, duration: 0.35 }, s.s11.start - 0.2);
+tl.to("#sky", { opacity: 0, duration: 0.35 }, s.s11.start - 0.2);
 tl.to(stage, { glow: 0.5, duration: 0.5 }, s.s11.start - 0.2);
 
 // ═════════════ s11 and s12: a headline seen once, then met again ═════════════
@@ -283,8 +293,8 @@ film.land("#n2", said("s11", "aja") + 0.35, { from: -60, duration: 0.5 });
 film.land("#n3", said("s12", "ketemu") - 0.02, { from: 70, duration: 0.5 });
 film.land("#src-p", said("s12", "lagi"), { from: 12 });
 const FILL = said("s12", "terasa");
-const SEEN = 0.56;
-const NEW = 0.44;
+const SEEN = 0.25;
+const NEW = 0.15;
 gsap.set("#mm1, #mm2", { scaleX: 0 });
 tl.to("#mm1", { scaleX: SEEN, duration: 0.55, ease: "power2.out" }, FILL - 0.05);
 tl.to("#mm2", { scaleX: NEW, duration: 0.5, ease: "power2.out" }, FILL - 0.05);
@@ -306,12 +316,13 @@ tl.to(stage, { lx: 0.5, ly: 1 - 520 / 1920, duration: 0.6 }, FILL);
 // ═════════════ s13: someone who knows ════════════════════════════════════════
 film.scene("#know", s.s13.start, s.s14.start);
 tl.fromTo(".person", { scale: 1 }, { scale: 1.04, duration: s.s13.dur, ease: "none", transformOrigin: "30% 70%", immediateRender: false }, s.s13.start);
-gsap.set(".think, #bd1, #bd2", { opacity: 0 });
+gsap.set(".think, #bd1, #bd2, .think b", { opacity: 0 });
 tl.to("#bd2", { opacity: 1, duration: 0.2 }, s.s13.start + 0.15);
 tl.to("#bd1", { opacity: 1, duration: 0.2 }, s.s13.start + 0.25);
 film.pop(".think", s.s13.start + 0.35, { transformOrigin: "20% 100%" });
+tl.to(".think b", { opacity: 1, duration: 0.15 }, said("s13", "tahu") - 0.04);
 const TAHU = said("s13", "tahu");
-tl.fromTo(".think b", { scale: 1 }, { scale: 1.12, duration: 0.22, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, TAHU);
+tl.fromTo(".think b", { scale: 0.7 }, { scale: 1, duration: 0.4, ease: "back.out(2.6)", immediateRender: false }, TAHU - 0.04);
 lightAt(700, 360, 0.6, s.s13.start, 0.3);
 tl.set(stage, { r: 0.35, g: 0.66, b: 1 }, s.s13.start);
 film.land("#mm3w", s.s13.start + 0.45, { from: 14 });
@@ -338,7 +349,7 @@ lightAt(500, 560, 0.75, s.s14.start, 0.3);
 const neq = $$("#neq .ln");
 for (const line of neq) film.split(line);
 tl.set("#neq", { autoAlpha: 1 }, s.s14.start);
-slam(neq, said("s14", "sering") - 0.04, 0);
+slam(neq, said("s14", "bukan") - 0.04, 0);
 const TURN = ended("s14") + 0.08; // in the pause the take was opened for
 tl.fromTo("#neq .key", { scale: 1 }, { scale: 1.45, duration: 0.12, ease: "power2.out", immediateRender: false }, TURN);
 tl.to("#neq .key", { scale: 1, duration: 0.5, ease: "back.out(2.4)" }, TURN + 0.12);
@@ -369,8 +380,8 @@ tl.to("#tap", { scale: 1.5, opacity: 0, duration: 0.6, ease: "power2.out" }, CEK
 tl.fromTo("#btn-chk", { filter: "brightness(1)" }, { filter: "brightness(1.6)", duration: 0.1, yoyo: true, repeat: 1, immediateRender: false }, CEK + 0.04);
 film.tintTo(BLUE, CEK, 0.5);
 lightAt(500, 560, 0.85, CEK, 0.5);
-tl.to(tip, { x: 1220, y: 1050, duration: 0.5, ease: "power3.in" }, CEK + 0.4);
-tl.set(finger, { autoAlpha: 0 }, CEK + 0.9);
+tl.to(tip, { y: CHK.y + 60, duration: 0.3, ease: "power2.in" }, CEK + 0.32);
+tl.to(finger, { autoAlpha: 0, duration: 0.22 }, CEK + 0.32);
 // The scan, down the loudest copy.
 tl.set("#scan", { y: LOUD.y - 60, opacity: 1 }, CEK + 0.1);
 tl.to("#scan", { y: LOUD.y + LOUD.h - 60, duration: 0.45, ease: "power1.inOut" }, CEK + 0.1);
@@ -415,9 +426,9 @@ tl.to(M, { feel: 0.2, grey: 1, duration: 0.8, ease: "power2.inOut" }, BREAK);
 tl.to("#checked", { opacity: 1, duration: 0.3 }, BREAK + 0.5);
 
 // ═════════════ s17: the recap, and the line to remember ══════════════════════
-tl.to("#chat, #meters", { y: 80, opacity: 0, duration: 0.22, ease: "power2.in" }, s.s17.start - 0.27);
-film.scene("#recap", s.s17.start - 0.04, D);
-["#rc1", "#rc2", "#rc3"].forEach((card, i) => film.land(card, s.s17.start - 0.04 + i * 0.13, { from: 70, duration: 0.5 }));
+tl.to("#chat, #meters", { y: 80, opacity: 0, duration: 0.2, ease: "power2.in" }, s.s17.start - 0.25);
+film.scene("#recap", s.s17.start - 0.08, D);
+["#rc1", "#rc2", "#rc3"].forEach((card, i) => film.land(card, s.s17.start - 0.08 + i * 0.1, { from: 50, duration: 0.4 }));
 for (const line of $$("#poster .ln")) film.split(line);
 slam($$("#poster .ln"), s.s17.start + 0.45, 0.2);
 hit(s.s17.start + 0.45, 500, 1060, 0.3, 0.35);
