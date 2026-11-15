@@ -3,6 +3,7 @@
 //   node kit/tools/make.mjs films/NAME              storyboard check, voice check, render, mix, measure, share copy
 //   node kit/tools/make.mjs films/NAME --draft      the same at 30 fps, for a first look
 //   node kit/tools/make.mjs films/NAME --only 12-16 re-render only the segments that touch 12 s to 16 s, then the rest
+//   node kit/tools/make.mjs films/NAME --jobs 2     render with two browsers (when the machine is shared)
 //
 // It does not replace looking: stills while building, the contact sheets it writes, and a reviewer who did not
 // build the film (references/review.md).
@@ -18,6 +19,8 @@ const kit = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const name = basename(film);
 const draft = args.includes("--draft");
 const only = args.includes("--only") ? ["--only", args[args.indexOf("--only") + 1]] : [];
+// Passed on to the renderer as given.
+const jobs = args.includes("--jobs") ? ["--jobs", args[args.indexOf("--jobs") + 1]] : [];
 const sb = JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8"));
 const began = Date.now();
 
@@ -32,7 +35,7 @@ function step(title, cmd, cmdArgs) {
 
 step("storyboard", "node", [join(kit, "tools", "storyboard.mjs"), film]);
 if ((sb.shots ?? []).some((shot) => shot.voice)) step("narration", "node", [join(kit, "audio", "voice.mjs"), film]);
-step(draft ? "render (draft, 30 fps)" : "render", "node", [join(kit, "tools", "render.mjs"), film, ...(draft ? ["--fps", "30"] : []), ...only]);
+step(draft ? "render (draft, 30 fps)" : "render", "node", [join(kit, "tools", "render.mjs"), film, ...(draft ? ["--fps", "30"] : []), ...only, ...jobs]);
 if (existsSync(join(film, "cues.json"))) {
   step("mix", "python3", [join(kit, "audio", "mix.py"), film]);
   step("mix (music and voice only)", "python3", [join(kit, "audio", "mix.py"), film, "--no-sfx", "--out", join(film, "out", `${name}-no-sfx.mp4`)]);

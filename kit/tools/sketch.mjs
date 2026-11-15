@@ -158,7 +158,7 @@ const DRAW = {
       })
       .join("");
   },
-  label: ([x, y], t) => lettering([x, y], t.text, Math.max(46, t.size ?? 50), { align: t.align ?? "middle", fill: colour(t.colour) }),
+  label: ([x, y], t) => lettering([x, y], t.text, Math.max(28, t.size ?? 50), { align: t.align ?? "middle", fill: colour(t.colour) }),
   // An older spelling of label. It cannot be written in JSON with its words (the key "text" twice), so the
   // storyboard check warns about it; kept so an old board still draws.
   text: (at, t) => (Array.isArray(at) ? lettering(at, t.label ?? "", Math.max(46, t.size ?? 50), { align: t.align ?? "middle", fill: colour(t.colour) }) : ""),
