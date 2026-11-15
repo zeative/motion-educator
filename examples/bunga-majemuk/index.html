@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kok uang bisa beranak?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- The coin world: s01 to s05, s07 to s09, and the skyline of s15 and s16 (behind the poster in s17). -->
+      <section class="scene" id="coins">
+        <canvas id="c3d"></canvas>
+        <div id="coinsUI">
+          <i class="bracket" id="bracket"></i>
+          <div class="pin" id="pokokLabel" style="left: 440px; top: 520px"><span class="tag">pokok</span></div>
+          <div class="pin" id="pokokLabel2" style="left: 440px; top: 520px"><span class="tag">pokok + bunga</span></div>
+          <div class="pin" id="pokokNum" style="left: 440px; top: 612px"><span class="num big">Rp10 juta</span></div>
+          <div class="pin" id="pokokNum2" style="left: 440px; top: 612px"><span class="num big">Rp11 juta</span></div>
+          <div class="pin" id="koinNote" style="left: 440px; top: 700px"><span class="small">1 koin = Rp1 juta</span></div>
+          <div class="pin" id="chipRate" style="left: 1280px; top: 360px"><span class="chip">bunga <b class="gold">10% / tahun</b></span></div>
+          <div class="pin" id="sliceNote" style="left: 1150px; top: 480px"><span class="small">tiap koin menghasilkan <b class="gold">1/10</b> dirinya</span></div>
+          <div class="pin" id="chipBunga1" style="left: 1360px; top: 690px"><span class="chip">bunga <b class="gold">Rp1 juta</b></span></div>
+          <div class="pin" id="chipBunga2" style="left: 1360px; top: 690px"><span class="chip">bunga <b class="gold">Rp1,1 juta</b></span></div>
+          <div class="pin" id="chipYear" style="left: 1560px; top: 600px"><span class="chip blue">+Rp1 juta / tahun</span></div>
+          <div class="pin" id="diambil" style="left: 1500px; top: 690px"><span class="small blue">diambil →</span></div>
+          <div class="pin left" id="dariBunga" style="left: 1100px; top: 520px">
+            <span class="callout"><em>bunga dari bunga</em><b>Rp0,1 juta</b></span>
+          </div>
+          <i class="ring" id="ring" style="left: 1360px; top: 840px"></i>
+        </div>
+        <div class="year" id="years">
+          <span>tahun</span>
+          <span class="yn"><b id="y1">1</b><b id="y2">2</b><b id="y3">3</b><b id="y4">4</b><b id="y5">5</b></span>
+        </div>
+        <div id="hook">
+          <div class="micro" id="kicker"><i></i>BUNGA MAJEMUK<i></i></div>
+          <h1 class="display" id="ask"><span class="ln">Kok uang yang disimpan</span><span class="ln">bisa <em class="key">beranak</em> sendiri?</span></h1>
+        </div>
+        <div class="pin" id="tag30" style="left: 1500px; top: 150px"><span class="chip">tahun 30 <b class="gold">≈ Rp174,5 juta</b></span></div>
+      </section>
+
+      <!-- The chart: s06 and s10 to s14. Drawn from data every frame, so the axes can pull out without stretching. -->
+      <section class="scene" id="chart">
+        <svg id="plot" viewBox="0 0 1920 1080" width="1920" height="1080">
+          <g id="grid"></g>
+          <path id="ladder" class="ladder" d="" />
+          <path id="dash20" class="dash20" d="" />
+          <path id="blueLine" class="ln-blue" d="" />
+          <path id="goldLine" class="ln-gold" d="" />
+          <circle id="blueHead" class="head-blue" r="11" />
+          <circle id="goldHead" class="head-gold" r="12" />
+        </svg>
+        <div id="chartUI">
+          <div class="pin" id="tag40"><span class="chip blue">Rp40 juta</span></div>
+          <div class="pin" id="tag175"><span class="chip">≈ <b class="gold">Rp174,5 juta</b></span></div>
+          <div class="pin" id="perYear"><span class="small blue">+Rp1 juta / tahun</span></div>
+          <div class="pin" id="gap"><span class="small">beda <b>Rp1,1 juta</b></span></div>
+          <div class="pin" id="ratio"><span class="num mid">≈ 4,4×</span></div>
+          <i class="vbar" id="ratioBar"></i>
+          <div class="pin" id="i1"><span class="ichip">+1</span></div>
+          <div class="pin" id="i2"><span class="ichip">+1,1</span></div>
+          <div class="pin" id="i3"><span class="ichip">+1,21</span></div>
+          <div class="pin" id="i4"><span class="ichip">+1,33</span></div>
+          <div class="pin" id="i5"><span class="ichip">+1,46</span></div>
+          <i class="ring gold" id="ring20"></i>
+          <div class="pin" id="twice"><span class="num mid">×2 ?</span></div>
+          <div class="pin" id="x2a"><span class="x2">×2</span></div>
+          <div class="pin" id="x2b"><span class="x2">×2</span></div>
+          <div class="pin" id="x2c"><span class="x2">×2</span></div>
+          <div class="pin" id="x2d"><span class="x2">×2</span></div>
+          <div class="pin" id="m1"><span class="mark">≈7</span></div>
+          <div class="pin" id="m2"><span class="mark">≈15</span></div>
+          <div class="pin" id="m3"><span class="mark">≈22</span></div>
+          <div class="pin" id="m4"><span class="mark">≈29</span></div>
+          <h2 class="display" id="rule"><span class="ln">72 ÷ 10</span><span class="ln"><em class="key">≈ 7,2 tahun</em></span></h2>
+        </div>
+      </section>
+
+      <!-- The poster: s17, over the dimmed columns. -->
+      <section class="scene" id="poster">
+        <h1 class="display" id="last"><span class="ln">Bunga yang ikut</span><span class="ln"><em class="key">berbunga.</em></span></h1>
+        <div class="cards">
+          <div class="card glass" id="card1">
+            <svg viewBox="0 0 200 120" class="icon">
+              <g class="ic-stack"><ellipse cx="80" cy="96" rx="44" ry="13" /><rect x="36" y="38" width="88" height="58" /><ellipse cx="80" cy="38" rx="44" ry="13" class="top" /></g>
+              <ellipse cx="80" cy="30" rx="44" ry="13" class="hot" />
+              <path d="M140 60 Q160 40 176 46" class="arrow-gold" /><text x="176" y="80" class="ic-t">+</text>
+            </svg>
+            <p><b>pokok + bunga</b><br />ikut berbunga</p>
+          </div>
+          <div class="card glass" id="card2">
+            <svg viewBox="0 0 200 120" class="icon">
+              <path d="M20 104 H190 M20 104 V10" class="axis" />
+              <path id="miniBlue" d="" class="mini-blue" />
+              <path id="miniGold" d="" class="mini-gold" />
+            </svg>
+            <p><b class="blue">Rp40 jt</b> vs <b class="gold">≈ Rp174,5 jt</b><br />30 tahun, 10% / tahun</p>
+          </div>
+          <div class="card glass" id="card3">
+            <div class="big72"><span>72 ÷ bunga</span></div>
+            <p>≈ tahun sampai<br /><b class="gold">jadi 2×</b></p>
+          </div>
+        </div>
+      </section>
+
+      <p class="note" id="note">10% cuma contoh ilustrasi, bukan janji imbal hasil produk apa pun</p>
+      <p class="note" id="note2">10% cuma contoh ilustrasi, bukan janji imbal hasil produk apa pun · bukan saran keuangan</p>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

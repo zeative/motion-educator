@@ -1,0 +1,379 @@
+/* "Kok uang bisa beranak?": gold is money that earns, a paler hotter gold is bunga, a cool blue is interest taken out. */
+:root {
+  --accent: #f4b740;
+  --accent-2: #6fb6ff;
+  --gold: #f6c45a;
+  --hot: #fff0c8;
+  --blue: #7fbfff;
+}
+body {
+  background: #0b0b0c;
+}
+#c3d {
+  position: absolute;
+  inset: 0;
+}
+#coinsUI,
+#chartUI {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+}
+.pin {
+  position: absolute;
+  translate: -50% -50%;
+  white-space: nowrap;
+  visibility: hidden;
+}
+.pin.left {
+  translate: 0 -50%;
+}
+.gold {
+  color: var(--gold);
+}
+.blue {
+  color: var(--blue);
+}
+.chip.blue {
+  color: var(--blue);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 -1px 0 color-mix(in srgb, var(--blue) 60%, transparent);
+}
+.chip {
+  font-size: 34px;
+  padding: 16px 26px;
+}
+.chip b {
+  font: 650 34px / 1 var(--sans);
+}
+.chip b.gold {
+  color: var(--gold);
+}
+.tag {
+  color: var(--t2);
+  font: 500 40px / 1 var(--sans);
+  letter-spacing: 0.01em;
+}
+.num.big {
+  font-size: 84px;
+  color: var(--t1);
+  text-shadow: 0 6px 30px rgb(0 0 0 / 0.6);
+}
+.num.mid {
+  font-size: 60px;
+  color: var(--t1);
+}
+.small {
+  color: var(--t2);
+  font: 500 32px / 1.2 var(--sans);
+}
+.small b {
+  color: var(--t1);
+}
+.small.blue {
+  color: var(--blue);
+  font-weight: 600;
+}
+.bracket {
+  position: absolute;
+  left: 652px;
+  top: 600px;
+  width: 6px;
+  height: 262px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--hot), var(--accent) 50%, color-mix(in oklab, var(--accent) 50%, black));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);
+  transform-origin: 50% 100%;
+  visibility: hidden;
+}
+.callout {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 26px 18px 30px;
+  border-left: 4px solid var(--hot);
+  border-radius: 0 18px 18px 0;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+}
+.callout em {
+  color: var(--hot);
+  font: 650 40px / 1 var(--sans);
+  font-style: normal;
+  text-shadow: 0 0 18px rgb(255 200 90 / 0.6);
+}
+.callout b {
+  color: var(--t1);
+  font: 600 32px / 1 var(--sans);
+}
+.ring {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  margin: -50px 0 0 -150px;
+  border: 3px solid var(--hot);
+  border-radius: 50%;
+  box-shadow: 0 0 22px var(--accent);
+  opacity: 0;
+}
+.ring.gold {
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  border-width: 4px;
+  border-color: var(--gold);
+}
+.year {
+  position: absolute;
+  left: 960px;
+  top: 178px;
+  translate: -50% -50%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  color: var(--t2);
+  font: 500 30px / 1 var(--sans);
+  visibility: hidden;
+}
+.yn {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 40px;
+}
+.year b {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--t1);
+  font: 650 40px / 1 var(--brand);
+  opacity: 0;
+}
+#hook {
+  position: absolute;
+  left: 70px;
+  top: 0;
+  width: 1160px;
+}
+#kicker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 200px;
+  font-size: 26px;
+}
+#ask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 262px;
+  font-size: 100px;
+}
+#tag30 {
+  visibility: hidden;
+}
+#plot {
+  position: absolute;
+  inset: 0;
+}
+#plot .gridline {
+  stroke: rgb(237 237 240 / 0.08);
+  stroke-width: 1.5;
+}
+#plot .axis {
+  stroke: rgb(237 237 240 / 0.42);
+  stroke-width: 3;
+}
+#plot text {
+  fill: #9a9aa3;
+  font: 500 27px var(--mono);
+}
+#plot text.axt {
+  fill: #c9c9cf;
+  font: 600 26px var(--sans);
+  letter-spacing: 0.04em;
+}
+.ln-blue,
+.ln-gold,
+.ladder,
+.dash20 {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ln-blue {
+  stroke: var(--blue);
+  stroke-width: 7;
+  filter: drop-shadow(0 0 8px rgb(111 182 255 / 0.55));
+}
+.ln-gold {
+  stroke: var(--gold);
+  stroke-width: 9;
+  filter: drop-shadow(0 0 12px rgb(246 196 90 / 0.7));
+}
+.ladder {
+  stroke: var(--hot);
+  stroke-width: 4;
+  opacity: 0.95;
+}
+.dash20 {
+  stroke: var(--t1);
+  stroke-width: 3;
+  stroke-dasharray: 14 12;
+}
+.head-blue {
+  fill: #dff0ff;
+  stroke: var(--blue);
+  stroke-width: 4;
+}
+.head-gold {
+  fill: #fff6dc;
+  stroke: var(--gold);
+  stroke-width: 5;
+  filter: drop-shadow(0 0 14px rgb(246 196 90 / 0.9));
+}
+.ichip {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgb(40 30 10 / 0.75);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--gold) 70%, transparent);
+  color: var(--gold);
+  font: 650 30px / 1 var(--sans);
+}
+.vbar {
+  position: absolute;
+  width: 0;
+  border-left: 3px dashed rgb(237 237 240 / 0.6);
+  transform-origin: 50% 0;
+  visibility: hidden;
+}
+.x2 {
+  color: var(--hot);
+  font: 700 34px / 1 var(--brand);
+  text-shadow: 0 0 14px rgb(255 190 80 / 0.7);
+}
+.mark {
+  color: var(--gold);
+  font: 600 28px / 1 var(--mono);
+}
+#rule {
+  position: absolute;
+  left: 330px;
+  top: 200px;
+  font-size: 96px;
+  text-align: left;
+}
+#last {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 170px;
+  font-size: 124px;
+}
+.cards {
+  position: absolute;
+  left: 210px;
+  right: 210px;
+  top: 560px;
+  display: flex;
+  gap: 30px;
+}
+.card {
+  flex: 1;
+  height: 290px;
+  border-radius: 28px;
+  padding: 26px 30px;
+  text-align: center;
+}
+.card p {
+  margin: 10px 0 0;
+  color: var(--t2);
+  font: 500 32px / 1.3 var(--sans);
+}
+.card p b {
+  color: var(--t1);
+  font-weight: 650;
+}
+.card p b.gold {
+  color: var(--gold);
+}
+.card p b.blue {
+  color: var(--blue);
+}
+.icon {
+  width: 220px;
+  height: 132px;
+}
+.icon .ic-stack ellipse,
+.icon .ic-stack rect {
+  fill: #b9842a;
+  stroke: #ffd98a;
+  stroke-width: 2;
+}
+.icon .ic-stack .top {
+  fill: #d9a43a;
+}
+.icon .hot {
+  fill: #ffe7a8;
+  stroke: #fff6dc;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px #ffbf4a);
+}
+.icon .arrow-gold {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.icon .ic-t {
+  fill: var(--gold);
+  font: 700 40px var(--sans);
+}
+.icon .axis {
+  fill: none;
+  stroke: rgb(237 237 240 / 0.45);
+  stroke-width: 3;
+}
+.mini-blue {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 5;
+}
+.mini-gold {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.big72 {
+  height: 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font: 650 64px / 1 var(--brand);
+  letter-spacing: -0.03em;
+}
+.note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  color: #9d9da6;
+  font: 500 27px / 1 var(--sans);
+  text-align: center;
+  visibility: hidden;
+}
+#note {
+  top: 82px;
+}
+#note2 {
+  top: 948px;
+}
