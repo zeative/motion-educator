@@ -1,0 +1,995 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Why does 0.1 + 0.2 not equal 0.3? · storyboard</title><style>
+  @font-face{font-family:"Hand";src:url("../../node_modules/@fontsource/patrick-hand/files/patrick-hand-latin-400-normal.woff2") format("woff2")}
+  *{box-sizing:border-box;margin:0;padding:0}body{background:#09090a;color:#ededf0;font:400 15px/1.45 ui-sans-serif,system-ui,sans-serif;padding:40px;width:1920px}
+  .page{width:1840px;padding:8px 0 40px;break-after:page}h1{font:650 46px/1.1 ui-sans-serif,system-ui;letter-spacing:-.03em}h1 small{display:block;margin-top:10px;color:#a9a9b0;font:400 22px/1.3 ui-sans-serif,system-ui;letter-spacing:0}
+  .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}.meta div{padding:16px 18px;border:1px solid #26262a;border-radius:14px;background:#111113}.meta b{display:block;margin-bottom:6px;color:#85858d;font:600 11px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+  .sw{display:inline-block;width:16px;height:16px;margin-right:8px;border-radius:50%;vertical-align:-3px}
+  .acts{display:flex;gap:6px;margin:10px 0 28px}.acts div{min-width:0;padding:14px 16px;border-radius:12px;background:#151517;border-top:3px solid #ffb02e}.acts b{display:block;font-size:17px}.acts span{color:#85858d;font:500 12px/1.6 ui-monospace,monospace}.acts p{margin-top:6px;color:#a9a9b0;font-size:13px}
+  table{width:100%;border-collapse:collapse;margin-bottom:8px}td,th{padding:9px 12px;border-bottom:1px solid #222226;text-align:left;vertical-align:top}th{color:#85858d;font:600 11px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}td:first-child{color:#ffb02e;font:600 13px/1.5 ui-monospace,monospace;white-space:nowrap}
+  .sketch{display:block;width:100%;border-radius:8px}.sketch .hand{font-family:"Hand","Comic Sans MS",ui-sans-serif,sans-serif}
+  figure{min-width:0}.pic{position:relative}.pic>b{position:absolute;left:8px;top:8px;min-width:30px;padding:4px 8px;border-radius:8px;background:#26262b;color:#fff;font:650 14px/1.2 ui-monospace,monospace;text-align:center}
+  figcaption{margin-top:7px;color:#c9c9cf;font-size:13px;line-height:1.35}figcaption span{display:block;color:#ffb02e;font:600 12px/1.5 ui-monospace,monospace}figcaption b{color:#ffb02e}
+  .sheet{display:grid;grid-template-columns:repeat(12,1fr);gap:16px 14px}dd.say{color:#fff;font-size:14.5px;font-style:italic}
+  .shot{margin-bottom:22px;border:1px solid #26262a;border-radius:16px;background:#111113;overflow:hidden}
+  .shot header{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid #222226}.shot header>b{color:#ffb02e;font:650 20px/1 ui-monospace,monospace}.shot .t{color:#a9a9b0;font:500 13px/1 ui-monospace,monospace}
+  .shot em{font-style:normal;padding:4px 10px;border-radius:99px;background:#1d1d20;color:#a9a9b0;font-size:12px}.shot em.ty{background:#ffb02e22;color:#ffb02e}.shot header i{margin-left:auto;color:#55555c;font:500 12px/1 ui-monospace,monospace;font-style:normal}
+  .shot q{quotes:"“" "”";margin-left:10px;font:550 19px/1.3 ui-sans-serif,system-ui}.shot q b{color:#ffb02e}.shot q.none{color:#6b6b72;font:italic 400 14px/1.3 ui-sans-serif,system-ui;quotes:none}
+  .body{display:grid;grid-template-columns:1fr 470px;gap:20px;padding:16px 18px 18px}.frames{display:grid;gap:12px;align-content:start}.frames.n2{grid-template-columns:repeat(2,1fr)}.frames.n3{grid-template-columns:repeat(3,1fr)}.frames.n4{grid-template-columns:repeat(4,1fr)}
+  .body{grid-template-columns:auto 1fr}.frames,.frames.n2,.frames.n3,.frames.n4{grid-template-columns:repeat(4,230px)}dl{grid-template-columns:96px 1fr}dd{font-size:14.5px}
+  dl{display:grid;grid-template-columns:86px 1fr;gap:6px 12px;align-content:start}dt{color:#85858d;font:600 10.5px/1.7 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}dd{color:#d5d5da;font-size:13px}dd u{text-decoration:none;padding:2px 7px;border-radius:6px;background:#1d1d20;color:#ffb02e;font:600 12px/1 ui-monospace,monospace}
+  .report{margin:18px 0;padding:14px 18px;border-radius:12px;font:500 14px/1.6 ui-monospace,monospace}.ok{background:#12251a;color:#7fe0a8}.bad{background:#2a1512;color:#f7a898}.warn{background:#2a2412;color:#f1d48a}
+  h2{margin:26px 0 12px;font:650 22px/1 ui-sans-serif,system-ui}h2 small{margin-left:12px;color:#85858d;font:400 14px/1 ui-sans-serif,system-ui}
+</style></head><body>
+<section class="page">
+  <h1>Why does 0.1 + 0.2 not equal 0.3?<small>Why doesn't zero point one plus zero point two equal zero point three?</small></h1>
+  <div class="meta">
+    <div><b>Promise</b>Computers store numbers in binary, and 0.1 has no exact binary form (as 1/3 has no exact decimal form), so the stored values are a tiny bit off and the error shows when you add them; so compare floats with a tolerance, and use integers or decimals for money.</div><div><b>Audience</b>Developers and curious students watching a short on a phone. They have seen 0.30000000000000004 or will; they know what binary is, roughly, but not why a short decimal can be inexact in it.</div>
+    <div><b>Length</b>34.886 s · 11 shots · 30 drawn frames · 1080×1920 · 60 fps · en · captions only</div>
+    <div><b>Look</b><span class="sw" style="background:#ffb02e"></span>#ffb02e <span class="sw" style="background:#4ee68f;margin-left:10px"></span>#4ee68f<br>Type is the hero: Sora metal for the question and the poster, JetBrains Mono for every number, large. The graphite stage is lit amber where the error is (the 4, the stored dot, the blade) and terminal green where the machine works correctly (binary digits, the fix). Glass panels for the terminal and the code. The light moves to what the caption names: the 4, the blade, the dot, the true.</div>
+  </div>
+  <div class="report ok">The storyboard passes the standard: 11 shots, 30 drawn frames, 7 facts, 4 acts.</div>
+  
+  <h2>Acts</h2><div class="acts"><div style="flex:6.28"><b>Question</b><span>0:00.00 · 6.3 s · 2 shots</span><p>Ask the question with the sum as the hero, then show the exact surprising result and point at its 4.</p></div><div style="flex:18.837999999999997"><b>Why</b><span>0:06.28 · 18.8 s · 6 shots</span><p>Binary is halves; 0.1 never ends in it; 53 bits are kept, so it is stored a little high; the errors add and rounding lands on ...04.</p></div><div style="flex:6.628"><b>The fix</b><span>0:25.12 · 6.6 s · 2 shots</span><p>Compare with a tolerance; count money in integers or decimals.</p></div><div style="flex:3.140000000000004"><b>Recap</b><span>0:31.75 · 3.1 s · 1 shots</span><p>The three ideas in one frame and the line to remember.</p></div></div>
+  <h2>Fact sheet</h2><table><tr><th>Id</th><th>Claim</th><th>Source</th></tr><tr><td>f1</td><td>In IEEE 754 double precision (the number type of JavaScript, and Python's float), 0.1 + 0.2 prints 0.30000000000000004 and 0.1 + 0.2 == 0.3 is false. Run here: Python 3 repr(0.1 + 0.2) -&gt; '0.30000000000000004'; Node: 0.1 + 0.2 -&gt; 0.30000000000000004, 0.1 + 0.2 === 0.3 -&gt; false. That string has fifteen zeros between the 3 and the 4.</td><td>Run in this workspace (Python 3, Node). Python tutorial, 'Floating-Point Arithmetic: Issues and Limitations' (docs.python.org/3/tutorial/floatingpoint.html, read via a search summary); IEEE 754-2019.</td></tr><tr><td>f2</td><td>A binary fraction is a sum of halves, quarters, eighths...: 0.75 = 1/2 + 1/4 = 0.11 in binary, exactly. A fraction ends in binary only if its denominator (in lowest terms) is a power of two; 1/10 has a factor 5, so it never ends.</td><td>Arithmetic; Python tutorial, Representation Error section.</td></tr><tr><td>f3</td><td>0.1 in binary = 0.0001100110011001100110011... (the group 0011 repeats forever after 0.0); 0.2 = 0.001100110011... (computed bit by bit with Python's fractions module). 1/3 in decimal = 0.333... for the same reason: 3 does not divide a power of ten.</td><td>Computed here with fractions.Fraction(1, 10), doubling and taking the integer part 64 times.</td></tr><tr><td>f4</td><td>A double has 53 bits of precision (sys.float_info.mant_dig = 53). 0.1's 53 bits from its first 1: 11001100110011001100110011001100110011001100110011001 followed by 1001100..., so it is rounded to the nearest, up: 11001100110011001100110011001100110011001100110011010 (0.1.hex() = 0x1.999999999999ap-4).</td><td>Run here: sys.float_info.mant_dig, float.hex, Fraction(0.1). IEEE 754-2019 binary64 (52 stored fraction bits plus the hidden leading 1).</td></tr><tr><td>f5</td><td>The double nearest 0.1 is exactly 0.1000000000000000055511151231257827021181583404541015625 (decimal.Decimal(0.1)), 5.55e-18 above 0.1. The gap between neighbouring doubles there is 2^-56 = 1.39e-17, so the stored value is 0.4 of a gap above 0.1 and 0.1 is 0.6 of a gap above the double below. Drawn at 560 px a gap. The zoom from the 0-to-0.4 line (866 px for 0.4, 4.6e-4 per px) to that one (2.48e-20 per px) is about 1.9 x 10^16, shown as 'zoom ×10¹⁶'.</td><td>Run here: decimal.Decimal(0.1), math.ulp(0.1), fractions.</td></tr><tr><td>f6</td><td>0.2 is stored 1.11e-17 too big, 0.1 5.55e-18 too big. Near 0.3 the gap between doubles is 2^-54 = 5.55e-17. The double nearest 0.3 is 0.299999999999999988897769753748434595763683319091796875, 0.2 of a gap below 0.3. The exact sum of the two stored values is 0.3000000000000000166533453693773481063544750213623046875: 0.3 plus 0.1 + 0.2 = 0.3 of a gap, which is exactly halfway between that double and the next; round-half-to-even picks the next, 0.3000000000000000444089209850062616169452667236328125, the shortest decimal that names it being 0.30000000000000004. Drawn at 600 px a gap: 0.3's double at x 200, 0.3 at 320, the errors 60 and 120 px, the exact sum at 500, the answer at 800. The film shows the hop as 'rounded' and does not explain ties. That line is zoomed (600 / 2^-54) / (866 / 0.4) = 4.99 x 10^15 times, shown as 'zoom ×10¹⁵ near 0.3' (less than at 0.1, because the gaps are four times wider there).</td><td>Run here: fractions.Fraction(0.1) + Fraction(0.2) compared with Fraction(0.3) and Fraction(0.1 + 0.2); math.ulp(0.3).</td></tr><tr><td>f7</td><td>The usual fixes: compare with a tolerance (Math.abs(0.1 + 0.2 - 0.3) &lt; 1e-9 is true; Python has math.isclose(0.1 + 0.2, 0.3) -&gt; True), and for money use whole cents as integers (10 + 20 === 30) or a decimal type (Python Decimal('0.1') + Decimal('0.2') == Decimal('0.3') is True). 1e-9 is an example tolerance; the right one depends on the size of the numbers.</td><td>Run here (Node and Python). Python tutorial recommends the decimal module for accounting.</td></tr></table>
+  <h2>Music</h2><p>Xceed Thru Johann (Mixkit 556) · 86 BPM · A calm 86 BPM underscore with no lead melody, at -18 LUFS (no voice to make room for). Started 0.679 s in so a beat falls on frame 0; every shot is a whole number of half beats (0.349 s), so every cut is on the grid.</p>
+</section>
+<section class="page"><h2>The film in frames<small>1 of 1 · blue pencil marks the camera and what moves</small></h2><div class="sheet"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s01-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s01-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s01-0)" stroke-linecap="round" stroke-linejoin="round"><circle cx="497" cy="690" r="380" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="690" r="250.8" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><text x="497" y="470" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">Why doesn't</text><text x="497" y="700" font-size="190" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.1 + 0.2</text><text x="497" y="905" font-size="150" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">equal <tspan fill="#2b62d9">0.3?</tspan></text><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 120 L280 200"/><path d="M246.6 196.6 L280 200 L261.9 171.7"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 120 L800 200"/><path d="M818.1 171.7 L800 200 L833.4 196.6"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 1800 L280 1720"/><path d="M261.9 1748.3 L280 1720 L246.6 1723.4"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 1800 L800 1720"/><path d="M833.4 1723.4 L800 1720 L818.1 1748.3"/></g><rect x="183.6" y="403.2" width="712.8" height="1113.6" fill="none" stroke="#2b62d9" stroke-width="5" stroke-dasharray="26 18" rx="14"/><g><rect x="40" y="28" width="512" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">CAMERA PUSHES IN</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s01-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>1 · s01 · 0:00.00</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s01-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s01-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s01-1)" stroke-linecap="round" stroke-linejoin="round"><circle cx="497" cy="860" r="300" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="860" r="198" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><text x="497" y="470" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">Why doesn't</text><text x="497" y="700" font-size="190" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.1 + 0.2</text><text x="497" y="905" font-size="150" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">equal <tspan fill="#2b62d9">0.3?</tspan></text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M120 980 L820 980"/><path d="M786 996.4 L820 980 L786 963.6"/></g><text x="470" y="954" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">sheen</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s01-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>2 · s01 · 0:01.57</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s01-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s01-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s01-2)" stroke-linecap="round" stroke-linejoin="round"><circle cx="497" cy="690" r="380" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="690" r="250.8" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><text x="497" y="700" font-size="190" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.1 + 0.2</text><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M497 720 L300 420"/><path d="M332.4 439.4 L300 420 L304.9 457.5"/></g><text x="398.5" y="394" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">into the prompt</text><g><rect x="404" y="1814" width="636" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ the line becomes code</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s01-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>3 · s01 · 0:03.14</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s02-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s02-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s02-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><circle cx="497" cy="450" r="300" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="450" r="198" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M120 520 L400 520"/><path d="M366 536.4 L400 520 L366 503.6"/></g><text x="260" y="494" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">typed</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s02-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>4 · s02 · 0:03.14</span>You get 0.3, fifteen zeros, and a <b>4</b>.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s02-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s02-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s02-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><text x="497" y="790" font-size="76" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.30000000000000004</text><circle cx="497" cy="760" r="420" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="760" r="277.2" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s02-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>5 · s02 · 0:04.55</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s02-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s02-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s02-2)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><text x="497" y="790" font-size="76" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.30000000000000004</text><path d="M201 860 V900 M201 880 H885 M885 860 V900" stroke="#26262b" stroke-width="5" fill="none"/><text x="543" y="854" font-size="46" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">15 zeros</text><circle cx="906" cy="760" r="52" fill="none" stroke="#e8891a" stroke-width="6" /><circle cx="906" cy="760" r="200" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="906" cy="760" r="132" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g><rect x="768" y="1814" width="272" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ whip up</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s02-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>6 · s02 · 0:06.28</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s03-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s03-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s03-0)" stroke-linecap="round" stroke-linejoin="round"><text x="497" y="450" font-size="150" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.75</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M497 500 L497 590"/><path d="M486 567.3 L497 590 L508 567.3"/></g><text x="300" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">½</text><text x="420" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">¼</text><circle cx="497" cy="700" r="360" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="700" r="237.6" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s03-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>7 · s03 · 0:06.28</span>Computers store numbers in <b>binary</b>.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s03-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s03-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s03-1)" stroke-linecap="round" stroke-linejoin="round"><text x="497" y="450" font-size="150" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.75</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M497 500 L497 590"/><path d="M486 567.3 L497 590 L508 567.3"/></g><text x="420" y="760" font-size="170" text-anchor="middle" fill="#2f9e52" font-weight="700" class="hand">0.11</text><text x="300" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">½</text><text x="420" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">¼</text><rect x="300" y="930" width="384" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="492" y="991" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">½ + ¼ = 0.75</text><g><rect x="378" y="1814" width="662" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ 0.11 slides to row one</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s03-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>8 · s03 · 0:09.42</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s04-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s04-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s04-0)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0001100110</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M500 540 L1000 540"/><path d="M966 556.4 L1000 540 L966 523.6"/></g><text x="750" y="514" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">streams</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s04-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>9 · s04 · 0:09.42</span>But in binary, 0.1 and 0.2 <b>never end</b>,</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s04-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s04-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s04-1)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.001100110011001…</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M960 600 L1070 600"/><path d="M1047.3 611 L1070 600 L1047.3 589"/></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s04-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>10 · s04 · 0:10.99</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s04-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s04-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s04-2)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0011001100110011001…</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M960 600 L1070 600"/><path d="M1047.3 611 L1070 600 L1047.3 589"/></g><g><rect x="248" y="1814" width="792" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ no cut: a third row arrives</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s04-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>11 · s04 · 0:12.56</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s05-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s05-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s05-0)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0011001100110011001…</text><text x="64" y="880" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">1/3 in decimal</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M64 960 L600 960"/><path d="M566 976.4 L600 960 L566 943.6"/></g><text x="332" y="934" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">writes</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s05-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>12 · s05 · 0:12.56</span>like <b>1/3</b> in decimal.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s05-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s05-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s05-1)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0011001100110011001…</text><text x="64" y="880" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">1/3 in decimal</text><text x="64" y="960" font-size="64" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.333333333333333…</text><g><rect x="300" y="1814" width="740" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ row one folds into a grid</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s05-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>13 · s05 · 0:15.00</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s06-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s06-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s06-0)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="350" font-size="46" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 = 0.000…</text><path d="M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z" fill="none"  stroke="#26262b" stroke-width="6" /><text x="497" y="1020" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">53 bits</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M400 960 L900 960"/><path d="M866 976.4 L900 960 L866 943.6"/></g><text x="650" y="934" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">bits keep coming</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s06-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>14 · s06 · 0:15.00</span>So they're cut at <b>53 bits</b>,</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s06-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s06-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s06-1)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="350" font-size="46" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 = 0.000…</text><path d="M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z M67 830 h76 v76 h-76 Z M153 830 h76 v76 h-76 Z M239 830 h76 v76 h-76 Z" fill="none"  stroke="#26262b" stroke-width="6" /><path d="M325 830 h76 v76 h-76 Z M411 830 h76 v76 h-76 Z M497 830 h76 v76 h-76 Z M583 830 h76 v76 h-76 Z M669 830 h76 v76 h-76 Z M755 830 h76 v76 h-76 Z M841 830 h76 v76 h-76 Z" fill="none"  stroke="#8d8d94" stroke-width="6" stroke-dasharray="22 16"/><path d="M320 820 L320 930" stroke="#e8891a" stroke-width="10" fill="none" /><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M600 900 L640 1080"/><path d="M616.6 1050.3 L640 1080 L648.7 1043.2"/></g><text x="620" y="874" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">fall away</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s06-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>15 · s06 · 0:16.57</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s06-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s06-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s06-2)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="350" font-size="46" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 = 0.000…</text><path d="M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z M67 830 h76 v76 h-76 Z M153 830 h76 v76 h-76 Z M239 830 h76 v76 h-76 Z" fill="none"  stroke="#26262b" stroke-width="6" /><path d="M320 820 L320 930" stroke="#e8891a" stroke-width="10" fill="none" /><rect x="360" y="1020" width="357" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="538.5" y="1081" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">…001 → …010</text><g><rect x="248" y="1814" width="792" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ the grid shrinks into a dot</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s06-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>16 · s06 · 0:18.14</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s07-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s07-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s07-0)" stroke-linecap="round" stroke-linejoin="round"><path d="M64 700 L930 700" stroke="#26262b" stroke-width="6" fill="none" /><text x="64" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0</text><text x="281" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><text x="497" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.2</text><text x="714" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><circle cx="281" cy="700" r="14" fill="#e8891a" stroke="#26262b" stroke-width="4"/><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 120 L280 200"/><path d="M246.6 196.6 L280 200 L261.9 171.7"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 120 L800 200"/><path d="M818.1 171.7 L800 200 L833.4 196.6"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 1800 L280 1720"/><path d="M261.9 1748.3 L280 1720 L246.6 1723.4"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 1800 L800 1720"/><path d="M833.4 1723.4 L800 1720 L818.1 1748.3"/></g><rect x="183.6" y="403.2" width="712.8" height="1113.6" fill="none" stroke="#2b62d9" stroke-width="5" stroke-dasharray="26 18" rx="14"/><g><rect x="40" y="28" width="431" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">dive into 0.1</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s07-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>17 · s07 · 0:18.14</span>and stored a <b>tiny bit off</b>.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s07-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s07-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s07-1)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M180 670 L180 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M740 670 L740 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M516 600 L516 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="516" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><circle cx="740" cy="700" r="18" fill="#e8891a" stroke="#26262b" stroke-width="4"/><rect x="64" y="300" width="330" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="229" y="361" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">zoom ×10¹⁶</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s07-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>18 · s07 · 0:20.23</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s07-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s07-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s07-2)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M180 670 L180 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M740 670 L740 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M516 600 L516 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="516" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><circle cx="740" cy="700" r="18" fill="#e8891a" stroke="#26262b" stroke-width="4"/><path d="M516 620 V660 M516 640 H740 M740 620 V660" stroke="#26262b" stroke-width="5" fill="none"/><text x="628" y="614" font-size="46" text-anchor="middle" fill="#e8891a" font-weight="700" class="hand"></text><text x="64" y="900" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">stored</text><text x="64" y="980" font-size="46" text-anchor="start" fill="#e8891a" font-weight="400" class="hand">0.1000000000000000055511…</text><g><rect x="300" y="1814" width="740" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ whip right along the line</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s07-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>19 · s07 · 0:21.63</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s08-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s08-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s08-0)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M200 670 L200 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M800 670 L800 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M320 600 L320 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="320" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><circle cx="200" cy="700" r="14" fill="#26262b" stroke="#26262b" stroke-width="4"/><circle cx="800" cy="700" r="14" fill="#26262b" stroke="#26262b" stroke-width="4"/><g stroke="#2b62d9" stroke-width="10" fill="none" ><path d="M750 960 L930 960"/><path d="M892.2 978.3 L930 960 L892.2 941.7"/></g><g><rect x="40" y="28" width="323" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">PAN RIGHT</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s08-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>20 · s08 · 0:21.63</span>Add them, and the error shows up as that <b>4</b>.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s08-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s08-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s08-1)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M200 670 L200 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M800 670 L800 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M320 600 L320 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="320" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><path d="M320 700 L380 700" stroke="#e8891a" stroke-width="14" fill="none" /><path d="M380 700 L500 700" stroke="#e8891a" stroke-width="14" fill="none" /><text x="350" y="650" font-size="36" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><text x="440" y="650" font-size="36" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.2</text><circle cx="500" cy="700" r="12" fill="#e8891a" stroke="#26262b" stroke-width="4"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s08-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>21 · s08 · 0:23.03</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s08-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s08-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s08-2)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M200 670 L200 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M800 670 L800 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M320 600 L320 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="320" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><g stroke="#e8891a" stroke-width="6" fill="none" ><path d="M500 650 L800 650"/><path d="M777.3 661 L800 650 L777.3 639"/></g><circle cx="800" cy="700" r="20" fill="#e8891a" stroke="#26262b" stroke-width="4"/><text x="497" y="930" font-size="76" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.30000000000000004</text><circle cx="906" cy="900" r="52" fill="none" stroke="#e8891a" stroke-width="6" /><g><rect x="534" y="1814" width="506" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ flash to the fix</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s08-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>22 · s08 · 0:25.12</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s09-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s09-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s09-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><circle cx="497" cy="500" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="500" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M120 560 L700 560"/><path d="M666 576.4 L700 560 L666 543.6"/></g><text x="410" y="534" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">typed</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s09-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>23 · s09 · 0:25.12</span>The fix: compare with a <b>tolerance</b>,</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s09-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s09-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s09-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M600 580 V620 M600 600 H860 M860 580 V620" stroke="#26262b" stroke-width="5" fill="none"/><text x="730" y="574" font-size="46" text-anchor="middle" fill="#2f9e52" font-weight="700" class="hand">tolerance</text><circle cx="497" cy="560" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="560" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s09-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>24 · s09 · 0:28.26</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s10-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s10-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s10-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">10 + 20 === 30  // cents</text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><circle cx="497" cy="740" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="740" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s10-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>25 · s10 · 0:28.26</span>and use <b>integers</b> or decimals for money.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s10-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s10-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s10-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">10 + 20 === 30  // cents</text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><circle cx="497" cy="780" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="780" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s10-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>26 · s10 · 0:30.18</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s10-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s10-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s10-2)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">10 + 20 === 30  // cents</text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><rect x="200" y="980" width="519" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="459.5" y="1041" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">or a Decimal type</text><g><rect x="118" y="1814" width="922" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ the panel becomes the third card</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s10-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>27 · s10 · 0:31.75</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s11-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s11-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s11-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="400" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1 never ends in binary</text><rect x="64" y="490" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="590" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">cut at 53 bits: a tiny bit off</text><rect x="64" y="680" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="780" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">tolerance · money in integers</text><text x="497" y="1040" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">Floats are close,</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M990 900 L990 700"/><path d="M1006.4 734 L990 700 L973.6 734"/></g><text x="990" y="674" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">rise</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s11-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>28 · s11 · 0:31.75</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s11-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s11-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s11-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="400" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1 never ends in binary</text><rect x="64" y="490" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="590" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">cut at 53 bits: a tiny bit off</text><rect x="64" y="680" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="780" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">tolerance · money in integers</text><text x="497" y="1040" font-size="100" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">Floats are <tspan fill="#2b62d9">close,</tspan></text><text x="497" y="1150" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">not exact.</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s11-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>29 · s11 · 0:33.32</span></figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s11-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s11-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s11-2)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="400" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1 never ends in binary</text><rect x="64" y="490" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="590" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">cut at 53 bits: a tiny bit off</text><rect x="64" y="680" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="780" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">tolerance · money in integers</text><text x="497" y="1040" font-size="100" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">Floats are <tspan fill="#2b62d9">close,</tspan></text><text x="497" y="1150" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">not exact.</text><circle cx="497" cy="690" r="380" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="690" r="250.8" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 120 L280 200"/><path d="M246.6 196.6 L280 200 L261.9 171.7"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 120 L800 200"/><path d="M818.1 171.7 L800 200 L833.4 196.6"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 1800 L280 1720"/><path d="M261.9 1748.3 L280 1720 L246.6 1723.4"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 1800 L800 1720"/><path d="M833.4 1723.4 L800 1720 L818.1 1748.3"/></g><rect x="183.6" y="403.2" width="712.8" height="1113.6" fill="none" stroke="#2b62d9" stroke-width="5" stroke-dasharray="26 18" rx="14"/><g><rect x="40" y="28" width="512" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">CAMERA PUSHES IN</text></g><g><rect x="560" y="1814" width="480" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ back to frame 0</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s11-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>30 · s11 · 0:34.89</span></figcaption></figure></div></section>
+<section class="page">
+  <article class="shot">
+    <header><b>s01</b><span class="t">0:00.00 → 0:03.14 · 3.14 s</span><em class="ty">type</em><em>Question</em>
+      <q class='none'>no caption: the lettering in the frame is the line</q><i>1 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s01-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s01-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s01-0)" stroke-linecap="round" stroke-linejoin="round"><circle cx="497" cy="690" r="380" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="690" r="250.8" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><text x="497" y="470" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">Why doesn't</text><text x="497" y="700" font-size="190" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.1 + 0.2</text><text x="497" y="905" font-size="150" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">equal <tspan fill="#2b62d9">0.3?</tspan></text><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 120 L280 200"/><path d="M246.6 196.6 L280 200 L261.9 171.7"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 120 L800 200"/><path d="M818.1 171.7 L800 200 L833.4 196.6"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 1800 L280 1720"/><path d="M261.9 1748.3 L280 1720 L246.6 1723.4"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 1800 L800 1720"/><path d="M833.4 1723.4 L800 1720 L818.1 1748.3"/></g><rect x="183.6" y="403.2" width="712.8" height="1113.6" fill="none" stroke="#2b62d9" stroke-width="5" stroke-dasharray="26 18" rx="14"/><g><rect x="40" y="28" width="512" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">CAMERA PUSHES IN</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s01-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 1 · 0:00.00</span>Frame 0 is finished: the whole question in metal type, lit from behind in amber. '0.1 + 0.2' is the hero, 190 px.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s01-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s01-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s01-1)" stroke-linecap="round" stroke-linejoin="round"><circle cx="497" cy="860" r="300" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="860" r="198" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><text x="497" y="470" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">Why doesn't</text><text x="497" y="700" font-size="190" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.1 + 0.2</text><text x="497" y="905" font-size="150" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">equal <tspan fill="#2b62d9">0.3?</tspan></text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M120 980 L820 980"/><path d="M786 996.4 L820 980 L786 963.6"/></g><text x="470" y="954" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">sheen</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s01-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 2 · 0:01.57</span>Each line brightens in turn; on '0.3?' the amber 0.3? takes a sheen.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s01-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s01-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s01-2)" stroke-linecap="round" stroke-linejoin="round"><circle cx="497" cy="690" r="380" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="690" r="250.8" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><text x="497" y="700" font-size="190" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.1 + 0.2</text><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M497 720 L300 420"/><path d="M332.4 439.4 L300 420 L304.9 457.5"/></g><text x="398.5" y="394" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">into the prompt</text><g><rect x="404" y="1814" width="636" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ the line becomes code</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s01-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 3 · 0:03.14</span>The question lifts away; '0.1 + 0.2' drops into the terminal that rises beneath it.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>Asks the one question the film answers, in the viewer's own words, with the sum as the hero.</dd>
+        <dt>On screen</dt><dd>Graphite stage, an amber light behind the middle. The question in metal type across three lines, centred inside the safe area: 'Why doesn't' (100 px, white), '0.1 + 0.2' (190 px, the hero), 'equal 0.3?' (150 px, '0.3?' in amber). The lettering is the question itself, so the shot has no pop caption.</dd>
+        <dt>Motion</dt><dd>Frame 0 holds the whole question already lit. Each line brightens and lifts 6 px in turn; a sheen crosses '0.3?' last. Slow 4 percent push. At the end the first and third lines lift away and '0.1 + 0.2' shrinks into the prompt of the terminal rising under it.</dd>
+        <dt>Carries on</dt><dd>'0.1 + 0.2' becomes the code typed at the prompt.</dd>
+        <dt>Transition</dt><dd>The hero line drops into the terminal's prompt; no cut in the picture.</dd>
+        <dt>Sound</dt><dd>Music from frame 0, low. A soft shimmer as the sheen crosses '0.3?'.</dd>
+        <dt>Check</dt><dd>The question is readable inside the safe area on frame 0. Nothing sits under the app's buttons on the right.</dd>
+        <dt>Facts</dt><dd><u>f1</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s02</b><span class="t">0:03.14 → 0:06.28 · 3.14 s</span><em class="ty">ui</em><em>Question</em>
+      <q>You get 0.3, fifteen zeros, and a <b>4</b>.</q><i>2 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s02-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s02-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s02-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><circle cx="497" cy="450" r="300" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="450" r="198" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M120 520 L400 520"/><path d="M366 536.4 L400 520 L366 503.6"/></g><text x="260" y="494" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">typed</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s02-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 4 · 0:03.14</span>A glass terminal, 866 wide. The prompt line is typed: &gt; 0.1 + 0.2. The cursor blinks under it.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s02-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s02-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s02-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><text x="497" y="790" font-size="76" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.30000000000000004</text><circle cx="497" cy="760" r="420" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="760" r="277.2" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s02-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 5 · 0:04.55</span>On '0.3' the result slams in as the hero, under the panel: 0.30000000000000004 across the full width.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s02-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s02-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s02-2)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="300" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 384 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="358" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">node</text>
+      <text x="104" y="506" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">&gt; 0.1 + 0.2</text><text x="497" y="790" font-size="76" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.30000000000000004</text><path d="M201 860 V900 M201 880 H885 M885 860 V900" stroke="#26262b" stroke-width="5" fill="none"/><text x="543" y="854" font-size="46" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">15 zeros</text><circle cx="906" cy="760" r="52" fill="none" stroke="#e8891a" stroke-width="6" /><circle cx="906" cy="760" r="200" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="906" cy="760" r="132" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g><rect x="768" y="1814" width="272" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ whip up</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s02-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 6 · 0:06.28</span>On 'fifteen zeros' a bracket spans the zeros; on '4' the 4 turns amber with a ring and a hit.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>The surprise, exactly: the printed result is 0.30000000000000004, and the 4 is what is wrong.</dd>
+        <dt>On screen</dt><dd>A glass terminal 866 px wide at y 300 to 600, head 'node' with three dots; the prompt line '&gt; 0.1 + 0.2' in JetBrains Mono 64 px. Under the panel, across the full safe width, the result in mono 76 px: 0.30000000000000004. A bracket under the fifteen zeros, '15 zeros'; the final 4 in amber with a ring.</dd>
+        <dt>Motion</dt><dd>The prompt is already typed as the shot opens; the result slams in at its value on '0.3'. The bracket draws across the zeros on 'fifteen zeros'; as 'a' is read the 4 turns amber, a ring and a hit from it, and holds through the cut; the stage light jumps to the 4. A second small terminal under it: '&gt; 0.1 + 0.2 === 0.3' and 'false' in amber.</dd>
+        <dt>Carries on</dt><dd>The amber 4, which the film will come back to.</dd>
+        <dt>Transition</dt><dd>A vertical whip up to the binary scene.</dd>
+        <dt>Sound</dt><dd>A key tap as the result lands; a hit on the 4, in the gap after the line.</dd>
+        <dt>Check</dt><dd>0.30000000000000004 is exact, one line, inside x 64 to 930. The bracket covers exactly fifteen zeros.</dd>
+        <dt>Facts</dt><dd><u>f1</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s03</b><span class="t">0:06.28 → 0:09.42 · 3.14 s</span><em class="ty">diagram</em><em>Why</em>
+      <q>Computers store numbers in <b>binary</b>.</q><i>3 / 11</i></header>
+    <div class="body">
+      <div class="frames n2"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s03-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s03-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s03-0)" stroke-linecap="round" stroke-linejoin="round"><text x="497" y="450" font-size="150" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.75</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M497 500 L497 590"/><path d="M486 567.3 L497 590 L508 567.3"/></g><text x="300" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">½</text><text x="420" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">¼</text><circle cx="497" cy="700" r="360" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="700" r="237.6" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s03-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 7 · 0:06.28</span>A number that binary writes cleanly: 0.75, and the place values of binary under it.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s03-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s03-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s03-1)" stroke-linecap="round" stroke-linejoin="round"><text x="497" y="450" font-size="150" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.75</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M497 500 L497 590"/><path d="M486 567.3 L497 590 L508 567.3"/></g><text x="420" y="760" font-size="170" text-anchor="middle" fill="#2f9e52" font-weight="700" class="hand">0.11</text><text x="300" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">½</text><text x="420" y="850" font-size="64" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">¼</text><rect x="300" y="930" width="384" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="492" y="991" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">½ + ¼ = 0.75</text><g><rect x="378" y="1814" width="662" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ 0.11 slides to row one</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s03-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 8 · 0:09.42</span>Its binary form lands in green: 0.11, each 1 sitting over its value: ½ + ¼ = 0.75. It ends.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>Binary fractions are made of halves, quarters, eighths: a number made of those ends cleanly (0.75 = 0.11).</dd>
+        <dt>On screen</dt><dd>In the upper half, 0.75 in metal type (150 px). An arrow down to its binary form in terminal green, 0.11 (170 px). Under each 1 its place value, ½ and ¼, in mono 64 px; a chip '½ + ¼ = 0.75' under them.</dd>
+        <dt>Motion</dt><dd>0.75 is in place as the whip lands; the arrow draws and 0.11 slams in on 'binary'; the place values pop under their digits one after the other; the stage light turns green.</dd>
+        <dt>Carries on</dt><dd>The '0.' of 0.11, which slides up to become the start of 0.1's row.</dd>
+        <dt>Transition</dt><dd>0.75 and the chip fall away; 0.11's '0.' slides to row one and keeps writing.</dd>
+        <dt>Sound</dt><dd>A whoosh on the whip in; a pop as 0.11 lands.</dd>
+        <dt>Check</dt><dd>½ sits under the first 1 and ¼ under the second. The sum chip is right.</dd>
+        <dt>Facts</dt><dd><u>f2</u></dd>
+      </dl>
+    </div>
+  </article></section>
+<section class="page">
+  <article class="shot">
+    <header><b>s04</b><span class="t">0:09.42 → 0:12.56 · 3.14 s</span><em class="ty">compare</em><em>Why</em>
+      <q>But in binary, 0.1 and 0.2 <b>never end</b>,</q><i>4 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s04-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s04-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s04-0)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0001100110</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M500 540 L1000 540"/><path d="M966 556.4 L1000 540 L966 523.6"/></g><text x="750" y="514" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">streams</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s04-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 9 · 0:09.42</span>The '0.' of 0.11 has slid to row one; 0.1's bits start streaming out of it, in green.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s04-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s04-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s04-1)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.001100110011001…</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M960 600 L1070 600"/><path d="M1047.3 611 L1070 600 L1047.3 589"/></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s04-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 10 · 0:10.99</span>On '0.2' a second row streams; the repeating 0011 groups glow in turn. Both run off the right edge.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s04-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s04-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s04-2)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0011001100110011001…</text><g stroke="#26262b" stroke-width="6" fill="none" ><path d="M960 600 L1070 600"/><path d="M1047.3 611 L1070 600 L1047.3 589"/></g><g><rect x="248" y="1814" width="792" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ no cut: a third row arrives</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s04-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 11 · 0:12.56</span>On 'never end' both rows are past the edge and still writing; a dim arrow at the right edge: they go on.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>0.1 and 0.2 have no exact binary form: their bits repeat forever.</dd>
+        <dt>On screen</dt><dd>Two rows, each a small label and a line of mono digits 64 px in green, starting at x 64 and running off the right edge with a soft fade: '0.1 in binary' 0.000110011001100110011…, '0.2 in binary' 0.0011001100110011…. The repeating '0011' groups glow in turn.</dd>
+        <dt>Motion</dt><dd>Row one writes out of the slid '0.' as the caption shows '0.1', a digit every 45 ms, and keeps going past the edge; row two starts on '0.2'. The rows keep streaming; a glow runs along the repeating groups; the stage light slides right with the digits.</dd>
+        <dt>Carries on</dt><dd>The two streaming rows.</dd>
+        <dt>Transition</dt><dd>No cut in the picture: a third row arrives under them.</dd>
+        <dt>Sound</dt><dd>A soft typing bed under the streaming digits, very low.</dd>
+        <dt>Check</dt><dd>Every digit is right: 0.1 = 0.0001100110011…, 0.2 = 0.0011001100110011…. Nothing readable is under the captions.</dd>
+        <dt>Facts</dt><dd><u>f2</u> <u>f3</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s05</b><span class="t">0:12.56 → 0:15.00 · 2.44 s</span><em class="ty">compare</em><em>Why</em>
+      <q>like <b>1/3</b> in decimal.</q><i>5 / 11</i></header>
+    <div class="body">
+      <div class="frames n2"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s05-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s05-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s05-0)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0011001100110011001…</text><text x="64" y="880" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">1/3 in decimal</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M64 960 L600 960"/><path d="M566 976.4 L600 960 L566 943.6"/></g><text x="332" y="934" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">writes</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s05-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 12 · 0:12.56</span>The two binary rows keep streaming, dimmed a little; a third row's label lands: '1/3 in decimal'.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s05-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s05-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s05-1)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="420" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 in binary</text><text x="64" y="500" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.000110011001100110011…</text><text x="64" y="640" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.2 in binary</text><text x="64" y="720" font-size="64" text-anchor="start" fill="#2f9e52" font-weight="400" class="hand">0.0011001100110011001…</text><text x="64" y="880" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">1/3 in decimal</text><text x="64" y="960" font-size="64" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.333333333333333…</text><g><rect x="300" y="1814" width="740" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ row one folds into a grid</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s05-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 13 · 0:15.00</span>On '1/3' a white row: 0.3333… running off the same edge. Same kind of endlessness.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>The same thing happens in decimal: 1/3 never ends either. It is the denominator, not the computer.</dd>
+        <dt>On screen</dt><dd>The two binary rows, a little dimmer, and under them a third row in white: '1/3 in decimal' 0.3333333333…, mono 64 px, running off the same edge.</dd>
+        <dt>Motion</dt><dd>The third row writes on '1/3' at the same pace as the others; all three stream together, then the binary rows brighten again as the shot ends.</dd>
+        <dt>Carries on</dt><dd>Row one, 0.1's bits, which fold into the grid.</dd>
+        <dt>Transition</dt><dd>Row one folds into a grid of cells; the other rows fade.</dd>
+        <dt>Sound</dt><dd>The typing bed continues, then stops on the cut.</dd>
+        <dt>Check</dt><dd>1/3 = 0.3333…; the row is white (decimal), not green (binary).</dd>
+        <dt>Facts</dt><dd><u>f3</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s06</b><span class="t">0:15.00 → 0:18.14 · 3.14 s</span><em class="ty">diagram</em><em>Why</em>
+      <q>So they're cut at <b>53 bits</b>,</q><i>6 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s06-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s06-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s06-0)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="350" font-size="46" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 = 0.000…</text><path d="M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z" fill="none"  stroke="#26262b" stroke-width="6" /><text x="497" y="1020" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">53 bits</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M400 960 L900 960"/><path d="M866 976.4 L900 960 L866 943.6"/></g><text x="650" y="934" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">bits keep coming</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s06-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 14 · 0:15.00</span>0.1's bits fold into a grid, ten to a row, numbered 1 to 53 from the first 1; the bits still come.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s06-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s06-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s06-1)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="350" font-size="46" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 = 0.000…</text><path d="M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z M67 830 h76 v76 h-76 Z M153 830 h76 v76 h-76 Z M239 830 h76 v76 h-76 Z" fill="none"  stroke="#26262b" stroke-width="6" /><path d="M325 830 h76 v76 h-76 Z M411 830 h76 v76 h-76 Z M497 830 h76 v76 h-76 Z M583 830 h76 v76 h-76 Z M669 830 h76 v76 h-76 Z M755 830 h76 v76 h-76 Z M841 830 h76 v76 h-76 Z" fill="none"  stroke="#8d8d94" stroke-width="6" stroke-dasharray="22 16"/><path d="M320 820 L320 930" stroke="#e8891a" stroke-width="10" fill="none" /><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M600 900 L640 1080"/><path d="M616.6 1050.3 L640 1080 L648.7 1043.2"/></g><text x="620" y="874" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">fall away</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s06-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 15 · 0:16.57</span>The blade: a hard amber line after bit 53. Bits 54 onward are cut and fall away, dimming.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s06-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s06-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s06-2)" stroke-linecap="round" stroke-linejoin="round"><text x="64" y="350" font-size="46" text-anchor="start" fill="#26262b" font-weight="400" class="hand">0.1 = 0.000…</text><path d="M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z M67 830 h76 v76 h-76 Z M153 830 h76 v76 h-76 Z M239 830 h76 v76 h-76 Z" fill="none"  stroke="#26262b" stroke-width="6" /><path d="M320 820 L320 930" stroke="#e8891a" stroke-width="10" fill="none" /><rect x="360" y="1020" width="357" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="538.5" y="1081" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">…001 → …010</text><g><rect x="248" y="1814" width="792" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ the grid shrinks into a dot</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s06-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 16 · 0:18.14</span>The last three kept bits 001 flip to 010: rounded to the nearest. A chip: 'rounded up'.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>A double keeps 53 bits of a number; the rest are cut off and the last kept bit is rounded.</dd>
+        <dt>On screen</dt><dd>Top: the label '0.1 = 0.000…'. A grid of bit cells, ten to a row, 76 px cells at 86 px pitch from (67, 400): bits 1 to 53 of 0.1 counted from its first 1, each cell a 1 or a 0 in mono green on glass. After cell 53 an amber blade; cells 54 onward dimmed and falling. A bracket '53 bits'. The last three kept cells read 001 and flip to 010, with a chip '…001 → …010'.</dd>
+        <dt>Motion</dt><dd>The grid fills row by row as the bits arrive from row one; on '53' the blade slams down after cell 53 and the bits beyond it fall and fade. Then the last three cells flip to 010 in amber.</dd>
+        <dt>Carries on</dt><dd>The 53 cells, which collapse into one amber dot: the stored 0.1.</dd>
+        <dt>Transition</dt><dd>The grid collapses into a dot on a number line; the camera dives at it.</dd>
+        <dt>Sound</dt><dd>A crisp click as the blade cuts, just before '53'.</dd>
+        <dt>Check</dt><dd>The 53 bits are 0.1's significand: 1100110011…0011001 kept and rounded to …0011010. The blade sits after cell 53; ten cells a row.</dd>
+        <dt>Facts</dt><dd><u>f4</u></dd>
+      </dl>
+    </div>
+  </article></section>
+<section class="page">
+  <article class="shot">
+    <header><b>s07</b><span class="t">0:18.14 → 0:21.63 · 3.49 s</span><em class="ty">macro</em><em>Why</em>
+      <q>and stored a <b>tiny bit off</b>.</q><i>7 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s07-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s07-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s07-0)" stroke-linecap="round" stroke-linejoin="round"><path d="M64 700 L930 700" stroke="#26262b" stroke-width="6" fill="none" /><text x="64" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0</text><text x="281" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><text x="497" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.2</text><text x="714" y="780" font-size="46" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><circle cx="281" cy="700" r="14" fill="#e8891a" stroke="#26262b" stroke-width="4"/><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 120 L280 200"/><path d="M246.6 196.6 L280 200 L261.9 171.7"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 120 L800 200"/><path d="M818.1 171.7 L800 200 L833.4 196.6"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 1800 L280 1720"/><path d="M261.9 1748.3 L280 1720 L246.6 1723.4"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 1800 L800 1720"/><path d="M833.4 1723.4 L800 1720 L818.1 1748.3"/></g><rect x="183.6" y="403.2" width="712.8" height="1113.6" fill="none" stroke="#2b62d9" stroke-width="5" stroke-dasharray="26 18" rx="14"/><g><rect x="40" y="28" width="431" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">dive into 0.1</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s07-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 17 · 0:18.14</span>The grid has become an amber dot on a number line from 0 to 0.4. The camera dives at 0.1.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s07-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s07-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s07-1)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M180 670 L180 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M740 670 L740 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M516 600 L516 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="516" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><circle cx="740" cy="700" r="18" fill="#e8891a" stroke="#26262b" stroke-width="4"/><rect x="64" y="300" width="330" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="229" y="361" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">zoom ×10¹⁶</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s07-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 18 · 0:20.23</span>Zoomed about 10^16 times: the ticks are neighbouring doubles. 0.1 itself is a white dashed mark between two of them.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s07-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s07-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s07-2)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M180 670 L180 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M740 670 L740 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M516 600 L516 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="516" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><circle cx="740" cy="700" r="18" fill="#e8891a" stroke="#26262b" stroke-width="4"/><path d="M516 620 V660 M516 640 H740 M740 620 V660" stroke="#26262b" stroke-width="5" fill="none"/><text x="628" y="614" font-size="46" text-anchor="middle" fill="#e8891a" font-weight="700" class="hand"></text><text x="64" y="900" font-size="40" text-anchor="start" fill="#26262b" font-weight="400" class="hand">stored</text><text x="64" y="980" font-size="46" text-anchor="start" fill="#e8891a" font-weight="400" class="hand">0.1000000000000000055511…</text><g><rect x="300" y="1814" width="740" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ whip right along the line</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s07-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 19 · 0:21.63</span>The gap between them is marked; under the line the stored value in full, its tail in amber.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>How far off: zoomed about 10^16 times, the stored 0.1 sits beside the real 0.1, a little above it.</dd>
+        <dt>On screen</dt><dd>A number line across the frame at y 700. Zoomed out it reads 0, 0.1, 0.2, 0.3 with the amber dot at 0.1. Zoomed in: the ticks are neighbouring doubles, 560 px apart; 0.1 itself a white dashed mark at x 516; the stored value the amber dot on the tick at x 740; the gap between them marked in amber. Under the line: 'stored' and 0.1000000000000000055511… with the tail from the first 5 in amber. A chip 'zoom ×10¹⁶'.</dd>
+        <dt>Motion</dt><dd>An exponential dive into 0.1: the labels 0.2 and 0.3 race off the edges, the ticks of the doubles appear, the dashed 0.1 mark separates from the dot. The stored value types in under the line on 'tiny bit off'.</dd>
+        <dt>Carries on</dt><dd>The number line, which the camera rides along to 0.3.</dd>
+        <dt>Transition</dt><dd>A horizontal whip along the line to 0.3.</dd>
+        <dt>Sound</dt><dd>A rising shimmer through the dive.</dd>
+        <dt>Check</dt><dd>0.1 is 0.6 gaps above the double below it and 0.4 gaps under the stored value (336 px and 224 px at 560 px a gap). The digits are exact.</dd>
+        <dt>Facts</dt><dd><u>f5</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s08</b><span class="t">0:21.63 → 0:25.12 · 3.49 s</span><em class="ty">diagram</em><em>Why</em>
+      <q>Add them, and the error shows up as that <b>4</b>.</q><i>8 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s08-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s08-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s08-0)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M200 670 L200 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M800 670 L800 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M320 600 L320 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="320" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><circle cx="200" cy="700" r="14" fill="#26262b" stroke="#26262b" stroke-width="4"/><circle cx="800" cy="700" r="14" fill="#26262b" stroke="#26262b" stroke-width="4"/><g stroke="#2b62d9" stroke-width="10" fill="none" ><path d="M750 960 L930 960"/><path d="M892.2 978.3 L930 960 L892.2 941.7"/></g><g><rect x="40" y="28" width="323" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">PAN RIGHT</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s08-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 20 · 0:21.63</span>The same zoom, now at 0.3: the double nearest 0.3 at left, 0.3 itself dashed, the next double at right.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s08-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s08-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s08-1)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M200 670 L200 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M800 670 L800 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M320 600 L320 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="320" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><path d="M320 700 L380 700" stroke="#e8891a" stroke-width="14" fill="none" /><path d="M380 700 L500 700" stroke="#e8891a" stroke-width="14" fill="none" /><text x="350" y="650" font-size="36" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1</text><text x="440" y="650" font-size="36" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.2</text><circle cx="500" cy="700" r="12" fill="#e8891a" stroke="#26262b" stroke-width="4"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s08-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 21 · 0:23.03</span>On 'add them': the two errors stack from 0.3 as amber segments: 0.1's (60 px), then 0.2's (120 px). The exact sum is past 0.3.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s08-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s08-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s08-2)" stroke-linecap="round" stroke-linejoin="round"><path d="M0 700 L1080 700" stroke="#26262b" stroke-width="6" fill="none" /><path d="M200 670 L200 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M800 670 L800 730" stroke="#26262b" stroke-width="5" fill="none" /><path d="M320 600 L320 760" stroke="#26262b" stroke-width="5" fill="none" stroke-dasharray="18 14"/><text x="320" y="580" font-size="56" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.3</text><g stroke="#e8891a" stroke-width="6" fill="none" ><path d="M500 650 L800 650"/><path d="M777.3 661 L800 650 L777.3 639"/></g><circle cx="800" cy="700" r="20" fill="#e8891a" stroke="#26262b" stroke-width="4"/><text x="497" y="930" font-size="76" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">0.30000000000000004</text><circle cx="906" cy="900" r="52" fill="none" stroke="#e8891a" stroke-width="6" /><g><rect x="534" y="1814" width="506" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ flash to the fix</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s08-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 22 · 0:25.12</span>The sum is rounded to a double: it hops to the one on the right. Under the line, the answer again, its 4 lit on '4'.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>The mechanism of the sum: both errors point up, so the exact sum lies past 0.3, and rounding it to a double lands on the one that prints ...04.</dd>
+        <dt>On screen</dt><dd>The same zoomed number line, now at 0.3, 600 px a gap: the double nearest 0.3 at x 200 (grey, '0.29999999999999998…'), 0.3 itself dashed at x 320, the next double at x 800. Two amber segments stack from 0.3: 0.1's error (60 px) and 0.2's (120 px), ending at the exact sum, x 500. An arrow hops from there to the double at x 800. Under the line, the hero again: 0.30000000000000004, its 4 amber. A chip at the top: 'zoom ×10¹⁵ near 0.3'.</dd>
+        <dt>Motion</dt><dd>On 'add them' the two segments draw from 0.3, one after the other; a dot at their end. Then it hops right to the double at x 800 with a snap, and on '4' the answer slams in under the line and its 4 lights with a ring.</dd>
+        <dt>Carries on</dt><dd>The amber 4 and the green of the terminal: the fix comes in code.</dd>
+        <dt>Transition</dt><dd>A flash cut to the code panel.</dd>
+        <dt>Sound</dt><dd>A whoosh on the whip in; a tick on the snap; a hit on the 4, after the word.</dd>
+        <dt>Check</dt><dd>Positions: 0.3 at 0.2 gaps above the double nearest it, errors 0.1 and 0.2 gaps, exact sum 0.5 gaps (a tie), the answer 1 gap. The printed digits are exact.</dd>
+        <dt>Facts</dt><dd><u>f5</u> <u>f6</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s09</b><span class="t">0:25.12 → 0:28.26 · 3.14 s</span><em class="ty">ui</em><em>The fix</em>
+      <q>The fix: compare with a <b>tolerance</b>,</q><i>9 / 11</i></header>
+    <div class="body">
+      <div class="frames n2"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s09-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s09-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s09-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><circle cx="497" cy="500" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="500" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M120 560 L700 560"/><path d="M666 576.4 L700 560 L666 543.6"/></g><text x="410" y="534" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">typed</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s09-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 23 · 0:25.12</span>A code panel, fix.js, in the green of the terminal. The first line types in on 'compare'.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s09-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s09-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s09-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><path d="M600 580 V620 M600 600 H860 M860 580 V620" stroke="#26262b" stroke-width="5" fill="none"/><text x="730" y="574" font-size="46" text-anchor="middle" fill="#2f9e52" font-weight="700" class="hand">tolerance</text><circle cx="497" cy="560" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="560" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s09-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 24 · 0:28.26</span>On 'tolerance' it resolves: a green 'true' with a check. A bracket under 1e-9 reads 'tolerance'.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>Never test floats for exact equality; ask whether they are close enough.</dd>
+        <dt>On screen</dt><dd>A glass code panel 866 px wide at y 330 to 930, head 'fix.js', terminal green accent. Line one in mono 54 px: Math.abs(a - b) &lt; 1e-9, and under it '→ true' in green with a check. A bracket under '1e-9' reads 'tolerance'.</dd>
+        <dt>Motion</dt><dd>The panel lands on 'The fix'; line one types in on 'compare'; on 'tolerance' the bracket draws and '→ true' pops in green; the stage turns green.</dd>
+        <dt>Carries on</dt><dd>The panel, which takes a second line.</dd>
+        <dt>Transition</dt><dd>No cut: line two types in below.</dd>
+        <dt>Sound</dt><dd>Soft key taps as the line types; a small success on 'true', after the word.</dd>
+        <dt>Check</dt><dd>The code is valid JavaScript and true for a = 0.1 + 0.2, b = 0.3. Readable at 54 px.</dd>
+        <dt>Facts</dt><dd><u>f7</u></dd>
+      </dl>
+    </div>
+  </article></section>
+<section class="page">
+  <article class="shot">
+    <header><b>s10</b><span class="t">0:28.26 → 0:31.75 · 3.49 s</span><em class="ty">ui</em><em>The fix</em>
+      <q>and use <b>integers</b> or decimals for money.</q><i>10 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s10-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s10-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s10-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">10 + 20 === 30  // cents</text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand"></text><circle cx="497" cy="740" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="740" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s10-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 25 · 0:28.26</span>On 'integers' the second line: money in cents. 10 + 20 === 30.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s10-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s10-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s10-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">10 + 20 === 30  // cents</text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><circle cx="497" cy="780" r="300" fill="none" stroke="#2f9e52" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="780" r="198" fill="none" stroke="#2f9e52" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/></g>
+    <rect width="1080" height="1920" filter="url(#grain-s10-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 26 · 0:30.18</span>It resolves: '→ true' in green, and the panel's light turns green.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s10-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s10-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s10-2)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="330" width="866" height="600" rx="26" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/>
+      <path d="M64 414 H930" stroke="#26262b" stroke-width="4"/><text x="100" y="388" font-size="42" text-anchor="start" fill="#26262b" font-weight="700" class="hand">fix.js</text>
+      <text x="104" y="492.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">Math.abs(a - b) &lt; 1e-9</text><path d="M88 543 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="621.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><path d="M88 672 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="750.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">10 + 20 === 30  // cents</text><path d="M88 801 H906" stroke="#26262b" stroke-width="2.5" stroke-dasharray="6 10"/><text x="104" y="879.5" font-size="44" text-anchor="start" fill="#26262b" font-weight="400" class="hand">→ true</text><rect x="200" y="980" width="519" height="88" rx="44" fill="#fbfaf5" stroke="#26262b" stroke-width="5"/><text x="459.5" y="1041" font-size="52" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">or a Decimal type</text><g><rect x="118" y="1814" width="922" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ the panel becomes the third card</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s10-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 27 · 0:31.75</span>A chip lands under the panel: 'or a Decimal type'. Slow push.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>For money, avoid binary fractions altogether: count whole cents, or use a decimal type.</dd>
+        <dt>On screen</dt><dd>The same panel. Line two: 10 + 20 === 30 with a dim comment '// cents', and '→ true' in green. Under the panel a chip: 'or a Decimal type'.</dd>
+        <dt>Motion</dt><dd>Line two types in on 'integers'; '→ true' pops; the chip lands on 'decimals'. A slow push.</dd>
+        <dt>Carries on</dt><dd>The panel, which shrinks into the third recap card.</dd>
+        <dt>Transition</dt><dd>The panel shrinks into the third card as the recap rises.</dd>
+        <dt>Sound</dt><dd>Key taps; a small success.</dd>
+        <dt>Check</dt><dd>10 + 20 === 30 is true in any language. The chip is inside the safe area and clear of the captions.</dd>
+        <dt>Facts</dt><dd><u>f7</u></dd>
+      </dl>
+    </div>
+  </article>
+  <article class="shot">
+    <header><b>s11</b><span class="t">0:31.75 → 0:34.89 · 3.14 s</span><em class="ty">recap</em><em>Recap</em>
+      <q class='none'>no caption: the lettering in the frame is the line</q><i>11 / 11</i></header>
+    <div class="body">
+      <div class="frames n3"><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s11-0" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="83" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s11-0"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s11-0)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="400" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1 never ends in binary</text><rect x="64" y="490" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="590" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">cut at 53 bits: a tiny bit off</text><rect x="64" y="680" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="780" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">tolerance · money in integers</text><text x="497" y="1040" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">Floats are close,</text><g stroke="#2b62d9" stroke-width="9" fill="none" stroke-dasharray="34 14"><path d="M990 900 L990 700"/><path d="M1006.4 734 L990 700 L973.6 734"/></g><text x="990" y="674" font-size="48" text-anchor="middle" fill="#2b62d9" font-weight="700" class="hand">rise</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s11-0)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 28 · 0:31.75</span>Three cards rise in the upper half, each with its small picture; the first line of the poster lands.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s11-1" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="84" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s11-1"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s11-1)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="400" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1 never ends in binary</text><rect x="64" y="490" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="590" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">cut at 53 bits: a tiny bit off</text><rect x="64" y="680" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="780" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">tolerance · money in integers</text><text x="497" y="1040" font-size="100" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">Floats are <tspan fill="#2b62d9">close,</tspan></text><text x="497" y="1150" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">not exact.</text></g>
+    <rect width="1080" height="1920" filter="url(#grain-s11-1)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 29 · 0:33.32</span>The poster complete: 'Floats are close, / not exact.' with 'close' in amber.</figcaption></figure><figure><div class="pic"><svg viewBox="0 0 1080 1920" class="sketch" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="pencil-s11-2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="85" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13" xChannelSelector="R" yChannelSelector="G"/></filter>
+      <filter id="grain-s11-2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .2  0 0 0 0 .18  0 0 0 0 .15  0 0 0 .09 0"/></filter>
+      <pattern id="hatch" width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="13" stroke="#26262b" stroke-width="5"/></pattern>
+      <pattern id="hatch2" width="17" height="17" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="17" stroke="#26262b" stroke-width="2.6"/></pattern>
+      <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="#26262b" stroke-width="1.8" opacity=".7"/></pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="#f6f3ec"/>
+    <g filter="url(#pencil-s11-2)" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="300" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="400" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">0.1 never ends in binary</text><rect x="64" y="490" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="590" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">cut at 53 bits: a tiny bit off</text><rect x="64" y="680" width="866" height="170" rx="28" fill="#fbfaf5" stroke="#26262b" stroke-width="7"/><text x="497" y="780" font-size="40" text-anchor="middle" fill="#26262b" font-weight="400" class="hand">tolerance · money in integers</text><text x="497" y="1040" font-size="100" text-anchor="middle" font-weight="700" class="hand" fill="#26262b">Floats are <tspan fill="#2b62d9">close,</tspan></text><text x="497" y="1150" font-size="100" text-anchor="middle" fill="#26262b" font-weight="700" class="hand">not exact.</text><circle cx="497" cy="690" r="380" fill="none" stroke="#e8891a" stroke-width="4" stroke-dasharray="4 16" opacity=".8"/><circle cx="497" cy="690" r="250.8" fill="none" stroke="#e8891a" stroke-width="3" stroke-dasharray="4 20" opacity=".6"/><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 120 L280 200"/><path d="M246.6 196.6 L280 200 L261.9 171.7"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 120 L800 200"/><path d="M818.1 171.7 L800 200 L833.4 196.6"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M150 1800 L280 1720"/><path d="M261.9 1748.3 L280 1720 L246.6 1723.4"/></g><g stroke="#2b62d9" stroke-width="8" fill="none" ><path d="M930 1800 L800 1720"/><path d="M833.4 1723.4 L800 1720 L818.1 1748.3"/></g><rect x="183.6" y="403.2" width="712.8" height="1113.6" fill="none" stroke="#2b62d9" stroke-width="5" stroke-dasharray="26 18" rx="14"/><g><rect x="40" y="28" width="512" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="74" y="84" font-size="46" text-anchor="start" fill="#2b62d9" font-weight="700" class="hand">CAMERA PUSHES IN</text></g><g><rect x="560" y="1814" width="480" height="78" rx="12" fill="#eaf0ff" stroke="#2b62d9" stroke-width="4"/><text x="1010" y="1870" font-size="46" text-anchor="end" fill="#2b62d9" font-weight="700" class="hand">→ back to frame 0</text></g></g>
+    <rect width="1080" height="1920" filter="url(#grain-s11-2)"/>
+    <rect x="6" y="6" width="1068" height="1908" rx="22" fill="none" stroke="#26262b" stroke-width="10"/>
+  </svg></div><figcaption><span>frame 30 · 0:34.89</span>Held two seconds, breathing; the amber glow returns to where frame 0 had it, so the loop is soft.</figcaption></figure></div>
+      <dl>
+        
+        <dt>Teaches</dt><dd>The three ideas in one frame, and the line to remember: floats are close, not exact.</dd>
+        <dt>On screen</dt><dd>Three glass cards 866 px wide at y 300, 490 and 680, each with a small picture and a line: green bits running off, '0.1 never ends in binary'; a dot just past a dashed mark, 'cut at 53 bits: a tiny bit off'; a green check, 'compare with a tolerance / money in integers'. Below, in metal type 110 px: 'Floats are close, / not exact.' with 'close' in amber. Under it in mono 34 px: '0.1 + 0.2 → 0.30000000000000004', the 4 in amber.</dd>
+        <dt>Motion</dt><dd>The cards rise one after another in the first 0.5 s, the two poster lines slam in, a sheen crosses them. Then everything holds for two seconds with a 3 percent push; the amber glow settles where frame 0 has it.</dd>
+        <dt>Carries on</dt><dd>Nothing: the film ends; the frame can cut back to frame 0.</dd>
+        <dt>Transition</dt><dd>The film ends on this frame; it loops to frame 0, the same amber glow.</dd>
+        <dt>Sound</dt><dd>A whoosh as the cards rise, a soft low impact under the poster line, the music fading over the last 1.8 s.</dd>
+        <dt>Check</dt><dd>Every figure matches the fact sheet. The poster is readable for at least two seconds. Nothing is outside the safe area.</dd>
+        <dt>Facts</dt><dd><u>f2</u> <u>f4</u> <u>f7</u></dd>
+      </dl>
+    </div>
+  </article></section>
+</body></html>

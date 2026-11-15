@@ -1,0 +1,1826 @@
+{
+  "title": "Why does 0.1 + 0.2 not equal 0.3?",
+  "question": "Why doesn't zero point one plus zero point two equal zero point three?",
+  "audience": "Developers and curious students watching a short on a phone. They have seen 0.30000000000000004 or will; they know what binary is, roughly, but not why a short decimal can be inexact in it.",
+  "promise": "Computers store numbers in binary, and 0.1 has no exact binary form (as 1/3 has no exact decimal form), so the stored values are a tiny bit off and the error shows when you add them; so compare floats with a tolerance, and use integers or decimals for money.",
+  "language": "en",
+  "format": "1080x1920",
+  "captions": "pop",
+  "duration": 34.886,
+  "fps": 60,
+  "poster": 3.0,
+  "look": {
+    "accent": "#ffb02e",
+    "accent2": "#4ee68f",
+    "mood": "Type is the hero: Sora metal for the question and the poster, JetBrains Mono for every number, large. The graphite stage is lit amber where the error is (the 4, the stored dot, the blade) and terminal green where the machine works correctly (binary digits, the fix). Glass panels for the terminal and the code. The light moves to what the caption names: the 4, the blade, the dot, the true."
+  },
+  "music": {
+    "track": "Xceed Thru Johann (Mixkit 556)",
+    "bpm": 86,
+    "beat": 0.348837,
+    "offset": 0,
+    "start": 0.679,
+    "note": "A calm 86 BPM underscore with no lead melody, at -18 LUFS (no voice to make room for). Started 0.679 s in so a beat falls on frame 0; every shot is a whole number of half beats (0.349 s), so every cut is on the grid."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "In IEEE 754 double precision (the number type of JavaScript, and Python's float), 0.1 + 0.2 prints 0.30000000000000004 and 0.1 + 0.2 == 0.3 is false. Run here: Python 3 repr(0.1 + 0.2) -> '0.30000000000000004'; Node: 0.1 + 0.2 -> 0.30000000000000004, 0.1 + 0.2 === 0.3 -> false. That string has fifteen zeros between the 3 and the 4.",
+      "source": "Run in this workspace (Python 3, Node). Python tutorial, 'Floating-Point Arithmetic: Issues and Limitations' (docs.python.org/3/tutorial/floatingpoint.html, read via a search summary); IEEE 754-2019."
+    },
+    {
+      "id": "f2",
+      "claim": "A binary fraction is a sum of halves, quarters, eighths...: 0.75 = 1/2 + 1/4 = 0.11 in binary, exactly. A fraction ends in binary only if its denominator (in lowest terms) is a power of two; 1/10 has a factor 5, so it never ends.",
+      "source": "Arithmetic; Python tutorial, Representation Error section."
+    },
+    {
+      "id": "f3",
+      "claim": "0.1 in binary = 0.0001100110011001100110011... (the group 0011 repeats forever after 0.0); 0.2 = 0.001100110011... (computed bit by bit with Python's fractions module). 1/3 in decimal = 0.333... for the same reason: 3 does not divide a power of ten.",
+      "source": "Computed here with fractions.Fraction(1, 10), doubling and taking the integer part 64 times."
+    },
+    {
+      "id": "f4",
+      "claim": "A double has 53 bits of precision (sys.float_info.mant_dig = 53). 0.1's 53 bits from its first 1: 11001100110011001100110011001100110011001100110011001 followed by 1001100..., so it is rounded to the nearest, up: 11001100110011001100110011001100110011001100110011010 (0.1.hex() = 0x1.999999999999ap-4).",
+      "source": "Run here: sys.float_info.mant_dig, float.hex, Fraction(0.1). IEEE 754-2019 binary64 (52 stored fraction bits plus the hidden leading 1)."
+    },
+    {
+      "id": "f5",
+      "claim": "The double nearest 0.1 is exactly 0.1000000000000000055511151231257827021181583404541015625 (decimal.Decimal(0.1)), 5.55e-18 above 0.1. The gap between neighbouring doubles there is 2^-56 = 1.39e-17, so the stored value is 0.4 of a gap above 0.1 and 0.1 is 0.6 of a gap above the double below. Drawn at 560 px a gap. The zoom from the 0-to-0.4 line (866 px for 0.4, 4.6e-4 per px) to that one (2.48e-20 per px) is about 1.9 x 10^16, shown as 'zoom ×10¹⁶'.",
+      "source": "Run here: decimal.Decimal(0.1), math.ulp(0.1), fractions."
+    },
+    {
+      "id": "f6",
+      "claim": "0.2 is stored 1.11e-17 too big, 0.1 5.55e-18 too big. Near 0.3 the gap between doubles is 2^-54 = 5.55e-17. The double nearest 0.3 is 0.299999999999999988897769753748434595763683319091796875, 0.2 of a gap below 0.3. The exact sum of the two stored values is 0.3000000000000000166533453693773481063544750213623046875: 0.3 plus 0.1 + 0.2 = 0.3 of a gap, which is exactly halfway between that double and the next; round-half-to-even picks the next, 0.3000000000000000444089209850062616169452667236328125, the shortest decimal that names it being 0.30000000000000004. Drawn at 600 px a gap: 0.3's double at x 200, 0.3 at 320, the errors 60 and 120 px, the exact sum at 500, the answer at 800. The film shows the hop as 'rounded' and does not explain ties. That line is zoomed (600 / 2^-54) / (866 / 0.4) = 4.99 x 10^15 times, shown as 'zoom ×10¹⁵ near 0.3' (less than at 0.1, because the gaps are four times wider there).",
+      "source": "Run here: fractions.Fraction(0.1) + Fraction(0.2) compared with Fraction(0.3) and Fraction(0.1 + 0.2); math.ulp(0.3)."
+    },
+    {
+      "id": "f7",
+      "claim": "The usual fixes: compare with a tolerance (Math.abs(0.1 + 0.2 - 0.3) < 1e-9 is true; Python has math.isclose(0.1 + 0.2, 0.3) -> True), and for money use whole cents as integers (10 + 20 === 30) or a decimal type (Python Decimal('0.1') + Decimal('0.2') == Decimal('0.3') is True). 1e-9 is an example tolerance; the right one depends on the size of the numbers.",
+      "source": "Run here (Node and Python). Python tutorial recommends the decimal module for accounting."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "Question",
+      "goal": "Ask the question with the sum as the hero, then show the exact surprising result and point at its 4.",
+      "rail": false
+    },
+    {
+      "id": "binary",
+      "title": "Why",
+      "goal": "Binary is halves; 0.1 never ends in it; 53 bits are kept, so it is stored a little high; the errors add and rounding lands on ...04.",
+      "rail": false
+    },
+    {
+      "id": "fix",
+      "title": "The fix",
+      "goal": "Compare with a tolerance; count money in integers or decimals.",
+      "rail": false
+    },
+    {
+      "id": "recap",
+      "title": "Recap",
+      "goal": "The three ideas in one frame and the line to remember.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "type",
+      "start": 0,
+      "end": 3.14,
+      "caption": false,
+      "teaches": "Asks the one question the film answers, in the viewer's own words, with the sum as the hero.",
+      "screen": "Graphite stage, an amber light behind the middle. The question in metal type across three lines, centred inside the safe area: 'Why doesn't' (100 px, white), '0.1 + 0.2' (190 px, the hero), 'equal 0.3?' (150 px, '0.3?' in amber). The lettering is the question itself, so the shot has no pop caption.",
+      "motion": "Frame 0 holds the whole question already lit. Each line brightens and lifts 6 px in turn; a sheen crosses '0.3?' last. Slow 4 percent push. At the end the first and third lines lift away and '0.1 + 0.2' shrinks into the prompt of the terminal rising under it.",
+      "carries": "'0.1 + 0.2' becomes the code typed at the prompt.",
+      "transition": "The hero line drops into the terminal's prompt; no cut in the picture.",
+      "sound": "Music from frame 0, low. A soft shimmer as the sheen crosses '0.3?'.",
+      "check": "The question is readable inside the safe area on frame 0. Nothing sits under the app's buttons on the right.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Frame 0 is finished: the whole question in metal type, lit from behind in amber. '0.1 + 0.2' is the hero, 190 px.",
+          "draw": [
+            {
+              "glow": [
+                497,
+                690,
+                380
+              ],
+              "colour": "orange"
+            },
+            {
+              "title": [
+                497,
+                470
+              ],
+              "text": "Why doesn't",
+              "size": 100
+            },
+            {
+              "title": [
+                497,
+                700
+              ],
+              "text": "0.1 + 0.2",
+              "size": 190
+            },
+            {
+              "title": [
+                497,
+                905
+              ],
+              "text": "equal 0.3?",
+              "size": 150,
+              "accent": "0.3?"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Each line brightens in turn; on '0.3?' the amber 0.3? takes a sheen.",
+          "draw": [
+            {
+              "glow": [
+                497,
+                860,
+                300
+              ],
+              "colour": "orange"
+            },
+            {
+              "title": [
+                497,
+                470
+              ],
+              "text": "Why doesn't",
+              "size": 100
+            },
+            {
+              "title": [
+                497,
+                700
+              ],
+              "text": "0.1 + 0.2",
+              "size": 190
+            },
+            {
+              "title": [
+                497,
+                905
+              ],
+              "text": "equal 0.3?",
+              "size": 150,
+              "accent": "0.3?"
+            },
+            {
+              "move": [
+                120,
+                980,
+                820,
+                980
+              ],
+              "text": "sheen"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The question lifts away; '0.1 + 0.2' drops into the terminal that rises beneath it.",
+          "draw": [
+            {
+              "glow": [
+                497,
+                690,
+                380
+              ],
+              "colour": "orange"
+            },
+            {
+              "title": [
+                497,
+                700
+              ],
+              "text": "0.1 + 0.2",
+              "size": 190
+            },
+            {
+              "panel": [
+                64,
+                300,
+                866,
+                300
+              ],
+              "title": "node",
+              "rows": [
+                "> 0.1 + 0.2"
+              ]
+            },
+            {
+              "move": [
+                497,
+                720,
+                300,
+                420
+              ],
+              "text": "into the prompt"
+            },
+            {
+              "cut": "the line becomes code"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "hook",
+      "type": "ui",
+      "start": 3.14,
+      "end": 6.28,
+      "caption": "You get 0.3, fifteen zeros, and a *4*.",
+      "teaches": "The surprise, exactly: the printed result is 0.30000000000000004, and the 4 is what is wrong.",
+      "screen": "A glass terminal 866 px wide at y 300 to 600, head 'node' with three dots; the prompt line '> 0.1 + 0.2' in JetBrains Mono 64 px. Under the panel, across the full safe width, the result in mono 76 px: 0.30000000000000004. A bracket under the fifteen zeros, '15 zeros'; the final 4 in amber with a ring.",
+      "motion": "The prompt is already typed as the shot opens; the result slams in at its value on '0.3'. The bracket draws across the zeros on 'fifteen zeros'; as 'a' is read the 4 turns amber, a ring and a hit from it, and holds through the cut; the stage light jumps to the 4. A second small terminal under it: '> 0.1 + 0.2 === 0.3' and 'false' in amber.",
+      "carries": "The amber 4, which the film will come back to.",
+      "transition": "A vertical whip up to the binary scene.",
+      "sound": "A key tap as the result lands; a hit on the 4, in the gap after the line.",
+      "check": "0.30000000000000004 is exact, one line, inside x 64 to 930. The bracket covers exactly fifteen zeros.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "A glass terminal, 866 wide. The prompt line is typed: > 0.1 + 0.2. The cursor blinks under it.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                300,
+                866,
+                300
+              ],
+              "title": "node",
+              "rows": [
+                "> 0.1 + 0.2"
+              ]
+            },
+            {
+              "glow": [
+                497,
+                450,
+                300
+              ],
+              "colour": "orange"
+            },
+            {
+              "move": [
+                120,
+                520,
+                400,
+                520
+              ],
+              "text": "typed"
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "On '0.3' the result slams in as the hero, under the panel: 0.30000000000000004 across the full width.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                300,
+                866,
+                300
+              ],
+              "title": "node",
+              "rows": [
+                "> 0.1 + 0.2"
+              ]
+            },
+            {
+              "number": [
+                497,
+                790
+              ],
+              "text": "0.30000000000000004",
+              "size": 76,
+              "colour": "ink"
+            },
+            {
+              "glow": [
+                497,
+                760,
+                420
+              ],
+              "colour": "orange"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'fifteen zeros' a bracket spans the zeros; on '4' the 4 turns amber with a ring and a hit.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                300,
+                866,
+                300
+              ],
+              "title": "node",
+              "rows": [
+                "> 0.1 + 0.2"
+              ]
+            },
+            {
+              "number": [
+                497,
+                790
+              ],
+              "text": "0.30000000000000004",
+              "size": 76,
+              "colour": "ink"
+            },
+            {
+              "bracket": [
+                201,
+                885,
+                880
+              ],
+              "text": "15 zeros"
+            },
+            {
+              "ring": [
+                906,
+                760,
+                52
+              ],
+              "colour": "orange"
+            },
+            {
+              "glow": [
+                906,
+                760,
+                200
+              ],
+              "colour": "orange"
+            },
+            {
+              "cut": "whip up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "binary",
+      "type": "diagram",
+      "start": 6.28,
+      "end": 9.42,
+      "caption": "Computers store numbers in *binary*.",
+      "teaches": "Binary fractions are made of halves, quarters, eighths: a number made of those ends cleanly (0.75 = 0.11).",
+      "screen": "In the upper half, 0.75 in metal type (150 px). An arrow down to its binary form in terminal green, 0.11 (170 px). Under each 1 its place value, ½ and ¼, in mono 64 px; a chip '½ + ¼ = 0.75' under them.",
+      "motion": "0.75 is in place as the whip lands; the arrow draws and 0.11 slams in on 'binary'; the place values pop under their digits one after the other; the stage light turns green.",
+      "carries": "The '0.' of 0.11, which slides up to become the start of 0.1's row.",
+      "transition": "0.75 and the chip fall away; 0.11's '0.' slides to row one and keeps writing.",
+      "sound": "A whoosh on the whip in; a pop as 0.11 lands.",
+      "check": "½ sits under the first 1 and ¼ under the second. The sum chip is right.",
+      "facts": [
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "A number that binary writes cleanly: 0.75, and the place values of binary under it.",
+          "draw": [
+            {
+              "number": [
+                497,
+                450
+              ],
+              "text": "0.75",
+              "size": 150,
+              "colour": "ink"
+            },
+            {
+              "arrow": [
+                497,
+                500,
+                497,
+                590
+              ]
+            },
+            {
+              "label": [
+                300,
+                850
+              ],
+              "text": "½",
+              "size": 64
+            },
+            {
+              "label": [
+                420,
+                850
+              ],
+              "text": "¼",
+              "size": 64
+            },
+            {
+              "glow": [
+                497,
+                700,
+                360
+              ],
+              "colour": "green"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Its binary form lands in green: 0.11, each 1 sitting over its value: ½ + ¼ = 0.75. It ends.",
+          "draw": [
+            {
+              "number": [
+                497,
+                450
+              ],
+              "text": "0.75",
+              "size": 150,
+              "colour": "ink"
+            },
+            {
+              "arrow": [
+                497,
+                500,
+                497,
+                590
+              ]
+            },
+            {
+              "number": [
+                420,
+                760
+              ],
+              "text": "0.11",
+              "size": 170,
+              "colour": "green"
+            },
+            {
+              "label": [
+                300,
+                850
+              ],
+              "text": "½",
+              "size": 64
+            },
+            {
+              "label": [
+                420,
+                850
+              ],
+              "text": "¼",
+              "size": 64
+            },
+            {
+              "chip": [
+                300,
+                930
+              ],
+              "text": "½ + ¼ = 0.75"
+            },
+            {
+              "cut": "0.11 slides to row one"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "binary",
+      "type": "compare",
+      "start": 9.42,
+      "end": 12.56,
+      "caption": "But in binary, 0.1 and 0.2 *never end*,",
+      "teaches": "0.1 and 0.2 have no exact binary form: their bits repeat forever.",
+      "screen": "Two rows, each a small label and a line of mono digits 64 px in green, starting at x 64 and running off the right edge with a soft fade: '0.1 in binary' 0.000110011001100110011…, '0.2 in binary' 0.0011001100110011…. The repeating '0011' groups glow in turn.",
+      "motion": "Row one writes out of the slid '0.' as the caption shows '0.1', a digit every 45 ms, and keeps going past the edge; row two starts on '0.2'. The rows keep streaming; a glow runs along the repeating groups; the stage light slides right with the digits.",
+      "carries": "The two streaming rows.",
+      "transition": "No cut in the picture: a third row arrives under them.",
+      "sound": "A soft typing bed under the streaming digits, very low.",
+      "check": "Every digit is right: 0.1 = 0.0001100110011…, 0.2 = 0.0011001100110011…. Nothing readable is under the captions.",
+      "facts": [
+        "f2",
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The '0.' of 0.11 has slid to row one; 0.1's bits start streaming out of it, in green.",
+          "draw": [
+            {
+              "label": [
+                64,
+                420
+              ],
+              "text": "0.1 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                500
+              ],
+              "text": "0.0001100110",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "move": [
+                500,
+                540,
+                1000,
+                540
+              ],
+              "text": "streams"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "On '0.2' a second row streams; the repeating 0011 groups glow in turn. Both run off the right edge.",
+          "draw": [
+            {
+              "label": [
+                64,
+                420
+              ],
+              "text": "0.1 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                500
+              ],
+              "text": "0.000110011001100110011…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "label": [
+                64,
+                640
+              ],
+              "text": "0.2 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                720
+              ],
+              "text": "0.001100110011001…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "arrow": [
+                960,
+                600,
+                1070,
+                600
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'never end' both rows are past the edge and still writing; a dim arrow at the right edge: they go on.",
+          "draw": [
+            {
+              "label": [
+                64,
+                420
+              ],
+              "text": "0.1 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                500
+              ],
+              "text": "0.000110011001100110011…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "label": [
+                64,
+                640
+              ],
+              "text": "0.2 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                720
+              ],
+              "text": "0.0011001100110011001…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "arrow": [
+                960,
+                600,
+                1070,
+                600
+              ]
+            },
+            {
+              "cut": "no cut: a third row arrives"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "binary",
+      "type": "compare",
+      "start": 12.56,
+      "end": 15.002,
+      "caption": "like *1/3* in decimal.",
+      "teaches": "The same thing happens in decimal: 1/3 never ends either. It is the denominator, not the computer.",
+      "screen": "The two binary rows, a little dimmer, and under them a third row in white: '1/3 in decimal' 0.3333333333…, mono 64 px, running off the same edge.",
+      "motion": "The third row writes on '1/3' at the same pace as the others; all three stream together, then the binary rows brighten again as the shot ends.",
+      "carries": "Row one, 0.1's bits, which fold into the grid.",
+      "transition": "Row one folds into a grid of cells; the other rows fade.",
+      "sound": "The typing bed continues, then stops on the cut.",
+      "check": "1/3 = 0.3333…; the row is white (decimal), not green (binary).",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The two binary rows keep streaming, dimmed a little; a third row's label lands: '1/3 in decimal'.",
+          "draw": [
+            {
+              "label": [
+                64,
+                420
+              ],
+              "text": "0.1 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                500
+              ],
+              "text": "0.000110011001100110011…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "label": [
+                64,
+                640
+              ],
+              "text": "0.2 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                720
+              ],
+              "text": "0.0011001100110011001…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "label": [
+                64,
+                880
+              ],
+              "text": "1/3 in decimal",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "move": [
+                64,
+                960,
+                600,
+                960
+              ],
+              "text": "writes"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On '1/3' a white row: 0.3333… running off the same edge. Same kind of endlessness.",
+          "draw": [
+            {
+              "label": [
+                64,
+                420
+              ],
+              "text": "0.1 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                500
+              ],
+              "text": "0.000110011001100110011…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "label": [
+                64,
+                640
+              ],
+              "text": "0.2 in binary",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                720
+              ],
+              "text": "0.0011001100110011001…",
+              "size": 64,
+              "align": "start",
+              "colour": "green"
+            },
+            {
+              "label": [
+                64,
+                880
+              ],
+              "text": "1/3 in decimal",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                960
+              ],
+              "text": "0.333333333333333…",
+              "size": 64,
+              "align": "start",
+              "colour": "ink"
+            },
+            {
+              "cut": "row one folds into a grid"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "binary",
+      "type": "diagram",
+      "start": 15.002,
+      "end": 18.142,
+      "caption": "So they're cut at *53 bits*,",
+      "teaches": "A double keeps 53 bits of a number; the rest are cut off and the last kept bit is rounded.",
+      "screen": "Top: the label '0.1 = 0.000…'. A grid of bit cells, ten to a row, 76 px cells at 86 px pitch from (67, 400): bits 1 to 53 of 0.1 counted from its first 1, each cell a 1 or a 0 in mono green on glass. After cell 53 an amber blade; cells 54 onward dimmed and falling. A bracket '53 bits'. The last three kept cells read 001 and flip to 010, with a chip '…001 → …010'.",
+      "motion": "The grid fills row by row as the bits arrive from row one; on '53' the blade slams down after cell 53 and the bits beyond it fall and fade. Then the last three cells flip to 010 in amber.",
+      "carries": "The 53 cells, which collapse into one amber dot: the stored 0.1.",
+      "transition": "The grid collapses into a dot on a number line; the camera dives at it.",
+      "sound": "A crisp click as the blade cuts, just before '53'.",
+      "check": "The 53 bits are 0.1's significand: 1100110011…0011001 kept and rounded to …0011010. The blade sits after cell 53; ten cells a row.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "0.1's bits fold into a grid, ten to a row, numbered 1 to 53 from the first 1; the bits still come.",
+          "draw": [
+            {
+              "label": [
+                64,
+                350
+              ],
+              "text": "0.1 = 0.000…",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "path": "M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z"
+            },
+            {
+              "label": [
+                497,
+                1020
+              ],
+              "text": "53 bits",
+              "size": 52
+            },
+            {
+              "move": [
+                400,
+                960,
+                900,
+                960
+              ],
+              "text": "bits keep coming"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The blade: a hard amber line after bit 53. Bits 54 onward are cut and fall away, dimming.",
+          "draw": [
+            {
+              "label": [
+                64,
+                350
+              ],
+              "text": "0.1 = 0.000…",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "path": "M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z M67 830 h76 v76 h-76 Z M153 830 h76 v76 h-76 Z M239 830 h76 v76 h-76 Z"
+            },
+            {
+              "path": "M325 830 h76 v76 h-76 Z M411 830 h76 v76 h-76 Z M497 830 h76 v76 h-76 Z M583 830 h76 v76 h-76 Z M669 830 h76 v76 h-76 Z M755 830 h76 v76 h-76 Z M841 830 h76 v76 h-76 Z",
+              "colour": "white",
+              "dashed": true
+            },
+            {
+              "line": [
+                320,
+                820,
+                320,
+                930
+              ],
+              "colour": "orange",
+              "width": 10
+            },
+            {
+              "move": [
+                600,
+                900,
+                640,
+                1080
+              ],
+              "text": "fall away"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The last three kept bits 001 flip to 010: rounded to the nearest. A chip: 'rounded up'.",
+          "draw": [
+            {
+              "label": [
+                64,
+                350
+              ],
+              "text": "0.1 = 0.000…",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "path": "M67 400 h76 v76 h-76 Z M153 400 h76 v76 h-76 Z M239 400 h76 v76 h-76 Z M325 400 h76 v76 h-76 Z M411 400 h76 v76 h-76 Z M497 400 h76 v76 h-76 Z M583 400 h76 v76 h-76 Z M669 400 h76 v76 h-76 Z M755 400 h76 v76 h-76 Z M841 400 h76 v76 h-76 Z M67 486 h76 v76 h-76 Z M153 486 h76 v76 h-76 Z M239 486 h76 v76 h-76 Z M325 486 h76 v76 h-76 Z M411 486 h76 v76 h-76 Z M497 486 h76 v76 h-76 Z M583 486 h76 v76 h-76 Z M669 486 h76 v76 h-76 Z M755 486 h76 v76 h-76 Z M841 486 h76 v76 h-76 Z M67 572 h76 v76 h-76 Z M153 572 h76 v76 h-76 Z M239 572 h76 v76 h-76 Z M325 572 h76 v76 h-76 Z M411 572 h76 v76 h-76 Z M497 572 h76 v76 h-76 Z M583 572 h76 v76 h-76 Z M669 572 h76 v76 h-76 Z M755 572 h76 v76 h-76 Z M841 572 h76 v76 h-76 Z M67 658 h76 v76 h-76 Z M153 658 h76 v76 h-76 Z M239 658 h76 v76 h-76 Z M325 658 h76 v76 h-76 Z M411 658 h76 v76 h-76 Z M497 658 h76 v76 h-76 Z M583 658 h76 v76 h-76 Z M669 658 h76 v76 h-76 Z M755 658 h76 v76 h-76 Z M841 658 h76 v76 h-76 Z M67 744 h76 v76 h-76 Z M153 744 h76 v76 h-76 Z M239 744 h76 v76 h-76 Z M325 744 h76 v76 h-76 Z M411 744 h76 v76 h-76 Z M497 744 h76 v76 h-76 Z M583 744 h76 v76 h-76 Z M669 744 h76 v76 h-76 Z M755 744 h76 v76 h-76 Z M841 744 h76 v76 h-76 Z M67 830 h76 v76 h-76 Z M153 830 h76 v76 h-76 Z M239 830 h76 v76 h-76 Z"
+            },
+            {
+              "line": [
+                320,
+                820,
+                320,
+                930
+              ],
+              "colour": "orange",
+              "width": 10
+            },
+            {
+              "chip": [
+                360,
+                1020
+              ],
+              "text": "…001 → …010"
+            },
+            {
+              "cut": "the grid shrinks into a dot"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "binary",
+      "type": "macro",
+      "start": 18.142,
+      "end": 21.63,
+      "caption": "and stored a *tiny bit off*.",
+      "teaches": "How far off: zoomed about 10^16 times, the stored 0.1 sits beside the real 0.1, a little above it.",
+      "screen": "A number line across the frame at y 700. Zoomed out it reads 0, 0.1, 0.2, 0.3 with the amber dot at 0.1. Zoomed in: the ticks are neighbouring doubles, 560 px apart; 0.1 itself a white dashed mark at x 516; the stored value the amber dot on the tick at x 740; the gap between them marked in amber. Under the line: 'stored' and 0.1000000000000000055511… with the tail from the first 5 in amber. A chip 'zoom ×10¹⁶'.",
+      "motion": "An exponential dive into 0.1: the labels 0.2 and 0.3 race off the edges, the ticks of the doubles appear, the dashed 0.1 mark separates from the dot. The stored value types in under the line on 'tiny bit off'.",
+      "carries": "The number line, which the camera rides along to 0.3.",
+      "transition": "A horizontal whip along the line to 0.3.",
+      "sound": "A rising shimmer through the dive.",
+      "check": "0.1 is 0.6 gaps above the double below it and 0.4 gaps under the stored value (336 px and 224 px at 560 px a gap). The digits are exact.",
+      "facts": [
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The grid has become an amber dot on a number line from 0 to 0.4. The camera dives at 0.1.",
+          "draw": [
+            {
+              "line": [
+                64,
+                700,
+                930,
+                700
+              ],
+              "width": 6
+            },
+            {
+              "label": [
+                64,
+                780
+              ],
+              "text": "0",
+              "size": 46
+            },
+            {
+              "label": [
+                281,
+                780
+              ],
+              "text": "0.1",
+              "size": 46
+            },
+            {
+              "label": [
+                497,
+                780
+              ],
+              "text": "0.2",
+              "size": 46
+            },
+            {
+              "label": [
+                714,
+                780
+              ],
+              "text": "0.3",
+              "size": 46
+            },
+            {
+              "dot": [
+                281,
+                700,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "camera": "push",
+              "text": "dive into 0.1"
+            }
+          ]
+        },
+        {
+          "at": 0.6,
+          "note": "Zoomed about 10^16 times: the ticks are neighbouring doubles. 0.1 itself is a white dashed mark between two of them.",
+          "draw": [
+            {
+              "line": [
+                0,
+                700,
+                1080,
+                700
+              ],
+              "width": 6
+            },
+            {
+              "line": [
+                180,
+                670,
+                180,
+                730
+              ]
+            },
+            {
+              "line": [
+                740,
+                670,
+                740,
+                730
+              ]
+            },
+            {
+              "line": [
+                516,
+                600,
+                516,
+                760
+              ],
+              "dashed": true
+            },
+            {
+              "label": [
+                516,
+                580
+              ],
+              "text": "0.1",
+              "size": 56
+            },
+            {
+              "dot": [
+                740,
+                700,
+                18
+              ],
+              "colour": "orange"
+            },
+            {
+              "chip": [
+                64,
+                300
+              ],
+              "text": "zoom ×10¹⁶"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The gap between them is marked; under the line the stored value in full, its tail in amber.",
+          "draw": [
+            {
+              "line": [
+                0,
+                700,
+                1080,
+                700
+              ],
+              "width": 6
+            },
+            {
+              "line": [
+                180,
+                670,
+                180,
+                730
+              ]
+            },
+            {
+              "line": [
+                740,
+                670,
+                740,
+                730
+              ]
+            },
+            {
+              "line": [
+                516,
+                600,
+                516,
+                760
+              ],
+              "dashed": true
+            },
+            {
+              "label": [
+                516,
+                580
+              ],
+              "text": "0.1",
+              "size": 56
+            },
+            {
+              "dot": [
+                740,
+                700,
+                18
+              ],
+              "colour": "orange"
+            },
+            {
+              "bracket": [
+                516,
+                740,
+                640
+              ],
+              "text": "",
+              "colour": "orange"
+            },
+            {
+              "label": [
+                64,
+                900
+              ],
+              "text": "stored",
+              "size": 40,
+              "align": "start"
+            },
+            {
+              "label": [
+                64,
+                980
+              ],
+              "text": "0.1000000000000000055511…",
+              "size": 46,
+              "align": "start",
+              "colour": "orange"
+            },
+            {
+              "cut": "whip right along the line"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "binary",
+      "type": "diagram",
+      "start": 21.63,
+      "end": 25.118,
+      "caption": "Add them, and the error shows up as that *4*.",
+      "teaches": "The mechanism of the sum: both errors point up, so the exact sum lies past 0.3, and rounding it to a double lands on the one that prints ...04.",
+      "screen": "The same zoomed number line, now at 0.3, 600 px a gap: the double nearest 0.3 at x 200 (grey, '0.29999999999999998…'), 0.3 itself dashed at x 320, the next double at x 800. Two amber segments stack from 0.3: 0.1's error (60 px) and 0.2's (120 px), ending at the exact sum, x 500. An arrow hops from there to the double at x 800. Under the line, the hero again: 0.30000000000000004, its 4 amber. A chip at the top: 'zoom ×10¹⁵ near 0.3'.",
+      "motion": "On 'add them' the two segments draw from 0.3, one after the other; a dot at their end. Then it hops right to the double at x 800 with a snap, and on '4' the answer slams in under the line and its 4 lights with a ring.",
+      "carries": "The amber 4 and the green of the terminal: the fix comes in code.",
+      "transition": "A flash cut to the code panel.",
+      "sound": "A whoosh on the whip in; a tick on the snap; a hit on the 4, after the word.",
+      "check": "Positions: 0.3 at 0.2 gaps above the double nearest it, errors 0.1 and 0.2 gaps, exact sum 0.5 gaps (a tie), the answer 1 gap. The printed digits are exact.",
+      "facts": [
+        "f5",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The same zoom, now at 0.3: the double nearest 0.3 at left, 0.3 itself dashed, the next double at right.",
+          "draw": [
+            {
+              "line": [
+                0,
+                700,
+                1080,
+                700
+              ],
+              "width": 6
+            },
+            {
+              "line": [
+                200,
+                670,
+                200,
+                730
+              ]
+            },
+            {
+              "line": [
+                800,
+                670,
+                800,
+                730
+              ]
+            },
+            {
+              "line": [
+                320,
+                600,
+                320,
+                760
+              ],
+              "dashed": true
+            },
+            {
+              "label": [
+                320,
+                580
+              ],
+              "text": "0.3",
+              "size": 56
+            },
+            {
+              "dot": [
+                200,
+                700,
+                14
+              ]
+            },
+            {
+              "dot": [
+                800,
+                700,
+                14
+              ]
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 0.4,
+          "note": "On 'add them': the two errors stack from 0.3 as amber segments: 0.1's (60 px), then 0.2's (120 px). The exact sum is past 0.3.",
+          "draw": [
+            {
+              "line": [
+                0,
+                700,
+                1080,
+                700
+              ],
+              "width": 6
+            },
+            {
+              "line": [
+                200,
+                670,
+                200,
+                730
+              ]
+            },
+            {
+              "line": [
+                800,
+                670,
+                800,
+                730
+              ]
+            },
+            {
+              "line": [
+                320,
+                600,
+                320,
+                760
+              ],
+              "dashed": true
+            },
+            {
+              "label": [
+                320,
+                580
+              ],
+              "text": "0.3",
+              "size": 56
+            },
+            {
+              "line": [
+                320,
+                700,
+                380,
+                700
+              ],
+              "colour": "orange",
+              "width": 14
+            },
+            {
+              "line": [
+                380,
+                700,
+                500,
+                700
+              ],
+              "colour": "orange",
+              "width": 14
+            },
+            {
+              "label": [
+                350,
+                650
+              ],
+              "text": "0.1",
+              "size": 36
+            },
+            {
+              "label": [
+                440,
+                650
+              ],
+              "text": "0.2",
+              "size": 36
+            },
+            {
+              "dot": [
+                500,
+                700,
+                12
+              ],
+              "colour": "orange"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The sum is rounded to a double: it hops to the one on the right. Under the line, the answer again, its 4 lit on '4'.",
+          "draw": [
+            {
+              "line": [
+                0,
+                700,
+                1080,
+                700
+              ],
+              "width": 6
+            },
+            {
+              "line": [
+                200,
+                670,
+                200,
+                730
+              ]
+            },
+            {
+              "line": [
+                800,
+                670,
+                800,
+                730
+              ]
+            },
+            {
+              "line": [
+                320,
+                600,
+                320,
+                760
+              ],
+              "dashed": true
+            },
+            {
+              "label": [
+                320,
+                580
+              ],
+              "text": "0.3",
+              "size": 56
+            },
+            {
+              "arrow": [
+                500,
+                650,
+                800,
+                650
+              ],
+              "colour": "orange"
+            },
+            {
+              "dot": [
+                800,
+                700,
+                20
+              ],
+              "colour": "orange"
+            },
+            {
+              "number": [
+                497,
+                930
+              ],
+              "text": "0.30000000000000004",
+              "size": 76,
+              "colour": "ink"
+            },
+            {
+              "ring": [
+                906,
+                900,
+                52
+              ],
+              "colour": "orange"
+            },
+            {
+              "cut": "flash to the fix"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "fix",
+      "type": "ui",
+      "start": 25.118,
+      "end": 28.258,
+      "caption": "The fix: compare with a *tolerance*,",
+      "teaches": "Never test floats for exact equality; ask whether they are close enough.",
+      "screen": "A glass code panel 866 px wide at y 330 to 930, head 'fix.js', terminal green accent. Line one in mono 54 px: Math.abs(a - b) < 1e-9, and under it '→ true' in green with a check. A bracket under '1e-9' reads 'tolerance'.",
+      "motion": "The panel lands on 'The fix'; line one types in on 'compare'; on 'tolerance' the bracket draws and '→ true' pops in green; the stage turns green.",
+      "carries": "The panel, which takes a second line.",
+      "transition": "No cut: line two types in below.",
+      "sound": "Soft key taps as the line types; a small success on 'true', after the word.",
+      "check": "The code is valid JavaScript and true for a = 0.1 + 0.2, b = 0.3. Readable at 54 px.",
+      "facts": [
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "A code panel, fix.js, in the green of the terminal. The first line types in on 'compare'.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                330,
+                866,
+                600
+              ],
+              "title": "fix.js",
+              "rows": [
+                "Math.abs(a - b) < 1e-9",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "glow": [
+                497,
+                500,
+                300
+              ],
+              "colour": "green"
+            },
+            {
+              "move": [
+                120,
+                560,
+                700,
+                560
+              ],
+              "text": "typed"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'tolerance' it resolves: a green 'true' with a check. A bracket under 1e-9 reads 'tolerance'.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                330,
+                866,
+                600
+              ],
+              "title": "fix.js",
+              "rows": [
+                "Math.abs(a - b) < 1e-9",
+                "→ true",
+                "",
+                ""
+              ]
+            },
+            {
+              "bracket": [
+                600,
+                860,
+                600
+              ],
+              "text": "tolerance",
+              "colour": "green"
+            },
+            {
+              "glow": [
+                497,
+                560,
+                300
+              ],
+              "colour": "green"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "act": "fix",
+      "type": "ui",
+      "start": 28.258,
+      "end": 31.746,
+      "caption": "and use *integers* or decimals for money.",
+      "teaches": "For money, avoid binary fractions altogether: count whole cents, or use a decimal type.",
+      "screen": "The same panel. Line two: 10 + 20 === 30 with a dim comment '// cents', and '→ true' in green. Under the panel a chip: 'or a Decimal type'.",
+      "motion": "Line two types in on 'integers'; '→ true' pops; the chip lands on 'decimals'. A slow push.",
+      "carries": "The panel, which shrinks into the third recap card.",
+      "transition": "The panel shrinks into the third card as the recap rises.",
+      "sound": "Key taps; a small success.",
+      "check": "10 + 20 === 30 is true in any language. The chip is inside the safe area and clear of the captions.",
+      "facts": [
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "On 'integers' the second line: money in cents. 10 + 20 === 30.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                330,
+                866,
+                600
+              ],
+              "title": "fix.js",
+              "rows": [
+                "Math.abs(a - b) < 1e-9",
+                "→ true",
+                "10 + 20 === 30  // cents",
+                ""
+              ]
+            },
+            {
+              "glow": [
+                497,
+                740,
+                300
+              ],
+              "colour": "green"
+            }
+          ]
+        },
+        {
+          "at": 0.55,
+          "note": "It resolves: '→ true' in green, and the panel's light turns green.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                330,
+                866,
+                600
+              ],
+              "title": "fix.js",
+              "rows": [
+                "Math.abs(a - b) < 1e-9",
+                "→ true",
+                "10 + 20 === 30  // cents",
+                "→ true"
+              ]
+            },
+            {
+              "glow": [
+                497,
+                780,
+                300
+              ],
+              "colour": "green"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "A chip lands under the panel: 'or a Decimal type'. Slow push.",
+          "draw": [
+            {
+              "panel": [
+                64,
+                330,
+                866,
+                600
+              ],
+              "title": "fix.js",
+              "rows": [
+                "Math.abs(a - b) < 1e-9",
+                "→ true",
+                "10 + 20 === 30  // cents",
+                "→ true"
+              ]
+            },
+            {
+              "chip": [
+                200,
+                980
+              ],
+              "text": "or a Decimal type"
+            },
+            {
+              "cut": "the panel becomes the third card"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "act": "recap",
+      "type": "recap",
+      "start": 31.746,
+      "end": 34.886,
+      "teaches": "The three ideas in one frame, and the line to remember: floats are close, not exact.",
+      "screen": "Three glass cards 866 px wide at y 300, 490 and 680, each with a small picture and a line: green bits running off, '0.1 never ends in binary'; a dot just past a dashed mark, 'cut at 53 bits: a tiny bit off'; a green check, 'compare with a tolerance / money in integers'. Below, in metal type 110 px: 'Floats are close, / not exact.' with 'close' in amber. Under it in mono 34 px: '0.1 + 0.2 → 0.30000000000000004', the 4 in amber.",
+      "motion": "The cards rise one after another in the first 0.5 s, the two poster lines slam in, a sheen crosses them. Then everything holds for two seconds with a 3 percent push; the amber glow settles where frame 0 has it.",
+      "carries": "Nothing: the film ends; the frame can cut back to frame 0.",
+      "transition": "The film ends on this frame; it loops to frame 0, the same amber glow.",
+      "sound": "A whoosh as the cards rise, a soft low impact under the poster line, the music fading over the last 1.8 s.",
+      "check": "Every figure matches the fact sheet. The poster is readable for at least two seconds. Nothing is outside the safe area.",
+      "facts": [
+        "f2",
+        "f4",
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Three cards rise in the upper half, each with its small picture; the first line of the poster lands.",
+          "draw": [
+            {
+              "card": [
+                64,
+                300,
+                866,
+                170
+              ],
+              "label": "0.1 never ends in binary"
+            },
+            {
+              "card": [
+                64,
+                490,
+                866,
+                170
+              ],
+              "label": "cut at 53 bits: a tiny bit off"
+            },
+            {
+              "card": [
+                64,
+                680,
+                866,
+                170
+              ],
+              "label": "tolerance · money in integers"
+            },
+            {
+              "title": [
+                497,
+                1040
+              ],
+              "text": "Floats are close,",
+              "size": 100
+            },
+            {
+              "move": [
+                990,
+                900,
+                990,
+                700
+              ],
+              "text": "rise"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The poster complete: 'Floats are close, / not exact.' with 'close' in amber.",
+          "draw": [
+            {
+              "card": [
+                64,
+                300,
+                866,
+                170
+              ],
+              "label": "0.1 never ends in binary"
+            },
+            {
+              "card": [
+                64,
+                490,
+                866,
+                170
+              ],
+              "label": "cut at 53 bits: a tiny bit off"
+            },
+            {
+              "card": [
+                64,
+                680,
+                866,
+                170
+              ],
+              "label": "tolerance · money in integers"
+            },
+            {
+              "title": [
+                497,
+                1040
+              ],
+              "text": "Floats are close,\nnot exact.",
+              "size": 100,
+              "accent": "close,"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held two seconds, breathing; the amber glow returns to where frame 0 had it, so the loop is soft.",
+          "draw": [
+            {
+              "card": [
+                64,
+                300,
+                866,
+                170
+              ],
+              "label": "0.1 never ends in binary"
+            },
+            {
+              "card": [
+                64,
+                490,
+                866,
+                170
+              ],
+              "label": "cut at 53 bits: a tiny bit off"
+            },
+            {
+              "card": [
+                64,
+                680,
+                866,
+                170
+              ],
+              "label": "tolerance · money in integers"
+            },
+            {
+              "title": [
+                497,
+                1040
+              ],
+              "text": "Floats are close,\nnot exact.",
+              "size": 100,
+              "accent": "close,"
+            },
+            {
+              "glow": [
+                497,
+                690,
+                380
+              ],
+              "colour": "orange"
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "back to frame 0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "music": {"file": "lib/music/xceed_thru_johann.mp3", "start": 0.679, "lufs": -18, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "note": "86 BPM, started 0.679 s in so a beat falls on frame 0; every cut is on a half beat. No voice, so the bed sits at -18 LUFS."},
+  "events": [
+    {"t": 1.5, "file": "lib/sfx/shimmer_1.mp3", "db": -16, "align": "peak", "note": "light crosses 0.3? on the question"},
+    {"t": 2.84, "file": "lib/sfx/whoosh_fast_1.mp3", "db": -17, "align": "peak", "note": "the question lifts away, the terminal rises"},
+    {"t": 3.859, "file": "lib/sfx/key_2.mp3", "db": -12, "align": "peak", "note": "the result lands"},
+    {"t": 5.451, "file": "lib/sfx/click_1.mp3", "db": -15, "align": "peak", "note": "false"},
+    {"t": 5.676, "file": "lib/sfx/impact_big_2.mp3", "db": -6, "align": "peak", "duck": true, "trim": [0, 1.4], "fade": 0.9, "note": "THE 4: the error, lit amber"},
+    {"t": 6.46, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -15, "align": "peak", "note": "whip up to binary"},
+    {"t": 7.03, "file": "lib/sfx/pop_1.mp3", "db": -14, "align": "peak", "note": "0.11 lands"},
+    {"t": 9.27, "file": "lib/sfx/whoosh_fast_5.mp3", "db": -19, "align": "peak", "note": "0.11 slides to row one"},
+    {"t": 9.47, "file": "lib/sfx/typing_1.mp3", "db": -22, "align": "start", "trim": [9.5, 15.0], "fade_in": 0.2, "fade": 0.5, "note": "the bits stream (a bed under s04 and s05)"},
+    {"t": 16.362, "file": "lib/sfx/click_2.mp3", "db": -9, "align": "peak", "note": "the blade cuts after bit 53"},
+    {"t": 16.362, "file": "lib/sfx/sub_drop_2.mp3", "db": -16, "align": "peak", "trim": [0, 0.8], "fade": 0.4, "note": "its weight"},
+    {"t": 17.199, "file": "lib/sfx/card_2.mp3", "db": -14, "align": "peak", "note": "...001 flips to ...010"},
+    {"t": 18.392, "file": "lib/sfx/whoosh_long_1.mp3", "db": -17, "align": "start", "note": "the dive into 0.1"},
+    {"t": 19.746, "file": "lib/sfx/shimmer_2.mp3", "db": -16, "align": "peak", "note": "the gap between 0.1 and its stored value lights"},
+    {"t": 21.63, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -15, "align": "peak", "note": "whip along the line to 0.3"},
+    {"t": 23.631, "file": "lib/sfx/tick_1.mp3", "db": -13, "align": "peak", "note": "the sum snaps to the next double"},
+    {"t": 24.656, "file": "lib/sfx/impact_big_3.mp3", "db": -11, "align": "peak", "duck": 0.7, "trim": [0, 0.9], "fade": 0.6, "note": "that 4 again"},
+    {"t": 25.118, "file": "lib/sfx/card_1.mp3", "db": -14, "align": "peak", "note": "flash cut to the fix"},
+    {"t": 25.821, "file": "lib/sfx/typing_2.mp3", "db": -20, "align": "start", "trim": [0.5, 1.1], "fade": 0.1, "note": "line one types"},
+    {"t": 27.453, "file": "lib/sfx/success_1.mp3", "db": -14, "align": "peak", "note": "true"},
+    {"t": 28.576, "file": "lib/sfx/typing_2.mp3", "db": -20, "align": "start", "trim": [1.2, 1.8], "fade": 0.1, "note": "line two types"},
+    {"t": 29.323, "file": "lib/sfx/success_2.mp3", "db": -15, "align": "peak", "note": "true"},
+    {"t": 31.646, "file": "lib/sfx/whoosh_long_2.mp3", "db": -17, "align": "start", "note": "the recap cards rise"},
+    {"t": 32.276, "file": "lib/sfx/impact_big_1.mp3", "db": -6, "align": "peak", "duck": true, "trim": [0, 1.8], "fade": 1.2, "note": "the poster line"}
+  ]
+}

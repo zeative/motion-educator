@@ -1,0 +1,495 @@
+/* "Why does 0.1 + 0.2 not equal 0.3?" A portrait short: 1080 x 1920, captions only.
+   Amber is the error (the 4, the cut, the stored value); terminal green is the machine working (binary, the fix).
+   What must be read stays between x 64 and 930, y 230 and 1490; the pop captions use about y 1220 to 1440, so the
+   pictures use y 230 to 1200. */
+:root {
+  --accent: #ffb02e;
+  font-variant-ligatures: none;
+  --accent-2: #4ee68f;
+  --green: #4ee68f;
+}
+
+/* Numbers set in mono, as metal: the hero type of this film. */
+.mono-d {
+  display: block;
+  font: 600 75px / 1 var(--mono);
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(180deg, #ffffff 22%, #e2e2e8 56%, #9a9aa5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 6px 16px rgb(0 0 0 / 0.7));
+}
+.mono-d .key,
+.mono-d.green {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 40%, white) 14%, var(--accent) 58%, color-mix(in oklab, var(--accent) 62%, black) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.mono-d.green {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--green) 40%, white) 14%, var(--green) 58%, color-mix(in oklab, var(--green) 60%, black) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.mono-d.over {
+  position: absolute;
+  inset: 0;
+  background: none;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 80%, transparent));
+}
+.mono-d .ghost {
+  color: transparent;
+}
+.result {
+  position: absolute;
+  left: 69px;
+  width: 855px;
+  height: 80px;
+}
+#res {
+  top: 664px;
+}
+#res3 {
+  top: 860px;
+}
+.tag-l {
+  position: absolute;
+  translate: -50% 0;
+  color: var(--t2);
+  font: 500 34px / 1 var(--mono);
+  white-space: nowrap;
+}
+.tag-l.green {
+  color: var(--green);
+}
+.caps {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+svg.ink path,
+svg.ink circle {
+  fill: none;
+}
+
+/* s01 */
+#q {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 450px;
+  font-size: 104px;
+  line-height: 1.12;
+}
+#q .hero {
+  font-size: 196px;
+  letter-spacing: -0.05em;
+  line-height: 1.14;
+}
+#q #q3 {
+  font-size: 150px;
+}
+#q .ln {
+  filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.7));
+}
+#q-tag {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 1130px;
+  font-size: 28px;
+}
+
+/* Terminal and code panels */
+.term,
+.code-panel {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+}
+#term {
+  top: 300px;
+}
+.phead .tl {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3a3a40;
+}
+.phead .tl.r {
+  background: #f0755c;
+}
+.phead .tl.y {
+  background: #ffb02e;
+}
+.phead .tl.g {
+  background: #4ee68f;
+}
+.phead em {
+  margin-left: 14px;
+  color: var(--t2);
+  font: 500 28px / 1 var(--mono);
+}
+.phead {
+  height: 72px;
+}
+.code {
+  padding: 30px 40px 34px;
+  color: var(--t1);
+  font: 500 60px / 1.1 var(--mono);
+  white-space: nowrap;
+}
+.code .pr {
+  color: var(--green);
+}
+.caret {
+  display: inline-block;
+  width: 30px;
+  height: 58px;
+  margin-left: 12px;
+  vertical-align: -8px;
+  background: var(--green);
+}
+#term2 {
+  top: 950px;
+}
+#term2 .code {
+  padding: 24px 40px 0;
+  font-size: 50px;
+}
+#term2 .code.out {
+  padding: 14px 40px 28px;
+}
+.amber {
+  color: var(--accent) !important;
+  text-shadow: 0 0 22px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+/* s03 */
+#b-head {
+  left: 64px;
+  width: 866px;
+  top: 300px;
+  text-align: center;
+  font-size: 30px;
+}
+#d075 {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 370px;
+  font-size: 170px;
+}
+#b011 {
+  position: absolute;
+  left: 257px;
+  top: 656px;
+  font-size: 200px;
+}
+.pv {
+  position: absolute;
+  top: 896px;
+  width: 120px;
+  translate: 0 0;
+  color: var(--t1);
+  font: 600 76px / 1 var(--brand);
+  text-align: center;
+}
+#b-sum {
+  position: absolute;
+  left: 50%;
+  top: 1046px;
+  translate: -50% 0;
+}
+.chip.big {
+  padding: 18px 30px 20px;
+  font-size: 36px;
+}
+.chip.big b {
+  font: 600 36px / 1 var(--mono);
+  color: var(--accent);
+}
+
+/* s04, s05 */
+.rl {
+  left: 64px;
+  font-size: 30px;
+}
+.row {
+  position: absolute;
+  left: 64px;
+  margin: 0;
+  font: 600 70px / 1 var(--mono);
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 860px, transparent 1080px);
+  mask-image: linear-gradient(90deg, #000 0, #000 860px, transparent 1080px);
+}
+.row span {
+  opacity: 0;
+}
+.row.green span {
+  color: color-mix(in oklab, var(--green) 70%, #0b0b0c);
+}
+.row.green span.hot {
+  color: var(--green);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--green) 70%, transparent);
+}
+.row.white span {
+  color: var(--t1);
+}
+.why {
+  position: absolute;
+  left: 64px;
+  top: 1046px;
+}
+.why b {
+  color: var(--t1) !important;
+  font-family: var(--sans) !important;
+}
+
+/* s06: the grid of bits */
+#g-head {
+  left: 67px;
+  top: 318px;
+  font-size: 30px;
+}
+#g-head b {
+  color: var(--green);
+}
+#grid {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.cell {
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  color: var(--green);
+  font: 600 46px / 74px var(--mono);
+  text-align: center;
+}
+.cell.cut {
+  color: var(--t3);
+}
+.cell b {
+  position: absolute;
+  inset: 0;
+  font: inherit;
+}
+.cell .new {
+  color: var(--accent);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 70%, transparent);
+  opacity: 0;
+}
+.blade {
+  position: absolute;
+  left: 319px;
+  top: 808px;
+  width: 10px;
+  height: 116px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fff3d6, var(--accent));
+  box-shadow: 0 0 24px 6px color-mix(in srgb, var(--accent) 60%, transparent);
+  transform-origin: 50% 0;
+}
+#g-kept {
+  left: 67px;
+  top: 952px;
+  font-size: 30px;
+  color: var(--t1);
+}
+#g-kept b {
+  color: var(--green);
+}
+#g-cut {
+  left: 360px;
+  top: 952px;
+  font-size: 30px;
+}
+#g-round {
+  position: absolute;
+  left: 67px;
+  top: 1040px;
+}
+
+/* s07, s08: number lines */
+#line1,
+#line3 {
+  position: absolute;
+  inset: 0;
+}
+#zoom,
+#zoom3 {
+  position: absolute;
+  left: 64px;
+  top: 300px;
+  font-size: 30px;
+}
+#zoom b,
+#zoom3 b {
+  color: var(--t1);
+  font: 600 32px / 1 var(--mono);
+}
+#zoom .dot,
+#zoom3 .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+#st-head {
+  left: 64px;
+  top: 880px;
+  font-size: 30px;
+}
+.mono-l {
+  position: absolute;
+  left: 64px;
+  top: 924px;
+  color: var(--t1);
+  font: 600 54px / 1 var(--mono);
+  white-space: nowrap;
+}
+.mono-l em {
+  color: var(--accent);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+#st-off {
+  position: absolute;
+  left: 64px;
+  top: 1040px;
+}
+#sum-note {
+  position: absolute;
+  left: 64px;
+  top: 1000px;
+  font-size: 32px;
+}
+#sum-note b {
+  font-family: var(--sans);
+}
+
+/* s09, s10: the fix */
+#fix {
+  top: 320px;
+}
+.cl {
+  height: 104px;
+  padding: 0 40px;
+  color: var(--t1);
+  font: 500 52px / 104px var(--mono);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+.cl:last-child {
+  border-bottom: 0;
+}
+.cl.cmt,
+.cl .cmt {
+  color: var(--t3);
+}
+.cl.cmt {
+  font-size: 34px;
+}
+.cl .fn {
+  color: #9ec3ff;
+}
+.cl .nm {
+  color: var(--accent);
+}
+.cl.ok {
+  color: var(--green);
+  font-weight: 600;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--green) 50%, transparent);
+}
+.tick {
+  margin-left: 8px;
+}
+#dec {
+  position: absolute;
+  left: 64px;
+  top: 1000px;
+}
+#dec b {
+  font-family: var(--sans);
+  color: var(--green);
+}
+
+/* s11: the recap */
+.rc {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  height: 162px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 0 34px 0 22px;
+  border-radius: 30px;
+}
+.rc .pic {
+  width: 210px;
+  height: 126px;
+  flex: none;
+}
+.rc p {
+  color: var(--t2);
+  font: 500 40px / 1.25 var(--sans);
+  letter-spacing: -0.015em;
+}
+.rc b {
+  color: var(--t1);
+  font-weight: 650;
+}
+.rc b.v {
+  color: var(--accent);
+}
+.rc b.g {
+  color: var(--green);
+}
+#poster {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 990px;
+  font-size: 100px;
+  line-height: 1.14;
+}
+#poster .ln {
+  filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.75));
+}
+
+/* Captions: green where the picture is about the machine working, amber where it is about the error. */
+.caption[data-shot="s03"] .key,
+.caption[data-shot="s09"] .key,
+.caption[data-shot="s10"] .key {
+  color: var(--green);
+}
+
+/* JetBrains Mono draws === as one glyph: show the three characters a programmer types. */
+* {
+  font-variant-ligatures: none;
+  font-feature-settings: "calt" 0, "liga" 0;
+}
+#end-tag {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 1290px;
+  color: var(--t2);
+  font: 500 34px / 1 var(--mono);
+  text-align: center;
+}
+#end-tag em {
+  color: var(--accent);
+}
+.eq i {
+  display: inline-block;
+}

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why does 0.1 + 0.2 not equal 0.3?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- s01: the question, set in metal type -->
+      <section class="scene" id="s01">
+        <h1 class="display" id="q">
+          <span class="ln" id="q1">Why doesn't</span><span class="ln hero" id="q2">0.1 + 0.2</span><span class="ln" id="q3">equal <em class="key">0.3?</em></span>
+        </h1>
+        <p class="micro" id="q-tag"><i></i>IEEE 754 · double precision<i></i></p>
+      </section>
+
+      <!-- s02: what the machine prints -->
+      <section class="scene" id="s02">
+        <div class="panel term" id="term">
+          <div class="phead"><i class="tl r"></i><i class="tl y"></i><i class="tl g"></i><em>node</em></div>
+          <div class="code"><span class="pr">&gt;</span> 0.1 + 0.2<i class="caret" id="caret"></i></div>
+        </div>
+        <div class="result" id="res">
+          <b class="mono-d" id="res-a">0.30000000000000004</b>
+          <b class="mono-d over" id="res-b"><span class="ghost">0.3000000000000000</span><em class="key">4</em></b>
+        </div>
+        <svg class="ink" id="zeros-ink" viewBox="0 0 1080 1920">
+          <path id="zeros-br" pathLength="1" d="M206 758 V778 H878 V758" stroke="#a9a9b0" stroke-width="4" />
+          <circle id="four-ring" cx="902" cy="702" r="52" stroke="#ffb02e" stroke-width="5" pathLength="1" />
+        </svg>
+        <p class="tag-l" id="zeros-l" style="left: 542px; top: 792px">15 zeros</p>
+        <div class="panel term small" id="term2">
+          <div class="code"><span class="pr">&gt;</span> 0.1 + 0.2 <span class="eq"><i>=</i><i>=</i><i>=</i></span> 0.3</div>
+          <div class="code out amber" id="false">false</div>
+        </div>
+      </section>
+
+      <!-- s03: binary is halves -->
+      <section class="scene" id="s03">
+        <p class="label caps" id="b-head">a number binary writes exactly</p>
+        <h2 class="display" id="d075"><span class="ln">0.75</span></h2>
+        <svg class="ink" viewBox="0 0 1080 1920"><path id="b-arrow" pathLength="1" d="M497 548 V630 M472 606 L497 632 L522 606" stroke="#ededf0" stroke-width="6" /></svg>
+        <b class="mono-d green" id="b011">0.11</b>
+        <p class="pv" id="pv1" style="left: 497px">½</p>
+        <p class="pv" id="pv2" style="left: 617px">¼</p>
+        <span class="chip big" id="b-sum">½ + ¼ = <b>0.75</b> · it ends</span>
+      </section>
+
+      <!-- s04, s05: the bits that never end -->
+      <section class="scene" id="s04">
+        <p class="label caps rl" id="l1" style="top: 380px">0.1 in binary</p>
+        <p class="row green" id="r1" style="top: 424px"></p>
+        <p class="label caps rl" id="l2" style="top: 590px">0.2 in binary</p>
+        <p class="row green" id="r2" style="top: 634px"></p>
+        <p class="label caps rl" id="l3" style="top: 800px">1/3 in decimal</p>
+        <p class="row white" id="r3" style="top: 844px"></p>
+        <span class="chip big why" id="why1">halves can never add up to <b>a tenth</b></span>
+        <span class="chip big why" id="why2">tenths can never add up to <b>a third</b></span>
+      </section>
+
+      <!-- s06: 53 bits, and the cut -->
+      <section class="scene" id="s06">
+        <p class="label caps" id="g-head">0.1 = 0.000 <b>then these bits</b></p>
+        <div id="grid"></div>
+        <i class="blade" id="blade"></i>
+        <p class="label caps" id="g-kept"><b>53 bits</b> kept</p>
+        <p class="label caps" id="g-cut">the rest: cut</p>
+        <span class="chip big" id="g-round"><b class="num">…001 → …010</b> rounded up</span>
+      </section>
+
+      <!-- s07: the stored 0.1, zoomed far in -->
+      <section class="scene" id="s07">
+        <canvas id="line1"></canvas>
+        <span class="chip" id="zoom"><i class="dot"></i><b id="zoom-n">zoom ×1</b></span>
+        <p class="label caps" id="st-head">stored</p>
+        <p class="mono-l" id="st-val">0.10000000000000000<em>55511…</em></p>
+        <span class="chip big" id="st-off">≈ <b class="num">0.0000000000000000056</b> too big</span>
+      </section>
+
+      <!-- s08: the sum, at 0.3 -->
+      <section class="scene" id="s08">
+        <canvas id="line3"></canvas>
+        <span class="chip" id="zoom3"><i class="dot"></i><b id="zoom3-n">zoom</b>&nbsp;near 0.3</span>
+        <div class="result" id="res3">
+          <b class="mono-d" id="res3-a">0.30000000000000004</b>
+          <b class="mono-d over" id="res3-b"><span class="ghost">0.3000000000000000</span><em class="key">4</em></b>
+        </div>
+        <span class="chip big" id="sum-note">the true sum is past 0.3 → <b>rounded</b> to the next double</span>
+      </section>
+
+      <!-- s09, s10: the fix -->
+      <section class="scene" id="s09">
+        <div class="panel code-panel" id="fix">
+          <div class="phead"><i class="tl r"></i><i class="tl y"></i><i class="tl g"></i><em>fix.js</em></div>
+          <div class="cl cmt" id="c0">// a = 0.1 + 0.2,  b = 0.3</div>
+          <div class="cl" id="c1"><span class="fn">Math.abs</span>(a - b) &lt; <span class="nm">1e-9</span></div>
+          <div class="cl ok" id="o1">→ true <i class="tick">✓</i></div>
+          <div class="cl" id="c2"><span class="nm">10</span> + <span class="nm">20</span> <span class="eq"><i>=</i><i>=</i><i>=</i></span> <span class="nm">30</span> <span class="cmt">// cents</span></div>
+          <div class="cl ok" id="o2">→ true <i class="tick">✓</i></div>
+        </div>
+        <svg class="ink" viewBox="0 0 1080 1920"><path id="tol-br" pathLength="1" d="M666 580 V594 H790 V580" stroke="#4ee68f" stroke-width="4" /></svg>
+        <p class="tag-l green" id="tol-l" style="left: 728px; top: 610px">tolerance</p>
+        <span class="chip big" id="dec">or a <b>Decimal</b> type</span>
+      </section>
+
+      <!-- s11: the recap and the line to remember -->
+      <section class="scene" id="s11">
+        <div class="rc glass" id="rc1" style="top: 280px">
+          <svg viewBox="0 0 200 120" class="pic"><text x="6" y="74" fill="#4ee68f" font-size="28" font-family="JetBrains Mono Variable, monospace">0.0001100…</text></svg>
+          <p>0.1 <b>never ends</b><br />in binary</p>
+        </div>
+        <div class="rc glass" id="rc2" style="top: 466px">
+          <svg viewBox="0 0 200 120" class="pic">
+            <path d="M10 64 H190" stroke="#ededf0" stroke-width="4" opacity=".7" />
+            <path d="M70 34 V94" stroke="#ededf0" stroke-width="4" stroke-dasharray="8 7" />
+            <circle cx="122" cy="64" r="13" fill="#ffb02e" />
+          </svg>
+          <p>cut at 53 bits:<br /><b class="v">a tiny bit off</b></p>
+        </div>
+        <div class="rc glass" id="rc3" style="top: 652px">
+          <svg viewBox="0 0 200 120" class="pic"><path d="M52 64 L86 96 L150 28" stroke="#4ee68f" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <p>compare with a <b class="g">tolerance</b><br />money in <b class="g">integers</b></p>
+        </div>
+        <h2 class="display" id="poster"><span class="ln">Floats are <em class="key">close,</em></span><span class="ln">not exact.</span></h2>
+        <p id="end-tag">0.1 + 0.2 → 0.3000000000000000<em>4</em></p>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>
