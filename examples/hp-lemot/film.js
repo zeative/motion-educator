@@ -386,6 +386,10 @@ for (const line of $$("#poster .ln")) film.split(line);
 slam("#poster .ln", s.s13.start + 0.4, 0.2);
 hit(s.s13.start + 0.4, 497, 1080, 0.25, 0.3);
 film.sheen("#poster", s.s13.start + 1.1, 0.8);
+// The poster breathes to the last frame: a slow push, the light drifting across, a second sheen.
+tl.to("#s13", { scale: 1.035, transformOrigin: "50% 45%", duration: D - s.s13.start - 0.6, ease: "none" }, s.s13.start + 0.6);
+tl.to(stage, { lx: 0.62, ly: 1 - 1000 / 1920, glow: 0.8, duration: D - s.s13.start - 0.6, ease: "sine.inOut" }, s.s13.start + 0.6);
+film.sheen("#poster", D - 1.05, 0.9);
 lightAt(497, 1060, 0.7, s.s13.start - 0.2, 0.6);
 
 film.finish();
