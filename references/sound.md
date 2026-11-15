@@ -41,7 +41,14 @@ than the film and its tail is faded.
   relieved" for a myth that gets broken, "warm and reassuring" for health.
 - Under narration: sparse, no lead melody, nothing busy in the voice's range (roughly 200 Hz to 4 kHz). Say "no
   vocals" every time.
-- One composition per film. Ask again only if the first is clearly wrong (wrong mood, too busy, it stops early).
+- Ask for an even level in so many words ("plays at full level from the first beat, no intro silence, an even
+  loudness all the way through, no big swells or drops"): a composed track likes to build, and under a voice a
+  build is a swell that fights the words.
+- Then read `node kit/audio/music.mjs films/NAME`: it reports a silent lead-in, silence inside, a loudness range
+  over 10 LU, and music that stops before the picture. Each is a reason to compose again; the average level alone
+  says nothing about them.
+- One composition per film. Ask again only if the first is clearly wrong (wrong mood, too busy, it stops early, or
+  the status above flags it).
 - Nobody can hear it here: say so, and name the prompt in the delivery note so a person can judge it.
 
 ## Music first
