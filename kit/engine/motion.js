@@ -230,25 +230,33 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       if (!text) continue;
       // Words, each knowing whether it carries the accent.
       const tokens = [];
+      let joined = false; // the last part ended mid-word, against the next one ("*9/10*-nya")
       for (const part of text.split(/(\*[^*]+\*)/)) {
         if (!part) continue;
         const strong = part.startsWith("*");
-        for (const word of (strong ? part.slice(1, -1) : part).split(/\s+/).filter(Boolean)) {
+        const inner = strong ? part.slice(1, -1) : part;
+        inner.split(/\s+/).filter(Boolean).forEach((word, k) => {
           // Punctuation left outside the stars ("*Suara*?") belongs to the word before it.
           if (/^[.,;:!?)…]+$/.test(word) && tokens.length) tokens.at(-1).word += word;
-          else tokens.push({ word, strong });
-        }
+          // A piece written straight against the last one is part of the same word on screen, with no space.
+          else tokens.push({ word, strong, glue: k === 0 && joined && !/^\s/.test(inner) });
+        });
+        joined = !/\s$/.test(part);
       }
       // When each word is said. Known exactly, or spread by length across the time there is.
       const line = voiced[shot.id];
       const from = line?.exact ? line.from : line ? shot.start + VOICE_LEAD : shot.start + lead;
-      const until = line?.exact ? line.to : line ? Math.min(shot.end - 0.05, from + line.speech) : shot.end - tail;
-      const exact = line?.words?.length === tokens.length && !shot.caption;
+      // Read, not heard: the words arrive in the first part of the shot, so the last of them can still be read.
+      const until = line?.exact ? line.to : line ? Math.min(shot.end - 0.05, from + line.speech) : shot.end - tail - Math.min(1.2, (shot.end - shot.start) * 0.3);
+      const exact = line?.words?.length === tokens.filter((token) => !token.glue).length && !shot.caption;
       const weight = tokens.map((token) => token.word.length + 2);
       const total = weight.reduce((a, b) => a + b, 0);
       let run = 0;
+      let spokenAt = -1; // which spoken word this token is
       tokens.forEach((token, i) => {
-        token.at = !exact ? from + ((until - from) * run) / total : line.exact ? line.words[i][0] : shot.start + VOICE_LEAD + line.words[i][0] - (line.lead ?? 0);
+        if (!token.glue) spokenAt++;
+        if (token.glue && i > 0) token.at = tokens[i - 1].at;
+        else token.at = !exact ? from + ((until - from) * run) / total : line.exact ? line.words[spokenAt][0] : shot.start + VOICE_LEAD + line.words[spokenAt][0] - (line.lead ?? 0);
         run += weight[i];
       });
       // Groups of words shown together: a new group at the limit, or after a sentence ends.
@@ -266,7 +274,7 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
         el.dataset.shot = shot.id;
         for (const token of group) {
           // Punctuation stays against the word before it, even when that word carries the accent.
-          if (el.childNodes.length && !/^[.,;:!?)]/.test(token.word)) el.append(" ");
+          if (el.childNodes.length && !token.glue && !/^[.,;:!?)]/.test(token.word)) el.append(" ");
           el.append(Object.assign(document.createElement("span"), { className: token.strong ? "cw key" : "cw", textContent: token.word }));
         }
         box.append(el);
@@ -289,7 +297,8 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
             group.forEach((token, i) => tl.to(words[i], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, Math.max(start, token.at - 0.06)));
           } else {
             // Read, not heard: the words take about a third of the time to arrive, never slower than a calm reading pace.
-            const step = Math.min(0.09, ((end - start) * 0.34) / words.length);
+            // Read, not heard: the line fills almost at once, so the pill never sits half empty.
+            const step = Math.min(0.035, ((end - start) * 0.2) / words.length);
             tl.to(words, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: step }, start);
           }
           tl.to(el, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power1.in" }, end - 0.2);

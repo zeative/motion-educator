@@ -5,7 +5,7 @@
 // Reads films/NAME/out/picture.mp4 (and NAME.mp4 when it has been mixed). Writes out/sheets/sheet-01.png ...
 // Looking at the sheets is the point: the numbers only say where to look.
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 
 const film = resolve(process.argv[2] ?? ".");
@@ -18,6 +18,9 @@ const fps = Number(rate.split("/")[0]) / Number(rate.split("/")[1] ?? 1);
 console.log(`picture: ${probe(picture, "stream=width,height").match(/\d+/g).slice(0, 2).join("x")}, ${frames} frames, ${duration.toFixed(3)} s at ${fps} fps${Math.abs(Number(frames) - duration * fps) < 1.5 ? "" : "  <- frame count does not match the length"}`);
 const errors = spawnSync("ffmpeg", ["-v", "error", "-i", picture, "-f", "null", "-"]).stderr.toString().trim();
 console.log(errors ? `decode errors:\n${errors}` : "decodes cleanly");
+// The picture must be as long as the plan: a timeline that runs on past its last shot shows as a frozen tail.
+const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8")) : null;
+if (plan?.duration && Math.abs(duration - plan.duration) > 1.5 / fps + 0.01) console.log(`  <- the picture is ${duration.toFixed(3)} s but the storyboard is ${plan.duration.toFixed(3)} s: something in film.js runs past the last shot, or the storyboard changed after the render`);
 
 // Contact sheets: a frame every half second, 36 to a sheet.
 const sheets = join(film, "out", "sheets");
