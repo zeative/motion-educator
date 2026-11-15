@@ -3,6 +3,7 @@
 //
 //   node docs/media/gallery.mjs                     every finished film
 //   node docs/media/gallery.mjs --keep why-seasons  keep that film's media as committed (it is being remade)
+//   node docs/media/gallery.mjs --skip new-film     leave a film out of the gallery for now (it is not finished)
 //
 // For every examples/NAME that has been rendered and mixed (out/NAME.mp4) it writes:
 //   docs/media/previews/NAME.webp   a six-second loop, animated WebP: a few hundred kilobytes, plays in any browser
@@ -24,6 +25,7 @@ const LANGUAGES = { id: "Bahasa Indonesia", en: "English" };
 for (const folder of ["films", "previews"]) mkdirSync(join(here, folder), { recursive: true });
 const kb = (file) => Math.round(statSync(file).size / 1024);
 const argv = process.argv.slice(2);
+const skip = new Set(argv.includes("--skip") ? argv[argv.indexOf("--skip") + 1].split(",") : []);
 const keep = new Set(argv.includes("--keep") ? argv[argv.indexOf("--keep") + 1].split(",") : []);
 // Card sizes, chosen so a row fits GitHub's README column (about 880 px) with room to spare: landscape films two to
 // a row, shorts three to a row. Previews are made at one and a half times these, so they stay sharp.
@@ -33,7 +35,7 @@ const films = [];
 // Only films that are in the repository's last commit: a film still being made is not shown half done.
 const committed = new Set(execFileSync("git", ["ls-tree", "--name-only", "HEAD", "examples/"], { cwd: repo }).toString().trim().split("\n").map((path) => path.replace("examples/", "")));
 for (const name of readdirSync(join(repo, "examples")).sort()) {
-  if (!committed.has(name)) continue;
+  if (!committed.has(name) || skip.has(name)) continue;
   const film = join(repo, "examples", name);
   const movie = join(film, "out", `${name}.mp4`);
   if (keep.has(name)) {
@@ -112,7 +114,7 @@ const wideFilms = films.filter((f) => !f.portrait);
 const shortFilms = films.filter((f) => f.portrait);
 const table = [
   ...(wideFilms.length ? ["**Explainers** (16:9)", "", "<table>", ...rows(wideFilms, 2), "</table>", ""] : []),
-  ...(shortFilms.length ? ["**Shorts** (9:16)", "", "<table>", ...rows(shortFilms, 3), "</table>", ""] : []),
+  ...(shortFilms.length ? ["**Shorts** (9:16)", "", "<table>", ...rows(shortFilms, 4), "</table>", ""] : []),
   `<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). ${films.length} films, each made by an agent following this skill from the brief to the mix.</sub>`,
 ].join("\n");
 
