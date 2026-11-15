@@ -82,6 +82,9 @@ node kit/audio/voice.mjs films/NAME --generate    # the take and the time of eve
 
 **With a speech connector and no key** (an agent that has ElevenLabs tools):
 
+0. Price it first: the same call with `estimate_only: true` returns the credits it will cost without spending any.
+   A take on `eleven_v4` costs roughly one credit a character (about 530 for a 35 second script). If the account
+   cannot cover it, stop and tell the person: never shorten the script to fit the balance.
 1. Take the `take` text from `--script`. Generate it once: the storyboard's `voice_id`, model `eleven_v4`, one
    variation. Poll until it completes and keep the audio URL.
 2. Transcribe that same audio with word times (the connector's speech-to-text on the generated node) and keep the
