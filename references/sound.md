@@ -24,6 +24,26 @@ measurement, not by ear.
 | `music/masking_the_masters` (100 BPM, quiet then a build to full) | a dramatic launch-style film |
 | `music/odd_beats_01` (117 BPM, hard drop) | unheard and tagged "disturbing": listen before using |
 
+## A bed made for the film
+
+The library's few tracks end up under every film. When the film is worth it, compose its own bed with ElevenLabs
+Music, at the film's exact length and in its mood:
+
+```sh
+node kit/audio/music.mjs films/NAME --prompt "Instrumental underscore for a calm health explainer: warm felt piano and soft strings, gentle pulse at 85 BPM, sparse, no lead melody, no vocals. Starts at once, sits low under a voice, lifts a little near the end and resolves on the last chord."
+```
+
+It writes `films/NAME/music/bed.mp3`, records the prompt, and points `cues.json` at it (at -22 LUFS under a
+voice). Compose it after the take, when the film's length is final: the bed is made a second and a half longer
+than the film and its tail is faded.
+
+- Describe the subject's mood, not a genre label alone: "curious and light" for a science question, "tense then
+  relieved" for a myth that gets broken, "warm and reassuring" for health.
+- Under narration: sparse, no lead melody, nothing busy in the voice's range (roughly 200 Hz to 4 kHz). Say "no
+  vocals" every time.
+- One composition per film. Ask again only if the first is clearly wrong (wrong mood, too busy, it stops early).
+- Nobody can hear it here: say so, and name the prompt in the delivery note so a person can judge it.
+
 ## Music first
 
 - Choose the track for the viewer, not for "tech". Explaining wants a calm pulse that rises; a launch wants a build.

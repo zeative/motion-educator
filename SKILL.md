@@ -126,7 +126,8 @@ sheet meanwhile.
 
 ### 8. Sound
 Follow `references/sound.md`: one music bed whose beat the cuts already sit on, and small clean effects on real
-events, written as `films/NAME/cues.json`.
+events, written as `films/NAME/cues.json`. A bed composed for the film (`kit/audio/music.mjs`) fits better than a library track
+when the film will be published.
 
 ```sh
 python3 kit/audio/mix.py films/NAME                   # out/NAME.mp4, loudness measured on the finished file
