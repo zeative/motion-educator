@@ -273,7 +273,7 @@ tl.to(stage, { glow: 0.5, duration: 0.5 }, s.s11.start - 0.2);
 // ═════════════ s11 and s12: a headline seen once, then met again ═════════════
 film.scene("#news", s.s11.start - 0.1, s.s13.start);
 gsap.set("#n1", { y: 420, opacity: 0 });
-tl.to("#n1", { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, s.s11.start + 0.1);
+tl.to("#n1", { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, s.s11.start - 0.04);
 film.land("#ex1", s.s11.start + 0.3, { from: 14 });
 tl.to("#n1", { scale: 1.025, duration: s.s11.dur - 0.5, ease: "none" }, s.s11.start + 0.4);
 const SEKALI = said("s11", "sekali");
