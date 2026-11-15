@@ -181,17 +181,25 @@ reproducible.
 ## Gallery
 
 <!-- gallery:start -->
+**Explainers** (16:9)
+
 <table>
 <tr>
-<td width="50%" valign="top" align="center"><a href="docs/media/films/langit-biru.mp4"><img src="docs/media/previews/langit-biru.webp" alt="Kenapa langit berwarna biru?" width="100%" /></a><br /><a href="examples/langit-biru"><b>Kenapa langit berwarna biru?</b></a><br /><sub>Bahasa Indonesia · 16:9 · 67 s · captions only</sub><br /><sub><a href="docs/media/films/langit-biru.mp4">▶ watch</a> · <a href="examples/langit-biru/storyboard">storyboard</a> · <a href="examples/langit-biru">source</a></sub></td>
-<td width="50%" valign="top" align="center"><a href="docs/media/films/why-seasons.mp4"><img src="docs/media/previews/why-seasons.webp" alt="Why do we have seasons?" width="100%" /></a><br /><a href="examples/why-seasons"><b>Why do we have seasons?</b></a><br /><sub>English · 16:9 · 52 s · voice: Megan</sub><br /><sub><a href="docs/media/films/why-seasons.mp4">▶ watch</a> · <a href="examples/why-seasons/storyboard">storyboard</a> · <a href="examples/why-seasons">source</a></sub></td>
-</tr>
-<tr>
-<td width="33%" valign="top" align="center"><a href="docs/media/films/petir-guntur.mp4"><img src="docs/media/previews/petir-guntur.webp" alt="Kenapa petir terlihat dulu, baru guntur terdengar?" width="100%" /></a><br /><a href="examples/petir-guntur"><b>Kenapa petir terlihat dulu, baru guntur terdengar?</b></a><br /><sub>Bahasa Indonesia · short · 9:16 · 40 s · voice: Rafiq</sub><br /><sub><a href="docs/media/films/petir-guntur.mp4">▶ watch</a> · <a href="examples/petir-guntur/storyboard">storyboard</a> · <a href="examples/petir-guntur">source</a></sub></td>
+<td valign="top" align="center" width="300"><a href="docs/media/films/langit-biru.mp4"><img src="docs/media/previews/langit-biru.webp" alt="Kenapa langit berwarna biru?" width="300" /></a><br /><sub><a href="examples/langit-biru"><b>Kenapa langit berwarna biru?</b></a><br />Bahasa Indonesia · 67 s · captions · <a href="docs/media/films/langit-biru.mp4">▶ watch</a> · <a href="examples/langit-biru/storyboard">board</a></sub></td>
+<td valign="top" align="center" width="300"><a href="docs/media/films/why-seasons.mp4"><img src="docs/media/previews/why-seasons.webp" alt="Why do we have seasons?" width="300" /></a><br /><sub><a href="examples/why-seasons"><b>Why do we have seasons?</b></a><br />English · 44 s · voice: Megan · <a href="docs/media/films/why-seasons.mp4">▶ watch</a> · <a href="examples/why-seasons/storyboard">board</a></sub></td>
 </tr>
 </table>
 
-<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 3 films, each made by an agent following this skill from the brief to the mix.</sub>
+**Shorts** (9:16)
+
+<table>
+<tr>
+<td valign="top" align="center" width="170"><a href="docs/media/films/petir-guntur.mp4"><img src="docs/media/previews/petir-guntur.webp" alt="Kenapa petir terlihat dulu, baru guntur terdengar?" width="170" /></a><br /><sub><a href="examples/petir-guntur"><b>Kenapa petir terlihat dulu, baru guntur terdengar?</b></a><br />Bahasa Indonesia · 40 s · voice: Rafiq · <a href="docs/media/films/petir-guntur.mp4">▶ watch</a> · <a href="examples/petir-guntur/storyboard">board</a></sub></td>
+<td valign="top" align="center" width="170"><a href="docs/media/films/es-mengapung.mp4"><img src="docs/media/previews/es-mengapung.webp" alt="Kenapa es malah ngapung di air?" width="170" /></a><br /><sub><a href="examples/es-mengapung"><b>Kenapa es malah ngapung di air?</b></a><br />Bahasa Indonesia · 32 s · captions · <a href="docs/media/films/es-mengapung.mp4">▶ watch</a> · <a href="examples/es-mengapung/storyboard">board</a></sub></td>
+</tr>
+</table>
+
+<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 4 films, each made by an agent following this skill from the brief to the mix.</sub>
 <!-- gallery:end -->
 
 ## Narration
