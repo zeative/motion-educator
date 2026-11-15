@@ -53,7 +53,9 @@ if (prompt) {
   // Point the cue sheet's music at it; the level and fades stay as they are.
   const cuesFile = join(film, "cues.json");
   const cues = existsSync(cuesFile) ? JSON.parse(readFileSync(cuesFile, "utf8")) : { music: {}, events: [] };
-  cues.music = { lufs: -22, fade_out: 1.8, ...cues.music, file: relative(here, bed).split("\\").join("/"), start: 0 };
+  // A composed bed sits under the film: at -22 LUFS unless the cue sheet already asks for something quieter.
+  const lufs = Math.min(-22, cues.music?.lufs ?? -22);
+  cues.music = { fade_out: 1.8, ...cues.music, lufs, file: relative(here, bed).split("\\").join("/"), start: 0 };
   writeFileSync(cuesFile, `${JSON.stringify(cues, null, 2)}\n`);
   console.log(`composed ${(length / 1000).toFixed(1)} s -> ${relative(process.cwd(), bed)}; cues.json now plays it`);
 }

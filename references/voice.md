@@ -97,9 +97,9 @@ node kit/audio/voice.mjs films/NAME --take AUDIO_URL --words WORDS_URL
 
 Each generation spends the owner's credits. Do not generate again unless the script changed or a listener asked.
 
-With a connector, the word list that comes back is the script laid against the audio, not an independent hearing
-of it: "100% heard as written" then only means the alignment worked. It cannot tell you a word was mispronounced.
-A person has to listen.
+Either way, the word times come from the speech service (or a transcription of its own audio), so "100% of the
+script aligned" only means the alignment worked. It cannot tell you a word was mispronounced: Indonesian's two
+sounds of *e* are the usual trap. A person has to listen.
 
 ## What the tool does with the take
 

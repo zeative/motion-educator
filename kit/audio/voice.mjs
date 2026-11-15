@@ -332,7 +332,9 @@ if (!manifest || manifest.version !== 2) {
 } else {
   if (manifest.sha !== sha()) problem("the script or the voice changed after the take was performed: perform it again");
   const spoken = manifest.lines[speaking.at(-1).id].to - manifest.lines[speaking[0].id].from;
-  console.log(`take:   ${manifest.take.duration.toFixed(2)} s, ${(words / (spoken / 60)).toFixed(0)} words a minute, ${(manifest.agreement * 100).toFixed(0)}% of the script heard as written`);
+  // The word times come from the speech service itself (or a transcription of its audio): matching them says the
+  // alignment worked, not that every word was pronounced well. Only a person listening can say that.
+  console.log(`take:   ${manifest.take.duration.toFixed(2)} s, ${(words / (spoken / 60)).toFixed(0)} words a minute, ${(manifest.agreement * 100).toFixed(0)}% of the script aligned with the take (not a pronunciation check)`);
   if (manifest.missed.length) console.log(`        not heard as written (listen to these): ${manifest.missed.slice(0, 16).join(" ")}${manifest.missed.length > 16 ? " ..." : ""}`);
   if (manifest.agreement < 0.8) problem("less than 80% of the script was heard as written: the take may have gone wrong, or the word times belong to another take");
   if (!manifest.pieces) problem("the take has not been cut: run --retime");

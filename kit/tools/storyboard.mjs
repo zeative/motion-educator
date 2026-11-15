@@ -93,7 +93,7 @@ if (narrated) {
     const wpm = total / ((last.to - first.from) / 60);
     const [slow, fast] = indonesian ? [105, 165] : [120, 175];
     if (wpm < slow || wpm > fast) warn("script", `the take runs at ${wpm.toFixed(0)} words a minute (explaining sits between ${slow} and ${fast}): ${wpm > fast ? "it will feel rushed" : "it will drag"}`);
-    if (take.agreement < 0.9) warn("script", `only ${(take.agreement * 100).toFixed(0)}% of the script was heard as written in the take: listen to ${take.missed.slice(0, 8).join(", ")}`);
+    if (take.agreement < 0.9) warn("script", `only ${(take.agreement * 100).toFixed(0)}% of the script aligned with the take: listen to ${take.missed.slice(0, 8).join(", ")}`);
   }
   // On screen, the narration's own words again: harder to follow, not easier.
   if (!portrait) for (const shot of sb.shots ?? []) if (shot.voice && shot.caption && plain(shot.caption).toLowerCase() === plain(shot.voice).toLowerCase() && count(plain(shot.caption)) > 5) warn(`shot ${shot.id}`, "the caption repeats the spoken line word for word: make it the key phrase (three or four words), or leave it out");
