@@ -1,22 +1,29 @@
-// Builds the README's gallery from the finished example films: for every examples/NAME that has been rendered and
-// mixed (out/NAME.mp4), a thumbnail, a compact copy that GitHub can play in the browser, and its row in the table
-// between the gallery markers in README.md.
+// Builds the README's gallery from the finished example films: a grid of short previews that play by themselves,
+// each linking to a compact copy of the whole film.
 //
 //   node docs/media/gallery.mjs
 //
-// A film picks its own thumbnail with "poster": seconds in its storyboard.json; otherwise it is taken at 62%.
+// For every examples/NAME that has been rendered and mixed (out/NAME.mp4) it writes:
+//   docs/media/previews/NAME.webp   a six-second loop, animated WebP: a few hundred kilobytes, plays in any browser
+//   docs/media/films/NAME.mp4       the whole film at 720p and 30 fps, small enough to keep in the repository
+//   docs/media/NAME.jpg             a still at the film's poster frame
+// and rewrites the table between the gallery markers in README.md: landscape films two to a row, shorts three.
+//
+// A film can choose its preview with "preview": [start, seconds] and its still with "poster": seconds in its
+// storyboard.json; otherwise both are taken around 40% of the way in.
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = resolve(here, "../..");
 const ffmpeg = (...args) => execFileSync("ffmpeg", ["-y", "-loglevel", "error", ...args]);
-const LANGUAGES = { id: "Indonesian", en: "English" };
-mkdirSync(join(here, "films"), { recursive: true });
+const LANGUAGES = { id: "Bahasa Indonesia", en: "English" };
+for (const folder of ["films", "previews"]) mkdirSync(join(here, folder), { recursive: true });
+const kb = (file) => Math.round(statSync(file).size / 1024);
 
-const rows = [];
+const films = [];
 for (const name of readdirSync(join(repo, "examples")).sort()) {
   const film = join(repo, "examples", name);
   const movie = join(film, "out", `${name}.mp4`);
@@ -24,28 +31,71 @@ for (const name of readdirSync(join(repo, "examples")).sort()) {
   const sb = JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8"));
   const [W, H] = (sb.format ?? "1920x1080").split("x").map(Number);
   const portrait = H > W;
-  const at = sb.poster ?? sb.duration * 0.62;
-  // The thumbnail: 440 px wide for a landscape film, 250 px for a portrait one, so a row is about as tall either way.
-  ffmpeg("-ss", String(at), "-i", movie, "-frames:v", "1", "-vf", `scale=${portrait ? 360 : 640}:-2`, "-q:v", "3", join(here, `${name}.jpg`));
-  // The compact copy: 720p, 30 frames a second, small enough to keep in the repository and to play on its page.
+  const poster = sb.poster ?? sb.duration * 0.4;
+  const [from, length] = sb.preview ?? [Math.max(0, Math.min(poster - 2.5, sb.duration - 6)), 6];
+
+  // The preview: denoised first (the film's grain is what makes a loop heavy), 12 frames a second, at one and a
+  // half times the size it is shown at so it stays sharp on a dense screen.
+  const preview = join(here, "previews", `${name}.webp`);
+  ffmpeg("-ss", String(from), "-t", String(length), "-i", movie, "-vf", `fps=12,hqdn3d=4:3:6:4,scale=${portrait ? 360 : 640}:-2:flags=lanczos`, "-c:v", "libwebp_anim", "-q:v", "80", "-compression_level", "6", "-loop", "0", "-an", preview);
+  ffmpeg("-ss", String(poster), "-i", movie, "-frames:v", "1", "-vf", `scale=${portrait ? 360 : 640}:-2`, "-q:v", "3", join(here, `${name}.jpg`));
   ffmpeg("-i", movie, "-vf", `fps=30,scale=${portrait ? "720:1280" : "1280:720"}:flags=lanczos`, "-c:v", "libx264", "-preset", "slow", "-crf", "27", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", join(here, "films", `${name}.mp4`));
-  const shots = sb.shots.length;
-  const frames = sb.shots.reduce((n, shot) => n + (shot.frames?.length ?? 0), 0);
-  const narration = sb.shots.some((shot) => shot.voice) ? `ElevenLabs (${sb.voice?.name ?? "voice"})` : "captions only";
-  rows.push({
-    duration: sb.duration,
+
+  const narrated = sb.shots.some((shot) => shot.voice);
+  films.push({
+    name,
     portrait,
-    row: `| <a href="docs/media/films/${name}.mp4"><img src="docs/media/${name}.jpg" width="${portrait ? 130 : 230}" /></a> | [**${sb.title}**](examples/${name})<br/>${Math.round(sb.duration)} s · ${shots} shots · ${frames} storyboard frames · ${sb.facts?.length ?? 0} sourced facts<br/>[▶ watch](docs/media/films/${name}.mp4) · [storyboard](examples/${name}/storyboard) · [source](examples/${name}/film.js) | ${W}×${H} | ${LANGUAGES[sb.language] ?? sb.language} | ${narration} |`,
+    duration: sb.duration,
+    title: sb.title,
+    meta: [LANGUAGES[sb.language] ?? sb.language, portrait ? "short · 9:16" : "16:9", `${Math.round(sb.duration)} s`, narrated ? `voice: ${sb.voice?.name ?? "narrated"}` : "captions only"].join(" · "),
   });
-  console.log(`${name}: thumbnail and compact copy`);
+  console.log(`${name}: preview ${kb(preview)} KB, film ${kb(join(here, "films", `${name}.mp4`))} KB`);
 }
+
+// The reel at the top of the README: two seconds from each landscape film, cut together, in the same light format.
+const wide = films.filter((f) => !f.portrait);
+if (wide.length) {
+  const inputs = [];
+  const parts = [];
+  wide.forEach((f, i) => {
+    const sb = JSON.parse(readFileSync(join(repo, "examples", f.name, "storyboard.json"), "utf8"));
+    const moments = sb.reel ?? [(sb.preview?.[0] ?? Math.max(0, (sb.poster ?? sb.duration * 0.4) - 2.5)) + 1.5];
+    for (const at of moments) {
+      inputs.push("-ss", String(at), "-t", "2.4", "-i", join(repo, "examples", f.name, "out", `${f.name}.mp4`));
+      parts.push(`[${inputs.filter((x) => x === "-i").length - 1}:v]fps=12,hqdn3d=4:3:6:4,scale=960:-2:flags=lanczos,setsar=1[v${parts.length}]`);
+    }
+  });
+  const chain = `${parts.join(";")};${parts.map((_, i) => `[v${i}]`).join("")}concat=n=${parts.length}:v=1:a=0`;
+  ffmpeg(...inputs, "-filter_complex", chain, "-c:v", "libwebp_anim", "-q:v", "78", "-compression_level", "6", "-loop", "0", "-an", join(here, "demo.webp"));
+  console.log(`reel: ${parts.length} moments, ${kb(join(here, "demo.webp"))} KB`);
+}
+
 // Landscape films first, then the shorts; longest first in each.
-rows.sort((a, b) => Number(a.portrait) - Number(b.portrait) || b.duration - a.duration);
-const table = ["| | Film | Format | Language | Narration |", "| --- | --- | --- | --- | --- |", ...rows.map((entry) => entry.row)].join("\n");
+films.sort((a, b) => Number(a.portrait) - Number(b.portrait) || b.duration - a.duration);
+// GitHub keeps a width attribute but drops style, so every picture has a fixed width that fits the README column
+// (about 880 px): two landscape films a row, three shorts a row, each in its own table.
+const cell = (f) =>
+  `<td valign="top" align="center"><a href="docs/media/films/${f.name}.mp4"><img src="docs/media/previews/${f.name}.webp" alt="${f.title}" width="${f.portrait ? 250 : 400}" /></a><br /><a href="examples/${f.name}"><b>${f.title}</b></a><br /><sub>${f.meta}</sub><br /><sub><a href="docs/media/films/${f.name}.mp4">▶ watch</a> · <a href="examples/${f.name}/storyboard">storyboard</a> · <a href="examples/${f.name}">source</a></sub></td>`;
+const rows = (list, perRow) => {
+  const out = [];
+  for (let i = 0; i < list.length; i += perRow) {
+    const row = list.slice(i, i + perRow);
+    out.push(`<tr>\n${row.map((f) => cell(f)).join("\n")}\n</tr>`);
+  }
+  return out;
+};
+const wideFilms = films.filter((f) => !f.portrait);
+const shortFilms = films.filter((f) => f.portrait);
+const table = [
+  ...(wideFilms.length ? ["**Explainers** (16:9)", "", "<table>", ...rows(wideFilms, 2), "</table>", ""] : []),
+  ...(shortFilms.length ? ["**Shorts** (9:16)", "", "<table>", ...rows(shortFilms, 3), "</table>", ""] : []),
+  `<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). ${films.length} films, each made by an agent following this skill from the brief to the mix.</sub>`,
+].join("\n");
+
 const readme = join(repo, "README.md");
 const text = readFileSync(readme, "utf8");
 const start = "<!-- gallery:start -->";
 const end = "<!-- gallery:end -->";
 if (!text.includes(start) || !text.includes(end)) throw new Error("README.md has no gallery markers");
 writeFileSync(readme, `${text.slice(0, text.indexOf(start) + start.length)}\n${table}\n${text.slice(text.indexOf(end))}`);
-console.log(`README gallery: ${rows.length} film(s)`);
+console.log(`README gallery: ${films.length} film(s)`);

@@ -1,5 +1,4 @@
-// Builds the README's pictures from a finished film: the hero banner, the animated demo, the storyboard-beside-film
-// strip and the gallery thumbnails.
+// Builds the README's pictures from a finished film: the hero banner and the storyboard-beside-film strip.
 //
 //   node docs/media/build.mjs                 (needs examples/langit-biru/out/langit-biru.mp4: render and mix it first)
 //
@@ -98,12 +97,7 @@ await shoot(
 );
 await browser.close();
 
-// ── The gallery thumbnail and the animated demo ────────────────────────────
 ffmpeg("-ss", String(mid("s15", 0.8)), "-i", movie, "-frames:v", "1", "-vf", "scale=640:-2", "-q:v", "3", join(here, "langit-biru.jpg"));
 console.log("docs/media/langit-biru.jpg");
-const cuts = [[0.4, 2.6], [11.2, 13.2], [28.2, 30.6], [39.6, 41.6], [55.4, 57.2]];
-const inputs = cuts.flatMap(([from, to]) => ["-ss", String(from), "-t", String(to - from), "-i", movie]);
-const chain = `${cuts.map((_, i) => `[${i}:v]fps=12,scale=720:-2:flags=lanczos[v${i}]`).join(";")};${cuts.map((_, i) => `[v${i}]`).join("")}concat=n=${cuts.length}:v=1:a=0,split[a][b];[a]palettegen=max_colors=160:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle`;
-ffmpeg(...inputs, "-filter_complex", chain, "-loop", "0", join(here, "demo.gif"));
-console.log("docs/media/demo.gif");
+// The animated reel at the top of the README is made by gallery.mjs, from every finished landscape film.
 rmSync(work, { recursive: true, force: true });

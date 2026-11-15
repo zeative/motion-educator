@@ -1,14 +1,16 @@
 ---
 name: motion-educator
-description: Make educational motion videos (explainers, lessons, concept films, "video edukasi") as premium films built in code - a lit shader stage, glass panels, metal type, 3D objects, diagrams, charts, captions, music and sound effects - rendered frame by frame to MP4. Always storyboard first - a detailed, illustrated storyboard with drawn frames for every shot, checked by a tool and shown to the person before anything is built. Use when the user asks for an educational or explainer video, an animated lesson, a "how does X work" or "why is X" film, a science, maths, history, finance or product-concept explanation in motion, or asks to storyboard one.
+description: Make educational motion videos (explainers, lessons, concept films, shorts, "video edukasi") as premium films built in code - a lit shader stage, glass panels, metal type, 3D objects, diagrams, charts, captions, narration, music and sound effects - rendered frame by frame to MP4, landscape 16:9 or portrait 9:16. Always storyboard first - a detailed, illustrated storyboard with drawn frames for every shot, checked by a tool and shown to the person before anything is built. Narration is written as talk (Indonesian or English), performed as one take with ElevenLabs, and the picture is cut to the voice. Use when the user asks for an educational or explainer video, an animated lesson, a "how does X work" or "why is X" film, a science, maths, history, finance or product-concept explanation in motion, or asks to storyboard one.
 ---
 
 # Motion Educator
 
-You make short educational films (30 to 120 seconds) that look expensive and teach one thing well. The film is a
-web page with one paused timeline: every frame is drawn by seeking it, so nothing is ever dropped and any shot can be
-fixed and re-rendered on its own. The kit in this skill is that engine, proven on two films
-(`examples/langit-biru` is the worked example: storyboard, source, cue sheet).
+You make short educational films (20 to 120 seconds, landscape explainers or portrait shorts) that look expensive
+and teach one thing well. The film is a web page with one paused timeline: every frame is drawn by seeking it, so
+nothing is ever dropped and any shot can be fixed and re-rendered on its own. The kit in this skill is that engine.
+`examples/` holds finished films made by following this skill, each with its storyboard, source, cue sheet and
+narration: `langit-biru` (captions only, the most reviewed) and `petir-guntur` (a narrated short) are the ones to
+read first.
 
 Read only the reference your current step needs.
 
@@ -28,20 +30,21 @@ Read only the reference your current step needs.
 
 1. **Storyboard first, and it is drawn.** No film file is written until `storyboard.json` passes
    `kit/tools/storyboard.mjs` with zero errors and the person has seen the board. Every shot has drawn frames (how
-   it starts, what happens, how it ends), sketched in the real 1920x1080 coordinates, so the build can be cut
+   it starts, what happens, how it ends), sketched in the real frame's coordinates, so the build can be cut
    straight from them. If the person asked for an unattended run, send the board and keep going; otherwise wait for
    their yes.
 2. **True, with sources.** Every number and every claim on screen is in the storyboard's fact sheet with where it
    comes from. If you cannot source it, do not say it. What is drawn agrees with what is written: a bar, a meter
    or a path that stands for a number is computed from that number, a diagram that is not to scale says so on
    screen, and a number appears at its value (no counting up through values that are false).
-3. **It explains itself on mute.** Captions carry the explanation; the sound makes it land. A first-time viewer
-   with the sound off can say what they learned. The step the whole explanation turns on is drawn as a mechanism
+3. **It explains itself on mute.** The picture and the words on screen carry the explanation; the voice and the
+   sound make it land. A first-time viewer with the sound off can say what they learned. The step the whole explanation turns on is drawn as a mechanism
    (what goes in, what it meets, what comes out, where it ends up), never left to the caption alone.
 4. **One clock.** Every animated value is a function of the timeline's time. No CSS animations, no
    `requestAnimationFrame` loops, no `Date.now()`, no unseeded randomness.
 5. **The storyboard is the source of time.** The film reads shot starts and ends from `storyboard.json`; captions
-   and the chapter rail are generated from it. Change the plan there, never by hand in the film.
+   and the chapter rail are generated from it. Change the plan there, never by hand in the film. In a film that
+   speaks, the recorded take writes those times (`voice.mjs`).
 6. **You do not grade your own work.** Stills of every shot are looked at before a full render, measurements are
    run on the render, and a fresh reviewer who did not build it judges the result (`references/review.md`).
 7. **A film that speaks is written as talk and performed as one take.** The script is written whole and said

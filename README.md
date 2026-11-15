@@ -21,9 +21,9 @@ and sound effects.
 
 <br />
 
-<img src="docs/media/demo.gif" alt="A few seconds of “Kenapa langit berwarna biru?”" width="100%" />
+<img src="docs/media/demo.webp" alt="Moments from films made with the skill" width="100%" />
 
-<sub>From <a href="examples/langit-biru">“Kenapa langit berwarna biru?”</a> (67 s, Indonesian). Every frame is code: no stock footage, no video model.</sub>
+<sub>Moments from films made with the skill, each by an agent following it from the brief to the mix. Every frame is code: no stock footage, no video model.</sub>
 
 </div>
 
@@ -181,11 +181,17 @@ reproducible.
 ## Gallery
 
 <!-- gallery:start -->
-| | Film | Format | Language | Narration |
-| --- | --- | --- | --- | --- |
-| <a href="docs/media/films/langit-biru.mp4"><img src="docs/media/langit-biru.jpg" width="230" /></a> | [**Kenapa langit berwarna biru?**](examples/langit-biru)<br/>67 s · 22 shots · 63 storyboard frames · 9 sourced facts<br/>[▶ watch](docs/media/films/langit-biru.mp4) · [storyboard](examples/langit-biru/storyboard) · [source](examples/langit-biru/film.js) | 1920×1080 | Indonesian | captions only |
-| <a href="docs/media/films/why-seasons.mp4"><img src="docs/media/why-seasons.jpg" width="230" /></a> | [**Why do we have seasons?**](examples/why-seasons)<br/>44 s · 14 shots · 38 storyboard frames · 8 sourced facts<br/>[▶ watch](docs/media/films/why-seasons.mp4) · [storyboard](examples/why-seasons/storyboard) · [source](examples/why-seasons/film.js) | 1920×1080 | English | ElevenLabs (Megan) |
-| <a href="docs/media/films/petir-guntur.mp4"><img src="docs/media/petir-guntur.jpg" width="130" /></a> | [**Kenapa petir terlihat dulu, baru guntur terdengar?**](examples/petir-guntur)<br/>40 s · 14 shots · 37 storyboard frames · 6 sourced facts<br/>[▶ watch](docs/media/films/petir-guntur.mp4) · [storyboard](examples/petir-guntur/storyboard) · [source](examples/petir-guntur/film.js) | 1080×1920 | Indonesian | ElevenLabs (Rafiq) |
+<table>
+<tr>
+<td width="50%" valign="top" align="center"><a href="docs/media/films/langit-biru.mp4"><img src="docs/media/previews/langit-biru.webp" alt="Kenapa langit berwarna biru?" width="100%" /></a><br /><a href="examples/langit-biru"><b>Kenapa langit berwarna biru?</b></a><br /><sub>Bahasa Indonesia · 16:9 · 67 s · captions only</sub><br /><sub><a href="docs/media/films/langit-biru.mp4">▶ watch</a> · <a href="examples/langit-biru/storyboard">storyboard</a> · <a href="examples/langit-biru">source</a></sub></td>
+<td width="50%" valign="top" align="center"><a href="docs/media/films/why-seasons.mp4"><img src="docs/media/previews/why-seasons.webp" alt="Why do we have seasons?" width="100%" /></a><br /><a href="examples/why-seasons"><b>Why do we have seasons?</b></a><br /><sub>English · 16:9 · 52 s · voice: Megan</sub><br /><sub><a href="docs/media/films/why-seasons.mp4">▶ watch</a> · <a href="examples/why-seasons/storyboard">storyboard</a> · <a href="examples/why-seasons">source</a></sub></td>
+</tr>
+<tr>
+<td width="33%" valign="top" align="center"><a href="docs/media/films/petir-guntur.mp4"><img src="docs/media/previews/petir-guntur.webp" alt="Kenapa petir terlihat dulu, baru guntur terdengar?" width="100%" /></a><br /><a href="examples/petir-guntur"><b>Kenapa petir terlihat dulu, baru guntur terdengar?</b></a><br /><sub>Bahasa Indonesia · short · 9:16 · 40 s · voice: Rafiq</sub><br /><sub><a href="docs/media/films/petir-guntur.mp4">▶ watch</a> · <a href="examples/petir-guntur/storyboard">storyboard</a> · <a href="examples/petir-guntur">source</a></sub></td>
+</tr>
+</table>
+
+<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 3 films, each made by an agent following this skill from the brief to the mix.</sub>
 <!-- gallery:end -->
 
 ## Narration
