@@ -155,13 +155,23 @@ if (args.includes("--generate")) {
   if (!apiKey) throw new Error("--generate needs ELEVENLABS_API_KEY; without a key, perform the text from --script with a speech connector and hand it back with --take and --words");
   if (!sb.voice?.voice_id) throw new Error('the storyboard names no voice: add "voice": { "voice_id": "..." }');
   const body = { text: takeText(), model_id: sb.voice.model ?? "eleven_v3", ...(sb.voice.language ? { language_code: sb.voice.language } : {}), ...(sb.voice.settings ? { voice_settings: sb.voice.settings } : {}) };
-  const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${sb.voice.voice_id}/with-timestamps?output_format=mp3_44100_128`, {
-    method: "POST",
-    headers: { "xi-api-key": apiKey, "content-type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  if (!response.ok) throw new Error(`ElevenLabs answered ${response.status}: ${(await response.text()).slice(0, 300)}`);
-  const data = await response.json();
+  // Through curl: it honours a proxy set in the environment, which Node's own fetch does not. The key goes in on
+  // curl's standard input, never on its command line.
+  mkdirSync(dir, { recursive: true });
+  const reply = join(dir, ".reply.json");
+  const bodyFile = join(dir, ".request.json");
+  writeFileSync(bodyFile, JSON.stringify(body));
+  const call = spawnSync(
+    "curl",
+    ["-sS", "--max-time", "300", "-o", reply, "-w", "%{http_code}", "-X", "POST", "-H", "@-", "-H", "content-type: application/json", "--data-binary", `@${bodyFile}`, `https://api.elevenlabs.io/v1/text-to-speech/${sb.voice.voice_id}/with-timestamps?output_format=mp3_44100_128`],
+    { input: `xi-api-key: ${apiKey}\n`, encoding: "utf8" },
+  );
+  rmSync(bodyFile, { force: true });
+  const status = Number(call.stdout);
+  const text = existsSync(reply) ? readFileSync(reply, "utf8") : "";
+  rmSync(reply, { force: true });
+  if (call.status !== 0 || status !== 200) throw new Error(`ElevenLabs answered ${status || call.stderr.trim()}: ${text.slice(0, 300)}`);
+  const data = JSON.parse(text);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "take.mp3"), Buffer.from(data.audio_base64, "base64"));
   // The time of every word, from the time of every character it was given.
