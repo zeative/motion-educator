@@ -14,7 +14,8 @@
 // re-renders its segments and the rest are reused, which is what makes a review loop affordable.
 // Without --only, every segment is rendered again when anything the picture is made from has changed (the film's
 // pages, scripts, styles and storyboard, its narration's timings, the kit's engine and look) and none when nothing
-// has: a change to the cue sheet alone costs no rendering.
+// has: a change to the cue sheet alone costs no rendering. An interrupted render picks up where it stopped: each
+// finished segment records what it was made from.
 // Needs `npm install` in the workspace, Playwright with Chromium, and FFmpeg on PATH.
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -154,7 +155,11 @@ if (args.includes("--serve")) {
     const unchanged = existsSync(stamp) && readFileSync(stamp, "utf8") === source;
     const wanted = [];
     for (let i = 0; i < segments; i++) {
-      const touches = only ? i * SEGMENT < only[1] && (i + 1) * SEGMENT > only[0] : args.includes("--force") || !unchanged;
+      // A segment is current when it was made from this source: by its own stamp (written as each segment finishes,
+      // so an interrupted render resumes where it stopped), or by the whole render's stamp (older renders).
+      const own = `${file(i)}.sha`;
+      const current = existsSync(own) ? readFileSync(own, "utf8") === source : unchanged;
+      const touches = only ? i * SEGMENT < only[1] && (i + 1) * SEGMENT > only[0] : args.includes("--force") || !current;
       if (touches || !existsSync(file(i))) wanted.push(i);
     }
     if (!wanted.length) console.log("nothing the picture is made from has changed: every segment is reused (--force renders them anyway)");
@@ -185,6 +190,7 @@ if (args.includes("--serve")) {
           child.stdin.end();
           await done;
           renameSync(part, file(i));
+          writeFileSync(`${file(i)}.sha`, source);
         }
         await browser.close();
       }),
