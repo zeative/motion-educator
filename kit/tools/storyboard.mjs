@@ -180,10 +180,13 @@ shots.forEach((shot, i) => {
 });
 if (shots.length && Math.abs(previousEnd - sb.duration) > 1e-3) err("storyboard", `the last shot ends at ${previousEnd} but the film is ${sb.duration} s`);
 if (shots.length && shots[0].start !== 0) err("storyboard", "the first shot must start at 0");
+// Before a narrated film has its take, its length is a guess: the counts are checked, but only as warnings.
+const guessed = narrated && !cutToTake;
+const countRule = guessed ? (where, text) => warn(where, `${text} (judged on the planned length; the take sets the real one)`) : err;
 const fewest = Math.ceil(sb.duration / SHOT.average);
-if (shots.length < fewest) err("storyboard", `${shots.length} shots for ${sb.duration} s: at least ${fewest} are needed (one new picture about every ${SHOT.average} s)`);
+if (shots.length < fewest) countRule("storyboard", `${shots.length} shots for ${sb.duration} s: at least ${fewest} are needed (one new picture about every ${SHOT.average} s)`);
 const fewestFrames = Math.ceil(sb.duration * FRAMES.perSecond);
-if (frameCount < fewestFrames) err("storyboard", `${frameCount} drawn frames for ${sb.duration} s: at least ${fewestFrames} are needed (about one every 1.25 s)`);
+if (frameCount < fewestFrames) countRule("storyboard", `${frameCount} drawn frames for ${sb.duration} s: at least ${fewestFrames} are needed (about one every 1.25 s)`);
 if (new Set(shots.map((shot) => shot.type)).size < 4) err("storyboard", "fewer than four kinds of shot: vary the picture (type, 3D, diagram, chart, macro, wide...)");
 // A shot made of type says its line itself; every other shot needs a caption.
 const spoken = shots.filter((shot) => !["type", "endcard"].includes(shot.type));
