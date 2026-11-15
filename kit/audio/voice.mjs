@@ -291,6 +291,13 @@ function retime() {
   return plan;
 }
 
+// Shots split, joined or renamed after the take, with the words unchanged: the take still fits, so match its words
+// to the shots again before cutting.
+if (manifest?.version === 2 && args.includes("--retime") && speaking.some((shot) => !manifest.lines[shot.id])) {
+  if (!existsSync(join(dir, "words.json"))) throw new Error("the shots changed since the take and voice/words.json is missing: hand the take back with --take and --words");
+  store(join(dir, manifest.take.file), readWords(join(dir, "words.json")), manifest.source);
+}
+
 if (manifest?.version === 2 && (args.includes("--take") || args.includes("--generate") || args.includes("--retime"))) {
   const plan = retime();
   console.log(`retimed: ${shots.length} shots, ${plan.duration.toFixed(2)} s, the take in ${plan.pieces.length} stretch(es)`);

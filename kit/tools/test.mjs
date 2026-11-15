@@ -137,6 +137,12 @@ try {
     const beat = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8")).shots[1];
     for (let k = 1; k < again.pieces.length; k++) assert(again.pieces[k].from >= again.pieces[k - 1].to - 0.001, "stretches overlap around a silent beat");
     assert(again.film.s02.from >= beat.end + 0.05, `the line after a silent beat starts at ${again.film.s02.from}, before the beat ends at ${beat.end}`);
+    // Splitting a speaking shot in two, with the words unchanged, needs only a retime.
+    const split = JSON.parse(readFileSync(join(tall, "storyboard.json"), "utf8"));
+    const at = split.shots.findIndex((shot) => shot.id === "s02");
+    split.shots.splice(at, 1, { ...split.shots[at], id: "s02a", voice: "Because air scatters" }, { ...split.shots[at], id: "s02b", voice: "blue light most." });
+    writeFileSync(join(tall, "storyboard.json"), `${JSON.stringify(split, null, 2)}\n`);
+    assert(/retimed: 6 shots/.test(run("node", [voiceTool, tall, "--retime"])), "a retime after splitting a shot should keep the take");
     writeFileSync(join(tall, "storyboard.json"), `${JSON.stringify(cut, null, 2)}\n`);
     run("node", [voiceTool, tall, "--retime"]);
   });

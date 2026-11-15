@@ -66,10 +66,29 @@ if (args.includes("--serve")) {
   async function openFilm() {
     const browser = await chromium.launch({ args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"] });
     const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
-    page.on("pageerror", (error) => console.error(`page error: ${error.message}`));
-    page.on("console", (message) => message.type() === "error" && console.error(`page: ${message.text()}`));
+    const problems = [];
+    page.on("pageerror", (error) => {
+      problems.push(error.message);
+      console.error(`page error: ${error.message}`);
+    });
+    page.on("console", (message) => {
+      if (message.type() !== "error") return;
+      problems.push(message.text());
+      console.error(`page: ${message.text()}`);
+    });
+    page.on("requestfailed", (request) => problems.push(`could not load ${request.url()}`));
+    page.on("response", (response) => response.status() >= 400 && problems.push(`${response.status()} for ${response.url()}`));
     await page.goto(url);
-    await page.waitForFunction(() => window.__ready && [...document.images].every((img) => img.complete), null, { timeout: 120000 });
+    try {
+      await page.waitForFunction(() => window.__ready && [...document.images].every((img) => img.complete), null, { timeout: 120000 });
+    } catch {
+      // The film never said it was ready: say why, instead of a bare timeout.
+      const state = await page.evaluate(() => ({ ready: Boolean(window.__ready), images: [...document.images].filter((img) => !img.complete).map((img) => img.src) })).catch(() => null);
+      await browser.close();
+      throw new Error(
+        `the film did not get ready in 120 s.\n${problems.length ? `What went wrong in the page:\n  ${[...new Set(problems)].slice(0, 8).join("\n  ")}` : "The page reported no error: check that film.js ends with film.finish()."}${state?.images?.length ? `\nImages still loading: ${state.images.join(", ")}` : ""}`,
+      );
+    }
     return { browser, page };
   }
   const seek = (page, time) =>
