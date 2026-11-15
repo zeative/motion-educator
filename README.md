@@ -186,6 +186,9 @@ reproducible.
 <table>
 <tr>
 <td valign="top" align="center" width="300"><a href="docs/media/films/langit-biru.mp4"><img src="docs/media/previews/langit-biru.webp" alt="Kenapa langit berwarna biru?" width="300" /></a><br /><sub><a href="examples/langit-biru"><b>Kenapa langit berwarna biru?</b></a><br />Bahasa Indonesia · 67 s · captions · <a href="docs/media/films/langit-biru.mp4">▶ watch</a> · <a href="examples/langit-biru/storyboard">board</a></sub></td>
+<td valign="top" align="center" width="300"><a href="docs/media/films/bunga-majemuk.mp4"><img src="docs/media/previews/bunga-majemuk.webp" alt="Kok uang bisa beranak? Gimana bunga majemuk bekerja?" width="300" /></a><br /><sub><a href="examples/bunga-majemuk"><b>Kok uang bisa beranak? Gimana bunga majemuk bekerja?</b></a><br />Bahasa Indonesia · 52 s · captions · <a href="docs/media/films/bunga-majemuk.mp4">▶ watch</a> · <a href="examples/bunga-majemuk/storyboard">board</a></sub></td>
+</tr>
+<tr>
 <td valign="top" align="center" width="300"><a href="docs/media/films/why-seasons.mp4"><img src="docs/media/previews/why-seasons.webp" alt="Why do we have seasons?" width="300" /></a><br /><sub><a href="examples/why-seasons"><b>Why do we have seasons?</b></a><br />English · 44 s · voice: Megan · <a href="docs/media/films/why-seasons.mp4">▶ watch</a> · <a href="examples/why-seasons/storyboard">board</a></sub></td>
 </tr>
 </table>
@@ -200,7 +203,7 @@ reproducible.
 </tr>
 </table>
 
-<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 5 films, each made by an agent following this skill from the brief to the mix.</sub>
+<sub>Every preview is a few seconds of the finished film, looping. Click one for the whole film (720p, sound on). 6 films, each made by an agent following this skill from the brief to the mix.</sub>
 <!-- gallery:end -->
 
 ## Narration

@@ -76,7 +76,8 @@ for (const name of readdirSync(join(repo, "examples")).sort()) {
 }
 
 // The reel at the top of the README: two seconds from each landscape film, cut together, in the same light format.
-const wide = films.filter((f) => !f.portrait);
+// A film kept as committed is being remade: its file on disk may be half written, so it sits out of the reel.
+const wide = films.filter((f) => !f.portrait && !keep.has(f.name));
 if (wide.length) {
   const inputs = [];
   const parts = [];
