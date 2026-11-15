@@ -1,0 +1,269 @@
+/* "Kenapa es malah ngapung di air?" A portrait short: 1080 x 1920.
+   Ice cyan is ice and its bonds, blue is liquid water, all film long. What must be read stays between x 64 and 930,
+   y 230 and 1180; the spoken words pop in under that. */
+:root {
+  --accent: #7fe6ff;
+  --accent-2: #3f8cff;
+  --wax: #e8891a;
+}
+#lab {
+  position: absolute;
+  inset: 0;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex: none;
+}
+.dot.ice {
+  background: #dffaff;
+  box-shadow: 0 0 14px 3px var(--accent);
+}
+.dot.water {
+  background: var(--accent-2);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent-2) 60%, transparent);
+}
+.dot.wax {
+  background: var(--wax);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--wax) 60%, transparent);
+}
+.chip {
+  position: absolute;
+  gap: 16px;
+  padding: 18px 28px 19px;
+  font-size: 38px;
+}
+.chip b {
+  display: inline-block;
+  color: var(--accent);
+  font: 650 38px / 1 var(--brand);
+  letter-spacing: -0.02em;
+}
+.chip b.num {
+  font-size: 40px;
+}
+.chip.col {
+  padding: 16px 22px 17px;
+  font-size: 32px;
+  gap: 12px;
+}
+.chip.col b {
+  font-size: 34px;
+}
+.chip .ice,
+.fig.ice {
+  color: var(--accent);
+}
+.pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+.pin .chip {
+  position: absolute;
+}
+/* A chip that points at the thing it names, from the side: a short leader to the left. */
+.chip.lead {
+  left: 34px;
+  top: 0;
+  translate: 0 -50%;
+}
+.chip.lead::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 34px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent));
+}
+.micro {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 236px;
+  color: var(--t2);
+  font: 500 28px / 1 var(--mono);
+  letter-spacing: 0.12em;
+}
+.micro i {
+  width: 60px;
+}
+
+/* s01: the question, on the floor under the glass */
+#q {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 1176px;
+  font-size: 90px;
+  line-height: 1.1;
+}
+#q .ln,
+#poster .ln,
+#p9 .ln {
+  filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.75));
+}
+
+/* s02: what each one does */
+.fate {
+  font-size: 36px;
+}
+.fate.wax {
+  color: #ffd29a;
+}
+.fate.ice {
+  color: #dffaff;
+}
+
+/* s06, s07: the measure of the extra room */
+.dash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 4px dashed rgb(237 237 240 / 0.85);
+  transform-origin: 0 0;
+}
+.measure-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 0;
+  border-radius: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 18px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+#p9 {
+  position: absolute;
+  left: 510px;
+  width: 420px;
+  top: 296px;
+  font-size: 130px;
+  line-height: 1;
+}
+.sub {
+  position: absolute;
+  color: var(--t1);
+  font: 500 44px / 1 var(--brand);
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+}
+#p9-sub {
+  left: 510px;
+  width: 420px;
+  top: 432px;
+  color: var(--t2);
+}
+
+/* s08: the figures stand on their bars */
+.fig {
+  position: absolute;
+  color: var(--t1);
+  font-size: 84px;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow: 0 4px 16px rgb(0 0 0 / 0.8);
+}
+.fig small {
+  font-size: 44px;
+  color: var(--t2);
+}
+#v-w {
+  left: 170px;
+  width: 300px;
+  top: 404px;
+}
+#v-i {
+  left: 530px;
+  width: 300px;
+  top: 572px;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 0.9), 0 0 22px rgb(0 0 0 / 0.8);
+}
+.bar-label {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 300px;
+  top: 1114px;
+  color: var(--t1);
+  font: 550 38px / 1 var(--sans);
+}
+#l-w {
+  left: 170px;
+}
+#l-i {
+  left: 530px;
+}
+
+/* s09: the share under water, beside its measure */
+#v92 {
+  position: absolute;
+  left: 14px;
+  top: -56px;
+  font-size: 64px;
+  text-align: left;
+}
+.under {
+  position: absolute;
+  left: 18px;
+  top: 26px;
+  color: var(--t1);
+  font: 500 32px / 1 var(--sans);
+  white-space: nowrap;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.9);
+}
+
+/* s10: three cards and the poster line */
+.rc {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 0 30px 0 18px;
+  border-radius: 30px;
+}
+.rc .pic {
+  width: 150px;
+  height: 150px;
+  flex: none;
+}
+.rc p {
+  color: var(--t2);
+  font: 500 40px / 1.22 var(--sans);
+  letter-spacing: -0.015em;
+}
+.rc b {
+  color: var(--t1);
+  font-weight: 650;
+}
+#poster {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 880px;
+  font-size: 100px;
+  line-height: 1.14;
+}
+
+/* The question in s01 is lettered in the picture, so its pop caption is not shown twice. */
+.caption[data-shot="s01"] {
+  display: none;
+}
+/* Blue is liquid water: in the shot about the liquid its accent word takes that colour. */
+.caption[data-shot="s03"] .key {
+  color: #8fbcff;
+}

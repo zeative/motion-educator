@@ -1,0 +1,3979 @@
+{
+  "title": "Kenapa es malah ngapung di air?",
+  "question": "Kenapa sih es malah ngapung di air?",
+  "audience": "Remaja dan orang dewasa di Indonesia yang menonton video pendek di ponsel. Mereka tahu es ngapung di gelas, tapi kebanyakan mengira itu biasa saja, atau karena 'es ada udaranya'. Belum tahu bahwa benda padat biasanya tenggelam di cairannya sendiri.",
+  "promise": "Benda padat biasanya tenggelam di cairannya sendiri, tapi waktu air membeku, tiap molekulnya menggandeng empat tetangga jadi kisi segi enam yang berongga. Molekul yang sama makan tempat sekitar sembilan persen lebih banyak, jadi es lebih ringan dari air (0,917 lawan 1,000 g/cm³) dan ngapung dengan kira-kira sembilan per sepuluh badannya di bawah permukaan.",
+  "language": "id",
+  "format": "1080x1920",
+  "captions": "pop",
+  "duration": 31.746,
+  "fps": 60,
+  "poster": 1.6,
+  "look": {
+    "accent": "#7fe6ff",
+    "accent2": "#3f8cff",
+    "mood": "Cold and clean: the kit's graphite floor and a stage light that starts water blue under the glass and turns ice cyan the moment the water freezes, staying cyan to the end. Ice is translucent cyan with frosted edges and a bright rim; liquid water is a deeper blue; wax (one shot only) is a warm amber. Molecules are shaded balls lit from the upper left, with depth. Ice cyan always means ice and its bonds; blue always means liquid water."
+  },
+  "music": {
+    "track": "Xceed Thru Johann (Mixkit 556)",
+    "bpm": 86,
+    "beat": 0.348837,
+    "offset": 0,
+    "start": 0.679,
+    "note": "A calm, curious 86 BPM bed with no lead melody, started 0.679 s in so a beat falls on frame 0, at -18 LUFS. Every shot is a whole number of half beats (0.349 s), so every cut is on the grid; 'beat' here is that half beat."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "Ordinary ice (ice Ih) at 0 °C and normal pressure has a density of about 0,9167 g/cm³; liquid water at 0 °C about 0,9998 g/cm³. The film writes these as 0,917 and 1,000 g/cm³ (a cubic centimetre of ice weighs 0,917 g, of water 1,000 g).",
+      "source": "CRC Handbook of Chemistry and Physics (ice 0,9167 g/cm³ at 0 °C), as cited by Wikipedia, 'Ice'; IEEE Technology Navigator, 'Ice' (917 kg/m³ against 999,8 kg/m³); International Critical Tables via Journal of Glaciology (0,9168 ± 0,0005 g/ml)."
+    },
+    {
+      "id": "f2",
+      "claim": "Liquid water is densest at about 4 °C (3,98 °C, 0,99997 g/cm³); between 0 °C (0,9998) and 4 °C it changes by less than 0,02 %, so '1,000 g/cm³' holds for the cold water around the ice.",
+      "source": "Encyclopaedia Britannica, 'Water: physical properties' (maximum density 1,0000 g/cm³ at 3,98 °C); IAPWS / VSMOW figure 0,99997495 g/mL at 3,983 °C as tabulated in Wikipedia, 'Properties of water'."
+    },
+    {
+      "id": "f3",
+      "claim": "In ice Ih each water molecule is hydrogen-bonded to four neighbours arranged as a tetrahedron (O–O about 2,76 Å, angles near 109,5°); the oxygens form puckered layers of six-membered rings, and seen down the c axis the lattice is a honeycomb with open hexagonal channels. Each bond carries one hydrogen (the ice rules, Bernal–Fowler 1933, Pauling 1935). This open framework is why ice is less dense than the liquid, where molecules also sit in the spaces the lattice leaves open. The film builds its lattice from the real geometry (hexagonal diamond, c/a = 1,63) and orients the hydrogens by the ice rules; balls are not to scale with the gaps (drawn smaller than the atoms really are, so the bonds can be seen). The film draws 240 molecules: a block 6 a wide, 5 √3 a tall and one cell (c) deep holds 6 x 5 x 8 = 240 of them.",
+      "source": "M. Chaplin, Water Structure and Science, London South Bank University: 'Hexagonal ice (ice Ih)' (water.lsbu.ac.uk/water/hexagonal_ice.html, ice_phases.html); IEEE Technology Navigator, 'Ice'; L. Pauling, J. Am. Chem. Soc. 57, 2680 (1935)."
+    },
+    {
+      "id": "f4",
+      "claim": "Freezing, the same mass of water takes about 9 % more room: volume ratio 0,9998 / 0,9167 = 1,0907, so +9,1 %. Put the other way, ice is 1 − 0,9167 / 0,9998 = 8,3 % less dense. The caption says '9% lebih banyak' of the room, which is the 9 %; it never says 'nine percent less dense', which would be wrong (8 %). The columns of s07 keep the same width and depth, so their heights carry the volume: 606 px against 606 / 1,0907 = 555,6 px.",
+      "source": "Arithmetic from f1."
+    },
+    {
+      "id": "f5",
+      "claim": "A floating body sinks until it pushes aside its own weight of liquid (Archimedes), so the fraction under the surface is ρ_object / ρ_liquid: for ice in fresh water near 0 °C, 0,9167 / 0,9998 = 0,917, 'about nine tenths' (written ≈ 92 %). In sea water (about 1,025 g/cm³) it is 0,894, the familiar 'nine tenths of an iceberg'. The film shows fresh water in a glass. The 250 px cube floats with 0,083 x 250 = 20,8 px above the water; the 400 px cube with 33,2 px above.",
+      "source": "OpenStax, College Physics 2e, section 11.7 'Archimedes' Principle' (fraction submerged = ρ_obj / ρ_fl); arithmetic from f1."
+    },
+    {
+      "id": "f6",
+      "claim": "For most substances the solid is denser than its liquid, so a lump of the solid sinks in its own melt; water is one of a few exceptions (others: silicon, gallium, germanium, bismuth). The film's example is paraffin wax: solid about 0,88 to 0,93 g/cm³, molten about 0,73 to 0,78 g/cm³ (100 to 135 °C), so solid wax sinks in molten wax. The caption says 'biasanya' (usually), not 'always'.",
+      "source": "Anton Paar Wiki, 'Paraffin wax' (density of molten wax); paraffin solid density in standard tables (0,88 to 0,93 g/cm³); M. Chaplin, Water Structure and Science, 'Anomalous properties of water' (density anomaly, other substances that expand on freezing)."
+    },
+    {
+      "id": "f7",
+      "claim": "In liquid water the molecules are close together and constantly moving; hydrogen bonds still form but break and re-form within picoseconds, so there is no lasting lattice and molecules can sit in the spaces the ice lattice keeps open. Simplification: the film draws the liquid without bonds, and its motion is slowed down enormously to be visible.",
+      "source": "M. Chaplin, Water Structure and Science, London South Bank University: 'Water structure' and 'Hydrogen bonding in water'."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "Pertanyaan",
+      "goal": "Ask the question while ice floats on screen, then break the obvious: a solid usually sinks in its own liquid (wax does).",
+      "rail": false
+    },
+    {
+      "id": "molekul",
+      "title": "Molekul",
+      "goal": "Go inside: crowded moving molecules, then freezing locks each to four neighbours in an open hexagonal lattice; the same molecules need 9 % more room.",
+      "rail": false
+    },
+    {
+      "id": "ngapung",
+      "title": "Ngapung",
+      "goal": "Turn the extra room into density (0,917 against 1,000) and the density into the waterline: about nine tenths under.",
+      "rail": false
+    },
+    {
+      "id": "recap",
+      "title": "Rangkuman",
+      "goal": "The three ideas in one frame and the line to remember.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "wide",
+      "start": 0,
+      "end": 2.791,
+      "caption": "Kenapa es malah *ngapung* di air?",
+      "teaches": "Asks the question while it happens: a cube of ice let go under water rises and floats.",
+      "screen": "A tall glass in cross-section fills the frame (walls at x 232 and 762, rim at y 300, bottom at y 1150), water to y 540 with a bright meniscus line and soft caustics on the back. A 250 px ice cube, translucent cyan with frosted edges and a bright rim, is near the bottom on frame 0, rising, with a trail of bubbles. On the floor of the frame, inside the safe area, the question in metal type at 90 px, three lines: 'Kenapa es / malah ngapung / di air?', 'ngapung' in ice cyan. The lettering is the caption, so the pop caption of this shot is hidden (film.css).",
+      "motion": "The cube rises from frame 0, breaks the surface at about 0.9 s, overshoots and bobs twice (a damped oscillation) and settles with 0,917 of its height under the waterline. Rings spread on the surface where it broke through. The first line is there on frame 0; the other two slam in at the pace the caption would show them. The camera pushes 4 percent.",
+      "carries": "The glass and the floating cube.",
+      "transition": "The glass slides left and shrinks into the right glass of a pair; a wax glass slides in on the left.",
+      "sound": "Music from frame 0, low. A soft water plop where the cube breaks the surface, as the second line lands.",
+      "check": "Frame 0 is a finished picture. The cube settles with its top 20.8 px above the waterline (0,083 of 250 px). The question is inside the safe area and not over the glass's water.",
+      "facts": [
+        "f1",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Frame 0 is finished: the glass fills the frame, the cube has just been let go near the bottom and is rising, a trail of bubbles; the first line of the question in metal type on the floor.",
+          "draw": [
+            {
+              "path": "M240 540 L240 1110 Q240 1142 272 1142 L722 1142 Q754 1142 754 1110 L754 540 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M232 300 L232 1110 Q232 1150 272 1150 L722 1150 Q762 1150 762 1110 L762 300",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                240,
+                540,
+                754,
+                540
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 860 L622.0 860 L622.0 1110 L372.0 1110 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 860 L412.0 836.0 L662.0 836.0 L622.0 860 M622.0 1110 L662.0 1086.0 L662.0 836.0",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "dot": [
+                450,
+                820,
+                10
+              ],
+              "colour": "#3f8cff"
+            },
+            {
+              "dot": [
+                540,
+                780,
+                7
+              ],
+              "colour": "#3f8cff"
+            },
+            {
+              "glow": [
+                497,
+                700,
+                380
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "title": [
+                497,
+                1290
+              ],
+              "text": "Kenapa es",
+              "size": 96
+            },
+            {
+              "move": [
+                497,
+                840,
+                497,
+                600
+              ],
+              "text": "naik"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "The cube breaks the surface and overshoots, the water rings, the second line of the question lands.",
+          "draw": [
+            {
+              "path": "M240 540 L240 1110 Q240 1142 272 1142 L722 1142 Q754 1142 754 1110 L754 540 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M232 300 L232 1110 Q232 1150 272 1150 L722 1150 Q762 1150 762 1110 L762 300",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                240,
+                540,
+                754,
+                540
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 470 L622.0 470 L622.0 720 L372.0 720 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 470 L412.0 446.0 L662.0 446.0 L622.0 470 M622.0 720 L662.0 696.0 L662.0 446.0",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "ring": [
+                497,
+                540,
+                260
+              ],
+              "colour": "#3f8cff",
+              "dashed": true
+            },
+            {
+              "title": [
+                497,
+                1290
+              ],
+              "text": "Kenapa es\nmalah ngapung",
+              "size": 96,
+              "accent": "ngapung"
+            },
+            {
+              "move": [
+                700,
+                460,
+                700,
+                520
+              ],
+              "text": "terombang-ambing"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "It settles where the physics puts it: 0,917 of the cube under the waterline, a sliver above. The whole question is up.",
+          "draw": [
+            {
+              "path": "M240 540 L240 1110 Q240 1142 272 1142 L722 1142 Q754 1142 754 1110 L754 540 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M232 300 L232 1110 Q232 1150 272 1150 L722 1150 Q762 1150 762 1110 L762 300",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                240,
+                540,
+                754,
+                540
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 519.2 L622.0 519.2 L622.0 769.2 L372.0 769.2 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 519.2 L412.0 495.20000000000005 L662.0 495.20000000000005 L622.0 519.2 M622.0 769.2 L662.0 745.2 L662.0 495.20000000000005",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "glow": [
+                497,
+                600,
+                320
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "title": [
+                497,
+                1290
+              ],
+              "text": "Kenapa es\nmalah ngapung\ndi air?",
+              "size": 96,
+              "accent": "ngapung"
+            },
+            {
+              "camera": "pull"
+            },
+            {
+              "cut": "kaca membelah jadi dua"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "hook",
+      "type": "compare",
+      "start": 2.791,
+      "end": 7.326,
+      "caption": "Padahal benda padat biasanya *tenggelam* di cairannya sendiri.",
+      "teaches": "The tension: a solid normally sinks in its own melt; wax does, ice does not.",
+      "screen": "Two glasses side by side, 360 px wide, rims at y 420, bottoms at y 1120, liquid to y 560. Left: molten wax, warm amber and slightly opaque, with a 170 px block of solid wax, paler and matte. Right: the same water and ice as s01, a 170 px cube floating with 0,917 of it under. Chips above: 'lilin' (left) and 'es' (right). Under each when it is decided: 'padat → tenggelam' (amber), 'padat → ngapung' (cyan).",
+      "motion": "The wax block is let go at the surface on the first word and sinks slowly through the thick melt; it lands on the bottom with a small bounce as the caption says 'cairannya'. The ice bobs gently and stays up. The labels under each glass land when each fate is clear.",
+      "carries": "The right glass, with the ice.",
+      "transition": "The wax glass slides out left; the ice glass grows back to the hero glass.",
+      "sound": "A soft thud when the wax lands.",
+      "check": "The wax is a different colour from the water and the ice. The ice's waterline is still at 0,917 of its height. Labels sit on their glasses.",
+      "facts": [
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Two glasses side by side. Left: molten wax, amber; a pale block of the same wax let go at the surface. Right: the floating ice from s01, smaller.",
+          "draw": [
+            {
+              "path": "M92 560 L92 1080 Q92 1112 124 1112 L404 1112 Q436 1112 436 1080 L436 560 Z",
+              "colour": "#e8891a",
+              "fill": "#e8891a",
+              "width": 3
+            },
+            {
+              "path": "M84 420 L84 1080 Q84 1120 124 1120 L404 1120 Q444 1120 444 1080 L444 420",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                92,
+                560,
+                436,
+                560
+              ],
+              "colour": "#e8891a",
+              "width": 7
+            },
+            {
+              "path": "M179.0 480 L349.0 480 L349.0 650 L179.0 650 Z",
+              "colour": "#e8891a",
+              "fill": "#e8891a",
+              "width": 7
+            },
+            {
+              "path": "M179.0 480 L206.2 463.68 L376.2 463.68 L349.0 480 M349.0 650 L376.2 633.68 L376.2 463.68",
+              "colour": "#e8891a",
+              "width": 5
+            },
+            {
+              "path": "M558 560 L558 1080 Q558 1112 590 1112 L870 1112 Q902 1112 902 1080 L902 560 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M550 420 L550 1080 Q550 1120 590 1120 L870 1120 Q910 1120 910 1080 L910 420",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                558,
+                560,
+                902,
+                560
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M645.0 545.9 L815.0 545.9 L815.0 715.9 L645.0 715.9 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M645.0 545.9 L672.2 529.5799999999999 L842.2 529.5799999999999 L815.0 545.9 M815.0 715.9 L842.2 699.5799999999999 L842.2 529.5799999999999",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "chip": [
+                104,
+                300
+              ],
+              "text": "lilin"
+            },
+            {
+              "chip": [
+                600,
+                300
+              ],
+              "text": "es"
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 0.55,
+          "note": "On 'tenggelam' the wax block is half way down and still sinking; the ice stays up.",
+          "draw": [
+            {
+              "path": "M92 560 L92 1080 Q92 1112 124 1112 L404 1112 Q436 1112 436 1080 L436 560 Z",
+              "colour": "#e8891a",
+              "fill": "#e8891a",
+              "width": 3
+            },
+            {
+              "path": "M84 420 L84 1080 Q84 1120 124 1120 L404 1120 Q444 1120 444 1080 L444 420",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                92,
+                560,
+                436,
+                560
+              ],
+              "colour": "#e8891a",
+              "width": 7
+            },
+            {
+              "path": "M179.0 760 L349.0 760 L349.0 930 L179.0 930 Z",
+              "colour": "#e8891a",
+              "fill": "#e8891a",
+              "width": 7
+            },
+            {
+              "path": "M179.0 760 L206.2 743.68 L376.2 743.68 L349.0 760 M349.0 930 L376.2 913.68 L376.2 743.68",
+              "colour": "#e8891a",
+              "width": 5
+            },
+            {
+              "path": "M558 560 L558 1080 Q558 1112 590 1112 L870 1112 Q902 1112 902 1080 L902 560 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M550 420 L550 1080 Q550 1120 590 1120 L870 1120 Q910 1120 910 1080 L910 420",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                558,
+                560,
+                902,
+                560
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M645.0 545.9 L815.0 545.9 L815.0 715.9 L645.0 715.9 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M645.0 545.9 L672.2 529.5799999999999 L842.2 529.5799999999999 L815.0 545.9 M815.0 715.9 L842.2 699.5799999999999 L842.2 529.5799999999999",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "chip": [
+                104,
+                300
+              ],
+              "text": "lilin"
+            },
+            {
+              "chip": [
+                600,
+                300
+              ],
+              "text": "es"
+            },
+            {
+              "move": [
+                264,
+                640,
+                264,
+                920
+              ],
+              "text": "tenggelam"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The wax rests on the bottom with 'padat → tenggelam' on it; the ice, 'padat → ngapung', is the odd one out.",
+          "draw": [
+            {
+              "path": "M92 560 L92 1080 Q92 1112 124 1112 L404 1112 Q436 1112 436 1080 L436 560 Z",
+              "colour": "#e8891a",
+              "fill": "#e8891a",
+              "width": 3
+            },
+            {
+              "path": "M84 420 L84 1080 Q84 1120 124 1120 L404 1120 Q444 1120 444 1080 L444 420",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                92,
+                560,
+                436,
+                560
+              ],
+              "colour": "#e8891a",
+              "width": 7
+            },
+            {
+              "path": "M179.0 942 L349.0 942 L349.0 1112 L179.0 1112 Z",
+              "colour": "#e8891a",
+              "fill": "#e8891a",
+              "width": 7
+            },
+            {
+              "path": "M179.0 942 L206.2 925.68 L376.2 925.68 L349.0 942 M349.0 1112 L376.2 1095.68 L376.2 925.68",
+              "colour": "#e8891a",
+              "width": 5
+            },
+            {
+              "path": "M558 560 L558 1080 Q558 1112 590 1112 L870 1112 Q902 1112 902 1080 L902 560 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M550 420 L550 1080 Q550 1120 590 1120 L870 1120 Q910 1120 910 1080 L910 420",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                558,
+                560,
+                902,
+                560
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M645.0 545.9 L815.0 545.9 L815.0 715.9 L645.0 715.9 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M645.0 545.9 L672.2 529.5799999999999 L842.2 529.5799999999999 L815.0 545.9 M815.0 715.9 L842.2 699.5799999999999 L842.2 529.5799999999999",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "chip": [
+                104,
+                300
+              ],
+              "text": "lilin"
+            },
+            {
+              "chip": [
+                600,
+                300
+              ],
+              "text": "es"
+            },
+            {
+              "label": [
+                264,
+                1060
+              ],
+              "text": "tenggelam",
+              "size": 40
+            },
+            {
+              "label": [
+                730,
+                820
+              ],
+              "text": "ngapung",
+              "size": 40,
+              "colour": "#7fe6ff"
+            },
+            {
+              "cut": "kembali ke satu gelas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "molekul",
+      "type": "diagram",
+      "start": 7.326,
+      "end": 11.512,
+      "caption": "Waktu cair, molekul air *berdesakan* dan terus bergerak.",
+      "teaches": "In the liquid the molecules are packed close in no order and always moving.",
+      "screen": "A glass box (x 217 to 777, bottom y 1150, top y 409) holding N water molecules drawn as balls: a large oxygen in water blue with two small white hydrogens at 104.5 degrees, shaded as spheres, lit from the upper left; nearer ones larger and sharper, farther ones smaller and dimmer. A chip 'air · cair' at the top left. The molecules are packed close, in no order.",
+      "motion": "The cut is a dive: in the first 0.9 s a lens opens over the water of the hero glass beside the cube and grows over the frame, with the liquid already inside it; the glass dims away. Every molecule jiggles and tumbles all shot long (a seeded drift and spin on each, as a function of time). The camera drifts slightly so the depth reads. The stage light is water blue, low behind the box.",
+      "carries": "The same molecules, in the same box.",
+      "transition": "No cut: the cold comes in.",
+      "sound": "The music only.",
+      "check": "The box's height is the ice box's height divided by 1,0907. The molecules never leave the box.",
+      "facts": [
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The cut is a dive: a lens opens over the water beside the floating cube and grows over the whole frame; inside it the water is already molecules.",
+          "draw": [
+            {
+              "path": "M240 540 L240 1110 Q240 1142 272 1142 L722 1142 Q754 1142 754 1110 L754 540 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M232 300 L232 1110 Q232 1150 272 1150 L722 1150 Q762 1150 762 1110 L762 300",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                240,
+                540,
+                754,
+                540
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 519.2 L622.0 519.2 L622.0 769.2 L372.0 769.2 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M372.0 519.2 L412.0 495.20000000000005 L662.0 495.20000000000005 L622.0 519.2 M622.0 769.2 L662.0 745.2 L662.0 495.20000000000005",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "ring": [
+                540,
+                900,
+                260
+              ],
+              "colour": "#3f8cff"
+            },
+            {
+              "molecules": [
+                330,
+                680,
+                420,
+                420,
+                14
+              ],
+              "seed": 4
+            },
+            {
+              "move": [
+                560,
+                960,
+                540,
+                760
+              ],
+              "text": "masuk ke air"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.3,
+          "note": "Inside the water: a glass box of molecules, each an oxygen with two hydrogens, packed close in no order. A chip 'air · cair'.",
+          "draw": [
+            {
+              "path": "M217 409.20000000000005 L217 1150 L777 1150 L777 409.20000000000005",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "molecules": [
+                237,
+                429.20000000000005,
+                500,
+                680.8,
+                40
+              ],
+              "seed": 7
+            },
+            {
+              "chip": [
+                217,
+                270
+              ],
+              "text": "air · cair"
+            }
+          ]
+        },
+        {
+          "at": 0.65,
+          "note": "They jostle and tumble all the time: short trails show where each was a moment ago.",
+          "draw": [
+            {
+              "path": "M217 409.20000000000005 L217 1150 L777 1150 L777 409.20000000000005",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "molecules": [
+                237,
+                429.20000000000005,
+                500,
+                680.8,
+                40
+              ],
+              "seed": 8
+            },
+            {
+              "chip": [
+                217,
+                270
+              ],
+              "text": "air · cair"
+            },
+            {
+              "move": [
+                300,
+                700,
+                380,
+                640
+              ]
+            },
+            {
+              "move": [
+                640,
+                900,
+                560,
+                980
+              ]
+            },
+            {
+              "move": [
+                500,
+                560,
+                600,
+                600
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "still moving as the line ends; the light cools from blue toward ice cyan.",
+          "draw": [
+            {
+              "path": "M217 409.20000000000005 L217 1150 L777 1150 L777 409.20000000000005",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "molecules": [
+                237,
+                429.20000000000005,
+                500,
+                680.8,
+                40
+              ],
+              "seed": 9
+            },
+            {
+              "chip": [
+                217,
+                270
+              ],
+              "text": "air · cair"
+            },
+            {
+              "glow": [
+                500,
+                780,
+                300
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "molekul",
+      "type": "macro",
+      "start": 11.512,
+      "end": 15.698,
+      "caption": "Tapi pas membeku, tiap molekul *menggandeng* 4 tetangga,",
+      "teaches": "Freezing: each molecule locks onto exactly four neighbours, and that fixes them in a lattice.",
+      "screen": "The same box. The molecules slide to the sites of a real ice Ih lattice (oxygens on a hexagonal-diamond lattice, O–O 2,76 Å, drawn tilted so all four bonds show), and hydrogen bonds draw between neighbours as thin ice-cyan lines, each hydrogen pointing along one bond (the ice rules). The box's top rises from y 409 to y 342 as they spread. One molecule in the middle is ringed in cyan, its four bonds thicker and brighter. A chip '4 tetangga' beside it; the chip at the top left becomes 'membeku'.",
+      "motion": "On 'membeku' the light turns ice cyan and the jiggle dies away over 0.6 s while each molecule glides to its site (ease out, the nearest first). Bonds draw in as both ends arrive. On 'menggandeng' the camera has pushed in 16 percent on the middle of the block and the other molecules dim; on 'empat' the ringed molecule's four bonds light one after another, and on 'tetangga' the chip pops.",
+      "carries": "The lattice and its ringed molecule.",
+      "transition": "No cut: the camera turns to look down the lattice's six-fold axis.",
+      "sound": "A crisp crackle of freezing as the lattice locks, a small click as the four bonds light.",
+      "check": "Every molecule in the lattice has four bonds except at the box's edges. The same N molecules as in s04. The ringed molecule has exactly four lit bonds.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "'Tapi pas membeku': the light turns ice cyan, the molecules slow and start to slide to their places.",
+          "draw": [
+            {
+              "path": "M217 409.20000000000005 L217 1150 L777 1150 L777 409.20000000000005",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "molecules": [
+                237,
+                429.20000000000005,
+                500,
+                680.8,
+                40
+              ],
+              "seed": 9
+            },
+            {
+              "chip": [
+                217,
+                270
+              ],
+              "text": "membeku · 0 °C"
+            },
+            {
+              "glow": [
+                500,
+                780,
+                360
+              ],
+              "colour": "#7fe6ff"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "They snap into a lattice. One molecule in the middle is ringed; on 'empat tetangga' its four bonds light up, one after another, to four neighbours.",
+          "draw": [
+            {
+              "path": "M217 342 L217 1150 L777 1150 L777 342",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "path": "M320.6 433.0 L273.8 460.0 L227.0 433.0 L227.0 379.0 L273.8 352.0 L320.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 433.0 L367.3 460.0 L320.5 433.0 L320.5 379.0 L367.3 352.0 L414.1 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 433.0 L460.8 460.0 L414.0 433.0 L414.0 379.0 L460.8 352.0 L507.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 433.0 L554.4 460.0 L507.6 433.0 L507.6 379.0 L554.4 352.0 L601.2 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 433.0 L647.9 460.0 L601.1 433.0 L601.1 379.0 L647.9 352.0 L694.7 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 514.0 L320.5 541.0 L273.7 514.0 L273.7 460.0 L320.5 433.0 L367.3 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 514.0 L414.1 541.0 L367.3 514.0 L367.3 460.0 L414.1 433.0 L460.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 514.0 L507.6 541.0 L460.8 514.0 L460.8 460.0 L507.6 433.0 L554.4 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 514.0 L601.1 541.0 L554.3 514.0 L554.3 460.0 L601.1 433.0 L647.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 514.0 L694.7 541.0 L647.9 514.0 L647.9 460.0 L694.7 433.0 L741.5 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 595.0 L273.8 622.0 L227.0 595.0 L227.0 541.0 L273.8 514.0 L320.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 595.0 L367.3 622.0 L320.5 595.0 L320.5 541.0 L367.3 514.0 L414.1 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 595.0 L460.8 622.0 L414.0 595.0 L414.0 541.0 L460.8 514.0 L507.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 595.0 L554.4 622.0 L507.6 595.0 L507.6 541.0 L554.4 514.0 L601.2 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 595.0 L647.9 622.0 L601.1 595.0 L601.1 541.0 L647.9 514.0 L694.7 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 676.0 L320.5 703.0 L273.7 676.0 L273.7 622.0 L320.5 595.0 L367.3 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 676.0 L414.1 703.0 L367.3 676.0 L367.3 622.0 L414.1 595.0 L460.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 676.0 L507.6 703.0 L460.8 676.0 L460.8 622.0 L507.6 595.0 L554.4 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 676.0 L601.1 703.0 L554.3 676.0 L554.3 622.0 L601.1 595.0 L647.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 676.0 L694.7 703.0 L647.9 676.0 L647.9 622.0 L694.7 595.0 L741.5 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 757.0 L273.8 784.0 L227.0 757.0 L227.0 703.0 L273.8 676.0 L320.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 757.0 L367.3 784.0 L320.5 757.0 L320.5 703.0 L367.3 676.0 L414.1 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 757.0 L460.8 784.0 L414.0 757.0 L414.0 703.0 L460.8 676.0 L507.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 757.0 L554.4 784.0 L507.6 757.0 L507.6 703.0 L554.4 676.0 L601.2 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 757.0 L647.9 784.0 L601.1 757.0 L601.1 703.0 L647.9 676.0 L694.7 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 838.0 L320.5 865.0 L273.7 838.0 L273.7 784.0 L320.5 757.0 L367.3 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 838.0 L414.1 865.0 L367.3 838.0 L367.3 784.0 L414.1 757.0 L460.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 838.0 L507.6 865.0 L460.8 838.0 L460.8 784.0 L507.6 757.0 L554.4 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 838.0 L601.1 865.0 L554.3 838.0 L554.3 784.0 L601.1 757.0 L647.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 838.0 L694.7 865.0 L647.9 838.0 L647.9 784.0 L694.7 757.0 L741.5 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 919.0 L273.8 946.0 L227.0 919.0 L227.0 865.0 L273.8 838.0 L320.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 919.0 L367.3 946.0 L320.5 919.0 L320.5 865.0 L367.3 838.0 L414.1 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 919.0 L460.8 946.0 L414.0 919.0 L414.0 865.0 L460.8 838.0 L507.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 919.0 L554.4 946.0 L507.6 919.0 L507.6 865.0 L554.4 838.0 L601.2 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 919.0 L647.9 946.0 L601.1 919.0 L601.1 865.0 L647.9 838.0 L694.7 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 1000.0 L320.5 1027.0 L273.7 1000.0 L273.7 946.0 L320.5 919.0 L367.3 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 1000.0 L414.1 1027.0 L367.3 1000.0 L367.3 946.0 L414.1 919.0 L460.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 1000.0 L507.6 1027.0 L460.8 1000.0 L460.8 946.0 L507.6 919.0 L554.4 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 1000.0 L601.1 1027.0 L554.3 1000.0 L554.3 946.0 L601.1 919.0 L647.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 1000.0 L694.7 1027.0 L647.9 1000.0 L647.9 946.0 L694.7 919.0 L741.5 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 1081.0 L273.8 1108.0 L227.0 1081.0 L227.0 1027.0 L273.8 1000.0 L320.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 1081.0 L367.3 1108.0 L320.5 1081.0 L320.5 1027.0 L367.3 1000.0 L414.1 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 1081.0 L460.8 1108.0 L414.0 1081.0 L414.0 1027.0 L460.8 1000.0 L507.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 1081.0 L554.4 1108.0 L507.6 1081.0 L507.6 1027.0 L554.4 1000.0 L601.2 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 1081.0 L647.9 1108.0 L601.1 1081.0 L601.1 1027.0 L647.9 1000.0 L694.7 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "ring": [
+                500,
+                770,
+                52
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "line": [
+                500,
+                770,
+                500,
+                704
+              ],
+              "colour": "#7fe6ff",
+              "width": 9
+            },
+            {
+              "line": [
+                500,
+                770,
+                443,
+                803
+              ],
+              "colour": "#7fe6ff",
+              "width": 9
+            },
+            {
+              "line": [
+                500,
+                770,
+                557,
+                803
+              ],
+              "colour": "#7fe6ff",
+              "width": 9
+            },
+            {
+              "line": [
+                500,
+                770,
+                518,
+                742
+              ],
+              "colour": "#7fe6ff",
+              "width": 9
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The chip '4 tetangga' sits by the ringed molecule; the box has grown to the lattice's height.",
+          "draw": [
+            {
+              "path": "M217 342 L217 1150 L777 1150 L777 342",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "path": "M320.6 433.0 L273.8 460.0 L227.0 433.0 L227.0 379.0 L273.8 352.0 L320.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 433.0 L367.3 460.0 L320.5 433.0 L320.5 379.0 L367.3 352.0 L414.1 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 433.0 L460.8 460.0 L414.0 433.0 L414.0 379.0 L460.8 352.0 L507.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 433.0 L554.4 460.0 L507.6 433.0 L507.6 379.0 L554.4 352.0 L601.2 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 433.0 L647.9 460.0 L601.1 433.0 L601.1 379.0 L647.9 352.0 L694.7 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 514.0 L320.5 541.0 L273.7 514.0 L273.7 460.0 L320.5 433.0 L367.3 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 514.0 L414.1 541.0 L367.3 514.0 L367.3 460.0 L414.1 433.0 L460.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 514.0 L507.6 541.0 L460.8 514.0 L460.8 460.0 L507.6 433.0 L554.4 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 514.0 L601.1 541.0 L554.3 514.0 L554.3 460.0 L601.1 433.0 L647.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 514.0 L694.7 541.0 L647.9 514.0 L647.9 460.0 L694.7 433.0 L741.5 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 595.0 L273.8 622.0 L227.0 595.0 L227.0 541.0 L273.8 514.0 L320.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 595.0 L367.3 622.0 L320.5 595.0 L320.5 541.0 L367.3 514.0 L414.1 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 595.0 L460.8 622.0 L414.0 595.0 L414.0 541.0 L460.8 514.0 L507.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 595.0 L554.4 622.0 L507.6 595.0 L507.6 541.0 L554.4 514.0 L601.2 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 595.0 L647.9 622.0 L601.1 595.0 L601.1 541.0 L647.9 514.0 L694.7 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 676.0 L320.5 703.0 L273.7 676.0 L273.7 622.0 L320.5 595.0 L367.3 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 676.0 L414.1 703.0 L367.3 676.0 L367.3 622.0 L414.1 595.0 L460.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 676.0 L507.6 703.0 L460.8 676.0 L460.8 622.0 L507.6 595.0 L554.4 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 676.0 L601.1 703.0 L554.3 676.0 L554.3 622.0 L601.1 595.0 L647.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 676.0 L694.7 703.0 L647.9 676.0 L647.9 622.0 L694.7 595.0 L741.5 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 757.0 L273.8 784.0 L227.0 757.0 L227.0 703.0 L273.8 676.0 L320.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 757.0 L367.3 784.0 L320.5 757.0 L320.5 703.0 L367.3 676.0 L414.1 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 757.0 L460.8 784.0 L414.0 757.0 L414.0 703.0 L460.8 676.0 L507.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 757.0 L554.4 784.0 L507.6 757.0 L507.6 703.0 L554.4 676.0 L601.2 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 757.0 L647.9 784.0 L601.1 757.0 L601.1 703.0 L647.9 676.0 L694.7 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 838.0 L320.5 865.0 L273.7 838.0 L273.7 784.0 L320.5 757.0 L367.3 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 838.0 L414.1 865.0 L367.3 838.0 L367.3 784.0 L414.1 757.0 L460.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 838.0 L507.6 865.0 L460.8 838.0 L460.8 784.0 L507.6 757.0 L554.4 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 838.0 L601.1 865.0 L554.3 838.0 L554.3 784.0 L601.1 757.0 L647.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 838.0 L694.7 865.0 L647.9 838.0 L647.9 784.0 L694.7 757.0 L741.5 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 919.0 L273.8 946.0 L227.0 919.0 L227.0 865.0 L273.8 838.0 L320.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 919.0 L367.3 946.0 L320.5 919.0 L320.5 865.0 L367.3 838.0 L414.1 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 919.0 L460.8 946.0 L414.0 919.0 L414.0 865.0 L460.8 838.0 L507.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 919.0 L554.4 946.0 L507.6 919.0 L507.6 865.0 L554.4 838.0 L601.2 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 919.0 L647.9 946.0 L601.1 919.0 L601.1 865.0 L647.9 838.0 L694.7 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 1000.0 L320.5 1027.0 L273.7 1000.0 L273.7 946.0 L320.5 919.0 L367.3 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 1000.0 L414.1 1027.0 L367.3 1000.0 L367.3 946.0 L414.1 919.0 L460.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 1000.0 L507.6 1027.0 L460.8 1000.0 L460.8 946.0 L507.6 919.0 L554.4 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 1000.0 L601.1 1027.0 L554.3 1000.0 L554.3 946.0 L601.1 919.0 L647.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 1000.0 L694.7 1027.0 L647.9 1000.0 L647.9 946.0 L694.7 919.0 L741.5 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 1081.0 L273.8 1108.0 L227.0 1081.0 L227.0 1027.0 L273.8 1000.0 L320.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 1081.0 L367.3 1108.0 L320.5 1081.0 L320.5 1027.0 L367.3 1000.0 L414.1 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 1081.0 L460.8 1108.0 L414.0 1081.0 L414.0 1027.0 L460.8 1000.0 L507.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 1081.0 L554.4 1108.0 L507.6 1081.0 L507.6 1027.0 L554.4 1000.0 L601.2 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 1081.0 L647.9 1108.0 L601.1 1081.0 L601.1 1027.0 L647.9 1000.0 L694.7 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "ring": [
+                500,
+                770,
+                52
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "chip": [
+                580,
+                600
+              ],
+              "text": "4 tetangga"
+            },
+            {
+              "cut": "kamera berputar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "molekul",
+      "type": "diagram",
+      "start": 15.698,
+      "end": 18.489,
+      "caption": "jadi kisi *segi enam* yang berongga.",
+      "teaches": "seen down its axis, the lattice is rings of six around open channels: room the liquid would have filled.",
+      "screen": "The same lattice seen straight down its six-fold axis: the molecules stack into a honeycomb of hexagonal rings. One ring is traced in thick ice cyan. On 'berongga' the open channels inside the rings glow faintly cyan; a chip 'rongga' points at one. A chip 'segi enam' at the top.",
+      "motion": "The camera orbits 0.6 s from the tilted view to straight down the axis; the rings close up. The ring traces itself on 'segi enam'; the channels light from the centre outward on 'berongga'.",
+      "carries": "The lattice, which shrinks into the right column of the next shot.",
+      "transition": "The lattice shrinks to the right; the liquid twin appears on the left.",
+      "sound": "A shimmer as the channels light.",
+      "check": "The rings are regular hexagons; each molecule sits on a ring's corner. The chip sits on a real channel.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The camera turns to look straight down the lattice's six-fold axis: the molecules line up into rings.",
+          "draw": [
+            {
+              "path": "M320.6 433.0 L273.8 460.0 L227.0 433.0 L227.0 379.0 L273.8 352.0 L320.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 433.0 L367.3 460.0 L320.5 433.0 L320.5 379.0 L367.3 352.0 L414.1 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 433.0 L460.8 460.0 L414.0 433.0 L414.0 379.0 L460.8 352.0 L507.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 433.0 L554.4 460.0 L507.6 433.0 L507.6 379.0 L554.4 352.0 L601.2 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 433.0 L647.9 460.0 L601.1 433.0 L601.1 379.0 L647.9 352.0 L694.7 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 514.0 L320.5 541.0 L273.7 514.0 L273.7 460.0 L320.5 433.0 L367.3 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 514.0 L414.1 541.0 L367.3 514.0 L367.3 460.0 L414.1 433.0 L460.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 514.0 L507.6 541.0 L460.8 514.0 L460.8 460.0 L507.6 433.0 L554.4 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 514.0 L601.1 541.0 L554.3 514.0 L554.3 460.0 L601.1 433.0 L647.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 514.0 L694.7 541.0 L647.9 514.0 L647.9 460.0 L694.7 433.0 L741.5 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 595.0 L273.8 622.0 L227.0 595.0 L227.0 541.0 L273.8 514.0 L320.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 595.0 L367.3 622.0 L320.5 595.0 L320.5 541.0 L367.3 514.0 L414.1 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 595.0 L460.8 622.0 L414.0 595.0 L414.0 541.0 L460.8 514.0 L507.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 595.0 L554.4 622.0 L507.6 595.0 L507.6 541.0 L554.4 514.0 L601.2 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 595.0 L647.9 622.0 L601.1 595.0 L601.1 541.0 L647.9 514.0 L694.7 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 676.0 L320.5 703.0 L273.7 676.0 L273.7 622.0 L320.5 595.0 L367.3 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 676.0 L414.1 703.0 L367.3 676.0 L367.3 622.0 L414.1 595.0 L460.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 676.0 L507.6 703.0 L460.8 676.0 L460.8 622.0 L507.6 595.0 L554.4 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 676.0 L601.1 703.0 L554.3 676.0 L554.3 622.0 L601.1 595.0 L647.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 676.0 L694.7 703.0 L647.9 676.0 L647.9 622.0 L694.7 595.0 L741.5 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 757.0 L273.8 784.0 L227.0 757.0 L227.0 703.0 L273.8 676.0 L320.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 757.0 L367.3 784.0 L320.5 757.0 L320.5 703.0 L367.3 676.0 L414.1 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 757.0 L460.8 784.0 L414.0 757.0 L414.0 703.0 L460.8 676.0 L507.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 757.0 L554.4 784.0 L507.6 757.0 L507.6 703.0 L554.4 676.0 L601.2 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 757.0 L647.9 784.0 L601.1 757.0 L601.1 703.0 L647.9 676.0 L694.7 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 838.0 L320.5 865.0 L273.7 838.0 L273.7 784.0 L320.5 757.0 L367.3 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 838.0 L414.1 865.0 L367.3 838.0 L367.3 784.0 L414.1 757.0 L460.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 838.0 L507.6 865.0 L460.8 838.0 L460.8 784.0 L507.6 757.0 L554.4 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 838.0 L601.1 865.0 L554.3 838.0 L554.3 784.0 L601.1 757.0 L647.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 838.0 L694.7 865.0 L647.9 838.0 L647.9 784.0 L694.7 757.0 L741.5 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 919.0 L273.8 946.0 L227.0 919.0 L227.0 865.0 L273.8 838.0 L320.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 919.0 L367.3 946.0 L320.5 919.0 L320.5 865.0 L367.3 838.0 L414.1 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 919.0 L460.8 946.0 L414.0 919.0 L414.0 865.0 L460.8 838.0 L507.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 919.0 L554.4 946.0 L507.6 919.0 L507.6 865.0 L554.4 838.0 L601.2 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 919.0 L647.9 946.0 L601.1 919.0 L601.1 865.0 L647.9 838.0 L694.7 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 1000.0 L320.5 1027.0 L273.7 1000.0 L273.7 946.0 L320.5 919.0 L367.3 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 1000.0 L414.1 1027.0 L367.3 1000.0 L367.3 946.0 L414.1 919.0 L460.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 1000.0 L507.6 1027.0 L460.8 1000.0 L460.8 946.0 L507.6 919.0 L554.4 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 1000.0 L601.1 1027.0 L554.3 1000.0 L554.3 946.0 L601.1 919.0 L647.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 1000.0 L694.7 1027.0 L647.9 1000.0 L647.9 946.0 L694.7 919.0 L741.5 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 1081.0 L273.8 1108.0 L227.0 1081.0 L227.0 1027.0 L273.8 1000.0 L320.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 1081.0 L367.3 1108.0 L320.5 1081.0 L320.5 1027.0 L367.3 1000.0 L414.1 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 1081.0 L460.8 1108.0 L414.0 1081.0 L414.0 1027.0 L460.8 1000.0 L507.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 1081.0 L554.4 1108.0 L507.6 1081.0 L507.6 1027.0 L554.4 1000.0 L601.2 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 1081.0 L647.9 1108.0 L601.1 1081.0 L601.1 1027.0 L647.9 1000.0 L694.7 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "camera": "orbit",
+              "text": "lihat dari atas kisi"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "On 'segi enam' one ring is traced in ice cyan.",
+          "draw": [
+            {
+              "path": "M320.6 433.0 L273.8 460.0 L227.0 433.0 L227.0 379.0 L273.8 352.0 L320.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 433.0 L367.3 460.0 L320.5 433.0 L320.5 379.0 L367.3 352.0 L414.1 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 433.0 L460.8 460.0 L414.0 433.0 L414.0 379.0 L460.8 352.0 L507.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 433.0 L554.4 460.0 L507.6 433.0 L507.6 379.0 L554.4 352.0 L601.2 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 433.0 L647.9 460.0 L601.1 433.0 L601.1 379.0 L647.9 352.0 L694.7 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 514.0 L320.5 541.0 L273.7 514.0 L273.7 460.0 L320.5 433.0 L367.3 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 514.0 L414.1 541.0 L367.3 514.0 L367.3 460.0 L414.1 433.0 L460.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 514.0 L507.6 541.0 L460.8 514.0 L460.8 460.0 L507.6 433.0 L554.4 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 514.0 L601.1 541.0 L554.3 514.0 L554.3 460.0 L601.1 433.0 L647.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 514.0 L694.7 541.0 L647.9 514.0 L647.9 460.0 L694.7 433.0 L741.5 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 595.0 L273.8 622.0 L227.0 595.0 L227.0 541.0 L273.8 514.0 L320.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 595.0 L367.3 622.0 L320.5 595.0 L320.5 541.0 L367.3 514.0 L414.1 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 595.0 L460.8 622.0 L414.0 595.0 L414.0 541.0 L460.8 514.0 L507.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 595.0 L554.4 622.0 L507.6 595.0 L507.6 541.0 L554.4 514.0 L601.2 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 595.0 L647.9 622.0 L601.1 595.0 L601.1 541.0 L647.9 514.0 L694.7 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 676.0 L320.5 703.0 L273.7 676.0 L273.7 622.0 L320.5 595.0 L367.3 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 676.0 L414.1 703.0 L367.3 676.0 L367.3 622.0 L414.1 595.0 L460.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 676.0 L507.6 703.0 L460.8 676.0 L460.8 622.0 L507.6 595.0 L554.4 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 676.0 L601.1 703.0 L554.3 676.0 L554.3 622.0 L601.1 595.0 L647.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 676.0 L694.7 703.0 L647.9 676.0 L647.9 622.0 L694.7 595.0 L741.5 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 757.0 L273.8 784.0 L227.0 757.0 L227.0 703.0 L273.8 676.0 L320.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 757.0 L367.3 784.0 L320.5 757.0 L320.5 703.0 L367.3 676.0 L414.1 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 757.0 L460.8 784.0 L414.0 757.0 L414.0 703.0 L460.8 676.0 L507.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 757.0 L554.4 784.0 L507.6 757.0 L507.6 703.0 L554.4 676.0 L601.2 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 757.0 L647.9 784.0 L601.1 757.0 L601.1 703.0 L647.9 676.0 L694.7 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 838.0 L320.5 865.0 L273.7 838.0 L273.7 784.0 L320.5 757.0 L367.3 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 838.0 L414.1 865.0 L367.3 838.0 L367.3 784.0 L414.1 757.0 L460.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 838.0 L507.6 865.0 L460.8 838.0 L460.8 784.0 L507.6 757.0 L554.4 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 838.0 L601.1 865.0 L554.3 838.0 L554.3 784.0 L601.1 757.0 L647.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 838.0 L694.7 865.0 L647.9 838.0 L647.9 784.0 L694.7 757.0 L741.5 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 919.0 L273.8 946.0 L227.0 919.0 L227.0 865.0 L273.8 838.0 L320.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 919.0 L367.3 946.0 L320.5 919.0 L320.5 865.0 L367.3 838.0 L414.1 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 919.0 L460.8 946.0 L414.0 919.0 L414.0 865.0 L460.8 838.0 L507.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 919.0 L554.4 946.0 L507.6 919.0 L507.6 865.0 L554.4 838.0 L601.2 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 919.0 L647.9 946.0 L601.1 919.0 L601.1 865.0 L647.9 838.0 L694.7 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 1000.0 L320.5 1027.0 L273.7 1000.0 L273.7 946.0 L320.5 919.0 L367.3 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 1000.0 L414.1 1027.0 L367.3 1000.0 L367.3 946.0 L414.1 919.0 L460.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 1000.0 L507.6 1027.0 L460.8 1000.0 L460.8 946.0 L507.6 919.0 L554.4 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 1000.0 L601.1 1027.0 L554.3 1000.0 L554.3 946.0 L601.1 919.0 L647.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 1000.0 L694.7 1027.0 L647.9 1000.0 L647.9 946.0 L694.7 919.0 L741.5 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 1081.0 L273.8 1108.0 L227.0 1081.0 L227.0 1027.0 L273.8 1000.0 L320.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 1081.0 L367.3 1108.0 L320.5 1081.0 L320.5 1027.0 L367.3 1000.0 L414.1 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 1081.0 L460.8 1108.0 L414.0 1081.0 L414.0 1027.0 L460.8 1000.0 L507.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 1081.0 L554.4 1108.0 L507.6 1081.0 L507.6 1027.0 L554.4 1000.0 L601.2 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 1081.0 L647.9 1108.0 L601.1 1081.0 L601.1 1027.0 L647.9 1000.0 L694.7 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M543.8 787.0 L497.0 814.0 L450.2 787.0 L450.2 733.0 L497.0 706.0 L543.8 733.0 Z",
+              "colour": "#7fe6ff",
+              "width": 12
+            },
+            {
+              "chip": [
+                600,
+                300
+              ],
+              "text": "segi enam"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'berongga' the open channels inside the rings glow: the gaps the liquid could fill. A chip 'rongga' on one of them.",
+          "draw": [
+            {
+              "path": "M320.6 433.0 L273.8 460.0 L227.0 433.0 L227.0 379.0 L273.8 352.0 L320.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 433.0 L367.3 460.0 L320.5 433.0 L320.5 379.0 L367.3 352.0 L414.1 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 433.0 L460.8 460.0 L414.0 433.0 L414.0 379.0 L460.8 352.0 L507.6 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 433.0 L554.4 460.0 L507.6 433.0 L507.6 379.0 L554.4 352.0 L601.2 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 433.0 L647.9 460.0 L601.1 433.0 L601.1 379.0 L647.9 352.0 L694.7 379.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 514.0 L320.5 541.0 L273.7 514.0 L273.7 460.0 L320.5 433.0 L367.3 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 514.0 L414.1 541.0 L367.3 514.0 L367.3 460.0 L414.1 433.0 L460.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 514.0 L507.6 541.0 L460.8 514.0 L460.8 460.0 L507.6 433.0 L554.4 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 514.0 L601.1 541.0 L554.3 514.0 L554.3 460.0 L601.1 433.0 L647.9 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 514.0 L694.7 541.0 L647.9 514.0 L647.9 460.0 L694.7 433.0 L741.5 460.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 595.0 L273.8 622.0 L227.0 595.0 L227.0 541.0 L273.8 514.0 L320.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 595.0 L367.3 622.0 L320.5 595.0 L320.5 541.0 L367.3 514.0 L414.1 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 595.0 L460.8 622.0 L414.0 595.0 L414.0 541.0 L460.8 514.0 L507.6 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 595.0 L554.4 622.0 L507.6 595.0 L507.6 541.0 L554.4 514.0 L601.2 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 595.0 L647.9 622.0 L601.1 595.0 L601.1 541.0 L647.9 514.0 L694.7 541.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 676.0 L320.5 703.0 L273.7 676.0 L273.7 622.0 L320.5 595.0 L367.3 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 676.0 L414.1 703.0 L367.3 676.0 L367.3 622.0 L414.1 595.0 L460.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 676.0 L507.6 703.0 L460.8 676.0 L460.8 622.0 L507.6 595.0 L554.4 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 676.0 L601.1 703.0 L554.3 676.0 L554.3 622.0 L601.1 595.0 L647.9 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 676.0 L694.7 703.0 L647.9 676.0 L647.9 622.0 L694.7 595.0 L741.5 622.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 757.0 L273.8 784.0 L227.0 757.0 L227.0 703.0 L273.8 676.0 L320.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 757.0 L367.3 784.0 L320.5 757.0 L320.5 703.0 L367.3 676.0 L414.1 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 757.0 L460.8 784.0 L414.0 757.0 L414.0 703.0 L460.8 676.0 L507.6 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 757.0 L554.4 784.0 L507.6 757.0 L507.6 703.0 L554.4 676.0 L601.2 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 757.0 L647.9 784.0 L601.1 757.0 L601.1 703.0 L647.9 676.0 L694.7 703.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 838.0 L320.5 865.0 L273.7 838.0 L273.7 784.0 L320.5 757.0 L367.3 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 838.0 L414.1 865.0 L367.3 838.0 L367.3 784.0 L414.1 757.0 L460.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 838.0 L507.6 865.0 L460.8 838.0 L460.8 784.0 L507.6 757.0 L554.4 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 838.0 L601.1 865.0 L554.3 838.0 L554.3 784.0 L601.1 757.0 L647.9 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 838.0 L694.7 865.0 L647.9 838.0 L647.9 784.0 L694.7 757.0 L741.5 784.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 919.0 L273.8 946.0 L227.0 919.0 L227.0 865.0 L273.8 838.0 L320.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 919.0 L367.3 946.0 L320.5 919.0 L320.5 865.0 L367.3 838.0 L414.1 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 919.0 L460.8 946.0 L414.0 919.0 L414.0 865.0 L460.8 838.0 L507.6 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 919.0 L554.4 946.0 L507.6 919.0 L507.6 865.0 L554.4 838.0 L601.2 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 919.0 L647.9 946.0 L601.1 919.0 L601.1 865.0 L647.9 838.0 L694.7 865.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M367.3 1000.0 L320.5 1027.0 L273.7 1000.0 L273.7 946.0 L320.5 919.0 L367.3 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M460.9 1000.0 L414.1 1027.0 L367.3 1000.0 L367.3 946.0 L414.1 919.0 L460.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M554.4 1000.0 L507.6 1027.0 L460.8 1000.0 L460.8 946.0 L507.6 919.0 L554.4 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M647.9 1000.0 L601.1 1027.0 L554.3 1000.0 L554.3 946.0 L601.1 919.0 L647.9 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M741.5 1000.0 L694.7 1027.0 L647.9 1000.0 L647.9 946.0 L694.7 919.0 L741.5 946.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M320.6 1081.0 L273.8 1108.0 L227.0 1081.0 L227.0 1027.0 L273.8 1000.0 L320.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M414.1 1081.0 L367.3 1108.0 L320.5 1081.0 L320.5 1027.0 L367.3 1000.0 L414.1 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M507.6 1081.0 L460.8 1108.0 L414.0 1081.0 L414.0 1027.0 L460.8 1000.0 L507.6 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M601.2 1081.0 L554.4 1108.0 L507.6 1081.0 L507.6 1027.0 L554.4 1000.0 L601.2 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M694.7 1081.0 L647.9 1108.0 L601.1 1081.0 L601.1 1027.0 L647.9 1000.0 L694.7 1027.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M543.8 787.0 L497.0 814.0 L450.2 787.0 L450.2 733.0 L497.0 706.0 L543.8 733.0 Z",
+              "colour": "#7fe6ff",
+              "width": 12
+            },
+            {
+              "dot": [
+                500,
+                760,
+                34
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "dot": [
+                385,
+                562,
+                34
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "dot": [
+                614,
+                958,
+                34
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "chip": [
+                560,
+                300
+              ],
+              "text": "rongga"
+            },
+            {
+              "cut": "kisi mengecil ke kanan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "molekul",
+      "type": "compare",
+      "start": 18.489,
+      "end": 20.582,
+      "caption": "Jumlah molekulnya *sama,*",
+      "teaches": "The liquid and the ice are the same molecules, the same number of them.",
+      "screen": "Two columns of the same width on one floor (bottom y 1130). Left, 'cair': the N liquid molecules, jiggling, in a box 556 px tall. Right, 'es': the same N in the lattice, in a box 606 px tall (1.0907 times). Chips over each column name it and give the count, the same figure on both.",
+      "motion": "The lattice shrinks into the right column as the liquid twin slides in on the left. The two counts land on 'sama', together.",
+      "carries": "The two columns and their counts.",
+      "transition": "No cut: a dashed line starts across.",
+      "sound": "A soft tick as the counts land.",
+      "check": "Both counts show the same number, which is the number of molecules drawn in each column.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The lattice shrinks into a column on the right; on the left the same molecules as liquid fill a column of the same width. Both say how many.",
+          "draw": [
+            {
+              "path": "M50 574.4 L50 1130 L470 1130 L470 574.4",
+              "colour": "#3f8cff",
+              "width": 6
+            },
+            {
+              "molecules": [
+                70,
+                594.4,
+                360,
+                495.6,
+                30
+              ],
+              "seed": 3
+            },
+            {
+              "path": "M510 524 L510 1130 L930 1130 L930 524",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "path": "M589.2 594.0 L554.6 614.0 L520.0 594.0 L520.0 554.0 L554.6 534.0 L589.2 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 594.0 L623.9 614.0 L589.3 594.0 L589.3 554.0 L623.9 534.0 L658.5 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 594.0 L693.2 614.0 L658.6 594.0 L658.6 554.0 L693.2 534.0 L727.8 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 594.0 L762.5 614.0 L727.9 594.0 L727.9 554.0 L762.5 534.0 L797.1 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 594.0 L831.8 614.0 L797.2 594.0 L797.2 554.0 L831.8 534.0 L866.4 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 654.0 L589.3 674.0 L554.7 654.0 L554.7 614.0 L589.3 594.0 L623.9 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 654.0 L658.6 674.0 L624.0 654.0 L624.0 614.0 L658.6 594.0 L693.2 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 654.0 L727.8 674.0 L693.2 654.0 L693.2 614.0 L727.8 594.0 L762.4 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 654.0 L797.1 674.0 L762.5 654.0 L762.5 614.0 L797.1 594.0 L831.7 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 654.0 L866.4 674.0 L831.8 654.0 L831.8 614.0 L866.4 594.0 L901.0 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 714.0 L554.6 734.0 L520.0 714.0 L520.0 674.0 L554.6 654.0 L589.2 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 714.0 L623.9 734.0 L589.3 714.0 L589.3 674.0 L623.9 654.0 L658.5 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 714.0 L693.2 734.0 L658.6 714.0 L658.6 674.0 L693.2 654.0 L727.8 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 714.0 L762.5 734.0 L727.9 714.0 L727.9 674.0 L762.5 654.0 L797.1 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 714.0 L831.8 734.0 L797.2 714.0 L797.2 674.0 L831.8 654.0 L866.4 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 774.0 L589.3 794.0 L554.7 774.0 L554.7 734.0 L589.3 714.0 L623.9 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 774.0 L658.6 794.0 L624.0 774.0 L624.0 734.0 L658.6 714.0 L693.2 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 774.0 L727.8 794.0 L693.2 774.0 L693.2 734.0 L727.8 714.0 L762.4 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 774.0 L797.1 794.0 L762.5 774.0 L762.5 734.0 L797.1 714.0 L831.7 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 774.0 L866.4 794.0 L831.8 774.0 L831.8 734.0 L866.4 714.0 L901.0 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 834.0 L554.6 854.0 L520.0 834.0 L520.0 794.0 L554.6 774.0 L589.2 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 834.0 L623.9 854.0 L589.3 834.0 L589.3 794.0 L623.9 774.0 L658.5 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 834.0 L693.2 854.0 L658.6 834.0 L658.6 794.0 L693.2 774.0 L727.8 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 834.0 L762.5 854.0 L727.9 834.0 L727.9 794.0 L762.5 774.0 L797.1 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 834.0 L831.8 854.0 L797.2 834.0 L797.2 794.0 L831.8 774.0 L866.4 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 894.0 L589.3 914.0 L554.7 894.0 L554.7 854.0 L589.3 834.0 L623.9 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 894.0 L658.6 914.0 L624.0 894.0 L624.0 854.0 L658.6 834.0 L693.2 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 894.0 L727.8 914.0 L693.2 894.0 L693.2 854.0 L727.8 834.0 L762.4 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 894.0 L797.1 914.0 L762.5 894.0 L762.5 854.0 L797.1 834.0 L831.7 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 894.0 L866.4 914.0 L831.8 894.0 L831.8 854.0 L866.4 834.0 L901.0 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 954.0 L554.6 974.0 L520.0 954.0 L520.0 914.0 L554.6 894.0 L589.2 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 954.0 L623.9 974.0 L589.3 954.0 L589.3 914.0 L623.9 894.0 L658.5 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 954.0 L693.2 974.0 L658.6 954.0 L658.6 914.0 L693.2 894.0 L727.8 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 954.0 L762.5 974.0 L727.9 954.0 L727.9 914.0 L762.5 894.0 L797.1 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 954.0 L831.8 974.0 L797.2 954.0 L797.2 914.0 L831.8 894.0 L866.4 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 1014.0 L589.3 1034.0 L554.7 1014.0 L554.7 974.0 L589.3 954.0 L623.9 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 1014.0 L658.6 1034.0 L624.0 1014.0 L624.0 974.0 L658.6 954.0 L693.2 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 1014.0 L727.8 1034.0 L693.2 1014.0 L693.2 974.0 L727.8 954.0 L762.4 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 1014.0 L797.1 1034.0 L762.5 1014.0 L762.5 974.0 L797.1 954.0 L831.7 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 1014.0 L866.4 1034.0 L831.8 1014.0 L831.8 974.0 L866.4 954.0 L901.0 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 1074.0 L554.6 1094.0 L520.0 1074.0 L520.0 1034.0 L554.6 1014.0 L589.2 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 1074.0 L623.9 1094.0 L589.3 1074.0 L589.3 1034.0 L623.9 1014.0 L658.5 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 1074.0 L693.2 1094.0 L658.6 1074.0 L658.6 1034.0 L693.2 1014.0 L727.8 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 1074.0 L762.5 1094.0 L727.9 1074.0 L727.9 1034.0 L762.5 1014.0 L797.1 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 1074.0 L831.8 1094.0 L797.2 1074.0 L797.2 1034.0 L831.8 1014.0 L866.4 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "chip": [
+                50,
+                270
+              ],
+              "text": "cair · 240"
+            },
+            {
+              "chip": [
+                510,
+                270
+              ],
+              "text": "es · 240"
+            },
+            {
+              "move": [
+                700,
+                760,
+                720,
+                760
+              ],
+              "text": "mengecil"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'sama' the two counters land at the same figure; the cut is 'tapi'.",
+          "draw": [
+            {
+              "path": "M50 574.4 L50 1130 L470 1130 L470 574.4",
+              "colour": "#3f8cff",
+              "width": 6
+            },
+            {
+              "molecules": [
+                70,
+                594.4,
+                360,
+                495.6,
+                30
+              ],
+              "seed": 3
+            },
+            {
+              "path": "M510 524 L510 1130 L930 1130 L930 524",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "path": "M589.2 594.0 L554.6 614.0 L520.0 594.0 L520.0 554.0 L554.6 534.0 L589.2 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 594.0 L623.9 614.0 L589.3 594.0 L589.3 554.0 L623.9 534.0 L658.5 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 594.0 L693.2 614.0 L658.6 594.0 L658.6 554.0 L693.2 534.0 L727.8 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 594.0 L762.5 614.0 L727.9 594.0 L727.9 554.0 L762.5 534.0 L797.1 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 594.0 L831.8 614.0 L797.2 594.0 L797.2 554.0 L831.8 534.0 L866.4 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 654.0 L589.3 674.0 L554.7 654.0 L554.7 614.0 L589.3 594.0 L623.9 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 654.0 L658.6 674.0 L624.0 654.0 L624.0 614.0 L658.6 594.0 L693.2 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 654.0 L727.8 674.0 L693.2 654.0 L693.2 614.0 L727.8 594.0 L762.4 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 654.0 L797.1 674.0 L762.5 654.0 L762.5 614.0 L797.1 594.0 L831.7 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 654.0 L866.4 674.0 L831.8 654.0 L831.8 614.0 L866.4 594.0 L901.0 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 714.0 L554.6 734.0 L520.0 714.0 L520.0 674.0 L554.6 654.0 L589.2 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 714.0 L623.9 734.0 L589.3 714.0 L589.3 674.0 L623.9 654.0 L658.5 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 714.0 L693.2 734.0 L658.6 714.0 L658.6 674.0 L693.2 654.0 L727.8 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 714.0 L762.5 734.0 L727.9 714.0 L727.9 674.0 L762.5 654.0 L797.1 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 714.0 L831.8 734.0 L797.2 714.0 L797.2 674.0 L831.8 654.0 L866.4 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 774.0 L589.3 794.0 L554.7 774.0 L554.7 734.0 L589.3 714.0 L623.9 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 774.0 L658.6 794.0 L624.0 774.0 L624.0 734.0 L658.6 714.0 L693.2 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 774.0 L727.8 794.0 L693.2 774.0 L693.2 734.0 L727.8 714.0 L762.4 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 774.0 L797.1 794.0 L762.5 774.0 L762.5 734.0 L797.1 714.0 L831.7 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 774.0 L866.4 794.0 L831.8 774.0 L831.8 734.0 L866.4 714.0 L901.0 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 834.0 L554.6 854.0 L520.0 834.0 L520.0 794.0 L554.6 774.0 L589.2 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 834.0 L623.9 854.0 L589.3 834.0 L589.3 794.0 L623.9 774.0 L658.5 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 834.0 L693.2 854.0 L658.6 834.0 L658.6 794.0 L693.2 774.0 L727.8 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 834.0 L762.5 854.0 L727.9 834.0 L727.9 794.0 L762.5 774.0 L797.1 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 834.0 L831.8 854.0 L797.2 834.0 L797.2 794.0 L831.8 774.0 L866.4 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 894.0 L589.3 914.0 L554.7 894.0 L554.7 854.0 L589.3 834.0 L623.9 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 894.0 L658.6 914.0 L624.0 894.0 L624.0 854.0 L658.6 834.0 L693.2 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 894.0 L727.8 914.0 L693.2 894.0 L693.2 854.0 L727.8 834.0 L762.4 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 894.0 L797.1 914.0 L762.5 894.0 L762.5 854.0 L797.1 834.0 L831.7 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 894.0 L866.4 914.0 L831.8 894.0 L831.8 854.0 L866.4 834.0 L901.0 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 954.0 L554.6 974.0 L520.0 954.0 L520.0 914.0 L554.6 894.0 L589.2 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 954.0 L623.9 974.0 L589.3 954.0 L589.3 914.0 L623.9 894.0 L658.5 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 954.0 L693.2 974.0 L658.6 954.0 L658.6 914.0 L693.2 894.0 L727.8 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 954.0 L762.5 974.0 L727.9 954.0 L727.9 914.0 L762.5 894.0 L797.1 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 954.0 L831.8 974.0 L797.2 954.0 L797.2 914.0 L831.8 894.0 L866.4 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 1014.0 L589.3 1034.0 L554.7 1014.0 L554.7 974.0 L589.3 954.0 L623.9 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 1014.0 L658.6 1034.0 L624.0 1014.0 L624.0 974.0 L658.6 954.0 L693.2 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 1014.0 L727.8 1034.0 L693.2 1014.0 L693.2 974.0 L727.8 954.0 L762.4 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 1014.0 L797.1 1034.0 L762.5 1014.0 L762.5 974.0 L797.1 954.0 L831.7 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 1014.0 L866.4 1034.0 L831.8 1014.0 L831.8 974.0 L866.4 954.0 L901.0 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 1074.0 L554.6 1094.0 L520.0 1074.0 L520.0 1034.0 L554.6 1014.0 L589.2 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 1074.0 L623.9 1094.0 L589.3 1074.0 L589.3 1034.0 L623.9 1014.0 L658.5 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 1074.0 L693.2 1094.0 L658.6 1074.0 L658.6 1034.0 L693.2 1014.0 L727.8 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 1074.0 L762.5 1094.0 L727.9 1074.0 L727.9 1034.0 L762.5 1014.0 L797.1 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 1074.0 L831.8 1094.0 L797.2 1074.0 L797.2 1034.0 L831.8 1014.0 L866.4 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "chip": [
+                50,
+                270
+              ],
+              "text": "cair · 240"
+            },
+            {
+              "chip": [
+                510,
+                270
+              ],
+              "text": "es · 240"
+            },
+            {
+              "cut": "tanpa potongan: garis putus-putus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "molekul",
+      "type": "diagram",
+      "start": 20.582,
+      "end": 23.373,
+      "caption": "tapi makan tempat *9%* lebih banyak.",
+      "teaches": "The same molecules as ice take 9% more room.",
+      "screen": "The same two columns. A dashed line carries the liquid's top (y 574) across to the ice column; a cyan measure on the ice column's right edge from that line up to its top (y 524) and, above the ice column, '+9%' in metal type, ice cyan.",
+      "motion": "The dashed line draws from left to right on 'tapi makan tempat'; the measure grows up and '+9%' slams in on '9%'. The camera pushes a little toward the gap.",
+      "carries": "The two columns.",
+      "transition": "The columns turn into two bars on a scale of density.",
+      "sound": "A pop on '+9%'.",
+      "check": "The ice column is 1.0907 times the liquid one (606 against 555.6 px); the measure spans exactly the difference, 50.4 px.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The same two columns; on 'tapi' a dashed line draws from the liquid column's top across to the ice column.",
+          "draw": [
+            {
+              "path": "M50 574.4 L50 1130 L470 1130 L470 574.4",
+              "colour": "#3f8cff",
+              "width": 6
+            },
+            {
+              "molecules": [
+                70,
+                594.4,
+                360,
+                495.6,
+                30
+              ],
+              "seed": 3
+            },
+            {
+              "path": "M510 524 L510 1130 L930 1130 L930 524",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "path": "M589.2 594.0 L554.6 614.0 L520.0 594.0 L520.0 554.0 L554.6 534.0 L589.2 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 594.0 L623.9 614.0 L589.3 594.0 L589.3 554.0 L623.9 534.0 L658.5 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 594.0 L693.2 614.0 L658.6 594.0 L658.6 554.0 L693.2 534.0 L727.8 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 594.0 L762.5 614.0 L727.9 594.0 L727.9 554.0 L762.5 534.0 L797.1 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 594.0 L831.8 614.0 L797.2 594.0 L797.2 554.0 L831.8 534.0 L866.4 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 654.0 L589.3 674.0 L554.7 654.0 L554.7 614.0 L589.3 594.0 L623.9 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 654.0 L658.6 674.0 L624.0 654.0 L624.0 614.0 L658.6 594.0 L693.2 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 654.0 L727.8 674.0 L693.2 654.0 L693.2 614.0 L727.8 594.0 L762.4 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 654.0 L797.1 674.0 L762.5 654.0 L762.5 614.0 L797.1 594.0 L831.7 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 654.0 L866.4 674.0 L831.8 654.0 L831.8 614.0 L866.4 594.0 L901.0 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 714.0 L554.6 734.0 L520.0 714.0 L520.0 674.0 L554.6 654.0 L589.2 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 714.0 L623.9 734.0 L589.3 714.0 L589.3 674.0 L623.9 654.0 L658.5 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 714.0 L693.2 734.0 L658.6 714.0 L658.6 674.0 L693.2 654.0 L727.8 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 714.0 L762.5 734.0 L727.9 714.0 L727.9 674.0 L762.5 654.0 L797.1 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 714.0 L831.8 734.0 L797.2 714.0 L797.2 674.0 L831.8 654.0 L866.4 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 774.0 L589.3 794.0 L554.7 774.0 L554.7 734.0 L589.3 714.0 L623.9 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 774.0 L658.6 794.0 L624.0 774.0 L624.0 734.0 L658.6 714.0 L693.2 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 774.0 L727.8 794.0 L693.2 774.0 L693.2 734.0 L727.8 714.0 L762.4 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 774.0 L797.1 794.0 L762.5 774.0 L762.5 734.0 L797.1 714.0 L831.7 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 774.0 L866.4 794.0 L831.8 774.0 L831.8 734.0 L866.4 714.0 L901.0 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 834.0 L554.6 854.0 L520.0 834.0 L520.0 794.0 L554.6 774.0 L589.2 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 834.0 L623.9 854.0 L589.3 834.0 L589.3 794.0 L623.9 774.0 L658.5 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 834.0 L693.2 854.0 L658.6 834.0 L658.6 794.0 L693.2 774.0 L727.8 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 834.0 L762.5 854.0 L727.9 834.0 L727.9 794.0 L762.5 774.0 L797.1 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 834.0 L831.8 854.0 L797.2 834.0 L797.2 794.0 L831.8 774.0 L866.4 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 894.0 L589.3 914.0 L554.7 894.0 L554.7 854.0 L589.3 834.0 L623.9 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 894.0 L658.6 914.0 L624.0 894.0 L624.0 854.0 L658.6 834.0 L693.2 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 894.0 L727.8 914.0 L693.2 894.0 L693.2 854.0 L727.8 834.0 L762.4 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 894.0 L797.1 914.0 L762.5 894.0 L762.5 854.0 L797.1 834.0 L831.7 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 894.0 L866.4 914.0 L831.8 894.0 L831.8 854.0 L866.4 834.0 L901.0 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 954.0 L554.6 974.0 L520.0 954.0 L520.0 914.0 L554.6 894.0 L589.2 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 954.0 L623.9 974.0 L589.3 954.0 L589.3 914.0 L623.9 894.0 L658.5 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 954.0 L693.2 974.0 L658.6 954.0 L658.6 914.0 L693.2 894.0 L727.8 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 954.0 L762.5 974.0 L727.9 954.0 L727.9 914.0 L762.5 894.0 L797.1 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 954.0 L831.8 974.0 L797.2 954.0 L797.2 914.0 L831.8 894.0 L866.4 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 1014.0 L589.3 1034.0 L554.7 1014.0 L554.7 974.0 L589.3 954.0 L623.9 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 1014.0 L658.6 1034.0 L624.0 1014.0 L624.0 974.0 L658.6 954.0 L693.2 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 1014.0 L727.8 1034.0 L693.2 1014.0 L693.2 974.0 L727.8 954.0 L762.4 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 1014.0 L797.1 1034.0 L762.5 1014.0 L762.5 974.0 L797.1 954.0 L831.7 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 1014.0 L866.4 1034.0 L831.8 1014.0 L831.8 974.0 L866.4 954.0 L901.0 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 1074.0 L554.6 1094.0 L520.0 1074.0 L520.0 1034.0 L554.6 1014.0 L589.2 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 1074.0 L623.9 1094.0 L589.3 1074.0 L589.3 1034.0 L623.9 1014.0 L658.5 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 1074.0 L693.2 1094.0 L658.6 1074.0 L658.6 1034.0 L693.2 1014.0 L727.8 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 1074.0 L762.5 1094.0 L727.9 1074.0 L727.9 1034.0 L762.5 1014.0 L797.1 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 1074.0 L831.8 1094.0 L797.2 1074.0 L797.2 1034.0 L831.8 1014.0 L866.4 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "chip": [
+                50,
+                270
+              ],
+              "text": "cair · 240"
+            },
+            {
+              "chip": [
+                510,
+                270
+              ],
+              "text": "es · 240"
+            },
+            {
+              "line": [
+                50,
+                574.4,
+                930,
+                574.4
+              ],
+              "dashed": true
+            },
+            {
+              "move": [
+                60,
+                544.4,
+                900,
+                544.4
+              ],
+              "text": "garis"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On '9%' a dashed line carries the liquid's top across, and the gap up to the ice's top is measured: +9%.",
+          "draw": [
+            {
+              "path": "M50 574.4 L50 1130 L470 1130 L470 574.4",
+              "colour": "#3f8cff",
+              "width": 6
+            },
+            {
+              "molecules": [
+                70,
+                594.4,
+                360,
+                495.6,
+                30
+              ],
+              "seed": 3
+            },
+            {
+              "path": "M510 524 L510 1130 L930 1130 L930 524",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "path": "M589.2 594.0 L554.6 614.0 L520.0 594.0 L520.0 554.0 L554.6 534.0 L589.2 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 594.0 L623.9 614.0 L589.3 594.0 L589.3 554.0 L623.9 534.0 L658.5 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 594.0 L693.2 614.0 L658.6 594.0 L658.6 554.0 L693.2 534.0 L727.8 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 594.0 L762.5 614.0 L727.9 594.0 L727.9 554.0 L762.5 534.0 L797.1 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 594.0 L831.8 614.0 L797.2 594.0 L797.2 554.0 L831.8 534.0 L866.4 554.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 654.0 L589.3 674.0 L554.7 654.0 L554.7 614.0 L589.3 594.0 L623.9 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 654.0 L658.6 674.0 L624.0 654.0 L624.0 614.0 L658.6 594.0 L693.2 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 654.0 L727.8 674.0 L693.2 654.0 L693.2 614.0 L727.8 594.0 L762.4 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 654.0 L797.1 674.0 L762.5 654.0 L762.5 614.0 L797.1 594.0 L831.7 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 654.0 L866.4 674.0 L831.8 654.0 L831.8 614.0 L866.4 594.0 L901.0 614.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 714.0 L554.6 734.0 L520.0 714.0 L520.0 674.0 L554.6 654.0 L589.2 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 714.0 L623.9 734.0 L589.3 714.0 L589.3 674.0 L623.9 654.0 L658.5 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 714.0 L693.2 734.0 L658.6 714.0 L658.6 674.0 L693.2 654.0 L727.8 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 714.0 L762.5 734.0 L727.9 714.0 L727.9 674.0 L762.5 654.0 L797.1 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 714.0 L831.8 734.0 L797.2 714.0 L797.2 674.0 L831.8 654.0 L866.4 674.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 774.0 L589.3 794.0 L554.7 774.0 L554.7 734.0 L589.3 714.0 L623.9 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 774.0 L658.6 794.0 L624.0 774.0 L624.0 734.0 L658.6 714.0 L693.2 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 774.0 L727.8 794.0 L693.2 774.0 L693.2 734.0 L727.8 714.0 L762.4 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 774.0 L797.1 794.0 L762.5 774.0 L762.5 734.0 L797.1 714.0 L831.7 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 774.0 L866.4 794.0 L831.8 774.0 L831.8 734.0 L866.4 714.0 L901.0 734.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 834.0 L554.6 854.0 L520.0 834.0 L520.0 794.0 L554.6 774.0 L589.2 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 834.0 L623.9 854.0 L589.3 834.0 L589.3 794.0 L623.9 774.0 L658.5 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 834.0 L693.2 854.0 L658.6 834.0 L658.6 794.0 L693.2 774.0 L727.8 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 834.0 L762.5 854.0 L727.9 834.0 L727.9 794.0 L762.5 774.0 L797.1 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 834.0 L831.8 854.0 L797.2 834.0 L797.2 794.0 L831.8 774.0 L866.4 794.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 894.0 L589.3 914.0 L554.7 894.0 L554.7 854.0 L589.3 834.0 L623.9 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 894.0 L658.6 914.0 L624.0 894.0 L624.0 854.0 L658.6 834.0 L693.2 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 894.0 L727.8 914.0 L693.2 894.0 L693.2 854.0 L727.8 834.0 L762.4 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 894.0 L797.1 914.0 L762.5 894.0 L762.5 854.0 L797.1 834.0 L831.7 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 894.0 L866.4 914.0 L831.8 894.0 L831.8 854.0 L866.4 834.0 L901.0 854.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 954.0 L554.6 974.0 L520.0 954.0 L520.0 914.0 L554.6 894.0 L589.2 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 954.0 L623.9 974.0 L589.3 954.0 L589.3 914.0 L623.9 894.0 L658.5 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 954.0 L693.2 974.0 L658.6 954.0 L658.6 914.0 L693.2 894.0 L727.8 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 954.0 L762.5 974.0 L727.9 954.0 L727.9 914.0 L762.5 894.0 L797.1 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 954.0 L831.8 974.0 L797.2 954.0 L797.2 914.0 L831.8 894.0 L866.4 914.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M623.9 1014.0 L589.3 1034.0 L554.7 1014.0 L554.7 974.0 L589.3 954.0 L623.9 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M693.2 1014.0 L658.6 1034.0 L624.0 1014.0 L624.0 974.0 L658.6 954.0 L693.2 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M762.4 1014.0 L727.8 1034.0 L693.2 1014.0 L693.2 974.0 L727.8 954.0 L762.4 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M831.7 1014.0 L797.1 1034.0 L762.5 1014.0 L762.5 974.0 L797.1 954.0 L831.7 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M901.0 1014.0 L866.4 1034.0 L831.8 1014.0 L831.8 974.0 L866.4 954.0 L901.0 974.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M589.2 1074.0 L554.6 1094.0 L520.0 1074.0 L520.0 1034.0 L554.6 1014.0 L589.2 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M658.5 1074.0 L623.9 1094.0 L589.3 1074.0 L589.3 1034.0 L623.9 1014.0 L658.5 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M727.8 1074.0 L693.2 1094.0 L658.6 1074.0 L658.6 1034.0 L693.2 1014.0 L727.8 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M797.1 1074.0 L762.5 1094.0 L727.9 1074.0 L727.9 1034.0 L762.5 1014.0 L797.1 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M866.4 1074.0 L831.8 1094.0 L797.2 1074.0 L797.2 1034.0 L831.8 1014.0 L866.4 1034.0 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "line": [
+                50,
+                574.4,
+                930,
+                574.4
+              ],
+              "dashed": true
+            },
+            {
+              "line": [
+                915,
+                524,
+                915,
+                574.4
+              ],
+              "colour": "#7fe6ff",
+              "width": 8
+            },
+            {
+              "number": [
+                720,
+                470
+              ],
+              "text": "+9%",
+              "size": 110,
+              "colour": "#7fe6ff"
+            },
+            {
+              "chip": [
+                50,
+                270
+              ],
+              "text": "cair · 240"
+            },
+            {
+              "chip": [
+                510,
+                270
+              ],
+              "text": "es · 240"
+            },
+            {
+              "cut": "kolom jadi batang"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "ngapung",
+      "type": "chart",
+      "start": 23.373,
+      "end": 26.513,
+      "caption": "Makanya es lebih *ringan*, dan ngapung.",
+      "teaches": "The same mass in more room is less dense: a cubic centimetre of ice weighs 0,917 g against 1,000 g of water.",
+      "screen": "Two bars on one baseline (y 1100), 240 px wide: 'air' in water blue, 600 px tall, and 'es' in ice cyan, 550 px tall (600 px for 1 g/cm³). The figures: '1,000 g' above the water bar and '0,917 g' just inside the top of the ice bar (under the dashed line carried across from the water bar's top, which shows the gap); a chip 'massa tiap 1 cm³' at the top. Labels 'air' and 'es' under the baseline.",
+      "motion": "The columns of s07 morph into the bars. The figures land at their values on 'ringan'. On 'ngapung' the ice bar lifts off the baseline and rises out of the top of the frame.",
+      "carries": "The cube, rising.",
+      "transition": "A cut to the floating cube, close, as if it had risen into the glass.",
+      "sound": "A soft pop as the figures land; a little water splash as the cube leaves.",
+      "check": "Bar heights 600 and 550 px; the figures 1,000 and 0,917 g/cm³ agree with the fact sheet. No counting up.",
+      "facts": [
+        "f1",
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The two columns become two bars of density on one baseline: water and ice, one cubic centimetre each.",
+          "draw": [
+            {
+              "axes": [
+                150,
+                1100,
+                760,
+                700
+              ],
+              "ylabel": "g per cm³"
+            },
+            {
+              "bar": [
+                200,
+                1100,
+                240,
+                600.0
+              ],
+              "colour": "#3f8cff",
+              "label": "air"
+            },
+            {
+              "bar": [
+                560,
+                1100,
+                240,
+                550.02
+              ],
+              "colour": "#7fe6ff",
+              "label": "es"
+            },
+            {
+              "move": [
+                680,
+                600,
+                680,
+                560
+              ],
+              "text": "menyusut"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "On 'ringan' the figures land on top of the bars at their values: 1,000 and 0,917.",
+          "draw": [
+            {
+              "axes": [
+                150,
+                1100,
+                760,
+                700
+              ]
+            },
+            {
+              "bar": [
+                200,
+                1100,
+                240,
+                600.0
+              ],
+              "colour": "#3f8cff"
+            },
+            {
+              "bar": [
+                560,
+                1100,
+                240,
+                550.02
+              ],
+              "colour": "#7fe6ff"
+            },
+            {
+              "number": [
+                320,
+                470
+              ],
+              "text": "1,000",
+              "size": 80
+            },
+            {
+              "number": [
+                680,
+                640
+              ],
+              "text": "0,917",
+              "size": 80,
+              "colour": "#7fe6ff"
+            },
+            {
+              "line": [
+                180,
+                500,
+                880,
+                500
+              ],
+              "dashed": true
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'ngapung' the ice bar lifts off its baseline, a cube again, and rises out of the top: the cut goes to the glass.",
+          "draw": [
+            {
+              "axes": [
+                150,
+                1100,
+                760,
+                700
+              ]
+            },
+            {
+              "bar": [
+                200,
+                1100,
+                240,
+                600.0
+              ],
+              "colour": "#3f8cff"
+            },
+            {
+              "path": "M580.0 380 L780.0 380 L780.0 580 L580.0 580 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M580.0 380 L612.0 360.8 L812.0 360.8 L780.0 380 M780.0 580 L812.0 560.8 L812.0 360.8",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "number": [
+                320,
+                470
+              ],
+              "text": "1,000",
+              "size": 80
+            },
+            {
+              "move": [
+                680,
+                700,
+                680,
+                420
+              ],
+              "text": "ngapung"
+            },
+            {
+              "cut": "potong ke balok di air"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "ngapung",
+      "type": "diagram",
+      "start": 26.513,
+      "end": 29.304,
+      "caption": "Sekitar *9/10-nya* ada di bawah air.",
+      "teaches": "How much of it is under: the ratio of the densities, 0,917, about nine tenths.",
+      "screen": "Close on a 400 px ice cube floating in a wide glass, water at y 640: 33 px of it above the water, 367 px under, seen through the water (a little bent and bluer). Down the cube's left side a ruler of ten marks. A cyan measure just right of the cube (x 720) from the waterline to the cube's bottom, with '≈ 92%' and 'di bawah air' beside it. At the top a chip: '0,917 ÷ 1,000 ≈ 0,92'.",
+      "motion": "The cube bobs to rest as the shot opens. The ruler's marks light one by one from the bottom on '9/10', stopping at the waterline after nine and a bit. The measure draws and '≈ 92%' lands; the chip with the division lands last.",
+      "carries": "The cube and the glass, behind the recap.",
+      "transition": "The scene dims as the recap cards rise.",
+      "sound": "No effect under the words.",
+      "check": "The waterline crosses the cube at 0.917 of its height from the bottom. The ruler's nine lit marks end just under the waterline.",
+      "facts": [
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Close on the floating cube: the waterline crosses it near the top; a ruler of ten marks down its left side.",
+          "draw": [
+            {
+              "path": "M68 640 L68 1160 Q68 1192 100 1192 L980 1192 Q1012 1192 1012 1160 L1012 640 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M60 200 L60 1160 Q60 1200 100 1200 L980 1200 Q1020 1200 1020 1160 L1020 200",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                68,
+                640,
+                1012,
+                640
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M230.0 606.8 L630.0 606.8 L630.0 1006.8 L230.0 1006.8 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M230.0 606.8 L294.0 568.4 L694.0 568.4 L630.0 606.8 M630.0 1006.8 L694.0 968.4 L694.0 568.4",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "On '9/10' the part under water is measured: 9 of the 10 marks, and a little more.",
+          "draw": [
+            {
+              "path": "M68 640 L68 1160 Q68 1192 100 1192 L980 1192 Q1012 1192 1012 1160 L1012 640 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M60 200 L60 1160 Q60 1200 100 1200 L980 1200 Q1020 1200 1020 1160 L1020 200",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                68,
+                640,
+                1012,
+                640
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M230.0 606.8 L630.0 606.8 L630.0 1006.8 L230.0 1006.8 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M230.0 606.8 L294.0 568.4 L694.0 568.4 L630.0 606.8 M630.0 1006.8 L694.0 968.4 L694.0 568.4",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "line": [
+                720,
+                640,
+                720,
+                1006.8
+              ],
+              "colour": "#7fe6ff",
+              "width": 10
+            },
+            {
+              "number": [
+                830,
+                650
+              ],
+              "text": "92%",
+              "size": 64,
+              "colour": "#7fe6ff"
+            },
+            {
+              "line": [
+                100,
+                640,
+                980,
+                640
+              ],
+              "colour": "#3f8cff",
+              "width": 8
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The fraction it comes from lands at the top: 0,917 ÷ 1,000 ≈ 0,92.",
+          "draw": [
+            {
+              "path": "M68 640 L68 1160 Q68 1192 100 1192 L980 1192 Q1012 1192 1012 1160 L1012 640 Z",
+              "colour": "#3f8cff",
+              "fill": "#3f8cff",
+              "width": 3
+            },
+            {
+              "path": "M60 200 L60 1160 Q60 1200 100 1200 L980 1200 Q1020 1200 1020 1160 L1020 200",
+              "colour": "ink",
+              "width": 9
+            },
+            {
+              "line": [
+                68,
+                640,
+                1012,
+                640
+              ],
+              "colour": "#3f8cff",
+              "width": 7
+            },
+            {
+              "path": "M230.0 606.8 L630.0 606.8 L630.0 1006.8 L230.0 1006.8 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M230.0 606.8 L294.0 568.4 L694.0 568.4 L630.0 606.8 M630.0 1006.8 L694.0 968.4 L694.0 568.4",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "line": [
+                720,
+                640,
+                720,
+                1006.8
+              ],
+              "colour": "#7fe6ff",
+              "width": 10
+            },
+            {
+              "number": [
+                830,
+                650
+              ],
+              "text": "92%",
+              "size": 64,
+              "colour": "#7fe6ff"
+            },
+            {
+              "chip": [
+                150,
+                300
+              ],
+              "text": "0,917 ÷ 1,000 ≈ 0,92"
+            },
+            {
+              "cut": "kartu naik"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "act": "recap",
+      "type": "recap",
+      "start": 29.304,
+      "end": 31.746,
+      "teaches": "The three ideas in one frame and the line to remember.",
+      "screen": "Over the dimmed glass, three glass cards (866 px wide, at y 250, 440, 630), each with a small picture and a line: a hexagon ring with four bonds, '4 tetangga, kisi segi enam'; two columns, the right taller, '+9% tempat, molekul sama'; a floating cube, '≈ 92% di bawah air'. Under them the poster line in metal type at 100 px: 'Es ngapung / karena berongga.', 'berongga' in ice cyan.",
+      "motion": "The cards rise in one after another in the first 0.5 s, the poster lines slam in, a sheen crosses them. Then everything holds two seconds with a 3 percent push.",
+      "transition": "The film ends on this frame; it can loop to frame 0, the same glass.",
+      "sound": "A short whoosh as the cards rise, a soft low impact under the poster line, the music fading over the last 1.8 s.",
+      "check": "Every figure matches the fact sheet. The poster line is readable for two seconds. Nothing is outside the safe area.",
+      "facts": [
+        "f3",
+        "f4",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The recap rises over the dimmed glass: three cards, each with its small picture.",
+          "draw": [
+            {
+              "card": [
+                64,
+                250,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M205.0 361.0 L160.0 387.0 L115.0 361.0 L115.0 309.0 L160.0 283.0 L205.0 309.0 Z",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "card": [
+                64,
+                440,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M120 590 L120 470 M220 590 L220 456",
+              "colour": "#7fe6ff",
+              "width": 30
+            },
+            {
+              "card": [
+                64,
+                630,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M120.0 690 L200.0 690 L200.0 770 L120.0 770 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M120.0 690 L132.8 682.32 L212.8 682.32 L200.0 690 M200.0 770 L212.8 762.32 L212.8 682.32",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "move": [
+                497,
+                860,
+                497,
+                800
+              ],
+              "text": "naik"
+            }
+          ]
+        },
+        {
+          "at": 0.4,
+          "note": "The line to remember slams in under them.",
+          "draw": [
+            {
+              "card": [
+                64,
+                250,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M205.0 361.0 L160.0 387.0 L115.0 361.0 L115.0 309.0 L160.0 283.0 L205.0 309.0 Z",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "label": [
+                560,
+                350
+              ],
+              "text": "4 tetangga, kisi segi enam",
+              "size": 40
+            },
+            {
+              "card": [
+                64,
+                440,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M120 590 L120 470 M220 590 L220 456",
+              "colour": "#7fe6ff",
+              "width": 30
+            },
+            {
+              "label": [
+                560,
+                540
+              ],
+              "text": "+9% tempat, molekul sama",
+              "size": 40
+            },
+            {
+              "card": [
+                64,
+                630,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M120.0 690 L200.0 690 L200.0 770 L120.0 770 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M120.0 690 L132.8 682.32 L212.8 682.32 L200.0 690 M200.0 770 L212.8 762.32 L212.8 682.32",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "label": [
+                560,
+                730
+              ],
+              "text": "≈ 92% di bawah air",
+              "size": 40
+            },
+            {
+              "title": [
+                497,
+                960
+              ],
+              "text": "Es ngapung\nkarena berongga.",
+              "size": 100,
+              "accent": "berongga."
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held for two seconds; a sheen crosses the line. The last frame can loop to the first.",
+          "draw": [
+            {
+              "card": [
+                64,
+                250,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M205.0 361.0 L160.0 387.0 L115.0 361.0 L115.0 309.0 L160.0 283.0 L205.0 309.0 Z",
+              "colour": "#7fe6ff",
+              "width": 6
+            },
+            {
+              "label": [
+                560,
+                350
+              ],
+              "text": "4 tetangga, kisi segi enam",
+              "size": 40
+            },
+            {
+              "card": [
+                64,
+                440,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M120 590 L120 470 M220 590 L220 456",
+              "colour": "#7fe6ff",
+              "width": 30
+            },
+            {
+              "label": [
+                560,
+                540
+              ],
+              "text": "+9% tempat, molekul sama",
+              "size": 40
+            },
+            {
+              "card": [
+                64,
+                630,
+                866,
+                170
+              ]
+            },
+            {
+              "path": "M120.0 690 L200.0 690 L200.0 770 L120.0 770 Z",
+              "colour": "#7fe6ff",
+              "fill": "#7fe6ff",
+              "width": 7
+            },
+            {
+              "path": "M120.0 690 L132.8 682.32 L212.8 682.32 L200.0 690 M200.0 770 L212.8 762.32 L212.8 682.32",
+              "colour": "#7fe6ff",
+              "width": 5
+            },
+            {
+              "label": [
+                560,
+                730
+              ],
+              "text": "≈ 92% di bawah air",
+              "size": 40
+            },
+            {
+              "title": [
+                497,
+                960
+              ],
+              "text": "Es ngapung\nkarena berongga.",
+              "size": 100,
+              "accent": "berongga."
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "selesai; bisa diputar ulang"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

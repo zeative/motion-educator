@@ -1,0 +1,21 @@
+{
+  "music": {"file": "lib/music/xceed_thru_johann.mp3", "start": 0.679, "lufs": -18, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "ride": [[0, 0], [20, 0], [28, -1.5], [31.746, -2.5]], "note": "86 BPM, started 0.679 s in so a beat falls on frame 0; every cut is on a half beat. A calm curious bed with no lead melody at -18 LUFS (no voice to make room for), ridden down a little as the track swells."},
+  "events": [
+    {"t": 0.575, "file": "lib/sfx/send_1.mp3", "db": -14, "align": "peak", "note": "the cube breaks the surface (a light pop for the splash)"},
+    {"t": 2.741, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -16, "align": "peak", "note": "the glass becomes two"},
+    {"t": 6.141, "file": "lib/sfx/card_2.mp3", "db": -12, "align": "peak", "note": "the wax lands on the bottom"},
+    {"t": 7.926, "file": "lib/sfx/whoosh_long_2.mp3", "db": -15, "align": "peak", "note": "the dive through the lens"},
+    {"t": 13.024, "file": "lib/sfx/shimmer_2.mp3", "db": -14, "align": "peak", "note": "the lattice locks"},
+    {"t": 14.667, "file": "lib/sfx/tick_2.mp3", "db": -14, "align": "peak", "note": "the four bonds light"},
+    {"t": 17.679, "file": "lib/sfx/shimmer_1.mp3", "db": -17, "align": "peak", "note": "the channels light"},
+    {"t": 18.389, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -16, "align": "peak", "note": "the lattice shrinks to its column, the liquid twin slides in"},
+    {"t": 19.946, "file": "lib/sfx/tick_1.mp3", "db": -13, "align": "peak", "note": "the two counts land together"},
+    {"t": 21.969, "file": "lib/sfx/impact_big_3.mp3", "db": -10, "align": "peak", "duck": 0.5, "trim": [0, 0.9], "fade": 0.6, "note": "THE TURN: '+9%' lands"},
+    {"t": 23.273, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -17, "align": "peak", "note": "the columns become bars"},
+    {"t": 24.77, "file": "lib/sfx/pop_1.mp3", "db": -14, "align": "peak", "note": "the figures land"},
+    {"t": 25.999, "file": "lib/sfx/send_2.mp3", "db": -15, "align": "peak", "note": "the ice bar rises away"},
+    {"t": 27.897, "file": "lib/sfx/tick_2.mp3", "db": -14, "align": "peak", "note": "'≈ 92%' lands"},
+    {"t": 29.284, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -16, "align": "peak", "note": "the recap rises"},
+    {"t": 29.604, "file": "lib/sfx/impact_big_3.mp3", "db": -6, "align": "peak", "duck": 0.8, "trim": [0, 1.6], "fade": 1.1, "note": "THE PAYOFF: the poster line"}
+  ]
+}

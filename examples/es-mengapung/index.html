@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kenapa es malah ngapung di air?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Everything physical (glasses, ice, wax, molecules, bars) is drawn on one canvas from the timeline's state. -->
+      <canvas id="lab" width="1080" height="1920"></canvas>
+
+      <!-- s01: the question, on the floor under the glass -->
+      <section class="scene" id="s01">
+        <h1 class="display" id="q"><span class="ln">Kenapa es</span><span class="ln">malah <em class="key">ngapung</em></span><span class="ln">di air?</span></h1>
+      </section>
+
+      <!-- s02: wax sinks in its own melt, ice does not -->
+      <section class="scene" id="s02">
+        <p class="micro" id="pair-head"><i></i>padat, di cairannya sendiri<i></i></p>
+        <span class="chip" id="c-wax" style="left: 194px; top: 300px"><i class="dot wax"></i>lilin</span>
+        <span class="chip" id="c-ice" style="left: 666px; top: 300px"><i class="dot ice"></i>es</span>
+        <span class="chip fate wax" id="f-wax" style="left: 140px; top: 640px">↓ tenggelam</span>
+        <span class="chip fate ice" id="f-ice" style="left: 606px; top: 760px">↑ ngapung</span>
+      </section>
+
+      <!-- s03 to s07: the molecules -->
+      <section class="scene" id="mol">
+        <span class="chip" id="c-liq" style="left: 64px; top: 250px"><i class="dot water"></i>air · cair</span>
+        <span class="chip" id="c-frz" style="left: 64px; top: 250px"><i class="dot ice"></i>membeku · 0 °C</span>
+        <div class="pin" id="pin-four"><span class="chip lead" id="c-four"><b class="num">4</b> tetangga</span></div>
+        <span class="chip" id="c-hex" style="left: 64px; top: 250px"><i class="dot ice"></i>kisi <b>segi enam</b></span>
+        <div class="pin" id="pin-gap"><span class="chip lead" id="c-gap">rongga</span></div>
+        <span class="chip col" id="c-col1" style="left: 50px; top: 250px"><i class="dot water"></i>cair · <b class="num">240</b> molekul</span>
+        <span class="chip col" id="c-col2" style="left: 510px; top: 250px"><i class="dot ice"></i>es · <b class="num">240</b> molekul</span>
+        <div class="dash" id="dash"></div>
+        <div class="measure-bar" id="mbar"></div>
+        <h2 class="display" id="p9"><span class="ln"><em class="key">+9%</em></span></h2>
+        <p class="sub" id="p9-sub">tempat</p>
+      </section>
+
+      <!-- s08: the same mass in more room is lighter -->
+      <section class="scene" id="bars">
+        <span class="chip" id="c-unit" style="left: 64px; top: 250px">massa tiap <b>1 cm³</b></span>
+        <b class="fig num" id="v-w">1,000 <small>g</small></b>
+        <b class="fig num ice" id="v-i">0,917 <small>g</small></b>
+        <p class="bar-label" id="l-w"><i class="dot water"></i>air</p>
+        <p class="bar-label" id="l-i"><i class="dot ice"></i>es</p>
+      </section>
+
+      <!-- s09: how much of it is under -->
+      <section class="scene" id="macro">
+        <span class="chip" id="c-div" style="left: 64px; top: 250px"><b class="num">0,917 ÷ 1,000</b> ≈ <b class="num ice">0,92</b></span>
+        <div class="pin" id="pin-92"><b class="fig num ice" id="v92">≈ 92%</b><p class="under" id="v92-sub">di bawah air</p></div>
+      </section>
+
+      <!-- s10: the recap and the line to remember -->
+      <section class="scene" id="recap">
+        <div class="rc glass" id="rc1" style="top: 250px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <path d="M100 30 L160.6 65 L160.6 135 L100 170 L39.4 135 L39.4 65 Z" stroke="#7fe6ff" stroke-width="8" fill="rgba(127,230,255,0.08)" stroke-linejoin="round" />
+            <circle cx="100" cy="100" r="34" fill="rgba(127,230,255,0.35)" />
+            <g fill="#d9f8ff"><circle cx="100" cy="30" r="13" /><circle cx="160.6" cy="65" r="13" /><circle cx="160.6" cy="135" r="13" /><circle cx="100" cy="170" r="13" /><circle cx="39.4" cy="135" r="13" /><circle cx="39.4" cy="65" r="13" /></g>
+          </svg>
+          <p>Membeku: <b>4 tetangga</b>,<br />kisi segi enam berongga</p>
+        </div>
+        <div class="rc glass" id="rc2" style="top: 440px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <rect x="26" y="66" width="62" height="114" rx="6" fill="rgba(63,140,255,0.45)" stroke="#3f8cff" stroke-width="5" />
+            <rect x="112" y="56" width="62" height="124" rx="6" fill="rgba(127,230,255,0.35)" stroke="#7fe6ff" stroke-width="5" />
+            <path d="M20 66 H184" stroke="#ededf0" stroke-width="3" stroke-dasharray="8 7" opacity=".7" />
+          </svg>
+          <p>Molekul sama,<br /><b>+9% tempat</b></p>
+        </div>
+        <div class="rc glass" id="rc3" style="top: 630px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <rect x="10" y="74" width="180" height="116" fill="rgba(63,140,255,0.4)" />
+            <path d="M10 74 H190" stroke="#c8eeff" stroke-width="5" />
+            <rect x="62" y="66" width="76" height="76" fill="rgba(200,245,255,0.75)" stroke="#fff" stroke-width="4" />
+          </svg>
+          <p>Lebih ringan, ngapung:<br /><b>≈ 92% di bawah air</b></p>
+        </div>
+        <h2 class="display" id="poster"><span class="ln">Es ngapung</span><span class="ln">karena <em class="key">berongga.</em></span></h2>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>
