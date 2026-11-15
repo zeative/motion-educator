@@ -184,7 +184,10 @@ if (shots.length && shots[0].start !== 0) err("storyboard", "the first shot must
 const guessed = narrated && !cutToTake;
 const countRule = guessed ? (where, text) => warn(where, `${text} (judged on the planned length; the take sets the real one)`) : err;
 const fewest = Math.ceil(sb.duration / SHOT.average);
-if (shots.length < fewest) countRule("storyboard", `${shots.length} shots for ${sb.duration} s: at least ${fewest} are needed (one new picture about every ${SHOT.average} s)`);
+// In a narrated film the lines set the shots: a shot short of the average is a warning there (each shot's own
+// length is still checked, and so is the number of drawn frames), not a reason to split a line in two.
+const shotRule = narrated ? (where, text) => warn(where, `${text}: if a shot holds one picture too long, give it a second frame or split its line`) : countRule;
+if (shots.length < fewest) shotRule("storyboard", `${shots.length} shots for ${sb.duration} s: at least ${fewest} are needed (one new picture about every ${SHOT.average} s)`);
 const fewestFrames = Math.ceil(sb.duration * FRAMES.perSecond);
 if (frameCount < fewestFrames) countRule("storyboard", `${frameCount} drawn frames for ${sb.duration} s: at least ${fewestFrames} are needed (about one every 1.25 s)`);
 if (new Set(shots.map((shot) => shot.type)).size < 4) err("storyboard", "fewer than four kinds of shot: vary the picture (type, 3D, diagram, chart, macro, wide...)");

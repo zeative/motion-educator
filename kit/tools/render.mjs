@@ -1,7 +1,7 @@
 // Renders a film to MP4 by seeking its paused timeline one frame at a time, so no frame is ever dropped.
 //
 //   node kit/tools/render.mjs films/NAME                    the whole picture -> films/NAME/out/picture.mp4 (silent)
-//   node kit/tools/render.mjs films/NAME --only 12-16       re-render only the segments that touch 12 s to 16 s
+//   node kit/tools/render.mjs films/NAME --only 12-16       re-render only the segments that touch 12 s to 16 s (several: 12-16,30-34)
 //   node kit/tools/render.mjs films/NAME --force            re-render every segment
 //   node kit/tools/render.mjs films/NAME --stills 1,5.5     finished PNG stills at those seconds -> out/stills/
 //   node kit/tools/render.mjs films/NAME --serve            serve the film to watch it live in a browser (#play)
@@ -135,7 +135,8 @@ if (args.includes("--serve")) {
     const segDir = join(out, "segments");
     mkdirSync(segDir, { recursive: true });
     const file = (i) => join(segDir, `seg-${String(i).padStart(3, "0")}-${fps}.mp4`);
-    const only = flag("--only")?.split("-").map(Number);
+    // --only 12-16 or several ranges at once: --only 12-16,30-34
+    const only = flag("--only")?.split(",").map((range) => range.split("-").map(Number));
     // What the picture is made from, as one fingerprint.
     const fingerprint = createHash("sha256");
     const walk = (dir, skip) => {
@@ -159,7 +160,7 @@ if (args.includes("--serve")) {
       // so an interrupted render resumes where it stopped), or by the whole render's stamp (older renders).
       const own = `${file(i)}.sha`;
       const current = existsSync(own) ? readFileSync(own, "utf8") === source : unchanged;
-      const touches = only ? i * SEGMENT < only[1] && (i + 1) * SEGMENT > only[0] : args.includes("--force") || !current;
+      const touches = only ? only.some(([a, b]) => i * SEGMENT < b && (i + 1) * SEGMENT > a) : args.includes("--force") || !current;
       if (touches || !existsSync(file(i))) wanted.push(i);
     }
     if (!wanted.length) console.log("nothing the picture is made from has changed: every segment is reused (--force renders them anyway)");
