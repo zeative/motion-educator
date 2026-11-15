@@ -250,7 +250,7 @@ film.sheen("#eqn", BENAR + 0.4, 0.6);
 tl.to("#sign, #wrong", { opacity: 0, duration: 0.3 }, EQ - 0.2);
 
 // ═════════════ s10: the name ═════════════════════════════════════════════════
-tl.to("#eqn", { y: -120, opacity: 0, duration: 0.3, ease: "power3.in" }, s.s10.start - 0.15);
+tl.to("#eqn", { y: -120, opacity: 0, duration: 0.24, ease: "power3.in" }, s.s10.start - 0.28);
 tl.to("#meters", { autoAlpha: 0, duration: 0.25 }, s.s10.start - 0.15);
 tl.to(F, { dim: 0.3, vis: 0.55, cy: 13, duration: 1.0, ease: "power2.inOut" }, s.s10.start - 0.1);
 tl.to("#sky", { opacity: 0.55, duration: 1.0 }, s.s10.start - 0.1);

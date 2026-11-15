@@ -2454,7 +2454,7 @@
       "end": 34.317,
       "voice": "waktu ketemu lagi, judulnya udah lebih terasa *benar.*",
       "teaches": "Seen before beats new: the familiar fake headline is judged more accurate than an unfamiliar one.",
-      "screen": "Two cards stacked: the seen headline ('pernah dilihat 1×') and a new fake one ('baru pertama', 'AIR ES BIKIN LEMAK PERUT MEMBEKU'). Each with a small amber 'terasa benar' meter. The seen one fills a little further; a small bracket under its meter marks the part beyond where the new one stopped, 'sedikit lebih tinggi'. Source: 'Pennycook, Cannon & Rand · 2018'; note 'ilustrasi'.",
+      "screen": "Two cards stacked: the seen headline ('pernah dilihat 1×') and a new fake one ('baru pertama', 'AIR ES BIKIN LEMAK PERUT MEMBEKU'). Each with a small amber 'terasa benar' meter. The seen one fills a little further; a small bracket under its meter marks the part beyond where the new one stopped, 'sedikit lebih tinggi'. Source: 'Pennycook dkk. · 2018 · ilustrasi'. Illustrative levels: new about 15 %, seen about 25 %.",
       "motion": "The cards land on 'ketemu lagi'; on 'terasa benar' both meters fill, the seen one a step further, and a tick marks the gap.",
       "carries": "The amber meter idea, now on a person.",
       "transition": "Hard cut to a person in profile.",
@@ -2611,7 +2611,7 @@
               "width": 4
             },
             {
-              "path": "M110 660 H368 V700 H110 Z",
+              "path": "M110 660 H225 V700 H110 Z",
               "colour": "orange",
               "fill": "orange",
               "width": 4
@@ -2658,7 +2658,7 @@
               "width": 4
             },
             {
-              "path": "M110 1140 H312 V1180 H110 Z",
+              "path": "M110 1140 H179 V1180 H110 Z",
               "colour": "orange",
               "fill": "orange",
               "width": 4
@@ -2711,7 +2711,7 @@
               "width": 4
             },
             {
-              "path": "M110 660 H368 V700 H110 Z",
+              "path": "M110 660 H225 V700 H110 Z",
               "colour": "orange",
               "fill": "orange",
               "width": 4
@@ -2758,7 +2758,7 @@
               "width": 4
             },
             {
-              "path": "M110 1140 H312 V1180 H110 Z",
+              "path": "M110 1140 H179 V1180 H110 Z",
               "colour": "orange",
               "fill": "orange",
               "width": 4
@@ -2774,10 +2774,10 @@
             {
               "label": [
                 930,
-                250
+                1120
               ],
-              "text": "Pennycook, Cannon & Rand · 2018",
-              "size": 28,
+              "text": "Pennycook dkk. · 2018 · ilustrasi",
+              "size": 34,
               "align": "end"
             },
             {
@@ -2994,7 +2994,7 @@
       "hold": 0.45,
       "voice": "[short pause] Jadi, sering dengar itu *bukan bukti.*",
       "teaches": "The turn: repetition is not evidence.",
-      "screen": "The thread again with the loudest copy of the claim; under it 'sering dengar ≠ bukti' in metal type, the '≠' in amber; the two meters: amber near full, blue at 0.",
+      "screen": "The thread again with the loudest copy of the claim; under it 'sering dengar ≠ bukti' in metal type, the '≠' in amber; the two meters: amber at about 60 %, blue at 0.",
       "motion": "The camera pulls back to the thread; on 'bukan bukti' a hit, the blue 0 flashes, the line slams in.",
       "carries": "The claim's bubble and the meters.",
       "transition": "No cut: two buttons rise under the bubble.",

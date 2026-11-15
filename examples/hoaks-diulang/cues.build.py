@@ -48,7 +48,7 @@ music = {"file": f"../../examples/{HERE.name}/music/bed.mp3", "start": 0, "lufs"
 # The bed swells right where the stamp lands (about 45.7 s): dip it under the payoff so the hit is heard.
 music["ride"] = [[0, 0], [r(STAMP - 0.35), 0], [r(STAMP - 0.08), -9], [r(STAMP + 0.7), -9], [r(STAMP + 1.2), 0],
                  # The bed resolves on a chord that decays under the poster: ride its tail up so the film is not silent at the end.
-                 [r(R + 0.8), 0], [r(R + 1.8), 12], [r(D), 14]]
+                 [r(R + 0.8), 0], [r(R + 1.8), 12], [r(R + 2.4), 22], [r(D), 32]]
 # The voice: the kit's chain, with three lines lifted a little (times are the take's own clock): "ilusif." +3 dB,
 # the lines of s02 and s06 +1.5 dB.
 take = json.loads((HERE / "voice" / "voice.json").read_text())["lines"]
