@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How does your phone know where you are?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <canvas id="stars"></canvas>
+      <canvas id="space"></canvas>
+
+      <!-- Labels that ride on things in the 3D world (placed every frame from geometry.json) -->
+      <div id="pins">
+        <div class="pin you" id="pin-you"><b></b>you</div>
+        <div class="pin sat" id="pin-s1">1</div>
+        <div class="pin sat" id="pin-s2">2</div>
+        <div class="pin sat" id="pin-s3">3</div>
+        <div class="pin sat" id="pin-s4">4</div>
+        <div class="pin q" id="pin-q1">?</div>
+        <div class="pin q" id="pin-q2">?</div>
+        <div class="pin q" id="pin-q3">?</div>
+        <div class="pin other" id="pin-other">or here?</div>
+        <div class="pin meas" id="pin-meas">20,200 km</div>
+        <div class="pin meas" id="pin-alt">20,200 km</div>
+        <div class="pin wrong" id="pin-wrong">the phone's answer</div>
+        <div class="pin lock" id="pin-lock"><i></i><i></i></div>
+        <div class="pin here" id="pin-here">you are here</div>
+        <div class="pin clock" id="pin-c1"><svg viewBox="-20 -20 40 40"><circle r="16" /><path d="M0 0 V-10 M0 0 L7 4" /></svg></div>
+        <div class="pin clock" id="pin-c2"><svg viewBox="-20 -20 40 40"><circle r="16" /><path d="M0 0 V-10 M0 0 L7 4" /></svg></div>
+        <div class="pin clock" id="pin-c3"><svg viewBox="-20 -20 40 40"><circle r="16" /><path d="M0 0 V-10 M0 0 L7 4" /></svg></div>
+        <div class="pin clock" id="pin-c4"><svg viewBox="-20 -20 40 40"><circle r="16" /><path d="M0 0 V-10 M0 0 L7 4" /></svg></div>
+      </div>
+
+      <section class="scene" id="s01">
+        <h1 class="display" id="q"><span class="ln" id="q1">How does your phone</span><span class="ln" id="q2">know <em class="key2">where you are?</em></span></h1>
+      </section>
+
+      <section class="scene" id="phone-scene">
+        <div class="phone glass" id="phone">
+          <div class="screen">
+            <svg class="map" viewBox="0 0 300 560">
+              <rect width="300" height="560" fill="#141a22" />
+              <path class="park" d="M30 60 h90 v80 h-90 Z M190 360 h80 v110 h-80 Z" />
+              <path class="water" d="M-10 470 C60 440 120 520 200 500 S300 520 320 500 V600 H-10 Z" />
+              <path class="road big" d="M-10 250 C80 240 200 270 310 230 M150 -10 C140 120 170 300 150 570" />
+              <path class="road" d="M-10 120 H310 M-10 380 H310 M70 -10 V570 M240 -10 V570 M-10 40 L310 330" />
+            </svg>
+            <div class="me" id="me"><i></i><i class="ring"></i></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <svg class="ink" id="up" viewBox="0 0 1920 1080">
+          <path class="up" d="M1330 560 L1330 250" pathLength="1" />
+          <path class="up-head" d="M1300 290 L1330 250 L1360 290" />
+          <path class="strike" d="M1262 360 L1398 470" pathLength="1" />
+        </svg>
+        <div class="label upl" id="up-label">sends nothing</div>
+      </section>
+
+      <section class="scene" id="s03">
+        <div class="chip timechip" id="timechip"><b>TIME SENT</b><span id="clock">10:24:31.0670</span></div>
+        <div class="label atomic" id="atomic">atomic clocks on board</div>
+      </section>
+
+      <section class="scene" id="s04">
+        <div class="chip count" id="count"><span class="num">32</span> satellites</div>
+        <div class="label orbits" id="orbits">6 orbits · about 12 hours a lap</div>
+        <div class="label note" id="note">orbits to scale · satellites enlarged · motion sped up</div>
+      </section>
+
+      <section class="scene" id="mech">
+        <div class="panel watch" id="watch">
+          <div class="phead">delay from satellite 1 <em>slowed down</em></div>
+          <div class="big num"><span id="delay">0.000</span> s</div>
+        </div>
+        <div class="panel sum" id="sum">
+          <div class="phead">distance</div>
+          <div class="prow"><span class="num" id="sum-a">0.0674 s</span><span class="op" id="sum-b">× 299,792 km/s</span></div>
+          <div class="prow res"><span class="num key-c" id="sum-c">= 20,200 km</span></div>
+        </div>
+      </section>
+
+      <section class="scene" id="s12">
+        <div class="panel lightwatch" id="lightwatch">
+          <div class="phead">light, timed <em>1 µs = 0.000001 s</em></div>
+          <div class="big num"><span id="us">0.00</span> µs</div>
+        </div>
+        <svg class="ink" id="ruler" viewBox="0 0 1920 1080">
+          <defs>
+            <linearGradient id="trail" x1="0" x2="1"><stop offset="0" stop-color="#38e1ff" stop-opacity="0" /><stop offset="1" stop-color="#38e1ff" stop-opacity="1" /></linearGradient>
+          </defs>
+          <rect class="track" x="210" y="610" width="1500" height="22" rx="11" />
+          <g id="ticks"></g>
+          <rect id="trailbar" x="210" y="613" width="0" height="16" rx="8" fill="url(#trail)" />
+          <circle id="pulse" cx="210" cy="621" r="16" />
+        </svg>
+        <div class="label dist num" id="dist">0 m</div>
+      </section>
+
+      <section class="scene" id="clockscene">
+        <div class="chip fast" id="fast"><b>PHONE CLOCK</b>2 ms fast</div>
+        <div class="label short" id="short">every distance 0.002 s × 299,792 km/s = 600 km short</div>
+        <div class="panel dial" id="dial">
+          <div class="phead">clock correction</div>
+          <div class="big num"><span id="corr">−2.0</span> ms <em id="fixed">fixed</em></div>
+        </div>
+      </section>
+
+      <section class="scene" id="s19">
+        <div class="cards">
+          <div class="card glass" id="card1">
+            <svg viewBox="0 0 200 110"><g class="sat"><rect x="86" y="44" width="28" height="26" /><path d="M30 57 H86 M114 57 H170" /><rect x="34" y="47" width="46" height="20" /><rect x="120" y="47" width="46" height="20" /></g><circle class="clk" cx="160" cy="22" r="16" /><path class="clk" d="M160 22 V12 M160 22 L167 26" /></svg>
+            <p>Each satellite sends <em>the time</em></p>
+          </div>
+          <div class="card glass" id="card2">
+            <svg viewBox="0 0 200 110"><path class="sig" d="M24 30 L176 80" /><circle class="sat-dot" cx="24" cy="30" r="8" /><circle class="you-dot" cx="176" cy="80" r="8" /><text x="100" y="104">0.067 s × light = 20,200 km</text></svg>
+            <p>Delay × light speed = <em>distance</em></p>
+          </div>
+          <div class="card glass" id="card3">
+            <svg viewBox="-20 -30 240 210"><circle class="sph" cx="70" cy="30" r="51.6" /><circle class="sph" cx="130" cy="30" r="51.6" /><circle class="sph" cx="50" cy="110" r="62.8" /><circle class="sph" cx="150" cy="105" r="59.9" /><circle class="you-dot" cx="100" cy="72" r="7" /></svg>
+            <p>Four spheres → <em>one point</em> + the clock</p>
+          </div>
+        </div>
+        <h2 class="display mid" id="poster"><span class="ln" id="p1">Four clocks in the sky.</span><span class="ln" id="p2">Your phone just <em class="key">listens.</em></span></h2>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

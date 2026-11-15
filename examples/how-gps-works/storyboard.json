@@ -1,0 +1,4588 @@
+{
+  "title": "How does your phone know where you are?",
+  "question": "How does your phone know where you are?",
+  "audience": "Curious adults and teenagers anywhere, watching on a phone. They use maps every day and may think the phone sends something to the satellites; they know light is fast but not how a distance comes from a time.",
+  "promise": "A GPS receiver only listens: each satellite broadcasts the time, the delay of each signal times the speed of light gives a distance, each distance puts you on a sphere around that satellite, and four satellites pin down your position and correct the receiver's own clock.",
+  "language": "en",
+  "format": "1920x1080",
+  "duration": 60.0,
+  "fps": 60,
+  "poster": 8.0,
+  "look": {
+    "accent": "#38e1ff",
+    "accent2": "#ffb547",
+    "mood": "Space over the kit's graphite stage: the real Earth (NASA maps) lit from the left, satellites of gold foil and dark solar cells. Cyan is the signal and everything made from it (shells, distances, spheres); amber is you (the dot, the circle and points where you may be, the pin). Red marks a wrong point. The stage light sits on the Earth, turns cyan as signals travel and settles amber on you when the position locks."
+  },
+  "music": {
+    "track": "Xceed Thru Johann (Mixkit 556)",
+    "bpm": 86,
+    "beat": 0.697674,
+    "start": 0.679,
+    "note": "A calm 86 BPM bed with no lead melody, at -18 LUFS. Every shot is a whole number of beats long and the music starts 0.679 s in, which puts a beat on frame 0, so every cut sits on the beat."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "GPS satellites fly in medium Earth orbit at an altitude of about 20,200 km (12,550 miles), circling the Earth twice a day. From the Earth's centre that is 20,200 + 6,371 = 26,571 km, 4.17 Earth radii: the film draws the orbits at that ratio.",
+      "source": "GPS.gov, Space Segment (gps.gov/systems/gps/space), read through search summaries (the page could not be opened from this session); ESA Navipedia, GPS Space Segment. Mean Earth radius 6,371 km (IUGG)."
+    },
+    {
+      "id": "f2",
+      "claim": "A signal from a satellite straight overhead travels 20,200 km: 20,200 / 299,792 km/s = 0.0674 s, about 67 milliseconds, written as 'about a fifteenth of a second' (1/15 = 0.0667 s). From satellites lower in the sky it takes longer (up to about 86 ms at the horizon).",
+      "source": "Arithmetic from f1 and the speed of light (BIPM SI Brochure, 9th ed.: c = 299,792,458 m/s exactly). The same order is given by the USDA Forest Service 'How GPS works' note (about 0.06 s) and Science News Today (about 67 ms for 20,000 km). The signal is slowed slightly in the atmosphere; ignored here."
+    },
+    {
+      "id": "f3",
+      "claim": "Light travels 299,792,458 m/s, so in one microsecond (a millionth of a second) it covers 299.8 m, about 300 m; an error of 2 ms in the clock is 0.002 x 299,792 km/s = 600 km of distance.",
+      "source": "BIPM, The International System of Units (SI Brochure), 9th edition, 2019 (definition of the metre); arithmetic. Wikipedia, Pseudorange: 'an error of one microsecond corresponds to an error of 300 metres'."
+    },
+    {
+      "id": "f4",
+      "claim": "A receiver needs signals from at least four satellites: three for its position (x, y, z) and one more for its own clock error, which it solves for at the same time. With three spheres alone there are two possible points; one is normally far from the Earth's surface.",
+      "source": "Penn State GEOG 862, GPS and GNSS for Geospatial Professionals, 'The Navigation Solution' (e-education.psu.edu/geog862/node/1724); Wikipedia, Pseudorange; Kaplan and Hegarty, Understanding GPS/GNSS, 3rd ed., ch. 2."
+    },
+    {
+      "id": "f5",
+      "claim": "The constellation has 32 operational satellites after the last GPS III satellite (SV-10) launched on 21 April 2026; it was 31 for several years. The US commits to at least 24 operational 95% of the time. The film says 'over thirty' and draws 32 on six orbital planes inclined 55 degrees.",
+      "source": "Lockheed Martin, GPS III (lockheedmartin.com/gps): 32 satellites in the operational constellation; CGSIC briefing of 21 April 2026 hosted on gps.gov; GPS.gov Space Segment (24-satellite commitment, six planes, 55 degrees). Read through search summaries, not opened in full; the count changes as satellites are launched and retired."
+    },
+    {
+      "id": "f6",
+      "claim": "A GPS receiver is passive: it only receives the satellites' signals and sends nothing to them, which is why any number of users can use GPS at once. (A phone may download help data over its mobile network to start faster; that is not sent to the satellites.)",
+      "source": "Enge, 'The Global Positioning System: signals, measurements, and performance', Proc. IEEE 1999 ('a passive system... no transmissions from the users', unlimited concurrent users); Penn State GEOG 862, NAVSTAR GPS. Read through search summaries."
+    },
+    {
+      "id": "f7",
+      "claim": "Each GPS satellite carries atomic clocks (rubidium; some older blocks also caesium; GPS III is rubidium only) and broadcasts the time each signal leaves, with its orbit data. The film shows a running time stamp as an illustration, not a real broadcast format.",
+      "source": "US Naval Observatory, Global Positioning System Overview (cnmoc.usff.navy.mil); Penn State GEOG 862, NAVSTAR GPS (courses.ems.psu.edu/geog862/node/1768); Kaplan and Hegarty, ch. 3. Read through search summaries."
+    },
+    {
+      "id": "f8",
+      "claim": "The geometry is computed, not drawn by eye: you sit at 53 degrees from the equator's plane in the film's world, 18 degrees in front of the globe's edge; the four satellites are on the GPS orbit at azimuth/elevation (0, 90), (215, 25), (105, 25), (300, 45) as seen from you, at ranges 20,200, 23,244, 23,244 and 21,681 km. Each sphere's radius is that range. The circle of two spheres, and the two points of three (you, and one 5.6 Earth radii from the centre, far out in space), are solved by trilateration in storyboard.build.py. Satellites are drawn enlarged; distances are to scale.",
+      "source": "Arithmetic (storyboard.build.py, geometry.json)."
+    },
+    {
+      "id": "f9",
+      "claim": "With the phone's clock 2 ms fast every measured distance is 600 km short; solving three spheres at a time then gives four different points 600 to 1,600 km above you. Moving every sphere by the same amount (the clock correction) until all four meet brings them to one point: that is how a receiver finds its clock error. 2 ms is an example; real receivers solve whatever their error is.",
+      "source": "Arithmetic in storyboard.build.py from f3 and f4; the method: Penn State GEOG 862, 'The Navigation Solution'."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "The question",
+      "goal": "Ask the question over the real Earth, then break the belief that a phone talks to the satellites.",
+      "rail": false
+    },
+    {
+      "id": "signal",
+      "title": "A time, a delay",
+      "goal": "What the satellites send, how long it takes, and how a delay becomes a distance."
+    },
+    {
+      "id": "spheres",
+      "title": "Spheres",
+      "goal": "One distance is a sphere, two cross in a circle, three leave two points: drawn and computed."
+    },
+    {
+      "id": "clock",
+      "title": "The clock",
+      "goal": "Why the phone's clock spoils it, and how a fourth satellite fixes the position and the clock together."
+    },
+    {
+      "id": "payoff",
+      "title": "Four clocks",
+      "goal": "The answer back on the phone, then in one picture.",
+      "rail": false
+    },
+    {
+      "id": "recap",
+      "title": "Recap",
+      "goal": "The three ideas in one frame and the line to remember.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "wide",
+      "start": 0,
+      "end": 3.488,
+      "caption": false,
+      "teaches": "Asks the one question the film answers, over the real Earth with a dot that is you.",
+      "screen": "The real Earth (NASA maps, langit-biru's globe) fills the lower right, lit from the left, its top edge at about y 410. An amber dot with a soft halo sits just inside that edge: you. Cyan shells (signals) sweep down across the globe from satellites out of frame, and one satellite glides across the top. On the left, in metal type at 104 px: 'How does your phone / know where you are?', 'where you are?' in amber.",
+      "motion": "Frame 0 holds the Earth, the dot and the first line. The second line slams in as 'know' is said. A slow push in; the shells keep coming; a satellite drifts left to right across the top third.",
+      "carries": "The amber dot: the camera dives into it.",
+      "transition": "The title lifts away and the camera dives into the dot (the Earth grows past the frame).",
+      "sound": "The bed from the first frame. A soft whoosh on the dive, between the two sentences.",
+      "check": "The question is readable within 2 s. The dot is on the lit side, on land. The title does not overlap the globe.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Frame 0 is finished: the real Earth fills the lower right, lit from the left; a soft amber dot (you) near its top edge; the question's first line is already in place on the left. Cyan shells are sweeping down over the globe from satellites out of frame.",
+          "draw": [
+            {
+              "planet": [
+                1330,
+                1010,
+                600
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                1342,
+                436,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1412,
+                486
+              ],
+              "text": "",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "ring": [
+                1700,
+                -500,
+                980
+              ],
+              "colour": "blue",
+              "dashed": true
+            },
+            {
+              "title": [
+                600,
+                470
+              ],
+              "text": "How does your phone",
+              "size": 104
+            },
+            {
+              "glow": [
+                1100,
+                520,
+                420
+              ],
+              "colour": "blue"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The second line lands as it is said, 'where you are?' in the amber of you. A shell passes over the dot; a satellite glides across the top of the frame.",
+          "draw": [
+            {
+              "planet": [
+                1330,
+                1010,
+                600
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                1342,
+                436,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1412,
+                486
+              ],
+              "text": "",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "ring": [
+                1700,
+                -500,
+                1180
+              ],
+              "colour": "blue",
+              "dashed": true
+            },
+            {
+              "path": "M612 120 H788 M680 96 h40 v48 h-40 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "move": [
+                560,
+                120,
+                980,
+                150
+              ],
+              "text": "satellite drifts"
+            },
+            {
+              "title": [
+                600,
+                470
+              ],
+              "text": "How does your phone\nknow where you are?",
+              "size": 104,
+              "accent": "where you are?"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The question holds; the camera has begun to dive toward the dot.",
+          "draw": [
+            {
+              "planet": [
+                1330,
+                1010,
+                600
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                1342,
+                436,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1412,
+                486
+              ],
+              "text": "",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "title": [
+                600,
+                470
+              ],
+              "text": "How does your phone\nknow where you are?",
+              "size": 104,
+              "accent": "where you are?"
+            },
+            {
+              "move": [
+                1200,
+                700,
+                1321.8,
+                476.4
+              ],
+              "text": "dive"
+            },
+            {
+              "cut": "dive into the dot"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "hook",
+      "type": "macro",
+      "start": 3.488,
+      "end": 6.976,
+      "caption": "It sends nothing up. It just *listens.*",
+      "teaches": "The surprise the whole film rests on: a GPS receiver transmits nothing; it only receives.",
+      "screen": "Down at the ground: the Earth's curved surface across the bottom of the frame, the dark sky above. A phone of glass 400 x 760 at the centre, its screen a dark map with your amber dot. To its right an amber arrow tries to go up and is struck through, 'sends nothing'. Then cyan arcs come down from above into the phone.",
+      "motion": "The dive lands; the phone rises into place. On 'send anything up' the amber arrow draws upward and is struck through, then fades. On 'listens' three cyan arcs fall into the phone one after another and its screen glints with each.",
+      "carries": "The cyan arcs: the camera follows one back up to its satellite.",
+      "transition": "A vertical whip up the arcs to the satellite.",
+      "sound": "A soft click as the arrow is struck through, between the words. Small chimes as the arcs land, kept low.",
+      "check": "The struck-through arrow reads as 'nothing goes up'. The arcs come from above and end at the phone.",
+      "facts": [
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The camera has dived to the ground: the curve of the Earth across the bottom, the sky above. A phone of glass stands where the dot was, its screen a small map with your dot.",
+          "draw": [
+            {
+              "horizon": [
+                820
+              ]
+            },
+            {
+              "card": [
+                760,
+                230,
+                400,
+                760
+              ],
+              "label": "map"
+            },
+            {
+              "dot": [
+                960,
+                560,
+                22
+              ],
+              "colour": "orange"
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.4,
+          "note": "'It doesn't send anything up': an amber arrow tries to leave the phone upward and is struck through.",
+          "draw": [
+            {
+              "horizon": [
+                820
+              ]
+            },
+            {
+              "card": [
+                760,
+                230,
+                400,
+                760
+              ],
+              "label": "map"
+            },
+            {
+              "dot": [
+                960,
+                560,
+                22
+              ],
+              "colour": "orange"
+            },
+            {
+              "arrow": [
+                1300,
+                600,
+                1300,
+                200
+              ],
+              "colour": "orange",
+              "dashed": true
+            },
+            {
+              "line": [
+                1240,
+                360,
+                1360,
+                440
+              ],
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "label": [
+                1440,
+                420
+              ],
+              "text": "sends nothing",
+              "size": 40
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "'It just listens': cyan arcs come down from the sky into the phone, one after another.",
+          "draw": [
+            {
+              "horizon": [
+                820
+              ]
+            },
+            {
+              "card": [
+                760,
+                230,
+                400,
+                760
+              ],
+              "label": "map"
+            },
+            {
+              "dot": [
+                960,
+                560,
+                22
+              ],
+              "colour": "orange"
+            },
+            {
+              "ring": [
+                960,
+                -200,
+                640
+              ],
+              "colour": "blue"
+            },
+            {
+              "ring": [
+                960,
+                -200,
+                760
+              ],
+              "colour": "blue"
+            },
+            {
+              "move": [
+                960,
+                100,
+                960,
+                220
+              ],
+              "text": "signals arrive"
+            },
+            {
+              "cut": "follow a signal back up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "signal",
+      "type": "object3d",
+      "start": 6.976,
+      "end": 9.767,
+      "caption": "What it hears is the *time,*",
+      "teaches": "What a satellite broadcasts: the time it sends each signal, kept by atomic clocks on board.",
+      "screen": "One GPS satellite close up in 3D: a gold-foil body, two dark-blue solar wings, lit from the left by the Sun, the Earth's curve below. A glass chip on it reads 'time sent  10:24:31.0670' with the figures running, and a small label 'atomic clock on board'. Cyan shells leave it, one every half second.",
+      "motion": "The whip arrives; the satellite turns slowly. The time figures run in real time (the last digits blur by). A shell leaves on 'time' and grows past the frame.",
+      "carries": "The shells: they keep coming as the camera pulls back.",
+      "transition": "A fast pull back to the whole constellation.",
+      "sound": "A soft shimmer as the shell leaves, after 'time'.",
+      "check": "The clock runs at real speed. The satellite looks like a GPS satellite, not a box.",
+      "facts": [
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Following a signal back up: one GPS satellite close, gold body and two dark solar wings, lit from the left. A chip on it reads the time it broadcasts.",
+          "draw": [
+            {
+              "path": "M718 520 H1202 M905 454 h110 v132 h-110 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "chip": [
+                1220,
+                610
+              ],
+              "text": "time sent 10:24:31.0670"
+            },
+            {
+              "glow": [
+                760,
+                400,
+                380
+              ],
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "On 'time' a cyan shell leaves the satellite; the figures keep running.",
+          "draw": [
+            {
+              "path": "M718 520 H1202 M905 454 h110 v132 h-110 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "chip": [
+                1220,
+                610
+              ],
+              "text": "time sent 10:24:31.2410"
+            },
+            {
+              "ring": [
+                960,
+                520,
+                220
+              ],
+              "colour": "blue"
+            },
+            {
+              "camera": "orbit"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The time ticks on, the chip says 'atomic clock'; a cyan shell leaves the satellite and grows past the frame.",
+          "draw": [
+            {
+              "path": "M718 520 H1202 M905 454 h110 v132 h-110 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "chip": [
+                1220,
+                610
+              ],
+              "text": "time sent 10:24:31.4120"
+            },
+            {
+              "label": [
+                1420,
+                760
+              ],
+              "text": "atomic clock on board",
+              "size": 36
+            },
+            {
+              "ring": [
+                960,
+                520,
+                420
+              ],
+              "colour": "blue"
+            },
+            {
+              "cut": "pull back"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "signal",
+      "type": "wide",
+      "start": 9.767,
+      "end": 12.558,
+      "caption": "from over thirty *GPS satellites,*",
+      "teaches": "Where the time comes from: 32 satellites on six orbits, drawn to scale.",
+      "screen": "The Earth small at the centre (diameter 216 px), six orbit rings around it at their true radius (4.17 Earth radii, 450 px), inclined 55 degrees, 32 satellites on them as small gold sparks. A chip '32 satellites' with '6 orbits · about 12 hours a lap' under it at upper right. A small note at upper left, under the chapter rail: 'orbits to scale · satellites enlarged · motion sped up'.",
+      "motion": "The camera pulls back fast from the satellite, then slowly, the whole constellation turning a little. The satellites drift along their rings (sped up). The chip lands on 'thirty satellites'.",
+      "carries": "The Earth and the orbits.",
+      "transition": "No cut: the camera sinks toward the Earth and the rings merge into one circle.",
+      "sound": "A whoosh with the pull back, before 'from'.",
+      "check": "Ring radius / Earth radius = 26 571 / 6 371 = 4.17. 32 satellites drawn.",
+      "facts": [
+        "f1",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The camera pulls far back: the Earth small at the centre, six orbit rings around it, to scale.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                500,
+                100
+              ],
+              "light": "left"
+            },
+            {
+              "path": "M1356 501 L1363 430 L1353 361 L1325 297 L1281 241 L1221 196 L1149 164 L1068 146 L980 144 L892 159 L806 189 L727 234 L659 290 L606 355 L569 426 L550 499 L549 571 L566 639 L601 700 L650 750 L711 790 L782 816 L860 829 L941 828 L1023 814 L1102 786 L1175 746 L1239 695 L1292 636 L1332 570 L1356 501",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                1356,
+                501,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1221,
+                196,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                806,
+                189,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                550,
+                499,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                711,
+                790,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1102,
+                786,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M1061 502 L1104 436 L1142 371 L1173 310 L1195 257 L1208 212 L1210 179 L1202 159 L1182 154 L1152 164 L1113 189 L1065 230 L1012 284 L955 349 L898 421 L844 497 L796 573 L756 645 L726 709 L707 762 L700 802 L704 828 L720 839 L745 835 L779 816 L820 786 L865 743 L914 692 L964 633 L1014 569 L1061 502",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                1134,
+                386,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1188,
+                154,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                911,
+                404,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                700,
+                794,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                854,
+                754,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M679 502 L720 435 L770 370 L828 312 L892 261 L959 220 L1027 190 L1093 172 L1155 169 L1209 179 L1254 204 L1287 243 L1306 294 L1310 355 L1298 424 L1270 498 L1228 573 L1172 645 L1107 710 L1036 766 L961 809 L887 837 L818 850 L756 847 L705 828 L666 796 L641 751 L630 697 L633 636 L649 570 L679 502",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                862,
+                284,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1234,
+                191,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1249,
+                538,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                850,
+                846,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                630,
+                665,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M550 499 L549 428 L566 361 L601 301 L650 251 L711 212 L782 186 L860 174 L941 175 L1023 190 L1102 218 L1175 258 L1239 308 L1292 367 L1332 432 L1356 501 L1363 571 L1353 639 L1325 702 L1281 758 L1221 802 L1149 834 L1068 851 L980 852 L892 837 L806 807 L727 763 L659 707 L606 642 L569 572 L550 499",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                731,
+                203,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1124,
+                228,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1360,
+                522,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1201,
+                813,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                781,
+                795,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                548,
+                478,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M844 497 L796 422 L756 350 L726 287 L707 235 L700 196 L704 171 L720 162 L745 167 L779 186 L820 218 L865 261 L914 313 L964 372 L1014 436 L1061 502 L1104 569 L1142 634 L1173 694 L1195 746 L1208 790 L1210 822 L1202 841 L1182 845 L1152 834 L1113 807 L1065 766 L1012 711 L955 646 L898 573 L844 497",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                721,
+                161,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                968,
+                376,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1196,
+                750,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1110,
+                805,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                793,
+                417,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M1270 498 L1228 423 L1172 350 L1107 285 L1036 230 L961 187 L887 159 L818 147 L756 151 L705 171 L666 204 L641 250 L630 305 L633 367 L649 433 L679 502 L720 570 L770 634 L828 692 L892 743 L959 784 L1027 814 L1093 830 L1155 833 L1209 822 L1254 796 L1287 756 L1306 705 L1310 642 L1298 572 L1270 498",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                713,
+                167,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                673,
+                490,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1016,
+                809,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1304,
+                714,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1119,
+                295,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The satellites drift along their rings; on 'thirty satellites' a chip lands: 32 satellites, 6 orbits.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                500,
+                100
+              ],
+              "light": "left"
+            },
+            {
+              "path": "M1356 501 L1363 430 L1353 361 L1325 297 L1281 241 L1221 196 L1149 164 L1068 146 L980 144 L892 159 L806 189 L727 234 L659 290 L606 355 L569 426 L550 499 L549 571 L566 639 L601 700 L650 750 L711 790 L782 816 L860 829 L941 828 L1023 814 L1102 786 L1175 746 L1239 695 L1292 636 L1332 570 L1356 501",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                1356,
+                501,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1221,
+                196,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                806,
+                189,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                550,
+                499,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                711,
+                790,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1102,
+                786,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M1061 502 L1104 436 L1142 371 L1173 310 L1195 257 L1208 212 L1210 179 L1202 159 L1182 154 L1152 164 L1113 189 L1065 230 L1012 284 L955 349 L898 421 L844 497 L796 573 L756 645 L726 709 L707 762 L700 802 L704 828 L720 839 L745 835 L779 816 L820 786 L865 743 L914 692 L964 633 L1014 569 L1061 502",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                1134,
+                386,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1188,
+                154,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                911,
+                404,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                700,
+                794,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                854,
+                754,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M679 502 L720 435 L770 370 L828 312 L892 261 L959 220 L1027 190 L1093 172 L1155 169 L1209 179 L1254 204 L1287 243 L1306 294 L1310 355 L1298 424 L1270 498 L1228 573 L1172 645 L1107 710 L1036 766 L961 809 L887 837 L818 850 L756 847 L705 828 L666 796 L641 751 L630 697 L633 636 L649 570 L679 502",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                862,
+                284,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1234,
+                191,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1249,
+                538,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                850,
+                846,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                630,
+                665,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M550 499 L549 428 L566 361 L601 301 L650 251 L711 212 L782 186 L860 174 L941 175 L1023 190 L1102 218 L1175 258 L1239 308 L1292 367 L1332 432 L1356 501 L1363 571 L1353 639 L1325 702 L1281 758 L1221 802 L1149 834 L1068 851 L980 852 L892 837 L806 807 L727 763 L659 707 L606 642 L569 572 L550 499",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                731,
+                203,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1124,
+                228,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1360,
+                522,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1201,
+                813,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                781,
+                795,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                548,
+                478,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M844 497 L796 422 L756 350 L726 287 L707 235 L700 196 L704 171 L720 162 L745 167 L779 186 L820 218 L865 261 L914 313 L964 372 L1014 436 L1061 502 L1104 569 L1142 634 L1173 694 L1195 746 L1208 790 L1210 822 L1202 841 L1182 845 L1152 834 L1113 807 L1065 766 L1012 711 L955 646 L898 573 L844 497",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                721,
+                161,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                968,
+                376,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1196,
+                750,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1110,
+                805,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                793,
+                417,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M1270 498 L1228 423 L1172 350 L1107 285 L1036 230 L961 187 L887 159 L818 147 L756 151 L705 171 L666 204 L641 250 L630 305 L633 367 L649 433 L679 502 L720 570 L770 634 L828 692 L892 743 L959 784 L1027 814 L1093 830 L1155 833 L1209 822 L1254 796 L1287 756 L1306 705 L1310 642 L1298 572 L1270 498",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                713,
+                167,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                673,
+                490,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1016,
+                809,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1304,
+                714,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1119,
+                295,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "chip": [
+                1380,
+                120
+              ],
+              "text": "32 satellites"
+            },
+            {
+              "label": [
+                1500,
+                260
+              ],
+              "text": "6 orbits",
+              "size": 36
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held, drifting; a small note at the bottom: orbits to scale, satellites enlarged.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                500,
+                100
+              ],
+              "light": "left"
+            },
+            {
+              "path": "M1356 501 L1363 430 L1353 361 L1325 297 L1281 241 L1221 196 L1149 164 L1068 146 L980 144 L892 159 L806 189 L727 234 L659 290 L606 355 L569 426 L550 499 L549 571 L566 639 L601 700 L650 750 L711 790 L782 816 L860 829 L941 828 L1023 814 L1102 786 L1175 746 L1239 695 L1292 636 L1332 570 L1356 501",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                1356,
+                501,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1221,
+                196,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                806,
+                189,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                550,
+                499,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                711,
+                790,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1102,
+                786,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M1061 502 L1104 436 L1142 371 L1173 310 L1195 257 L1208 212 L1210 179 L1202 159 L1182 154 L1152 164 L1113 189 L1065 230 L1012 284 L955 349 L898 421 L844 497 L796 573 L756 645 L726 709 L707 762 L700 802 L704 828 L720 839 L745 835 L779 816 L820 786 L865 743 L914 692 L964 633 L1014 569 L1061 502",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                1134,
+                386,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1188,
+                154,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                911,
+                404,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                700,
+                794,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                854,
+                754,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M679 502 L720 435 L770 370 L828 312 L892 261 L959 220 L1027 190 L1093 172 L1155 169 L1209 179 L1254 204 L1287 243 L1306 294 L1310 355 L1298 424 L1270 498 L1228 573 L1172 645 L1107 710 L1036 766 L961 809 L887 837 L818 850 L756 847 L705 828 L666 796 L641 751 L630 697 L633 636 L649 570 L679 502",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                862,
+                284,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1234,
+                191,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1249,
+                538,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                850,
+                846,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                630,
+                665,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M550 499 L549 428 L566 361 L601 301 L650 251 L711 212 L782 186 L860 174 L941 175 L1023 190 L1102 218 L1175 258 L1239 308 L1292 367 L1332 432 L1356 501 L1363 571 L1353 639 L1325 702 L1281 758 L1221 802 L1149 834 L1068 851 L980 852 L892 837 L806 807 L727 763 L659 707 L606 642 L569 572 L550 499",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                731,
+                203,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1124,
+                228,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1360,
+                522,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1201,
+                813,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                781,
+                795,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                548,
+                478,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M844 497 L796 422 L756 350 L726 287 L707 235 L700 196 L704 171 L720 162 L745 167 L779 186 L820 218 L865 261 L914 313 L964 372 L1014 436 L1061 502 L1104 569 L1142 634 L1173 694 L1195 746 L1208 790 L1210 822 L1202 841 L1182 845 L1152 834 L1113 807 L1065 766 L1012 711 L955 646 L898 573 L844 497",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                721,
+                161,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                968,
+                376,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1196,
+                750,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1110,
+                805,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                793,
+                417,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "path": "M1270 498 L1228 423 L1172 350 L1107 285 L1036 230 L961 187 L887 159 L818 147 L756 151 L705 171 L666 204 L641 250 L630 305 L633 367 L649 433 L679 502 L720 570 L770 634 L828 692 L892 743 L959 784 L1027 814 L1093 830 L1155 833 L1209 822 L1254 796 L1287 756 L1306 705 L1310 642 L1298 572 L1270 498",
+              "colour": "white",
+              "width": 3
+            },
+            {
+              "dot": [
+                713,
+                167,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                673,
+                490,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1016,
+                809,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1304,
+                714,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1119,
+                295,
+                8
+              ],
+              "colour": "ink"
+            },
+            {
+              "chip": [
+                1380,
+                120
+              ],
+              "text": "32 satellites"
+            },
+            {
+              "label": [
+                1500,
+                260
+              ],
+              "text": "6 orbits",
+              "size": 36
+            },
+            {
+              "label": [
+                400,
+                170
+              ],
+              "text": "orbits to scale, satellites enlarged",
+              "size": 30
+            },
+            {
+              "cut": "the camera sinks toward the Earth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "signal",
+      "type": "diagram",
+      "start": 12.558,
+      "end": 14.651,
+      "caption": "20,200 kilometres *up.*",
+      "teaches": "How high: every GPS orbit is about 20 200 km above the ground, more than three Earth radii.",
+      "screen": "The Earth low in the frame (radius 112 px, centre at (960, 900)), you an amber dot on top. The six rings fade into one faint dashed cyan circle at 4.17 Earth radii: the height they all share. A cyan measure from the ground up to that circle, '20,200 km'. Four satellites stay on the circle; the rest fade.",
+      "motion": "The camera sinks during 'twenty thousand'; the measure draws upward and its figure lands on 'kilometres'; on 'up' the other satellites fade and four stay.",
+      "carries": "The Earth, you and the four satellites.",
+      "transition": "No cut: the camera settles on the mechanism's framing.",
+      "sound": "No effect under the words.",
+      "check": "The measure runs from the Earth's surface to the circle: (26 571 - 6 371) / 6 371 = 3.17 Earth radii = 355 px.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The camera sinks so the Earth sits low; the rings fade into one faint cyan circle: the height all the orbits share.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                760,
+                105
+              ],
+              "light": "left"
+            },
+            {
+              "ring": [
+                960,
+                760,
+                438
+              ],
+              "colour": "blue",
+              "dashed": true
+            },
+            {
+              "dot": [
+                960,
+                661,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                711
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "camera": "down"
+            }
+          ]
+        },
+        {
+          "at": 0.6,
+          "note": "A measure draws from the ground up to the orbit and lands at its value: 20,200 km.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                760,
+                105
+              ],
+              "light": "left"
+            },
+            {
+              "ring": [
+                960,
+                760,
+                438
+              ],
+              "colour": "blue",
+              "dashed": true
+            },
+            {
+              "dot": [
+                960,
+                661,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                711
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "line": [
+                1200,
+                655,
+                1200,
+                322
+              ],
+              "colour": "blue",
+              "width": 6
+            },
+            {
+              "label": [
+                1360,
+                460
+              ],
+              "text": "20,200 km",
+              "size": 48,
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Four satellites stay on the circle; the others fade.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                760,
+                105
+              ],
+              "light": "left"
+            },
+            {
+              "ring": [
+                960,
+                760,
+                438
+              ],
+              "colour": "blue",
+              "dashed": true
+            },
+            {
+              "dot": [
+                960,
+                661,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                711
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M903 339 H1017 M947 324 h26 v31 h-26 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M691 598 H806 M736 582 h26 v31 h-26 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1248 534 H1362 M1292 518 h26 v31 h-26 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M684 381 H799 M728 365 h26 v31 h-26 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "label": [
+                1360,
+                460
+              ],
+              "text": "20,200 km",
+              "size": 48,
+              "colour": "blue"
+            },
+            {
+              "cut": "no cut: settle on four"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "signal",
+      "type": "diagram",
+      "start": 14.651,
+      "end": 18.837,
+      "caption": "Each signal takes about a *fifteenth of a second.*",
+      "teaches": "The signal from a satellite overhead takes about 0.067 s to reach you.",
+      "screen": "The mechanism's framing: the Earth small and low in the middle (radius 122 px), you an amber dot on its top edge, four satellites around (1 straight overhead, 2 low left, 3 low right, 4 high left), each named. A cyan shell grows from satellite 1 down to you. A glass stopwatch at the right reads the shell's travel time; a small note 'slowed down'.",
+      "motion": "On 'Each signal' the shell leaves satellite 1; the stopwatch counts with the shell (counting is the point: it is a stopwatch) and stops at 0.067 s as the shell touches you, on 'second'. A small amber flash at the dot.",
+      "carries": "The stopwatch's figure.",
+      "transition": "No cut: the figure flies into a sum.",
+      "sound": "A tick as the stopwatch stops, after 'second'.",
+      "check": "The stopwatch reads radius / 299 792 km/s at every frame and stops at 0.067. Satellite 1 is 20 200 km above you (3.17 Earth radii).",
+      "facts": [
+        "f1",
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The mechanism's framing: a small Earth low in the middle, you on top of it, four satellites around. Satellite 1 is straight overhead. A stopwatch panel on the right reads 0.000 s.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "panel": [
+                1440,
+                680,
+                400,
+                190
+              ],
+              "title": "delay",
+              "rows": [
+                "0.000 s"
+              ]
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "A cyan shell leaves satellite 1 and grows toward you; the stopwatch runs with the shell's radius.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                193
+              ],
+              "colour": "blue"
+            },
+            {
+              "panel": [
+                1440,
+                680,
+                400,
+                190
+              ],
+              "title": "delay",
+              "rows": [
+                "0.034 s"
+              ]
+            },
+            {
+              "label": [
+                1640,
+                920
+              ],
+              "text": "slowed down",
+              "size": 30
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The shell reaches you, the stopwatch stops at 0.067 s, a small flash at the dot.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue"
+            },
+            {
+              "panel": [
+                1440,
+                680,
+                400,
+                190
+              ],
+              "title": "delay",
+              "rows": [
+                "0.067 s"
+              ]
+            },
+            {
+              "scatter": [
+                960,
+                635,
+                8,
+                20,
+                50
+              ],
+              "colour": "orange"
+            },
+            {
+              "cut": "no cut: the sum builds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "signal",
+      "type": "compare",
+      "start": 18.837,
+      "end": 21.628,
+      "caption": "Multiply by the *speed of light:*",
+      "teaches": "The rule: a delay times the speed of light is a distance.",
+      "screen": "The same framing. The stopwatch's figure flies into a glass panel at upper right, 'distance', and the sum builds: '0.0674 s  ×  299,792 km/s'.",
+      "motion": "The figure flies in at the start; '× 299,792 km/s' lands a third of the way in; a slow push.",
+      "carries": "The sum.",
+      "transition": "No cut: the result lands.",
+      "sound": "A soft pop as the speed of light lands.",
+      "check": "0.0674 s is the stopwatch's final figure. 299,792 km/s is the speed of light.",
+      "facts": [
+        "f2",
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The stopwatch's figure flies into a glass panel at upper right and a sum builds: 0.0674 s x 299,792 km/s.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "panel": [
+                1300,
+                300,
+                560,
+                300
+              ],
+              "title": "distance",
+              "rows": [
+                "0.0674 s",
+                ""
+              ]
+            },
+            {
+              "move": [
+                1640,
+                760,
+                1500,
+                420
+              ],
+              "text": "figure flies"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "'x 299,792 km/s' lands on 'speed of light'.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "panel": [
+                1300,
+                300,
+                560,
+                300
+              ],
+              "title": "distance",
+              "rows": [
+                "0.0674 s x 299,792 km/s",
+                ""
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held for the read; the camera eases in a little.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "panel": [
+                1300,
+                300,
+                560,
+                300
+              ],
+              "title": "distance",
+              "rows": [
+                "0.0674 s x 299,792 km/s",
+                ""
+              ]
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "no cut: the result"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "signal",
+      "type": "diagram",
+      "start": 21.628,
+      "end": 23.721,
+      "caption": "that's the *distance.*",
+      "teaches": "0.0674 s x 299 792 km/s = 20 200 km: the distance from satellite 1 to you.",
+      "screen": "The same framing and panel, now with '= 20,200 km' at its value. A cyan measure from satellite 1 down to you, labelled '20,200 km'.",
+      "motion": "The result lands at once; the measure draws down from the satellite to the dot and its label lands.",
+      "carries": "The measure: it becomes the radius of a sphere.",
+      "transition": "No cut: the measure swings round satellite 1.",
+      "sound": "A soft pop as the result lands.",
+      "check": "0.0674 x 299 792 = 20 206 km, shown as 20,200. The measure runs from satellite 1 to the dot.",
+      "facts": [
+        "f2",
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The result lands at its value under the sum, = 20,200 km.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "panel": [
+                1300,
+                300,
+                560,
+                300
+              ],
+              "title": "distance",
+              "rows": [
+                "0.0674 s x 299,792 km/s",
+                "= 20,200 km"
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "A cyan measure draws from satellite 1 down to you with '20,200 km' beside it: the delay has become a distance.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "panel": [
+                1300,
+                300,
+                560,
+                300
+              ],
+              "title": "distance",
+              "rows": [
+                "0.0674 s x 299,792 km/s",
+                "= 20,200 km"
+              ]
+            },
+            {
+              "line": [
+                960.0,
+                258.9,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                830,
+                447
+              ],
+              "text": "20,200 km",
+              "size": 40,
+              "colour": "blue"
+            },
+            {
+              "cut": "the radius sweeps a sphere"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "spheres",
+      "type": "object3d",
+      "start": 23.721,
+      "end": 27.209,
+      "caption": "But one distance only puts you on a *sphere.*",
+      "teaches": "One distance does not give a place: it gives a sphere of places around the satellite.",
+      "screen": "The same framing. Around satellite 1, a sphere of radius 20 200 km (3.17 Earth radii, 387 px) as a glassy cyan shell, bright at its rim, with faint lines of latitude so it reads as round. Its surface passes exactly through you. Small amber question marks ride its surface.",
+      "motion": "The measure swings round satellite 1 and the sphere fills in behind it (0.6 s). The question marks appear on 'puts you on a sphere' and slide over its surface; the sphere turns slowly.",
+      "carries": "Sphere 1.",
+      "transition": "No cut: satellite 2's shell grows.",
+      "sound": "A low swell as the sphere fills, kept low.",
+      "check": "The sphere's radius is computed from the range (3.17 Earth radii) and touches the dot.",
+      "facts": [
+        "f8"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The measure swings around satellite 1 and leaves a sphere behind it: a glassy cyan shell, bright at its rim.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "move": [
+                960.0,
+                634.6,
+                660.0,
+                494.6
+              ],
+              "text": "radius sweeps"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The whole sphere is there; every point on it is 20,200 km from satellite 1. Small amber question marks ride its surface: you could be anywhere on it.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "label": [
+                580,
+                299
+              ],
+              "text": "?",
+              "size": 60,
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1340,
+                379
+              ],
+              "text": "?",
+              "size": 60,
+              "colour": "orange"
+            },
+            {
+              "label": [
+                960,
+                -101
+              ],
+              "text": "?",
+              "size": 60,
+              "colour": "orange"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held, turning slowly so it reads as a sphere, not a circle.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "camera": "orbit"
+            },
+            {
+              "cut": "satellite 2's sphere grows"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "act": "spheres",
+      "type": "diagram",
+      "start": 27.209,
+      "end": 30.0,
+      "caption": "Two spheres cross in a *circle.*",
+      "teaches": "Two distances: the two spheres meet in a circle, and you are on it.",
+      "screen": "Sphere 1 stays. Satellite 2's sphere (23 244 km, 3.65 Earth radii) grows from the left until it touches you. The circle where the two spheres cross lights amber; it runs through you.",
+      "motion": "Sphere 2 grows during 'Two spheres'; the amber circle draws itself around on 'circle'.",
+      "carries": "The two spheres and the amber circle.",
+      "transition": "No cut: satellite 3's shell grows.",
+      "sound": "A soft shimmer as the circle draws.",
+      "check": "The circle is the computed intersection of the two spheres and passes through the dot.",
+      "facts": [
+        "f8"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Satellite 2's shell grows from the left until it reaches you.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "ring": [
+                712,
+                559,
+                267
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "move": [
+                711.8,
+                559.0,
+                911.8,
+                499.0
+              ],
+              "text": "grows"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Where the two spheres cross, an amber circle lights up, running through you: you are somewhere on that ring.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "ring": [
+                712,
+                559,
+                445
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "path": "M584 145 L573 170 L566 198 L565 229 L569 261 L578 296 L591 331 L609 366 L631 401 L657 436 L686 469 L718 500 L752 530 L788 556 L826 580 L864 600 L903 617 L941 630 L979 638 L1015 642 L1048 642 L1080 637 L1108 628 L1132 614 L1152 595 L1167 573 L1178 546 L1183 517 L1183 484 L1177 449 L1165 412 L1149 374 L1127 336 L1100 298 L1069 261 L1034 226 L996 194 L956 164 L915 138 L872 117 L830 100 L789 89 L750 82 L713 80 L679 84 L649 92 L623 106 L601 123 L584 145",
+              "colour": "orange",
+              "width": 7
+            },
+            {
+              "cut": "satellite 3's sphere grows"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "act": "spheres",
+      "type": "object3d",
+      "start": 30.0,
+      "end": 32.791,
+      "caption": "A third leaves *two points.*",
+      "teaches": "Three distances leave two possible points: one is you, the other is out in space.",
+      "screen": "Satellite 3's sphere (23 244 km) grows from the right. The amber circle shrinks to two amber points: you, and a second point far out in space (5.6 Earth radii from the centre) with a small 'or here?'.",
+      "motion": "Sphere 3 grows; on 'two points' the circle collapses onto the two points, each pops with a ring.",
+      "carries": "Your point.",
+      "transition": "A hard cut to a new picture: the ruler.",
+      "sound": "Two small pops, one per point, after 'points'.",
+      "check": "The second point is the computed second intersection of the three spheres.",
+      "facts": [
+        "f8",
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Satellite 3's shell grows from the right.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "ring": [
+                712,
+                559,
+                445
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "ring": [
+                1363,
+                486,
+                267
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "path": "M584 145 L573 170 L566 198 L565 229 L569 261 L578 296 L591 331 L609 366 L631 401 L657 436 L686 469 L718 500 L752 530 L788 556 L826 580 L864 600 L903 617 L941 630 L979 638 L1015 642 L1048 642 L1080 637 L1108 628 L1132 614 L1152 595 L1167 573 L1178 546 L1183 517 L1183 484 L1177 449 L1165 412 L1149 374 L1127 336 L1100 298 L1069 261 L1034 226 L996 194 L956 164 L915 138 L872 117 L830 100 L789 89 L750 82 L713 80 L679 84 L649 92 L623 106 L601 123 L584 145",
+              "colour": "orange",
+              "width": 7
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The ring shrinks to the two points where it meets the third sphere: one is you, the other is far out in space.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "ring": [
+                960,
+                259,
+                387
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "ring": [
+                712,
+                559,
+                445
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "ring": [
+                1363,
+                486,
+                445
+              ],
+              "colour": "blue",
+              "width": 6,
+              "dashed": false
+            },
+            {
+              "dot": [
+                1103,
+                302,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1223,
+                272
+              ],
+              "text": "or here?",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "cut": "hard cut to the ruler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "act": "clock",
+      "type": "chart",
+      "start": 32.791,
+      "end": 37.675,
+      "caption": "Here's the catch: light goes 300 m in a *millionth of a second,*",
+      "teaches": "Why timing matters: light covers about 300 m in one microsecond.",
+      "screen": "A new picture, flat and bright: a glass ruler across the frame from x 210 to 1710, 0 to 300 m with a tick every 50 m. Above it a glass stopwatch in millionths: '0.000000 s'. A cyan pulse runs along the ruler.",
+      "motion": "On 'light goes' the pulse sets off at the 0 mark and reaches 300 m exactly as the stopwatch reaches 0.000001 s, on 'second'. The stopwatch counts in step with the pulse (the counting is the point).",
+      "carries": "The figure 'one millionth of a second', as a clock.",
+      "transition": "A dive back to you, close.",
+      "sound": "A light tick when the pulse arrives, after 'second'.",
+      "check": "The pulse's position / 1500 px x 300 m = stopwatch x 299 792 458 m/s at every frame.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "A new picture: a glass ruler across the frame, 0 to 300 m, ticks every 50 m. A stopwatch above reads 0.000000 s.",
+          "draw": [
+            {
+              "bar": [
+                210,
+                640,
+                1500,
+                24
+              ],
+              "colour": "ink"
+            },
+            {
+              "label": [
+                210,
+                720
+              ],
+              "text": "0 m",
+              "size": 40
+            },
+            {
+              "label": [
+                1710,
+                720
+              ],
+              "text": "300 m",
+              "size": 40
+            },
+            {
+              "panel": [
+                700,
+                260,
+                520,
+                180
+              ],
+              "title": "time",
+              "rows": [
+                "0.000000 s"
+              ]
+            }
+          ]
+        },
+        {
+          "at": 0.6,
+          "note": "A cyan pulse of light runs the ruler; the stopwatch runs in millionths with it.",
+          "draw": [
+            {
+              "bar": [
+                210,
+                640,
+                1500,
+                24
+              ],
+              "colour": "ink"
+            },
+            {
+              "line": [
+                210,
+                620,
+                1100,
+                620
+              ],
+              "colour": "blue",
+              "width": 10
+            },
+            {
+              "dot": [
+                1100,
+                620,
+                20
+              ],
+              "colour": "blue"
+            },
+            {
+              "label": [
+                210,
+                720
+              ],
+              "text": "0 m",
+              "size": 40
+            },
+            {
+              "label": [
+                1710,
+                720
+              ],
+              "text": "300 m",
+              "size": 40
+            },
+            {
+              "panel": [
+                700,
+                260,
+                520,
+                180
+              ],
+              "title": "time",
+              "rows": [
+                "0.000000 6 s"
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "The pulse reaches 300 m as the stopwatch reaches one millionth of a second.",
+          "draw": [
+            {
+              "bar": [
+                210,
+                640,
+                1500,
+                24
+              ],
+              "colour": "ink"
+            },
+            {
+              "line": [
+                210,
+                620,
+                1710,
+                620
+              ],
+              "colour": "blue",
+              "width": 10
+            },
+            {
+              "label": [
+                210,
+                720
+              ],
+              "text": "0 m",
+              "size": 40
+            },
+            {
+              "label": [
+                1710,
+                720
+              ],
+              "text": "300 m",
+              "size": 40
+            },
+            {
+              "panel": [
+                700,
+                260,
+                520,
+                180
+              ],
+              "title": "time",
+              "rows": [
+                "0.000001 s"
+              ]
+            },
+            {
+              "cut": "dive to you"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "act": "clock",
+      "type": "macro",
+      "start": 37.675,
+      "end": 41.163,
+      "caption": "and your phone's clock isn't that *good.*",
+      "teaches": "A phone's clock is far less precise than that, so every distance is off by the same amount, and the meeting point lands in the wrong place.",
+      "screen": "Close on you (the Earth 7.4 times larger than the mechanism's framing): the horizon across the lower frame, you on it, the sky above. The three spheres' circles are amber arcs crossing exactly at you. A chip at upper left: 'PHONE CLOCK 2 ms fast' and under it, on a dark label, 'every distance 0.002 s × 299,792 km/s = 600 km short'. The spheres shrink by 600 km and the meeting point slides up into the sky to a red point 640 km above you, labelled 'the phone's answer'.",
+      "motion": "The camera dives in on 'and your phone's'. On 'clock' the chip lands; the arcs move as the spheres shrink and the crossing slides up to the red point by 'good'.",
+      "carries": "The wrong point, and the arcs.",
+      "transition": "No cut: the fourth sphere arrives.",
+      "sound": "A small dissonant tick when the point leaves you.",
+      "check": "2 ms x 299 792 km/s = 600 km. The red point is the computed meeting point of the three shortened spheres.",
+      "facts": [
+        "f3",
+        "f9"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Close on you: the Earth's horizon across the lower frame, you on it, space above. Three amber arcs (the circles of the spheres) cross exactly at you.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M200 900 Q960.0 584.8 1700 300",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M300 200 Q960.0 684.8 1650 900",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "A chip lands: 'clock 2 ms fast'. Every sphere shrinks by the same 600 km.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "chip": [
+                1240,
+                120
+              ],
+              "text": "clock 2 ms fast"
+            },
+            {
+              "label": [
+                1500,
+                260
+              ],
+              "text": "every distance 600 km short",
+              "size": 32
+            },
+            {
+              "path": "M200 880 Q960.0 544.8 1700 280",
+              "colour": "orange",
+              "width": 6
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "A clock chip ticks fast: 'phone clock +2 ms, every distance 600 km short'. The spheres shrink a little and their meeting point slides up into the sky, away from you.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "chip": [
+                1240,
+                120
+              ],
+              "text": "clock 2 ms fast"
+            },
+            {
+              "label": [
+                1500,
+                260
+              ],
+              "text": "every distance 600 km short",
+              "size": 32
+            },
+            {
+              "dot": [
+                995,
+                589,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "move": [
+                960.0,
+                644.8,
+                994.9,
+                588.9
+              ]
+            },
+            {
+              "cut": "no cut: a fourth sphere"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "act": "clock",
+      "type": "diagram",
+      "start": 41.163,
+      "end": 43.954,
+      "caption": "So it listens to a *fourth.*",
+      "teaches": "A fourth satellite shows that something is wrong: with the clock off, the four spheres have no common point.",
+      "screen": "The same close view. Satellite 4's sphere arrives (its arcs sweep in). Now there are four meeting points, one for each three of the four spheres, and they disagree: four red points scattered 600 to 1 600 km above you.",
+      "motion": "The fourth sphere's arcs sweep in on 'listens'; the three new red points pop one after another on 'fourth'.",
+      "carries": "The four red points.",
+      "transition": "No cut: the correction.",
+      "sound": "Three small ticks as the points pop.",
+      "check": "The four points are the computed solutions for each three spheres with every distance 600 km short.",
+      "facts": [
+        "f4",
+        "f9"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The fourth satellite's arcs come in.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "chip": [
+                1240,
+                120
+              ],
+              "text": "clock 2 ms fast"
+            },
+            {
+              "dot": [
+                995,
+                589,
+                16
+              ],
+              "colour": "red"
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "Satellite 4's arcs sweep across; where they cross the others, new points pop.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "chip": [
+                1240,
+                120
+              ],
+              "text": "clock 2 ms fast"
+            },
+            {
+              "dot": [
+                995,
+                589,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                900,
+                569,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "move": [
+                1700,
+                100,
+                1200,
+                400
+              ],
+              "text": "sphere 4"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "With four spheres there are four meeting points, and they disagree: four red points scattered in the sky above you.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "chip": [
+                1240,
+                120
+              ],
+              "text": "clock 2 ms fast"
+            },
+            {
+              "dot": [
+                995,
+                589,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                900,
+                569,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                1146,
+                394,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                975,
+                502,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "cut": "no cut: the correction"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "act": "clock",
+      "type": "object3d",
+      "start": 43.954,
+      "end": 47.442,
+      "caption": "Only one point and one clock correction",
+      "teaches": "The phone solves for its position and its clock error together: one correction, the same for every sphere.",
+      "screen": "The same close view. A glass dial 'clock correction' at upper right turns from -2.0 ms toward 0. As it turns every sphere grows by the same amount and the four red points slide down together toward you.",
+      "motion": "The dial turns through the shot; the points are solved from it every frame and converge.",
+      "carries": "The four points, nearly together.",
+      "transition": "No cut: the points meet and lock.",
+      "sound": "A soft rising shimmer as the points converge.",
+      "check": "The correction moves every sphere by the same amount; the points are solved from it each frame.",
+      "facts": [
+        "f4",
+        "f9"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "A dial appears: 'clock correction -2.0 ms'. As it turns, every sphere grows by the same amount.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "panel": [
+                1300,
+                120,
+                520,
+                190
+              ],
+              "title": "clock correction",
+              "rows": [
+                "-2.0 ms"
+              ]
+            },
+            {
+              "dot": [
+                995,
+                589,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                900,
+                569,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                1146,
+                394,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                975,
+                502,
+                16
+              ],
+              "colour": "red"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The four points slide together toward you, computed from the dial every frame.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "panel": [
+                1300,
+                120,
+                520,
+                190
+              ],
+              "title": "clock correction",
+              "rows": [
+                "-1.0 ms"
+              ]
+            },
+            {
+              "dot": [
+                977,
+                617,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                930,
+                607,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                1053,
+                519,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                968,
+                573,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "move": [
+                1145.9,
+                394.0,
+                990.0,
+                614.8
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Almost there: the four points nearly touch, just above you.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                695
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "panel": [
+                1300,
+                120,
+                520,
+                190
+              ],
+              "title": "clock correction",
+              "rows": [
+                "-0.2 ms"
+              ]
+            },
+            {
+              "dot": [
+                963,
+                639,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                954,
+                637,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                979,
+                620,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "dot": [
+                962,
+                630,
+                16
+              ],
+              "colour": "red"
+            },
+            {
+              "cut": "no cut: the lock"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "act": "clock",
+      "type": "diagram",
+      "start": 47.442,
+      "end": 49.535,
+      "caption": "fit all *four.*",
+      "teaches": "At the right correction all four spheres meet at one point: you.",
+      "screen": "The same close view. The four points meet on the dot, which turns amber with an amber ring; 'you are here' under it; the dial reads '0.0 ms  fixed'.",
+      "motion": "The point locks on the cut with a ring and a flash of the stage light, amber; the label lands.",
+      "carries": "Your point, now sure.",
+      "transition": "Pull back to the phone.",
+      "sound": "THE LOCK: a clean impact and a chime on the cut.",
+      "check": "The four points meet exactly on the dot at 0.0 ms.",
+      "facts": [
+        "f4",
+        "f9"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "At 0 they meet on one point, on the ground, and it locks: amber, with a ring.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                20
+              ],
+              "colour": "orange"
+            },
+            {
+              "ring": [
+                960,
+                645,
+                70
+              ],
+              "colour": "orange"
+            },
+            {
+              "panel": [
+                1300,
+                120,
+                520,
+                190
+              ],
+              "title": "clock correction",
+              "rows": [
+                "0.0 ms  fixed"
+              ]
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "'you are here' lands under the point; the dial reads 'fixed'.",
+          "draw": [
+            {
+              "horizon": [
+                700
+              ]
+            },
+            {
+              "dot": [
+                960,
+                645,
+                20
+              ],
+              "colour": "orange"
+            },
+            {
+              "ring": [
+                960,
+                645,
+                90
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                960,
+                755
+              ],
+              "text": "you are here",
+              "size": 44,
+              "colour": "orange"
+            },
+            {
+              "panel": [
+                1300,
+                120,
+                520,
+                190
+              ],
+              "title": "clock correction",
+              "rows": [
+                "0.0 ms  fixed"
+              ]
+            },
+            {
+              "cut": "pull back to the phone"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "act": "payoff",
+      "type": "macro",
+      "start": 49.535,
+      "end": 52.326,
+      "caption": "That's how your phone *finds you:*",
+      "teaches": "The answer, brought back to the phone: the dot on its map is that point.",
+      "screen": "The phone of s02 again, the same place and size: its map now carries a firm amber pin with a ring. Cyan threads come down into it from four directions above.",
+      "motion": "The pin lands on 'finds you' with a ring; the four threads draw down into the phone.",
+      "carries": "The four threads.",
+      "transition": "A pull back up the threads to space.",
+      "sound": "A soft whoosh on the pull back, between the words.",
+      "check": "The phone is where it was in s02. Four threads, not three.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The phone again, the same glass slab: its map now has a firm amber pin with a ring.",
+          "draw": [
+            {
+              "horizon": [
+                820
+              ]
+            },
+            {
+              "card": [
+                760,
+                230,
+                400,
+                760
+              ],
+              "label": "map"
+            },
+            {
+              "dot": [
+                960,
+                560,
+                22
+              ],
+              "colour": "orange"
+            },
+            {
+              "ring": [
+                960,
+                560,
+                60
+              ],
+              "colour": "orange"
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Four cyan threads come down into the phone from above.",
+          "draw": [
+            {
+              "horizon": [
+                820
+              ]
+            },
+            {
+              "card": [
+                760,
+                230,
+                400,
+                760
+              ],
+              "label": "map"
+            },
+            {
+              "dot": [
+                960,
+                560,
+                22
+              ],
+              "colour": "orange"
+            },
+            {
+              "line": [
+                300,
+                0,
+                900,
+                400
+              ],
+              "colour": "blue"
+            },
+            {
+              "line": [
+                900,
+                0,
+                950,
+                400
+              ],
+              "colour": "blue"
+            },
+            {
+              "line": [
+                1400,
+                0,
+                1000,
+                400
+              ],
+              "colour": "blue"
+            },
+            {
+              "line": [
+                1800,
+                120,
+                1020,
+                420
+              ],
+              "colour": "blue"
+            },
+            {
+              "cut": "pull back to space"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "act": "payoff",
+      "type": "wide",
+      "start": 52.326,
+      "end": 55.814,
+      "caption": "it listens to four *clocks in the sky.*",
+      "teaches": "The answer in one picture: four satellites, each a clock, all heard by you.",
+      "screen": "The mechanism's framing: the Earth, you, the four satellites, each joined to you by a cyan thread with pulses running down it. A small glowing clock face beside each satellite.",
+      "motion": "The camera pulls back to the framing; on 'four clocks' the clock faces light one after another; pulses run down the threads.",
+      "carries": "The Earth and the four satellites.",
+      "transition": "The recap cards rise over the scene.",
+      "sound": "Four soft ticks as the clocks light, low.",
+      "check": "Four satellites, four clocks, four threads; the threads end at the dot.",
+      "facts": [
+        "f4",
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "Pull back to the mechanism's framing: Earth, you, four satellites, each joined to you by a cyan thread.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "line": [
+                960.0,
+                258.9,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                711.8,
+                559.0,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                1362.7,
+                485.8,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                706.2,
+                309.8,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The camera settles; pulses run down the four threads toward you.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "line": [
+                960.0,
+                258.9,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                711.8,
+                559.0,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                1362.7,
+                485.8,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                706.2,
+                309.8,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "dot": [
+                960,
+                447,
+                10
+              ],
+              "colour": "blue"
+            },
+            {
+              "dot": [
+                836,
+                597,
+                10
+              ],
+              "colour": "blue"
+            },
+            {
+              "dot": [
+                1161,
+                560,
+                10
+              ],
+              "colour": "blue"
+            },
+            {
+              "dot": [
+                833,
+                472,
+                10
+              ],
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "On 'four clocks', a small clock face lights on each satellite; signals pulse down the threads.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "dot": [
+                960,
+                635,
+                14
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1030,
+                685
+              ],
+              "text": "you",
+              "size": 40,
+              "colour": "orange"
+            },
+            {
+              "path": "M885 259 H1035 M943 238 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M637 559 H787 M695 539 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M1288 486 H1438 M1346 465 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "path": "M631 310 H781 M689 289 h34 v41 h-34 Z",
+              "colour": "ink",
+              "width": 6
+            },
+            {
+              "line": [
+                960.0,
+                258.9,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                711.8,
+                559.0,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                1362.7,
+                485.8,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "line": [
+                706.2,
+                309.8,
+                960.0,
+                634.6
+              ],
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "ring": [
+                1030,
+                209,
+                26
+              ],
+              "colour": "blue"
+            },
+            {
+              "ring": [
+                782,
+                509,
+                26
+              ],
+              "colour": "blue"
+            },
+            {
+              "ring": [
+                1433,
+                436,
+                26
+              ],
+              "colour": "blue"
+            },
+            {
+              "ring": [
+                776,
+                260,
+                26
+              ],
+              "colour": "blue"
+            },
+            {
+              "cut": "cards rise"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "act": "recap",
+      "type": "recap",
+      "start": 55.814,
+      "end": 60.0,
+      "teaches": "The three ideas in one frame, and the line to remember.",
+      "screen": "The Earth's limb low in the frame, the satellites gone. Three glass cards across the top, each with a small picture: a satellite with a clock, 'Each satellite sends the time'; a cyan line with '0.067 s × light speed = 20,200 km', 'Delay × light speed = distance'; four crossing rings meeting at one amber point, '4 spheres → 1 point + the clock'. Below, the poster line in metal type at 92 px: 'Four clocks in the sky. / Your phone just listens.', 'just listens.' in cyan.",
+      "motion": "The cards rise in one after another in the first 0.5 s, the poster lines slam in, a sheen crosses them. Then it holds for two seconds with a 3 percent push while the Earth turns.",
+      "carries": "Nothing: the film ends here.",
+      "transition": "The film ends on this frame.",
+      "sound": "A soft whoosh as the cards rise, a low impact under the poster line, the music fades over the last 1.8 s.",
+      "check": "Every figure matches the fact sheet. The poster is fully readable for at least two seconds.",
+      "facts": [
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0.0,
+          "note": "The recap: three glass cards rise across the top, each with its small picture.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "card": [
+                140,
+                110,
+                520,
+                250
+              ],
+              "label": "each sends the time"
+            },
+            {
+              "card": [
+                700,
+                110,
+                520,
+                250
+              ],
+              "label": "delay x light = distance"
+            },
+            {
+              "card": [
+                1260,
+                110,
+                520,
+                250
+              ],
+              "label": "4 spheres: 1 point + clock"
+            },
+            {
+              "move": [
+                960,
+                500,
+                960,
+                380
+              ],
+              "text": "cards rise"
+            }
+          ]
+        },
+        {
+          "at": 0.4,
+          "note": "The poster line lands under them.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "card": [
+                140,
+                110,
+                520,
+                250
+              ],
+              "label": "each sends the time"
+            },
+            {
+              "card": [
+                700,
+                110,
+                520,
+                250
+              ],
+              "label": "delay x light = distance"
+            },
+            {
+              "card": [
+                1260,
+                110,
+                520,
+                250
+              ],
+              "label": "4 spheres: 1 point + clock"
+            },
+            {
+              "title": [
+                960,
+                560
+              ],
+              "text": "Four clocks in the sky.\nYour phone just listens.",
+              "size": 92,
+              "accent": "just listens."
+            }
+          ]
+        },
+        {
+          "at": 1.0,
+          "note": "Held for two seconds, the Earth turning slowly below.",
+          "draw": [
+            {
+              "planet": [
+                960,
+                750,
+                122
+              ],
+              "light": "left"
+            },
+            {
+              "card": [
+                140,
+                110,
+                520,
+                250
+              ],
+              "label": "each sends the time"
+            },
+            {
+              "card": [
+                700,
+                110,
+                520,
+                250
+              ],
+              "label": "delay x light = distance"
+            },
+            {
+              "card": [
+                1260,
+                110,
+                520,
+                250
+              ],
+              "label": "4 spheres: 1 point + clock"
+            },
+            {
+              "title": [
+                960,
+                560
+              ],
+              "text": "Four clocks in the sky.\nYour phone just listens.",
+              "size": 92,
+              "accent": "just listens."
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "cut": "end"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

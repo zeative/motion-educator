@@ -1,0 +1,472 @@
+/* How does your phone know where you are? Cyan is the signal and everything made from it; amber is you. */
+:root {
+  --accent: #38e1ff;
+  --accent-2: #ffb547;
+  --red: #ff5a4e;
+}
+#stars,
+#space {
+  position: absolute;
+  inset: 0;
+}
+
+/* The question */
+#q {
+  position: absolute;
+  left: 110px;
+  top: 300px;
+  font-size: 100px;
+  text-align: left;
+}
+
+/* Labels riding on the 3D world: their (x, y) is the point they name; they sit beside it. */
+#pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+.pin.you {
+  margin: 12px 0 0 16px;
+  color: var(--accent-2);
+  font: 600 32px / 1 var(--sans);
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.9);
+}
+.pin.sat {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin: -96px 0 0 -23px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 70%, white);
+  border-radius: 50%;
+  background: rgb(8 14 20 / 0.72);
+  color: #eafcff;
+  font: 600 25px / 1 var(--mono);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.pin.q {
+  margin: -30px 0 0 -14px;
+  color: var(--accent-2);
+  font: 700 54px / 1 var(--brand);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent-2) 70%, transparent), 0 2px 8px #000;
+}
+.pin.other {
+  margin: -62px 0 0 24px;
+  color: var(--accent-2);
+  font: 600 32px / 1 var(--sans);
+  text-shadow: 0 2px 10px #000;
+}
+.pin.meas {
+  margin: -20px 0 0 30px;
+  color: #cff8ff;
+  font: 650 36px / 1 var(--brand);
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 60%, transparent), 0 2px 8px #000;
+}
+.pin.wrong {
+  margin: -64px 0 0 26px;
+  color: #ffd2cd;
+  font: 600 30px / 1 var(--sans);
+  text-shadow: 0 2px 10px #000;
+}
+.pin.lock {
+  width: 0;
+  height: 0;
+}
+.pin.lock i {
+  position: absolute;
+  left: -60px;
+  top: -60px;
+  width: 120px;
+  height: 120px;
+  border: 3px solid var(--accent-2);
+  border-radius: 50%;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent-2) 70%, transparent), inset 0 0 18px color-mix(in srgb, var(--accent-2) 40%, transparent);
+}
+.pin.lock i + i {
+  left: -95px;
+  top: -95px;
+  width: 190px;
+  height: 190px;
+  border-width: 1.5px;
+  opacity: 0.5;
+}
+.pin.here {
+  margin: 70px 0 0 -105px;
+  width: 210px;
+  text-align: center;
+  color: var(--accent-2);
+  font: 650 38px / 1 var(--brand);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent-2) 55%, transparent), 0 2px 10px #000;
+}
+.pin.clock {
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 44px;
+}
+.pin.clock svg {
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px var(--accent));
+}
+.pin.clock circle {
+  fill: rgb(6 16 22 / 0.8);
+  stroke: var(--accent);
+  stroke-width: 2.6;
+}
+.pin.clock path {
+  fill: none;
+  stroke: #eafcff;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+/* The phone, standing on the horizon */
+.phone {
+  position: absolute;
+  left: 790px;
+  top: 150px;
+  width: 340px;
+  height: 690px;
+  border-radius: 54px;
+  padding: 16px;
+  transform-origin: 50% 100%;
+}
+.phone .screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 40px;
+  background: #0d1218;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+.phone .map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.map .road {
+  fill: none;
+  stroke: #2a3442;
+  stroke-width: 6;
+}
+.map .road.big {
+  stroke: #3a4658;
+  stroke-width: 12;
+}
+.map .park {
+  fill: #13261d;
+}
+.map .water {
+  fill: #0f2236;
+}
+.phone .bar {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 96px;
+  height: 26px;
+  margin-left: -48px;
+  border-radius: 13px;
+  background: #050608;
+}
+.me {
+  position: absolute;
+  left: 154px;
+  top: 300px;
+  width: 0;
+  height: 0;
+}
+.me i {
+  position: absolute;
+  left: -15px;
+  top: -15px;
+  width: 30px;
+  height: 30px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 20px var(--accent-2);
+}
+.me i.ring {
+  left: -70px;
+  top: -70px;
+  width: 140px;
+  height: 140px;
+  border: 3px solid var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 14%, transparent);
+  box-shadow: none;
+}
+#up .up,
+#up .up-head {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 18 16;
+}
+#up .up-head {
+  stroke-dasharray: none;
+}
+#up .strike {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 12;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgb(255 90 78 / 0.7));
+}
+.label.upl {
+  left: 1400px;
+  top: 330px;
+  color: #ffd9d5;
+  font: 600 34px / 1 var(--sans);
+}
+
+/* The close-up satellite's clock */
+.timechip {
+  position: absolute;
+  left: 1180px;
+  top: 600px;
+  gap: 16px;
+  font: 600 40px / 1 var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.timechip b {
+  color: var(--accent);
+  font-size: 20px;
+  letter-spacing: 0.14em;
+}
+.label.atomic {
+  left: 1210px;
+  top: 710px;
+  color: var(--t2);
+  font-size: 28px;
+}
+
+/* The constellation */
+.chip.count {
+  position: absolute;
+  right: 110px;
+  top: 110px;
+  font-size: 34px;
+}
+.chip.count .num {
+  color: var(--accent);
+  font-size: 46px;
+}
+.label.orbits {
+  right: 118px;
+  left: auto;
+  top: 210px;
+  font-size: 28px;
+}
+.label.note {
+  left: 110px;
+  top: 150px;
+  color: var(--t3);
+  font-size: 22px;
+}
+
+/* Stopwatch and sum */
+.panel.watch {
+  position: absolute;
+  left: 1370px;
+  top: 560px;
+  width: 470px;
+}
+.panel .big {
+  padding: 18px 28px 22px;
+  color: #eafcff;
+  font-size: 76px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.panel .big em {
+  margin-left: 14px;
+  color: var(--accent-2);
+  font: 600 30px / 1 var(--sans);
+  vertical-align: middle;
+}
+.panel.sum {
+  position: absolute;
+  left: 1260px;
+  top: 150px;
+  width: 590px;
+}
+.panel.sum .prow {
+  height: 84px;
+  font-size: 40px;
+}
+.panel.sum .op {
+  color: var(--accent);
+}
+.panel.sum .res {
+  font-size: 54px;
+}
+.key-c {
+  color: #eafcff;
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* The ruler */
+.panel.lightwatch {
+  position: absolute;
+  left: 700px;
+  top: 220px;
+  width: 520px;
+}
+#ruler .track {
+  fill: rgb(255 255 255 / 0.06);
+  stroke: rgb(255 255 255 / 0.25);
+  stroke-width: 1.5;
+}
+#ruler .tick {
+  stroke: rgb(255 255 255 / 0.55);
+  stroke-width: 3;
+}
+#ruler .tick-label {
+  fill: var(--t2);
+  font: 500 30px var(--mono);
+  text-anchor: middle;
+}
+#pulse {
+  fill: #eafcff;
+  filter: drop-shadow(0 0 14px var(--accent)) drop-shadow(0 0 30px var(--accent));
+}
+.label.dist {
+  top: 520px;
+  margin-left: -60px;
+  color: #eafcff;
+  font: 650 44px / 1 var(--brand);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* The clock error */
+.chip.fast {
+  position: absolute;
+  left: 110px;
+  top: 130px;
+  gap: 16px;
+  font-size: 34px;
+  color: #ffd2cd;
+}
+.chip.fast b {
+  color: var(--red);
+  font-size: 20px;
+  letter-spacing: 0.12em;
+}
+.label.short {
+  left: 110px;
+  top: 230px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: rgb(8 10 14 / 0.78);
+  color: #d9d9e0;
+  font-size: 26px;
+}
+.panel.dial {
+  position: absolute;
+  right: 110px;
+  top: 130px;
+  width: 440px;
+}
+#fixed {
+  opacity: 0;
+}
+
+/* The recap */
+.cards {
+  position: absolute;
+  left: 140px;
+  right: 140px;
+  top: 96px;
+  display: flex;
+  gap: 40px;
+}
+.card {
+  flex: 1;
+  height: 300px;
+  border-radius: 28px;
+  padding: 24px 28px;
+  text-align: center;
+}
+.card svg {
+  width: 100%;
+  height: 170px;
+  overflow: visible;
+}
+.card p {
+  margin-top: 16px;
+  font: 550 30px / 1.25 var(--sans);
+  color: var(--t1);
+}
+.card p em {
+  color: var(--accent);
+  font-weight: 650;
+}
+.card .sat rect,
+.card .sat path {
+  fill: #c99434;
+  stroke: #ffd98a;
+  stroke-width: 2;
+}
+.card .sat rect + path,
+.card .sat path {
+  fill: none;
+}
+.card .sat rect:nth-of-type(n + 2) {
+  fill: #1c2d6e;
+  stroke: #7d93d8;
+}
+.card .clk {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.card .sig {
+  stroke: var(--accent);
+  stroke-width: 5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+.card .sat-dot {
+  fill: #ffd98a;
+}
+.card .you-dot {
+  fill: var(--accent-2);
+  filter: drop-shadow(0 0 6px var(--accent-2));
+}
+.card text {
+  fill: var(--t2);
+  font: 500 14px var(--mono);
+  text-anchor: middle;
+}
+.card .sph {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  opacity: 0.85;
+}
+#poster {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 520px;
+  font-size: 92px;
+}
+.panel .phead em {
+  font-size: 24px;
+}
