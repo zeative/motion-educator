@@ -49,7 +49,7 @@ POSTER = s["s13"]["start"] + 0.4
 music = json.loads((HERE / "cues.json").read_text())["music"]
 music.update({"lufs": -22, "start": 0, "fade_in": 0.01, "fade_out": 0.5, "duck_db": -6,
               # The bed rises about 4 dB on its own between 10 s and 30 s; hold it level under the voice.
-              "ride": [[0, 0], [10, 0], [16, -2], [24, -3], [32, -3], [38, -1.5], [41.5, -1.5], [43, 1], [r(D), 1.5]],
+              "ride": [[0, 0], [10, 0], [16, -2], [24, -3], [32, -3], [38, -1.5], [41.5, -1.5], [42.5, 2], [43.5, 6], [r(D), 9]],
               "note": "Composed for this film (ElevenLabs Music, the prompt in music/bed.json); kept at -22 LUFS under the voice, ridden level, and up a little under the poster so it runs to the last frame."})
 
 events = [

@@ -197,6 +197,9 @@ if (args.includes("--serve")) {
       }),
     );
     writeFileSync(stamp, source);
+    // --only says the change touches only those seconds: the other segments stand for this source too, so a later
+    // run without --only (make.mjs after a fix) reuses them instead of rendering the whole film again.
+    if (only) for (let i = 0; i < segments; i++) if (existsSync(file(i))) writeFileSync(`${file(i)}.sha`, source);
     const list = join(segDir, "list.txt");
     writeFileSync(list, Array.from({ length: segments }, (_, i) => `file '${file(i)}'\n`).join(""));
     const picture = flag("--out") ?? join(out, "picture.mp4");
