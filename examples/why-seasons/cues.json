@@ -2,7 +2,7 @@
   "music": {
     "file": "lib/music/xceed_thru_johann.mp3",
     "start": 0.679,
-    "lufs": -21,
+    "lufs": -18,
     "fade_in": 0.01,
     "fade_out": 2.6,
     "duck_db": -6,
@@ -17,77 +17,59 @@
       ],
       [
         22,
-        -2
+        -1.5
       ],
       [
         34,
-        -3.5
+        -3
       ],
       [
-        39.953,
-        -3.5
+        52.512,
+        -3
       ],
       [
-        43.953,
-        -5
+        56.512,
+        -4.5
       ]
     ],
-    "note": "86 BPM, a calm pulse with no lead melody. Starting 0.679 s in puts a beat on the first frame and on every cut. Kept 3 dB under the level a silent film would use, and 9 dB lower again while the voice speaks."
-  },
-  "voice": {
-    "lufs": -16,
-    "lead": 0.15,
-    "duck_db": -9,
-    "sfx_db": -4
+    "note": "86 BPM, a calm pulse with no lead melody, at -18 LUFS: the film has no voice. Starting 0.679 s in puts a beat on frame 0, and every shot is a whole number of beats, so every cut is on the grid."
   },
   "events": [
     {
-      "t": 1.5,
-      "file": "lib/sfx/shimmer_1.mp3",
-      "db": -13,
-      "align": "peak",
-      "note": "light crosses the title, after the question is asked",
-      "under_voice": false
-    },
-    {
-      "t": 1.973,
+      "t": 2.013,
       "file": "lib/sfx/whoosh_long_1.mp3",
-      "db": -12,
+      "db": -6,
       "align": "peak",
-      "note": "the camera pulls back to the orbit",
-      "under_voice": false
+      "note": "the camera pulls back to the orbit"
     },
     {
-      "t": 4.063,
+      "t": 4.926,
       "file": "lib/sfx/pop_2.mp3",
-      "db": -9,
+      "db": -1,
       "align": "peak",
       "pan": 0.15,
-      "note": "the guess lands: closer = summer?",
-      "under_voice": false
+      "note": "the guess lands: closer = summer?"
     },
     {
-      "t": 5.611,
+      "t": 5.781,
       "file": "lib/sfx/tick_1.mp3",
-      "db": -8,
+      "db": -2,
       "align": "peak",
       "pan": 0.2,
-      "note": "the dashed line turns into a measurement",
-      "under_voice": false
+      "note": "the dashed line turns into a measurement"
     },
     {
-      "t": 8.232,
+      "t": 9.03,
       "file": "lib/sfx/whoosh_fast_2.mp3",
-      "db": -11,
+      "db": -4,
       "align": "peak",
       "pan": 0.2,
-      "note": "push in to the January Earth",
-      "under_voice": false
+      "note": "push in to the January Earth"
     },
     {
-      "t": 10.465,
+      "t": 11.86,
       "file": "lib/sfx/impact_big_3.mp3",
-      "db": -6,
+      "db": -1,
       "align": "peak",
       "duck": true,
       "trim": [
@@ -95,149 +77,183 @@
         1.3
       ],
       "fade": 0.8,
-      "note": "THE ANSWER: the real cause is the tilt",
-      "under_voice": false
+      "note": "THE TURN: not the distance"
     },
     {
-      "t": 13.096,
-      "file": "lib/sfx/whoosh_fast_6.mp3",
-      "db": -10,
+      "t": 13.993,
+      "file": "lib/sfx/pop_1.mp3",
+      "db": -1,
       "align": "peak",
-      "note": "the type is thrown up, the Earth returns",
-      "under_voice": false
+      "note": "the second line slams in: it's the tilt"
     },
     {
-      "t": 14.776,
+      "t": 15.453,
+      "file": "lib/sfx/shimmer_2.mp3",
+      "db": -7,
+      "align": "peak",
+      "note": "light crosses the leaning word"
+    },
+    {
+      "t": 15.887,
+      "file": "lib/sfx/whoosh_fast_6.mp3",
+      "db": -3,
+      "align": "peak",
+      "note": "the type is thrown up, the Earth returns"
+    },
+    {
+      "t": 18.064,
       "file": "lib/sfx/tick_1.mp3",
-      "db": -11,
+      "db": -1,
       "align": "peak",
       "pan": 0.3,
-      "note": "23.4 degrees locks beside the arc",
-      "under_voice": true
+      "note": "23.4 degrees locks beside the arc"
     },
     {
-      "t": 16.624,
+      "t": 18.757,
       "file": "lib/sfx/whoosh_long_2.mp3",
-      "db": -13,
+      "db": -5,
       "align": "peak",
-      "note": "pull back to the orbit",
-      "under_voice": false
+      "note": "pull back to the orbit"
     },
     {
-      "t": 18.424,
+      "t": 20.137,
       "file": "lib/sfx/tick_2.mp3",
-      "db": -8,
+      "db": -1,
       "align": "peak",
-      "note": "the last axis mark is left",
-      "under_voice": false
+      "note": "every axis glows at once: same way"
     },
     {
-      "t": 19.395,
+      "t": 21.588,
       "file": "lib/sfx/whoosh_fast_2.mp3",
-      "db": -11,
+      "db": -5,
       "align": "peak",
       "pan": -0.2,
-      "note": "push in to the June Earth",
-      "under_voice": false
+      "note": "push in to the June Earth"
     },
     {
-      "t": 21.605,
+      "t": 24.795,
       "file": "lib/sfx/pop_1.mp3",
-      "db": -9,
+      "db": -1,
       "align": "peak",
       "pan": 0.1,
-      "note": "the noon mark at 40 N",
-      "under_voice": false
+      "note": "the noon mark at 40 N"
     },
     {
-      "t": 23.023,
+      "t": 26.963,
       "file": "lib/sfx/whoosh_fast_7.mp3",
-      "db": -8,
+      "db": -3,
       "align": "peak",
-      "note": "the dive to the ground, ending on the cut",
-      "under_voice": false
+      "note": "the dive lands on the ground"
     },
     {
-      "t": 25.423,
+      "t": 30.64,
       "file": "lib/sfx/tick_1.mp3",
-      "db": -8,
+      "db": -1,
       "align": "peak",
       "pan": -0.4,
-      "note": "the light gauge fills",
-      "under_voice": false
+      "note": "the light gauge has filled"
     },
     {
-      "t": 26.522,
+      "t": 31.405,
       "file": "lib/sfx/whoosh_fast_3.mp3",
-      "db": -11,
+      "db": -3,
       "align": "peak",
-      "note": "whip down to the orbit",
-      "under_voice": false
+      "note": "whip down to the orbit"
     },
     {
-      "t": 28.482,
+      "t": 34.095,
       "file": "lib/sfx/pop_2.mp3",
-      "db": -10,
+      "db": -1,
       "align": "peak",
       "pan": 0.4,
-      "note": "north: winter",
-      "under_voice": false
+      "note": "north: winter"
     },
     {
-      "t": 29.302,
+      "t": 34.904,
       "file": "lib/sfx/whoosh_fast_4.mp3",
-      "db": -11,
+      "db": -2,
       "align": "peak",
-      "note": "whip back to the ground",
-      "under_voice": false
+      "note": "whip back to the ground"
     },
     {
-      "t": 30.302,
+      "t": 36.267,
       "file": "lib/sfx/whoosh_long_2.mp3",
-      "db": -18,
-      "align": "peak",
-      "pan": 0.3,
-      "note": "the beam swings down (low, under the voice)",
-      "under_voice": true
-    },
-    {
-      "t": 36.079,
-      "file": "lib/sfx/card_1.mp3",
       "db": -8,
       "align": "peak",
-      "pan": -0.45,
-      "note": "card 1 lands",
-      "under_voice": false
+      "pan": 0.3,
+      "note": "the beam swings down"
     },
     {
-      "t": 36.379,
-      "file": "lib/sfx/card_2.mp3",
-      "db": -9,
+      "t": 39.057,
+      "file": "lib/sfx/tick_2.mp3",
+      "db": -1,
       "align": "peak",
-      "note": "card 2 lands",
-      "under_voice": false
+      "note": "2.1x locks under the stretched patch"
     },
     {
-      "t": 36.679,
-      "file": "lib/sfx/card_1.mp3",
-      "db": -11,
+      "t": 40.365,
+      "file": "lib/sfx/send_1.mp3",
+      "db": -5,
+      "align": "peak",
+      "note": "push in on the panel"
+    },
+    {
+      "t": 41.848,
+      "file": "lib/sfx/success_3.mp3",
+      "db": -7,
+      "align": "peak",
+      "note": "the gauge row glows: less light on each square metre"
+    },
+    {
+      "t": 43.558,
+      "file": "lib/sfx/tick_1.mp3",
+      "db": -1,
+      "align": "peak",
+      "pan": -0.2,
+      "note": "the June chip"
+    },
+    {
+      "t": 45.949,
+      "file": "lib/sfx/tick_1.mp3",
+      "db": -1,
+      "align": "peak",
+      "pan": 0.2,
+      "note": "the December chip"
+    },
+    {
+      "t": 47.92,
+      "file": "lib/sfx/card_2.mp3",
+      "db": -1,
+      "align": "peak",
+      "pan": -0.45,
+      "note": "card 1 lands"
+    },
+    {
+      "t": 48.32,
+      "file": "lib/sfx/card_2.mp3",
+      "db": -1,
+      "align": "peak",
+      "note": "card 2 lands"
+    },
+    {
+      "t": 49.387,
+      "file": "lib/sfx/card_2.mp3",
+      "db": -1,
       "align": "peak",
       "pan": 0.45,
-      "note": "card 3 lands",
-      "under_voice": true
+      "note": "card 3 lands"
     },
     {
-      "t": 39.747,
+      "t": 51.588,
       "file": "lib/sfx/whoosh_fast_1.mp3",
-      "db": -14,
+      "db": -5,
       "align": "peak",
-      "note": "the cards gather, ending on the cut",
-      "under_voice": false
+      "note": "the cards gather, ending on the cut"
     },
     {
-      "t": 39.767,
+      "t": 51.628,
       "file": "lib/sfx/impact_big_1.mp3",
-      "db": -6,
+      "db": -1,
       "align": "peak",
       "duck": true,
       "trim": [
@@ -245,16 +261,14 @@
         1.6
       ],
       "fade": 1.0,
-      "note": "THE LAST LINE lands",
-      "under_voice": false
+      "note": "THE LAST LINE lands"
     },
     {
-      "t": 41.917,
+      "t": 53.728,
       "file": "lib/sfx/shimmer_1.mp3",
-      "db": -14,
+      "db": -8,
       "align": "peak",
-      "note": "light crosses the last line",
-      "under_voice": false
+      "note": "light crosses the last line"
     }
   ]
 }

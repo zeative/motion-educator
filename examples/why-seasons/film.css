@@ -18,15 +18,9 @@
   opacity: 0;
 }
 
-/* The title, the answer and the last line say themselves: no subtitle under them. */
-.caption[data-shot="s01"],
-.caption[data-shot="s05"],
-.caption[data-shot="s14"] {
-  display: none;
-}
 /* Winter words take the winter colour, not the Sun's. */
 .caption[data-shot="s04"] .key,
-.caption[data-shot="s10"] .key {
+.caption[data-shot="s11"] .key {
   color: var(--accent-2);
   text-shadow: 0 0 22px color-mix(in srgb, var(--accent-2) 55%, transparent);
 }
@@ -272,4 +266,19 @@
 .rc p em {
   color: var(--accent);
   font-weight: 650;
+}
+
+/* June's full level, ghosted behind December's gauge (s13b), and the reading it is compared with. */
+#gauge-june {
+  position: absolute;
+  inset: 0;
+  border: 2px dashed rgb(255 180 58 / 0.75);
+  border-radius: 8px;
+  opacity: 0;
+}
+#row-n {
+  border-top: 1px solid var(--line);
+}
+#row-n b {
+  color: var(--cool);
 }
