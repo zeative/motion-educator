@@ -1,0 +1,242 @@
+/* "Gimana sih luka bisa nutup sendiri?": blood red for blood and the point, a healing cyan for the white cell and the
+   moving skin cells, pink for new tissue, a sickly yellow-green for germs and nothing else. */
+:root {
+  --accent: #e8463d;
+  --accent-2: #7fe3da;
+  --pink: #f08aa6;
+  --pale: #f3d2c8;
+  --gold: #f2c96e;
+  --germ: #b9d340;
+}
+
+#plasma {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 45% 40%, rgb(150 18 28 / 0.95), transparent 70%),
+    radial-gradient(ellipse 80% 70% at 60% 75%, rgb(90 6 14 / 0.95), transparent 75%),
+    linear-gradient(180deg, #3a0508, #1a0204);
+}
+#plasma .bk {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, rgb(255 120 110 / 0.55), rgb(160 16 28 / 0.45) 55%, transparent 72%);
+  filter: blur(18px);
+}
+.b1 { left: 40px; top: 300px; width: 260px; height: 230px; }
+.b2 { left: 760px; top: 520px; width: 300px; height: 260px; }
+.b3 { left: 120px; top: 1180px; width: 340px; height: 300px; }
+.b4 { left: 640px; top: 1300px; width: 240px; height: 210px; }
+.b5 { left: 420px; top: 120px; width: 200px; height: 180px; }
+
+/* The question and the poster, where the dark lower finger is. */
+#q,
+#poster {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  font-size: 100px;
+}
+#q {
+  top: 1000px;
+}
+#poster {
+  top: 1030px;
+  font-size: 104px;
+}
+
+/* Things that ride on things: positioned every frame by film.js. A pin's own origin is the point it names. */
+.pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+.pin > * {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 100%;
+}
+.chip {
+  font-size: 32px;
+  padding: 14px 24px;
+}
+.chip b {
+  font: 600 30px / 1 var(--brand);
+  letter-spacing: -0.02em;
+}
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px currentColor;
+}
+.dot.gold { background: var(--gold); color: var(--gold); }
+.dot.green { background: var(--germ); color: var(--germ); }
+.dot.cyan { background: var(--accent-2); color: var(--accent-2); }
+.dot.pink { background: var(--pink); color: var(--pink); }
+.dot.pale { background: var(--pale); color: var(--pale); }
+.tag {
+  color: rgb(255 240 232 / 0.85);
+  font: 500 28px / 1 var(--mono);
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 8px rgb(0 0 0 / 0.8);
+  white-space: nowrap;
+}
+
+#chip-fib {
+  position: absolute;
+  left: 560px;
+  top: 470px;
+}
+
+/* The time bar. */
+#bar-svg .axis {
+  stroke: rgb(255 240 232 / 0.55);
+  stroke-width: 4;
+}
+#bar-svg .tick {
+  stroke: rgb(255 240 232 / 0.7);
+  stroke-width: 3;
+}
+#bar-svg .leg {
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+#bar-svg .leg-glow {
+  stroke-width: 16;
+  stroke-linecap: round;
+  opacity: 0.6;
+  filter: url(#glow);
+}
+#tick-labels span {
+  position: absolute;
+  top: 340px;
+  color: rgb(255 240 232 / 0.85);
+  font: 500 26px / 1 var(--mono);
+  text-shadow: 0 2px 8px rgb(0 0 0 / 0.9);
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+#tick-labels span:first-child {
+  transform: none;
+}
+#tick-labels span:last-child {
+  transform: translateX(-100%);
+}
+.mark {
+  position: absolute;
+  left: -15px;
+  top: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #ffd2c8, var(--accent) 60%, #7a0f12);
+  box-shadow: 0 0 22px var(--accent), 0 0 0 4px rgb(0 0 0 / 0.5);
+}
+.chip.when {
+  transform-origin: 50% 100%;
+  top: -24px;
+  font-size: 30px;
+  padding: 12px 22px;
+}
+
+/* s13: two bars, the scar's computed from its share of the original's strength. */
+#strength {
+  position: absolute;
+  left: 64px;
+  top: 236px;
+  width: 866px;
+}
+#strength .phead {
+  font-size: 30px;
+  height: 64px;
+}
+.srow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 70px;
+  padding: 0 28px;
+  font: 500 30px / 1 var(--sans);
+}
+.srow span {
+  width: 170px;
+  white-space: nowrap;
+}
+.srow .track {
+  position: relative;
+  flex: none;
+  width: 480px;
+  height: 22px;
+  border-radius: 11px;
+  background: rgb(255 255 255 / 0.07);
+  overflow: hidden;
+}
+.srow .track u {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 11px;
+  transform-origin: 0 50%;
+}
+#bar-a {
+  width: 100%;
+  background: linear-gradient(90deg, #c98a80, #f4c6b8);
+}
+#bar-b {
+  width: 80%;
+  background: linear-gradient(90deg, #b9404a, var(--accent));
+  box-shadow: 0 0 14px var(--accent);
+}
+.srow .num {
+  font-size: 32px;
+}
+.key-num {
+  color: var(--accent);
+}
+
+/* s15: four cards, two by two. */
+.card {
+  position: absolute;
+  width: 414px;
+  height: 250px;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14px;
+}
+#rc1 { left: 64px; top: 262px; }
+#rc2 { left: 502px; top: 262px; }
+#rc3 { left: 64px; top: 552px; }
+#rc4 { left: 502px; top: 552px; }
+.card .pic {
+  width: 200px;
+  height: 150px;
+}
+.card b {
+  font: 650 36px / 1.1 var(--brand);
+  letter-spacing: -0.02em;
+}
+.card span {
+  margin-top: 6px;
+  color: var(--accent);
+  font: 500 26px / 1 var(--mono);
+  letter-spacing: 0.06em;
+}
+
+#topshade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 520px;
+  background: linear-gradient(180deg, rgb(10 2 4 / 0.82) 40%, rgb(10 2 4 / 0));
+}

@@ -1,0 +1,25 @@
+{
+  "music": {"file": "../../examples/luka-sembuh/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "ride": [[0, 0], [36, 0], [38.5, -2.5], [46, -2.5], [48, -0.5], [53.22, -0.5]], "note": "Composed for this film (music/bed.json has the prompt). A bed under the voice at -22 LUFS; ridden down where it swells under s12b and s13."},
+  "events": [
+    {"t": 3.15, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -9, "align": "peak", "note": "the dive into the scrape, after the question"},
+    {"t": 6.36, "file": "lib/sfx/card_1.mp3", "db": -5, "align": "peak", "note": "the time bar lands, after 'estafet'"},
+    {"t": 11.18, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -15, "align": "peak", "note": "the dive into the clot, between the lines"},
+    {"t": 12.61, "file": "lib/sfx/shimmer_1.mp3", "db": -9, "align": "peak", "trim": [0, 1.2], "fade": 0.5, "note": "the strands spin (under the voice, small)"},
+    {"t": 16.64, "file": "lib/sfx/impact_big_2.mp3", "db": -9, "align": "peak", "duck": 0.6, "trim": [0, 1.0], "fade": 0.6, "note": "THE TURN: the clot is set, but germs get in; in the pause before 'Tapi'"},
+    {"t": 16.64, "file": "lib/sfx/sub_drop_1.mp3", "db": -13, "align": "peak", "trim": [0, 0.9], "fade": 0.4, "note": "its body"},
+    {"t": 19.98, "file": "lib/sfx/pop_2.mp3", "db": -10, "align": "peak", "pan": 0.2, "note": "the white cell comes out of the vessel, after 'Makanya'"},
+    {"t": 23.43, "file": "lib/sfx/click_1.mp3", "db": -5, "align": "peak", "pan": 0.25, "note": "the arms close on the germ"},
+    {"t": 24.42, "file": "lib/sfx/whoosh_fast_1.mp3", "db": -9, "align": "peak", "note": "the camera pulls back to the whole wound, between the lines"},
+    {"t": 33.6, "file": "lib/sfx/tick_1.mp3", "db": -10, "align": "peak", "note": "the edges meet, after 'tertutup'"},
+    {"t": 35.88, "file": "lib/sfx/whoosh_fast_4.mp3", "db": -20, "align": "peak", "note": "the scab lifts away"},
+    {"t": 37.41, "file": "lib/sfx/shimmer_2.mp3", "db": -10, "align": "peak", "trim": [0, 1.4], "fade": 0.6, "note": "the fibres comb"},
+    {"t": 40.33, "file": "lib/sfx/card_2.mp3", "db": -5, "align": "peak", "note": "the strength panel lands, before 'Hasilnya'"},
+    {"t": 45.42, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -9, "align": "peak", "note": "back out to the finger, before 'Jadi'"},
+    {"t": 48.15, "file": "lib/sfx/card_3.mp3", "db": -8, "align": "peak", "note": "recap card 1"},
+    {"t": 48.31, "file": "lib/sfx/card_3.mp3", "db": -8, "align": "peak", "note": "recap card 2"},
+    {"t": 48.47, "file": "lib/sfx/card_3.mp3", "db": -8, "align": "peak", "note": "recap card 3"},
+    {"t": 48.63, "file": "lib/sfx/card_3.mp3", "db": -8, "align": "peak", "note": "recap card 4"},
+    {"t": 50.72, "file": "lib/sfx/impact_big_3.mp3", "db": -8, "align": "peak", "duck": 0.6, "trim": [0, 1.6], "fade": 1.0, "note": "THE PAYOFF: the poster line"},
+    {"t": 50.72, "file": "lib/sfx/sub_drop_2.mp3", "db": -14, "align": "peak", "trim": [0, 1.2], "fade": 0.6, "note": "its body"}
+  ]
+}

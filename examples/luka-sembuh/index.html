@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gimana sih luka bisa nutup sendiri?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- The plasma behind the 3D close-up, the finger and the section, and the 3D close-up itself. -->
+      <div id="plasma"><i class="bk b1"></i><i class="bk b2"></i><i class="bk b3"></i><i class="bk b4"></i><i class="bk b5"></i></div>
+      <canvas id="tissue" width="1080" height="1920"></canvas>
+      <canvas id="space" width="1080" height="1920"></canvas>
+
+      <!-- s01: the question, over the scraped finger -->
+      <section class="scene" id="s01">
+        <h1 class="display" id="q"><span class="ln">Gimana sih</span><span class="ln">luka bisa</span><span class="ln"><em class="key">nutup sendiri?</em></span></h1>
+      </section>
+
+      <!-- Names that ride on things in the section -->
+      <section class="scene" id="names">
+        <div class="pin" id="pin-epi"><span class="tag" id="tag-epi">epidermis</span></div>
+        <div class="pin" id="pin-der"><span class="tag" id="tag-der">dermis</span></div>
+        <div class="pin" id="pin-plate"><span class="chip" id="chip-plate"><i class="dot gold"></i>trombosit</span></div>
+        <div class="pin" id="pin-plug"><span class="chip" id="chip-plug"><i class="dot gold"></i>sumbat</span></div>
+        <div class="pin" id="pin-bug"><span class="chip" id="chip-bug"><i class="dot green"></i>kuman</span></div>
+        <div class="pin" id="pin-neut"><span class="chip" id="chip-neut"><i class="dot cyan"></i>sel darah putih</span></div>
+        <div class="pin" id="pin-gran"><span class="chip" id="chip-gran"><i class="dot pink"></i>jaringan baru</span></div>
+        <div class="pin" id="pin-kera"><span class="chip" id="chip-kera"><i class="dot cyan"></i>sel kulit</span></div>
+        <div class="pin" id="pin-comb"><span class="chip" id="chip-comb"><i class="dot pale"></i>dirapikan</span></div>
+        <div class="pin" id="pin-scar"><span class="chip" id="chip-scar"><i class="dot pale"></i>bekas luka</span></div>
+      </section>
+
+      <!-- s05: the net, close up -->
+      <section class="scene" id="s05">
+        <i id="topshade"></i>
+        <span class="chip" id="chip-fib"><i class="dot pale"></i>benang fibrin</span>
+      </section>
+
+      <!-- The time bar: a log scale from a minute to a year (f8). Positions are set by film.js from the same formula. -->
+      <section class="scene" id="bar">
+        <svg class="ink" id="bar-svg" viewBox="0 0 1080 1920">
+          <defs>
+            <filter id="glow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="5" /></filter>
+          </defs>
+          <line class="axis" x1="64" y1="318" x2="924" y2="318" />
+          <g id="ticks"></g>
+          <g id="legs"></g>
+        </svg>
+        <div id="tick-labels"></div>
+        <div class="pin" id="pin-mark">
+          <i class="mark"></i>
+        </div>
+        <div class="pin wpin"><span class="chip when" id="w-min">beberapa menit</span></div>
+        <div class="pin wpin"><span class="chip when" id="w-6h"><b>≈ 6 jam</b></span></div>
+        <div class="pin wpin"><span class="chip when" id="w-day"><b>hari ke-3 sampai ke-21</b></span></div>
+        <div class="pin wpin"><span class="chip when" id="w-mon">berbulan-bulan</span></div>
+      </section>
+
+      <!-- s13: how strong the new skin ends up -->
+      <section class="scene" id="s13">
+        <div class="panel glass" id="strength">
+          <div class="phead">kekuatan kulit</div>
+          <div class="srow"><span>asli</span><i class="track"><u id="bar-a"></u></i><b class="num">100%</b></div>
+          <div class="srow"><span>bekas luka</span><i class="track"><u id="bar-b"></u></i><b class="num key-num">≤ 80%</b></div>
+        </div>
+      </section>
+
+      <!-- s15 and s16: the relay in one frame, and the line to remember -->
+      <section class="scene" id="s15">
+        <div class="card glass" id="rc1">
+          <svg viewBox="0 0 160 120" class="pic">
+            <defs>
+              <radialGradient id="g-rbc" cx="40%" cy="38%" r="65%"><stop offset="0" stop-color="#ff8a78" /><stop offset=".45" stop-color="#d8262c" /><stop offset=".7" stop-color="#9a1220" /><stop offset=".9" stop-color="#e2403a" /></radialGradient>
+              <radialGradient id="g-pl" cx="40%" cy="38%" r="65%"><stop offset="0" stop-color="#fff3d0" /><stop offset="1" stop-color="#c08d38" /></radialGradient>
+              <radialGradient id="g-wbc" cx="38%" cy="35%" r="70%"><stop offset="0" stop-color="#f6fffd" /><stop offset=".5" stop-color="#aee9e1" /><stop offset="1" stop-color="#4fa9a0" /></radialGradient>
+              <linearGradient id="g-bug" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#effc9a" /><stop offset=".5" stop-color="#b9d340" /><stop offset="1" stop-color="#5d7d12" /></linearGradient>
+              <linearGradient id="g-gran" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ee8fa2" /><stop offset="1" stop-color="#a8405a" /></linearGradient>
+            </defs>
+            <ellipse cx="100" cy="58" rx="40" ry="34" fill="url(#g-rbc)" />
+            <ellipse cx="102" cy="60" rx="17" ry="14" fill="rgba(70,0,8,.4)" />
+            <g fill="url(#g-pl)"><circle cx="40" cy="44" r="11" /><circle cx="54" cy="70" r="10" /><circle cx="30" cy="80" r="9" /></g>
+            <g stroke="#fff1de" stroke-width="2.5" fill="none" opacity=".9"><path d="M8 30 Q80 70 152 96" /><path d="M10 100 Q70 50 150 20" /></g>
+          </svg>
+          <b>sumbat</b><span>menit</span>
+        </div>
+        <div class="card glass" id="rc2">
+          <svg viewBox="0 0 160 120" class="pic">
+            <path d="M40 60 C40 22 98 18 112 44 C126 34 140 52 128 64 C140 80 120 100 100 96 C76 112 40 98 40 60 Z" fill="url(#g-wbc)" stroke="#e6fffb" stroke-width="2" />
+            <g fill="rgba(96,70,170,.75)"><circle cx="66" cy="66" r="10" /><circle cx="80" cy="54" r="11" /><circle cx="94" cy="66" r="9" /></g>
+            <rect x="112" y="50" width="36" height="15" rx="7.5" fill="url(#g-bug)" stroke="#3d5508" stroke-width="1.5" transform="rotate(-14 130 57)" />
+          </svg>
+          <b>bersihkan</b><span>jam</span>
+        </div>
+        <div class="card glass" id="rc3">
+          <svg viewBox="0 0 160 120" class="pic">
+            <path d="M20 112 L36 40 Q80 30 124 40 L140 112 Z" fill="url(#g-gran)" />
+            <g fill="rgba(255,225,230,.5)"><circle cx="60" cy="70" r="6" /><circle cx="90" cy="84" r="7" /><circle cx="110" cy="62" r="5" /><circle cx="74" cy="96" r="5" /></g>
+            <g fill="#b8ece4" stroke="rgba(30,80,80,.6)" stroke-width="1.5"><ellipse cx="22" cy="32" rx="14" ry="9" /><ellipse cx="48" cy="32" rx="14" ry="9" /><ellipse cx="74" cy="32" rx="14" ry="9" /><ellipse cx="138" cy="32" rx="14" ry="9" /><ellipse cx="112" cy="32" rx="14" ry="9" /><ellipse cx="88" cy="32" rx="12" ry="8" /></g>
+          </svg>
+          <b>tumbuh, tutup</b><span>hari</span>
+        </div>
+        <div class="card glass" id="rc4">
+          <svg viewBox="0 0 160 120" class="pic">
+            <rect x="14" y="20" width="132" height="86" rx="10" fill="#e9b6ae" />
+            <g stroke="#fff3ee" stroke-width="4" stroke-linecap="round"><path d="M26 38 H134" /><path d="M26 54 H134" /><path d="M26 70 H134" /><path d="M26 86 H134" /></g>
+          </svg>
+          <b>rapikan</b><span>bulan</span>
+        </div>
+      </section>
+      <section class="scene" id="s16">
+        <h2 class="display" id="poster"><span class="ln">Luka ditutup</span><span class="ln"><em class="key">estafet sel.</em></span></h2>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>
