@@ -8,7 +8,7 @@
   "captions": "pop",
   "duration": 44.757,
   "fps": 60,
-  "poster": 52.57,
+  "poster": 43.307,
   "voice": {
     "voice_id": "xlBOShi2835jfBgaEld4",
     "name": "Rafiq",
@@ -5491,9 +5491,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -5551,15 +5551,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -5592,9 +5592,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -5628,15 +5628,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -5664,9 +5664,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -6223,9 +6223,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -6283,15 +6283,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -6324,9 +6324,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -6360,15 +6360,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -6396,9 +6396,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -6986,9 +6986,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -7046,15 +7046,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -7087,9 +7087,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -7123,15 +7123,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -7159,9 +7159,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -7752,9 +7752,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -7812,15 +7812,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -7853,9 +7853,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -7889,15 +7889,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -7925,9 +7925,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -8541,9 +8541,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -8601,15 +8601,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -8642,9 +8642,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -8678,15 +8678,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -8714,9 +8714,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -9345,9 +9345,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -9405,15 +9405,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -9446,9 +9446,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -9482,15 +9482,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -9518,9 +9518,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -10131,9 +10131,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -10191,15 +10191,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -10232,9 +10232,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -10268,15 +10268,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -10304,9 +10304,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -10904,9 +10904,9 @@
             },
             {
               "path": "M224 416 H272 V464 H224 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M282 416 H329 V464 H282 Z",
@@ -10964,15 +10964,15 @@
             },
             {
               "path": "M109 588 H156 V636 H109 Z",
-              "colour": "blue",
-              "width": 3,
-              "fill": "blue"
-            },
-            {
-              "path": "M166 588 H214 V636 H166 Z",
               "colour": "white",
               "width": 3,
               "fill": "white"
+            },
+            {
+              "path": "M166 588 H214 V636 H166 Z",
+              "colour": "blue",
+              "width": 3,
+              "fill": "blue"
             },
             {
               "path": "M224 588 H272 V636 H224 Z",
@@ -11005,9 +11005,9 @@
             },
             {
               "path": "M502 416 H550 V464 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 416 H607 V464 H560 Z",
@@ -11041,15 +11041,15 @@
             },
             {
               "path": "M387 531 H434 V578 H387 Z",
-              "colour": "white",
-              "width": 3,
-              "fill": "white"
-            },
-            {
-              "path": "M444 531 H492 V578 H444 Z",
               "colour": "blue",
               "width": 3,
               "fill": "blue"
+            },
+            {
+              "path": "M444 531 H492 V578 H444 Z",
+              "colour": "white",
+              "width": 3,
+              "fill": "white"
             },
             {
               "path": "M502 531 H550 V578 H502 Z",
@@ -11077,9 +11077,9 @@
             },
             {
               "path": "M502 588 H550 V636 H502 Z",
-              "colour": "white",
+              "colour": "blue",
               "width": 3,
-              "fill": "white"
+              "fill": "blue"
             },
             {
               "path": "M560 588 H607 V636 H560 Z",
@@ -11622,7 +11622,7 @@
       "end": 31.317,
       "voice": "Makin penuh, makin sering kerja ekstra ini, makanya *lemot.*",
       "teaches": "The fuller the storage, the more pages are written for each page of new data: that extra work is the slowness.",
-      "screen": "A chart on glass: 'ditulis per 1 halaman data baru', four bars at '60%', '80%', '90%', '97%' full, heights computed by the toy flash in sim.py (1,3×, 1,8×, 2,3×, 3×), cyan turning red as they grow. Under it: 'model sederhana, bukan ukuran HP asli'.",
+      "screen": "A chart on glass: 'ditulis per 1 halaman data baru', four bars at '60%', '80%', '90%', '97%' full, heights computed by the toy flash in sim.py (1,3×, 1,8×, 2,3×, 3×): cyan, cyan, amber (90% is the limit), red. Under it: 'model sederhana, bukan ukuran HP asli'.",
       "motion": "The bars rise one after another on 'Makin penuh, makin sering', each landing at its value with its figure; on 'lemot' the last one pulses red.",
       "carries": "The red of 'full', into the phone.",
       "transition": "Cut back to the phone.",
@@ -11726,7 +11726,7 @@
                 130,
                 371
               ],
-              "colour": "red",
+              "colour": "orange",
               "label": "90%"
             },
             {
@@ -11830,7 +11830,7 @@
                 130,
                 371
               ],
-              "colour": "red",
+              "colour": "orange",
               "label": "90%"
             },
             {
@@ -11869,8 +11869,8 @@
       "end": 34.377,
       "voice": "Belum lagi, ruang buat file sementara ikut *sempit.*",
       "teaches": "A second cost: the system also needs free room for temporary files, and a full phone has none to give.",
-      "screen": "The phone at 97% in red. Under the bar, its breakdown: Foto, Aplikasi, Sistem, and 'File sementara' with a sliver of a slot at the end of the bar. Small file tiles try to fit into the slot and pile up, red: 'nggak muat'.",
-      "motion": "The breakdown rows land; on 'file sementara' the slot squeezes to a sliver and the tiles bump against it; on 'sempit' the chip 'nggak muat' pops.",
+      "screen": "The phone at 97%, its bar split into Foto, Aplikasi and Sistem from the first frame. Under it the breakdown rows and 'File sementara', whose room is already only a sliver. Small file tiles try to fit into the slot and pile up, red: 'nggak muat'.",
+      "motion": "The breakdown rows land; small file tiles arrive and bump against the sliver of room; on 'sempit' the room squeezes shut and the chip 'nggak muat' pops.",
       "carries": "The phone.",
       "transition": "A quick cut to the roomy grid.",
       "sound": "A soft bump as the tiles hit the edge.",
@@ -14244,7 +14244,7 @@
       "end": 41.757,
       "voice": "Jadi sisakan ruang kosong, paling nggak *sepuluh persen,* biar tetap *ngebut.*",
       "teaches": "What to do: keep some room free, at least about a tenth of the storage.",
-      "screen": "The phone. Its bar falls from 97% to 80% as it is cleared and turns from red to cyan; the figure changes at its values. A marker stands at 90% and the last tenth of the bar is outlined: '≥ 10% kosong'. The photo below is saved at once: 'tersimpan ✓'.",
+      "screen": "The phone, already cyan: its bar falls from 90% to 80% as it is cleared; the figure changes at its values. A marker stands at 90% and the last tenth of the bar is outlined: '≥ 10% kosong'. The photo below is saved at once: 'tersimpan ✓'.",
       "motion": "The bar falls on 'sisakan ruang kosong'; the marker and its chip land on 'sepuluh persen'; the check lights on 'ngebut'. Slow push.",
       "carries": "The phone, dimmed, behind the recap.",
       "transition": "The cards rise over the phone.",
@@ -14474,7 +14474,7 @@
       "start": 41.757,
       "end": 44.757,
       "teaches": "The three ideas in one frame, and the line to remember.",
-      "screen": "Three glass cards, 866 px wide, at y 262, 486 and 710, each with a small picture: a block of pages with one page lit and the block outline red ('tulis per halaman, hapus per blok'); pages hopping to a new block ('penuh: pindah dulu, hapus, baru tulis'); a bar with its last tenth outlined ('sisakan ≥ 10% kosong'). Below, the poster line in metal type at 100 px: 'Sisakan ruang, / biar ngebut.'",
+      "screen": "Three glass cards, 866 px wide, at y 262, 486 and 710, each with a small picture: a block of pages with one page lit and the block outline red ('tulis per halaman, hapus per blok'); pages hopping to a new block ('penuh: pindah dulu, hapus, baru tulis'); a bar with its last tenth outlined ('sisakan ≥ 10% kosong'). Below, the poster line in metal type at 100 px on a dark glass plate: 'Sisakan ruang, / biar ngebut.', and under it a clean storage bar at 80% with its last tenth outlined, '≥ 10% kosong'.",
       "motion": "The cards rise one after another in the first 0.5 s; the poster lines slam in; a sheen crosses them. It holds for two seconds with a slow push.",
       "transition": "The film ends on this frame; it can loop to frame 0, the same phone.",
       "sound": "A soft whoosh as the cards rise, a small low impact under the poster line, the bed resolving.",
@@ -14592,6 +14592,30 @@
               "text": "Sisakan ruang,\nbiar ngebut.",
               "size": 100,
               "accent": "biar ngebut."
+            },
+            {
+              "path": "M110 1330 H880 V1386 H110 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M110 1330 H726 V1386 H110 Z",
+              "colour": "blue",
+              "width": 4,
+              "fill": "blue"
+            },
+            {
+              "path": "M803 1318 H880 V1398 H803 Z",
+              "colour": "blue",
+              "width": 5
+            },
+            {
+              "label": [
+                842,
+                1450
+              ],
+              "text": "≥ 10% kosong",
+              "size": 36
             }
           ]
         },
@@ -14639,6 +14663,30 @@
               "text": "Sisakan ruang,\nbiar ngebut.",
               "size": 100,
               "accent": "biar ngebut."
+            },
+            {
+              "path": "M110 1330 H880 V1386 H110 Z",
+              "colour": "ink",
+              "width": 4
+            },
+            {
+              "path": "M110 1330 H726 V1386 H110 Z",
+              "colour": "blue",
+              "width": 4,
+              "fill": "blue"
+            },
+            {
+              "path": "M803 1318 H880 V1398 H803 Z",
+              "colour": "blue",
+              "width": 5
+            },
+            {
+              "label": [
+                842,
+                1450
+              ],
+              "text": "≥ 10% kosong",
+              "size": 36
             },
             {
               "camera": "push"

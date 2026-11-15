@@ -1,11 +1,11 @@
 {
-  "music": {"file": "../../examples/hoaks-diulang/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "note": "Composed for this film by ElevenLabs Music to its length (music/bed.json has the prompt): an uneasy pulse that builds with the repeats and turns calm near the check. A bed under the voice at -22 LUFS."},
+  "music": {"file": "../../examples/hoaks-diulang/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "note": "Composed for this film by ElevenLabs Music to its length (music/bed.json has the prompt): an uneasy pulse that builds with the repeats and turns calm near the check. A bed under the voice at -22 LUFS.", "ride": [[0, 0], [45.437, 0], [45.707, -9], [46.487, -9], [46.987, 0]]},
   "events": [
-    {"t": 0.07, "file": "lib/sfx/pop_3.mp3", "db": -7, "align": "peak", "pan": -0.15, "note": "copy 2 of the claim lands in the thread"},
-    {"t": 1.027, "file": "lib/sfx/pop_3.mp3", "db": -6, "align": "peak", "pan": -0.15, "note": "copy 3 of the claim lands in the thread"},
-    {"t": 1.947, "file": "lib/sfx/pop_3.mp3", "db": -6, "align": "peak", "pan": -0.15, "note": "copy 4 of the claim lands in the thread"},
-    {"t": 2.987, "file": "lib/sfx/pop_3.mp3", "db": -6, "align": "peak", "pan": -0.15, "note": "copy 5 of the claim lands in the thread"},
-    {"t": 7.4, "file": "lib/sfx/tick_1.mp3", "db": -6, "align": "peak", "note": "the evidence meter: 0"},
+    {"t": 0.07, "file": "lib/sfx/pop_3.mp3", "db": -4, "align": "peak", "pan": -0.15, "note": "copy 2 of the claim lands in the thread"},
+    {"t": 1.027, "file": "lib/sfx/pop_3.mp3", "db": -4, "align": "peak", "pan": -0.15, "note": "copy 3 of the claim lands in the thread"},
+    {"t": 1.947, "file": "lib/sfx/pop_3.mp3", "db": -4, "align": "peak", "pan": -0.15, "note": "copy 4 of the claim lands in the thread"},
+    {"t": 2.987, "file": "lib/sfx/pop_3.mp3", "db": -4, "align": "peak", "pan": -0.15, "note": "copy 5 of the claim lands in the thread"},
+    {"t": 7.4, "file": "lib/sfx/tick_1.mp3", "db": -4, "align": "peak", "note": "the evidence meter: 0"},
     {"t": 8.357, "file": "lib/sfx/whoosh_fast_5.mp3", "db": -11, "align": "peak", "note": "the copies fold into one line and fly into the head, between two sentences"},
     {"t": 12.287, "file": "lib/sfx/tick_2.mp3", "db": -11, "align": "peak", "pan": 0.2, "note": "reading 1 ends, the effort bar steps down"},
     {"t": 12.877, "file": "lib/sfx/tick_2.mp3", "db": -11, "align": "peak", "pan": 0.2, "note": "reading 2 ends, the effort bar steps down"},
@@ -24,11 +24,11 @@
     {"t": 41.217, "file": "lib/sfx/impact_big_1.mp3", "db": -5, "align": "peak", "duck": true, "trim": [0, 1.6], "fade": 1.0, "note": "THE TURN: hearing it often is not evidence, in the pause after the line"},
     {"t": 41.217, "file": "lib/sfx/sub_drop_2.mp3", "db": -6, "align": "peak", "note": "its body"},
     {"t": 42.107, "file": "lib/sfx/card_1.mp3", "db": -10, "align": "peak", "note": "the two buttons rise"},
-    {"t": 44.227, "file": "lib/sfx/click_2.mp3", "db": -6, "align": "peak", "note": "the tap on 'cek sumber'"},
-    {"t": 44.637, "file": "lib/sfx/tension_3.mp3", "db": -8, "align": "peak", "trim": [0, 0.6], "fade": 0.3, "note": "the claim cracks"},
+    {"t": 44.227, "file": "lib/sfx/click_2.mp3", "db": -3, "align": "peak", "note": "the tap on 'cek sumber'"},
+    {"t": 44.637, "file": "lib/sfx/tension_3.mp3", "db": -5, "align": "peak", "trim": [0, 0.6], "fade": 0.3, "note": "the claim cracks"},
     {"t": 45.187, "file": "lib/sfx/whoosh_fast_6.mp3", "db": -11, "align": "peak", "note": "its two pieces fall away"},
-    {"t": 45.787, "file": "lib/sfx/impact_big_3.mp3", "db": -5, "align": "peak", "duck": true, "trim": [0, 1.4], "fade": 0.9, "note": "THE PAYOFF: the stamp, after the last line"},
-    {"t": 45.787, "file": "lib/sfx/card_2.mp3", "db": -6, "align": "peak", "note": "the stamp's slap"},
+    {"t": 45.787, "file": "lib/sfx/impact_big_3.mp3", "db": -2, "align": "peak", "duck": true, "trim": [0, 1.4], "fade": 0.9, "note": "THE PAYOFF: the stamp, after the last line"},
+    {"t": 45.787, "file": "lib/sfx/card_2.mp3", "db": -4, "align": "peak", "note": "the stamp's slap"},
     {"t": 46.857, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -12, "align": "peak", "note": "the recap rises"},
     {"t": 47.257, "file": "lib/sfx/impact_big_1.mp3", "db": -6, "align": "peak", "duck": 0.6, "trim": [0, 2.0], "fade": 1.4, "note": "the poster line"}
   ]

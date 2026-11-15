@@ -13,6 +13,8 @@
   </head>
   <body>
     <div id="root">
+      <!-- Over the stage: a dark veil, so the frame stays near graphite black and the words keep their contrast. -->
+      <div id="shade"></div>
       <!-- The 3D layer (the phone, the chip on its board) and the 2D grid of blocks and pages. -->
       <canvas id="space"></canvas>
       <canvas id="grid"></canvas>
@@ -26,9 +28,9 @@
       <!-- s03: a block and its pages -->
       <section class="scene" id="s03">
         <div class="bracket" id="br-blok"><i></i><b>1 blok</b></div>
-        <svg class="ink" id="lead-halaman" viewBox="0 0 1080 1920"><path d="M436 312 L300 432" pathLength="1" /></svg>
-        <span class="chip" id="chip-halaman" style="left: 380px; top: 246px"><i class="sq live"></i>halaman</span>
-        <p class="note" id="note-ratusan" style="left: 672px; top: 236px">aslinya:<br /><b>ratusan halaman</b><br />per blok</p>
+        <svg class="ink" id="lead-halaman" viewBox="0 0 1080 1920"><path d="M400 316 L300 432" pathLength="1" /></svg>
+        <span class="chip" id="chip-halaman" style="left: 300px; top: 240px"><i class="sq live"></i>halaman</span>
+        <p class="note" id="note-ratusan" style="left: 600px; top: 232px">aslinya: <b>ratusan</b><br /><b>halaman</b> per blok</p>
       </section>
 
       <!-- s04 to s05: the two rules, the chips at the top -->
@@ -94,7 +96,12 @@
           </svg>
           <p>Sisakan <b>≥ 10%</b><br />ruang kosong</p>
         </div>
+        <div class="plate" id="plate"></div>
         <h2 class="display" id="poster"><span class="ln">Sisakan ruang,</span><span class="ln"><em class="key">biar ngebut.</em></span></h2>
+        <div class="endbar" id="endbar">
+          <div class="eb-track"><i class="eb-fill"></i><i class="eb-free"></i></div>
+          <p class="eb-label"><span>80% terpakai</span><b>≥ 10% kosong</b></p>
+        </div>
       </section>
     </div>
     <script type="module" src="film.js"></script>

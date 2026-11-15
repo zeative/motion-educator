@@ -33,8 +33,8 @@ const space = await createSpace($("#space"), screen.canvas, face);
 
 // The phone's screen state, the 3D state, the grid's camera, the storage strip.
 const SCR = { used: 0.91, warn: 0, rows: 0, temp: 0, tiles: 0, full: 0, marker: 0, saving: 1, saved: 0, dim: 0 };
-const PHONE = { x: 497, y: 800 };
-const V = { phone: 1, px: PHONE.x, py: PHONE.y, pz: 0, prx: 0.05, pry: -0.3, prz: 0.02, ps: 1.08, chip: 0, cx: 497, cy: 809, crx: -1.05, cry: 0, crz: 0.42, board: 1, fill: 0, rimColour: CYAN };
+const PHONE = { x: 497, y: 742 };
+const V = { phone: 1, px: PHONE.x, py: PHONE.y, pz: 0, prx: 0.05, pry: -0.3, prz: 0.02, ps: 0.94, chip: 0, cx: 497, cy: 809, crx: -1.05, cry: 0, crz: 0.42, board: 1, fill: 0, lamp: 0, rimColour: CYAN };
 const CAM = { ...REST, focus: 0, focusOn: 0 };
 const L = { grid: 0, space: 1, hud: 0, fill: 0.55, red: 0 };
 const CLOSE = { x: 219, y: 526, z: 3.2 }; // block 0 filling the frame
@@ -184,45 +184,49 @@ Object.assign(stage, { lx: 0.46, ly: 0.62, glow: 0.55, floor: 1, silk: 0.7 });
 // ── s01: the phone fills up ──────────────────────────────────────────────────
 // Frame 0 is finished: the phone is there, its bar at 91% and climbing, the photo trying to save.
 const LEMOT = said("s01", "lemot");
-tl.to(SCR, { used: 0.97, duration: LEMOT - 0.05, ease: "power1.inOut" }, 0);
+tl.to(SCR, { used: 0.946, duration: LEMOT - 0.06, ease: "power1.out" }, 0);
+tl.to(SCR, { used: 0.97, duration: 0.14, ease: "power2.out" }, LEMOT - 0.02);
 tl.to(SCR, { warn: 1, duration: 0.3, ease: "back.out(2)" }, LEMOT + 0.05);
-tl.to(V, { pry: -0.12, prx: 0.02, ps: 1.11, duration: s.s02.start - 0.4, ease: "sine.inOut" }, 0);
+tl.to(V, { pry: -0.12, prx: 0.02, ps: 0.97, duration: s.s02.start - 0.4, ease: "sine.inOut" }, 0);
 film.tintTo(DRED, LEMOT, 0.5);
 lightAt(497, 700, 0.7, 0, 0.01);
 tl.to(stage, { glow: 0.85, duration: 0.3 }, LEMOT);
 tl.to(stage, { glow: 0.6, duration: 0.8 }, LEMOT + 0.35);
 // The dive: the phone rushes at the lens, a soft flash, and we are at the chip.
 const DIVE = s.s02.start;
-tl.to(V, { pz: 70, ps: 1.1, pry: 0, prx: 0, duration: 0.42, ease: "power3.in" }, DIVE - 0.42);
-tl.to(V, { phone: 0, duration: 0.12, ease: "none" }, DIVE - 0.1);
+tl.to(V, { pz: 70, ps: 1.0, pry: 0, prx: 0, duration: 0.42, ease: "power3.in" }, DIVE - 0.42);
+tl.set(V, { phone: 0 }, DIVE);
 hit(DIVE, 497, 800, 0.55, 0.3);
 
 // ── s02: the chip ────────────────────────────────────────────────────────────
-tl.set(V, { chip: 1 }, DIVE - 0.02);
+tl.set(V, { chip: 1 }, DIVE);
 film.tintTo(CYAN, DIVE, 0.4);
 const FACED = said("s02", "blok-blok") + 0.35;
 tl.fromTo(V, { crx: -1.05, crz: 0.42 }, { crx: 0, crz: 0, duration: FACED - DIVE, ease: "expo.out", immediateRender: false }, DIVE);
-tl.fromTo(V, { fill: 0 }, { fill: 3, duration: 0.6, immediateRender: false }, DIVE);
+tl.fromTo(V, { fill: 0, lamp: 0 }, { fill: 900, lamp: 1100, duration: 0.4, immediateRender: false }, DIVE);
+tl.to(V, { lamp: 0, fill: 0, duration: FACED - DIVE - 0.4, ease: "power2.inOut" }, DIVE + 0.4);
 lightAt(497, 809, 0.75, DIVE, 0.4);
 // The hand-over: the face is the grid at the same pixels, so the flat grid comes in as the 3D layer leaves.
 tl.to(V, { board: 0, duration: 0.5 }, s.s03.start - 0.6);
 tl.set(L, { grid: 1 }, s.s03.start - 0.12);
 tl.to(V, { chip: 0, duration: 0.12, ease: "none" }, s.s03.start - 0.12);
-tl.set(V, { fill: 0 }, s.s03.start);
+tl.set(V, { fill: 0, lamp: 0 }, s.s03.start);
 
 // ── s03: a block, and its pages ──────────────────────────────────────────────
-film.scene("#s03", s.s03.start, s.s04.start + 0.1);
+film.scene("#s03", s.s03.start, said("s03", "banyak") + 2.3);
 film.land("#br-blok", said("s03", "blok") - 0.05, { from: 14, duration: 0.4 });
 chipIn("#chip-halaman", said("s03", "halaman") - 0.05);
 film.draw("#lead-halaman path", said("s03", "halaman"), 0.3);
-film.land("#note-ratusan", said("s03", "kecil"), { from: 12, duration: 0.45 });
+film.land("#note-ratusan", said("s03", "banyak") - 0.05, { from: 12, duration: 0.45 });
+tl.to("#note-ratusan", { opacity: 0, duration: 0.2 }, said("s03", "banyak") + 2.1);
 tl.to(CAM, { z: 1.03, duration: s.s03.dur, ease: "none" }, s.s03.start);
 lightAt(219, 560, 0.6, s.s03.start, 0.8);
-tl.to("#s03", { opacity: 0, duration: 0.18 }, s.s04.start - 0.1);
+tl.to("#br-blok, #chip-halaman, #lead-halaman", { opacity: 0, duration: 0.18 }, s.s04.start - 0.1);
 
 // ── s04: written a page at a time ────────────────────────────────────────────
 film.scene("#s04", s.s04.start, s.s06.start);
-tl.to(CAM, { ...CLOSE, focus: 1, duration: 0.6, ease: "power3.inOut" }, s.s04.start - 0.1);
+tl.to(CAM, { ...CLOSE, duration: 0.6, ease: "power3.inOut" }, s.s04.start - 0.1);
+tl.to(CAM, { focus: 1, duration: 0.16, ease: "power1.out" }, s.s04.start - 0.14);
 tl.to(CAM, { z: CLOSE.z * 1.03, duration: s.s05.start - s.s04.start - 0.8, ease: "none" }, s.s04.start + 0.5);
 chipIn("#chip-tulis", T4 + 0.02, said("s04b", "terisi"));
 lightAt(497, 760, 0.7, s.s04.start, 0.6);
@@ -277,30 +281,32 @@ hit(PHOTO_IN, 497, 1090, 0.25, 0.25);
 
 // ── s09: the fuller, the more is written ─────────────────────────────────────
 // The grid steps back as the chart comes up in front of it.
-tl.to(CAM, { z: 0.86, duration: 0.3, ease: "power2.in" }, s.s09.start - 0.32);
-tl.to(L, { grid: 0, duration: 0.25 }, s.s09.start - 0.3);
+tl.to(CAM, { z: 0.9, duration: 0.2, ease: "power2.in" }, s.s09.start - 0.38);
+tl.to(L, { grid: 0, duration: 0.16 }, s.s09.start - 0.34);
 tl.to("#hud", { opacity: 0, duration: 0.2 }, s.s09.start - 0.3);
 tl.to("#s06", { opacity: 0, duration: 0.2 }, s.s09.start - 0.3);
-film.scene("#s09", s.s09.start - 0.15, s.s10.start);
-film.land("#chart", s.s09.start - 0.15, { from: 60, duration: 0.45 });
+film.scene("#s09", s.s09.start - 0.18, s.s10.start);
+film.land("#chart", s.s09.start - 0.18, { from: 50, duration: 0.3 });
 {
   // Each bar is its value times 150 px: the toy flash's pages written for one page asked for.
   const KEYS = ["60", "80", "90", "97"];
   const PX = 175;
-  const BASE = 760; // the baseline inside .bars
+  const BASE = 830; // the baseline inside .bars
   const bars = $("#bars");
   $("#ref").style.top = `${BASE - PX * 1}px`;
-  const lands = [said("s09", "makin") - 0.05, said("s09", "penuh") + 0.1, said("s09", "makin", 1) - 0.05, said("s09", "sering") + 0.05];
+  const lands = [s.s09.start - 0.12, said("s09", "penuh") + 0.1, said("s09", "makin", 1) - 0.05, said("s09", "sering") + 0.05];
   KEYS.forEach((k, i) => {
     const v = G.sim.wa[k];
     const h = v * PX;
-    const red = i >= 2;
+    const red = i === 3;
+    const amber = i === 2;
     const el = document.createElement("div");
     el.className = "bar";
     el.style.left = `${i * 195}px`;
     el.style.height = `${h}px`;
-    el.style.bottom = `${760 - BASE}px`;
-    el.innerHTML = `<div class="col" style="height:${h}px;background:linear-gradient(180deg, ${red ? "#ff8a99" : "#b8fbff"}, ${red ? RED : CYAN} 40%, ${red ? "#7a1020" : "#0b6f8c"});box-shadow:0 0 30px -4px ${red ? RED : CYAN}"></div><b class="val" style="bottom:${h + 18}px">${G.sim.text[k]}</b><span class="pct">${k}%</span>`;
+    el.style.bottom = `${830 - BASE}px`;
+    const [hi, mid, lo] = red ? ["#ff8a99", RED, "#7a1020"] : amber ? ["#ffd9a1", "#ffb347", "#8a5a12"] : ["#b8fbff", CYAN, "#0b6f8c"];
+    el.innerHTML = `<div class="col" style="height:${h}px;background:linear-gradient(180deg, ${hi}, ${mid} 40%, ${lo});box-shadow:0 0 30px -4px ${mid}"></div><b class="val" style="bottom:${h + 18}px">${G.sim.text[k]}</b><span class="pct">${k}%</span>`;
     bars.append(el);
     gsap.set(el, { scaleY: 0, opacity: 0 });
     const val = el.querySelector(".val");
@@ -313,16 +319,16 @@ film.land("#chart", s.s09.start - 0.15, { from: 60, duration: 0.45 });
   const last = bars.lastElementChild;
   tl.to(last, { scale: 1.06, duration: 0.14, ease: "power2.out", transformOrigin: "50% 100%" }, LEMOT2);
   tl.to(last, { scale: 1, duration: 0.4, ease: "power2.inOut" }, LEMOT2 + 0.14);
-  hit(LEMOT2, 64 + 60 + 3 * 195 + 75, 300 + BASE - G.sim.wa["97"] * PX, 0.3, 0.3);
+  hit(LEMOT2, 64 + 60 + 3 * 195 + 75, 258 + BASE - G.sim.wa["97"] * PX, 0.3, 0.3);
 }
 lightAt(700, 760, 0.65, s.s09.start, 0.8);
 
 // ── s10: no room for temporary files ─────────────────────────────────────────
-tl.set(V, { phone: 1, chip: 0, pz: 0, ps: 1.08, prx: 0.04, pry: 0.2, prz: -0.02 }, s.s10.start);
-tl.set(SCR, { used: 0.97, warn: 0, saving: 0, saved: 0, rows: 0 }, s.s10.start);
+tl.set(V, { phone: 1, chip: 0, pz: 0, ps: 0.94, prx: 0.04, pry: 0.2, prz: -0.02 }, s.s10.start);
+tl.set(SCR, { used: 0.97, warn: 0, saving: 0, saved: 0, rows: 0.02, temp: 0.82 }, s.s10.start);
 tl.to(V, { pry: 0.1, duration: s.s10.dur, ease: "sine.out" }, s.s10.start);
 tl.to(SCR, { rows: 1, duration: 0.7, ease: "none" }, s.s10.start + 0.05);
-tl.to(SCR, { temp: 1, duration: 0.9, ease: "power2.inOut" }, said("s10", "file") - 0.3);
+tl.to(SCR, { temp: 1, duration: 0.3, ease: "power2.in" }, said("s10", "sempit") - 0.15);
 tl.to(SCR, { tiles: 1.6, duration: 1.3, ease: "none" }, said("s10", "ruang") - 0.1);
 tl.to(SCR, { full: 1, duration: 0.25, ease: "back.out(2)" }, said("s10", "sempit") - 0.05);
 tl.to("#chart", { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" }, s.s10.start - 0.2);
@@ -348,12 +354,11 @@ lightAt(219, 560, 0.7, DROP0, 0.3);
 
 // ── s12: keep some room ──────────────────────────────────────────────────────
 tl.set(L, { grid: 0 }, s.s12.start);
-tl.set(V, { phone: 1, pz: 0, ps: 1.08, prx: 0.03, pry: -0.22, prz: 0.02 }, s.s12.start);
-tl.set(SCR, { used: 0.97, warn: 1, rows: 0, temp: 0, tiles: 0, full: 0, saving: 1, saved: 0 }, s.s12.start);
-tl.to(V, { pry: -0.08, ps: 1.11, duration: s.s12.dur, ease: "sine.inOut" }, s.s12.start);
+tl.set(V, { phone: 1, pz: 0, ps: 0.94, prx: 0.03, pry: -0.22, prz: 0.02 }, s.s12.start);
+tl.set(SCR, { used: 0.9, warn: 0, rows: 0, temp: 0, tiles: 0, full: 0, saving: 1, saved: 0 }, s.s12.start);
+tl.to(V, { pry: -0.08, ps: 0.97, duration: s.s12.dur, ease: "sine.inOut" }, s.s12.start);
 const SISA = said("s12", "sisakan");
-tl.to(SCR, { used: 0.8, duration: 1.0, ease: "power2.inOut" }, SISA - 0.05);
-tl.to(SCR, { warn: 0, duration: 0.25 }, SISA + 0.5);
+tl.to(SCR, { used: 0.8, duration: SISA + 0.9 - s.s12.start, ease: "power2.out" }, s.s12.start);
 tl.to(SCR, { marker: 1, duration: 0.35, ease: "power2.out" }, said("s12", "sepuluh") - 0.1);
 tl.set(SCR, { saving: 0, saved: 1 }, said("s12", "ngebut") - 0.05);
 lightAt(497, 700, 0.75, s.s12.start, 0.01);
@@ -371,10 +376,12 @@ tl.to(stage, { glow: 0.65, duration: 0.8 }, said("s12", "ngebut") + 0.25);
   }
   g.innerHTML = html;
 }
-film.scene("#s13", s.s13.start - 0.14, D);
-tl.to(V, { phone: 0, pz: -20, duration: 0.3, ease: "power2.in" }, s.s13.start - 0.36);
-tl.to(SCR, { dim: 0.4, duration: 0.3 }, s.s13.start - 0.36);
-["#rc1", "#rc2", "#rc3"].forEach((card, i) => film.land(card, s.s13.start - 0.14 + i * 0.12, { from: 70, duration: 0.45 }));
+film.scene("#s13", s.s13.start - 0.26, D);
+tl.to(V, { phone: 0, pz: -20, duration: 0.2, ease: "power2.in" }, s.s13.start - 0.46);
+tl.to(SCR, { dim: 0.4, duration: 0.2 }, s.s13.start - 0.46);
+["#rc1", "#rc2", "#rc3"].forEach((card, i) => film.land(card, s.s13.start - 0.26 + i * 0.12, { from: 70, duration: 0.45 }));
+film.land("#plate", s.s13.start + 0.2, { from: 30, duration: 0.4 });
+film.land("#endbar", s.s13.start + 0.55, { from: 24, duration: 0.45 });
 for (const line of $$("#poster .ln")) film.split(line);
 slam("#poster .ln", s.s13.start + 0.4, 0.2);
 hit(s.s13.start + 0.4, 497, 1080, 0.25, 0.3);

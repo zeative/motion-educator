@@ -197,12 +197,16 @@ export function createGrid(canvas, G) {
       if (b === 6) {
         let la = 0;
         for (const s of D.spareLabel) la = Math.max(la, clamp((t - s.t0) / 0.3) * (1 - clamp((t - s.t1) / 0.3)));
+        la *= 1 - (cam.focus ?? 0);
         if (la > 0) {
-          g.globalAlpha = alpha * rv * la * 0.55;
-          g.fillStyle = "#9fdfeb";
-          g.font = '600 30px "Sora Variable"';
+          g.globalAlpha = alpha * rv * la * 0.95;
+          g.fillStyle = "#d8f6fb";
+          g.font = '650 38px "Sora Variable"';
           g.textAlign = "center";
-          g.fillText("cadangan", bx + G.B / 2, by + G.B / 2 + 11);
+          g.shadowColor = "rgb(0 0 0 / 0.9)";
+          g.shadowBlur = 10;
+          g.fillText("cadangan", bx + G.B / 2, by + G.B / 2 + 13);
+          g.shadowBlur = 0;
           g.globalAlpha = alpha * rv;
         }
       }
@@ -412,9 +416,9 @@ export function createGrid(canvas, G) {
     g.fill();
     g.shadowBlur = 0;
     g.fillStyle = "#d8d8de";
-    g.font = '600 28px "Sora Variable"';
+    g.font = '600 34px "Sora Variable"';
     g.textAlign = "center";
-    g.fillText("pengendali", x + w / 2, y + 152);
+    g.fillText("pengendali", x + w / 2, y + 156);
     g.restore();
   }
   return { draw, D, at, centre, photo };
@@ -721,7 +725,11 @@ export async function createSpace(canvas, screenCanvas, faceCanvas) {
   space.rim.intensity = 2.4;
   space.rim.position.set(80, 30, -40);
   const fill = new THREE.PointLight(CYAN, 0, 0, 2);
-  fill.position.set(30, -20, 30);
+  fill.position.set(-14, 16, 22);
+  // A warm key close to the chip, so its package shows a falloff and its edges catch light.
+  const lamp = new THREE.PointLight(0xfff1dc, 0, 0, 2);
+  lamp.position.set(-22, 22, 26);
+  scene.add(lamp);
   scene.add(fill);
 
   // The phone: 520 x 1050 px, a graphite frame and a glass front. No brand, no logo.
@@ -783,17 +791,34 @@ export async function createSpace(canvas, screenCanvas, faceCanvas) {
   const CD = px(46);
   const faceTex = new THREE.CanvasTexture(faceCanvas);
   faceTex.colorSpace = THREE.SRGBColorSpace;
-  const graphite = new THREE.MeshPhysicalMaterial({ color: 0x1a1c20, metalness: 0.4, roughness: 0.42, clearcoat: 0.8, clearcoatRoughness: 0.35 });
-  const faceMat = new THREE.MeshStandardMaterial({ color: 0x0c0e11, roughness: 0.35, metalness: 0.2, emissive: 0xffffff, emissiveMap: faceTex, emissiveIntensity: 1, toneMapped: false });
-  const box = new THREE.Mesh(new THREE.BoxGeometry(CS, CS, CD), [graphite, graphite, graphite, graphite, faceMat, graphite]);
+  // The package: moulded epoxy, matte with a fine grain, and a bevel that catches the light.
+  const grain = Object.assign(document.createElement("canvas"), { width: 512, height: 512 });
+  {
+    const q = grain.getContext("2d");
+    const img = q.createImageData(512, 512);
+    let seed = 11;
+    for (let i = 0; i < img.data.length; i += 4) {
+      seed = (seed * 16807) % 2147483647;
+      const v = 150 + ((seed / 2147483647) * 105) | 0;
+      img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+      img.data[i + 3] = 255;
+    }
+    q.putImageData(img, 0, 0);
+  }
+  const grainTex = new THREE.CanvasTexture(grain);
+  grainTex.wrapS = grainTex.wrapT = THREE.RepeatWrapping;
+  grainTex.repeat.set(4, 4);
+  const graphite = new THREE.MeshPhysicalMaterial({ color: 0x15171b, metalness: 0.1, roughness: 0.8, roughnessMap: grainTex, clearcoat: 0.3, clearcoatRoughness: 0.5, envMapIntensity: 0.3 });
+  const faceMat = new THREE.MeshPhysicalMaterial({ color: 0x0b0c0e, roughness: 0.92, metalness: 0, envMapIntensity: 0.15, emissive: 0xffffff, emissiveMap: faceTex, emissiveIntensity: 1, toneMapped: false });
+  const box = new THREE.Mesh(new RoundedBoxGeometry(CS, CS, CD, 4, px(12)), [graphite, graphite, graphite, graphite, faceMat, graphite]);
   box.position.z = -CD / 2;
   chip.add(box);
   const gold = new THREE.MeshPhysicalMaterial({ color: 0xd9a540, metalness: 1, roughness: 0.28, clearcoat: 0.5 });
   for (let i = 0; i < 22; i++) {
     const y = -CS / 2 + CS * ((i + 0.5) / 22);
     for (const side of [-1, 1]) {
-      const lead = new THREE.Mesh(new THREE.BoxGeometry(px(70), px(16), px(8)), gold);
-      lead.position.set(side * (CS / 2 + px(28)), y, -CD + px(4));
+      const lead = new THREE.Mesh(new THREE.BoxGeometry(px(40), px(16), px(8)), gold);
+      lead.position.set(side * (CS / 2 + px(14)), y, -CD + px(4));
       chip.add(lead);
     }
   }
@@ -855,6 +880,7 @@ export async function createSpace(canvas, screenCanvas, faceCanvas) {
       }
     }
     fill.intensity = S.fill ?? 0;
+    lamp.intensity = S.lamp ?? 0;
     space.rim.color.set(S.rimColour ?? CYAN);
     space.render(Math.max(S.phone, S.chip) > 0.001 ? 1 : 0);
   }

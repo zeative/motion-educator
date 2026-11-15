@@ -45,6 +45,8 @@ R = s["s17"]["start"]
 bed = HERE / "music" / "bed.mp3"
 music = {"file": f"../../examples/{HERE.name}/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6,
          "note": "Composed for this film by ElevenLabs Music to its length (music/bed.json has the prompt): an uneasy pulse that builds with the repeats and turns calm near the check. A bed under the voice at -22 LUFS."}
+# The bed swells right where the stamp lands (about 45.7 s): dip it under the payoff so the hit is heard.
+music["ride"] = [[0, 0], [r(STAMP - 0.35), 0], [r(STAMP - 0.08), -9], [r(STAMP + 0.7), -9], [r(STAMP + 1.2), 0]]
 if not bed.exists():
     raise SystemExit("compose the bed first: node kit/audio/music.mjs examples/hoaks-diulang --prompt ...")
 
@@ -85,6 +87,14 @@ events += [
 for e in events:
     if e["db"] <= -8:
         e["db"] = min(-6, e["db"] + 6)
+# Measured again on the second mix: under the voice the small ones still lift under 1 dB. The few that carry the
+# picture's events (the copies landing, the 0, the tap, the crack) go up further; the payoff sits on an accent of the
+# bed, so it goes up too.
+LOUDER = {"copy": -4, "the evidence meter": -4, "the tap": -3, "the claim cracks": -5, "THE PAYOFF": -2, "the stamp's slap": -4}
+for e in events:
+    for key, level in LOUDER.items():
+        if e["note"].startswith(key):
+            e["db"] = level
 events.sort(key=lambda e: e["t"])
 out = ["{", f'  "music": {json.dumps(music, ensure_ascii=False)},', '  "events": [']
 out += [f"    {json.dumps(e, ensure_ascii=False)}{',' if i < len(events) - 1 else ''}" for i, e in enumerate(events)]
