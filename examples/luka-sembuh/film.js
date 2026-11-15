@@ -22,11 +22,14 @@ const said = (id, word) => {
 };
 
 // ── The world's state ────────────────────────────────────────────────────────
-const REST = { x: 540, y: 960, z: 1 };
 // A framing: the world point (wx, wy) at the screen point (sx, sy), z times closer.
 const frame = (wx, wy, sx, sy, z) => ({ x: wx - (sx - 540) / z, y: wy - (sy - 960) / z, z });
+// At rest the section is 1.6 times the drawn frames: the skin's surface at y 470, the wound 512 px wide at the top,
+// the capillary at y 1269..1435 (under the spoken words, with a scrim behind them).
+const ZR = 1.6;
+const REST = frame(540, 460, 540, 470, ZR);
 const C = { ...REST };
-const F = { a: 1, push: 1, z: 1, dx: 0, dy: 0, heal: 0, bead: 0 };
+const F = { a: 1, push: 1, z: 1, dx: 0, dy: 0, heal: 0, bead: 0.35, bx: 566, by: 626 };
 const DIVE = { p: 0, on: 1 };
 const S = {
   cam: C, finger: F, sec: 0, disc: 0, discX: 540, discY: 640, lx: 540, ly: 700,
@@ -34,6 +37,7 @@ const S = {
   bugs: 0, cleared: 0, neut: 0, nx: 600, ny: 1000, ndir: -1.4, reach: 0, eat: 0, squeeze: 1,
   gran: 0, pale: 0, comb: 0, kera: 0, mature: 0, scar: 0, walls: 0,
 };
+const REST_WOUND_Y = (700 - REST.y) * ZR + 960; // where the wound's middle sits at rest
 const tissue = createTissue($("#tissue"));
 const clot = createClot($("#space"));
 const C3 = { vis: 0, net: 0, t0: s.s05.start, orbit: 0, catchTime: (v) => NET_A + v * (NET_B - NET_A) };
@@ -56,7 +60,7 @@ for (const [name, m] of [["menit", 1], ["jam", 60], ["hari", 1440], ["minggu", 1
   const tick = document.createElementNS(svgNS, "line");
   Object.entries({ x1: tx(m), x2: tx(m), y1: BAR_Y - 13, y2: BAR_Y + 13, class: "tick" }).forEach(([k, v]) => tick.setAttribute(k, v));
   $("#ticks").append(tick);
-  $("#tick-labels").insertAdjacentHTML("beforeend", `<span style="left:${tx(m).toFixed(1)}px">${name}</span>`);
+  $("#tick-labels").insertAdjacentHTML("beforeend", `<span class="${name === "minggu" ? "low" : ""}" style="left:${tx(m).toFixed(1)}px">${name}</span>`);
 }
 const legEls = LEGS.map(([a, b, colour]) => {
   const make = (cls) => {
@@ -75,8 +79,8 @@ gsap.set(whenChips, { xPercent: -50, yPercent: -100 });
 const place = (el, x, y) => (el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`);
 const scr = (x, y) => tissue.toScreen(C, x, y);
 const pins = [
-  [$("#pin-epi"), () => scr(130, 520)],
-  [$("#pin-der"), () => scr(150, 800)],
+  [$("#pin-epi"), () => scr(250, 520)],
+  [$("#pin-der"), () => scr(250, 800)],
   [$("#pin-plate"), (t) => { const p = tissue.plate(14, S, t); const [x, y] = scr(p.x, p.y); return [x + 18, y - 20]; }],
   [$("#pin-plug"), () => { const [x, y] = scr(610, 905); return [x + 10, y]; }],
   [$("#pin-bug"), (t) => { const b = tissue.bug(1, S, t); const [x, y] = scr(b.x, b.y); return [x + 34, y - 30]; }],
@@ -87,13 +91,14 @@ const pins = [
   [$("#pin-scar"), () => scr(560, 760)],
 ];
 
+const pinWidth = new Map(pins.map(([el]) => [el, el.firstElementChild.offsetWidth]));
 film.each((t) => {
   // The dive: the finger grows about its scrape while the section opens out of it (and the reverse at the end).
   const zf = F.push * Math.pow(7, DIVE.p);
   F.z = zf;
-  F.dy = 60 * DIVE.p;
+  F.dy = (REST_WOUND_Y - 640) * DIVE.p;
   if (DIVE.on) {
-    C.z = zf / (7 * F.push);
+    C.z = (ZR * zf) / (7 * F.push);
     C.x = 540;
     C.y = 700 - (640 + F.dy - 960) / C.z;
     S.disc = clamp((DIVE.p - 0.08) / 0.85);
@@ -104,7 +109,11 @@ film.each((t) => {
   }
   tissue.draw(S, t);
   clot.render(C3, t);
-  for (const [el, where] of pins) place(el, ...where(t));
+  for (const [el, where] of pins) {
+    const [x, y] = where(t);
+    const w = pinWidth.get(el);
+    place(el, clamp(x, 64, 930 - w), Math.max(y, 236));
+  }
   // The time bar's marker and the chip over it.
   const mx = 64 + (860 * T.lg) / Math.log10(YEAR);
   place($("#pin-mark"), mx, BAR_Y);
@@ -149,12 +158,14 @@ const popPin = (sel, at, origin = "0% 100%") => {
 const unpin = (sel, at) => tl.to(sel, { autoAlpha: 0, duration: 0.2, ease: "power1.in" }, at);
 
 film.captions();
+film.scene("#capscrim", s.s02.start + 0.4, s.s14.start - 0.2, { fadeIn: 0.4, fadeOut: 0.3 });
 
 // ── s01: the question, over the scraped finger ───────────────────────────────
 Object.assign(stage, { lx: 0.44, ly: 0.68, glow: 0.5, floor: 0, silk: 0.7 });
 film.scene("#s01", 0, s.s02.start);
-tl.to(F, { bead: 1, duration: 2.6, ease: "sine.inOut" }, 0);
-tl.to(F, { push: 1.045, duration: s.s02.start - 0.45, ease: "none" }, 0);
+tl.to(F, { bead: 1, duration: 2.4, ease: "power1.out" }, 0);
+tl.to(F, { bx: 606, by: 676, duration: 2.5, ease: "sine.inOut" }, 0);
+tl.to(F, { push: 1.1, duration: s.s02.start - 0.45, ease: "none" }, 0);
 const lines = $$("#q .ln");
 for (const line of lines) film.split(line);
 slam(lines[1], said("s01", "luka") - 0.06, 0);
@@ -174,7 +185,7 @@ lightAt(540, 700, 0.6, DIVE_AT, 0.8);
 film.scene("#names", s.s02.start, s.s14.start);
 popPin("#tag-epi", s.s02.start + 0.75);
 popPin("#tag-der", s.s02.start + 0.95);
-tl.to(C, { z: 1.03, duration: s.s02.dur - 0.5, ease: "none" }, s.s02.start + 0.6);
+tl.to(C, { z: ZR * 1.03, duration: s.s02.dur - 0.5, ease: "none" }, s.s02.start + 0.6);
 film.scene("#bar", said("s02", "estafet") - 0.12, s.s13.start, { fadeOut: 0.25 });
 film.land("#bar-svg", said("s02", "estafet") - 0.12, { from: -30, duration: 0.5 });
 film.land("#tick-labels", said("s02", "estafet") - 0.02, { from: -16, duration: 0.45 });
@@ -183,7 +194,7 @@ film.pop("#pin-mark .mark", said("s02", "estafet") + 0.15);
 // ── s03, s04: platelets, then the plug ───────────────────────────────────────
 unpin("#tag-epi, #tag-der", s.s03.start + 0.6);
 tl.to(S, { blood: 1, duration: s.s04.end - s.s03.start - 0.6, ease: "power1.out" }, s.s03.start - 0.1);
-tl.to(C, { z: 1.0, duration: 0.5, ease: "power2.out" }, s.s03.start - 0.1);
+tl.to(C, { z: ZR, duration: 0.5, ease: "power2.out" }, s.s03.start - 0.1);
 marker(5, s.s03.start, s.s06.end - s.s03.start - 0.3, "none");
 tl.to(S, { glowP: 1, duration: 0.3 }, said("s03", "trombosit") - 0.05);
 popPin("#chip-plate", said("s03", "trombosit"));
@@ -195,27 +206,28 @@ tl.to(S, { flow: 0.55, duration: 1.2 }, said("s04", "nyumbat"));
 key(540, 860, s.s04.start, 0.8);
 // The dive into the clot.
 unpin("#chip-plug", s.s05.start - 0.5);
-go({ x: 540, y: 780, z: 2.8 }, s.s05.start - 0.5, 0.55, "power3.in");
+go({ x: 540, y: 770, z: 4.4 }, s.s05.start - 0.5, 0.55, "power3.in");
 tl.to(S, { sec: 0, duration: 0.25, ease: "power1.in" }, s.s05.start - 0.18);
 
 // ── s05: the net, close up in 3D ─────────────────────────────────────────────
-film.scene("#plasma", s.s05.start - 0.2, s.s06.start + 0.25, { fadeIn: 0.25, fadeOut: 0.3 });
-film.scene("#s05", s.s05.start, s.s06.start);
+film.scene("#plasma", s.s05.start - 0.2, s.s06.start - 0.02, { fadeIn: 0.25, fadeOut: 0.3 });
+film.scene("#s05", s.s05.start, s.s06.start - 0.2, { fadeOut: 0.2 });
 tl.fromTo(C3, { vis: 0 }, { vis: 1, duration: 0.3, ease: "power1.out", immediateRender: false }, s.s05.start - 0.2);
 tl.to(C3, { orbit: 0.55, duration: s.s05.dur + 0.6, ease: "none" }, s.s05.start - 0.2);
 tl.to(C3, { net: 1, duration: NET_B - NET_A, ease: "none" }, NET_A);
-tl.to(C3, { vis: 0, duration: 0.3, ease: "power1.in" }, s.s06.start - 0.05);
+tl.to(C3, { vis: 0, duration: 0.28, ease: "power1.in" }, s.s06.start - 0.32);
+tl.set(C3, { vis: 0 }, s.s06.start - 0.02);
 tl.to(".b1, .b3", { x: 40, y: -60, duration: s.s05.dur + 0.5, ease: "none" }, s.s05.start - 0.2);
 tl.to(".b2, .b4, .b5", { x: -30, y: -90, duration: s.s05.dur + 0.5, ease: "none" }, s.s05.start - 0.2);
 film.land("#chip-fib", said("s05", "fibrin") + 0.05, { from: 16, duration: 0.4 });
-tl.set(S, { fibrin: 0.75, clot: 0.15 }, s.s06.start - 0.1);
+tl.set(S, { fibrin: 0.75, clot: 0.15 }, s.s06.start - 0.36);
 lightAt(540, 860, 0.8, s.s05.start - 0.2, 0.4);
 film.tintTo("#ff5a48", s.s05.start - 0.2, 0.4);
 
 // ── s06: the clot sets ───────────────────────────────────────────────────────
-tl.set(C, { x: 540, y: 780, z: 2.8 }, s.s06.start - 0.15);
-tl.to(S, { sec: 1, duration: 0.3, ease: "power1.out" }, s.s06.start - 0.15);
-go({ x: 540, y: 960, z: 1.04 }, s.s06.start - 0.15, 0.7, "power3.out");
+tl.set(C, { x: 540, y: 770, z: 4.4 }, s.s06.start - 0.34);
+tl.to(S, { sec: 1, duration: 0.3, ease: "power1.out" }, s.s06.start - 0.34);
+go(REST, s.s06.start - 0.34, 0.8, "power3.out");
 film.tintTo(RED, s.s06.start, 0.6);
 tl.to(S, { fibrin: 1, duration: 0.6 }, s.s06.start);
 tl.to(S, { clot: 1, duration: 1.4, ease: "power1.inOut" }, said("s06", "darahnya") - 0.1);
@@ -226,7 +238,7 @@ leg(0, said("s06", "menggumpal") + 0.1, 0.6);
 key(540, 620, s.s06.start + 0.6, 0.8);
 
 // ── s07: germs get in ────────────────────────────────────────────────────────
-const TOP = frame(540, 540, 540, 760, 1.5);
+const TOP = frame(540, 540, 540, 760, 2.2);
 go(TOP, s.s07.start - 0.15, 0.7);
 marker(40, s.s07.start, s.s07.dur, "none");
 tl.to(S, { bugs: 1, duration: said("s07", "masuk") + 0.4 - s.s07.start, ease: "power1.inOut" }, s.s07.start);
@@ -238,8 +250,8 @@ lightAt(540, 520, 0.45, s.s07.start, 0.6);
 // ── s08, s09: a white cell comes, and eats ───────────────────────────────────
 unpin("#chip-bug", s.s08.start + 0.3);
 const CRAWL = said("s08", "sel") + 0.15;
-go(frame(600, 460, 540, 450, 1.4), s.s08.start - 0.15, 0.7);
-tl.to(C, { y: frame(640, 640, 540, 820, 1.85).y, x: frame(640, 640, 540, 820, 1.85).x, z: 1.85, duration: CRAWL + 1.1 - s.s08.start - 0.6, ease: "sine.inOut" }, s.s08.start + 0.6);
+go(frame(610, 760, 540, 860, 1.6), s.s08.start - 0.15, 0.7);
+tl.to(C, { ...frame(650, 620, 540, 820, 2.2), duration: CRAWL + 1.1 - s.s08.start - 0.6, ease: "sine.inOut" }, s.s08.start + 0.6);
 tl.set(S, { nx: 590, ny: 1010, squeeze: 1, ndir: -1.45 }, s.s08.start);
 tl.to(S, { neut: 1, duration: 0.4 }, s.s08.start + 0.1);
 // Through the vessel's wall at the break: narrow, then round again.
@@ -257,14 +269,14 @@ const EAT = said("s09", "menelan") - 0.25;
 tl.to(S, { eat: 1, duration: 1.2, ease: "power1.inOut" }, EAT);
 tl.to(S, { reach: 0, duration: 0.6 }, EAT);
 tl.to(S, { nx: 662, ny: 590, duration: 1.0, ease: "power1.inOut" }, EAT + 0.3);
-tl.to(C, { z: 2.05, x: frame(660, 590, 540, 820, 2.05).x, y: frame(660, 590, 540, 820, 2.05).y, duration: s.s10.start - EAT, ease: "sine.inOut" }, EAT);
+tl.to(C, { ...frame(660, 590, 540, 820, 2.4), duration: s.s10.start - EAT, ease: "sine.inOut" }, EAT);
 marker(900, s.s09.start, s.s09.dur, "none");
 leg(1, said("s09", "kumannya") + 0.2, 0.7);
 film.hit(EAT + 0.75, 0.25, 0.3);
 
 // ── s10: new tissue grows up from the base ───────────────────────────────────
 unpin("#chip-neut", s.s10.start - 0.2);
-go({ x: 540, y: 960, z: 1.02 }, s.s10.start - 0.15, 0.8);
+go(REST, s.s10.start - 0.15, 0.8);
 tl.to(S, { cleared: 1, neut: 0, duration: 0.5 }, s.s10.start + 0.1);
 tl.to(S, { gran: 1, duration: said("s10", "lukanya") + 0.4 - (s.s10.start + 0.2), ease: "power1.inOut" }, s.s10.start + 0.2);
 marker(3 * 1440, s.s10.start, said("s10", "hari") - s.s10.start + 0.2);
@@ -277,32 +289,34 @@ key(540, 820, s.s10.start, 0.8);
 
 // ── s11: skin cells crawl in from the edges ──────────────────────────────────
 unpin("#chip-gran", s.s11.start - 0.2);
-go(frame(540, 560, 540, 760, 1.6), s.s11.start - 0.15, 0.7);
-tl.to(S, { kera: 1, duration: said("s11", "tertutup") + 0.15 - (s.s11.start + 0.2), ease: "sine.inOut" }, s.s11.start + 0.2);
+go(frame(540, 560, 540, 760, 2.2), s.s11.start - 0.15, 0.7);
+tl.to(S, { kera: 1, duration: said("s11", "tertutup") + 0.06 - (s.s11.start + 0.2), ease: "none" }, s.s11.start + 0.2);
 popPin("#chip-kera", said("s11", "sel") + 0.05);
 key(540, 700, s.s11.start, 0.6);
 film.tintTo(CYAN, s.s11.start, 0.8);
 
 // ── s12, s12b: the scab comes off; the new skin is remodelled ───────────────
 unpin("#chip-kera", s.s12.start - 0.2);
-go(frame(540, 600, 540, 800, 1.25), s.s12.start - 0.15, 0.7);
+go(frame(540, 600, 540, 800, 1.8), s.s12.start - 0.15, 0.7);
 tl.to(S, { scabOff: 1, duration: 1.5, ease: "power2.in" }, said("s12", "beres") - 0.35);
 tl.to(S, { mature: 1, duration: 2.2, ease: "power1.inOut" }, said("s12", "beres"));
 marker(21 * 1440, s.s12.start, s.s12.dur);
-go(frame(540, 700, 540, 800, 1.3), s.s12b.start - 0.1, 0.8);
+go(frame(540, 680, 540, 830, 1.75), s.s12b.start - 0.1, 0.8);
 const COMB = said("s12b", "dirapikan") - 0.1;
 tl.to(S, { comb: 1, pale: 0.8, duration: s.s12b.end - 0.2 - COMB, ease: "sine.inOut" }, COMB);
 popPin("#chip-comb", said("s12b", "dirapikan"));
 leg(3, said("s12b", "berminggu-minggu"), s.s12b.end - said("s12b", "berminggu-minggu") - 0.2);
 marker(180 * 1440, said("s12b", "berminggu-minggu"), s.s12b.end - said("s12b", "berminggu-minggu") - 0.2, "power1.inOut");
+when("#w-wk", said("s12b", "berminggu-minggu"));
 when("#w-mon", said("s12b", "berbulan-bulan"));
 film.tintTo("#f3d2c8", s.s12.start, 0.8);
-key(540, 900, s.s12b.start, 0.8);
+key(420, 720, s.s12b.start, 0.8);
 
 // ── s13: weaker than before ──────────────────────────────────────────────────
 unpin("#chip-comb", s.s13.start - 0.2);
-go({ x: 540, y: 960, z: 1.0 }, s.s13.start - 0.15, 0.8);
-tl.to(S, { walls: 1, scar: 1, duration: 1.6, ease: "power1.inOut" }, s.s12b.end - 1.9);
+go(REST, s.s13.start - 0.15, 0.8);
+tl.to(S, { walls: 1, duration: 1.2, ease: "power1.inOut" }, COMB + 0.2);
+tl.to(S, { scar: 1, duration: 1.4, ease: "power1.inOut" }, s.s12b.end - 1.6);
 film.scene("#s13", s.s13.start, s.s14.start - 0.1, { fadeOut: 0.2 });
 film.land("#strength", s.s13.start + 0.1, { from: -30 });
 gsap.set("#bar-a, #bar-b", { scaleX: 0 });
@@ -310,7 +324,7 @@ tl.to("#bar-a", { scaleX: 1, duration: 0.5, ease: "power2.out" }, s.s13.start + 
 // The scar's bar draws to its value (80% of the track, f7) as the voice says how strong it is.
 tl.to("#bar-b", { scaleX: 1, duration: 0.5, ease: "power2.out" }, said("s13", "sekuat") - 0.05);
 popPin("#chip-scar", said("s13", "bekas") - 0.05);
-key(540, 760, s.s13.start, 0.6);
+key(300, 620, s.s13.start, 0.6);
 film.tintTo(RED, s.s13.start, 0.8);
 
 // ── s14: back to the finger, healed ──────────────────────────────────────────
@@ -330,7 +344,6 @@ tl.to("#tissue", { opacity: 0.42, duration: 0.5 }, s.s15.start - 0.1);
 film.scene("#s16", s.s16.start, D);
 for (const line of $$("#poster .ln")) film.split(line);
 slam($$("#poster .ln"), s.s16.start + 0.08, 0.22);
-film.hit(s.s16.start + 0.1, 0.3, 0.3);
 film.sheen("#poster", s.s16.start + 0.9, 0.8);
 
 film.finish();

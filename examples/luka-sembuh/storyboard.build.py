@@ -8,7 +8,8 @@ asking the voice tool to retime the board (it does nothing until a take is there
 
 The world is one cross-section of skin, drawn at rest in screen pixels: the surface at y 460, the base of the
 epidermis at y 600, a capillary at y 1000, and a wound cut from (380..700, 460) down to the vessel (470..610, 948).
-The spoken words sit on the deep dermis below y 1230, so the picture has the height from the top safe line to 1200.
+The film shows this world 1.6 times larger than the drawn frames (the wound 512 px wide at the top, the capillary at
+y 1269..1435 under the spoken words, which get a soft dark scrim): the frames give the layout, film.js the framing.
 
 The time bar at the top is a log scale from one minute to one year, computed from the facts (f8): a minute at x 64,
 an hour at 331, a day at 539, a week at 666, a year at 924. Each phase is painted over the stretch the fact sheet
@@ -355,7 +356,7 @@ shot("s06", "sumbat", "diagram",
 shot("s07", "bersihkan", "diagram",
      voice="Tapi *kuman* masih bisa masuk.",
      teaches="The danger the next runner deals with: germs get in at the edge of the wound.",
-     screen="Closer (1.5 times) on the top of the wound: scab, the raw edges, the air above. Small rod-shaped germs, a sickly yellow-green, drift down out of the air; two slip in at the edge of the scab into the clot. A chip 'kuman'.",
+     screen="Closer (1.5 times) on the top of the wound: scab, the raw edges, the air above. Small rod-shaped germs (about 16 px, smaller than a platelet, with a faint glow), a sickly yellow-green, drift down out of the air; two slip in at the edge of the scab into the clot. A chip 'kuman'.",
      motion="The germs tumble down; two wriggle in under the scab's edge. The stage light turns a little colder.",
      carries="The germs inside the clot's edge.",
      transition="The camera moves down the wound's side toward the vessel.",
@@ -400,7 +401,7 @@ shot("s10", "tutup", "diagram",
 shot("s11", "tutup", "macro",
      voice="Sel kulit dari pinggir luka *merayap* pelan-pelan, sampai celahnya tertutup.",
      teaches="Skin cells crawl in from the edges, under the scab, until the gap is closed.",
-     screen="Close (1.6 times) on the top of the wound: from both edges a tongue of skin cells, the same packed cells as the epidermis and tinted cyan as they move, slides in under the scab over the pink tissue. A chip 'sel kulit'. On 'tertutup' the two tongues meet. The third leg of the bar paints pink.",
+     screen="Close (2.2 times in the film) on the top of the wound: from both edges a tongue of skin cells five cells thick, pale ivory like the epidermis, slides in under the scab over the pink tissue. A chip 'sel kulit'. On 'tertutup' the two tongues meet. The third leg of the bar paints pink.",
      motion="The leading cells flatten and slide, the ones behind follow; they meet as the word is said. The camera drifts with them.",
      carries="The closed skin and the scab.",
      transition="No cut: the scab starts to lift.",
@@ -413,7 +414,7 @@ shot("s12", "rapikan", "diagram",
      voice="Tapi kerjanya belum *beres:*",
      teaches="The relay is not over: the closed skin is still unfinished underneath.",
      screen="The closed section with its scab. In the new pink tissue the fibres lie in a tangle. On 'beres' the scab tilts up at one edge and drifts away, leaving thin new skin. The bar's third leg is painted; the marker is at three weeks.",
-     motion="The scab peels from its left edge, tilts and drifts up out of the frame. The camera pushes 3 percent.",
+     motion="The scab peels from its left edge, tilts a little and slides off to the left, staying low (clear of the time bar). The camera pushes 3 percent.",
      carries="The new tissue and its tangled fibres.",
      transition="No cut: the fibres start to comb.",
      sound="A soft whoosh as the scab lifts, after the word if the take allows.",
@@ -434,7 +435,7 @@ shot("s12b", "rapikan", "macro",
 shot("s13", "rapikan", "compare",
      voice="Hasilnya nggak sekuat kulit asli, dan kadang tersisa jadi *bekas luka.*",
      teaches="Why a scar can remain: the remodelled skin is weaker and different from the original.",
-     screen="The healed section: a pale band where the wound was, its fibres parallel, its base flat. The time bar is replaced by a glass panel 'kekuatan kulit' with two bars: 'asli' full, 'bekas luka' at 80% of its length with '≤ 80%'. On 'bekas luka' a chip lands on the pale band.",
+     screen="The healed section: a band of tissue paler and denser than the dermis where the wound was, its fibres packed in parallel rows, its top flat; no glow. The time bar is replaced by a glass panel 'kekuatan kulit' with two bars: 'asli' full, 'bekas luka' at 80% of its length with '≤ 80%'. On 'bekas luka' a chip lands on the pale band.",
      motion="The panel lands; the scar bar draws to its value (no counting); the chip pops.",
      carries="The pale band: it becomes the line on the finger.",
      transition="The camera pulls out of the section back to the fingertip.",
@@ -457,7 +458,7 @@ shot("s14", "recap", "wide",
 shot("s15", "recap", "recap",
      voice="Sel-sel kamu yang *gantian* menutupnya.",
      teaches="The relay in one frame: plug, clean, grow and close, tidy.",
-     screen="Over the dimmed finger, four glass cards two by two (414 x 250 each, from y 262 to 802), each with a small drawing, a word and a time: platelets and a red cell, 'sumbat', 'menit'; a white cell and a germ, 'bersihkan', 'jam'; pink new tissue under a closing skin, 'tumbuh, tutup', 'hari'; combed fibres, 'rapikan', 'bulan'.",
+     screen="Over the dimmed finger, four glass cards two by two (423 x 360 each, from y 240 to 980), each with a drawing, a word and a time in gold: platelets plugging the gap between two walls, 'sumbat', 'menit'; a white cell and a germ, 'bersihkan', 'jam'; pink new tissue under a closing skin, 'tumbuh, tutup', 'hari'; combed fibres, 'rapikan', 'bulan'.",
      motion="The cards rise one after another in the first second; a sheen crosses them.",
      carries="The cards.",
      transition="No cut: the poster line lands under them.",
@@ -467,10 +468,10 @@ shot("s15", "recap", "recap",
 
 shot("s16", "recap", "endcard", 2.6,
      teaches="The line to remember.",
-     screen="The cards stay; in the place the question stood, the poster line in metal type at 104 px: 'Luka ditutup / estafet sel.', 'estafet sel.' in blood red.",
+     screen="The cards stay; under them, where the question stood, the poster line in metal type at 118 px: 'Luka ditutup / estafet sel.', 'estafet sel.' in blood red.",
      motion="The two lines slam in, a sheen crosses them, and everything holds for two seconds with a 3 percent push.",
      transition="The film ends on this frame; it can cut back to frame 0 (the same finger, lettering in the same place).",
-     sound="A soft low hit under the poster line; the bed resolves on its last chord and fades.",
+     sound="A soft low hit under the poster line (no flash on screen); the bed's last chord rings to the final frame.",
      check="The poster is readable for at least two seconds. Nothing is outside the safe area.",
      facts=[])
 
@@ -491,7 +492,7 @@ storyboard = {
     "look": {
         "accent": "#e8463d",
         "accent2": "#7fe3da",
-        "mood": "Warm and organic: a lit cross-section of skin, translucent cells with soft highlights and shadows, dermis glowing warm pink, the stage light sitting where the work is happening. Blood red is blood and the point of the film; a soft healing cyan is the white cell and the moving skin cells; pink is new tissue; germs are a sickly yellow-green used for nothing else.",
+        "mood": "Warm and organic: a lit cross-section of skin, translucent cells with soft highlights and shadows, dermis glowing warm pink, the stage light sitting where the work is happening. Blood red is blood and the point of the film; a soft healing cyan is the white cell; the crawling skin cells are pale ivory; pink is new tissue; germs are a sickly yellow-green used for nothing else.",
     },
     "music": {
         "track": "A bed composed for this film (ElevenLabs Music, music/bed.mp3)",
@@ -502,7 +503,7 @@ storyboard = {
     "facts": [
         {"id": "f1", "claim": "Wound healing is usually described as four overlapping phases: hemostasis (bleeding stops, minutes), inflammation (cleaning, from the first hours to about day 3: the first 72 h), proliferation (new tissue and new skin, about day 3 to week 3) and remodelling (from about week 3 to a year or more; sources range up to two years). The film paints them on the time bar as 1 to 10 minutes, 10 minutes to 3 days, 3 to 21 days and 21 days to a year. Simplification: the phases overlap, and the times are for a small, clean wound in healthy skin.",
          "source": "StatPearls, Wound Healing Phases (Wallace, Basehore, Zito; NCBI Bookshelf NBK470443, PubMed 29262065); StatPearls, Physiology, Wound Healing (NBK535406). Read as search summaries: the pages themselves could not be opened from this session."},
-        {"id": "f2", "claim": "Platelets stick to the exposed wall of a torn vessel and to each other, forming a platelet plug; thrombin turns the blood protein fibrinogen into fibrin, whose strands form a net that traps red blood cells and more platelets and reinforces the plug into a clot. Sizes for the drawing: a red cell is about 7 to 8 µm across, a platelet about 2 to 3 µm (drawn 44 px and 16 px), not otherwise to scale.",
+        {"id": "f2", "claim": "Platelets stick to the exposed wall of a torn vessel and to each other, forming a platelet plug; thrombin turns the blood protein fibrinogen into fibrin, whose strands form a net that traps red blood cells and more platelets and reinforces the plug into a clot. Sizes for the drawing: a red cell is about 7 to 8 µm across, a platelet about 2 to 3 µm, a rod-shaped bacterium about 1 to 3 µm long, a neutrophil about 12 to 15 µm (drawn 44, 24, 16 and 76 px in the world), not otherwise to scale.",
          "source": "OpenStax, Anatomy and Physiology 2e, 18.5 Hemostasis (openstax.org/books/anatomy-and-physiology/pages/18-5-hemostasis), read as a search summary; cell sizes from general textbook knowledge, not looked up."},
         {"id": "f3", "claim": "Within minutes: the bleeding time of a small standard skin cut is a few minutes (published normal ranges vary, roughly 1 to 9 minutes). The film says 'dalam beberapa menit' and shows no exact figure.",
          "source": "Bleeding time reference ranges (e.g. Healthline, Bleeding Time Test; clinical laboratory lecture notes), read as search summaries."},

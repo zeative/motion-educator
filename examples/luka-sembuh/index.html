@@ -18,6 +18,9 @@
       <canvas id="tissue" width="1080" height="1920"></canvas>
       <canvas id="space" width="1080" height="1920"></canvas>
 
+      <!-- A soft dark band behind the spoken words while they sit over the section -->
+      <section class="scene" id="capscrim"></section>
+
       <!-- s01: the question, over the scraped finger -->
       <section class="scene" id="s01">
         <h1 class="display" id="q"><span class="ln">Gimana sih</span><span class="ln">luka bisa</span><span class="ln"><em class="key">nutup sendiri?</em></span></h1>
@@ -32,7 +35,7 @@
         <div class="pin" id="pin-bug"><span class="chip" id="chip-bug"><i class="dot green"></i>kuman</span></div>
         <div class="pin" id="pin-neut"><span class="chip" id="chip-neut"><i class="dot cyan"></i>sel darah putih</span></div>
         <div class="pin" id="pin-gran"><span class="chip" id="chip-gran"><i class="dot pink"></i>jaringan baru</span></div>
-        <div class="pin" id="pin-kera"><span class="chip" id="chip-kera"><i class="dot cyan"></i>sel kulit</span></div>
+        <div class="pin" id="pin-kera"><span class="chip" id="chip-kera"><i class="dot ivory"></i>sel kulit</span></div>
         <div class="pin" id="pin-comb"><span class="chip" id="chip-comb"><i class="dot pale"></i>dirapikan</span></div>
         <div class="pin" id="pin-scar"><span class="chip" id="chip-scar"><i class="dot pale"></i>bekas luka</span></div>
       </section>
@@ -60,6 +63,7 @@
         <div class="pin wpin"><span class="chip when" id="w-min">beberapa menit</span></div>
         <div class="pin wpin"><span class="chip when" id="w-6h"><b>≈ 6 jam</b></span></div>
         <div class="pin wpin"><span class="chip when" id="w-day"><b>hari ke-3 sampai ke-21</b></span></div>
+        <div class="pin wpin"><span class="chip when" id="w-wk">berminggu-minggu</span></div>
         <div class="pin wpin"><span class="chip when" id="w-mon">berbulan-bulan</span></div>
       </section>
 
@@ -83,10 +87,11 @@
               <linearGradient id="g-bug" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#effc9a" /><stop offset=".5" stop-color="#b9d340" /><stop offset="1" stop-color="#5d7d12" /></linearGradient>
               <linearGradient id="g-gran" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ee8fa2" /><stop offset="1" stop-color="#a8405a" /></linearGradient>
             </defs>
-            <ellipse cx="100" cy="58" rx="40" ry="34" fill="url(#g-rbc)" />
-            <ellipse cx="102" cy="60" rx="17" ry="14" fill="rgba(70,0,8,.4)" />
-            <g fill="url(#g-pl)"><circle cx="40" cy="44" r="11" /><circle cx="54" cy="70" r="10" /><circle cx="30" cy="80" r="9" /></g>
-            <g stroke="#fff1de" stroke-width="2.5" fill="none" opacity=".9"><path d="M8 30 Q80 70 152 96" /><path d="M10 100 Q70 50 150 20" /></g>
+            <path d="M0 8 H48 L62 112 H0 Z" fill="#e6a090" /><path d="M160 8 H112 L98 112 H160 Z" fill="#e6a090" />
+            <path d="M48 8 L62 112 M112 8 L98 112" stroke="#c8323a" stroke-width="4" fill="none" />
+            <g stroke="#fff1de" stroke-width="1.6" fill="none" opacity=".75"><path d="M54 40 Q80 48 106 38" /><path d="M56 60 Q80 52 104 62" /><path d="M58 80 Q80 88 102 78" /></g>
+            <ellipse cx="80" cy="62" rx="15" ry="12" fill="url(#g-rbc)" />
+            <g fill="url(#g-pl)"><circle cx="66" cy="96" r="7" /><circle cx="80" cy="100" r="7.5" /><circle cx="94" cy="96" r="7" /><circle cx="73" cy="86" r="6" /><circle cx="88" cy="86" r="6" /><circle cx="60" cy="84" r="5.5" /><circle cx="100" cy="84" r="5.5" /></g>
           </svg>
           <b>sumbat</b><span>menit</span>
         </div>
@@ -102,7 +107,7 @@
           <svg viewBox="0 0 160 120" class="pic">
             <path d="M20 112 L36 40 Q80 30 124 40 L140 112 Z" fill="url(#g-gran)" />
             <g fill="rgba(255,225,230,.5)"><circle cx="60" cy="70" r="6" /><circle cx="90" cy="84" r="7" /><circle cx="110" cy="62" r="5" /><circle cx="74" cy="96" r="5" /></g>
-            <g fill="#b8ece4" stroke="rgba(30,80,80,.6)" stroke-width="1.5"><ellipse cx="22" cy="32" rx="14" ry="9" /><ellipse cx="48" cy="32" rx="14" ry="9" /><ellipse cx="74" cy="32" rx="14" ry="9" /><ellipse cx="138" cy="32" rx="14" ry="9" /><ellipse cx="112" cy="32" rx="14" ry="9" /><ellipse cx="88" cy="32" rx="12" ry="8" /></g>
+            <g fill="#f6e2c8" stroke="rgba(120,70,50,.6)" stroke-width="1.5"><ellipse cx="22" cy="32" rx="14" ry="9" /><ellipse cx="48" cy="32" rx="14" ry="9" /><ellipse cx="74" cy="32" rx="14" ry="9" /><ellipse cx="138" cy="32" rx="14" ry="9" /><ellipse cx="112" cy="32" rx="14" ry="9" /><ellipse cx="88" cy="32" rx="12" ry="8" /></g>
           </svg>
           <b>tumbuh, tutup</b><span>hari</span>
         </div>

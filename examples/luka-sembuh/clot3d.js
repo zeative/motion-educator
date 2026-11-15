@@ -42,7 +42,17 @@ export function createClot(canvas) {
   for (let i = 40; i >= 0; i--) profile.push(new THREE.Vector2(Math.max(0.001, profile[i].x), -profile[i].y));
   const rbcGeo = new THREE.LatheGeometry(profile, 72);
   rbcGeo.computeVertexNormals();
-  const rbcMat = new THREE.MeshPhysicalMaterial({ color: 0xc8121e, roughness: 0.32, metalness: 0, clearcoat: 0.8, clearcoatRoughness: 0.25, sheen: 1, sheenColor: new THREE.Color(0xff8a7a), sheenRoughness: 0.4 });
+  {
+    const p = rbcGeo.attributes.position;
+    const col = new Float32Array(p.count * 3);
+    for (let i = 0; i < p.count; i++) {
+      const r = Math.hypot(p.getX(i), p.getZ(i)) / 4;
+      const k = 0.42 + 0.58 * Math.min(1, Math.pow(r / 0.72, 1.6));
+      col.set([k, k * 0.92, k * 0.92], i * 3);
+    }
+    rbcGeo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  }
+  const rbcMat = new THREE.MeshPhysicalMaterial({ vertexColors: true, color: 0xd0161f, roughness: 0.32, metalness: 0, clearcoat: 0.8, clearcoatRoughness: 0.25, sheen: 1, sheenColor: new THREE.Color(0xff8a7a), sheenRoughness: 0.4 });
   const cells = [];
   for (let i = 0; i < 34; i++) {
     const m = new THREE.Mesh(rbcGeo, rbcMat);
@@ -52,8 +62,8 @@ export function createClot(canvas) {
       mesh: m,
       p0: new THREE.Vector3((rand() - 0.5) * 44, (rand() - 0.5) * 80, -50 + rand() * 75),
       v: new THREE.Vector3((rand() - 0.5) * 7, 4 + rand() * 6, (rand() - 0.5) * 3),
-      r0: new THREE.Euler(rand() * TAU, rand() * TAU, rand() * TAU),
-      w: new THREE.Vector3((rand() - 0.5) * 1.2, (rand() - 0.5) * 1.2, (rand() - 0.5) * 0.6),
+      r0: new THREE.Euler(0.6 + rand() * 0.5, rand() * TAU, (rand() - 0.5) * 0.8),
+      w: new THREE.Vector3((rand() - 0.5) * 0.25, (rand() - 0.5) * 0.6, (rand() - 0.5) * 0.25),
       catchAt: 0.25 + rand() * 0.65,
     };
     cells.push(c);

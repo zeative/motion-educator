@@ -1,12 +1,13 @@
 {
-  "music": {"file": "../../examples/luka-sembuh/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "fade_out": 1.8, "duck_db": -6, "ride": [[0, 0], [36, 0], [38.5, -2.5], [46, -2.5], [48, -0.5], [53.22, -0.5]], "note": "Composed for this film (music/bed.json has the prompt). A bed under the voice at -22 LUFS; ridden down where it swells under s12b and s13."},
+  "music": {"file": "../../examples/luka-sembuh/music/bed-fit.mp3", "start": 0, "lufs": -19, "fade_in": 0.01, "fade_out": 0.25, "duck_db": -6, "ride": [[0, 0], [36.5, 0], [39, -2.5], [46.6, -2.5], [48.8, 0], [50.8, 0], [52.2, 5], [53.22, 8]], "note": "Composed for this film (music/bed.json has the prompt), slowed 1.8 % (bed-fit.mp3, atempo 0.9817) so its last chord rings to the final frame. -19 LUFS; ridden down where it swells under s12b and s13, and up over the last chord's decay so it is still heard on the last frame."},
+  "voice": {"lufs": -16, "duck_db": -9, "sfx_db": -4, "chain": "highpass=f=85,equalizer=f=220:t=q:w=1.1:g=-1.5,equalizer=f=2400:t=q:w=1.4:g=2,deesser=i=0.35:m=0.5:f=0.5,acompressor=threshold=-21dB:ratio=3:attack=8:release=140:knee=6:makeup=2,volume=volume=1.5:enable='gte(t,45.10)'"},
   "events": [
     {"t": 3.15, "file": "lib/sfx/whoosh_fast_3.mp3", "db": -9, "align": "peak", "note": "the dive into the scrape, after the question"},
     {"t": 6.36, "file": "lib/sfx/card_1.mp3", "db": -5, "align": "peak", "note": "the time bar lands, after 'estafet'"},
     {"t": 11.18, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -15, "align": "peak", "note": "the dive into the clot, between the lines"},
-    {"t": 12.61, "file": "lib/sfx/shimmer_1.mp3", "db": -9, "align": "peak", "trim": [0, 1.2], "fade": 0.5, "note": "the strands spin (under the voice, small)"},
-    {"t": 16.64, "file": "lib/sfx/impact_big_2.mp3", "db": -9, "align": "peak", "duck": 0.6, "trim": [0, 1.0], "fade": 0.6, "note": "THE TURN: the clot is set, but germs get in; in the pause before 'Tapi'"},
-    {"t": 16.64, "file": "lib/sfx/sub_drop_1.mp3", "db": -13, "align": "peak", "trim": [0, 0.9], "fade": 0.4, "note": "its body"},
+    {"t": 12.61, "file": "lib/sfx/shimmer_1.mp3", "db": -16, "align": "peak", "trim": [0, 1.2], "fade": 0.5, "note": "the strands spin (under the voice, small)"},
+    {"t": 16.5, "file": "lib/sfx/impact_big_2.mp3", "db": -14, "align": "peak", "duck": 0.6, "trim": [0, 1.0], "fade": 0.6, "note": "THE TURN: the clot is set, but germs get in; in the pause before 'Tapi'"},
+    {"t": 16.5, "file": "lib/sfx/sub_drop_1.mp3", "db": -17, "align": "peak", "trim": [0, 0.9], "fade": 0.4, "note": "its body"},
     {"t": 19.98, "file": "lib/sfx/pop_2.mp3", "db": -10, "align": "peak", "pan": 0.2, "note": "the white cell comes out of the vessel, after 'Makanya'"},
     {"t": 23.43, "file": "lib/sfx/click_1.mp3", "db": -5, "align": "peak", "pan": 0.25, "note": "the arms close on the germ"},
     {"t": 24.42, "file": "lib/sfx/whoosh_fast_1.mp3", "db": -9, "align": "peak", "note": "the camera pulls back to the whole wound, between the lines"},

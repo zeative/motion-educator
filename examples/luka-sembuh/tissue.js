@@ -159,11 +159,11 @@ const BUG = sprite(96, (g, r) => {
 // A skin cell (keratinocyte) on the move: cream, tinted with the healing cyan.
 const KERA = sprite(64, (g, r) => {
   const body = g.createRadialGradient(r * 0.8, r * 0.7, 2, r, r, r * 0.9);
-  body.addColorStop(0, "#f3fffb");
-  body.addColorStop(0.45, "#b8ece4");
-  body.addColorStop(1, "#5fb3ab");
+  body.addColorStop(0, "#fffaf0");
+  body.addColorStop(0.45, "#f6e2c8");
+  body.addColorStop(1, "#d6a98c");
   g.fillStyle = body;
-  g.strokeStyle = "rgba(30,80,80,0.55)";
+  g.strokeStyle = "rgba(120,70,50,0.6)";
   g.lineWidth = 2;
   g.beginPath();
   g.ellipse(r, r, r * 0.9, r * 0.62, 0, 0, TAU);
@@ -257,7 +257,7 @@ function paintSection(healed) {
     g.lineTo(x + 70, SURF - 170);
     g.stroke();
   };
-  follicle(120);
+  follicle(250);
   const gland = (x) => {
     g.strokeStyle = "rgba(255,210,200,0.5)";
     g.lineWidth = 10;
@@ -271,7 +271,7 @@ function paintSection(healed) {
       g.stroke();
     }
   };
-  gland(960);
+  gland(842);
 
   // Epidermis: packed cells, columnar and darker at the base, flat and pale near the top.
   g.save();
@@ -479,54 +479,98 @@ function paintScrape() {
   const c = Object.assign(document.createElement("canvas"), { width: 1080, height: 1920 });
   const g = c.getContext("2d");
   const rand = rng(31);
-  g.save();
-  g.beginPath();
-  g.moveTo(418, 606);
-  g.bezierCurveTo(450, 560, 600, 556, 664, 600);
-  g.bezierCurveTo(676, 650, 640, 700, 560, 708);
-  g.bezierCurveTo(470, 712, 410, 670, 418, 606);
-  g.closePath();
-  const raw = g.createRadialGradient(530, 630, 10, 540, 640, 140);
-  raw.addColorStop(0, "#e6585a");
-  raw.addColorStop(0.6, "#c2353f");
-  raw.addColorStop(1, "#e88c80");
-  g.fillStyle = raw;
-  g.filter = "blur(2px)";
+  // A ragged outline: an uneven blob, wider on one side, its edge torn.
+  const outline = (grow, jag, seed) => {
+    const r2 = rng(seed);
+    const pts = [];
+    for (let i = 0; i < 64; i++) {
+      const a = (i / 64) * TAU;
+      const k = 1 + 0.22 * Math.sin(a * 2 + 0.6) + 0.1 * Math.sin(a * 5 + 1.7) + (r2() - 0.5) * jag;
+      pts.push([544 + Math.cos(a) * (128 + grow) * k, 642 + Math.sin(a) * (58 + grow * 0.6) * k * (Math.cos(a) > 0.3 ? 1.12 : 1)]);
+    }
+    g.beginPath();
+    pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+    g.closePath();
+  };
+  // Torn, lifted skin around the rim: pale and whitish, ragged.
+  outline(16, 0.3, 5);
+  g.fillStyle = "rgba(255,226,210,0.75)";
   g.fill();
-  g.filter = "none";
+  outline(4, 0.26, 9);
+  g.fillStyle = "rgba(214,120,104,0.9)";
+  g.fill();
+  // The raw bed: blotches of pink, red and dark red, no stripes.
+  g.save();
+  outline(0, 0.24, 13);
   g.clip();
-  // Scratch streaks along the scrape, darker and lighter.
-  for (let i = 0; i < 60; i++) {
-    const y = 560 + rand() * 160;
-    const x = 400 + rand() * 120;
-    g.strokeStyle = rand() < 0.6 ? `rgba(120,10,20,${(0.2 + rand() * 0.4).toFixed(2)})` : `rgba(255,200,190,${(0.15 + rand() * 0.3).toFixed(2)})`;
-    g.lineWidth = 1 + rand() * 3;
+  const raw = g.createRadialGradient(530, 636, 6, 544, 642, 150);
+  raw.addColorStop(0, "#c8323a");
+  raw.addColorStop(0.55, "#d9535a");
+  raw.addColorStop(1, "#ef8f86");
+  g.fillStyle = raw;
+  g.fillRect(380, 540, 330, 210);
+  for (let i = 0; i < 90; i++) {
+    const x = 420 + rand() * 250;
+    const y = 590 + rand() * 110;
+    const r = 4 + rand() * 18;
+    const col = [
+      [150, 18, 30],
+      [215, 70, 76],
+      [240, 150, 140],
+      [110, 6, 18],
+    ][Math.floor(rand() * 4)];
+    const blot = g.createRadialGradient(x, y, 0, x, y, r);
+    blot.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},${(0.35 + rand() * 0.4).toFixed(2)})`);
+    blot.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
+    g.fillStyle = blot;
+    g.fillRect(x - r, y - r, 2 * r, 2 * r);
+  }
+  // A few short, uneven scratches, mostly along the drag, some broken.
+  for (let i = 0; i < 26; i++) {
+    const x = 430 + rand() * 210;
+    const y = 600 + rand() * 90;
+    const L = 14 + rand() * 50;
+    g.strokeStyle = `rgba(120,8,20,${(0.25 + rand() * 0.35).toFixed(2)})`;
+    g.lineWidth = 1 + rand() * 2.5;
     g.beginPath();
     g.moveTo(x, y);
-    g.lineTo(x + 120 + rand() * 140, y + 12 + rand() * 14);
+    g.quadraticCurveTo(x + L * 0.5, y + (rand() - 0.5) * 8, x + L, y + 2 + rand() * 6);
     g.stroke();
   }
-  // Tiny beads of blood along the streaks.
-  for (let i = 0; i < 24; i++) {
-    const x = 440 + rand() * 210;
-    const y = 590 + rand() * 100;
-    g.fillStyle = "#9e0d1a";
+  // Pinpoint bleeding: dark dots with a wet glint.
+  for (let i = 0; i < 40; i++) {
+    const x = 440 + rand() * 200;
+    const y = 600 + rand() * 90;
+    const r = 1.5 + rand() * 3.5;
+    g.fillStyle = "#8a0614";
     g.beginPath();
-    g.arc(x, y, 2 + rand() * 4, 0, TAU);
+    g.arc(x, y, r, 0, TAU);
     g.fill();
-    g.fillStyle = "rgba(255,220,220,0.8)";
+    g.fillStyle = "rgba(255,220,220,0.75)";
     g.beginPath();
-    g.arc(x - 1, y - 1.5, 1.1, 0, TAU);
+    g.arc(x - r * 0.3, y - r * 0.35, r * 0.3, 0, TAU);
     g.fill();
   }
+  // A wet sheen across the bed, from the key light.
+  const wet = g.createLinearGradient(440, 590, 600, 690);
+  wet.addColorStop(0, "rgba(255,240,235,0.32)");
+  wet.addColorStop(0.4, "rgba(255,240,235,0)");
+  g.fillStyle = wet;
+  g.fillRect(380, 540, 330, 210);
   g.restore();
-  // Flaps of torn skin on the edge, pale.
-  g.strokeStyle = "rgba(255,236,224,0.85)";
-  g.lineWidth = 3;
-  g.beginPath();
-  g.moveTo(420, 600);
-  g.bezierCurveTo(450, 560, 600, 552, 666, 598);
-  g.stroke();
+  // Shreds of skin curling off the upper rim.
+  g.strokeStyle = "rgba(255,240,228,0.9)";
+  g.lineCap = "round";
+  for (let i = 0; i < 9; i++) {
+    const a = Math.PI * (1.08 + i * 0.1);
+    const x = 544 + Math.cos(a) * 150;
+    const y = 642 + Math.sin(a) * 74;
+    g.lineWidth = 2 + rand() * 2;
+    g.beginPath();
+    g.moveTo(x, y);
+    g.quadraticCurveTo(x + (rand() - 0.5) * 14, y - 8 - rand() * 8, x + (rand() - 0.5) * 20, y - 3);
+    g.stroke();
+  }
   return c;
 }
 function paintScar() {
@@ -599,8 +643,8 @@ export function createTissue(canvas) {
   // The tongues of moving skin cells: rows from each edge.
   const tongueCells = [];
   for (const side of [-1, 1]) {
-    for (let row = 0; row < 3; row++) {
-      for (let k = 0; k < 12; k++) {
+    for (let row = 0; row < 5; row++) {
+      for (let k = 0; k < 14; k++) {
         tongueCells.push({ side, row, k, j: (rand() - 0.5) * 4 });
       }
     }
@@ -736,8 +780,8 @@ export function createTissue(canvas) {
       g.closePath();
       const pinkTop = mix(1, 0, S.pale);
       const tissue = g.createLinearGradient(0, gt - 12, 0, VES_TOP);
-      tissue.addColorStop(0, `rgb(${Math.round(mix(236, 238, S.pale))},${Math.round(mix(128, 186, S.pale))},${Math.round(mix(150, 178, S.pale))})`);
-      tissue.addColorStop(1, `rgb(${Math.round(mix(176, 196, S.pale))},${Math.round(mix(60, 120, S.pale))},${Math.round(mix(88, 120, S.pale))})`);
+      tissue.addColorStop(0, `rgb(${Math.round(mix(236, 226, S.pale))},${Math.round(mix(128, 168, S.pale))},${Math.round(mix(150, 160, S.pale))})`);
+      tissue.addColorStop(1, `rgb(${Math.round(mix(176, 196, S.pale))},${Math.round(mix(60, 128, S.pale))},${Math.round(mix(88, 126, S.pale))})`);
       g.fillStyle = tissue;
       g.fill();
       g.clip();
@@ -794,11 +838,14 @@ export function createTissue(canvas) {
       g.save();
       g.globalAlpha = clamp(S.walls);
       g.beginPath();
-      g.moveTo(wallL(SURF - 8) - 26, SURF - 8);
-      g.lineTo(wallL(VES_TOP) - 26, VES_TOP + 2);
-      g.lineTo(wallR(VES_TOP) + 26, VES_TOP + 2);
-      g.lineTo(wallR(SURF - 8) + 26, SURF - 8);
-      g.closePath();
+      for (const side of [-1, 1]) {
+        const w = side < 0 ? wallL : wallR;
+        g.moveTo(w(SURF - 8) + side * 24, SURF - 8);
+        g.lineTo(w(VES_TOP) + side * 24, VES_TOP + 2);
+        g.lineTo(w(VES_TOP) - side * 14, VES_TOP + 2);
+        g.lineTo(w(SURF - 8) - side * 14, SURF - 8);
+        g.closePath();
+      }
       g.clip();
       g.drawImage(healedSection, BASE.x0, BASE.y0, BASE.x1 - BASE.x0, BASE.y1 - BASE.y0);
       g.restore();
@@ -820,8 +867,13 @@ export function createTissue(canvas) {
       g.save();
       g.globalAlpha = a;
       g.translate(x, y);
+      const halo = g.createRadialGradient(0, 0, 1, 0, 0, 16);
+      halo.addColorStop(0, "rgba(214,240,110,0.45)");
+      halo.addColorStop(1, "rgba(214,240,110,0)");
+      g.fillStyle = halo;
+      g.fillRect(-16, -16, 32, 32);
       g.rotate(b.spin * (1 - e) * 2 + 0.3 * Math.sin(t * 2.4 + i));
-      g.drawImage(BUG, -36, -36, 72, 72);
+      g.drawImage(BUG, -14, -14, 28, 28);
       g.restore();
     }
     if (S.neut > 0) drawNeutrophil(S, t);
@@ -832,11 +884,11 @@ export function createTissue(canvas) {
     // The tongues of skin cells crawling in from the edges, under the scab.
     if (S.kera > 0) {
       for (const c of tongueCells) {
-        const lead = mix(0, 150, smooth(S.kera)); // how far each tongue has come from its edge
-        const depth = c.k * 14 + c.row * 10;
+        const lead = mix(0, 141, smooth(S.kera)); // how far each tongue has come from its edge
+        const depth = c.k * 13 + Math.abs(c.row - 2) * 10;
         const along = lead - depth;
         if (along < -30) continue;
-        const y = 538 + c.row * 18 + c.j - (c.row === 0 ? 0 : 0);
+        const y = 530 + c.row * 13 + c.j;
         const edge = c.side < 0 ? wallL(y) - 30 : wallR(y) + 30;
         const x = edge - c.side * (along + 30) + (c.side < 0 ? 0 : 0);
         const lim = c.side < 0 ? Math.min(x, 538) : Math.max(x, 542);
@@ -845,7 +897,7 @@ export function createTissue(canvas) {
         g.globalAlpha = clamp((along + 30) / 30) * (1 - S.mature);
         g.translate(lim, y);
         g.scale(1 + 0.4 * leading, 1 - 0.25 * leading);
-        g.drawImage(KERA, -17, -13, 34, 26);
+        g.drawImage(KERA, -20, -14, 40, 28);
         g.restore();
       }
     }
@@ -883,31 +935,37 @@ export function createTissue(canvas) {
       g.fillRect(wallL(top) - 8, surf(540) - 6, wallR(top) - wallL(top) + 16, 14);
       g.restore();
     }
-    // The scar: a paler band, its fibres in parallel rows, no follicle, no ridges (f9).
+    // The scar: a band of tissue paler and denser than the dermis, its fibres packed in parallel rows (f9). Matte.
     if (S.scar > 0) {
       g.save();
-      g.globalAlpha = S.scar * 0.38;
-      g.filter = "blur(12px)";
-      g.fillStyle = "#efc2b8";
+      g.globalAlpha = S.scar;
+      const top = 596;
+      const bot = VES_TOP - 10;
       g.beginPath();
-      g.moveTo(wallL(590) + 6, 590);
-      g.lineTo(wallR(590) - 6, 590);
-      g.lineTo(wallR(VES_TOP - 14) - 4, VES_TOP - 14);
-      g.lineTo(wallL(VES_TOP - 14) + 4, VES_TOP - 14);
+      for (let y = top; y <= bot; y += 8) g.lineTo(wallL(y) + 4 + 3 * Math.sin(y / 13), y);
+      for (let y = bot; y >= top; y -= 8) g.lineTo(wallR(y) - 4 + 3 * Math.sin(y / 11 + 2), y);
       g.closePath();
+      const band = g.createLinearGradient(0, top, 0, bot);
+      band.addColorStop(0, "#e2aaa2");
+      band.addColorStop(1, "#c4847f");
+      g.fillStyle = band;
       g.fill();
-      g.filter = "none";
+      g.clip();
       const fr = rng(19);
       g.lineCap = "round";
-      for (let y = 606; y < VES_TOP - 18; y += 11) {
-        const a = wallL(y) + 14 + fr() * 18;
-        const b = wallR(y) - 14 - fr() * 18;
-        g.strokeStyle = `rgba(255,242,238,${(0.22 + 0.12 * fr()).toFixed(3)})`;
-        g.lineWidth = 2 + fr() * 1.5;
-        g.beginPath();
-        g.moveTo(a, y);
-        g.lineTo(b, y + (fr() - 0.5) * 3);
-        g.stroke();
+      for (let y = top + 3; y < bot; y += 4.5 + fr() * 1.5) {
+        let x = wallL(y) + 4 - fr() * 20;
+        const end = wallR(y) + 4;
+        while (x < end) {
+          const L = 30 + fr() * 70;
+          g.strokeStyle = `rgba(${Math.round(240 + 12 * fr())},${Math.round(196 + 22 * fr())},${Math.round(188 + 20 * fr())},${(0.18 + 0.16 * fr()).toFixed(3)})`;
+          g.lineWidth = 1.3 + fr() * 1.2;
+          g.beginPath();
+          g.moveTo(x, y + (fr() - 0.5) * 1.5);
+          g.lineTo(x + L, y + (fr() - 0.5) * 1.5);
+          g.stroke();
+          x += L + 2 + fr() * 6;
+        }
       }
       g.restore();
     }
@@ -917,8 +975,8 @@ export function createTissue(canvas) {
     const off = smooth(S.scabOff);
     g.save();
     g.globalAlpha = clamp(S.scab) * (1 - smooth((S.scabOff - 0.55) / 0.45));
-    g.translate(372 - off * 60, SURF - 10 - off * 260);
-    g.rotate(-0.35 * off);
+    g.translate(372 - off * 460, SURF - 10 - off * 60);
+    g.rotate(-0.22 * off);
     const thick = mix(16, 70, smooth(S.scab));
     g.beginPath();
     g.moveTo(-4, 4);
@@ -953,7 +1011,7 @@ export function createTissue(canvas) {
   }
 
   function drawNeutrophil(S, t) {
-    const R = 42;
+    const R = 38;
     const x = S.nx;
     const y = S.ny;
     const dir = S.ndir;
@@ -1006,9 +1064,9 @@ export function createTissue(canvas) {
     // The lobed nucleus: three joined lobes.
     g.fillStyle = "rgba(96,70,170,0.75)";
     for (const [dx, dy, r] of [
-      [-16, 6, 13],
-      [0, -8, 14],
-      [17, 6, 12],
+      [-14, 5, 11.5],
+      [0, -7, 12.5],
+      [15, 5, 11],
     ]) {
       g.beginPath();
       g.arc(x + dx * (1 - 0.3 * squeeze), y + dy, r, 0, TAU);
@@ -1017,9 +1075,9 @@ export function createTissue(canvas) {
     g.strokeStyle = "rgba(96,70,170,0.75)";
     g.lineWidth = 6;
     g.beginPath();
-    g.moveTo(x - 16, y + 6);
-    g.lineTo(x, y - 8);
-    g.lineTo(x + 17, y + 6);
+    g.moveTo(x - 14, y + 5);
+    g.lineTo(x, y - 7);
+    g.lineTo(x + 15, y + 5);
     g.stroke();
     g.restore();
   }
@@ -1035,8 +1093,8 @@ export function createTissue(canvas) {
     g.drawImage(scrape, 0, 0);
     if (F.bead > 0) {
       // The bead of blood: a dome with a window highlight.
-      const bx = 602;
-      const by = 664;
+      const bx = F.bx;
+      const by = F.by;
       const r = 6 + 16 * F.bead;
       const dome = g.createRadialGradient(bx - r * 0.35, by - r * 0.4, 1, bx, by, r);
       dome.addColorStop(0, "#ff9a8a");
