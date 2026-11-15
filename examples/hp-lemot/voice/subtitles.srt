@@ -1,0 +1,51 @@
+1
+00:00:00,150 --> 00:00:03,607
+Kenapa sih hape kamu makin lemot pas memorinya hampir penuh?
+
+2
+00:00:03,697 --> 00:00:05,847
+Di dalam chipnya ada blok-blok,
+
+3
+00:00:05,777 --> 00:00:08,327
+tiap blok punya banyak halaman kecil.
+
+4
+00:00:08,417 --> 00:00:10,167
+Data ditulis per halaman,
+
+5
+00:00:10,057 --> 00:00:12,967
+tapi halaman yang terisi nggak bisa ditimpa.
+
+6
+00:00:12,897 --> 00:00:16,487
+Harus dihapus dulu, dan hapusnya satu blok sekaligus.
+
+7
+00:00:16,857 --> 00:00:20,087
+Nah, pas hampir penuh, halaman kosongnya habis.
+
+8
+00:00:19,977 --> 00:00:24,647
+Jadi buat nyimpan satu foto, hape harus mindahin data yang masih dipakai.
+
+9
+00:00:24,577 --> 00:00:27,687
+Terus blok lamanya dihapus, baru fotonya masuk.
+
+10
+00:00:27,617 --> 00:00:31,447
+Makin penuh, makin sering kerja ekstra ini, makanya lemot.
+
+11
+00:00:31,337 --> 00:00:34,487
+Belum lagi, ruang buat file sementara ikut sempit.
+
+12
+00:00:34,417 --> 00:00:37,207
+Padahal kalau lega, fotonya langsung masuk.
+
+13
+00:00:37,097 --> 00:00:41,607
+Jadi sisakan ruang kosong, paling nggak sepuluh persen, biar tetap ngebut.

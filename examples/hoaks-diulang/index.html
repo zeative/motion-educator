@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kenapa hoaks yang diulang-ulang lama-lama terasa benar?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- The grass field (s07 to s10): a 3D canvas at three quarters size, scaled to the frame. -->
+      <canvas id="field" width="810" height="1440"></canvas>
+
+      <!-- s01 to s03, s14 to s16: one generic group thread. Same words in every bubble; only the type gets louder. -->
+      <section class="scene" id="chat">
+        <div class="thread glass" id="thread">
+          <header class="th-head">
+            <i class="grp"><b style="background: #6c7a96">H</b><b style="background: #9a7a62">S</b><b style="background: #6e8f7a">B</b></i>
+            <div><strong>Grup Keluarga Besar</strong><span>38 anggota</span></div>
+          </header>
+          <div class="th-body">
+            <div class="th-scroll" id="scroll">
+              <div class="bub ctx"><p class="who"><b style="color: #d6a3c4">Tante Lina</b></p><p class="msg">Selamat pagi, keluarga!</p></div>
+              <div class="bub ctx"><p class="who"><b style="color: #d9b08f">Bude Sri</b></p><p class="msg">Arisan hari Minggu jadi, ya?</p></div>
+              <div class="bub claim k0" id="b0"><p class="who"><b style="color: #9fb4dd">Om Hendra</b><i>↪ diteruskan 1×</i></p><p class="msg">Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+              <div class="bub claim k1" id="b1"><p class="who"><b style="color: #d9b08f">Bude Sri</b><i>↪ diteruskan 2×</i></p><p class="msg">Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+              <div class="bub claim k2" id="b2"><p class="who"><b style="color: #a8d0b4">Pak RT</b><i>↪ diteruskan 3×</i></p><p class="msg">Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+              <div class="bub claim k3" id="b3"><p class="who"><b style="color: #d6a3c4">Tante Lina</b><i>↪ diteruskan 4×</i></p><p class="msg">Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+              <div class="bub claim k4" id="b4"><p class="who"><b style="color: #b5b9f0">Mas Bayu</b><i>↪ diteruskan 5×</i></p><p class="msg">Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+            </div>
+          </div>
+        </div>
+        <!-- s14 to s16: what happens to the loudest copy -->
+        <h2 class="display" id="neq"><span class="ln">sering dengar <em class="key">≠</em> <em class="key2">bukti</em></span></h2>
+        <div class="btns" id="btns">
+          <span class="btn fwd" id="btn-fwd">↪ terusin</span>
+          <span class="btn chk" id="btn-chk"
+            ><svg viewBox="0 0 40 40" width="38" height="38"><circle cx="17" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="4" /><path d="M25 25 L35 35" stroke="currentColor" stroke-width="5" stroke-linecap="round" /></svg>cek sumber</span
+          >
+        </div>
+        <div id="scan"></div>
+        <svg id="crack" viewBox="0 0 1080 1920" width="1080" height="1920"><path id="crack-line" pathLength="1" d="" /></svg>
+        <div class="piece" id="pc-a"></div>
+        <div class="piece" id="pc-b"></div>
+        <div class="result glass" id="result">
+          <p class="r-head"><svg viewBox="0 0 40 40" width="34" height="34"><circle cx="17" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="4" /><path d="M25 25 L35 35" stroke="currentColor" stroke-width="5" stroke-linecap="round" /></svg>hasil cek sumber</p>
+          <p class="r-row"><b>sumber resmi:</b> tidak ada</p>
+          <p class="r-row">lembaga antariksa tak pernah mengimbau ini</p>
+          <span class="stamp" id="stamp">HOAKS</span>
+        </div>
+        <svg id="finger" viewBox="0 0 200 320" width="200" height="320">
+          <defs>
+            <linearGradient id="skin" x1="0" x2="1"><stop offset="0" stop-color="#c99674" /><stop offset=".55" stop-color="#e2b593" /><stop offset="1" stop-color="#a87656" /></linearGradient>
+          </defs>
+          <path d="M70 320 L70 70 Q70 22 100 22 Q130 22 130 70 L130 320 Z" fill="url(#skin)" />
+          <path d="M80 70 Q80 36 100 36 Q120 36 120 70 L120 92 Q100 100 80 92 Z" fill="#f3d7c3" opacity=".75" />
+          <path d="M70 320 L70 70 Q70 22 100 22" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="3" />
+        </svg>
+        <i id="tap"></i>
+      </section>
+
+      <!-- s03: the five copies side by side -->
+      <section class="scene" id="stack">
+        <div class="mini glass" style="top: 262px"><p>Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+        <div class="mini glass" style="top: 410px"><p>Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+        <div class="mini glass" style="top: 558px"><p>Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+        <div class="mini glass" style="top: 706px"><p>Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+        <div class="mini glass" style="top: 854px"><p>Malam ini jam 00.30 matikan HP! Ada radiasi kosmik dari luar angkasa.</p></div>
+        <b class="eq" style="top: 366px">=</b><b class="eq" style="top: 514px">=</b><b class="eq" style="top: 662px">=</b><b class="eq" style="top: 810px">=</b>
+      </section>
+
+      <!-- s04 to s06: a head, and the same sentence read again and again -->
+      <section class="scene" id="head">
+        <div class="headcam" id="headcam">
+          <svg class="headsvg" viewBox="0 0 1080 1920" width="1080" height="1920">
+            <defs>
+              <radialGradient id="headfill" cx="0.48" cy="0.38" r="0.62"><stop offset="0" stop-color="#2a2218" /><stop offset=".7" stop-color="#141312" /><stop offset="1" stop-color="#0d0d0e" /></radialGradient>
+              <linearGradient id="headedge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6e6" /><stop offset=".45" stop-color="#ffb02e" /><stop offset="1" stop-color="#6b4a1c" /></linearGradient>
+            </defs>
+            <path id="head-fill" d="M640 1200 L640 1060 Q760 1040 780 960 L830 950 Q852 940 832 900 L862 860 Q880 838 850 818 L842 760 Q842 600 742 500 Q622 380 470 390 Q280 400 198 560 Q138 700 208 840 Q250 920 250 1000 L250 1200 Z" fill="url(#headfill)" />
+            <path id="head-line" pathLength="1" d="M640 1200 L640 1060 Q760 1040 780 960 L830 950 Q852 940 832 900 L862 860 Q880 838 850 818 L842 760 Q842 600 742 500 Q622 380 470 390 Q280 400 198 560 Q138 700 208 840 Q250 920 250 1000 L250 1200" fill="none" stroke="url(#headedge)" stroke-width="7" stroke-linecap="round" />
+          </svg>
+          <i id="head-glow"></i>
+          <i id="reader"></i>
+          <div id="sent"><span class="ln"><i class="sw">Malam</i> <i class="sw">ini</i> <i class="sw">jam</i> <i class="sw">00.30</i></span><span class="ln"><i class="sw">matikan</i> <i class="sw">HP!</i></span></div>
+        </div>
+        <div class="readout">
+          <span class="chip cnt" id="c1">dibaca ke-<b>1</b></span><span class="chip cnt" id="c2">dibaca ke-<b>2</b></span><span class="chip cnt" id="c3">dibaca ke-<b>3</b></span><span class="chip cnt" id="c4">dibaca ke-<b>4</b></span><span class="chip cnt" id="c5">dibaca ke-<b>5</b></span>
+          <div class="effort"><span>usaha</span><i><u id="effort"></u></i></div>
+          <p class="note" id="head-note">ilustrasi, bukan ukuran</p>
+        </div>
+      </section>
+
+      <!-- s07 to s09: over the field -->
+      <section class="scene" id="path">
+        <span class="chip" id="pic-note">gambaran, bukan pindaian otak</span>
+        <span class="chip cnt2" id="w1">dilewati <b>1×</b></span><span class="chip cnt2" id="w2">dilewati <b>2×</b></span><span class="chip cnt2" id="w3">dilewati <b>3×</b></span>
+        <span class="chip cnt2" id="w4">dilewati <b>4×</b></span><span class="chip cnt2" id="w5">dilewati <b>5×</b></span><span class="chip cnt2" id="w6">dilewati <b>6×</b></span>
+        <div class="pin" id="pin-sign">
+          <div class="sign" id="sign"><i class="post"></i><b>BENAR</b></div>
+          <span class="chip blue" id="wrong">salah kira</span>
+        </div>
+        <span class="chip big" id="ch-easy">gampang</span>
+        <span class="chip big" id="ch-fam">akrab</span>
+        <h2 class="display" id="eqn"><span class="ln">gampang + akrab</span><span class="ln">= <em class="key">terasa benar</em></span></h2>
+      </section>
+
+      <!-- s10: the name -->
+      <section class="scene" id="name">
+        <h2 class="display" id="nm"><span class="ln">efek</span><span class="ln">kebenaran</span><span class="ln"><em class="key">ilusif</em></span></h2>
+        <p class="nm-en" id="nm-en">illusory truth effect</p>
+        <p class="src" id="nm-src">Hasher, Goldstein &amp; Toppino · 1977</p>
+      </section>
+
+      <!-- s11 and s12: a fake headline, seen once, then met again -->
+      <section class="scene" id="news">
+        <div class="card glass" id="n1">
+          <div class="pic"><i class="planet"></i></div>
+          <p class="kick"><span class="k-new" id="k-new">berita · baru pertama</span><span class="k-seen" id="k-seen">berita · pernah dilihat 1×</span></p>
+          <h3 class="hl" id="hl1">RADIASI KOSMIK MALAM INI: SEMUA HP HARUS DIMATIKAN</h3>
+          <i class="sweep" id="sweep1"></i>
+        </div>
+        <span class="chip blue" id="seen1"><svg viewBox="0 0 40 24" width="40" height="24"><path d="M2 12 Q20 -6 38 12 Q20 30 2 12 Z" fill="none" stroke="currentColor" stroke-width="3" /><circle cx="20" cy="12" r="5" fill="currentColor" /></svg>dilihat 1×</span>
+        <p class="ex" id="ex1">contoh judul palsu</p>
+        <div class="card glass small" id="n2">
+          <p class="kick"><span>berita · pernah dilihat 1×</span></p>
+          <h3 class="hl">RADIASI KOSMIK MALAM INI: SEMUA HP HARUS DIMATIKAN</h3>
+          <div class="mm"><span>terasa benar</span><i><u id="mm1"></u></i></div>
+        </div>
+        <div class="card glass small" id="n3">
+          <p class="kick new"><span>berita · baru pertama</span></p>
+          <h3 class="hl">AIR ES BIKIN LEMAK PERUT MEMBEKU</h3>
+          <div class="mm"><span>terasa benar</span><i><u id="mm2"></u></i></div>
+        </div>
+        <div class="gap" id="gap"><i></i><span>sedikit lebih tinggi</span></div>
+        <p class="src tr" id="src-p">Pennycook, Cannon &amp; Rand · 2018 · ilustrasi</p>
+      </section>
+
+      <!-- s13: someone who knows the answer -->
+      <section class="scene" id="know">
+        <svg class="person" viewBox="0 0 1080 1920" width="1080" height="1920">
+          <defs>
+            <linearGradient id="pedge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6ff" /><stop offset=".5" stop-color="#8fb8ff" /><stop offset="1" stop-color="#2b3c5c" /></linearGradient>
+            <radialGradient id="pfill" cx=".45" cy=".35" r=".7"><stop offset="0" stop-color="#1d222c" /><stop offset="1" stop-color="#0e0f12" /></radialGradient>
+          </defs>
+          <path id="p-body" d="M110 1210 L110 1090 Q110 980 210 948 L292 926 Q256 880 250 820 Q232 818 228 788 L234 742 Q224 600 330 556 Q470 510 512 640 Q532 704 516 764 L544 822 L512 834 Q512 884 480 904 L436 904 L426 944 Q514 966 538 1070 L538 1210 Z" fill="url(#pfill)" stroke="url(#pedge)" stroke-width="7" stroke-linejoin="round" />
+        </svg>
+        <div class="think glass" id="think"><span>samudra terbesar:</span><b>Pasifik ✓</b></div>
+        <i class="bubdot" style="left: 520px; top: 500px; width: 30px; height: 30px" id="bd1"></i>
+        <i class="bubdot" style="left: 494px; top: 538px; width: 18px; height: 18px" id="bd2"></i>
+        <span class="chip big amber" id="atl1">Atlantik terbesar</span>
+        <span class="chip big amber" id="atl2">Atlantik terbesar</span>
+        <div class="mm wide" id="mm3w"><span>terasa benar</span><i><u id="mm3"></u></i></div>
+        <p class="src tr" id="src-f">Fazio dkk. · 2015 · ilustrasi</p>
+      </section>
+
+      <!-- The two meters: they carry through the film. Illustrations, and the screen says so. -->
+      <div id="meters">
+        <div class="mrow feel"><span class="mlab">terasa benar</span><i class="track"><u id="feel"></u></i></div>
+        <div class="mrow proof"><span class="mlab">bukti</span><i class="track"><u id="proof"></u><b id="zero">0</b><em id="checked">dicek</em></i></div>
+        <p class="note">ilustrasi, bukan ukuran</p>
+      </div>
+
+      <!-- s17: the recap and the line to remember -->
+      <section class="scene" id="recap">
+        <div class="rc glass" id="rc1" style="top: 262px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <path d="M40 190 Q70 120 96 70 Q104 50 110 20 L118 20 Q114 50 112 70 Q120 120 160 190 Z" fill="#ffb02e" opacity=".22" />
+            <path d="M100 190 Q96 120 104 70 Q108 46 114 20" stroke="#ffd08a" stroke-width="7" fill="none" stroke-linecap="round" />
+            <g stroke="#5f8a5a" stroke-width="4" stroke-linecap="round"><path d="M22 190 L18 150" /><path d="M36 190 L40 148" /><path d="M170 190 L166 152" /><path d="M184 190 L188 150" /><path d="M60 120 L56 96" /><path d="M150 120 L154 96" /></g>
+          </svg>
+          <p>Diulang → makin<br /><b>gampang diproses</b></p>
+        </div>
+        <div class="rc glass" id="rc2" style="top: 484px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <text x="14" y="64" fill="#ffb02e" font-size="24" font-family="JetBrains Mono Variable, monospace">terasa benar</text>
+            <rect x="14" y="76" width="172" height="26" rx="13" fill="none" stroke="#ededf0" stroke-opacity=".3" stroke-width="3" />
+            <rect x="14" y="76" width="140" height="26" rx="13" fill="#ffb02e" />
+            <text x="14" y="140" fill="#5aa9ff" font-size="24" font-family="JetBrains Mono Variable, monospace">bukti</text>
+            <rect x="14" y="152" width="172" height="26" rx="13" fill="none" stroke="#5aa9ff" stroke-opacity=".6" stroke-width="3" />
+          </svg>
+          <p>Gampang &amp; akrab<br /><b>dikira benar</b></p>
+        </div>
+        <div class="rc glass" id="rc3" style="top: 706px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <circle cx="88" cy="88" r="52" fill="#5aa9ff" fill-opacity=".14" stroke="#9fcbff" stroke-width="10" />
+            <path d="M126 126 L172 172" stroke="#9fcbff" stroke-width="16" stroke-linecap="round" />
+          </svg>
+          <p>Bukti ada di<br /><b>sumbernya</b></p>
+        </div>
+        <h2 class="display" id="poster"><span class="ln">Sering dengar,</span><span class="ln"><em class="key">belum tentu benar.</em></span></h2>
+        <p class="tagline" id="tagline">Cek sumbernya dulu.</p>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

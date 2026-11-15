@@ -1,0 +1,360 @@
+/* "Kenapa HP makin lemot pas memorinya hampir penuh?" A portrait short: 1080 x 1920.
+   Electric cyan is data and speed, warning red is "full", grey is old data, all film long.
+   What must be read stays between x 64 and 930, y 230 and 1220 (the pop captions sit under it). */
+:root {
+  --accent: #2ee6ff;
+  --accent-2: #ff3d55;
+  --cyan: #2ee6ff;
+  --red: #ff3d55;
+}
+#space,
+#grid {
+  opacity: 0;
+}
+
+/* Small swatches that say what a page's colour means. */
+.sq {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  flex: none;
+}
+.sq.live {
+  background: linear-gradient(180deg, #b8fbff, var(--cyan) 50%, #0b8fb3);
+  box-shadow: 0 0 14px 2px color-mix(in srgb, var(--cyan) 55%, transparent);
+}
+.sq.stale {
+  background: repeating-linear-gradient(45deg, #5d6670 0 6px, #474e57 6px 11px);
+}
+.sq.empty {
+  border: 3px solid rgb(150 220 235 / 0.5);
+}
+.x {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+.x::before,
+.x::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: -2px;
+  width: 5px;
+  height: 30px;
+  border-radius: 3px;
+  background: var(--red);
+  rotate: 45deg;
+}
+.x::after {
+  rotate: -45deg;
+}
+
+.chip {
+  position: absolute;
+  gap: 16px;
+  padding: 18px 28px 19px;
+  font-size: 36px;
+}
+.chip.small {
+  padding: 15px 24px 16px;
+  font-size: 32px;
+}
+.chip.top {
+  left: 50%;
+  top: 252px;
+  translate: -50% 0;
+  margin-left: -43px;
+}
+.chip.red {
+  background:
+    linear-gradient(180deg, rgb(90 22 34 / 0.92), rgb(46 12 18 / 0.95)) padding-box,
+    linear-gradient(165deg, rgb(255 140 155 / 0.7), rgb(255 61 85 / 0.25)) border-box;
+  color: #ffe1e5;
+}
+.chip b {
+  color: var(--accent);
+  font: 650 40px / 1 var(--brand);
+}
+.chip.red b {
+  color: #fff;
+}
+.note {
+  position: absolute;
+  color: var(--t2);
+  font: 500 30px / 1.25 var(--sans);
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.9);
+}
+.note b {
+  color: var(--t1);
+  font-weight: 650;
+}
+
+/* s03: the bracket over block 0 */
+.bracket {
+  position: absolute;
+  left: 93px;
+  top: 352px;
+  width: 252px;
+  height: 34px;
+}
+.bracket i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22px;
+  border: 4px solid var(--cyan);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -4px 14px -4px var(--cyan);
+}
+.bracket b {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  translate: -50% 0;
+  color: var(--cyan);
+  font: 700 36px / 1 var(--brand);
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgb(0 0 0 / 0.9);
+}
+#lead-halaman path {
+  stroke: var(--cyan);
+  stroke-width: 4;
+  stroke-dasharray: 1;
+  filter: drop-shadow(0 0 6px var(--cyan));
+}
+
+/* The storage strip at the top of the chip shots. */
+#hud {
+  position: absolute;
+  left: 93px;
+  top: 240px;
+  width: 467px;
+  opacity: 0;
+  visibility: hidden;
+}
+.hud-label {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  color: var(--t2);
+  font: 500 30px / 1 var(--mono);
+  white-space: nowrap;
+}
+#hud-state {
+  position: relative;
+  display: inline-block;
+  min-width: 260px;
+  height: 34px;
+  font: 700 32px / 1 var(--brand);
+}
+#hud-state span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+}
+#hud-full {
+  color: #ff5c70;
+  text-shadow:
+    0 2px 10px rgb(0 0 0 / 0.95),
+    0 0 18px color-mix(in srgb, var(--red) 45%, transparent);
+}
+#hud-roomy {
+  color: var(--cyan);
+}
+.hud-bar {
+  position: relative;
+  height: 30px;
+  margin-top: 18px;
+  border-radius: 15px;
+  background: rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  overflow: hidden;
+}
+#hud-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: 15px;
+}
+
+/* The counter of the extra work, bottom right, the size of a block. */
+.counter {
+  position: absolute;
+  left: 649px;
+  top: 966px;
+  width: 252px;
+  height: 236px;
+  overflow: hidden;
+  border-radius: 24px;
+}
+.chead {
+  height: 64px;
+  padding: 0 22px;
+  border-bottom: 1px solid rgb(0 0 0 / 0.5);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent);
+  color: var(--t2);
+  font: 500 24px / 64px var(--mono);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.crow {
+  display: flex;
+  align-items: center;
+  height: 84px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+  font: 500 32px / 1 var(--sans);
+}
+.crow:last-child {
+  border-bottom: 0;
+}
+.crow b {
+  margin-left: auto;
+  color: var(--t1);
+  font-size: 54px;
+  transform-origin: 100% 50%;
+}
+
+/* s09: the chart */
+.chart {
+  position: absolute;
+  left: 64px;
+  top: 300px;
+  width: 866px;
+  height: 900px;
+  border-radius: 34px;
+}
+.ctitle {
+  position: absolute;
+  left: 40px;
+  top: 44px;
+  color: var(--t1);
+  font: 600 42px / 1.15 var(--brand);
+  letter-spacing: -0.02em;
+}
+.ctitle b {
+  color: var(--cyan);
+}
+.cnote {
+  position: absolute;
+  left: 40px;
+  top: 104px;
+  color: var(--t3);
+  font: 500 26px / 1.45 var(--mono);
+}
+.bars {
+  position: absolute;
+  left: 60px;
+  right: 40px;
+  top: 0;
+  height: 760px;
+}
+.bar {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  transform-origin: 50% 100%;
+}
+.bar .col {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px 16px 6px 6px;
+}
+.bar .val {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  color: var(--t1);
+  font: 700 50px / 1 var(--brand);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.bar .pct {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 12px;
+  translate: -50% 0;
+  color: var(--t2);
+  font: 600 34px / 1 var(--brand);
+  white-space: nowrap;
+}
+.ref {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  height: 0;
+  border-top: 3px dashed rgb(255 255 255 / 0.32);
+}
+.ref span {
+  display: none;
+}
+.caxis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  color: var(--t3);
+  font: 500 28px / 1 var(--mono);
+  text-align: center;
+}
+
+/* s13: the recap */
+.rc {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 0 34px 0 22px;
+  border-radius: 30px;
+}
+.rc .pic {
+  width: 170px;
+  height: 170px;
+  flex: none;
+  overflow: visible;
+}
+.rc p {
+  color: var(--t2);
+  font: 500 44px / 1.22 var(--sans);
+  letter-spacing: -0.015em;
+}
+.rc b {
+  color: var(--cyan);
+  font-weight: 650;
+}
+.rc b.r {
+  color: #ff8a99;
+}
+#poster {
+  position: absolute;
+  left: 64px;
+  width: 866px;
+  top: 966px;
+  font-size: 104px;
+  line-height: 1.12;
+}
+#poster .ln {
+  filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.75));
+}
+
+/* The spoken words: red where they name "full" or the slowness. */
+.caption[data-shot="s01"] .key,
+.caption[data-shot="s04b"] .key,
+.caption[data-shot="s06"] .key,
+.caption[data-shot="s09"] .key,
+.caption[data-shot="s10"] .key {
+  color: var(--red);
+}

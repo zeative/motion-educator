@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kenapa HP makin lemot pas memorinya hampir penuh?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- The 3D layer (the phone, the chip on its board) and the 2D grid of blocks and pages. -->
+      <canvas id="space"></canvas>
+      <canvas id="grid"></canvas>
+
+      <!-- The storage strip over the chip shots: how full the phone is. -->
+      <div id="hud">
+        <p class="hud-label">penyimpanan <b id="hud-state"><span id="hud-full">hampir penuh</span><span id="hud-roomy">lega</span></b></p>
+        <div class="hud-bar"><i id="hud-fill"></i></div>
+      </div>
+
+      <!-- s03: a block and its pages -->
+      <section class="scene" id="s03">
+        <div class="bracket" id="br-blok"><i></i><b>1 blok</b></div>
+        <svg class="ink" id="lead-halaman" viewBox="0 0 1080 1920"><path d="M436 312 L300 432" pathLength="1" /></svg>
+        <span class="chip" id="chip-halaman" style="left: 380px; top: 246px"><i class="sq live"></i>halaman</span>
+        <p class="note" id="note-ratusan" style="left: 672px; top: 236px">aslinya:<br /><b>ratusan halaman</b><br />per blok</p>
+      </section>
+
+      <!-- s04 to s05: the two rules, the chips at the top -->
+      <section class="scene" id="s04">
+        <span class="chip top" id="chip-tulis"><i class="sq live"></i>ditulis per halaman</span>
+        <span class="chip top red" id="chip-timpa"><i class="x"></i>nggak bisa ditimpa</span>
+        <span class="chip top" id="chip-lama"><i class="sq stale"></i>lama, nggak dipakai</span>
+        <span class="chip top" id="chip-hapus"><i class="sq empty"></i>hapus 1 blok sekaligus</span>
+      </section>
+
+      <!-- s06 to s08 and s11: the full grid at work -->
+      <section class="scene" id="s06">
+        <span class="chip red small" id="chip-nol" style="right: 150px; top: 252px"><b class="num">0</b>halaman kosong</span>
+        <div class="counter glass" id="counter">
+          <p class="chead">kerja ekstra</p>
+          <p class="crow"><span>pindah</span><b class="num" id="n-moved">0</b></p>
+          <p class="crow"><span>hapus</span><b class="num" id="n-erased">0</b></p>
+        </div>
+        <span class="chip small" id="chip-masuk" style="right: 150px; top: 252px"><i class="sq live"></i>baru tersimpan</span>
+        <span class="chip" id="chip-langsung" style="left: 520px; top: 252px"><i class="sq live"></i>langsung masuk</span>
+      </section>
+
+      <!-- s09: the fuller, the more is written -->
+      <section class="scene" id="s09">
+        <div class="chart glass" id="chart">
+          <p class="ctitle">ditulis untuk <b>1 halaman</b> data baru</p>
+          <p class="cnote">model sederhana, bukan ukuran HP asli<br />garis putus-putus: 1× = cuma yang diminta</p>
+          <div class="ref" id="ref"><span>1× = yang diminta</span></div>
+          <div class="bars" id="bars"></div>
+          <p class="caxis">seberapa penuh</p>
+        </div>
+      </section>
+
+      <!-- s13: the recap and the line to remember -->
+      <section class="scene" id="s13">
+        <div class="rc glass" id="rc1" style="top: 262px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <rect x="26" y="26" width="148" height="148" rx="18" fill="#0f1215" stroke="#ff3d55" stroke-width="6" />
+            <g id="rc1-pages"></g>
+          </svg>
+          <p>Tulis per <b>halaman</b>,<br />hapus per <b class="r">blok</b></p>
+        </div>
+        <div class="rc glass" id="rc2" style="top: 486px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <rect x="12" y="50" width="78" height="78" rx="10" fill="#0f1215" stroke="#ff3d55" stroke-width="4" />
+            <rect x="110" y="50" width="78" height="78" rx="10" fill="#0f1215" stroke="#2ee6ff" stroke-width="4" stroke-dasharray="8 6" />
+            <rect x="24" y="62" width="24" height="24" rx="4" fill="#59626c" /><rect x="54" y="62" width="24" height="24" rx="4" fill="#59626c" />
+            <rect x="24" y="92" width="24" height="24" rx="4" fill="#59626c" /><rect x="54" y="92" width="24" height="24" rx="4" fill="#59626c" />
+            <rect x="122" y="62" width="24" height="24" rx="4" fill="#2ee6ff" /><rect x="152" y="62" width="24" height="24" rx="4" fill="#2ee6ff" />
+            <rect x="122" y="92" width="24" height="24" rx="4" fill="#2ee6ff" />
+            <path d="M52 40 Q100 4 148 40" stroke="#2ee6ff" stroke-width="5" fill="none" stroke-linecap="round" />
+            <path d="M138 30 L150 42 L134 46" stroke="#2ee6ff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            <text x="100" y="168" text-anchor="middle" fill="#ff8a99" font-size="26" font-family="Inter Variable, sans-serif" font-weight="600">pindah · hapus</text>
+          </svg>
+          <p>Pas penuh: <b class="r">pindah, hapus</b>,<br />baru bisa nulis</p>
+        </div>
+        <div class="rc glass" id="rc3" style="top: 710px">
+          <svg viewBox="0 0 200 200" class="pic">
+            <rect x="14" y="82" width="172" height="36" rx="18" fill="rgb(255 255 255 / 0.08)" />
+            <rect x="14" y="82" width="138" height="36" rx="18" fill="#2ee6ff" />
+            <rect x="158" y="74" width="34" height="52" rx="12" fill="none" stroke="#2ee6ff" stroke-width="4" stroke-dasharray="7 5" />
+            <text x="175" y="160" text-anchor="middle" fill="#2ee6ff" font-size="30" font-family="Sora Variable, sans-serif" font-weight="700">10%</text>
+          </svg>
+          <p>Sisakan <b>≥ 10%</b><br />ruang kosong</p>
+        </div>
+        <h2 class="display" id="poster"><span class="ln">Sisakan ruang,</span><span class="ln"><em class="key">biar ngebut.</em></span></h2>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>
