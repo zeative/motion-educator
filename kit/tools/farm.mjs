@@ -45,9 +45,19 @@ unlinkSync(archive);
 let seen = 0;
 let state = "queued";
 const began = Date.now();
+let misses = 0;
 while (state === "queued" || state === "running") {
   spawnSync("sleep", ["4"]);
-  const job = JSON.parse(curl([`${base}/jobs/${id}?lines=400`]));
+  let job;
+  try {
+    job = JSON.parse(curl([`${base}/jobs/${id}?lines=400`]));
+    misses = 0;
+  } catch (error) {
+    // A gateway hiccup is retried; a worker that restarted has forgotten the job: say so, and how to go on.
+    if (/no such job/.test(error.message)) throw new Error("the worker restarted and lost the job (out of memory? lower FARM_JOBS). Run the same command again: the segments it finished are kept there.");
+    if (++misses > 15) throw error;
+    continue;
+  }
   state = job.state;
   for (const line of job.log.slice(Math.min(seen, job.log.length))) console.log(`  farm: ${line}`);
   seen = job.log.length;

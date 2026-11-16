@@ -7,8 +7,8 @@
 **Educational films that look expensive, built in code, storyboard first.**
 
 An agent skill and the film engine behind it. You ask for an explainer; it draws the storyboard, waits for your yes,
-then renders a 1080p60 film frame by frame: lit stage, glass, metal type, 3D, diagrams, captions, narration, music
-and sound effects.
+then renders a 1080p60 film frame by frame: detailed 3D replicas of real things shot by a directed camera, a lit
+stage, glass, metal type, diagrams, captions, narration, music and sound effects.
 
 [![test](https://github.com/zeative/motion-educator/actions/workflows/test.yml/badge.svg)](https://github.com/zeative/motion-educator/actions/workflows/test.yml)
 ![node](https://img.shields.io/badge/node-%E2%89%A5%2020-3c873a)
@@ -37,6 +37,9 @@ Most explainer videos made by an agent are slides with a voice. This one is held
   you have seen it.
 - **It is true.** Every number on screen sits in a fact sheet with its source and its arithmetic. A bar that
   stands for 5.9× is 5.9 times as tall.
+- **It shows the real thing.** A device, an organ or a machine is built in 3D as a replica of the one the viewer
+  knows, from reference photographs and teardowns, and filmed like a product: orbits, push-ins, macro close-ups,
+  parts lifting apart, labels riding on the parts.
 - **It explains itself on mute.** Captions carry the lesson; narration and sound make it land.
 - **It is graded by someone else.** A reviewer that did not build the film judges the render, and the fixes are
   re-rendered a segment at a time.
@@ -49,7 +52,7 @@ Most explainer videos made by an agent are slides with a voice. This one is held
 
 ### 🎬 A film engine
 One paused timeline is the only clock, so any frame can be drawn by seeking to it. No dropped frames, no
-flicker, and a fix re-renders four seconds, not the film.
+flicker, a fix re-renders four seconds, not the film, and the drawing runs on the GPU (or on every CPU core).
 
 </td>
 <td width="33%" valign="top">
@@ -71,15 +74,15 @@ Narration through ElevenLabs, a music bed whose beat the cuts sit on, effects on
 <td valign="top">
 
 ### 📐 Two formats
-`1920x1080` for lessons, `1080x1920` for shorts, from one field in the storyboard. Portrait gets safe areas for
-app chrome and word-by-word captions.
+`1920x1080` for lessons, `1080x1920` for shorts, from one field in the storyboard. A short gets safe areas for app
+chrome, captions lit word by word, and an ending that loops back into its start.
 
 </td>
 <td valign="top">
 
-### 💎 A look that reads as real
-A shader stage with a key light and a floor, glass panels, metal type with a travelling sheen, PBR materials,
-bloom and grain in a finishing pass.
+### 🎥 Real objects, a directed camera
+3D replicas built from a model sheet (reference, parts, real sizes) with a parts kit and materials that have
+surface; a camera that orbits, pushes in and racks focus; exploded views, cutaways, pinned labels.
 
 </td>
 <td valign="top">
@@ -102,8 +105,9 @@ and the chapter rail are read from it, and the frames are drawn where the pixels
 <sub>Top: frames from the storyboard. Bottom: the same moments in the render.</sub>
 
 The checker refuses a storyboard that has too few pictures (one about every 3.2 s), a shot drawn only once, a
-caption nobody could finish reading, a number with no fact behind it, a spoken line that will not fit its shot, or
-three shots of the same kind in a row. Full standard: [`references/storyboard.md`](references/storyboard.md).
+caption nobody could finish reading, a number with no fact behind it, a spoken line that will not fit its shot,
+three shots of the same kind in a row, a 3D object with no model sheet (which real version, from which reference,
+with which parts), a 3D shot with no camera move, or a short whose ending does not loop. Full standard: [`references/storyboard.md`](references/storyboard.md).
 
 ## Quick start
 
@@ -162,31 +166,25 @@ node kit/tools/make.mjs films/moon-face
 ```
 
 Requirements: Node 20+, FFmpeg, Python 3 with numpy, and Playwright's Chromium
-(`npm i -D playwright && npx playwright install chromium`). No GPU needed, but one is used when it is there; on a
-CPU-only Linux machine install Mesa's software Vulkan (`apt install mesa-vulkan-drivers`) for about five times the
-speed. See [Rendering](#rendering).
+(`npm i -D playwright && npx playwright install chromium`). The renderer uses the GPU when there is one; on a Linux
+machine without one it needs Mesa's software Vulkan (`apt install mesa-vulkan-drivers`). `node kit/tools/doctor.mjs`
+checks all of it. See [Rendering](#rendering).
 
 ## Rendering
 
 Every frame is drawn by seeking the timeline in headless Chromium, so nothing is ever dropped, and the picture is
-cut into four-second segments so a fix re-renders only the seconds it touches. How fast it goes depends on what
-draws the WebGL, and `render.mjs` picks the fastest the machine has:
+cut into four-second segments so a fix re-renders only the seconds it touches. There is one renderer and it takes
+the fastest drawing the machine has, with nothing to configure: **the GPU** when there is one (any Mac or Windows
+machine, Linux with a GPU), otherwise **Mesa's lavapipe**, software Vulkan that spreads each frame over every CPU
+core. It prints which one it got.
 
-| Machine | WebGL on | Notes |
+Measured on one heavy portrait frame (1080x1920, PBR materials, soft shadows, depth of field), on a CPU:
+
+| | Time per frame | Quality |
 | --- | --- | --- |
-| A Mac, Windows, or Linux with a GPU | the GPU | chosen automatically; the fastest by far |
-| Linux, CPU only, with `mesa-vulkan-drivers` | Mesa lavapipe (software Vulkan) | about 5× SwiftShader, same pixels |
-| Anything else | SwiftShader (Chromium's own) | the fallback |
-
-`--gl gpu|lavapipe|swiftshader` overrides the choice, and the renderer prints which one it got.
-
-Measured on one heavy portrait frame (1080x1920, PBR materials, soft shadows, depth of field), CPU only:
-
-| Change | Time per frame | Quality |
-| --- | --- | --- |
-| SwiftShader, `page.screenshot` | 7.1 s | the reference |
-| Mesa lavapipe, frames captured through the DevTools protocol | 1.1 s | PSNR 44.7 dB, SSIM 0.995 against the reference |
-| Depth of field that skips in-focus pixels and sizes its blur | the pass 245 → 125 ms | PSNR 45.4 dB, SSIM 0.997 |
+| Before: Chromium's own software renderer, `page.screenshot` | 7.1 s | the reference |
+| Now: Mesa lavapipe, frames captured through the DevTools protocol | 1.1 s | PSNR 44.7 dB, SSIM 0.995 against the reference |
+| Now: depth of field that skips in-focus pixels and sizes its blur | the pass 245 → 125 ms | PSNR 45.4 dB, SSIM 0.997 |
 
 On a CPU about nine tenths of a frame is the 3D drawing itself, and it scales with cores. So the kit can also
 **render on a bigger machine**: a render worker runs in Docker anywhere you have room (a VPS, a home server, a
@@ -222,10 +220,11 @@ flowchart LR
     I -- ship --> J([MP4])
 ```
 
-A film is a web page with one paused [GSAP](https://gsap.com) timeline. The renderer opens it in headless Chromium,
-seeks the timeline to every frame in turn, screenshots it, and pipes the frames to FFmpeg, which adds bloom and
-grain. Four browsers render four-second segments in parallel; each segment is its own file, so changing one shot
-re-renders only the segments it touches.
+A film is a web page with one paused [GSAP](https://gsap.com) timeline. The renderer opens it in headless Chromium
+(WebGL on the GPU, or Mesa lavapipe without one), seeks the timeline to every frame in turn, captures it, and pipes
+the frames to FFmpeg, which adds bloom and grain. Four browsers render four-second segments in parallel; each
+segment is its own file, so changing one shot re-renders only the segments it touches. A render worker on a bigger
+machine can take the segments instead ([Rendering](#rendering)).
 
 Anything GSAP cannot hold exactly (a canvas, a shader, typed text, a dash offset) keeps its state in a plain object
 that the timeline tweens and a per-frame job draws. Nothing reads the wall clock, which is what makes every frame
@@ -283,6 +282,10 @@ down under it.
 }
 ```
 
+A short loops: its last line is the first half of a sentence its first line finishes, its last frame is its first
+shot's picture a moment early, and the music runs on across the seam, so a replay feels like the same film going
+on. The mixer measures the pause at the seam and the checker compares the two frames.
+
 The storyboard check reads the script as a listener would: sentences too long for the ear, clipped sentences in a
 row, digits in a spoken line, textbook Indonesian ("tidak", "hanya", "oleh karena itu") and phrases that give a
 machine away. How to write it: [`references/narration.md`](references/narration.md). How to perform and cut it:
@@ -298,18 +301,19 @@ machine away. How to write it: [`references/narration.md`](references/narration.
 | [`kit/engine/parts3d.js`](kit/engine/parts3d.js) | materials with real surface and ready-made parts: boards, chips, drivers, mics, screws, a desk set |
 | [`kit/css/film.css`](kit/css/film.css) | the look: tokens, glass, metal type, captions, panels, safe areas |
 | [`kit/tools/storyboard.mjs`](kit/tools/storyboard.mjs), [`sketch.mjs`](kit/tools/sketch.mjs) | the storyboard check and the pencil board |
-| [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview; GPU, lavapipe or SwiftShader |
+| [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview; on the GPU, or Mesa lavapipe without one |
 | [`kit/tools/farm.mjs`](kit/tools/farm.mjs), [`kit/farm/`](kit/farm) | render on a bigger machine: the client, and the worker with its Docker Compose file |
 | [`kit/audio/voice.mjs`](kit/audio/voice.mjs) | narration: one take, matched to the script word by word, and the film cut to it |
-| [`kit/audio/mix.py`](kit/audio/mix.py) | the mixer: voice, music, effects, ducking, mastering, measurement |
-| [`kit/tools/check.mjs`](kit/tools/check.mjs) | contact sheets, frozen time, loudness |
+| [`kit/audio/music.mjs`](kit/audio/music.mjs) | a music bed composed for the film's length with ElevenLabs Music, and its status |
+| [`kit/audio/mix.py`](kit/audio/mix.py) | the mixer: voice, music, effects, ducking, mastering, the loop seam, measurement |
+| [`kit/tools/check.mjs`](kit/tools/check.mjs) | contact sheets, frozen time, loudness, the loop seam |
 | [`kit/tools/make.mjs`](kit/tools/make.mjs) | the whole pipeline in one command |
 | [`kit/tools/doctor.mjs`](kit/tools/doctor.mjs), [`test.mjs`](kit/tools/test.mjs) | environment check and a smoke test of everything above |
 
 ```
 motion-educator/
 ├── SKILL.md            the skill: what never bends, and the workflow
-├── references/         how to teach on screen, storyboard, look, engine, motion, voice, sound, review
+├── references/         how to teach on screen, storyboard, look, detail and camera, engine, motion, narration, voice, sound, review
 ├── kit/                the engine and its tools (copied into each workspace)
 ├── templates/film/     what a new film starts from
 └── examples/           finished films with their storyboards, source and cue sheets
@@ -328,7 +332,6 @@ motion-educator/
 | choosing a voice, performing the take, cutting to it | [`references/voice.md`](references/voice.md) |
 | choosing music and placing sounds | [`references/sound.md`](references/sound.md) |
 | checking a render and briefing a reviewer | [`references/review.md`](references/review.md) |
-| rendering with raea instead of the browser | [`references/raea.md`](references/raea.md) |
 
 ## Honest limits
 
@@ -339,7 +342,9 @@ motion-educator/
   with more cores ([Rendering](#rendering)), is the way to minutes.
 - **The sound library is not in the repository.** Music and effects come from [Mixkit](https://mixkit.co), whose
   licence allows them inside a video but not passed on as files; `kit/audio/fetch.sh` downloads them.
-- **Narration costs credits** on your ElevenLabs account.
+- **Narration and composed music cost credits** on your ElevenLabs account.
+- **A replica is only as good as its references.** When good photographs of the real object cannot be found, the
+  agent asks you for some; without them, it says what it could not match.
 
 ## Licence
 
@@ -365,8 +370,6 @@ What is not ours to license, and how it is handled:
   ([sources](examples/langit-biru/assets/SOURCES.md)).
 - The composition shape (a fixed-size root and one paused timeline at `window.__timelines.root`) follows
   [Null Motion](https://github.com/blixvip/NullMotion)'s HyperFrames convention.
-- [raea](https://raea.io) is covered as an alternative renderer, with a proof shot in
-  [`examples/raea-proof`](examples/raea-proof).
 
 <div align="center">
 <br />

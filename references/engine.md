@@ -136,9 +136,11 @@ node kit/tools/render.mjs films/NAME --stills 3 --safe     # a still with the ap
 node kit/tools/make.mjs films/NAME                         # everything in order: check, voice, render, mix, measure
 ```
 
-What was learned about speed on a machine with no GPU (four cores, software WebGL):
+What was learned about speed on a machine with no GPU (four cores, Mesa lavapipe):
 
-- A frame costs about half a second all told. A minute at 60 fps is roughly half an hour.
+- A frame of flat 2D costs a few tenths of a second; a heavy 3D frame (PBR, shadows, depth of field) about one
+  second, nine tenths of it the 3D drawing. A minute of heavy 3D at 60 fps is the better part of an hour here: use
+  a GPU or a render worker on a bigger machine for long films.
 - Chromium encodes a grainy 1080p PNG in over a second and a near-lossless JPEG in under a tenth; the renderer
   captures JPEG at quality 98.
 - Pages in one browser take turns, so each job runs its own browser.
@@ -153,9 +155,10 @@ What was learned about speed on a machine with no GPU (four cores, software WebG
 
 ### Faster: a GPU, or a bigger machine
 
-- `render.mjs` uses a GPU when the machine has one (any Mac, Windows, Linux with a render node or an NVIDIA card),
-  Mesa's lavapipe on a CPU-only Linux machine (about five times faster than SwiftShader, same pixels), SwiftShader
-  as the last resort, and prints which it got. `--gl gpu|lavapipe|swiftshader` overrides.
+- `render.mjs` has one way to draw: the GPU when the machine has one (any Mac or Windows machine, Linux with a
+  render node or an NVIDIA card), otherwise Mesa's lavapipe, software Vulkan on every CPU core (about five times
+  Chromium's own software renderer, same pixels). A CPU-only Linux machine needs `mesa-vulkan-drivers`; the
+  renderer stops with that hint when neither is there, and prints which one it got.
 - With no GPU the 3D drawing is about nine tenths of a frame's cost and scales with CPU cores. A bigger machine
   can render for you: run `kit/farm/compose.yml` there (Docker; it limits its CPUs so the machine's other
   services keep room) and send the film with
@@ -165,4 +168,3 @@ What was learned about speed on a machine with no GPU (four cores, software WebG
 - Measured: a 4 s, 1080x1920, 60 fps 3D test (shadows, depth of field) took 91 s on a 10-core worker against
   320 s on a busy 4-core machine.
 
-`references/raea.md` covers rendering with raea on a machine with a GPU.

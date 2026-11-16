@@ -25,7 +25,6 @@ Read only the reference your current step needs.
 | The voice: choosing it, performing one take with ElevenLabs, cutting the film to it | `references/voice.md` |
 | Music, sound effects, the mix | `references/sound.md` |
 | Checking the render, independent review | `references/review.md` |
-| Rendering with raea instead of the browser | `references/raea.md` |
 
 ## What never bends
 

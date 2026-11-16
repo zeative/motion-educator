@@ -6,8 +6,7 @@
 //   node kit/tools/render.mjs films/NAME --stills 1,5.5     finished PNG stills at those seconds -> out/stills/
 //   node kit/tools/render.mjs films/NAME --serve            serve the film to watch it live in a browser (#play)
 //   --fps 30 halves the frames, --jobs 1 uses one browser, --raw skips the finishing pass, --dir writes elsewhere,
-//   --safe (stills only) shades the parts of the frame an app would cover, --gl swiftshader|lavapipe|gpu picks the
-//   WebGL renderer (lavapipe when the machine has it: about five times faster than SwiftShader on heavy 3D).
+//   --safe (stills only) shades the parts of the frame an app would cover.
 //
 // The frame's size is the storyboard's "format": 1920x1080 unless it says otherwise (1080x1920 for a short).
 //
@@ -40,25 +39,20 @@ while (!existsSync(join(workspace, "kit", "engine", "motion.js"))) {
 const out = resolve(flag("--dir") ?? join(film, "out"));
 const fps = Number(flag("--fps") ?? 60);
 const jobs = Number(flag("--jobs") ?? Math.min(4, availableParallelism()));
-// WebGL with no GPU. Mesa's lavapipe (software Vulkan on llvmpipe) draws the same pixels as SwiftShader, Chromium's
-// own software renderer, about five times faster on a heavy 3D frame (measured: 1.1 s against 7.1 s for a 1080x1920
-// frame with PBR, soft shadows and depth of field; PSNR 44.7 dB between them, the level of JPEG noise). Use it when
-// the machine has it (Debian/Ubuntu: mesa-vulkan-drivers), SwiftShader otherwise; `--gl gpu` on a machine with one.
+// One way to draw WebGL, the fastest the machine has: its GPU when there is one (any Mac or Windows machine, Linux
+// with a render node or an NVIDIA card), else Mesa's lavapipe, software Vulkan that spreads each frame over every CPU
+// core (measured on a heavy 1080x1920 3D frame: 1.1 s, against 7.1 s for Chromium's own software renderer, with
+// the same pixels). A CPU-only Linux machine needs it installed: apt install mesa-vulkan-drivers.
 const LAVAPIPE = ["/usr/share/vulkan/icd.d/lvp_icd.json", "/etc/vulkan/icd.d/lvp_icd.json"].find(existsSync);
-// A real GPU draws a heavy 3D frame in tens of milliseconds instead of a second: use it whenever there is one
-// (any Mac, a Linux machine with a render node or an NVIDIA card).
 const HAS_GPU = process.platform === "darwin" || process.platform === "win32" || existsSync("/dev/nvidia0") || (existsSync("/dev/dri") && readdirSync("/dev/dri").some((name) => name.startsWith("renderD")));
-const gl = flag("--gl") ?? (HAS_GPU ? "gpu" : LAVAPIPE ? "lavapipe" : "swiftshader");
-const GL = {
-  swiftshader: { args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"], env: {} },
-  lavapipe: {
-    args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader", "--use-gl=angle", "--use-angle=vulkan", "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan", "--disable-vulkan-surface"],
-    // llvmpipe draws with a thread per core; split the cores between the jobs so they do not fight.
-    env: { VK_ICD_FILENAMES: LAVAPIPE ?? "", LP_NUM_THREADS: process.env.LP_NUM_THREADS ?? String(Math.max(1, Math.floor(availableParallelism() / Math.max(1, jobs)))) },
-  },
-  gpu: { args: ["--ignore-gpu-blocklist", "--enable-gpu", "--use-gl=angle"], env: {} },
-}[gl];
-if (!GL) throw new Error(`--gl ${gl}: use swiftshader, lavapipe or gpu`);
+if (!HAS_GPU && !LAVAPIPE && !args.includes("--serve")) throw new Error("no GPU and no Mesa lavapipe on this machine: install it (Debian/Ubuntu: apt install mesa-vulkan-drivers), or render on a bigger machine (kit/tools/farm.mjs)");
+const GL = HAS_GPU
+  ? { args: ["--ignore-gpu-blocklist", "--enable-gpu", "--use-gl=angle"], env: {} }
+  : {
+      args: ["--ignore-gpu-blocklist", "--use-gl=angle", "--use-angle=vulkan", "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan", "--disable-vulkan-surface"],
+      // llvmpipe draws with a thread per core; split the cores between the jobs so they do not fight.
+      env: { VK_ICD_FILENAMES: LAVAPIPE, LP_NUM_THREADS: process.env.LP_NUM_THREADS ?? String(Math.max(1, Math.floor(availableParallelism() / Math.max(1, jobs)))) },
+    };
 const SEGMENT = Number(flag("--segment") ?? 4);
 const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8")) : {};
 const [W, H] = (flag("--size") ?? plan.format ?? "1920x1080").split("x").map(Number);
@@ -119,10 +113,9 @@ if (args.includes("--serve")) {
         const info = c?.getExtension("WEBGL_debug_renderer_info");
         return c ? c.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : c.RENDERER) : "none";
       });
-      const software = /swiftshader|llvmpipe|software/i.test(renderer);
-      if (gl === "lavapipe" && !/llvmpipe/i.test(renderer)) console.warn(`lavapipe was asked for but WebGL runs on "${renderer}": rendering will be slower (--gl swiftshader to silence this)`);
-      else if (gl === "gpu" && software) console.warn(`a GPU was expected but WebGL runs on "${renderer}": rendering will be slow (--gl lavapipe or swiftshader to choose)`);
-      else console.log(`WebGL: ${renderer}`);
+      const expected = HAS_GPU ? !/swiftshader|llvmpipe|software/i.test(renderer) : /llvmpipe/i.test(renderer);
+      if (expected) console.log(`WebGL: ${renderer}`);
+      else console.warn(`WebGL runs on "${renderer}", not on ${HAS_GPU ? "the GPU" : "lavapipe"}: rendering will be slow. Check the machine's graphics drivers.`);
     }
     return { browser, page };
   }
@@ -156,7 +149,7 @@ if (args.includes("--serve")) {
     for (const time of stills) {
       await seek(page, time);
       const raw = join(dir, `.raw-${time.toFixed(2)}.png`);
-      await page.screenshot({ path: raw });
+      writeFileSync(raw, Buffer.from((await page.capture.send("Page.captureScreenshot", { format: "png" })).data, "base64"));
       const still = join(dir, `still-${time.toFixed(2).padStart(6, "0")}.png`);
       await ffmpeg(["-i", raw, ...finish, "-frames:v", "1", "-update", "1", "-pix_fmt", "rgb24", still]).done;
       unlinkSync(raw);

@@ -53,7 +53,15 @@ try {
 }
 if (chromium) {
   try {
-    const browser = await chromium.launch({ args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"] });
+    // The renderer's one way to draw: the GPU, else Mesa lavapipe (render.mjs). Check the same here.
+    const lvp = ["/usr/share/vulkan/icd.d/lvp_icd.json", "/etc/vulkan/icd.d/lvp_icd.json"].find(existsSync);
+    const gpu = process.platform === "darwin" || process.platform === "win32" || existsSync("/dev/nvidia0") || (existsSync("/dev/dri") && readdirSync("/dev/dri").some((n) => n.startsWith("renderD")));
+    if (!gpu && !lvp) missing("a GPU or Mesa lavapipe", "apt install mesa-vulkan-drivers   (software Vulkan: the renderer needs it on a machine with no GPU)");
+    const browser = await chromium.launch(
+      gpu || !lvp
+        ? { args: ["--ignore-gpu-blocklist", "--enable-gpu", "--use-gl=angle"] }
+        : { args: ["--ignore-gpu-blocklist", "--use-gl=angle", "--use-angle=vulkan", "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan", "--disable-vulkan-surface"], env: { ...process.env, VK_ICD_FILENAMES: lvp } },
+    );
     const page = await browser.newPage();
     const gl = await page.evaluate(() => {
       const context = document.createElement("canvas").getContext("webgl2");
@@ -62,7 +70,7 @@ if (chromium) {
       return info ? context.getParameter(info.UNMASKED_RENDERER_WEBGL) : "WebGL2";
     });
     await browser.close();
-    if (gl) ok("Chromium with WebGL2", /swiftshader|llvmpipe/i.test(gl) ? "software rendering: about half a second a frame" : gl.slice(0, 60));
+    if (gl) ok("Chromium with WebGL2", /llvmpipe/i.test(gl) ? "on Mesa lavapipe (no GPU): heavy 3D about a second a frame" : /swiftshader/i.test(gl) ? "on SwiftShader, which the renderer does not use: install a GPU driver or mesa-vulkan-drivers" : `on the GPU: ${gl.slice(0, 60)}`);
     else missing("WebGL2 in headless Chromium", "the stage and 3D layers need it; try a newer Chromium");
   } catch (error) {
     missing("a Chromium that Playwright can launch", `npx playwright install chromium   (${String(error.message).split("\n")[0]})`);
