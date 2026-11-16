@@ -119,7 +119,7 @@
   top: 440px;
 }
 #nobot .chip {
-  top: 560px;
+  top: 450px;
 }
 #model {
   position: absolute;
@@ -229,8 +229,8 @@
   font: 600 28px / 1 var(--sans);
 }
 #tsY {
-  left: 46px;
-  top: 104px;
+  left: 170px;
+  top: 100px;
 }
 #tsX {
   right: 60px;
@@ -382,4 +382,25 @@
 }
 .phead em {
   font: 500 28px / 1 var(--mono);
+}
+#tsCanvas {
+  width: 1640px;
+  height: 700px;
+  inset: auto;
+}
+#spCanvas {
+  width: 1560px;
+  height: 560px;
+  inset: auto;
+}
+/* a soft dark plate behind the last line, over the ring */
+#poster::before {
+  content: "";
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 300px;
+  height: 330px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(8 8 10 / 0.82), rgb(8 8 10 / 0.55) 60%, transparent);
 }

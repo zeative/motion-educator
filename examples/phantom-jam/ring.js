@@ -289,7 +289,7 @@ export async function createWorld(canvas) {
       car.g.position.set(p.x, 0, p.z);
       car.g.rotation.y = p.th;
       const b = c.brake * W.brake;
-      car.tailMat.emissiveIntensity = 0.3 + 2.4 * b;
+      car.tailMat.emissiveIntensity = 0.3 + 1.7 * b;
       car.glowMat.opacity = 0.75 * b * show;
       car.poolMat.opacity = 0.16 * show;
       const you = car.i === W.you && car.copy === 0;

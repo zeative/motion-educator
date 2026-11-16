@@ -226,11 +226,11 @@ const back = { on: 0, len: 0 };
 tl.to(back, { on: 1, duration: 0.2 }, said("s15", "slides") - 0.1);
 tl.to(back, { len: 1, duration: 0.8, ease: "power2.out" }, said("s15", "slides") - 0.1);
 tl.to(back, { on: 0, duration: 0.3 }, s.s16.start);
-film.scene("#jamSpeed", said("s15", "twenty") - 0.3, s.s16.start + 0.2);
+film.scene("#jamSpeed", said("s15", "twenty") - 0.3, s.s16.start - 0.15);
 chipIn("#jamChip", said("s15", "twenty") - 0.3);
 
 // ── s16: every car's trace, time across, place up: the stopped stretches line up into a band sloping down ───
-const TS = { t0: 70, t1: 130, x0: 120, x1: 1600, y0: 640, y1: 40 };
+const TS = { t0: 70, t1: 130, x0: 130, x1: 1600, y0: 590, y1: 60 };
 const tsCtx = $("#tsCanvas").getContext("2d");
 const tsState = { cursor: 0, ref: 0 };
 film.scene("#ts", s.s16.start - 0.15, s.s17.start);
@@ -312,11 +312,13 @@ function drawTS() {
 // ── s17: tailgating, close and side on: the car in front brakes hard, the one right behind copies it ─────────
 const T17 = 96.6;
 const LEAD17 = 17, TAIL17 = 16;
-set({ anchor: world.sample(1, TAIL17, T17).s, follow: TAIL17, followMix: 1, lead: 5, azFollow: 1, k: 1, shiftY: 0 }, s.s17.start);
+set({ anchor: world.sample(1, TAIL17, T17).s, follow: TAIL17, followMix: 1, lead: 8, azFollow: 1, k: 1, shiftY: 140 }, s.s17.start);
+set({ shiftY: 0 }, s.s18.start);
 play(1, T17, T17 + s.s17.dur, s.s17.start, s.s17.end);
-cam({ ty: 1.0, dist: 26, elev: 10, azim: 4, fov: 32 }, s.s17.start);
+cam({ ty: 1.0, dist: 27, elev: 9, azim: 4, fov: 32 }, s.s17.start);
 cam({ dist: 24, azim: 0 }, s.s17.start, s.s17.dur, "none");
 ride("#tagTail", TAIL17);
+riders.at(-1).timeGap = true;
 showTag("#tagTail", s.s17.start + 0.4, s.s18.start);
 film.scene("#tail", s.s17.start, s.s18.start);
 chipIn("#tailChip", said("s17", "don't") - 0.05);
@@ -414,7 +416,7 @@ chipIn("#srcStern .chip", s.s21.start + 0.1);
 // s23: the recap, over the calm ring
 film.scene("#recap", s.s23.start, s.s24.start + 0.2);
 tl.to(W, { dim: 0.8, duration: 0.4 }, s.s23.start);
-tl.to(W, { dim: 0.15, duration: 0.4 }, s.s24.start);
+tl.to(W, { dim: 0.3, duration: 0.4 }, s.s24.start);
 ["#r1", "#r2", "#r3"].forEach((sel, i) => {
   tl.fromTo(sel, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: "expo.out", immediateRender: false }, s.s23.start + 0.05 + i * 0.35);
   tl.to(sel, { autoAlpha: 0, y: -40, duration: 0.3, ease: "power3.in" }, s.s24.start - 0.1 + i * 0.05);
@@ -505,6 +507,15 @@ film.each(() => {
     const p = world.carScreen(car, r.y);
     r.el.style.left = `${p.x}px`;
     r.el.style.top = `${p.y + r.dy}px`;
+    if (r.timeGap) {
+      // how far behind the car ahead it is, in seconds at its own speed (the model's live value)
+      const c = world.now[car], a = world.now[(car + 1) % N];
+      const gap = ((a.u - c.u + L) % L) - 4.5;
+      if (c.v > 5) {
+        const text = `${(gap / c.v).toFixed(1)} s behind`;
+        if (r.el.textContent !== text) r.el.textContent = text;
+      }
+    }
     if (r.num) {
       const v = Math.round(world.now[car].v * 3.6);
       const text = String(v);

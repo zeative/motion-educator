@@ -44,7 +44,7 @@
     },
     {
       "id": "f4",
-      "claim": "The chain from one small slowdown to a stop is the film's model, not a measurement from the experiment: in sim.py one driver eases off from 30 to 25 km/h (-0.5 m/s2 for 3 s); as the slowdown passes back, the lowest speed of each driver it reaches is 24.6, 24.9, 24.8, 24.7, 24.5, 24.3, 24.0, 23.6, 23.1, 22.5, 21.8, 20.9, 19.9, 18.5, 16.5, 13.6, 8.7, 1.9, 0.0 km/h: the first few about the same, then each lower, until the 19th driver stops. Simplification said in words: 'the drivers behind react late and brake a bit harder'.",
+      "claim": "The chain from one small slowdown to a stop is the film's model, not a measurement from the experiment: in sim.py one driver eases off from 30 to 25 km/h (-0.5 m/s2 for 3 s); as the slowdown passes back, the lowest speed of each driver it reaches is 24.6, 24.9, 24.8, 24.7, 24.5, 24.3, 24.0, 23.6, 23.1, 22.5, 21.8, 20.9, 19.9, 18.5, 16.5, 13.6, 8.7, 1.9, 0.0 km/h: the first few about the same, then each lower, until the 19th driver stops. Simplification said in words: 'the drivers behind react late and brake harder'.",
       "source": "sim.py (this film), dips in sim.json."
     },
     {
@@ -54,7 +54,7 @@
     },
     {
       "id": "f6",
-      "claim": "In a later ring experiment (260 m, 21 to 22 cars, Tucson, USA), one car whose speed was controlled by a computer (a human still steered) dampened the stop-and-go waves; one of its controllers simply estimated the average speed and drove at it, letting the gap ahead open when the car in front sped up and close when it slowed. 'One car with a computer on the pedals' is that car. The driving advice (a big gap, a steady speed, don't copy the brakes ahead) is what that controller does; the film does not claim a human study.",
+      "claim": "In a later ring experiment (260 m, 21 to 22 cars, run by the University of Arizona, USA), one car whose speed was controlled by a computer (a human still steered) dampened the stop-and-go waves; one of its controllers simply estimated the average speed and drove at it, letting the gap ahead open when the car in front sped up and close when it slowed. 'One car with a computer on the pedals' is that car. The driving advice (a big gap, a steady speed, don't copy the brakes ahead) is what that controller does; the film does not claim a human study.",
       "source": "Stern et al., 'Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments', Transportation Research Part C 89 (2018) 205-221 (read in full, arXiv:1705.01693), sections 2.1 and 3.2."
     },
     {
@@ -5175,8 +5175,8 @@
         "f5"
       ],
       "teaches": "The slowdown passes back and grows.",
-      "screen": "Ring left, panel right: 'lowest speed, driver by driver', one bar per driver as the slowdown reaches them (sim.json 'dips'), each as tall as that driver's lowest speed, 30 km/h full height. The car whose bar is landing glows on the ring.",
-      "motion": "Model time runs at twice speed (tagged ×2); bars land one by one in time with the cars.",
+      "screen": "Ring left, panel right: 'Lowest speed, driver by driver', one bar per driver as the slowdown reaches them (sim.json 'dips'), each as tall as that driver's lowest speed, 30 km/h full height. The car whose bar is landing glows on the ring.",
+      "motion": "Model time runs about 1.8 times real time (tagged on screen, worked out so the easing-off lands on 'One' and the stop on 'stops'); bars land one by one in time with the cars.",
       "carries": "The chart.",
       "transition": "Continues into the next line, same picture.",
       "sound": "Soft ticks for bars, between words.",

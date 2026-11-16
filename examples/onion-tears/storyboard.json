@@ -504,7 +504,7 @@
         },
         {
           "at": 0.5,
-          "note": "'for weeks': the key light swings across it, day after day: its shadow turns on the board; a day count ticks at its true value.",
+          "note": "'for weeks': the key light swings across it, day after day: its highlights travel over the skin. Still nothing rises.",
           "draw": [
             {
               "path": "M200 880 L1720 880 L1760 950 L160 950 Z",
@@ -531,14 +531,6 @@
                 200,
                 200
               ]
-            },
-            {
-              "label": [
-                400,
-                300
-              ],
-              "text": "day 1 … day 21",
-              "size": 44
             },
             {
               "move": [
@@ -21104,7 +21096,7 @@
       "screen": "The eye's surface again (as in s13): a wave of blue tear water sweeps across it from the left, lifting the lime molecules and carrying them off to the right. The nerves go quiet. Chip 'washed away'.",
       "motion": "The wave crosses in 1.2 s on 'washing'; the molecules ride it out of the frame; the red in the nerves fades.",
       "carries": "The blue of water: the next picture is the knife test.",
-      "transition": "A vertical whip to the knife test.",
+      "transition": "A vertical whip to the knife test: the surface flies up, the blades come up from below.",
       "sound": "A soft wash of water, small, after 'itself'.",
       "check": "No lime molecule is left on the surface at the end.",
       "facts": [
@@ -21269,7 +21261,7 @@
       "voice": "And that's where your *knife* comes in.",
       "teaches": "Sets up the tip: a sharp and a blunt blade, which differ only in how rounded their tips are.",
       "screen": "Two blade tips side by side over a pink onion layer (a tough skin over soft cells): sharp on the left at x 520, blunt on the right at x 1400, tips drawn to scale with each other (radius 5.5 px and 80 px at 6 px a micrometre). Labels 'sharp · tip ≈ 0.9 µm' and 'blunt · tip ≈ 13 µm'. Small line at the bottom: 'blade tips to scale with each other · onion not to scale'.",
-      "motion": "The blades slide in from the top on 'And that's why'; the labels land on 'sharp knife'.",
+      "motion": "The blades arrive with a vertical whip from below as the eye's surface leaves upward; the labels land on 'knife'.",
       "carries": "The two blades, about to press.",
       "transition": "No cut: they press down.",
       "sound": "A short metallic shimmer as the blades land, between words.",

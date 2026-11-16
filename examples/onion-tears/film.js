@@ -51,6 +51,8 @@ const K = {
 };
 const M = {
   a: { sheet: 0, big: 0, juice: 0, react: 0, eye: 0, head: 0, face: 0, wisp: 0, knife: 0 },
+  dy: { eye: 0, knife: 0 },
+  link: 0,
   sheet: { z: 1, cx: 960, cy: 428, sulf: 0, alli: 0, cut: 0, blade: 0, bladeY: -200 },
   big: { z: 1, sulf: 0.2, alli: 0.2, barrier: 0, barrierRun: 0 },
   juice: { z: 1, cx: 960, cy: 540, walls: 1, mix: 0, crowd: 1, hero: 1, heroIn: 0, heroOut: 0, snip: 0, flash: 0, react: 0, acidX: 1060, acidY: 455 },
@@ -62,6 +64,8 @@ const M = {
   knife: { layerA: 1, bladeA: 1, dropA: 1, bars: 0, sharp: { x: 520, tipR: 5.5, tipY: -260, dent: 0, press: 0, broke: 0, spray: 0 }, blunt: { x: 1400, tipR: 80, tipY: -260, dent: 0, press: 0, broke: 0, spray: 0 } },
 };
 film.each((t) => {
+  // while the sheet zooms into (or out of) its centre cell, the big cell is that same cell: it follows the zoom
+  if (M.link > 0.5) M.big.z = M.sheet.z / 6.1;
   kitchen.render(K, t);
   micro.draw(M, t);
 });
@@ -81,11 +85,11 @@ film.scene("#names", 0, D);
 Object.assign(stage, { lx: 0.3, ly: 0.75, glow: 0.75, floor: 0, horizon: -0.32, r: 1, g: 0.7, b: 0.42 });
 film.scene("#s01", 0, s.s02.start + 0.25);
 const qLines = $$("#q .ln");
-gsap.set(qLines, { opacity: 0, y: 30, filter: "blur(10px)" });
-gsap.set(qLines[0], { opacity: 1, y: 0, filter: "blur(0px)" });
-[said("s01", "cutting"), said("s01", "make")].forEach((at, i) => tl.to(qLines[i + 1], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, at - 0.05));
+gsap.set(qLines, { opacity: 0, y: 30 });
+gsap.set(qLines[0], { opacity: 1, y: 0 });
+[said("s01", "cutting"), said("s01", "make")].forEach((at, i) => tl.to(qLines[i + 1], { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, at - 0.05));
 film.sheen("#q", said("s01", "cry?") + 0.15, 1.0);
-tl.to("#q", { x: -260, opacity: 0, filter: "blur(16px)", duration: 0.32, ease: "power3.in" }, s.s02.start - 0.1);
+tl.to("#q", { x: -320, opacity: 0, duration: 0.3, ease: "power3.in" }, s.s02.start - 0.12);
 // the knife: already moving at frame 0, through the onion on "onion", then lifted away
 const CUT = said("s01", "onion");
 to(K.knife, { y: -11.7 * 1.3 - 0.2 }, 0, CUT - 0.02, "power1.in");
@@ -135,9 +139,10 @@ to(M.sheet, { alli: 1 }, said("s03", "things") - 0.05, 0.3, "power2.out");
 // push into the centre cell; it becomes the big one
 const INTO = s.s04.start - 0.35;
 to(M.sheet, { z: 6.1 }, INTO - 0.25, 0.55, "power3.in");
-set(M.big, { z: 6.1 / 6.1 }, INTO);
-fade("big", 1, INTO + 0.12, 0.25);
-fade("sheet", 0, INTO + 0.2, 0.2);
+set(M, { link: 1 }, INTO - 0.26);
+set(M, { link: 0 }, INTO + 0.31);
+fade("big", 1, INTO + 0.1, 0.18);
+fade("sheet", 0, INTO + 0.22, 0.1);
 
 // ── s04: sulfur compounds on one side, an enzyme on the other ─────────────
 to(M.big, { sulf: 1 }, said("s04", "sulfur") - 0.05, 0.35, "power2.out");
@@ -148,13 +153,16 @@ film.show("#n-simpl", s.s04.start + 0.3, 0.3);
 film.hide("#n-simpl", s.s05.start - 0.4, 0.25);
 to(M.big, { barrier: 1 }, said("s04", "other.") - 0.35, 0.2, "power1.out");
 to(M.big, { barrierRun: 1 }, said("s04", "other.") - 0.35, 0.9, "none");
-to(M.big, { z: 1.05 }, s.s04.start, s.s04.dur - 0.3, "none");
+to(M.big, { z: 1.04 }, INTO + 0.3, s.s05.start - 0.3 - INTO - 0.3, "none");
 // pull back to the sheet
 const OUT = s.s05.start - 0.3;
 set(M.sheet, { z: 6.1, sulf: 1, alli: 1 }, OUT);
-fade("sheet", 1, OUT, 0.2);
-fade("big", 0, OUT + 0.08, 0.2);
+set(M.sheet, { z: 6.1 * 1.04 }, OUT);
+fade("sheet", 1, OUT, 0.08);
+fade("big", 0, OUT + 0.06, 0.12);
 to(M.sheet, { z: 1 }, OUT, 0.6, "expo.out");
+set(M, { link: 1 }, OUT);
+set(M, { link: 0 }, OUT + 0.62);
 
 // ── s05: the knife goes in, the cells burst ───────────────────────────────
 const BLADE = said("s05", "knife") - 0.1;
@@ -248,14 +256,15 @@ film.tintTo(COL.gas, said("s10", "gas.") - 0.2, 0.6);
 
 // ── s11: the gas, named ───────────────────────────────────────────────────
 const MOL = s.s11.start - 0.2;
-to(M.react, { gasA: 0, lfs: 0 }, MOL, 0.3, "power1.in");
-fade("juice", 0, MOL, 0.3);
+to(M.react, { lfs: 0 }, MOL - 0.15, 0.25, "power1.in");
+to(M.react, { gasA: 0 }, MOL + 0.1, 0.2, "power1.in");
+fade("juice", 0, MOL - 0.15, 0.3);
 set(M.a, { react: 0 }, MOL + 0.32);
 set(K, { vis: 1, board: 0 }, MOL);
 set(K.onion, { vis: 0 }, MOL);
 set(K.cam, { x: 0, y: 0, z: 100, tx: 0, ty: 0, tz: 0 }, MOL);
 set(K.mol, { vis: 1, x: 33.8, y: 14.4, s: 0.08, glow: 1, turn: -0.5 }, MOL);
-to(K.mol, { x: 0, y: 9, s: 0.62 }, MOL, 0.75, "expo.out");
+to(K.mol, { x: 0, y: 11, s: 0.56 }, MOL + 0.05, 0.75, "expo.out");
 to(K.mol, { turn: 0.9 }, MOL, s.s11.dur + 0.4, "sine.inOut");
 to(K.cam, { x: 10 }, MOL, s.s11.dur + 0.2, "sine.inOut");
 film.scene("#molname", s.s11.start, s.s12.start);
@@ -285,19 +294,19 @@ to(M.face, { ring: 1 }, said("s12", "face.") - 0.1, 0.9, "power2.out");
 to(M.face, { squint: 1 }, said("s12", "face.") - 0.05, 0.4, "power2.out");
 to(K.cam, { z: 96 }, S12, s.s12.dur, "none");
 // the dive into the eye
-const EYEIN = s.s13.start - 0.2;
-to(M.face, { s: 4, ex: 960, ey: 420 }, EYEIN - 0.2, 0.45, "power3.in");
-to(M.wisp, { a: 0 }, EYEIN - 0.2, 0.3);
-to(K, { vis: 0 }, EYEIN - 0.25, 0.25);
-fade("face", 0, EYEIN + 0.1, 0.2);
-set(M.a, { wisp: 0 }, EYEIN + 0.3);
+const EYEIN = s.s13.start - 0.12;
+to(M.face, { s: 5, ex: 960, ey: 480 }, EYEIN - 0.4, 0.4, "power3.in");
+blurMicro(EYEIN - 0.25, 0.5, 0, 0.01);
+to(M.wisp, { a: 0 }, EYEIN - 0.4, 0.3);
+to(K, { vis: 0 }, EYEIN - 0.4, 0.25);
+set(M.a, { face: 0, wisp: 0 }, EYEIN);
 
 // ── s13: on your eye, it sets off the nerves that sense pain ──────────────
 film.tintTo("#7cc4ff", EYEIN, 0.6);
 set(M.eye, { z: 1.8, ox: 960, oy: 420 }, EYEIN);
-fade("eye", 1, EYEIN, 0.3);
+set(M.a, { eye: 1 }, EYEIN);
 to(M.eye, { z: 1 }, EYEIN, 0.75, "expo.out");
-chip("#c-surface", s.s13.start + 0.25, s.s14b.start - 0.3);
+chip("#c-surface", s.s13.start + 0.25, s.s14b.start - 0.5);
 {
   // gas molecules land on the nerve endings one after another, from "sets off"
   const order = [3, 2, 4, 1, 5, 0, 6];
@@ -312,62 +321,64 @@ chip("#c-surface", s.s13.start + 0.25, s.s14b.start - 0.3);
     to(M.eye.run, { [i]: 1 }, land + 0.95, 0.9, "power1.in");
   });
 }
-chip("#c-pain", said("s13", "pain."), s.s14b.start - 0.25);
+chip("#c-pain", said("s13", "pain."), s.s14b.start - 0.45);
 film.tintTo(COL.nerve, said("s13", "sets"), 0.8);
 
 // ── s14b: the signal in to the brain, and out to the tear gland ───────────
-const HEAD = s.s14b.start - 0.25;
-to(M.eye, { z: 0.08, ox: 620, oy: 470 }, HEAD - 0.1, 0.5, "power3.in");
-fade("eye", 0, HEAD + 0.15, 0.25);
-set(M.head, { z: 2.4 }, HEAD);
-fade("head", 1, HEAD + 0.05, 0.3);
-to(M.head, { z: 1 }, HEAD + 0.05, 0.7, "expo.out");
+const HEAD = s.s14b.start - 0.1;
+to(M.eye, { z: 0.35, ox: 620, oy: 470 }, HEAD - 0.3, 0.3, "power3.in");
+set(M.a, { eye: 0, head: 1 }, HEAD);
+set(M.head, { z: 2.6 }, HEAD);
+to(M.head, { z: 1 }, HEAD, 0.7, "expo.out");
 to(M.head, { inK: 1 }, said("s14b", "they") + 0.05, said("s14b", "brain,") + 0.05 - said("s14b", "they"), "power1.inOut");
 to(M.head, { stem: 1 }, said("s14b", "brain,"), 0.3, "power2.out");
-chip("#c-brain", said("s14b", "brain,"), s.s16.start - 0.2);
+chip("#c-brain", said("s14b", "brain,"), s.s16.start - 0.45);
 to(M.head, { inA: 0.45, stem: 0.4 }, said("s14b", "tells") - 0.1, 0.4);
 to(M.head, { outK: 1 }, said("s14b", "tells") - 0.05, said("s14b", "glands") - said("s14b", "tells") + 0.05, "power1.inOut");
 to(M.head, { gland: 1 }, said("s14b", "glands"), 0.3, "power2.out");
-chip("#c-gland", said("s14b", "glands"), s.s16.start - 0.2);
+chip("#c-gland", said("s14b", "glands"), s.s16.start - 0.45);
 film.tintTo(COL.tear, said("s14b", "tells"), 0.8);
 to(M.head, { tear: 1.7 }, said("s14b", "flush") - 0.1, s.s16.start - said("s14b", "flush") + 0.1, "power1.in");
 
 // ── s16: those tears aren't sadness ───────────────────────────────────────
 const S16 = s.s16.start;
-fade("head", 0, S16 - 0.15, 0.25);
-set(M.face, { s: 1.75, ex: 1180, ey: 400, squint: 0.6, ring: 0, tear: 0.15 }, S16 - 0.15);
-fade("face", 1, S16 - 0.15, 0.3);
+to(M.head, { z: 1.25 }, S16 - 0.3, 0.25, "power3.in");
+set(M.a, { head: 0, face: 1 }, S16 - 0.06);
+set(M.face, { s: 1.75, ex: 1180, ey: 400, squint: 0.6, ring: 0, tear: 0.15 }, S16 - 0.06);
 to(M.face, { tear: 1.45, s: 1.85 }, S16 - 0.1, s.s16.dur + 0.1, "none");
-film.scene("#sad", S16, s.s17.start);
+film.scene("#sad", S16, s.s17.start - 0.4);
 film.pop("#sadword", S16 + 0.1);
 tl.to("#strike", { scaleX: 1, duration: 0.3, ease: "power2.out" }, said("s16", "aren't"));
 tl.to("#sadword", { opacity: 0.45, duration: 0.4 }, said("s16", "sadness.") + 0.2);
 
 // ── s17: your eye washing itself ──────────────────────────────────────────
 const WASH = s.s17.start - 0.15;
-to(M.face, { s: 4.2, ex: 960, ey: 470 }, WASH - 0.25, 0.4, "power3.in");
-fade("face", 0, WASH + 0.05, 0.2);
+to(M.face, { s: 5, ex: 960, ey: 480 }, WASH - 0.3, 0.3, "power3.in");
+blurMicro(WASH - 0.2, 0.4, 0, 0.01);
+set(M.a, { face: 0 }, WASH);
 // the same surface: every molecule landed, the nerves still firing
 set(M.eye, { z: 1.6, ox: 960, oy: 420, wash: 0, molA: 1 }, WASH);
 set(M.eye.fire, { 0: 0.8, 1: 0.8, 2: 0.8, 3: 0.8, 4: 0.8, 5: 0.8, 6: 0.8 }, WASH);
 set(M.eye.run, { 0: 0.2, 1: 0.5, 2: 0.8, 3: 0.35, 4: 0.6, 5: 0.1, 6: 0.7 }, WASH);
-fade("eye", 1, WASH, 0.25);
+set(M.a, { eye: 1 }, WASH);
 to(M.eye, { z: 1 }, WASH, 0.6, "expo.out");
 to(M.eye.run, { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }, WASH, 0.9, "none");
 to(M.eye, { wash: 1 }, said("s17", "washing") - 0.25, 1.3, "power1.inOut");
 to(M.eye.fire, { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }, said("s17", "washing"), 1.0, "power1.inOut");
-chip("#c-washed", said("s17", "itself.") - 0.1, s.s18.start - 0.2);
+chip("#c-washed", said("s17", "itself.") - 0.1, s.s18.start - 0.5);
 
 // ── s18: and that's where your knife comes in ─────────────────────────────
 const KN = s.s18.start - 0.12;
-fade("eye", 0, KN - 0.1, 0.2);
-blurMicro(KN - 0.2, 0.45, 0, 40);
-tl.to(stage, { camy: "+=3", duration: 0.55, ease: "power3.inOut" }, KN - 0.25);
+to(M.dy, { eye: -900 }, KN - 0.3, 0.3, "power3.in");
+set(M.a, { eye: 0, knife: 1 }, KN);
+set(M.dy, { knife: 760 }, KN);
+to(M.dy, { knife: 0 }, KN, 0.5, "expo.out");
+blurMicro(KN - 0.26, 0.56, 0, 50);
+tl.to(stage, { camy: "+=3", duration: 0.6, ease: "power3.inOut" }, KN - 0.3);
 film.tintTo("#d8e4ff", KN, 0.6);
-fade("knife", 1, KN, 0.3);
 film.scene("#knifetest", KN, s.s21.start + 0.3);
-to(M.knife.sharp, { tipY: 380 }, KN + 0.05, 0.7, "expo.out");
-to(M.knife.blunt, { tipY: 380 }, KN + 0.12, 0.7, "expo.out");
+set(M.knife.sharp, { tipY: 380 }, KN);
+set(M.knife.blunt, { tipY: 380 }, KN);
 chip("#c-sharp", s.s18.start + 0.2, s.s20.start + 0.4);
 chip("#c-blunt", s.s18.start + 0.3, s.s20.start + 0.4);
 film.show("#n-scale", s.s18.start + 0.5, 0.35);
@@ -406,25 +417,27 @@ tl.to("#knifetest", { scale: 1.03, duration: s.s20.dur, ease: "none", transformO
 
 // ── s21: the recap ────────────────────────────────────────────────────────
 const RC = s.s21.start - 0.1;
-fade("knife", 0, RC - 0.1, 0.3);
-tl.to("#knifetest", { autoAlpha: 0, duration: 0.3 }, RC - 0.1);
+to(M.dy, { knife: 900 }, RC - 0.3, 0.35, "power3.in");
+tl.to("#knifetest", { y: 1150, duration: 0.35, ease: "power3.in" }, RC - 0.3);
+set(M.a, { knife: 0 }, RC + 0.06);
+blurMicro(RC - 0.25, 0.5, 0, 40);
 film.tintTo(COL.gas, RC, 0.8);
 film.scene("#recap", RC, s.s22.start + 0.4);
 const cards = $$(".rcard");
 gsap.set(cards, { opacity: 0, y: 120, scale: 0.92 });
-tl.to(cards, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out", stagger: 0.2 }, RC + 0.05);
+tl.to(cards, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out", stagger: 0.18 }, RC + 0.02);
 tl.to("#recap", { scale: 1.03, duration: s.s21.dur + 0.4, ease: "none" }, RC);
-tl.to(cards, { y: -90, opacity: 0, duration: 0.35, ease: "power2.in", stagger: 0.05 }, s.s22.start - 0.25);
+tl.to(cards, { y: -700, duration: 0.3, ease: "power3.in", stagger: 0.03 }, s.s22.start - 0.32);
 
 // ── s22, s23: the poster ──────────────────────────────────────────────────
 const PO = s.s22.start - 0.05;
-set(K, { vis: 1, front: 1, whole: 0, board: 1 }, PO);
+set(K, { vis: 0, front: 1, whole: 0, board: 1 }, PO);
 set(K.onion, { vis: 1, x: 25, y: 0, z: 0, s: 1.05, turn: 0.32 }, PO);
 set(K.boardPos, { x: 52, y: BOARD_Y - 0.6, z: 0 }, PO);
 set(K.cam, { x: 0, y: 14, z: 104, tx: 2, ty: -2, tz: 0 }, PO);
 set(K.knife, { vis: 1, x: 30, y: -12.1, z: 18, rx: -Math.PI / 2, ry: Math.PI + 0.18, rz: 0 }, PO);
 to(K.cam, { z: 98 }, PO, D - PO, "none");
-tl.fromTo(K, { vis: 0 }, { vis: 1, duration: 0.45, ease: "power1.out", immediateRender: false }, PO);
+tl.fromTo(K, { vis: 0 }, { vis: 1, duration: 0.3, ease: "power1.out", immediateRender: false }, PO + 0.05);
 film.tintTo("#ffb36b", PO, 0.8);
 set(M.wisp, { a: 0.7, x0: 1350, y0: 560, x1: 1380, y1: 80, bend: 50, life: 2.6, rate: 0.5, spread: 140, scale: 0.9, t0: PO - 2 }, PO);
 set(M.a, { wisp: 1 }, PO);

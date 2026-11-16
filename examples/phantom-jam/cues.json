@@ -1,6 +1,14 @@
 {
-  "music": { "file": "lib/music/xceed_thru_johann.mp3", "start": 0.679, "lufs": -18, "fade_in": 0.01, "fade_out": 2.4, "duck_db": -6 },
+  "music": {"fade_out": 0.3, "file": "../../examples/phantom-jam/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "duck_db": -6, "ride": [[0, 4], [35.6, 4], [37.9, -5], [76.9, -5], [77.4, 4], [78.0, 14], [78.6, 22], [79.37, 28]], "note": "Composed for this film (ElevenLabs Music, prompt in music/bed.json). It steps up about 9 dB at 37.9 s and its last chord dies from 77 s: ridden level, and the decay lifted so it rings to the last frame."},
   "events": [
-    { "t": 1.75, "file": "lib/sfx/shimmer_1.mp3", "db": -18, "align": "peak", "note": "light crosses the title" }
+    {"t": 2.68, "file": "lib/sfx/whoosh_fast_2.mp3", "db": -14, "align": "peak", "note": "the camera flies along the queue"},
+    {"t": 8.3, "file": "lib/sfx/sub_drop_2.mp3", "db": -8, "align": "peak", "duck": 0.6, "note": "THE TURN: before 'Here's the surprise'"},
+    {"t": 14.219, "file": "lib/sfx/whoosh_long_1.mp3", "db": -16, "align": "peak", "trim": [0, 2.0], "fade": 0.8, "note": "the road curls into the ring"},
+    {"t": 26.89, "file": "lib/sfx/impact_big_2.mp3", "db": -11, "align": "peak", "duck": 0.5, "trim": [0, 1.4], "fade": 0.8, "note": "a few minutes later: the jam (on the flash, just before 'Within')"},
+    {"t": 40.41, "file": "lib/sfx/impact_big_3.mp3", "db": -12, "align": "peak", "duck": 0.5, "trim": [0, 1.2], "fade": 0.7, "note": "a car has stopped: the cut to the whole jam"},
+    {"t": 55.04, "file": "lib/sfx/alert_1.mp3", "db": -14, "align": "peak", "note": "tailgating crossed out"},
+    {"t": 65.14, "file": "lib/sfx/success_3.mp3", "db": -13, "align": "peak", "note": "the wave stops with you"},
+    {"t": 70.32, "file": "lib/sfx/shimmer_2.mp3", "db": -15, "align": "peak", "note": "the last brake lights go out"},
+    {"t": 76.72, "file": "lib/sfx/impact_big_1.mp3", "db": -9, "align": "peak", "duck": 0.8, "trim": [0, 1.6], "fade": 1.0, "note": "THE PAYOFF: the poster"}
   ]
 }

@@ -951,6 +951,7 @@ export function createMicro(canvas) {
         if (A[name] <= 0.001) return;
         g.save();
         g.globalAlpha = A[name];
+        if (M.dy?.[name]) g.translate(0, M.dy[name]);
         fn(S, t);
         g.restore();
       };
