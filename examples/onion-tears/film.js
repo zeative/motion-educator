@@ -102,7 +102,8 @@ to(K.cam, { z: 93, y: 39 }, 0, s.s02.start, "none");
 set(M.a, { wisp: 1 }, 0);
 set(M.wisp, { a: 1, t0: CUT + 0.1, x0: 1340, y0: 330, x1: 1330, y1: -120, bend: 70, life: 2.4, spread: 240, scale: 1 }, 0);
 to(M.wisp, { rate: 0.7 }, CUT + 0.15, 1.2, "power1.in");
-film.hit(CUT, 0.25, 0.25);
+tl.set(stage, { pr: 0, ps: 0.25 }, CUT);
+tl.to(stage, { pr: 1.7, ps: 0, duration: 1.1, ease: "power2.out" }, CUT + 0.02);
 
 // ── s02: a whole onion does nothing ───────────────────────────────────────
 const S2 = s.s02.start;
@@ -230,7 +231,9 @@ tl.to("#oldcard", { rotationX: 90, autoAlpha: 0, duration: 0.3, ease: "power2.in
 set(M.react, { lfs: 1 }, THEN - 0.05);
 to(M.react, { lfsX: 1320 }, THEN - 0.05, 0.7, "expo.out");
 blurMicro(THEN - 0.05, 0.4, 50, 0);
-film.hit(THEN + 0.1, 0.35, 0.5);
+// a ring of light on the stage, no white flash over the picture
+tl.set(stage, { pr: 0, ps: 0.45 }, THEN + 0.1);
+tl.to(stage, { pr: 1.7, ps: 0, duration: 1.1, ease: "power2.out" }, THEN + 0.12);
 film.tintTo(COL.lfs, THEN, 0.6);
 film.land("#citecard", said("s09", "two") - 0.05);
 chip("#c-second", said("s09", "second"), s.s10.start + 0.6);
@@ -239,7 +242,7 @@ to(M.react, { lfsRot: 0.18 }, THEN + 0.7, 3, "sine.inOut");
 // ── s10: whose whole job is making that gas ───────────────────────────────
 const IN10 = said("s10", "whole");
 to(M.react, { acidX: 1188, acidY: 520, acidR: 62, shake: 0.4 }, IN10 - 0.1, 0.65, "power2.inOut");
-chip("#c-lfs", said("s10", "whole") + 0.05, s.s11.start - 0.15);
+chip("#c-lfs", s.s10.start + 0.65, s.s11.start - 0.15);
 film.hide("#citecard", s.s11.start - 0.4, 0.3);
 const MAKE = said("s10", "making") - 0.05;
 to(M.react, { flash: 1 }, MAKE, 0.06, "none");
@@ -283,7 +286,7 @@ set(K.mol, { vis: 0 }, PULL + 0.25);
 // ── s12: it evaporates and drifts to your face ────────────────────────────
 // The kitchen from the side: the cut onion small at lower left (its face toward the camera), a face at the right.
 const S12 = s.s12.start;
-set(K, { front: 1, whole: 0, board: 1 }, PULL + 0.2);
+set(K, { front: 1, whole: 0, board: 1, sun: 0 }, PULL + 0.2);
 set(K.onion, { vis: 1, x: -25, y: -4, s: 0.55, turn: 0.35 }, PULL + 0.2);
 set(K.boardPos, { x: -30, y: -4 - 11.7 * 0.55 - 2, z: -10 }, PULL + 0.2);
 set(K.cam, { x: 0, y: 6, z: 100, tx: 0, ty: 0, tz: 0 }, PULL + 0.2);
@@ -406,7 +409,8 @@ set(M.knife.blunt, { broke: 1 }, SPLIT);
 to(M.knife.blunt, { dent: 0, press: 0 }, SPLIT, 0.16, "power2.out");
 to(M.knife.blunt, { tipY: 760 }, SPLIT, 0.5, "power2.out");
 to(M.knife.blunt, { spray: 0.55 }, SPLIT, 0.55, "none");
-film.hit(SPLIT, 0.2, 0.3);
+tl.set(stage, { pr: 0, ps: 0.3 }, SPLIT);
+tl.to(stage, { pr: 1.7, ps: 0, duration: 1.1, ease: "power2.out" }, SPLIT + 0.02);
 
 // ── s20: up to forty times more droplets ──────────────────────────────────
 to(M.knife, { bladeA: 0, layerA: 0.35 }, said("s20", "test,") - 0.1, 0.5, "power1.inOut");
@@ -434,7 +438,7 @@ tl.to(cards, { y: -700, duration: 0.3, ease: "power3.in", stagger: 0.03 }, s.s22
 
 // ── s22, s23: the poster ──────────────────────────────────────────────────
 const PO = s.s22.start - 0.05;
-set(K, { vis: 0, front: 1, whole: 0, board: 1 }, PO);
+set(K, { vis: 0, front: 1, whole: 0, board: 1, sun: 3 }, PO);
 set(K.onion, { vis: 1, x: 25, y: 0, z: 0, s: 1.05, turn: 0.32 }, PO);
 set(K.boardPos, { x: 52, y: BOARD_Y - 0.6, z: 0 }, PO);
 set(K.cam, { x: 0, y: 14, z: 104, tx: 2, ty: -2, tz: 0 }, PO);
