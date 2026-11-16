@@ -113,6 +113,21 @@ three shots of the same kind in a row. Full standard: [`references/storyboard.md
 git clone https://github.com/zeative/motion-educator ~/.claude/skills/motion-educator
 ```
 
+It is a plain [Agent Skills](https://agentskills.io) folder (`SKILL.md`, `references/`, a Node kit), so any agent
+that reads skills can use it. Clone it into the folder yours looks in:
+
+| Agent | For you (all projects) | For one project |
+| --- | --- | --- |
+| Claude Code | `~/.claude/skills/motion-educator` | `.claude/skills/motion-educator` |
+| OpenAI Codex | `~/.agents/skills/motion-educator` | `.agents/skills/motion-educator` |
+| Gemini CLI | `~/.gemini/skills/motion-educator` | `.gemini/skills/motion-educator` |
+| GitHub Copilot (CLI, cloud agent, VS Code agent mode) | `~/.copilot/skills/motion-educator` | `.github/skills/motion-educator` |
+| Cursor | reads `~/.claude/skills` and `~/.codex/skills` | `.cursor/skills/motion-educator` |
+
+An agent without skill support can still follow it: clone it anywhere and tell it to read `SKILL.md` there first.
+What the agent needs: a shell to run Node, FFmpeg and Python, and the ability to look at images, since it checks its
+own stills and contact sheets. Every film in this repository was made with Claude Code; the others are untested here.
+
 Then ask your agent for a film:
 
 > Make a 45-second explainer on why the Moon always shows us the same face. Portrait, English, with narration.
