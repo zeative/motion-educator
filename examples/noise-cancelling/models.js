@@ -66,11 +66,11 @@ export function createModels(space, P) {
   // The bust: matte clay, the way headphones are shown in product photography (no skin tone, no hair), with a fine
   // cast-clay grain. Its cut section is a paler clay, hatched.
   const grain = P.texture(P.normalFrom(P.noise(512, 90, 77, 2), 1.2), { repeat: 5 });
-  const skinMat = (color = 0xd8d1c4) => {
+  const skinMat = (color = 0x8e8b86) => {
     const m = M.plastic(color, { rough: 0.82 });
     m.normalMap = grain;
     m.normalScale = new THREE.Vector2(0.18, 0.18);
-    m.userData.cut = 0xb9b0a1;
+    m.userData.cut = 0xc9c5bd;
     return m;
   };
 
@@ -550,7 +550,7 @@ export function createModels(space, P) {
     for (let i = 0; i < ix.length; i += 3) if (!(under(ix[i]) && under(ix[i + 1]) && under(ix[i + 2]))) keepSkin.push(ix[i], ix[i + 1], ix[i + 2]);
     sphere.setIndex(keepSkin);
   }
-  const skin = P.mesh(sphere, skinMat(0xc58d70), "skin");
+  const skin = P.mesh(sphere, skinMat(), "skin");
   head.add(skin);
 
   // Hair shell: the same surface pushed out where the mask says hair, its edge dithered to strands.
@@ -634,9 +634,9 @@ export function createModels(space, P) {
     const a = ((ccw ? -i : i) / 64) * Math.PI * 2;
     mouth.push([0.5 + 5.8 * Math.cos(a), 0.3 + 5.8 * Math.sin(a)]);
   }
-  const DEPTH = 3.2;
+  const DEPTH = 1.4;
   const BACK = -6; // the body's front cap sits under the relief, which rolls down to it at the rim
-  const body = P.mesh(extrude(svgOf(insetPts) + " " + svgOf(mouth), DEPTH, { bevel: BEVEL, curveSegments: 6 }), skinMat(0xc58d70), "pinna body");
+  const body = P.mesh(extrude(svgOf(insetPts) + " " + svgOf(mouth), DEPTH, { bevel: BEVEL, curveSegments: 6 }), skinMat(), "pinna body");
   body.position.z = BACK - DEPTH - BEVEL;
   const CAP = 0;
   const conchaC = [7, -1.5];
@@ -692,7 +692,7 @@ export function createModels(space, P) {
     // the lobe: soft and full
     h += 2.4 * Math.exp(-(((x - 7) / 6) ** 2 + ((y + 22) / 5) ** 2));
     // the rim curls back to the body at the edge
-    return h * smooth(0, 1.6, d) + BACK * (1 - smooth(0, 2.4, d));
+    return h * smooth(0, 1.6, d) + (BACK - 1.8) * (1 - smooth(0, 2.4, d)); // the edge tucks under the body's cap
   };
   // A grid laid over the cap, raised by the relief; the cells round the canal's mouth are left open.
   const STEP = 0.42;
@@ -731,7 +731,7 @@ export function createModels(space, P) {
   reliefGeo.setAttribute("uv", new THREE.Float32BufferAttribute(ruv, 2));
   reliefGeo.setIndex(rid);
   reliefGeo.computeVertexNormals();
-  const earSkin = skinMat(0xc58d70);
+  const earSkin = skinMat();
   const reliefMesh = P.mesh(reliefGeo, earSkin, "pinna relief");
   earSkin.userData.thin = true;
   // A short funnel from the concha's floor into the canal.
@@ -773,12 +773,12 @@ export function createModels(space, P) {
     for (let i = 0; i < ix.length; i += 3) [ix[i + 1], ix[i + 2]] = [ix[i + 2], ix[i + 1]];
     canalGeo.computeVertexNormals();
   }
-  const canalMat = skinMat(0xb8705a);
+  const canalMat = skinMat();
   canalMat.color = new THREE.Color(0x17383d);
   canalMat.emissive = new THREE.Color(0x0e5866);
   canalMat.emissiveIntensity = 0.9;
   canalMat.roughness = 0.4;
-  canalMat.userData.cut = 0xb9b0a1;
+  canalMat.userData.cut = 0xc9c5bd;
   const canal = P.mesh(canalGeo, canalMat, "ear canal");
   head.add(canal);
   // The eardrum: a thin, pearly, slightly conical membrane set at a slant, with the malleus handle showing through.

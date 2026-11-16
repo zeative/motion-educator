@@ -414,13 +414,13 @@ tint(T("s02"), WARM, 0.7);
 
 // s03: inside the air.
 snap(T("s03"), { head: 1 });
-place(T("s03"), { az: 186, el: 6, dist: 300, tx: FIELD.x - 8, ty: FIELD.y, tz: FIELD.z, fov: 26, sway: 0.6 });
+place(T("s03"), { az: 198, el: 6, dist: 320, tx: 152, ty: FIELD.y, tz: FIELD.z, fov: 26, sway: 0.6 });
 snap(T("s03"), { fabricGlow: 0, desk: 0 });
 on(air, T("s03"), T("s05") + 0.6, { fade: 0.3 });
-move(T("s03"), s.s03.dur, { tx: FIELD.x - 18, dist: 330, az: 182 }, "power1.inOut");
+move(T("s03"), s.s03.dur, { tx: 148, dist: 340, az: 194 }, "power1.inOut");
 go(T("s03"), { slowNote: 1 }, 0.4);
 // s04: the line draws; pull back to the head.
-move(T("s04"), 2.1, { dist: 400, az: 178, el: 8, fov: 28, tx: FIELD.x - 30 }, "power2.inOut");
+move(T("s04"), 2.1, { dist: 420, az: 190, el: 8, fov: 28, tx: 150 }, "power2.inOut");
 tl.to(set.state, { lamps: 0.3, duration: 0.3 }, T("s03"));
 tl.to(set.state, { lamps: 1, duration: 0.6 }, T("s04", 0.6));
 on(fieldWave, at("s04", "air"), T("s05") - 0.2, { fade: 0.2 });
@@ -469,9 +469,9 @@ go(T("s07", 0.9), { chipGlow: 0 }, 0.4);
 // s08: the cup opens along its axis; close on the driver; it plays the flipped wave toward the ear.
 go(T("s08") - 0.1, { lift: 0, open: 1 }, 1.1, "power2.inOut");
 const DRV_C = cupW(0, 2, 28 + 78);
-const EAR_DRV = A.ear.clone().lerp(DRV_OPEN, 0.42).add(V(0, 4, -6));
-move(T("s08"), 1.0, { az: 128, el: 14, dist: 250, tx: EAR_DRV.x, ty: EAR_DRV.y, tz: EAR_DRV.z, fov: 26, blur: 0 }, "power2.inOut");
-move(T("s08") + 1.0, s.s08.dur - 1.0, { az: 120, el: 10, dist: 225 }, "power1.inOut");
+const EAR_DRV = A.ear.clone().lerp(DRV_OPEN, 0.5).add(V(0, 4, -6));
+move(T("s08"), 1.0, { az: 26, el: 14, dist: 430, tx: EAR_DRV.x, ty: EAR_DRV.y, tz: EAR_DRV.z, fov: 26, blur: 0 }, "power2.inOut");
+move(T("s08") + 1.0, s.s08.dur - 1.0, { az: 34, el: 10, dist: 380 }, "power1.inOut");
 go(T("s06"), { scope: 0 }, 0.3);
 go(T("s09"), { scope: 1 }, 0.3);
 showPin(pins.driver, at("s08", "speaker") - 0.05, T("s09") + 0.1);
@@ -929,7 +929,7 @@ film.each((t) => {
   void live;
 });
 const shade = Object.assign(document.createElement("div"), { id: "topshade" });
-$("#root").insertBefore(shade, $("#captions"));
+$("#space").after(shade);
 const tag = Object.assign(document.createElement("p"), { id: "illus", className: "tag", textContent: "ILLUSTRATIVE CUTAWAY · NOT TO SCALE" });
 $("#root").insertBefore(tag, $("#captions"));
 film.each(() => {
@@ -964,6 +964,7 @@ film.each((t) => {
   }
   // the parts' poses
   for (const m of moving) m.o.position.copy(m.base).addScaledVector(m.open, S.open).addScaledVector(m.lift, S.lift);
+  Mo.fabric.visible = !(S.open > 0.05 && S.tower < 0.5); // out of the way while the driver plays to the ear
   Mo.setCone(S.cone * 0.9 * Math.sin(TAU * 1.6 * t));
   glowMats.fabric.emissive.setRGB(0.05 * S.fabricGlow, 0.5 * S.fabricGlow, 0.62 * S.fabricGlow);
   glowMats.chip.emissive.setRGB(0.04 * S.chipGlow, 0.55 * S.chipGlow, 0.7 * S.chipGlow);
@@ -973,6 +974,8 @@ film.each((t) => {
   cutC.constant = S.cutC;
   const cutting = S.cut < 1e4 || S.cutC < 1e4;
   cutaway.active(cutting);
+  // the canal glows in the accent colour only when it is cut open
+  Mo.canal.material.emissiveIntensity = S.cut < 1e4 ? 0.9 : 0;
   // what lies wholly above the level cut is not drawn at all
   const above = S.cut < 1e4;
   Mo.slider.visible = !above;

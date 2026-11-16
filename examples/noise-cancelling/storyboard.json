@@ -56,7 +56,7 @@
     },
     {
       "id": "f6",
-      "claim": "If a tone's flipped copy is late by d, what is left is 2 sin(pi f d) of the tone. With an example delay d = 1/30,000 s (0.033 ms): 100 Hz leaves 2.1% (shown 2%), 5,000 Hz leaves 100% (2 sin 30°). Both charts show the same 10 ms of time: 1 cycle of the hum, 50 of the squeak; the squeak's magnifier is marked ×20. 'Late' is drawn to the right on a time axis. The delay is an illustration, not a measured figure for any headphone.",
+      "claim": "If a tone's flipped copy is late by d, what is left is 2 sin(pi f d) of the tone. With an example delay d = 1/30,000 s (0.033 ms): 100 Hz leaves 2.1% (shown 2%), 5,000 Hz leaves 100% (2 sin 30°). Both charts show the same 10 ms of time: 1 cycle of the hum, 50 of the squeak; the squeak's magnifier is marked ×10 (0.4 ms across the lens). 'Late' is drawn to the right on a time axis. The delay is an illustration, not a measured figure for any headphone.",
       "source": "Arithmetic (sum of two equal sine waves with a phase difference of 2 pi f d)."
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "id": "f8",
-      "claim": "The to-scale views put the head (about 15 cm across), the 100 Hz wave (3.43 m) and the 5,000 Hz wave (6.86 cm) in the same scene at 1 unit = 1 mm, with the 9.4 cm tall ear cup. Seen from above at 4.3 m with a 30 degree lens, the frame is about 2.3 m tall, so one 3.43 m wave runs past the top of the frame: the ruler is drawn on the part that shows and labelled with the full length.",
+      "claim": "The to-scale views put the head (about 15 cm across), the 100 Hz wave (3.43 m) and the 5,000 Hz wave (6.86 cm) in the same scene at 1 unit = 1 mm, with the 9.4 cm tall ear cup. Seen from straight above at 7.4 m with a 30 degree lens, the frame is 2 x 7.4 x tan 15° = 4.0 m tall, so one whole 3.43 m wave fits beside the head (about 70 px across) with its ruler.",
       "source": "Arithmetic from f4; head breadth about 15 cm (typical adult); the cup's size is the model's (f9)."
     },
     {
@@ -1222,8 +1222,8 @@
         "f9"
       ],
       "teaches": "The speaker (the driver) plays the flipped wave into the ear.",
-      "screen": "The cup opened along its axis, seen from where the ear is, through the cushion's ring: the driver moved out from the cushion, its cone, surround and copper coil, the board and shell further out. The cone pushes and pulls; cyan motes and a cyan wave leave it toward the viewer, which is toward the ear. A pin '40 mm driver' and a ruler '40 mm' across its face.",
-      "camera": "Swing round to the ear side of the opened cup (the head is out of the way for this shot): from over the board to az -70, el 12, 165 mm, then a slow push to az -78, el 8, 140 mm, looking out through the cushion's ring at the driver's face; fov 24; no depth of field (the cyan light must stay sharp).",
+      "screen": "The whole cup opened along its axis, out from the bust: the clay ear uncovered on the left, the cushion, the fabric, the driver, the board and the shell in a row going right. The driver's cone pushes and pulls; cyan motes and a cyan wave leave it and travel into the ear. Pins '40 mm driver' and 'your ear', a ruler '40 mm' across the driver.",
+      "camera": "Pull back and swing round to the front right of the bust as the cup opens: from over the board out to the front right of the bust, az 26, el 14, 430 mm, then a slow push to az 34, el 10, 380 mm, framing the ear and the driver together; fov 26; no depth of field (the cyan light must stay sharp).",
       "motion": "The parts slide apart along the cup's axis; the camera closes on the driver; the cone moves with the cyan wave; the bands travel to the ear.",
       "carries": "The cyan wave travelling to the ear.",
       "transition": "The parts slide back together and the scene is cut open from above.",
@@ -1936,7 +1936,7 @@
       ],
       "teaches": "A steady low hum is easy to cancel.",
       "screen": "The head and headphone whole, from behind and to the side, on the set; the light amber and slow. One huge swell of pressure passes over the whole head at once. A pin '100 Hz hum'. The camera cranes up; the glowing hum, metres long, comes into view lying across the set. On 'easy' the cups glow cyan for a beat.",
-      "camera": "Pull back and crane: from az 125, el 14, 700 mm (fov 30) to straight down from above (el 88) at 4,300 mm, the frame turned so the wave runs up it; target the head; no depth of field.",
+      "camera": "Pull back and crane: from az 125, el 14, 700 mm (fov 30) to straight down from above (el 88) at 7,400 mm, the frame turned so the wave runs up it; target the head; no depth of field.",
       "motion": "The crane is the main move (3 s, power2.inOut); the swell travels slowly past; the cups' cyan glow pulses once on 'easy'.",
       "carries": "The head seen from above and the long wave beside it.",
       "transition": "No cut: the ruler draws beside the wave.",
@@ -2053,8 +2053,8 @@
         "f8"
       ],
       "teaches": "The hum's waves are metres long and repeat.",
-      "screen": "Straight down from above, to scale: the head with its headphone a small shape near the bottom (about 70 px), the hum's wave running up the frame past it, one cycle about 1,650 px. A ruler beside one whole wave: '≈ 3.4 m'. A note 'to scale'.",
-      "camera": "Held high above (el 88, 4,300 mm, fov 30), drifting a little; the roll keeps the wave running up the frame.",
+      "screen": "Straight down from above, to scale: the head with its headphone a small shape near the bottom (about 70 px), the hum's wave running up the frame past it, one cycle about 1,650 px of the frame's 1,920. A ruler beside one whole wave: '≈ 3.4 m'. A note 'to scale'.",
+      "camera": "Held high above (el 88, 7,400 mm, fov 30), drifting a little; the roll keeps the wave running up the frame.",
       "motion": "The ruler draws along one cycle; the bands keep travelling up past the head.",
       "carries": "The hum: it becomes a trace on the chart.",
       "transition": "The chart panel rises over the dimmed scene.",
@@ -2471,13 +2471,13 @@
         "f6"
       ],
       "teaches": "For the squeak, the same tiny delay leaves the copy out of step: nothing is cancelled.",
-      "screen": "The same panel, the same 10 ms of time: '5,000 Hz squeak · same 10 ms'. Fifty tight cycles; the copy late by the same 0.033 ms. A magnifier 'zoom ×20' shows two cycles: crest no longer under trough. Bars: 'noise 100%' and 'left over 100%'.",
+      "screen": "The same panel, the same 10 ms of time: '5,000 Hz squeak · 10 ms shown'. Fifty tight cycles; the copy late by the same 0.033 ms. A magnifier 'zoom ×10' shows two cycles: crest no longer under trough. Bars: 'noise 100%' and 'left over 100%'.",
       "camera": "Not a 3D shot: the scene behind stays dimmed.",
       "motion": "The traces draw; the magnifier opens; the bars grow; nothing counts up.",
       "carries": "The panel's frame.",
       "transition": "The panel drops; a clatter bursts in the scene.",
       "sound": "The music alone.",
-      "check": "The time window is the same as in s14 and says so; the zoom says ×20; 'late' is to the right on the time axis; left over is 100% (2 sin 30 degrees).",
+      "check": "The time window is the same as in s14 and says so; the zoom says ×10; 'late' is to the right on the time axis; left over is 100% (2 sin 30 degrees).",
       "frames": [
         {
           "at": 0,
@@ -2490,7 +2490,7 @@
                 860,
                 1050
               ],
-              "title": "5,000 Hz squeak · same 10 ms"
+              "title": "5,000 Hz squeak · 10 ms shown"
             },
             {
               "wave": [
@@ -2525,7 +2525,7 @@
         },
         {
           "at": 0.5,
-          "note": "A magnifier, marked 'zoom ×20', shows two cycles: the copy one sixth of a cycle late, crest no longer under trough.",
+          "note": "A magnifier, marked 'zoom ×10', shows two cycles: the copy one sixth of a cycle late, crest no longer under trough.",
           "draw": [
             {
               "panel": [
@@ -2534,7 +2534,7 @@
                 860,
                 1050
               ],
-              "title": "5,000 Hz squeak · same 10 ms"
+              "title": "5,000 Hz squeak · 10 ms shown"
             },
             {
               "magnifier": [
@@ -2548,7 +2548,7 @@
                 560,
                 1060
               ],
-              "text": "zoom ×20",
+              "text": "zoom ×10",
               "size": 32
             }
           ]
@@ -2564,7 +2564,7 @@
                 860,
                 1050
               ],
-              "title": "5,000 Hz squeak · same 10 ms"
+              "title": "5,000 Hz squeak · 10 ms shown"
             },
             {
               "bar": [
