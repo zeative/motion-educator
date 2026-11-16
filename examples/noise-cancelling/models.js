@@ -50,7 +50,7 @@ export function createModels(space, P) {
     yoke: M.metal(0x8f949c, { rough: 0.3 }),
     leather: M.leather(0x1e1f23),
     foam: M.foam(0x55565c),
-    fabric: M.fabric(0x464a54),
+    fabric: M.fabric(0x5d616c),
     baffle: M.plastic(0x15161a, { rough: 0.6 }),
     battery: M.metal(0xc9ccd1, { rough: 0.42, brushed: false }),
     flex: M.copper(0xc8841e),
@@ -82,7 +82,7 @@ export function createModels(space, P) {
 
   // ── an oval ring swept around the cup's axis (cushions, trims) ───────────────────────────────────────
   // center(θ) on an oval of half-sizes ax, ay; a cross-section prof(j) = [n, z] (n outward from the path).
-  function ovalSweep({ ax, ay, section, segments = 160, uvRepeat = 8, pleat = null }) {
+  function ovalSweep({ ax, ay, section, segments = 128, uvRepeat = 8, pleat = null }) {
     const ring = section.length;
     const pos = [];
     const uv = [];
@@ -112,7 +112,7 @@ export function createModels(space, P) {
     return g;
   }
   // A rounded, pillowy closed cross-section: half-width w (in n), height h (in z), from z0.
-  function pillow(w, h, z0 = 0, { steps = 48, bulge = 0.35, flat = 0.25 } = {}) {
+  function pillow(w, h, z0 = 0, { steps = 32, bulge = 0.35, flat = 0.25 } = {}) {
     const out = [];
     for (let k = 0; k <= steps; k++) {
       const a = (k / steps) * Math.PI * 2;
@@ -184,6 +184,8 @@ export function createModels(space, P) {
   const led = P.mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.4, 20), M.glow(0x3fe0ff, 1.4), "status light");
   led.rotation.x = 0;
   led.position.set(-13, -46.2, 33);
+  panel.material.side = THREE.DoubleSide;
+  panel.material.userData.thin = true;
   const shell = new THREE.Group();
   shell.name = "shell group";
   shell.add(shellOuter, panel, trim, seam, ffGrille, ffBezel, buttons, usb, led);
@@ -725,6 +727,7 @@ export function createModels(space, P) {
   reliefGeo.computeVertexNormals();
   const earSkin = skinMat(0xc58d70);
   const reliefMesh = P.mesh(reliefGeo, earSkin, "pinna relief");
+  earSkin.userData.thin = true;
   // A short funnel from the concha's floor into the canal.
   const pinna = new THREE.Group();
   pinna.name = "pinna";

@@ -6,6 +6,7 @@
   "promise": "The headphones listen to the noise, make the same wave flipped upside down, and play it so the two add up to almost nothing. That works on steady low hums, whose waves are long and repeat; it fails on high or sudden sounds, so the cushions still block those.",
   "language": "en",
   "format": "1080x1920",
+  "captions": "frame",
   "duration": 74.01,
   "fps": 60,
   "poster": 72.41,
@@ -509,6 +510,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "adding"
       ]
     },
     {
@@ -593,6 +597,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "pressure"
       ]
     },
     {
@@ -721,6 +728,10 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "squeezed",
+        "stretched"
       ]
     },
     {
@@ -863,6 +874,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "microphone"
       ]
     },
     {
@@ -1000,6 +1014,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "chip"
       ]
     },
     {
@@ -1182,6 +1199,10 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "stretch",
+        "squeeze"
       ]
     },
     {
@@ -1315,6 +1336,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "speaker"
       ]
     },
     {
@@ -1545,6 +1569,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "nothing"
       ]
     },
     {
@@ -1559,13 +1586,13 @@
         "f2"
       ],
       "teaches": "The name for it: destructive interference.",
-      "screen": "Three glowing lines float in the dark stacked down the frame: amber 'noise', '+', cyan 'flipped', '=', white 'what you hear', flat; the cut-open cup soft and far behind. The name 'destructive interference' lands in metal type at the top, 'destructive' in cyan.",
+      "screen": "Three glowing lines float in the dark stacked down the frame: amber 'noise', '+', cyan 'flipped', '=', white 'what you hear', flat; the cut-open cup soft and far behind. The name 'destructive interference' lands in metal type under the captions (y 440 to 660), 'destructive' in cyan.",
       "camera": "The lines in 3D: camera front-on to them, slow orbit az -8 to 8, el 4, 420 mm, fov 26; the cup far behind, out of focus (blur 0.3, focus on the lines).",
       "motion": "The name types in; the three lines hold; a sheen crosses the name at the end of the hold.",
       "carries": "The three lines.",
       "transition": "No cut: on 'But' the name lifts and the cyan line slips.",
       "sound": "A shimmer under the sheen; the turn's hit at the end of the hold, before 'But'.",
-      "check": "Cyan is exactly the amber upside down; the white line is flat; the name sits at y 300 to 560.",
+      "check": "Cyan is exactly the amber upside down; the white line is flat; the name sits at y 440 to 660, under the captions.",
       "frames": [
         {
           "at": 0,
@@ -1638,7 +1665,7 @@
             {
               "title": [
                 540,
-                320
+                520
               ],
               "text": "destructive\ninterference",
               "size": 104,
@@ -1684,7 +1711,7 @@
             {
               "title": [
                 540,
-                320
+                520
               ],
               "text": "destructive\ninterference",
               "size": 104,
@@ -1726,6 +1753,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "destructive"
       ]
     },
     {
@@ -1858,6 +1888,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "step"
       ]
     },
     {
@@ -1974,6 +2007,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "hum"
       ]
     },
     {
@@ -2063,6 +2099,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "metres"
       ]
     },
     {
@@ -2076,7 +2115,7 @@
         "f6"
       ],
       "teaches": "With a hum, a tiny delay hardly matters: about 2% is left.",
-      "screen": "A glass panel (x 64 to 924, y 300 to 1200) over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum (amber), its flipped copy late by 0.033 ms (cyan), what is left (white, nearly flat). Under it two bars to proportion: 'noise 100%' and 'left over 2%'.",
+      "screen": "A glass panel (x 64 to 930, y 428 to 1484, under the captions) over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum (amber), its flipped copy late by 0.033 ms (cyan), what is left (white, nearly flat). Under it two bars to proportion: 'noise 100%' and 'left over 2%'.",
       "camera": "Not a 3D shot: the scene behind is held, dimmed, as the panel rises.",
       "motion": "The traces draw left to right; the bars grow to their values; nothing counts up.",
       "carries": "The panel: it stays for the squeak.",
@@ -2091,9 +2130,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "100 Hz hum · 10 ms shown"
             },
@@ -2145,9 +2184,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "100 Hz hum · 10 ms shown"
             },
@@ -2176,6 +2215,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "match"
       ]
     },
     {
@@ -2273,6 +2315,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "squeak"
       ]
     },
     {
@@ -2381,6 +2426,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "centimetres"
       ]
     },
     {
@@ -2409,9 +2457,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "5,000 Hz squeak · same 10 ms"
             },
@@ -2453,9 +2501,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "5,000 Hz squeak · same 10 ms"
             },
@@ -2483,9 +2531,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "5,000 Hz squeak · same 10 ms"
             },
@@ -2514,6 +2562,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "delay"
       ]
     },
     {
@@ -2610,6 +2661,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "sudden"
       ]
     },
     {
@@ -2638,9 +2692,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "a sudden clatter · 10 ms shown"
             },
@@ -2663,9 +2717,9 @@
             {
               "panel": [
                 64,
-                300,
+                430,
                 860,
-                900
+                1050
               ],
               "title": "a sudden clatter · 10 ms shown"
             },
@@ -2687,6 +2741,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "faster"
       ]
     },
     {
@@ -2763,6 +2820,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "cushions"
       ]
     },
     {
@@ -2981,6 +3041,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "high"
       ]
     },
     {
@@ -3180,6 +3243,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "own"
       ]
     },
     {
@@ -3391,6 +3457,9 @@
             }
           ]
         }
+      ],
+      "keys": [
+        "time"
       ]
     },
     {

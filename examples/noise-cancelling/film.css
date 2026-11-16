@@ -1,240 +1,210 @@
-/* "How do noise-cancelling headphones erase sound?" Amber is the noise, cyan (the accent) the flipped wave, white what
-   you hear. Nothing on screen is set under 28 px. */
+/* "How do noise-cancelling headphones erase sound?" Portrait. Amber is the noise, cyan (the accent) the flipped wave,
+   white what reaches the eardrum. Nothing to read above y 230, below y 1490, or in the right 150 px; labels 36 px,
+   the smallest lettering 30 px. */
 :root {
   --accent: #3fe0ff;
   --accent-2: #ffb547;
   --amber: #ffb547;
   --cyan: #3fe0ff;
 }
-#lab,
-#over,
 #space {
   position: absolute;
   inset: 0;
 }
-
-/* Type */
-.display.left {
-  text-align: left;
+.display .ch {
+  text-shadow: none;
 }
 #title {
   position: absolute;
-  left: 96px;
-  top: 250px;
-  font-size: 92px;
-  line-height: 1.12;
+  left: var(--safe-left);
+  right: var(--safe-right);
+  top: 262px;
+  font-size: 88px;
+  line-height: 1.08;
+  text-align: left;
 }
-#poster {
-  position: absolute;
-  left: 110px;
-  top: 300px;
-  font-size: 118px;
+#title .ln,
+#poster .ln,
+#name .ln {
+  display: block;
 }
 #name {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 96px;
-  font-size: 82px;
+  left: var(--safe-left);
+  right: var(--safe-right);
+  top: 440px;
+  font-size: 108px;
+  line-height: 1.02;
+  text-align: left;
+}
+#poster {
+  position: absolute;
+  left: var(--safe-left);
+  right: var(--safe-right);
+  top: 268px;
+  font-size: 118px;
+  line-height: 1.04;
+  text-align: left;
+}
+.note,
+.tag {
+  position: absolute;
+  left: var(--safe-left);
+  top: 440px;
+  margin: 0;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: rgb(12 13 16 / 0.62);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+  color: rgb(255 255 255 / 0.78);
+  font: 600 30px / 1.1 "JetBrains Mono Variable", monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.lane {
+  position: absolute;
+  left: var(--safe-left);
+  margin: 0;
+  color: var(--amber);
+  font: 650 40px / 1 var(--sans);
+}
+.lane.cyan {
+  color: var(--cyan);
+}
+.lane.white {
+  color: #fff;
 }
 .sign {
   position: absolute;
-  width: 120px;
-  font-size: 96px;
+  left: 470px;
+  margin: 0;
   color: var(--t1);
+  font: 300 76px / 1 var(--sans);
 }
-.sign .ch {
-  background-image: linear-gradient(180deg, #ffffff 22%, #d9d9e0 60%, #8f8f9a 100%);
-}
-
-/* Small words: chips, tags, notes */
-.chip {
+#timeaxis {
   position: absolute;
-  font-size: 30px;
-  padding: 14px 24px;
+  left: 120px;
+  width: 780px;
+  height: 40px;
 }
-.chip b {
-  color: var(--accent);
-  font: 650 30px / 1 var(--sans);
-}
-.chip.cyan {
-  color: #bff6ff;
-}
-.sw {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--amber);
-  box-shadow: 0 0 12px var(--amber);
-}
-.sw.cyan {
-  background: var(--cyan);
-  box-shadow: 0 0 12px var(--cyan);
-}
-.tag {
+#timeaxis i {
   position: absolute;
-  color: #ffd79a;
-  font: 600 32px / 1 var(--sans);
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  text-shadow: 0 2px 10px rgb(0 0 0 / 0.8);
+  left: 0;
+  right: 30px;
+  top: 18px;
+  height: 3px;
+  background: rgb(255 255 255 / 0.7);
 }
-.tag.cyan {
-  color: #a8f2ff;
-}
-.tag.white {
-  color: #f4f4f6;
-}
-.tag.lane {
-  left: 110px;
-}
-.note {
+#timeaxis i::after {
+  content: "";
   position: absolute;
-  color: #ececf0;
-  font: 500 34px / 1 var(--mono);
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  text-shadow: 0 2px 8px rgb(0 0 0 / 0.9);
+  right: -26px;
+  top: -10px;
+  border-left: 28px solid rgb(255 255 255 / 0.7);
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
 }
-.measure {
+#timeaxis span {
   position: absolute;
-  color: #f4f4f6;
-  font-size: 40px;
-  white-space: nowrap;
-  text-shadow: 0 2px 12px rgb(0 0 0 / 0.9);
+  left: 300px;
+  top: 34px;
+  color: var(--t1);
+  font: 600 36px / 1 var(--sans);
 }
-.measure b {
+#panel {
+  position: absolute;
+  left: var(--safe-left);
+  top: 428px;
+  width: 866px;
+  height: 1056px;
+  border-radius: 34px;
+}
+.ptitle {
+  position: absolute;
+  left: 40px;
+  top: 34px;
+  color: var(--t1);
+  font: 500 38px / 1.1 var(--sans);
+}
+.ptitle b {
   color: var(--amber);
   font-weight: 700;
 }
-
-/* Glass cards of the sum and the recap */
-.card {
-  position: absolute;
-  width: 480px;
-  height: 360px;
-  border-radius: 30px;
-}
-.card .tag {
-  left: 32px;
-  top: 30px;
-}
-.qmark {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: #f4f4f6;
-  font-size: 200px;
-  text-shadow: 0 0 40px rgb(255 255 255 / 0.25);
-}
-.rc {
-  height: 480px;
-}
-.rc .n {
-  position: absolute;
-  left: 30px;
-  top: 26px;
-  color: var(--accent);
-  font: 600 36px / 1 var(--mono);
-}
-.rc b {
+#plot {
   position: absolute;
   left: 0;
-  right: 0;
-  bottom: 44px;
-  color: #f4f4f6;
-  font: 650 40px / 1.15 var(--sans);
-  text-align: center;
+  top: 110px;
 }
-
-/* Panels */
-.panel {
+.pnote {
   position: absolute;
+  left: 40px;
+  bottom: 30px;
+  margin: 0;
+  color: var(--t2);
+  font: 500 30px / 1.2 var(--sans);
 }
-.phead {
-  height: 76px;
-  font-size: 30px;
+#plot text {
+  font-family: var(--sans);
 }
-.phead em {
-  font-size: 28px;
+/* Pins on the 3D parts, sized for a phone. */
+.pin3d {
+  font: 650 38px / 1.1 var(--sans);
+  padding: 14px 22px;
 }
-.led {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 14px var(--accent);
+.pin3d small {
+  font: 500 30px / 1.2 var(--sans);
 }
-.mt {
+.pin3d.amber b {
+  color: var(--amber);
+}
+.pin3d.num b {
+  display: inline-block;
+  min-width: 44px;
+  color: var(--accent);
+}
+/* Captions at the top, under the app's header. */
+:root[data-format="portrait"] #captions[data-style="frame"] {
+  top: 238px;
+}
+/* The instruments: thin lines, small uppercase mono. */
+#scope {
   position: absolute;
-  left: 28px;
+  left: var(--safe-left);
+  top: 1252px;
+  width: 900px;
+  height: 230px;
 }
-.caveat {
-  position: absolute;
-  color: #f4f4f6;
-  font: 600 34px / 1 var(--sans);
-  white-space: nowrap;
-  text-shadow: 0 2px 10px rgb(0 0 0 / 0.8);
+.pin3d {
+  padding: 0 0 6px;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  color: #fff;
+  font: 600 32px / 1.15 "JetBrains Mono Variable", monospace;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgb(0 0 0 / 0.9), 0 2px 4px rgb(0 0 0 / 0.8);
 }
-#earpanel .phead {
-  height: 64px;
+.pin3d small {
+  margin-top: 4px;
+  color: rgb(255 255 255 / 0.72);
+  font: 500 30px / 1.15 var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
 }
-#earpanel .phead {
-  font-size: 28px;
+.pin3d b {
+  color: var(--cyan);
 }
-
-/* Bars, drawn to proportion: their height is set by film.js from the arithmetic */
-.bar {
-  position: absolute;
-  bottom: 340px;
-  width: 140px;
-  height: 0;
-  border-radius: 10px 10px 4px 4px;
-  transform-origin: 50% 100%;
+.pin3d b.am {
+  color: var(--amber);
 }
-.bar b,
-.bar i {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
+.pin3d-line {
+  stroke: rgb(255 255 255 / 0.8);
+  stroke-width: 2;
 }
-.bar b {
-  top: calc(100% + 18px);
-  color: #e6e6ea;
-  font: 600 30px / 1 var(--sans);
+.pin3d-dot {
+  stroke-width: 2.5;
 }
-.bar i {
-  bottom: calc(100% + 14px);
-  color: #f4f4f6;
-  font: 650 34px / 1 var(--brand);
-}
-.bar.amber {
-  background: linear-gradient(180deg, #ffd08a, #ff9f1c 60%, #b8650a);
-  box-shadow: 0 0 30px rgb(255 160 40 / 0.35);
-}
-.bar.white {
-  background: linear-gradient(180deg, #ffffff, #c9c9d2 60%, #7d7d88);
-  box-shadow: 0 0 24px rgb(255 255 255 / 0.25);
-}
-.bar.ghost {
-  width: 70px;
-  background: rgb(255 255 255 / 0.4);
-}
-.bar.ghost b,
-.bar.ghost i {
-  font-size: 28px;
-  color: #c9c9d2;
-}
-.lane-tag {
-  font-size: 30px;
-  line-height: 1.1;
-}
-
-/* The caption pill sits over busy pictures: a darker plate behind it */
-.caption.pill {
-  background:
-    linear-gradient(180deg, rgb(20 20 23 / 0.92), rgb(10 10 12 / 0.95)) padding-box,
-    linear-gradient(165deg, rgb(255 255 255 / 0.32), rgb(255 255 255 / 0.06) 40%, color-mix(in srgb, var(--accent) 30%, transparent)) border-box;
+.pin3d.ruler {
+  font-size: 36px;
 }

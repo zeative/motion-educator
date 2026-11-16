@@ -118,7 +118,7 @@ TOP = 260  # the first line a reader can rely on, under the app's header
 
 FRAMES = {
     "s01": [
-        fr(0.0, "Frame 0 is finished: the headphone stands on a dark satin set, three-quarter view, large in the middle of the frame; amber pressure bands and a glowing amber wave already roll in from the upper left through the air round it. The question's first line is in metal type at the top.",
+        fr(0.0, "Frame 0 is finished: the headphone stands on a walnut desk in a dim room, three-quarter view, large in the middle of the frame; amber pressure bands and a glowing amber wave already roll in from the upper left through the air round it. The question's first line is in metal type at the top.",
            *phones(560, 1000, 1.25), {"move": [80, 700, 380, 860], "text": "noise rolls in"}, wave(60, 1020, 1350, 40, 180), {"title": [540, TOP + 70], "text": "How do noise-cancelling", "size": 84}, {"camera": "orbit"}),
         fr(0.5, "Each line of the question lands as it is said; the camera orbits a little and pushes in. Amber light catches the cups' rims as the bands pass.",
            *phones(560, 1010, 1.3), wave(60, 1020, 1350, 40, 180), {"title": [540, TOP + 70], "text": "How do noise-cancelling\nheadphones make\na noise disappear?", "size": 84, "accent": "disappear?"}, {"camera": "push"}),
@@ -191,9 +191,9 @@ FRAMES = {
         fr(0.0, "Three glowing lines float in the dark above the cut-open cup, stacked down the frame: amber 'noise', plus cyan 'flipped', equals white 'what you hear', flat.",
            wave(80, 1000, 520, 90, 360), label(540, 420, "noise", 36), label(540, 660, "+", 70), wave(80, 1000, 780, 90, 360, "blue", 180), label(540, 920, "=", 70), {"line": [80, 1040, 1000, 1040], "width": 8}, {"camera": "orbit"}),
         fr(0.5, "On 'destructive interference' the name lands in metal type at the top, the accent on 'destructive'.",
-           {"title": [540, TOP + 60], "text": "destructive\ninterference", "size": 104, "accent": "destructive"}, wave(80, 1000, 620, 90, 360), wave(80, 1000, 860, 90, 360, "blue", 180), {"line": [80, 1060, 1000, 1060], "width": 8}),
+           {"title": [540, 520], "text": "destructive\ninterference", "size": 104, "accent": "destructive"}, wave(80, 1000, 620, 90, 360), wave(80, 1000, 860, 90, 360, "blue", 180), {"line": [80, 1060, 1000, 1060], "width": 8}),
         fr(1.0, "The name holds a beat; a sheen crosses it. The lines hold still, exactly opposite.",
-           {"title": [540, TOP + 60], "text": "destructive\ninterference", "size": 104, "accent": "destructive"}, wave(80, 1000, 620, 90, 360), wave(80, 1000, 860, 90, 360, "blue", 180), {"line": [80, 1060, 1000, 1060], "width": 8}, {"cut": "no cut: the turn"}),
+           {"title": [540, 520], "text": "destructive\ninterference", "size": 104, "accent": "destructive"}, wave(80, 1000, 620, 90, 360), wave(80, 1000, 860, 90, 360, "blue", 180), {"line": [80, 1060, 1000, 1060], "width": 8}, {"cut": "no cut: the turn"}),
     ],
     "s11": [
         fr(0.0, "On 'But': a hit. The name lifts away; a time arrow 'time →' appears under the lines; the cyan copy slides to the right, later in time.",
@@ -217,9 +217,9 @@ FRAMES = {
     ],
     "s14": [
         fr(0.0, "A glass panel rises over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum, its flipped copy late by 0.033 ms, and what is left.",
-           {"panel": [64, 300, 860, 900], "title": "100 Hz hum · 10 ms shown"}, wave(110, 880, 520, 90, 770), wave(110, 880, 760, 90, 770, "blue", 181), {"line": [110, 980, 880, 980], "width": 6}, label(500, 1150, "copy late by 0.033 ms (example)", 30)),
+           {"panel": [64, 430, 860, 1050], "title": "100 Hz hum · 10 ms shown"}, wave(110, 880, 520, 90, 770), wave(110, 880, 760, 90, 770, "blue", 181), {"line": [110, 980, 880, 980], "width": 6}, label(500, 1150, "copy late by 0.033 ms (example)", 30)),
         fr(1.0, "On 'match them' two bars to proportion: 'noise 100%' full, 'left over 2%' a sliver.",
-           {"panel": [64, 300, 860, 900], "title": "100 Hz hum · 10 ms shown"}, {"bar": [180, 1330, 220, 300], "colour": "orange", "label": "noise 100%"}, {"bar": [560, 1330, 220, 6], "colour": "ink", "label": "left over 2%"}, {"cut": "the panel drops; back to the cup"}),
+           {"panel": [64, 430, 860, 1050], "title": "100 Hz hum · 10 ms shown"}, {"bar": [180, 1330, 220, 300], "colour": "orange", "label": "noise 100%"}, {"bar": [560, 1330, 220, 6], "colour": "ink", "label": "left over 2%"}, {"cut": "the panel drops; back to the cup"}),
     ],
     "s15": [
         fr(0.0, "Back down at the head, three-quarter from the front, to scale: a dense amber ripple races in, its waves not much longer than the cup is tall.",
@@ -235,11 +235,11 @@ FRAMES = {
     ],
     "s17": [
         fr(0.0, "The same panel, the same 10 ms of time: '5,000 Hz squeak · 10 ms shown'. The squeak is fifty tight cycles; its copy, late by the same 0.033 ms.",
-           {"panel": [64, 300, 860, 900], "title": "5,000 Hz squeak · same 10 ms"}, wave(110, 880, 520, 70, 16), wave(110, 880, 760, 70, 16, "blue", 240), {"magnifier": [760, 640, 120]}),
+           {"panel": [64, 430, 860, 1050], "title": "5,000 Hz squeak · same 10 ms"}, wave(110, 880, 520, 70, 16), wave(110, 880, 760, 70, 16, "blue", 240), {"magnifier": [760, 640, 120]}),
         fr(0.5, "A magnifier, marked 'zoom ×20', shows two cycles: the copy one sixth of a cycle late, crest no longer under trough.",
-           {"panel": [64, 300, 860, 900], "title": "5,000 Hz squeak · same 10 ms"}, {"magnifier": [560, 760, 260]}, label(560, 1060, "zoom ×20", 32)),
+           {"panel": [64, 430, 860, 1050], "title": "5,000 Hz squeak · same 10 ms"}, {"magnifier": [560, 760, 260]}, label(560, 1060, "zoom ×20", 32)),
         fr(1.0, "On 'out of step' the bars: 'noise 100%' and 'left over 100%', the same height.",
-           {"panel": [64, 300, 860, 900], "title": "5,000 Hz squeak · same 10 ms"}, {"bar": [180, 1330, 220, 300], "colour": "orange", "label": "noise 100%"}, {"bar": [560, 1330, 220, 300], "colour": "ink", "label": "left over 100%"}, {"cut": "the panel drops; a clatter hits"}),
+           {"panel": [64, 430, 860, 1050], "title": "5,000 Hz squeak · same 10 ms"}, {"bar": [180, 1330, 220, 300], "colour": "orange", "label": "noise 100%"}, {"bar": [560, 1330, 220, 300], "colour": "ink", "label": "left over 100%"}, {"cut": "the panel drops; a clatter hits"}),
     ],
     "s18": [
         fr(0.0, "The head and headphone from the front three-quarter; below, out of shot, something drops: a bright amber shell of sound bursts from a point and races outward.",
@@ -249,9 +249,9 @@ FRAMES = {
     ],
     "s18b": [
         fr(0.0, "The panel again, the same 10 ms: a clatter's trace, quiet, then a sudden spike that rings away. Under it the chip's copy, which only starts to follow after the spike has begun.",
-           {"panel": [64, 300, 860, 900], "title": "a sudden clatter · 10 ms shown"}, {"path": "M110 520 H300 L320 400 L340 640 L360 440 L390 600 L430 480 L480 560 L560 500 L700 530 H880", "colour": "orange", "width": 6}, {"path": "M110 760 H330 L360 860 L390 700 L430 820 L480 740 L560 790 L700 760 H880", "colour": "blue", "width": 6}),
+           {"panel": [64, 430, 860, 1050], "title": "a sudden clatter · 10 ms shown"}, {"path": "M110 520 H300 L320 400 L340 640 L360 440 L390 600 L430 480 L480 560 L560 500 L700 530 H880", "colour": "orange", "width": 6}, {"path": "M110 760 H330 L360 860 L390 700 L430 820 L480 740 L560 790 L700 760 H880", "colour": "blue", "width": 6}),
         fr(1.0, "On 'faster than the chip can follow': the leftover trace keeps the spike's sharp front; a note 'illustration'.",
-           {"panel": [64, 300, 860, 900], "title": "a sudden clatter · 10 ms shown"}, {"path": "M110 1000 H300 L320 880 L340 1120 L360 940 L400 1040 L460 990 H880", "colour": "ink", "width": 6}, label(500, 1150, "illustration", 30), {"cut": "back to the cup: the cushions"}),
+           {"panel": [64, 430, 860, 1050], "title": "a sudden clatter · 10 ms shown"}, {"path": "M110 1000 H300 L320 880 L340 1120 L360 940 L400 1040 L460 990 H880", "colour": "ink", "width": 6}, label(500, 1150, "illustration", 30), {"cut": "back to the cup: the cushions"}),
     ],
     "s19": [
         fr(0.0, "Low and close on the cushion where it meets the skin: the leather's grain and its pleats sharp, the head soft behind.",
@@ -284,7 +284,7 @@ FRAMES = {
            *cut_view(540, 900, 1.0, amber=False), {"camera": "pull"}, {"cut": "dissolve to the headphone on its set"}),
     ],
     "s23": [
-        fr(0.0, "The poster: the headphone on its set, as in the first frame, turning slowly; the line in metal type at the top.",
+        fr(0.0, "The poster: the headphone on the desk, as in the first frame, turning slowly; the line in metal type at the top.",
            *phones(560, 1000, 1.25), {"title": [540, TOP + 80], "text": "Hear it.\nFlip it.\nPlay it on time.", "size": 104, "accent": "on time."}, {"camera": "orbit"}),
         fr(1.0, "The line holds for two seconds; a sheen crosses 'on time.'. The last frame matches the first, so the loop has no jolt.",
            *phones(560, 1000, 1.25), {"title": [540, TOP + 80], "text": "Hear it.\nFlip it.\nPlay it on time.", "size": 104, "accent": "on time."}, {"cut": "loops to the first frame"}),
@@ -295,7 +295,7 @@ FRAMES = {
 WORN = "the head and headphone"
 shot("s01", "hook", "object3d", caption=False, facts=["f1", "f2", "f9"],
      teaches="Asks the question over the real object: a pair of noise-cancelling headphones, with noise in the air round it.",
-     screen="The headphone on a dark satin set, three-quarter, filling the middle of the frame (y 650 to 1350): graphite cups, leather cushions, brushed yokes and sliders. Amber pressure bands and a glowing amber wave roll through the air round it from the upper left. The question in metal type at the top, y 300 to 640, three lines, 'disappear?' in cyan.",
+     screen="The headphone standing on its cups on a walnut desk in a dim room at night, three-quarter, filling the middle of the frame (y 650 to 1350): graphite cups, leather cushions, brushed yokes and sliders; a keyboard and a mug on the desk, warm lamps far behind as soft discs. Amber pressure bands and a glowing amber wave roll through the air round it from the upper left. The question in metal type at the top, y 262 to 600, three lines, 'disappear?' in cyan (the spoken line is lettered by the title, so no caption here).",
      camera="Starts three-quarter front-right (az 32, el 16, 560 mm off, 30 mm lens-equivalent fov 30), target the band's middle; orbits to az 60 and pushes to 500 mm over the shot; slow sway. No depth of field.",
      motion="The camera orbits and pushes in; the title types in line by line as it is said; the amber bands keep travelling; a sheen crosses 'disappear?' at the end.",
      carries="The headphone and the amber noise: the orbit keeps going round to the cup's inside.",
@@ -376,13 +376,13 @@ shot("s09", "cancel", "macro", facts=["f2", "f3", "f11"],
      check="The noise comes in past the cushion (never out of the driver); only the cyan comes from the driver; amber and cyan are exactly 180 degrees apart where they meet.")
 shot("s10", "cancel", "compare", facts=["f2"],
      teaches="The name for it: destructive interference.",
-     screen="Three glowing lines float in the dark stacked down the frame: amber 'noise', '+', cyan 'flipped', '=', white 'what you hear', flat; the cut-open cup soft and far behind. The name 'destructive interference' lands in metal type at the top, 'destructive' in cyan.",
+     screen="Three glowing lines float in the dark stacked down the frame: amber 'noise', '+', cyan 'flipped', '=', white 'what you hear', flat; the cut-open cup soft and far behind. The name 'destructive interference' lands in metal type under the captions (y 440 to 660), 'destructive' in cyan.",
      camera="The lines in 3D: camera front-on to them, slow orbit az -8 to 8, el 4, 420 mm, fov 26; the cup far behind, out of focus (blur 0.3, focus on the lines).",
      motion="The name types in; the three lines hold; a sheen crosses the name at the end of the hold.",
      carries="The three lines.",
      transition="No cut: on 'But' the name lifts and the cyan line slips.",
      sound="A shimmer under the sheen; the turn's hit at the end of the hold, before 'But'.",
-     check="Cyan is exactly the amber upside down; the white line is flat; the name sits at y 300 to 560.")
+     check="Cyan is exactly the amber upside down; the white line is flat; the name sits at y 440 to 660, under the captions.")
 shot("s11", "limits", "diagram", facts=["f6"],
      teaches="The copy has to stay exactly in step: a copy late in time leaves something behind.",
      screen="The same three lines, now with a time axis under them, 'time →'. The cyan copy slides right, later in time; the white sum grows a ripple; a tag 'late' rides on the cyan; then the cyan slides back, the white goes flat, a pin 'in step'.",
@@ -412,7 +412,7 @@ shot("s13", "limits", "wide", facts=["f4", "f8"],
      check="The ruler spans exactly one cycle (3.43 m at the scene's scale); 'to scale' is said on screen.")
 shot("s14", "limits", "chart", facts=["f6"],
      teaches="With a hum, a tiny delay hardly matters: about 2% is left.",
-     screen="A glass panel (x 64 to 924, y 300 to 1200) over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum (amber), its flipped copy late by 0.033 ms (cyan), what is left (white, nearly flat). Under it two bars to proportion: 'noise 100%' and 'left over 2%'.",
+     screen="A glass panel (x 64 to 930, y 428 to 1484, under the captions) over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum (amber), its flipped copy late by 0.033 ms (cyan), what is left (white, nearly flat). Under it two bars to proportion: 'noise 100%' and 'left over 2%'.",
      camera="Not a 3D shot: the scene behind is held, dimmed, as the panel rises.",
      motion="The traces draw left to right; the bars grow to their values; nothing counts up.",
      carries="The panel: it stays for the squeak.",
@@ -484,7 +484,7 @@ shot("s20", "cushions", "diagram", facts=["f3", "f5"],
      check="What gets in is visibly weaker; no number is claimed.")
 shot("s21", "recap", "recap", facts=["f2", "f5"],
      teaches="The whole answer in one frame: hear, flip, play, and cushions for the highs.",
-     screen="The headphone on its set, its right cup opened along its axis so every part is in its row. Four pins rise one after another: '1  hear' (the outside mic), '2  flip' (the ANC chip), '3  play' (the driver), 'cushions: the highs'.",
+     screen="The right cup stands on the desk, opened upward along its axis into a tower so every part is in its row. Four pins rise one after another: '1  hear' (the outside mic), '2  flip' (the ANC chip), '3  play' (the driver), 'cushions: the highs'.",
      camera="Establish and slow orbit: az 120 to 95, el 18 to 14, 640 mm, fov 28, target the opened cup; no depth of field.",
      motion="The parts slide apart; the pins rise in order; the camera orbits.",
      carries="The headphone: it closes and goes back on the head.",
@@ -502,7 +502,7 @@ shot("s22", "recap", "object3d", facts=["f2"],
      check="The closing waves are exactly 180 degrees apart.")
 shot("s23", "recap", "endcard", length=3.2, facts=["f2"],
      teaches="The line to remember, on a frame that loops.",
-     screen="The headphone on its set, three-quarter as in the first frame, turning slowly. The poster line in metal type at the top: 'Hear it. Flip it. Play it on time.', 'on time.' in cyan.",
+     screen="The headphone on the desk, three-quarter as in the first frame, turning slowly. The poster line in metal type at the top: 'Hear it. Flip it. Play it on time.', 'on time.' in cyan.",
      camera="Slow orbit: az 10 to 32, el 16, 560 mm, fov 30, ending on the first frame's view.",
      motion="The line types in; a sheen crosses 'on time.'; the camera turns into the first frame's view.",
      carries="Nothing: the last frame.",
@@ -510,8 +510,13 @@ shot("s23", "recap", "endcard", length=3.2, facts=["f2"],
      sound="The bed's last chord rings out; a shimmer under the sheen.",
      check="The line is readable for at least two seconds; the last frame matches the first.")
 
+KEYS = {"s02": ["adding"], "s03": ["pressure"], "s04": ["squeezed", "stretched"], "s05": ["microphone"], "s06": ["chip"], "s07": ["stretch", "squeeze"],
+        "s08": ["speaker"], "s09": ["nothing"], "s10": ["destructive"], "s11": ["step"], "s12": ["hum"], "s13": ["metres"], "s14": ["match"], "s15": ["squeak"],
+        "s16": ["centimetres"], "s17": ["delay"], "s18": ["sudden"], "s18b": ["faster"], "s19": ["cushions"], "s20": ["high"], "s21": ["own"], "s22": ["time"]}
 for s in shots:
     s.pop("length", None)
+    if s["id"] in KEYS:
+        s["keys"] = KEYS[s["id"]]
 
 board = {
     "title": "How do noise-cancelling headphones erase sound?",
@@ -521,11 +526,12 @@ board = {
     "promise": "The headphones listen to the noise, make the same wave flipped upside down, and play it so the two add up to almost nothing. That works on steady low hums, whose waves are long and repeat; it fails on high or sudden sounds, so the cushions still block those.",
     "language": "en",
     "format": "1080x1920",
+    "captions": "frame",
     "duration": 74.01,
     "fps": 60,
     "poster": 72.41,
     "voice": {"voice_id": "MnTN9XubPKNlI4AwhLj5", "name": "Craig - Warm, Articulate, Conversational", "model": "eleven_v4", "language": "en", "direction": "[warmly]"},
-    "look": {"accent": "#3fe0ff", "accent2": "#ffb547", "mood": "A product teardown set: a graphite cyclorama with a bright seam where the floor meets the wall, a dark satin floor, dust catching the key light. The two heroes are lit like products: key from the upper side, rim from behind. Amber is always the noise, cyan (the accent) the flipped wave the driver plays, white what reaches the eardrum; the wall's wash takes the act's colour: amber for the noise, cyan when the driver answers, pale when the two cancel, amber again through the catch."},
+    "look": {"accent": "#3fe0ff", "accent2": "#ffb547", "mood": "A dim room at night: a walnut desk with a keyboard and a mug, a far wall, warm lamps all round as soft out-of-focus discs, dust catching a warm key light; deep shadows. The head shots keep the room without the desk; the cutaways sit in the same warm dark. The two heroes are lit like products: key from the upper side, rim from behind. Amber is always the noise, cyan (the accent) the flipped wave the driver plays, white what reaches the eardrum; the wall's wash takes the act's colour: amber for the noise, cyan when the driver answers, pale when the two cancel, amber again through the catch."},
     "music": {"track": "composed for the film (music/bed-fit.mp3)", "bpm": 80, "start": 0, "note": "The bed composed for this film's take, reused: the length is unchanged (74.01 s). The cuts follow the take, not a beat."},
     "facts": [
         {"id": "f1", "claim": "Sound in air is a pressure wave: the air is pushed together (compressions, higher pressure) and pulled apart (rarefactions, lower pressure) in turn, and that pattern travels, at about 343 m/s in air at 20 °C. Each bit of air only rocks back and forth about where it is; the pattern is what travels.", "source": "Standard acoustics (Kinsler, Frey et al., Fundamentals of Acoustics, 4th ed., ch. 5); speed of sound 331.3 x sqrt(1 + 20/273.15) = 343.2 m/s. From the textbook, not looked up in this session."},
