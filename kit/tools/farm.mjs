@@ -34,7 +34,8 @@ const archive = join(tmpdir(), `farm-${process.pid}.tar.gz`);
 // The film's finished segments travel too (not its stills, sheets or mixes), so the worker renders only what is
 // missing or out of date instead of the whole film again.
 const skip = ["out/*.mp4", "out/*.wav", "out/*.txt", "out/stills", "out/sheets", "out/segments/part-*", "out/segments/list.txt", "storyboard"].flatMap((p) => ["--exclude", `${rel}/${p}`]);
-const tar = spawnSync("tar", ["-czf", archive, "-C", ws, ...skip, "--exclude", "node_modules", "--exclude", "kit/audio/lib", "kit", "package.json", rel]);
+// --no-wildcards-match-slash: "out/*.mp4" must not also match the segments in out/segments/.
+const tar = spawnSync("tar", ["-czf", archive, "-C", ws, "--no-wildcards-match-slash", ...skip, "--exclude", "node_modules", "--exclude", "kit/audio/lib", "kit", "package.json", rel]);
 if (tar.status !== 0) throw new Error(`tar: ${tar.stderr}`);
 console.log(`sending ${rel} (${(statSync(archive).size / 1e6).toFixed(1)} MB) to ${base}`);
 const key = basename(film).replace(/^[^a-z0-9]+/i, "").replace(/[^a-z0-9._-]/gi, "-").slice(0, 60) || "film";
