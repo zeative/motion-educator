@@ -151,4 +151,18 @@ What was learned about speed on a machine with no GPU (four cores, software WebG
   know which frames your edit touched. You know: say so with `--only`.
 - Give `--stills` any times you like; they are drawn in time order.
 
+### Faster: a GPU, or a bigger machine
+
+- `render.mjs` uses a GPU when the machine has one (any Mac, Windows, Linux with a render node or an NVIDIA card),
+  Mesa's lavapipe on a CPU-only Linux machine (about five times faster than SwiftShader, same pixels), SwiftShader
+  as the last resort, and prints which it got. `--gl gpu|lavapipe|swiftshader` overrides.
+- With no GPU the 3D drawing is about nine tenths of a frame's cost and scales with CPU cores. A bigger machine
+  can render for you: run `kit/farm/compose.yml` there (Docker; it limits its CPUs so the machine's other
+  services keep room) and send the film with
+  `FARM_URL=https://host/farm FARM_TOKEN=... node kit/tools/farm.mjs films/NAME --segment 1`. The worker keeps the
+  film's segments, so later fixes with `--only` render only what changed there too. Use short segments
+  (`--segment 1`) for short films, so every core gets one.
+- Measured: a 4 s, 1080x1920, 60 fps 3D test (shadows, depth of field) took 91 s on a 10-core worker against
+  320 s on a busy 4-core machine.
+
 `references/raea.md` covers rendering with raea on a machine with a GPU.

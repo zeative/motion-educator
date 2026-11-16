@@ -31,10 +31,11 @@ const curl = (args) => {
 };
 
 const archive = join(tmpdir(), `farm-${process.pid}.tar.gz`);
-const tar = spawnSync("tar", ["-czf", archive, "-C", ws, "--exclude", `${rel}/out`, "--exclude", `${rel}/storyboard`, "--exclude", "node_modules", "kit", "package.json", rel]);
+const tar = spawnSync("tar", ["-czf", archive, "-C", ws, "--exclude", `${rel}/out`, "--exclude", `${rel}/storyboard`, "--exclude", "node_modules", "--exclude", "kit/audio/lib", "kit", "package.json", rel]);
 if (tar.status !== 0) throw new Error(`tar: ${tar.stderr}`);
 console.log(`sending ${rel} (${(statSync(archive).size / 1e6).toFixed(1)} MB) to ${base}`);
-const query = new URLSearchParams({ key: basename(film), film: rel, args: JSON.stringify(pass) });
+const key = basename(film).replace(/^[^a-z0-9]+/i, "").replace(/[^a-z0-9._-]/gi, "-").slice(0, 60) || "film";
+const query = new URLSearchParams({ key, film: rel, args: JSON.stringify(pass) });
 const { id } = JSON.parse(curl(["-X", "POST", "--data-binary", `@${archive}`, "-H", "content-type: application/gzip", `${base}/jobs?${query}`]));
 unlinkSync(archive);
 

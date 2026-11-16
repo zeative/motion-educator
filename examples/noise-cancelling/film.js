@@ -331,7 +331,7 @@ const pins = {
   chip: pin(Mo.anc, "ANC CHIP<small>makes the flipped copy</small>", { dx: 170, dy: -330, at: V(0, 0.5, 0) }),
   squeezed: pin(crest, "SQUEEZED", { dx: 170, dy: -210 }),
   stretched: pin(trough, "STRETCHED", { dx: 170, dy: 210 }),
-  noise7: pin(pinCrest, "<b class='am'>NOISE</b> · SQUEEZE", { dx: 110, dy: -240 }),
+  noise7: pin(pinCrest, "<b class='am'>NOISE</b> · SQUEEZE", { dx: 110, dy: -170 }),
   flip7: pin(pinTrough, "<b>FLIPPED</b> · STRETCH", { dx: 110, dy: 240 }),
   noise7b: pin(pinCrest2, "STRETCH", { dx: 200, dy: -150 }),
   flip7b: pin(pinTrough2, "SQUEEZE", { dx: 200, dy: 150 }),
@@ -347,8 +347,8 @@ const pins = {
   sqRuler: pin(sqLabel, "≈ 7 cm<small>one wave</small>", { dx: -80, dy: -140, className: "ruler" }),
   cupSize: pin(cupLabel, "9.4 cm<small>the cup</small>", { dx: 120, dy: 80, className: "ruler" }),
   clatter: pin(new THREE.Object3D(), "SUDDEN CLATTER", { dx: -150, dy: -220 }),
-  foam: pin(Mo.foam, "MEMORY FOAM", { dx: -210, dy: -260, at: V(0, -40.5, 10) }),
-  leather: pin(Mo.cover, "LEATHER COVER", { dx: 190, dy: 260, at: V(-30, -34, 20) }),
+  foam: pin(Mo.foam, "MEMORY FOAM", { dx: -200, dy: 150, at: V(-31, -6, 10) }),
+  leather: pin(Mo.cover, "LEATHER COVER", { dx: -260, dy: -140, at: V(-31, 12, 19) }),
   blocks: pin(Mo.cover, "CUSHION<small>blocks the highs</small>", { dx: -150, dy: 230, at: V(-38, 0, 10) }),
   r1: pin(Mo.ffMic, "<b>1</b> HEAR<small>outside mic</small>", { dx: 200, dy: -90, className: "num" }),
   r2: pin(Mo.anc, "<b>2</b> FLIP<small>ANC chip</small>", { dx: -170, dy: -40, className: "num" }),
@@ -648,6 +648,15 @@ tint(T("s23"), WARM, 0.7, 1.2);
 
 // ── HTML: title, notes, the sum's lanes, charts, poster ──────────────────────────────────────────────────
 film.captions();
+// kit bug: in the "frame" style a word group shorter than its 0.24 s rise never hides again (the rise ends after
+// the fall). Every caption is hidden outside its own shot, whatever the tweens left.
+const capEls = [...document.querySelectorAll("#captions .caption")];
+film.each((t) => {
+  for (const el of capEls) {
+    const sh = s[el.dataset.shot];
+    if (sh && (t < sh.start - 0.3 || t >= sh.end)) el.style.visibility = "hidden";
+  }
+});
 film.scene("#hook", 0, s.s02.start + 0.4);
 const tchars = film.split("#title");
 const lines = $$("#title .ln");
