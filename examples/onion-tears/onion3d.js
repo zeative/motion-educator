@@ -172,7 +172,7 @@ export function createKitchen(canvas) {
   // ── The onion ───────────────────────────────────────────────────────────
   const R = 13;
   const pts = P.map(([r, y]) => new THREE.Vector2(r * R, y * R));
-  const skin = new THREE.MeshPhysicalMaterial({ map: skinMap, roughness: 0.5, metalness: 0, clearcoat: 0.6, clearcoatRoughness: 0.26, envMapIntensity: 0.6, sheen: 0.25, sheenColor: new THREE.Color(0xff9ccf), sheenRoughness: 0.6 });
+  const skin = new THREE.MeshPhysicalMaterial({ map: skinMap, roughness: 0.5, metalness: 0, clearcoat: 0.6, clearcoatRoughness: 0.26, envMapIntensity: 0.6 });
   const faceMat = new THREE.MeshPhysicalMaterial({ map: faceMap, roughness: 0.28, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.12, side: THREE.DoubleSide });
   // A flat section through the axis, in the plane z = 0, facing +z (its uv from its own position).
   const section = () => {
@@ -213,7 +213,7 @@ export function createKitchen(canvas) {
   scene.add(bulb);
 
   // ── The board ───────────────────────────────────────────────────────────
-  const boardMat = new THREE.MeshPhysicalMaterial({ map: woodMap, roughness: 0.55, clearcoat: 0.25, clearcoatRoughness: 0.5 });
+  const boardMat = new THREE.MeshStandardMaterial({ map: woodMap, roughness: 0.55 });
   const board = new THREE.Mesh(new THREE.BoxGeometry(120, 4, 60, 1, 1, 1), boardMat);
   scene.add(board);
 
@@ -226,11 +226,11 @@ export function createKitchen(canvas) {
   bladeShape.quadraticCurveTo(34, 6.6, 20, 7.4);
   bladeShape.lineTo(0, 7.6);
   bladeShape.closePath();
-  const steel = new THREE.MeshPhysicalMaterial({ color: 0xdfe3e8, metalness: 1, roughness: 0.17, clearcoat: 0.4, clearcoatRoughness: 0.1 });
+  const steel = new THREE.MeshStandardMaterial({ color: 0xdfe3e8, metalness: 1, roughness: 0.17 });
   const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, { depth: 0.16, bevelEnabled: true, bevelThickness: 0.14, bevelSize: 0.22, bevelSegments: 3, curveSegments: 24 });
   bladeGeo.translate(-22, 0, -0.08);
   const blade = new THREE.Mesh(bladeGeo, steel);
-  const handle = new THREE.Mesh(new THREE.CapsuleGeometry(1.5, 15, 6, 16), new THREE.MeshPhysicalMaterial({ color: 0x1b1414, roughness: 0.35, clearcoat: 0.8 }));
+  const handle = new THREE.Mesh(new THREE.CapsuleGeometry(1.5, 15, 6, 16), new THREE.MeshStandardMaterial({ color: 0x1b1414, roughness: 0.3 }));
   handle.rotation.z = Math.PI / 2;
   handle.position.set(-31, 5.6, 0);
   const bolster = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.2, 2.2, 20), steel);

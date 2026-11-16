@@ -40,10 +40,10 @@ const BOARD_Y = -13.75; // the board's centre; its top is the onion's root (-11.
 const K = {
   vis: 1,
   cam: { x: 0, y: 42, z: 100, tx: 0, ty: -4, tz: 0 },
-  onion: { vis: 1, x: 17, y: 0, z: 0, s: 1.3, turn: -0.25 },
+  onion: { vis: 1, x: 19.5, y: 0, z: 0, s: 1.3, turn: -0.25 },
   front: 0,
   whole: 1,
-  knife: { vis: 1, x: 23, y: 9, z: 0.4, rx: 0, ry: 0, rz: 0 },
+  knife: { vis: 1, x: 28, y: 9, z: 0.4, rx: 0, ry: 0, rz: 0 },
   board: 1,
   boardPos: { x: 0, y: BOARD_Y, z: 0 },
   sun: 0,
@@ -84,6 +84,7 @@ film.scene("#names", 0, D);
 // ── s01: the question, while a knife goes through an onion ────────────────
 Object.assign(stage, { lx: 0.3, ly: 0.75, glow: 0.75, floor: 0, horizon: -0.32, r: 1, g: 0.7, b: 0.42 });
 film.scene("#s01", 0, s.s02.start + 0.25);
+film.split("#q"); // metal type: every character its own box, the accent word in lime
 const qLines = $$("#q .ln");
 gsap.set(qLines, { opacity: 0, y: 30 });
 gsap.set(qLines[0], { opacity: 1, y: 0 });
@@ -94,10 +95,10 @@ tl.to("#q", { x: -320, opacity: 0, duration: 0.3, ease: "power3.in" }, s.s02.sta
 const CUT = said("s01", "onion");
 to(K.knife, { y: -11.7 * 1.3 - 0.2 }, 0, CUT - 0.02, "power1.in");
 to(K, { front: 1 }, CUT + 0.12, 0.62, "power2.in");
-to(K.knife, { y: 26, x: 34, rz: 0.25 }, CUT + 0.35, 0.8, "power2.inOut");
+to(K.knife, { y: 26, x: 38, rz: 0.25 }, CUT + 0.35, 0.8, "power2.inOut");
 to(K.cam, { z: 93, y: 39 }, 0, s.s02.start, "none");
 set(M.a, { wisp: 1 }, 0);
-set(M.wisp, { a: 1, t0: CUT + 0.1, x0: 1290, y0: 470, x1: 1330, y1: -120, bend: 70, life: 2.4, spread: 240, scale: 1 }, 0);
+set(M.wisp, { a: 1, t0: CUT + 0.1, x0: 1340, y0: 330, x1: 1330, y1: -120, bend: 70, life: 2.4, spread: 240, scale: 1 }, 0);
 to(M.wisp, { rate: 0.7 }, CUT + 0.15, 1.2, "power1.in");
 film.hit(CUT, 0.25, 0.25);
 
