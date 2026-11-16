@@ -1,14 +1,26 @@
 // Array-safe versions (and a flag for thin sheets) of stage3d.js's cutaway: the kit's clones `o.material`, which fails on a mesh with a list of
 // materials (the kit's own P.pcb has one). Same look: cut faces solid in each material's userData.cut, faintly hatched.
+// Every material it prepares is listed, so a film can make them one-sided again while nothing is cut: double-sided
+// faces are shaded twice in software GL. cutaway.active(false) / (true).
+const prepared = [];
+cutaway.active = (on) => {
+  for (const m of prepared) {
+    const side = on ? m.userData.cutSide : m.userData.baseSide;
+    if (m.side !== side) m.side = side;
+  }
+};
 export function cutaway(space, group, plane) {
   const { THREE } = space;
   plane ??= new THREE.Plane(new THREE.Vector3(0, 0, -1), 1e5);
   const prep = (m0) => {
     const m = m0.clone();
+    prepared.push(m);
+    m.userData.baseSide = m0.userData.baseSide ?? m0.side;
     m.clippingPlanes = [...(m0.clippingPlanes ?? []), plane];
     m.clipShadows = true; // what is cut away casts no shadow into the cut
     const thin = m.userData.thin; // a sheet (fabric, a cone, a lining): clipped, but its back is not a section
     if (!thin) m.side = THREE.DoubleSide;
+    m.userData.cutSide = m.side;
     const cut = new THREE.Color(m.userData.cut ?? m.color ?? 0x888888);
     if (thin) {
       m.customProgramCacheKey = () => `thin-${m.clippingPlanes.length}`;

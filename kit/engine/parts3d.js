@@ -675,7 +675,7 @@ export function createParts(space) {
     const back = mesh(new THREE.PlaneGeometry(w * 6, w * 3), new THREE.MeshStandardMaterial({ color: wall, roughness: 0.95 }), "wall");
     back.position.set(0, y + w * 0.6, -d * 3);
     back.userData.shadow = false;
-    g.add(top, back, bokeh({ count: lights, seed, color: warm, x: w * 1.4, y: [y + 25, y + w * 0.32], z: -d * 1.5, size: w * 0.024 }));
+    g.add(top, back, bokeh({ count: lights, seed, color: warm, x: w * 1.4, y: [y + 25, y + w * 0.32], z: -d * 1.5, size: w * 0.008 }));
     return g;
   }
   // Points of light far behind the subject: with cam.blur they open into soft discs.

@@ -11,7 +11,7 @@ import { rng } from "../../kit/engine/parts3d.js";
 
 export function wave(space, { path, normal, color = 0xffb547, value = () => 0, width = 1.6, samples = 420, glow = 1 }) {
   const { THREE } = space;
-  const curve = path.isCurve ? path : new THREE.LineCurve3(path[0], path[1]);
+  const curve = typeof path.getPoint === "function" ? path : new THREE.LineCurve3(path[0], path[1]);
   const L = curve.getLength();
   const pts = curve.getSpacedPoints(samples - 1);
   const tans = pts.map((_, i) => curve.getTangentAt(i / (samples - 1)));
@@ -42,6 +42,7 @@ export function wave(space, { path, normal, color = 0xffb547, value = () => 0, w
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
     toneMapped: false,
     uniforms: { color: { value: new THREE.Color(color) }, opacity: { value: 0 }, head: { value: 1 }, tail: { value: 0 }, glow: { value: 1 }, fade: { value: 0.04 } },
     vertexShader: `attribute float side; attribute float along; varying float vSide; varying float vAlong;
@@ -198,7 +199,7 @@ export function shell(space, { color = 0xffb547 } = {}) {
     uniforms: { color: { value: new THREE.Color(color) }, opacity: { value: 0 } },
     vertexShader: `varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
     fragmentShader: `uniform vec3 color; uniform float opacity; varying vec3 vN; varying vec3 vV;
-      void main(){ float f = 1.0 - abs(dot(vN, vV)); float a = pow(f, 5.0) * 1.4 + 0.03; gl_FragColor = vec4(color * a * opacity, 1.0); }`,
+      void main(){ float f = 1.0 - abs(dot(vN, vV)); float a = pow(f, 9.0) * 1.5; gl_FragColor = vec4(color * a * opacity, 1.0); }`,
   });
   const mesh = new THREE.Mesh(new THREE.SphereGeometry(1, 96, 48), m);
   mesh.userData.shadow = false;

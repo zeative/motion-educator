@@ -75,7 +75,7 @@ export function createSet(space, P, { deskY = -42 } = {}) {
   handle.rotation.z = -Math.PI * 0.62;
   handle.position.set(42, 48, 0);
   mug.add(mugBody, handle);
-  mug.position.set(-230, deskY, -160);
+  mug.position.set(-300, deskY, -230);
   scene.add(mug);
 
   // Lamps all round, far off: soft warm discs with a brighter rim, the look of a lens wide open.

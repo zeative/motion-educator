@@ -31,6 +31,8 @@ const T = (id, f = 0) => s[id].start + f * s[id].dur;
 if (!location.search.includes("msaa")) $("#space").getContext("webgl2", { alpha: true, antialias: false, preserveDrawingBuffer: true, premultipliedAlpha: true, depth: true, stencil: false });
 const space = createStage3D($("#space"), { rig: true, shadows: true, environment: 0.8, exposure: 1.08 });
 const { THREE, camera, scene } = space;
+const RATIO = Number(new URLSearchParams(location.search).get("ratio") ?? 1);
+if (RATIO !== 1) space.renderer.setPixelRatio(RATIO);
 if (!location.search.includes("msaa")) fxaa(space);
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const P = createParts(space);
@@ -175,6 +177,9 @@ function field({ center, dir, size, lambda, amp, f, count = 3200, ps = 0.55 }) {
     },
   });
   pts.userData.noCut = true;
+  pts.material.depthWrite = true;
+  pts.material.alphaTest = 0.25;
+  pts.material.blending = THREE.NormalBlending;
   scene.add(pts);
   return { st, pts, update: (t) => ((pts.visible = st.on > 0.01), (pts.material.opacity = st.on), pts.visible && pts.update(t)) };
 }
@@ -189,7 +194,7 @@ const driverWave = W(wave(space, { path: new THREE.CatmullRomCurve3([cupW(0, 2, 
 
 // The air (s03, s04): a field of specks beside the right cup, travelling toward the head (-x).
 const FIELD = V(232, 14, -12);
-const air = field({ center: FIELD, dir: V(-1, 0, 0), size: V(110, 70, 90), lambda: 20, amp: 2.4, f: 0.85, count: 5200, ps: 0.5 });
+const air = field({ center: FIELD, dir: V(-1, 0, 0), size: V(110, 60, 26), lambda: 20, amp: 3.0, f: 0.85, count: 7000, ps: 0.75 });
 const fieldWave = W(wave(space, { path: [FIELD.clone().add(V(55, 0, 0)), FIELD.clone().add(V(-55, 0, 0))], normal: up, color: AMBER, value: (x, t) => 13 * Math.cos(TAU * ((x - 55) / 20 - 0.85 * t)), width: 1.5 }));
 // pins ride on a crest and a trough of the field's wave
 const crest = new THREE.Object3D();
@@ -208,12 +213,12 @@ const flexPts = [[-20.5, 28, 47.6], [-23, 22, 46], [-20, 15, 41], [-13, 10, 37.5
 const spark = W(wave(space, { path: new THREE.CatmullRomCurve3([GRILLE.clone().add(V(-3, -1, 0)), ...flexPts, chipW.clone().add(V(1.2, 0, 0))]), normal: up, color: AMBER, value: () => 0, width: 2.4, glow: 1.6 }));
 const OVER = chipW.clone().add(V(14, 0, 0)); // the plane over the board, toward the cup's back
 const LANE = 9; // mm between the two lanes
-const lane = (dy) => [OVER.clone().add(V(0, dy, 17)), OVER.clone().add(V(0, dy, -17))];
+const lane = (dy) => [OVER.clone().add(V(0, dy + 12, 17)), OVER.clone().add(V(0, dy + 12, -17))];
 const W7 = { a: 0 };
 const noise7 = W(wave(space, { path: lane(LANE), normal: up, color: AMBER, value: (x) => 3.2 * Math.sin(TAU * (x / 11.3) + W7.a), width: 1.5 }));
 const flip7 = W(wave(space, { path: lane(-LANE), normal: up, color: CYAN, value: (x) => -3.2 * Math.sin(TAU * (x / 11.3) + W7.a), width: 1.5 }));
 // crests of sin(2πx/λ) at x = λ/4 + nλ; the links drop from a crest to the trough under it
-const xAt = (u) => OVER.clone().add(V(0, 0, 17 - u));
+const xAt = (u) => OVER.clone().add(V(0, 12, 17 - u));
 const link1 = line(xAt(11.3 * 0.25).add(V(0, LANE + 3.2, 0)), xAt(11.3 * 0.25).add(V(0, -LANE - 3.2, 0)), WHITE, { width: 0.8 });
 const link2 = line(xAt(11.3 * 0.75).add(V(0, LANE - 3.2, 0)), xAt(11.3 * 0.75).add(V(0, -LANE + 3.2, 0)), WHITE, { width: 0.8 });
 const pinCrest = new THREE.Object3D();
@@ -266,14 +271,15 @@ scene.add(drumRing);
 const D22 = { r: 30, o: 0 };
 
 // The sum, floating free (s10, s11): three lanes stacked down the frame, a time axis under them.
-const FREE = V(40, 170, 560); // in front of the head, in empty air
+const FREE = V(0, 150, 760); // in the room, the head behind the camera
 const SH = { shift: 0 }; // how late the copy is, in cycles (s11)
-const freeLane = (dy) => [FREE.clone().add(V(-48, dy, 0)), FREE.clone().add(V(48, dy, 0))];
-const LAM10 = 32;
+// seen from behind (az 180), screen-right is -x: the lanes run from +x (left on screen) to -x
+const freeLane = (dy) => [FREE.clone().add(V(31, dy, 0)), FREE.clone().add(V(-28, dy, 0))];
+const LAM10 = 22;
 const lanes = {
-  a: W(wave(space, { path: freeLane(19), normal: up, color: AMBER, value: (x) => 6.5 * Math.sin(TAU * (x / LAM10)), width: 1.6 })),
-  b: W(wave(space, { path: freeLane(-4), normal: up, color: CYAN, value: (x) => -6.5 * Math.sin(TAU * ((x / LAM10) - SH.shift)), width: 1.6 })),
-  c: W(wave(space, { path: freeLane(-27), normal: up, color: WHITE, value: (x) => 6.5 * (Math.sin(TAU * (x / LAM10)) - Math.sin(TAU * (x / LAM10 - SH.shift))), width: 1.5 })),
+  a: W(wave(space, { path: freeLane(17.3), normal: up, color: AMBER, value: (x) => 6.5 * Math.sin(TAU * (x / LAM10)), width: 1.6 })),
+  b: W(wave(space, { path: freeLane(0), normal: up, color: CYAN, value: (x) => -6.5 * Math.sin(TAU * ((x / LAM10) - SH.shift)), width: 1.6 })),
+  c: W(wave(space, { path: freeLane(-17.3), normal: up, color: WHITE, value: (x) => 6.5 * (Math.sin(TAU * (x / LAM10)) - Math.sin(TAU * (x / LAM10 - SH.shift))), width: 1.5 })),
 };
 
 // The hum, to scale (s12, s13): 343 / 100 = 3.43 m. It travels toward the head from the right (+x).
@@ -315,16 +321,16 @@ drvLabel.position.copy(drvR0.clone().lerp(drvR1, 0.5));
 scene.add(drvLabel);
 // The clatter (s18): a bright shell from a point below and in front.
 const clatter = shell(space, { color: 0xffc070 });
-const CLAT = cupW(-210, -150, 160);
+const CLAT = cupW(210, -150, 170);
 clatter.mesh.position.copy(CLAT);
 
 // ── pins ──────────────────────────────────────────────────────────────────────────────────────────────────
 const pin = (target, text, o = {}) => space.pin(target, text, o);
 const pins = {
-  grille: pin(Mo.ffGrille, "FEED-FORWARD MIC<small>outside the cup</small>", { dx: -200, dy: -240 }),
-  chip: pin(Mo.anc, "ANC CHIP<small>makes the flipped copy</small>", { dx: -230, dy: -300, at: V(0, 0.5, 0) }),
-  squeezed: pin(crest, "SQUEEZED", { dx: -150, dy: -220 }),
-  stretched: pin(trough, "STRETCHED", { dx: 140, dy: 230 }),
+  grille: pin(Mo.ffGrille, "FEED-FORWARD MIC<small>outside the cup</small>", { dx: -110, dy: -250 }),
+  chip: pin(Mo.anc, "ANC CHIP<small>makes the flipped copy</small>", { dx: 170, dy: -330, at: V(0, 0.5, 0) }),
+  squeezed: pin(crest, "SQUEEZED", { dx: 170, dy: -210 }),
+  stretched: pin(trough, "STRETCHED", { dx: 170, dy: 210 }),
   noise7: pin(pinCrest, "<b class='am'>NOISE</b> · SQUEEZE", { dx: -120, dy: -250 }),
   flip7: pin(pinTrough, "<b>FLIPPED</b> · STRETCH", { dx: -120, dy: 250 }),
   noise7b: pin(pinCrest2, "STRETCH", { dx: 140, dy: -190 }),
@@ -335,7 +341,7 @@ const pins = {
   flipped: pin(new THREE.Object3D(), "<b>FLIPPED</b> WAVE<small>from the driver</small>", { dx: 120, dy: 260 }),
   drum: pin(Mo.eardrum, "EARDRUM<small>≈ silence</small>", { dx: 170, dy: -150 }),
   hum: pin(new THREE.Object3D(), "<b class='am'>100 HZ</b> HUM", { dx: -160, dy: -150 }),
-  ruler13: pin(rulerEnd, "≈ 3.4 m<small>one wave · to scale</small>", { dx: -60, dy: 0, className: "ruler" }),
+  ruler13: pin(rulerEnd, "≈ 3.4 m<small>one wave · to scale</small>", { dx: 120, dy: 0, className: "ruler" }),
   squeak: pin(new THREE.Object3D(), "<b class='am'>5,000 HZ</b> SQUEAK", { dx: -170, dy: -200 }),
   sqRuler: pin(sqLabel, "≈ 7 cm<small>one wave</small>", { dx: -80, dy: -140, className: "ruler" }),
   cupSize: pin(cupLabel, "9.4 cm<small>the cup</small>", { dx: 120, dy: 80, className: "ruler" }),
@@ -343,10 +349,10 @@ const pins = {
   foam: pin(Mo.foam, "MEMORY FOAM", { dx: -210, dy: -260, at: V(0, -40.5, 10) }),
   leather: pin(Mo.cover, "LEATHER COVER", { dx: 190, dy: 260, at: V(-30, -34, 20) }),
   blocks: pin(Mo.cover, "CUSHION<small>blocks the highs</small>", { dx: -150, dy: 230, at: V(-38, 0, 10) }),
-  r1: pin(Mo.ffMic, "<b>1</b> HEAR<small>outside mic</small>", { dx: -260, dy: -60, className: "num" }),
-  r2: pin(Mo.anc, "<b>2</b> FLIP<small>ANC chip</small>", { dx: 250, dy: -80, className: "num" }),
-  r3: pin(Mo.drv, "<b>3</b> PLAY<small>40 mm driver</small>", { dx: -260, dy: 40, at: V(0, 20, 0), className: "num" }),
-  r4: pin(Mo.cover, "<b>+</b> CUSHIONS<small>block the highs</small>", { dx: 240, dy: 70, at: V(30, 0, 10), className: "num" }),
+  r1: pin(Mo.ffMic, "<b>1</b> HEAR<small>outside mic</small>", { dx: 200, dy: -90, className: "num" }),
+  r2: pin(Mo.anc, "<b>2</b> FLIP<small>ANC chip</small>", { dx: -170, dy: -40, className: "num" }),
+  r3: pin(Mo.drv, "<b>3</b> PLAY<small>40 mm driver</small>", { dx: 200, dy: 40, at: V(0, 20, 0), className: "num" }),
+  r4: pin(Mo.cover, "<b>+</b> CUSHIONS<small>block the highs</small>", { dx: -170, dy: 90, at: V(30, 0, 10), className: "num" }),
 };
 // targets that are points in space
 const leakAt = new THREE.Object3D();
@@ -406,18 +412,20 @@ move(T("s02", 1) - 0.65, 0.65, { dist: 130, fov: 22 }, "power2.in");
 tint(T("s02"), WARM, 0.7);
 
 // s03: inside the air.
-place(T("s03"), { az: 180, el: 6, dist: 58, tx: FIELD.x + 8, ty: FIELD.y, tz: FIELD.z, fov: 22, blur: 0.65, sway: 0.6 });
-snap(T("s03"), { fabricGlow: 0 });
+place(T("s03"), { az: 180, el: 6, dist: 58, tx: FIELD.x + 8, ty: FIELD.y, tz: FIELD.z, fov: 22, sway: 0.6 });
+snap(T("s03"), { fabricGlow: 0, desk: 0 });
 on(air, T("s03"), T("s05") + 0.6, { fade: 0.3 });
 move(T("s03"), s.s03.dur, { tx: FIELD.x - 6, dist: 70, az: 172 }, "power1.inOut");
 go(T("s03"), { slowNote: 1 }, 0.4);
 // s04: the line draws; pull back to the head.
-move(T("s04"), 2.1, { dist: 210, az: 176, el: 8, blur: 0, fov: 26, tx: FIELD.x - 2 }, "power2.inOut");
+move(T("s04"), 2.1, { dist: 210, az: 176, el: 8, fov: 26, tx: FIELD.x - 2 }, "power2.inOut");
+tl.to(set.state, { lamps: 0.3, duration: 0.3 }, T("s03"));
+tl.to(set.state, { lamps: 1, duration: 0.6 }, T("s04", 0.6));
 on(fieldWave, at("s04", "air"), T("s05") - 0.2, { fade: 0.2 });
 tl.fromTo(fieldWave.state, { head: 0 }, { head: 1, duration: 0.9, ease: "power1.inOut", immediateRender: false }, at("s04", "air"));
 showPin(pins.squeezed, at("s04", "squeezed"), at("s04", "over") + 0.1);
 showPin(pins.stretched, at("s04", "stretched"), at("s04", "over") + 0.1);
-snap(T("s04", 0.6), { head: 1, desk: 0 });
+snap(T("s04", 0.6), { head: 1 });
 move(T("s04", 0.6), s.s04.dur * 0.4 + 0.1, { az: 150, el: 16, dist: 380, tx: cupBase.x + 40, ty: cupBase.y + 16, tz: cupBase.z, fov: 28 }, "power2.inOut");
 go(T("s04", 0.9), { slowNote: 0 }, 0.3);
 
@@ -443,7 +451,7 @@ go(at("s06", "upside-down") - 0.2, { chipGlow: 1 }, 0.4);
 go(T("s06", 1), { grilleGlow: 0 }, 0.2);
 
 // s07: rise over the board; the two waves.
-move(T("s07"), 1.8, { az: 86, el: 14, dist: 132, tx: OVER.x, ty: OVER.y, tz: OVER.z, blur: 0, fov: 24 }, "power2.inOut");
+move(T("s07"), 1.8, { az: 86, el: 16, dist: 175, tx: OVER.x, ty: OVER.y + 6, tz: OVER.z, blur: 0, fov: 24 }, "power2.inOut");
 move(T("s07") + 1.8, s.s07.dur - 1.8, { az: 76, el: 8 }, "power1.inOut");
 on(noise7, T("s07") + 0.1, T("s08") + 0.3);
 on(flip7, T("s07") + 0.35, T("s08") + 0.3);
@@ -460,8 +468,11 @@ go(T("s07", 0.9), { chipGlow: 0 }, 0.4);
 // s08: the cup opens along its axis; close on the driver; it plays the flipped wave toward the ear.
 go(T("s08") - 0.1, { lift: 0, open: 1 }, 1.1, "power2.inOut");
 const DRV_C = cupW(0, 2, 28 + 44);
-move(T("s08"), 1.0, { az: -38, el: 12, dist: 175, tx: DRV_C.x - 26, ty: DRV_C.y, tz: DRV_C.z, fov: 24, blur: 0 }, "power2.inOut");
-move(T("s08") + 1.0, s.s08.dur - 1.0, { az: -28, el: 8, dist: 150 }, "power1.inOut");
+snap(T("s08"), { head: 0 });
+move(T("s08"), 1.0, { az: -70, el: 12, dist: 165, tx: DRV_OPEN.x, ty: DRV_OPEN.y, tz: DRV_OPEN.z, fov: 24, blur: 0 }, "power2.inOut");
+move(T("s08") + 1.0, s.s08.dur - 1.0, { az: -78, el: 8, dist: 140 }, "power1.inOut");
+go(T("s06"), { scope: 0 }, 0.3);
+go(T("s09"), { scope: 1 }, 0.3);
 showPin(pins.driver, at("s08", "speaker") - 0.05, T("s09") + 0.1);
 showPin(pins.drvSize, at("s08", "speaker") + 0.3, T("s09") + 0.1);
 on(drvRuler, at("s08", "speaker") + 0.3, T("s09") + 0.1, { opacity: 0.9 });
@@ -474,10 +485,11 @@ tint(T("s08"), COOL, 0.7);
 
 // s09: close up, cut through; the two add up to almost nothing.
 go(T("s09") - 0.05, { open: 0 }, 0.8, "power2.inOut");
-place(T("s09"), { az: 90, el: 62, dist: 300, tx: MOUTH.x + 26, ty: CUT_Y, tz: -6, fov: 26 });
+snap(T("s09"), { head: 1 });
+place(T("s09"), { az: 90, el: 80, dist: 270, tx: MOUTH.x + 16, ty: CUT_Y, tz: -8, fov: 26 });
 tl.set(S, { cut: 60 }, T("s09"));
 go(T("s09"), { cut: CUT_Y }, 0.9, "power2.out");
-move(T("s09"), s.s09.dur, { el: 70, dist: 250, az: 84 }, "power1.inOut");
+move(T("s09"), s.s09.dur, { el: 84, dist: 235, az: 86 }, "power1.inOut");
 on(cutRings, T("s09"), T("s10"), { fade: 0.4, opacity: 0.9 });
 on(amber9, T("s09") + 0.1, T("s10") + 0.1);
 tl.fromTo(amber9.state, { head: 0.35 }, { head: 1, duration: 1.1, ease: "power1.inOut", immediateRender: false }, T("s09") + 0.1);
@@ -497,14 +509,18 @@ tint(at("s09", "almost"), PALE, 0.35, 0.8);
 
 // s10: the three lanes float free; the name.
 snap(T("s10"), { cut: 1e5 });
-place(T("s10"), { az: -6, el: 4, dist: 300, tx: FREE.x, ty: FREE.y - 22, tz: FREE.z, fov: 26, sway: 0.4 });
-move(T("s10"), s.s10.dur, { az: 6 }, "power1.inOut");
+place(T("s10"), { az: 172, el: 4, dist: 300, tx: FREE.x, ty: FREE.y + 6, tz: FREE.z, fov: 26, sway: 0.3 });
+tl.to(set.state, { lamps: 0.35, duration: 0.3 }, T("s10"));
+tl.to(set.state, { lamps: 1, duration: 0.3 }, T("s12"));
+move(T("s10"), s.s10.dur, { az: 186 }, "power1.inOut");
+go(T("s10") - 0.1, { scope: 0 }, 0.2);
+snap(T("s12"), { scope: 1 });
 for (const [k, o] of Object.entries(lanes)) {
   on(o, T("s10") + 0.1 + "abc".indexOf(k) * 0.12, T("s12"));
   tl.fromTo(o.state, { head: 0 }, { head: 1, duration: 0.7, ease: "power1.out", immediateRender: false }, T("s10") + 0.1 + "abc".indexOf(k) * 0.12);
 }
 // s11: the copy slips late (to the right, along the time arrow) and comes back.
-move(T("s11"), s.s11.dur, { az: 0, el: -1, dist: 290, ty: FREE.y - 30 }, "power1.inOut");
+move(T("s11"), s.s11.dur, { az: 180, el: 2, dist: 290, ty: FREE.y + 6 }, "power1.inOut");
 tl.to(SH, { shift: 1 / 6, duration: 0.7, ease: "power2.inOut" }, at("s11", "copy"));
 tl.to(SH, { shift: 0, duration: 0.6, ease: "power2.inOut" }, at("s11", "in") - 0.35);
 tint(T("s11"), WARM, 0.6, 0.6);
@@ -550,8 +566,8 @@ go(T("s17") - 0.05, { vis: 0.32, scope: 0 }, 0.4);
 
 // s18: the clatter.
 snap(T("s18"), { vis: 1, scope: 1 });
-place(T("s18"), { az: 22, el: 4, dist: 600, tx: cupBase.x - 30, ty: -10, tz: 10, fov: 28, sway: 0.4 });
-move(T("s18"), s.s18.dur, { az: 14, el: 8, dist: 520 }, "power1.inOut");
+place(T("s18"), { az: 128, el: 6, dist: 600, tx: cupBase.x - 30, ty: -10, tz: -20, fov: 28, sway: 0.4 });
+move(T("s18"), s.s18.dur, { az: 118, el: 10, dist: 520 }, "power1.inOut");
 const CLAT_HIT = at("s18", "harder");
 const clatDist = CLAT.distanceTo(cupW(0, 0, 30));
 tl.set(clatter.state, { r: 0.1, opacity: 0 }, T("s18") + 0.2);
@@ -566,18 +582,18 @@ go(T("s18b") - 0.05, { vis: 0.32, scope: 0 }, 0.4);
 // s19: low and close on the cushion; it cuts open to show the foam.
 snap(T("s19"), { vis: 1, scope: 1 });
 const CUSH = cupW(-30, -4, 9);
-place(T("s19"), { az: 18, el: -4, dist: 112, tx: CUSH.x, ty: CUSH.y, tz: CUSH.z + 6, fov: 20, blur: 0.8, focus: 112, sway: 0.6 });
-move(T("s19"), s.s19.dur, { az: 30, el: 2, dist: 92, focus: 92 }, "power1.inOut");
+place(T("s19"), { az: 24, el: 10, dist: 190, tx: CUSH.x, ty: CUSH.y, tz: CUSH.z + 4, fov: 22, sway: 0.6 });
+move(T("s19"), s.s19.dur, { az: 34, el: 6, dist: 150 }, "power1.inOut");
 tl.set(S, { cutC: 80 }, T("s19"));
 go(at("s19", "cushions") - 0.2, { cutC: CUSH.z + 1.5 }, 0.9, "power2.inOut");
 showPin(pins.foam, at("s19", "cushions") + 0.5, T("s20"));
 showPin(pins.leather, at("s19", "still"), T("s20"));
 // s20: from above, the cut; the highs bounce off.
 snap(T("s20"), { cutC: 1e5 });
-place(T("s20"), { az: 70, el: 64, dist: 310, tx: MOUTH.x + 30, ty: CUT_Y, tz: -8, fov: 26 });
+place(T("s20"), { az: 80, el: 80, dist: 290, tx: MOUTH.x + 18, ty: CUT_Y, tz: -8, fov: 26 });
 tl.set(S, { cut: 60 }, T("s20"));
 go(T("s20"), { cut: CUT_Y }, 0.8, "power2.out");
-move(T("s20"), s.s20.dur, { az: 100, dist: 270 }, "power1.inOut");
+move(T("s20"), s.s20.dur, { az: 96, el: 84, dist: 260 }, "power1.inOut");
 on(squeakCutRings, T("s20"), T("s21"), { fade: 0.3 });
 on(faint20, T("s20") + 0.2, T("s21"));
 tl.fromTo(faint20.state, { head: 0.2 }, { head: 1, duration: 1.4, ease: "power1.inOut", immediateRender: false }, T("s20") + 0.2);
@@ -600,9 +616,9 @@ showPin(pins.r4, at("s21", "own") - 0.1, T("s22") - 0.1);
 tint(T("s21"), COOL, 0.55);
 // s22: back to the ear, cut open: they meet, exactly opposite, and vanish.
 snap(T("s22"), { tower: 0, head: 1, desk: 0, open: 0, scope: 1 });
-place(T("s22"), { az: 96, el: 72, dist: 210, tx: MOUTH.x + 22, ty: CUT_Y, tz: -6, fov: 26 });
+place(T("s22"), { az: 92, el: 84, dist: 215, tx: MOUTH.x + 14, ty: CUT_Y, tz: -8, fov: 26 });
 tl.set(S, { cut: CUT_Y }, T("s22"));
-move(T("s22"), s.s22.dur, { el: 58, dist: 330, az: 90 }, "power2.inOut");
+move(T("s22"), s.s22.dur, { el: 78, dist: 320, az: 88 }, "power2.inOut");
 on(cutRings, T("s22"), T("s23"), { fade: 0.3, opacity: 0.8 });
 on(amber9, T("s22") + 0.05, T("s23"));
 on(cyan9, T("s22") + 0.05, T("s23"));
@@ -623,8 +639,8 @@ go(T("s23") - 0.2, { illus: 0, scope: 0 }, 0.2);
 tint(T("s22"), PALE, 0.35, 0.6);
 // s23: the poster, the headphone on the desk as in the first frame.
 snap(T("s23"), { cut: 1e5, head: 0, desk: 1 });
-place(T("s23"), { az: 10, el: 18, dist: 680, tx: HERO.x, ty: HERO.y + 40, tz: HERO.z, fov: 30, sway: 0.5 });
-move(T("s23"), s.s23.dur, { az: 32, el: 16, dist: 640 }, "power1.inOut");
+place(T("s23"), { az: 44, el: 16, dist: 700, tx: HERO.x, ty: HERO.y + 34, tz: HERO.z, fov: 30, sway: 0.5 });
+move(T("s23"), s.s23.dur, { az: 58, el: 14, dist: 760 }, "power1.inOut");
 on(hookRings, T("s23") + 0.5, null, { fade: 1.2, opacity: 0.6 });
 tint(T("s23"), WARM, 0.7, 1.2);
 
@@ -659,8 +675,8 @@ for (const [i, sel] of ["#lane-a", "#sign-plus", "#lane-b", "#sign-eq", "#lane-c
 gsap.set("#timeaxis", { opacity: 0 });
 tl.to("#timeaxis", { opacity: 1, duration: 0.3 }, T("s11") + 0.1);
 // the lanes' labels sit by the lanes: placed from the 3D each frame
-const laneEls = { a: [$("#lane-a"), 19], b: [$("#lane-b"), -4], c: [$("#lane-c"), -27] };
-const signEls = [[$("#sign-plus"), 7.5], [$("#sign-eq"), -15.5]];
+const laneEls = { a: [$("#lane-a"), 17.3], b: [$("#lane-b"), 0], c: [$("#lane-c"), -17.3] };
+const signEls = [[$("#sign-plus"), 8.6], [$("#sign-eq"), -8.6]];
 const proj = (p) => {
   const v = p.clone().project(camera);
   return [(v.x * 0.5 + 0.5) * film.W, (-v.y * 0.5 + 0.5) * film.H];
@@ -914,6 +930,8 @@ film.each((t) => {
   sctx.fill();
   void live;
 });
+const shade = Object.assign(document.createElement("div"), { id: "topshade" });
+$("#root").insertBefore(shade, $("#captions"));
 const tag = Object.assign(document.createElement("p"), { id: "illus", className: "tag", textContent: "ILLUSTRATIVE CUTAWAY · NOT TO SCALE" });
 $("#root").insertBefore(tag, $("#captions"));
 film.each(() => {
@@ -927,9 +945,9 @@ const crestAt = (t, want) => {
   // the field wave: 13 cos(-(2π((x-55)/20 + 0.85 t))); its value at path distance u; the travelling bands move -x
   // place the pin's dummy on the first crest (or trough) past the middle of the field
   const k = (u) => 13 * Math.cos(TAU * ((u - 55) / 20 - 0.85 * t));
-  let best = 30;
+  let best = 44;
   let bestV = -1e9;
-  for (let u = 30; u <= 70; u += 0.25) {
+  for (let u = 44; u <= 66; u += 0.25) {
     const v = want * k(u);
     if (v > bestV) (bestV = v), (best = u);
   }
@@ -939,7 +957,6 @@ film.each((t) => {
   // the whole layer
   Mo.head.visible = S.head > 0.5;
   set.state.desk = S.desk;
-  Mo.left.visible = Mo.band.visible = S.tower < 0.5;
   if (S.tower > 0.5) {
     Mo.phones.rotation.set(0, 0, Math.PI / 2);
     Mo.phones.position.set(0, -110, 0);
@@ -957,6 +974,13 @@ film.each((t) => {
   glowMats.shell.emissive.setRGB(0.03 * S.cupGlow, 0.3 * S.cupGlow, 0.4 * S.cupGlow);
   cutH.constant = S.cut;
   cutC.constant = S.cutC;
+  const cutting = S.cut < 1e4 || S.cutC < 1e4;
+  cutaway.active(cutting);
+  // what lies wholly above the level cut is not drawn at all
+  const above = S.cut < 1e4;
+  Mo.slider.visible = !above;
+  Mo.band.visible = !above && S.tower < 0.5;
+  Mo.left.visible = !above && S.tower < 0.5;
   scene.fog.near = S.fogNear;
   scene.fog.far = S.fogFar;
   // the lens: near and far from the distance, so a macro keeps its depth precision and a crane keeps its far wall
@@ -970,6 +994,7 @@ film.each((t) => {
   drumRing.material.opacity = D22.o;
   drumRing.visible = D22.o > 0.01;
   space.fitShadow(Math.min(900, Math.max(60, cam.dist * 0.7)));
+  set.state.dust = cam.dist > 260 ? 1 : 0; // close up, motes would be huge discs
   set.update(t, camera);
   // the light faces the camera: place a stand-in where the rig will put the camera this frame
   const sw = cam.sway;
@@ -982,10 +1007,10 @@ film.each((t) => {
   space.render(S.vis, t);
   // the lanes' labels sit by their lanes (s10, s11), placed with this frame's camera
   if (t >= s.s10.start && t < s.s12.start) {
-    for (const [el, dy] of Object.values(laneEls)) el.style.top = `${proj(FREE.clone().add(V(-48, dy + 9, 0)))[1] - 44}px`;
+    for (const [el, dy] of Object.values(laneEls)) el.style.top = `${proj(FREE.clone().add(V(0, dy + 7.5, 0)))[1] - 44}px`;
     for (const [el, dy] of signEls) el.style.top = `${proj(FREE.clone().add(V(0, dy, 0)))[1] - 40}px`;
-    $("#timeaxis").style.top = `${proj(FREE.clone().add(V(0, -38, 0)))[1]}px`;
+    $("#timeaxis").style.top = `${proj(FREE.clone().add(V(0, -27, 0)))[1]}px`;
   }
 });
-window.__dbg = { space, scene, THREE, S, set, Mo };
+window.__dbg = { space, scene, THREE, S, set, Mo, lights, hookWave, noise7, eye, cam };
 film.finish();

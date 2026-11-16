@@ -159,6 +159,16 @@ export function createModels(space, P) {
   ffGrille.rotation.x = Math.PI / 2;
   ffGrille.position.set(-20.5, 31, 51.55);
   ffGrille.scale.set(1.2, 1, 0.75);
+  // the holes about 0.6 mm across, with dark acoustic mesh behind them
+  ffGrille.traverse((o) => {
+    if (!o.isMesh) return;
+    o.material.alphaMap.repeat.set(0.5, 0.5);
+    o.material.color.set(0xa9aeb6);
+    o.material.roughness = 0.28;
+  });
+  const ffBacking = P.mesh(new THREE.CircleGeometry(3.4, 48), M.fabric(0x0c0c0e), "ff mesh");
+  ffBacking.scale.set(1.2, 0.75, 1);
+  ffBacking.position.set(-20.5, 31, 51.35);
   const ffBezel = P.mesh(new THREE.TorusGeometry(3.7, 0.45, 12, 48), mat.trim, "ff bezel");
   ffBezel.scale.set(1.2 * 1.06, 0.78, 1);
   ffBezel.position.set(-20.5, 31, 51.6);
@@ -188,7 +198,7 @@ export function createModels(space, P) {
   panel.material.userData.thin = true;
   const shell = new THREE.Group();
   shell.name = "shell group";
-  shell.add(shellOuter, panel, trim, seam, ffGrille, ffBezel, buttons, usb, led);
+  shell.add(shellOuter, panel, trim, seam, ffGrille, ffBacking, ffBezel, buttons, usb, led);
   // the inner wall, so a cut shows a hollow shell
   const shellIn = P.mesh(ovalLathe([[45, 24], [44.6, 40], [42, 46], [30, 48.9], [0, 49.6]]), mat.shellIn, "shell inside");
   shellIn.material.side = THREE.BackSide;
@@ -771,7 +781,7 @@ export function createModels(space, P) {
     canalGeo.computeVertexNormals();
   }
   const canalMat = skinMat(0xb8705a);
-  canalMat.color = new THREE.Color(0x9a4c3e);
+  canalMat.color = new THREE.Color(0x6a2a22);
   canalMat.roughness = 0.3;
   canalMat.clearcoat = 0.5;
   canalMat.userData.cut = 0xc0685a;
