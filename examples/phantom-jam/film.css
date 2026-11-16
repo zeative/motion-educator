@@ -1,0 +1,385 @@
+/* Why do traffic jams appear out of nowhere? Red is braking and the jam; cyan is the car that soaks the wave up. */
+:root {
+  --accent: #ff5a48;
+  --accent-2: #4fd0ff;
+  --red: #ff5a48;
+  --cyan: #4fd0ff;
+}
+#world {
+  position: absolute;
+  inset: 0;
+}
+/* Nothing on screen under 28 px. */
+.chip {
+  font: 600 30px / 1 var(--sans);
+  padding: 16px 26px;
+  color: #f2f2f5;
+}
+.chip b {
+  font: 700 30px / 1 var(--brand);
+  color: var(--t1);
+}
+.chip.big {
+  font-size: 38px;
+  padding: 20px 32px;
+}
+.chip.big b {
+  font-size: 40px;
+}
+.chip.small {
+  font-size: 28px;
+  padding: 12px 22px;
+  color: #d5d5db;
+}
+.chip.small b {
+  font-size: 28px;
+}
+.chip.red b,
+.chip.red {
+  color: #ff7a6b;
+}
+.chip.cyan,
+.chip.cyan b {
+  color: #7fdfff;
+}
+.chip.amber {
+  color: #ffd27a;
+}
+/* A struck-out chip: the line draws across as the word is said. */
+.chip i {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 50%;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--red);
+  box-shadow: 0 0 14px rgb(255 90 72 / 0.7);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.chip {
+  position: relative;
+}
+
+/* s01 */
+#q {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 120px;
+  font-size: 96px;
+  text-shadow: 0 6px 40px rgb(0 0 0 / 0.6);
+}
+#q .key .ch {
+  --k: 1;
+}
+/* s03 */
+#noCrash,
+#noWorks {
+  position: absolute;
+  top: 250px;
+}
+#noCrash {
+  left: 470px;
+}
+#noWorks {
+  left: 1110px;
+}
+/* source chips: top left */
+#srcSugi .chip,
+#srcStern .chip {
+  position: absolute;
+  left: 84px;
+  top: 70px;
+}
+.chip.src b {
+  color: var(--cyan);
+}
+/* the setup chips sit in the ring's middle */
+#setup .stack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 395px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+#rule .chip,
+#nobot .chip,
+#later .chip {
+  position: absolute;
+  left: 50%;
+  top: 140px;
+  transform: translateX(-50%);
+}
+#later .chip {
+  top: 440px;
+}
+#nobot .chip {
+  top: 560px;
+}
+#model {
+  position: absolute;
+  right: 84px;
+  top: 70px;
+  visibility: hidden;
+  opacity: 0;
+}
+#model .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+/* tags that ride on the cars */
+#tags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+#overlay {
+  position: absolute;
+  inset: 0;
+}
+.tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: rgb(14 14 17 / 0.82);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+  color: #ededf0;
+  font: 600 28px / 1 var(--sans);
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}
+.tag b {
+  font: 700 30px / 1 var(--brand);
+}
+.tag.red {
+  color: #ff8a7c;
+  border-color: rgb(255 90 72 / 0.6);
+}
+.tag.cyan {
+  color: #8fe4ff;
+  border-color: rgb(79 208 255 / 0.6);
+}
+#tagGap {
+  padding: 8px 16px;
+}
+#tagGap .br {
+  display: none;
+}
+
+/* s12, s13: the chain chart */
+#chainPanel {
+  position: absolute;
+  left: 1060px;
+  top: 200px;
+  width: 800px;
+  height: 640px;
+}
+#bars {
+  position: absolute;
+  left: 20px;
+  top: 92px;
+}
+#bars text {
+  font: 600 28px var(--sans);
+  fill: #b9b9c1;
+}
+#bars .ax {
+  stroke: rgb(255 255 255 / 0.25);
+  stroke-width: 2;
+}
+
+/* s15 */
+#jamChip {
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  transform: translateX(-50%);
+}
+
+/* s16: time and place */
+#tsPanel {
+  position: absolute;
+  left: 120px;
+  top: 70px;
+  width: 1680px;
+  height: 800px;
+}
+#tsCanvas {
+  position: absolute;
+  left: 20px;
+  top: 80px;
+}
+.tslab {
+  position: absolute;
+  color: #b9b9c1;
+  font: 600 28px / 1 var(--sans);
+}
+#tsY {
+  left: 46px;
+  top: 104px;
+}
+#tsX {
+  right: 60px;
+  bottom: 30px;
+}
+#tsPanel .chip {
+  position: absolute;
+  font-size: 28px;
+}
+#tsWave {
+  left: 330px;
+  bottom: 22px;
+}
+#tsRef {
+  left: 720px;
+  bottom: 22px;
+}
+#tsCar {
+  left: 1290px;
+  top: 92px;
+  display: none;
+}
+.sw {
+  display: inline-block;
+  width: 40px;
+  height: 8px;
+  border-radius: 4px;
+}
+.sw.red {
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red);
+}
+.sw.white {
+  background: #e8e8ee;
+}
+.sw.cyan {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+.sw.grey {
+  background: #8b8b95;
+}
+.sw.dash {
+  height: 0;
+  border-top: 5px dashed #f2f2f5;
+  border-radius: 0;
+}
+
+/* s17, s18 */
+#tailChip {
+  position: absolute;
+  left: 50%;
+  top: 120px;
+  transform: translateX(-50%);
+}
+#adv1,
+#adv2 {
+  position: absolute;
+  top: 120px;
+}
+#adv1 {
+  left: 560px;
+}
+#adv2 {
+  left: 990px;
+}
+
+/* s20: speeds */
+#spPanel {
+  position: absolute;
+  left: 160px;
+  top: 90px;
+  width: 1600px;
+  height: 740px;
+}
+#spCanvas {
+  position: absolute;
+  left: 20px;
+  top: 84px;
+}
+#spPanel .chip {
+  position: absolute;
+  bottom: 22px;
+  font-size: 28px;
+}
+#spAhead {
+  left: 120px;
+}
+#spYou {
+  left: 520px;
+}
+#spBehind {
+  left: 790px;
+}
+#sped .chip,
+#spedChip {
+  position: absolute;
+  right: 84px;
+  top: 140px;
+}
+
+/* s23: recap */
+#recap .card {
+  position: absolute;
+  top: 210px;
+  width: 520px;
+  height: 520px;
+  border-radius: 28px;
+  padding: 30px;
+}
+#r1 {
+  left: 120px;
+}
+#r2 {
+  left: 700px;
+}
+#r3 {
+  left: 1280px;
+}
+#recap svg {
+  width: 460px;
+  height: 272px;
+}
+#recap p {
+  margin-top: 26px;
+  color: #ededf0;
+  font: 600 34px / 1.25 var(--sans);
+}
+#recap p b {
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--red);
+  font: 700 34px / 1 var(--brand);
+}
+
+/* s24, s25 */
+#line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 330px;
+  font-size: 122px;
+  text-shadow: 0 8px 50px rgb(0 0 0 / 0.7);
+}
+
+.phead {
+  height: 76px;
+  font: 600 30px / 1 var(--sans);
+}
+.phead em {
+  font: 500 28px / 1 var(--mono);
+}

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why do onions make you cry?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- The lit 3D layer (onion, board, knife, molecule) and the flat layer drawn over it (micro.js). -->
+      <canvas id="space"></canvas>
+      <canvas id="micro"></canvas>
+
+      <!-- s01: the question -->
+      <section class="scene" id="s01">
+        <h1 class="display" id="q"><span class="ln">Why does</span><span class="ln">cutting an onion</span><span class="ln">make you <em class="key">cry?</em></span></h1>
+      </section>
+
+      <!-- Names that sit on things. Each is placed by its own left/top in film.css. -->
+      <section class="scene" id="names">
+        <span class="chip tag" id="c-whole"><i class="dot onion"></i>a whole onion</span>
+        <span class="chip tag" id="c-nogas"><i class="dot gas"></i>no gas</span>
+        <span class="chip tag" id="c-cells"><i class="dot alli"></i>onion cells · magnified</span>
+        <span class="chip tag" id="c-sulf"><i class="dot sulf"></i>sulfur compounds</span>
+        <span class="chip tag" id="c-alli"><i class="dot alli"></i>enzyme (alliinase)</span>
+        <span class="note" id="n-simpl">one cell, simplified</span>
+        <span class="chip tag" id="c-mixed"><i class="dot sulf"></i><i class="dot alli"></i>mixed</span>
+        <span class="chip tag" id="c-enz"><i class="dot alli"></i>enzyme</span>
+        <span class="chip tag" id="c-sc"><i class="dot sulf"></i>sulfur compound</span>
+        <span class="chip tag" id="c-acid"><i class="dot acid"></i>unstable acid</span>
+        <span class="chip tag" id="c-second"><i class="dot lfs"></i>a second enzyme</span>
+        <span class="chip tag" id="c-lfs"><i class="dot lfs"></i>lachrymatory-factor synthase</span>
+        <span class="chip tag" id="c-gas"><i class="dot gas"></i>the gas</span>
+        <span class="chip tag" id="c-surface"><i class="dot tear"></i>your eye's surface (magnified)</span>
+        <span class="chip tag" id="c-pain"><i class="dot nerve"></i>pain nerves</span>
+        <span class="chip tag" id="c-brain"><i class="dot nerve"></i>brain</span>
+        <span class="chip tag" id="c-gland"><i class="dot tear"></i>tear gland</span>
+        <span class="chip tag" id="c-washed"><i class="dot tear"></i>washed away</span>
+        <span class="chip tag" id="c-sharp">sharp</span>
+        <span class="chip tag" id="c-blunt">blunt</span>
+        <span class="chip tag" id="c-squash"><i class="dot nerve"></i>squashed</span>
+      </section>
+
+      <!-- s08, s09: the old idea and the finding -->
+      <section class="scene" id="ideas">
+        <div class="card glass" id="oldcard"><b>The old idea</b><span>the gas forms by itself · until 2002</span></div>
+        <div class="card glass" id="citecard"><b>Imai et al. · <i>Nature</i> · 2002</b><span>a team in Japan finds the enzyme</span></div>
+        <span class="bigq" id="byitself">by itself?</span>
+      </section>
+
+      <!-- s11: the gas, named -->
+      <section class="scene" id="molname">
+        <h2 class="display" id="mname"><span class="ln"><em class="key">syn-propanethial-S-oxide</em></span></h2>
+        <span class="formula" id="formula">C<sub>3</sub>H<sub>6</sub>OS · the tear gas</span>
+      </section>
+
+      <!-- s16: not sadness -->
+      <section class="scene" id="sad">
+        <span class="bigq" id="sadword">sad?<i id="strike"></i></span>
+      </section>
+
+      <!-- s18 to s20: the knife test -->
+      <section class="scene" id="knifetest">
+        <span class="note" id="n-scale">blade tips drawn to scale with each other · onion not to scale</span>
+        <span class="tipl" id="t-sharp">tip ≈ 0.9 µm</span>
+        <span class="tipl" id="t-blunt">tip ≈ 13 µm</span>
+        <span class="num barl" id="b-one">1×</span>
+        <span class="num barl big" id="b-forty">40×</span>
+        <span class="barcap" id="b-cap">droplets thrown</span>
+        <span class="note" id="n-source">droplets per cut, sharpest vs bluntest blade · Wu et al., Cornell, 2025</span>
+      </section>
+
+      <!-- s21: the recap -->
+      <section class="scene" id="recap">
+        <div class="rcard glass" id="r1">
+          <svg viewBox="0 0 360 260"><rect x="30" y="40" width="300" height="180" rx="34" class="wall" /><rect x="80" y="84" width="200" height="92" rx="24" class="vac" />
+            <circle cx="60" cy="62" r="9" class="sulf" /><circle cx="130" cy="62" r="9" class="sulf" /><circle cx="210" cy="62" r="9" class="sulf" /><circle cx="290" cy="62" r="9" class="sulf" />
+            <circle cx="70" cy="198" r="9" class="sulf" /><circle cx="170" cy="198" r="9" class="sulf" /><circle cx="270" cy="198" r="9" class="sulf" />
+            <circle cx="140" cy="130" r="20" class="alli" /><circle cx="220" cy="130" r="20" class="alli" /></svg>
+          <b>Kept apart</b>
+        </div>
+        <div class="rcard glass" id="r2">
+          <svg viewBox="0 0 360 260"><path d="M40 70 L170 70 L150 200 L40 200 Z" class="wall" /><path d="M320 70 L200 70 L220 200 L320 200 Z" class="wall" />
+            <circle cx="150" cy="128" r="16" class="sulf" /><circle cx="196" cy="160" r="16" class="sulf" /><circle cx="210" cy="104" r="26" class="alli" /><circle cx="160" cy="178" r="20" class="alli" />
+            <path d="M178 10 L190 250" class="cut" /></svg>
+          <b>Cut: they mix</b>
+        </div>
+        <div class="rcard glass" id="r3">
+          <svg viewBox="0 0 360 260"><circle cx="70" cy="150" r="22" class="acid" /><path d="M110 150 L140 150" class="arr" /><circle cx="200" cy="150" r="48" class="lfs" />
+            <path d="M250 120 L280 96" class="arr" /><circle cx="306" cy="78" r="22" class="gas" /><circle cx="320" cy="30" r="12" class="gas" /></svg>
+          <b>2nd enzyme: gas</b>
+        </div>
+        <div class="rcard glass" id="r4">
+          <svg viewBox="0 0 360 260"><circle cx="70" cy="40" r="12" class="gas" /><circle cx="110" cy="70" r="10" class="gas" /><path d="M80 150 Q180 60 280 150 Q180 220 80 150 Z" class="eye" /><circle cx="176" cy="148" r="30" class="iris" />
+            <path d="M150 200 Q140 230 152 252" class="tearl" /></svg>
+          <b>Eye: tears</b>
+        </div>
+      </section>
+
+      <!-- s22, s23: the poster -->
+      <section class="scene" id="poster">
+        <h2 class="display" id="p1"><span class="ln">Cutting mixes what</span><span class="ln">the onion <em class="key">keeps apart.</em></span></h2>
+        <p class="pline" id="p2">Sharp knife: less spray, fewer tears.</p>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

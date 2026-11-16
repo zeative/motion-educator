@@ -1,0 +1,261 @@
+/* "Why do onions make you cry?": this film's own pieces, on top of the kit's look.
+   The colour code holds all film: amber sulfur compounds, violet the first enzyme, orange the unstable acid,
+   magenta the second enzyme, lime the gas (the accent), blue tears, red the nerve signal. */
+:root {
+  --accent: #b6f03a;
+  --accent-2: #ff4fa6;
+  --sulf: #ffb72e;
+  --alli: #9d84ff;
+  --acid: #ff7a3a;
+  --lfs: #ff4fa6;
+  --gas: #b6f03a;
+  --tear: #4cb8ff;
+  --nerve: #ff4d4d;
+  --onion: #a5417f;
+}
+#space,
+#micro {
+  opacity: 1;
+}
+
+/* Captions: every spoken line at the bottom, words lit as said. Accent words take the colour of the thing they
+   name (film.js colours each from its text); an accent word with no colour of its own is a warm white. */
+.cw.key {
+  color: #fff4d6;
+  text-shadow: 0 0 18px rgb(255 240 200 / 0.35);
+}
+.cw.key[data-c] {
+  color: var(--c);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--c) 45%, transparent);
+}
+.caption {
+  background:
+    linear-gradient(180deg, rgb(30 30 34 / 0.94) 0%, rgb(16 16 19 / 0.96) 100%) padding-box,
+    linear-gradient(165deg, rgb(255 255 255 / 0.4), rgb(255 255 255 / 0.06) 30%, rgb(255 255 255 / 0.03) 62%, rgb(182 240 58 / 0.3)) border-box;
+  font-size: 42px;
+}
+
+/* s01: the question */
+#q {
+  position: absolute;
+  left: 104px;
+  top: 250px;
+  font-size: 112px;
+  text-align: left;
+}
+
+/* Chips that name things where they are */
+.scene .chip {
+  position: absolute;
+  font-size: 32px;
+  padding: 16px 26px;
+  gap: 14px;
+}
+.dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px currentColor;
+}
+.dot.sulf { background: var(--sulf); color: var(--sulf); }
+.dot.alli { background: var(--alli); color: var(--alli); }
+.dot.acid { background: var(--acid); color: var(--acid); }
+.dot.lfs { background: var(--lfs); color: var(--lfs); }
+.dot.gas { background: var(--gas); color: var(--gas); }
+.dot.tear { background: var(--tear); color: var(--tear); }
+.dot.nerve { background: var(--nerve); color: var(--nerve); }
+.dot.onion { background: var(--onion); color: var(--onion); }
+.note {
+  position: absolute;
+  color: #c9c9d0;
+  font: 500 30px / 1 var(--sans);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: rgb(10 10 12 / 0.62);
+}
+#c-whole { left: 1320px; top: 250px; }
+#c-nogas { left: 1320px; top: 250px; }
+#c-cells { left: 1380px; top: 48px; }
+#c-sulf { left: 150px; top: 36px; }
+#c-alli { left: 1240px; top: 772px; }
+#n-simpl { left: 96px; top: 784px; }
+#c-mixed { left: 840px; top: 90px; }
+#c-enz { left: 400px; top: 150px; }
+#c-sc { left: 1040px; top: 150px; }
+#c-acid { left: 1110px; top: 300px; }
+#c-second { left: 1190px; top: 200px; }
+#c-lfs { left: 1040px; top: 790px; }
+#c-gas { left: 1560px; top: 120px; }
+#c-surface { left: 96px; top: 64px; }
+#c-pain { left: 1380px; top: 780px; }
+#c-brain { left: 1250px; top: 690px; }
+#c-gland { left: 170px; top: 300px; }
+#c-washed { left: 1360px; top: 120px; }
+#c-sharp { left: 470px; top: 40px; }
+#c-blunt { left: 1345px; top: 40px; }
+#c-squash { left: 1640px; top: 610px; }
+
+/* s08, s09 */
+.card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 30px 40px 32px;
+  border-radius: 28px;
+  white-space: nowrap;
+}
+.card b {
+  font: 650 46px / 1 var(--brand);
+  letter-spacing: -0.02em;
+}
+.card span {
+  color: #b9b9c2;
+  font: 500 32px / 1 var(--sans);
+}
+.card i {
+  font-style: italic;
+}
+#oldcard { left: 560px; top: 90px; }
+#citecard { left: 1000px; top: 712px; }
+#citecard b { color: #ffd6ea; }
+.bigq {
+  position: absolute;
+  color: #ededf0;
+  font: 600 64px / 1 var(--brand);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+#byitself { left: 800px; top: 420px; }
+
+/* s11 */
+#mname {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 700px;
+  font-size: 92px;
+}
+.formula {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 830px;
+  color: #c9c9d0;
+  font: 500 36px / 1 var(--sans);
+  text-align: center;
+}
+.formula sub {
+  font-size: 24px;
+}
+
+/* s16 */
+#sadword { left: 560px; top: 300px; font-size: 96px; color: #cfcfd6; }
+#strike {
+  position: absolute;
+  left: -14px;
+  right: -14px;
+  top: 52%;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--tear);
+  box-shadow: 0 0 16px var(--tear);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* s18 to s20 */
+#n-scale { left: 0; right: 0; margin: 0 auto; width: 520px; top: 60px; white-space: normal; text-align: center; line-height: 1.3; }
+.tipl {
+  position: absolute;
+  color: #ededf0;
+  font: 600 40px / 1 var(--brand);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+#t-sharp { left: 250px; top: 420px; }
+#t-blunt { left: 1720px; top: 330px; }
+.barl {
+  position: absolute;
+  color: #dff1ff;
+  font-size: 54px;
+  transform: translateX(-50%);
+}
+.barl.big {
+  font-size: 140px;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgb(76 184 255 / 0.6);
+}
+#b-one { left: 520px; top: 770px; padding: 6px 16px; border-radius: 12px; background: rgb(10 10 12 / 0.6); }
+#b-forty { left: 1400px; top: 140px; }
+.barcap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  color: #ededf0;
+  font: 600 44px / 1 var(--brand);
+  text-align: center;
+}
+#n-source { left: 0; right: 0; margin: 0 auto; width: max-content; top: 128px; }
+
+/* s21: recap cards */
+.rcard {
+  position: absolute;
+  top: 220px;
+  width: 410px;
+  height: 500px;
+  border-radius: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 24px 46px;
+}
+.rcard svg {
+  width: 370px;
+  height: 300px;
+  overflow: visible;
+  margin-top: 10px;
+}
+.rcard b {
+  font: 650 40px / 1.1 var(--brand);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+#r1 { left: 70px; }
+#r2 { left: 524px; }
+#r3 { left: 986px; }
+#r4 { left: 1440px; }
+.rcard .wall { fill: rgb(70 28 78 / 0.9); stroke: #ecc4ff; stroke-width: 4; }
+.rcard .vac { fill: rgb(157 132 255 / 0.35); stroke: #d9ceff; stroke-width: 3; }
+.rcard .sulf { fill: var(--sulf); filter: drop-shadow(0 0 6px var(--sulf)); }
+.rcard .alli { fill: var(--alli); filter: drop-shadow(0 0 6px var(--alli)); }
+.rcard .acid { fill: var(--acid); filter: drop-shadow(0 0 6px var(--acid)); }
+.rcard .lfs { fill: var(--lfs); filter: drop-shadow(0 0 8px var(--lfs)); }
+.rcard .gas { fill: var(--gas); filter: drop-shadow(0 0 8px var(--gas)); }
+.rcard .cut { stroke: #f4f6fa; stroke-width: 7; fill: none; stroke-linecap: round; filter: drop-shadow(0 0 6px #fff); }
+.rcard .arr { stroke: #ededf0; stroke-width: 6; fill: none; stroke-linecap: round; }
+.rcard .eye { fill: #f0ece8; stroke: #0d0b0e; stroke-width: 6; }
+.rcard .iris { fill: #4a3322; }
+.rcard .tearl { stroke: var(--tear); stroke-width: 12; fill: none; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--tear)); }
+
+/* s22, s23: the poster */
+#p1 {
+  position: absolute;
+  left: 100px;
+  top: 250px;
+  font-size: 96px;
+  text-align: left;
+}
+.pline {
+  position: absolute;
+  left: 104px;
+  top: 530px;
+  color: #ededf0;
+  font: 550 50px / 1.2 var(--sans);
+  letter-spacing: -0.01em;
+}

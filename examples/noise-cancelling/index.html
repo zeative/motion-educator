@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How do noise-cancelling headphones erase sound?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Under everything: the air, the cut-through cup, the lanes and the to-scale view (2D), then the headphones (3D). -->
+      <canvas id="lab"></canvas>
+      <canvas id="space"></canvas>
+
+      <!-- Glass that waves are drawn over: the sum cards, the chip, the meters, the recap. -->
+      <section class="scene" id="eq">
+        <div class="card glass" id="eq1" style="left: 110px; top: 250px"><span class="tag">noise</span></div>
+        <div class="sign display mid" id="eqplus" style="left: 600px; top: 372px"><span class="ln">+</span></div>
+        <div class="card glass" id="eq2" style="left: 720px; top: 250px"><span class="tag cyan">more sound</span></div>
+        <div class="sign display mid" id="eqeq" style="left: 1210px; top: 372px"><span class="ln">=</span></div>
+        <div class="card glass" id="eq3" style="left: 1330px; top: 250px"><span class="qmark num">?</span></div>
+      </section>
+      <section class="scene" id="chip">
+        <div class="panel big" id="chippanel" style="left: 140px; top: 110px; width: 1640px; height: 720px">
+          <div class="phead"><i class="led"></i>the chip<em>in → out</em></div>
+        </div>
+      </section>
+      <section class="scene" id="meters">
+        <div class="panel" id="mpanel" style="left: 110px; top: 130px; width: 1010px; height: 660px">
+          <div class="phead"><span class="mt" id="mt-hum">100 Hz hum</span><span class="mt" id="mt-sq">5,000 Hz squeak</span><em id="m-note"><span id="m-note1">copy late by 0.033 ms · an example</span><span id="m-note2" style="opacity: 0; position: absolute; right: 28px">same delay: 0.033 ms · an example</span></em></div>
+        </div>
+        <div class="panel" id="bpanel" style="left: 1170px; top: 130px; width: 640px; height: 660px">
+          <div class="phead">what reaches you</div>
+        </div>
+        <div class="bar amber" id="bar-noise" style="left: 1240px"><b>noise</b><i>100%</i></div>
+        <div class="bar white" id="bar-left" style="left: 1560px"><b>left over</b><i class="v" id="v-left2">2%</i><i class="v" id="v-left100">100%</i></div>
+        <div class="bar ghost" id="bar-hum" style="left: 1722px"><b>hum</b><i>2%</i></div>
+        <p class="tag lane-tag" style="left: 150px; top: 304px">noise</p>
+        <p class="tag lane-tag cyan" style="left: 150px; top: 467px">flipped<br />copy</p>
+      </section>
+      <section class="scene" id="recap">
+        <div class="card glass rc" id="rc1" style="left: 110px; top: 220px; width: 400px"><span class="n">1</span><b>hear it</b></div>
+        <div class="card glass rc" id="rc2" style="left: 560px; top: 220px; width: 400px"><span class="n">2</span><b>flip it</b></div>
+        <div class="card glass rc" id="rc3" style="left: 1010px; top: 220px; width: 400px"><span class="n">3</span><b>add them</b></div>
+        <div class="card glass rc" id="rc4" style="left: 1460px; top: 220px; width: 350px"><span class="n">+</span><b>cushions:<br />the highs</b></div>
+      </section>
+
+      <canvas id="over"></canvas>
+
+      <!-- s01: the question -->
+      <section class="scene" id="s01">
+        <h1 class="display left" id="title">
+          <span class="ln" id="q1">How do noise-cancelling</span><span class="ln" id="q2">headphones make</span><span class="ln" id="q3">a noise <em class="key">disappear?</em></span>
+        </h1>
+      </section>
+
+      <!-- s03, s04: the air -->
+      <section class="scene" id="air">
+        <span class="chip" id="chip-air" style="left: 110px; top: 96px">air</span>
+        <p class="note" id="note-air" style="right: 110px; top: 110px">slowed down · not to scale</p>
+        <p class="tag" id="tag-pressure" style="left: 110px; top: 210px">pressure</p>
+        <span class="chip ride" id="chip-sq">squeezed</span>
+        <span class="chip ride" id="chip-st">stretched</span>
+      </section>
+
+      <!-- s05, s08, s09, s19, s20: the cut-through cup -->
+      <section class="scene" id="cup">
+        <p class="note" id="note-cup" style="left: 1060px; top: 96px">one ear cup, cut through · not to scale</p>
+        <span class="chip" id="chip-mic" style="left: 700px; top: 200px"><i class="sw cyan"></i>microphone</span>
+        <span class="chip" id="chip-speaker" style="left: 1150px; top: 760px">speaker</span>
+        <span class="chip" id="chip-cush" style="left: 1580px; top: 760px">cushions</span>
+        <span class="chip" id="chip-silence" style="left: 1560px; top: 300px"><b>≈</b> silence</span>
+        <span class="chip" id="chip-highs" style="left: 330px; top: 160px"><i class="sw amber"></i>highs: blocked by the cushions</span>
+        <span class="chip" id="chip-lows" style="left: 330px; top: 720px"><i class="sw cyan"></i>lows: cancelled by the chip</span>
+        <p class="note" id="note-illu" style="left: 1060px; top: 780px">sizes: an illustration</p>
+      </section>
+
+      <!-- s06, s07: inside the chip -->
+      <section class="scene" id="chiptext">
+        <p class="tag" id="lane-in" style="left: 200px; top: 205px">in: the noise</p>
+        <p class="tag cyan" id="lane-out" style="left: 200px; top: 505px">out: flipped</p>
+        <span class="chip ride" id="chip-squeeze">squeeze</span>
+        <span class="chip ride cyan" id="chip-stretch">stretch</span>
+        <span class="chip ride" id="chip-stretch2">stretch</span>
+        <span class="chip ride cyan" id="chip-squeeze2">squeeze</span>
+      </section>
+
+      <!-- s10, s11, s18: three lanes -->
+      <section class="scene" id="lanes">
+        <h2 class="display mid" id="name"><span class="ln"><em class="key">destructive</em> interference</span></h2>
+        <p class="tag lane" id="l-noise" style="top: 276px">noise</p>
+        <p class="tag lane cyan" id="l-flip" style="top: 476px">+ flipped</p>
+        <p class="tag lane cyan" id="l-copy" style="top: 476px; opacity: 0">+ late copy</p>
+        <p class="tag lane white" id="l-sum" style="top: 676px">= you hear</p>
+        <span class="chip" id="chip-late" style="left: 1430px; top: 400px">a little late <b>→</b></span>
+        <span class="chip" id="chip-step" style="left: 1430px; top: 400px"><i class="sw cyan"></i>in step</span>
+        <p class="tag" id="t-clatter" style="left: 380px; top: 150px">sudden clatter</p>
+        <span class="chip" id="chip-toolate" style="left: 1400px; top: 400px">too late</span>
+      </section>
+
+      <!-- s12 to s16: to scale -->
+      <section class="scene" id="scale">
+        <p class="note" id="note-scale" style="left: 0; right: 0; top: 92px; text-align: center">to scale: 1 m = 400 px · slowed down</p>
+        <p class="note" id="note-zoom" style="left: 0; right: 0; top: 92px; text-align: center">ten times closer: 1 m = 4,000 px · slowed down</p>
+        <span class="chip" id="chip-hum" style="left: 560px; top: 230px"><i class="sw amber"></i>100 Hz hum</span>
+        <span class="chip" id="chip-squeak" style="left: 560px; top: 230px"><i class="sw amber"></i>5,000 Hz squeak</span>
+        <p class="tag" id="t-you" style="left: 1606px; top: 556px">you</p>
+        <p class="measure num" id="m-hum">one wave ≈ <b>3.4 m</b></p>
+        <p class="measure num" id="m-sq">one wave ≈ <b>7 cm</b></p>
+        <div class="panel" id="earpanel" style="left: 1160px; top: 712px; width: 650px; height: 150px">
+          <div class="phead">at your ear: the same, 100 times a second</div>
+        </div>
+      </section>
+
+      <!-- s23: the poster -->
+      <section class="scene" id="s23">
+        <h2 class="display left" id="poster"><span class="ln">Noise + its flip</span><span class="ln">= <em class="key">silence</em></span></h2>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

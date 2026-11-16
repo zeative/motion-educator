@@ -1,0 +1,95 @@
+1
+00:00:00,150 --> 00:00:03,100
+Why do traffic jams appear out of nowhere?
+
+2
+00:00:03,030 --> 00:00:05,900
+You crawl along, then the road clears.
+
+3
+00:00:05,830 --> 00:00:08,620
+No crash, no roadworks, nothing.
+
+4
+00:00:08,843 --> 00:00:12,380
+Here's the surprise: enough cars, close together,
+
+5
+00:00:12,310 --> 00:00:14,380
+make the jam themselves.
+
+6
+00:00:14,367 --> 00:00:17,580
+In two thousand eight, Japanese scientists tested it.
+
+7
+00:00:17,590 --> 00:00:21,660
+Twenty-two cars, on a ring two hundred and thirty metres around.
+
+8
+00:00:21,590 --> 00:00:24,620
+Everyone was told to hold thirty kilometres an hour.
+
+9
+00:00:24,550 --> 00:00:27,020
+No bottleneck, nothing in the way.
+
+10
+00:00:27,070 --> 00:00:29,980
+Within minutes, cars were stopping dead.
+
+11
+00:00:29,910 --> 00:00:33,260
+Here's why. One driver eases off a little.
+
+12
+00:00:33,150 --> 00:00:36,420
+The drivers behind react late and brake harder,
+
+13
+00:00:36,310 --> 00:00:40,540
+so it grows, car after car, until somebody stops.
+
+14
+00:00:40,470 --> 00:00:43,420
+Now watch the jam. The cars go forwards,
+
+15
+00:00:43,350 --> 00:00:47,740
+but the jam slides backwards, at about twenty kilometres an hour.
+
+16
+00:00:47,670 --> 00:00:52,780
+That's a stop-and-go wave. Real highway jams move at that same speed.
+
+17
+00:00:52,710 --> 00:00:55,580
+How do you stop one? Don't tailgate.
+
+18
+00:00:55,510 --> 00:00:58,460
+Leave a big gap, and keep a steady speed.
+
+19
+00:00:58,390 --> 00:01:02,940
+When the car ahead brakes, don't copy it. Let the gap shrink.
+
+20
+00:01:02,870 --> 00:01:05,860
+You soak up the wave instead of passing it on.
+
+21
+00:01:05,750 --> 00:01:09,447
+Later, one car with a computer on the pedals did just that,
+
+22
+00:01:09,323 --> 00:01:10,940
+and the waves faded.
+
+23
+00:01:10,927 --> 00:01:14,820
+So a jam out of nowhere starts with one tap on the brakes.
+
+24
+00:01:14,710 --> 00:01:16,620
+And it can end with you.

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why do traffic jams appear out of nowhere?</title>
+    <link rel="stylesheet" href="../../kit/css/film.css" />
+    <link rel="stylesheet" href="film.css" />
+    <script type="importmap">
+      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
+    </script>
+    <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <canvas id="world"></canvas>
+
+      <!-- Things that ride on the 3D world: placed every frame from where the model puts the cars. -->
+      <div id="tags">
+        <div class="tag" id="tagGap"><span class="br"></span><b>≈ 6 m</b></div>
+        <div class="tag spd" id="tagA"><b class="num">30</b> km/h</div>
+        <div class="tag spd" id="tagB"><b class="num">30</b> km/h</div>
+        <div class="tag spd" id="tagC"><b class="num">30</b> km/h</div>
+        <div class="tag spd red" id="tagStop"><b class="num">0</b> km/h</div>
+        <div class="tag spd cyan" id="tagMark"><b class="num" id="markNum">30</b> km/h</div>
+        <div class="tag word red" id="tagStopped">stopped</div>
+        <div class="tag word" id="tagTail">0.5 s behind</div>
+        <div class="tag spd cyan" id="tagYou"><span>you</span> <b class="num" id="youNum">12</b> km/h</div>
+        <div class="tag word cyan" id="tagAuto">speed set by a computer</div>
+        <svg id="overlay" width="1920" height="1080" viewBox="0 0 1920 1080">
+          <defs>
+            <marker id="ahc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#4fd0ff" /></marker>
+            <marker id="ahr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#ff5a48" /></marker>
+          </defs>
+          <g id="fwd"></g>
+          <path id="back" d="" fill="none" stroke="#ff5a48" stroke-width="12" stroke-linecap="round" marker-end="url(#ahr)" />
+          <g id="gapLine"><path id="gapPath" d="" fill="none" stroke="#4fd0ff" stroke-width="5" stroke-linecap="round" /></g>
+          <path id="lapArc" d="" fill="none" stroke="#4fd0ff" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14" />
+        </svg>
+        <div class="tag word cyan" id="tagGapYou">gap</div>
+      </div>
+
+      <!-- s01: the question -->
+      <section class="scene" id="s01">
+        <h1 class="display" id="q"><span class="ln">Why do traffic jams appear</span><span class="ln"><em class="key">out of nowhere?</em></span></h1>
+      </section>
+
+      <!-- s03: what is not there -->
+      <section class="scene" id="s03">
+        <div class="chip big" id="noCrash">no crash<i></i></div>
+        <div class="chip big" id="noWorks">no roadworks<i></i></div>
+      </section>
+
+      <!-- the source chips -->
+      <section class="scene" id="srcSugi"><div class="chip src"><b>2008</b> Sugiyama et al. · New Journal of Physics</div></section>
+      <section class="scene" id="srcStern"><div class="chip src"><b>2018</b> Stern et al. · a later ring test, USA</div></section>
+
+      <!-- s07 to s09: the setup -->
+      <section class="scene" id="setup">
+        <div class="stack">
+          <div class="chip big" id="c22"><b class="num">22</b> cars</div>
+          <div class="chip big" id="c230"><b class="num">230 m</b> around</div>
+        </div>
+      </section>
+      <section class="scene" id="rule"><div class="chip big"><span>every driver:</span> <b class="num">30 km/h</b></div></section>
+      <section class="scene" id="nobot"><div class="chip big">no bottleneck<i></i></div></section>
+      <section class="scene" id="later"><div class="chip big amber">a few minutes later</div></section>
+
+      <!-- the model's own tag, wherever the ring is the model -->
+      <div id="model" class="chip small"><span class="dot"></span><span id="modelText">computer model of the ring</span></div>
+
+      <!-- s12, s13: the chain, driver by driver -->
+      <section class="scene" id="chain">
+        <div class="panel" id="chainPanel">
+          <div class="phead">Lowest speed, driver by driver<em>model</em></div>
+          <svg id="bars" width="760" height="520" viewBox="0 0 760 520"></svg>
+        </div>
+      </section>
+
+      <!-- s15: the jam's speed -->
+      <section class="scene" id="jamSpeed"><div class="chip big red" id="jamChip"><b class="num">≈ 20 km/h</b> backwards</div></section>
+
+      <!-- s16: time and place -->
+      <section class="scene" id="ts">
+        <div class="panel" id="tsPanel">
+          <div class="phead">Every car, second by second<em>model of the 230 m ring</em></div>
+          <canvas id="tsCanvas" width="1640" height="700"></canvas>
+          <div class="tslab" id="tsY">place on the ring</div>
+          <div class="tslab" id="tsX">time →</div>
+          <div class="chip" id="tsWave"><span class="sw red"></span> stop-and-go wave</div>
+          <div class="chip" id="tsRef"><span class="sw dash"></span> 20 km/h backwards, as on real highways</div>
+          <div class="chip" id="tsCar"><span class="sw white"></span> one car, driving forwards</div>
+        </div>
+      </section>
+
+      <!-- s17: tailgating -->
+      <section class="scene" id="tail"><div class="chip big red" id="tailChip">tailgating<i></i></div></section>
+
+      <!-- s18: a big gap, a steady speed -->
+      <section class="scene" id="advice">
+        <div class="chip big cyan" id="adv1">a big gap</div>
+        <div class="chip big cyan" id="adv2">a steady speed</div>
+      </section>
+
+      <!-- s20: the speeds -->
+      <section class="scene" id="speeds">
+        <div class="panel" id="spPanel">
+          <div class="phead">Speed of three cars in a row<em>model</em></div>
+          <canvas id="spCanvas" width="1560" height="560"></canvas>
+          <div class="chip" id="spAhead"><span class="sw white"></span> the car ahead</div>
+          <div class="chip" id="spYou"><span class="sw cyan"></span> you</div>
+          <div class="chip" id="spBehind"><span class="sw grey"></span> the car behind you</div>
+        </div>
+      </section>
+
+      <!-- s21, s22 -->
+      <section class="scene" id="sped"><div class="chip small" id="spedChip">model time <b class="num">× 8</b></div></section>
+
+      <!-- s23: recap -->
+      <section class="scene" id="recap">
+        <div class="card glass" id="r1"><svg viewBox="0 0 440 260" id="r1svg"></svg><p><b>1</b> One small slowdown grows, driver to driver</p></div>
+        <div class="card glass" id="r2"><svg viewBox="0 0 440 260" id="r2svg"></svg><p><b>2</b> The jam slides backwards, ≈ 20 km/h</p></div>
+        <div class="card glass" id="r3"><svg viewBox="0 0 440 260" id="r3svg"></svg><p><b>3</b> A big gap soaks the wave up</p></div>
+      </section>
+
+      <!-- s24, s25: the line to remember -->
+      <section class="scene" id="poster">
+        <h1 class="display" id="line"><span class="ln">Leave a gap.</span><span class="ln"><em class="key">Soak up the wave.</em></span></h1>
+      </section>
+    </div>
+    <script type="module" src="film.js"></script>
+  </body>
+</html>

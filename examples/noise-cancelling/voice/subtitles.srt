@@ -1,0 +1,91 @@
+1
+00:00:00,150 --> 00:00:03,620
+How do noise-cancelling headphones make a noise disappear?
+
+2
+00:00:03,750 --> 00:00:07,340
+Surprisingly, they do it by adding more sound.
+
+3
+00:00:07,270 --> 00:00:09,340
+Sound is a wave of pressure:
+
+4
+00:00:09,270 --> 00:00:13,260
+the air gets squeezed, then stretched, over and over.
+
+5
+00:00:13,190 --> 00:00:17,900
+A tiny microphone on the outside of each ear cup hears that wave coming in.
+
+6
+00:00:17,950 --> 00:00:20,700
+Then a chip builds an upside-down copy:
+
+7
+00:00:20,630 --> 00:00:25,100
+a stretch wherever the noise squeezes, and a squeeze wherever it stretches.
+
+8
+00:00:25,030 --> 00:00:27,820
+The speaker plays that flipped wave into your ear,
+
+9
+00:00:27,750 --> 00:00:30,220
+and the two add up to almost nothing.
+
+10
+00:00:30,740 --> 00:00:33,730
+Physicists call it destructive interference.
+
+11
+00:00:34,070 --> 00:00:37,060
+But the copy has to stay exactly in step.
+
+12
+00:00:36,990 --> 00:00:40,900
+With a steady, low hum, like an engine's drone, that's easy.
+
+13
+00:00:40,870 --> 00:00:43,460
+Its waves are metres long and keep repeating,
+
+14
+00:00:43,390 --> 00:00:45,540
+so the chip has time to match them.
+
+15
+00:00:45,470 --> 00:00:47,780
+A high-pitched squeak is harder.
+
+16
+00:00:47,750 --> 00:00:50,100
+Its waves are only a few centimetres long,
+
+17
+00:00:50,030 --> 00:00:53,220
+so the tiniest delay knocks the copy out of step.
+
+18
+00:00:53,150 --> 00:00:55,380
+A sudden clatter is harder still:
+
+19
+00:00:55,310 --> 00:00:57,900
+it changes faster than the chip can follow.
+
+20
+00:00:57,790 --> 00:01:00,300
+That's why the soft cushions still matter.
+
+21
+00:01:00,190 --> 00:01:03,753
+They block the high, sharp sounds the chip can't catch.
+
+22
+00:01:04,057 --> 00:01:08,127
+So that's the answer: your headphones erase a noise with its own wave,
+
+23
+00:01:08,003 --> 00:01:10,660
+flipped upside down and played right on time.
