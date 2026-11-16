@@ -95,10 +95,10 @@ const CUT_Y = 0.6;
 // The cup's parts move along its axis (cup z) in two poses: "lift" (the shell off, upward) and "open" (all apart).
 const LIFT = { "shell group": [0, 170, 30] };
 const OPEN = {
-  "cushion ring": [0, 0, 3], "fabric cover": [0, 0, 15], "feedback mic": [0, 0, 28], baffle: [0, 0, 44], screws: [0, 0, 44], "driver (placed)": [0, 0, 44],
-  battery: [0, -4, 66], "main board (placed)": [0, 0, 84], "shell group": [0, 0, 112], "feed-forward mic": [0, 0, 112], "ff flex": [0, 0, 112], "ff cable": [0, 0, 112],
+  cushion: [0, 0, 34], "cushion ring": [0, 0, 37], "fabric cover": [0, 0, 49], "feedback mic": [0, 0, 62], baffle: [0, 0, 78], screws: [0, 0, 78], "driver (placed)": [0, 0, 78],
+  battery: [0, -4, 100], "main board (placed)": [0, 0, 118], "shell group": [0, 0, 146], "feed-forward mic": [0, 0, 146], "ff flex": [0, 0, 146], "ff cable": [0, 0, 146],
 };
-const OPEN_RIGHT = { yoke: [0, 0, 112], pivots: [0, 0, 112], slider: [0, 0, 112] };
+const OPEN_RIGHT = { yoke: [0, 0, 146], pivots: [0, 0, 146], slider: [0, 0, 146] };
 const moving = [];
 for (const [name, out] of Object.entries({ ...OPEN, ...LIFT })) {
   const o = Mo.cup.getObjectByName(name);
@@ -232,7 +232,7 @@ pinTrough2.position.copy(xAt(11.3 * 0.75).add(V(0, -LANE + 3.2, 0)));
 scene.add(pinCrest, pinTrough, pinCrest2, pinTrough2);
 
 // The driver playing it (s08): cyan from the driver's face (opened out 44 mm) to the canal.
-const DRV_OPEN = cupW(0, 2, 20.3 + 44 - 1);
+const DRV_OPEN = cupW(0, 2, 20.3 + 78 - 1);
 const cyan8 = W(wave(space, { path: new THREE.CatmullRomCurve3([DRV_OPEN, DRV_OPEN.clone().lerp(MOUTH, 0.5).add(V(0, 1, 2)), MOUTH.clone().add(V(4, 0, 0))]), normal: up, color: CYAN, value: (x, t) => 4.2 * Math.sin(TAU * (x / 18 - 1.6 * t) + Math.PI), width: 1.6 }));
 const driverRings = rings({ src: DRV_OPEN, dir: V(-1, 0, 0), spread: 0.55, lambda: 18, speed: 30, shells: 4, count: 900, size: 0.9, color: 0x9ff0ff });
 
@@ -313,8 +313,8 @@ const cupLabel = new THREE.Object3D();
 cupLabel.position.copy(cupTop.clone().lerp(cupBot, 0.5));
 scene.add(sqLabel, cupLabel);
 // The driver's size (s08): a ruler across its face.
-const drvR0 = cupW(-20.4, -24, 20.3 + 44);
-const drvR1 = cupW(20.4, -24, 20.3 + 44);
+const drvR0 = cupW(-20.4, -24, 20.3 + 78);
+const drvR1 = cupW(20.4, -24, 20.3 + 78);
 const drvRuler = line(drvR0, drvR1, WHITE);
 const drvLabel = new THREE.Object3D();
 drvLabel.position.copy(drvR0.clone().lerp(drvR1, 0.5));
@@ -335,11 +335,12 @@ const pins = {
   flip7: pin(pinTrough, "<b>FLIPPED</b> · STRETCH", { dx: -120, dy: 250 }),
   noise7b: pin(pinCrest2, "STRETCH", { dx: 140, dy: -190 }),
   flip7b: pin(pinTrough2, "SQUEEZE", { dx: 140, dy: 190 }),
-  driver: pin(Mo.drv, "40 MM DRIVER<small>plays the flipped wave</small>", { dx: 150, dy: -330, at: V(0, 20, 6) }),
+  driver: pin(Mo.drv, "40 MM DRIVER<small>plays the flipped wave</small>", { dx: 140, dy: -300, at: V(0, 20, 6) }),
   drvSize: pin(drvLabel, "40 mm", { dx: 0, dy: 120, className: "ruler" }),
   leak: pin(new THREE.Object3D(), "<b class='am'>NOISE</b> LEAKS IN<small>past the cushion</small>", { dx: -60, dy: 210 }),
   flipped: pin(new THREE.Object3D(), "<b>FLIPPED</b> WAVE<small>from the driver</small>", { dx: 120, dy: 260 }),
   drum: pin(Mo.eardrum, "EARDRUM<small>≈ silence</small>", { dx: 170, dy: -150 }),
+  ear: pin(Mo.pinna, "YOUR EAR", { dx: -150, dy: 200, at: V(14, -10, 2) }),
   hum: pin(new THREE.Object3D(), "<b class='am'>100 HZ</b> HUM", { dx: -160, dy: -150 }),
   ruler13: pin(rulerEnd, "≈ 3.4 m<small>one wave · to scale</small>", { dx: 120, dy: 0, className: "ruler" }),
   squeak: pin(new THREE.Object3D(), "<b class='am'>5,000 HZ</b> SQUEAK", { dx: -170, dy: -200 }),
@@ -467,13 +468,14 @@ go(T("s07", 0.9), { chipGlow: 0 }, 0.4);
 
 // s08: the cup opens along its axis; close on the driver; it plays the flipped wave toward the ear.
 go(T("s08") - 0.1, { lift: 0, open: 1 }, 1.1, "power2.inOut");
-const DRV_C = cupW(0, 2, 28 + 44);
-snap(T("s08"), { head: 0 });
-move(T("s08"), 1.0, { az: -70, el: 12, dist: 165, tx: DRV_OPEN.x, ty: DRV_OPEN.y, tz: DRV_OPEN.z, fov: 24, blur: 0 }, "power2.inOut");
-move(T("s08") + 1.0, s.s08.dur - 1.0, { az: -78, el: 8, dist: 140 }, "power1.inOut");
+const DRV_C = cupW(0, 2, 28 + 78);
+const EAR_DRV = A.ear.clone().lerp(DRV_OPEN, 0.42).add(V(0, 4, -6));
+move(T("s08"), 1.0, { az: 128, el: 14, dist: 250, tx: EAR_DRV.x, ty: EAR_DRV.y, tz: EAR_DRV.z, fov: 26, blur: 0 }, "power2.inOut");
+move(T("s08") + 1.0, s.s08.dur - 1.0, { az: 120, el: 10, dist: 225 }, "power1.inOut");
 go(T("s06"), { scope: 0 }, 0.3);
 go(T("s09"), { scope: 1 }, 0.3);
 showPin(pins.driver, at("s08", "speaker") - 0.05, T("s09") + 0.1);
+showPin(pins.ear, at("s08", "ear,") - 0.1, T("s09") + 0.1);
 showPin(pins.drvSize, at("s08", "speaker") + 0.3, T("s09") + 0.1);
 on(drvRuler, at("s08", "speaker") + 0.3, T("s09") + 0.1, { opacity: 0.9 });
 on(cyan8, at("s08", "flipped") - 0.1, T("s09") + 0.3);
@@ -608,7 +610,7 @@ snap(T("s21"), { cut: 1e5, head: 0, desk: 1, tower: 1, scope: 0 });
 const TOWER = V(-8, 40, -12);
 place(T("s21"), { az: 34, el: 16, dist: 640, tx: TOWER.x, ty: TOWER.y + 6, tz: TOWER.z, fov: 28, sway: 0.4 });
 move(T("s21"), s.s21.dur, { az: 52, el: 14, dist: 600 }, "power1.inOut");
-go(T("s21") + 0.05, { open: 1.15 }, 1.1, "power2.inOut");
+go(T("s21") + 0.05, { open: 1 }, 1.1, "power2.inOut");
 showPin(pins.r1, at("s21", "answer:") - 0.05, T("s22") - 0.1);
 showPin(pins.r2, at("s21", "headphones") - 0.05, T("s22") - 0.1);
 showPin(pins.r3, at("s21", "noise"), T("s22") - 0.1);
@@ -962,7 +964,6 @@ film.each((t) => {
   }
   // the parts' poses
   for (const m of moving) m.o.position.copy(m.base).addScaledVector(m.open, S.open).addScaledVector(m.lift, S.lift);
-  Mo.fabric.visible = !(S.open > 0.05 && S.tower < 0.5); // out of the way while the driver plays to the ear
   Mo.setCone(S.cone * 0.9 * Math.sin(TAU * 1.6 * t));
   glowMats.fabric.emissive.setRGB(0.05 * S.fabricGlow, 0.5 * S.fabricGlow, 0.62 * S.fabricGlow);
   glowMats.chip.emissive.setRGB(0.04 * S.chipGlow, 0.55 * S.chipGlow, 0.7 * S.chipGlow);
