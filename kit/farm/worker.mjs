@@ -9,7 +9,7 @@
 // A film's out/ folder is kept between jobs (by key), so a later --only render reuses the segments already made.
 import { spawn, spawnSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
-import { createReadStream, existsSync, mkdirSync, readFileSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
+import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { availableParallelism } from "node:os";
 import { join, normalize } from "node:path";
@@ -54,7 +54,10 @@ async function work(job) {
   const filmDir = normalize(join(ws, job.film));
   if (!filmDir.startsWith(ws) || !existsSync(join(filmDir, "index.html"))) return fail(job, `no index.html in ${job.film}`);
   const out = join(home, "out");
-  mkdirSync(out, { recursive: true });
+  mkdirSync(join(out, "segments"), { recursive: true });
+  // Segments sent with the film join the ones kept here; render.mjs decides from their stamps which still hold.
+  const sent = join(filmDir, "out", "segments");
+  if (existsSync(sent)) for (const name of readdirSync(sent)) if (/^seg-\d+-\d+\.mp4(\.sha)?$/.test(name)) renameSync(join(sent, name), join(out, "segments", name));
   // node_modules, cached by package.json.
   const pkg = readFileSync(join(ws, "package.json"));
   const mods = join(ROOT, "modules", createHash("sha256").update(pkg).digest("hex").slice(0, 16));

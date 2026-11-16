@@ -13,7 +13,8 @@ services:
         ARG REVISION=main
         RUN git clone --depth 1 --branch $${REVISION} https://github.com/zeative/motion-educator /opt/me
         RUN node -e "require('playwright')" && ls /usr/share/vulkan/icd.d/lvp_icd.json
-        CMD ["node", "/opt/me/kit/farm/worker.mjs"]
+        # The worker's own code is refreshed from the repository each time the container starts.
+        CMD ["sh", "-c", "git -C /opt/me fetch -q --depth 1 origin main && git -C /opt/me reset -q --hard FETCH_HEAD; exec node /opt/me/kit/farm/worker.mjs"]
     environment:
       - FARM_TOKEN=${FARM_TOKEN}
       - FARM_JOBS=${FARM_JOBS:-5}
