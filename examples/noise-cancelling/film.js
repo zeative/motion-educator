@@ -193,9 +193,9 @@ const hookWave = W(wave(space, { path: new THREE.CatmullRomCurve3([V(-520, 230, 
 const driverWave = W(wave(space, { path: new THREE.CatmullRomCurve3([cupW(0, 2, 12), cupW(0, 0, -60), cupW(10, -14, -150), V(-40, -10, 120)]), normal: up, color: CYAN, value: (x, t) => 14 * Math.sin(TAU * (x / 90 - 1.3 * t) + Math.PI), width: 1.6 }));
 
 // The air (s03, s04): a field of specks beside the right cup, travelling toward the head (-x).
-const FIELD = V(232, 14, -12);
-const air = field({ center: FIELD, dir: V(-1, 0, 0), size: V(110, 60, 26), lambda: 20, amp: 3.0, f: 0.85, count: 7000, ps: 0.75 });
-const fieldWave = W(wave(space, { path: [FIELD.clone().add(V(55, 0, 0)), FIELD.clone().add(V(-55, 0, 0))], normal: up, color: AMBER, value: (x, t) => 13 * Math.cos(TAU * ((x - 55) / 20 - 0.85 * t)), width: 1.5 }));
+const FIELD = V(196, 14, -12);
+const air = field({ center: FIELD, dir: V(-1, 0, 0), size: V(130, 90, 50), lambda: 20, amp: 3.0, f: 0.85, count: 9000, ps: 1.5 });
+const fieldWave = W(wave(space, { path: [FIELD.clone().add(V(55, 0, -14)), FIELD.clone().add(V(-55, 0, -14))], normal: up, color: AMBER, value: (x, t) => 13 * Math.cos(TAU * ((x - 55) / 20 - 0.85 * t)), width: 1.5 }));
 // pins ride on a crest and a trough of the field's wave
 const crest = new THREE.Object3D();
 const trough = new THREE.Object3D();
@@ -412,20 +412,20 @@ move(T("s02", 1) - 0.65, 0.65, { dist: 130, fov: 22 }, "power2.in");
 tint(T("s02"), WARM, 0.7);
 
 // s03: inside the air.
-place(T("s03"), { az: 180, el: 6, dist: 58, tx: FIELD.x + 8, ty: FIELD.y, tz: FIELD.z, fov: 22, sway: 0.6 });
+snap(T("s03"), { head: 1 });
+place(T("s03"), { az: 186, el: 6, dist: 300, tx: FIELD.x - 8, ty: FIELD.y, tz: FIELD.z, fov: 26, sway: 0.6 });
 snap(T("s03"), { fabricGlow: 0, desk: 0 });
 on(air, T("s03"), T("s05") + 0.6, { fade: 0.3 });
-move(T("s03"), s.s03.dur, { tx: FIELD.x - 6, dist: 70, az: 172 }, "power1.inOut");
+move(T("s03"), s.s03.dur, { tx: FIELD.x - 18, dist: 330, az: 182 }, "power1.inOut");
 go(T("s03"), { slowNote: 1 }, 0.4);
 // s04: the line draws; pull back to the head.
-move(T("s04"), 2.1, { dist: 210, az: 176, el: 8, fov: 26, tx: FIELD.x - 2 }, "power2.inOut");
+move(T("s04"), 2.1, { dist: 400, az: 178, el: 8, fov: 28, tx: FIELD.x - 30 }, "power2.inOut");
 tl.to(set.state, { lamps: 0.3, duration: 0.3 }, T("s03"));
 tl.to(set.state, { lamps: 1, duration: 0.6 }, T("s04", 0.6));
 on(fieldWave, at("s04", "air"), T("s05") - 0.2, { fade: 0.2 });
 tl.fromTo(fieldWave.state, { head: 0 }, { head: 1, duration: 0.9, ease: "power1.inOut", immediateRender: false }, at("s04", "air"));
 showPin(pins.squeezed, at("s04", "squeezed"), at("s04", "over") + 0.1);
 showPin(pins.stretched, at("s04", "stretched"), at("s04", "over") + 0.1);
-snap(T("s04", 0.6), { head: 1 });
 move(T("s04", 0.6), s.s04.dur * 0.4 + 0.1, { az: 150, el: 16, dist: 380, tx: cupBase.x + 40, ty: cupBase.y + 16, tz: cupBase.z, fov: 28 }, "power2.inOut");
 go(T("s04", 0.9), { slowNote: 0 }, 0.3);
 
@@ -666,10 +666,6 @@ film.each(() => {
 });
 
 film.scene("#sum", s.s10.start, s.s12.start);
-const nameChars = film.split("#name");
-film.typeIn(nameChars, at("s10", "destructive") - 0.1, { stagger: 0.03 });
-film.sheen("#name", after("s10", "interference.") + 0.1);
-film.typeOut(nameChars, at("s11", "But") - 0.05);
 gsap.set(["#lane-a", "#lane-b", "#lane-c", "#sign-plus", "#sign-eq"], { opacity: 0 });
 for (const [i, sel] of ["#lane-a", "#sign-plus", "#lane-b", "#sign-eq", "#lane-c"].entries()) tl.to(sel, { opacity: 1, duration: 0.3 }, T("s10") + 0.15 + i * 0.08);
 gsap.set("#timeaxis", { opacity: 0 });
@@ -951,7 +947,7 @@ const crestAt = (t, want) => {
     const v = want * k(u);
     if (v > bestV) (bestV = v), (best = u);
   }
-  return FIELD.clone().add(V(55 - best, (want * 13) + 0, 0));
+  return FIELD.clone().add(V(55 - best, want * 13, -14));
 };
 film.each((t) => {
   // the whole layer

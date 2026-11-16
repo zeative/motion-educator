@@ -63,20 +63,14 @@ export function createModels(space, P) {
   mat.foam.userData.cut = 0x8a8b8f;
   mat.baffle.userData.cut = 0x34363c;
 
-  // The skin: the kit's skin without its transmission pass (costly in software GL), with pores.
-  const pores = P.texture(P.normalFrom(P.noise(512, 120, 77, 2), 2.2), { repeat: 6 });
-  const skinMat = (color = 0xc58d70) => {
-    const m = M.skin(color);
-    m.transmission = 0;
-    m.thickness = 0;
-    m.normalMap = pores;
-    m.normalScale = new THREE.Vector2(0.35, 0.35);
-    m.roughness = 0.52;
-    m.sheen = 0.6;
-    m.sheenColor = new THREE.Color(0xffb59a);
-    m.clearcoat = 0.12;
-    m.clearcoatRoughness = 0.45;
-    m.userData.cut = 0xc0685a;
+  // The bust: matte clay, the way headphones are shown in product photography (no skin tone, no hair), with a fine
+  // cast-clay grain. Its cut section is a paler clay, hatched.
+  const grain = P.texture(P.normalFrom(P.noise(512, 90, 77, 2), 1.2), { repeat: 5 });
+  const skinMat = (color = 0xd8d1c4) => {
+    const m = M.plastic(color, { rough: 0.82 });
+    m.normalMap = grain;
+    m.normalScale = new THREE.Vector2(0.18, 0.18);
+    m.userData.cut = 0xb9b0a1;
     return m;
   };
 
@@ -611,7 +605,6 @@ export function createModels(space, P) {
   });
   hairMat.userData.cut = 0x3a2a20;
   const hair = P.mesh(hairGeo, hairMat, "hair");
-  head.add(hair);
 
   // The pinna (the outer ear), right ear, seen from the side. Local x points to the back of the head, y up,
   // z out of the head; origin at the ear canal's entrance. The outline is traced from a side-view anatomy plate:
@@ -781,10 +774,11 @@ export function createModels(space, P) {
     canalGeo.computeVertexNormals();
   }
   const canalMat = skinMat(0xb8705a);
-  canalMat.color = new THREE.Color(0x6a2a22);
-  canalMat.roughness = 0.3;
-  canalMat.clearcoat = 0.5;
-  canalMat.userData.cut = 0xc0685a;
+  canalMat.color = new THREE.Color(0x17383d);
+  canalMat.emissive = new THREE.Color(0x0e5866);
+  canalMat.emissiveIntensity = 0.9;
+  canalMat.roughness = 0.4;
+  canalMat.userData.cut = 0xb9b0a1;
   const canal = P.mesh(canalGeo, canalMat, "ear canal");
   head.add(canal);
   // The eardrum: a thin, pearly, slightly conical membrane set at a slant, with the malleus handle showing through.
@@ -794,14 +788,14 @@ export function createModels(space, P) {
   eardrum.name = "eardrum";
   const membrane = P.mesh(
     P.lathe(P.smoothProfile([[0, -1.3], [1.5, -0.8], [3.4, -0.2], [4.3, 0], [4.6, 0.1]], 0.4), 64),
-    new THREE.MeshPhysicalMaterial({ color: 0xd9c8c0, roughness: 0.22, clearcoat: 0.8, clearcoatRoughness: 0.15, sheen: 0.6, sheenColor: 0xffffff, side: THREE.DoubleSide }),
+    new THREE.MeshPhysicalMaterial({ color: 0x9fe9f5, emissive: 0x2fbfd6, emissiveIntensity: 0.55, roughness: 0.3, side: THREE.DoubleSide }),
     "membrane",
   );
   membrane.material.userData.cut = 0xd0b8ae;
   membrane.material.userData.thin = true;
   membrane.scale.set(1, 1, 0.82);
-  const malleus = P.mesh(P.tube([[0, -1.25, 0], [0.4, -0.5, 1.8], [0.6, 0.0, 3.6]], 0.32, { segments: 20 }), M.plastic(0xe9e0d3, { rough: 0.5 }), "malleus");
-  const annulus = P.mesh(new THREE.TorusGeometry(4.5, 0.45, 12, 64), M.plastic(0xc9a593, { rough: 0.6 }), "drum ring");
+  const malleus = P.mesh(P.tube([[0, -1.25, 0], [0.4, -0.5, 1.8], [0.6, 0.0, 3.6]], 0.32, { segments: 20 }), M.plastic(0xe9fbff, { rough: 0.5 }), "malleus");
+  const annulus = P.mesh(new THREE.TorusGeometry(4.5, 0.45, 12, 64), M.plastic(0x7fd8e6, { rough: 0.6 }), "drum ring");
   annulus.rotation.x = Math.PI / 2;
   annulus.scale.z = 0.82;
   eardrum.add(membrane, malleus, annulus);

@@ -95,16 +95,18 @@ export function createSet(space, P, { deskY = -42 } = {}) {
   lamps.name = "lamps";
   const r = rng(52);
   const warm = [0xffa24a, 0xffb866, 0xff8a3a, 0xffd29a];
-  for (let i = 0; i < 46; i++) {
+  // many small, dim points, low in the room (about desk height), each 2-4 % of the frame's width from where the
+  // camera usually stands
+  for (let i = 0; i < 150; i++) {
     const a = r() * Math.PI * 2;
-    const rad = 1700 + r() * 1500;
-    const m = new THREE.SpriteMaterial({ map: disc, color: new THREE.Color(warm[i % 4]).multiplyScalar(0.6 + r() * 1.1), transparent: true, opacity: 0.55 + r() * 0.4, depthWrite: false, blending: THREE.AdditiveBlending, fog: false, toneMapped: false });
-    const s = new THREE.Sprite(m);
-    s.position.set(Math.cos(a) * rad, -80 + r() * 700, Math.sin(a) * rad);
-    s.scale.setScalar(70 + r() * 190);
-    s.userData.shadow = false;
-    s.userData.noCut = true;
-    lamps.add(s);
+    const rad = 1150 + r() * 600;
+    const m = new THREE.SpriteMaterial({ map: disc, color: new THREE.Color(warm[i % 4]).multiplyScalar(0.5 + r() * 0.8), transparent: true, opacity: 0.22 + r() * 0.35, depthWrite: false, blending: THREE.AdditiveBlending, fog: false, toneMapped: false });
+    const sp = new THREE.Sprite(m);
+    sp.position.set(Math.cos(a) * rad, deskY - 120 + r() * 260, Math.sin(a) * rad);
+    sp.scale.setScalar(rad * (0.006 + r() * 0.007));
+    sp.userData.shadow = false;
+    sp.userData.noCut = true;
+    lamps.add(sp);
   }
   scene.add(lamps);
 
