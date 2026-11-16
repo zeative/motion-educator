@@ -120,6 +120,12 @@ drops to -20 LUFS or lower. Measure the lift of each one; raise what lifts less 
 - **Small sounds get buried.** Measure the lift of each event over the half second before it; under about 5 dB it
   will not be heard. Raise it or duck the music.
 - **Explaining is not a trailer.** Keep the hits few and the effects small; the film is talking.
+- **In a 3D teardown film, the sound follows the motion.** Every camera move gets a soft air whoosh shaped to the
+  move (fade in with its ease-in, out with its ease-out, panned the way it travels); every part that moves gets its
+  own small sound: a click as a cover lifts, a tick as a label lands, a hum as the coil moves, a rustle in the
+  foam. The best product shorts carry a hundred such sounds in a minute, each 12-20 dB under the voice and faded
+  in and out, so the picture feels physical without the viewer ever hearing an "effect". They sit under the words
+  as well as between them, because they are quiet; the hits on the turn and the payoff are the only loud ones.
 - **Leave headroom.** True peak under -1 dBFS on the encoded file.
 - **Always make the music-only version**, so a complaint about "that sound" can be traced to the right layer.
 

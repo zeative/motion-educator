@@ -75,6 +75,32 @@ light in the 3D scene, crisp and clean. The invisible is best drawn *where it ha
 through the air around the 3D ear cup, the current runs along the board's traces, the field bends around the 3D
 magnet. A diagram is a cutaway of the real thing, not a different picture of it.
 
+### A set, not a void
+
+The object lives somewhere. Establish it in its world, lit like product photography: headphones on a desk beside a
+keyboard in a dim room with warm lamps glowing out of focus behind; a board on a cutting mat; an onion on a chopping
+board in a kitchen. `P.desk()` gives a wooden top, a far wall and practical lights that open into bokeh under
+`cam.blur`; `P.dust()` gives floating motes that catch the light (and, moved by a function of time, can draw a
+sound wave or a flow through the air). Warm key, deep shadows, one accent colour. The void (a dark studio sweep)
+is for the macro and the cross-section, after the world has been seen.
+
+### Instruments: how the best ones explain
+
+On top of the 3D, thin technical overlays make the invisible measurable, all in one light style (1.5-2.5 px lines,
+small uppercase mono labels, the accent colour for the live part):
+
+- a live readout tied to the picture: an oscilloscope trace labelled with what it measures, moving as the part moves;
+- a ruler with the real dimension beside a part ("30 mm"), a distance scale with real values ("0 dB, -6 dB, -12 dB");
+- a chart drawn into the scene (a polar pattern around the microphone, a frequency curve behind the driver);
+- the source of a number on screen, in small type ("inverse-square law; manufacturer's polar chart, 1 kHz"), and
+  "illustrative" on any cross-section drawn for clarity.
+
+### Words on screen for a short
+
+Use `"captions": "frame"` in the storyboard: a short line at the top (in portrait, just under the safe area), the
+words not yet said dim, each lit as it is said, and the key word of the line inside a selection frame with corner
+handles (name it in the shot's `"keys"`). It reads like the best product shorts and never covers the object.
+
 ## 2. The camera is directed
 
 The camera tells the viewer where to look, the way a hand would point. In the kit it is `space.cam` with

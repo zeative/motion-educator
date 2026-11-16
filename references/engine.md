@@ -99,6 +99,9 @@ film.each((t) => space.render(1, t));               // pass t: the drift is a fu
 | `P.M.*` | `plastic metal rubber foam leather fabric copper solder goldPlate silicon ferrite paper skin glass glow` |
 | `P.lathe P.smoothProfile P.extrude P.roundedBox P.tube` | shapes from profiles, outlines, blocks, paths |
 | `P.pcb P.ic P.smd P.shield P.usbC P.header P.screw P.mic P.grille P.cable P.driver` | ready-made parts, each a named group |
+| `P.desk({ w, d, y })`, `P.bokeh()`, `P.M.wood()` | a set: a wooden desk, a far wall, warm practical lights that turn to bokeh |
+| `P.dust({ count, place })` | soft motes or a particle stream; `place(i, t, p, seed)` positions each; call `.update(t)` per frame |
+| `film.captions()` with `"captions": "frame"` | top-of-frame words lit as said, key words (`shot.keys`) in a selection frame |
 
 Depth of field (`cam.blur`) costs a second pass: use it in close-ups only. Shadows cost a little on every frame.
 

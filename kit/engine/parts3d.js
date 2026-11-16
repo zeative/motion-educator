@@ -186,6 +186,44 @@ export function createParts(space) {
   M.glass = (color = 0xffffff) => tag(new THREE.MeshPhysicalMaterial({ color, roughness: 0.04, transmission: 0.95, thickness: 1, ior: 1.5 }), color);
   M.glow = (color = 0xffb21a, power = 1.5) => tag(new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: power }), color);
 
+  // Wood: long grain with growth rings and fine pores, for desks, floors and shelves (grain runs along x).
+  M.wood = (color = 0x5a3220, { rough = 0.5, gloss = 0.35, seed = 17, cut } = {}) => {
+    const maps = once(`wood-${seed}`, () => {
+      const w = 1024;
+      const h = 256;
+      const c = canvasOf(w, h);
+      const ctx = c.getContext("2d");
+      const n = noise(256, 8, seed, 3).getContext("2d").getImageData(0, 0, 256, 256).data;
+      const img = ctx.createImageData(w, h);
+      const r = rng(seed);
+      const pores = Array.from({ length: 900 }, () => [r() * w, r() * h, 20 + r() * 80]);
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++) {
+          const nv = n[((y % 256) * 256 + ((x >> 2) % 256)) * 4] / 255;
+          const ring = 0.5 + 0.5 * Math.sin((y / h) * Math.PI * 2 * 9 + nv * 7 + Math.sin(x / 260) * 1.4);
+          const v = 0.55 + 0.3 * Math.pow(ring, 3) + 0.15 * nv;
+          const i = (y * w + x) * 4;
+          img.data[i] = img.data[i + 1] = img.data[i + 2] = v * 255;
+          img.data[i + 3] = 255;
+        }
+      ctx.putImageData(img, 0, 0);
+      ctx.strokeStyle = "rgba(0,0,0,0.35)";
+      for (const [x, y, l] of pores) {
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + l, y + (r() - 0.5));
+        ctx.stroke();
+      }
+      const tint = canvasOf(w, h);
+      const tc = tint.getContext("2d");
+      tc.drawImage(c, 0, 0);
+      return { tone: texture(tint, { color: true }), bump: texture(normalFrom(c, 1.2)) };
+    });
+    const m = new THREE.MeshPhysicalMaterial({ color, map: maps.tone, normalMap: maps.bump, normalScale: new THREE.Vector2(0.35, 0.35), roughness: rough, clearcoat: gloss, clearcoatRoughness: 0.22 });
+    return tag(m, cut ?? shade(color, 1.2));
+  };
+
   function shade(color, k) {
     const c = new THREE.Color(color);
     return c.multiplyScalar(k).getHex();
@@ -624,5 +662,75 @@ export function createParts(space) {
     return group(name, mesh(tube(points, r), M.rubber(color), name));
   }
 
-  return { M, rng, noise, normalFrom, texture, canvasOf, mesh, group, roundedBox, lathe, smoothProfile, extrude, tube, at, explodable, pcb, ic, smd, shield, usbC, header, screw, driver, mic, grille, cable, mergeVertices, THREE };
+  // ---- the set: a place for the object to be ----------------------------------------------------------
+  // A desk in a dark room: a wooden top, a wall far behind, and warm practical lights in the distance that the
+  // depth of field turns into bokeh. Sizes in world units; `y` is the desk's top.
+  function desk({ w = 600, d = 300, y = 0, color = 0x4a2a1a, wall = 0x16110e, lights = 14, seed = 4, warm = 0xffb066 } = {}) {
+    const g = group("set");
+    const top = mesh(new THREE.BoxGeometry(w, 4, d), M.wood(color, { seed }), "desk");
+    top.position.y = y - 2;
+    top.receiveShadow = true;
+    top.material.map.repeat.set(w / 400, d / 200);
+    top.material.normalMap.repeat.copy(top.material.map.repeat);
+    const back = mesh(new THREE.PlaneGeometry(w * 6, w * 3), new THREE.MeshStandardMaterial({ color: wall, roughness: 0.95 }), "wall");
+    back.position.set(0, y + w * 0.6, -d * 3);
+    back.userData.shadow = false;
+    g.add(top, back, bokeh({ count: lights, seed, color: warm, x: w * 1.4, y: [y + 25, y + w * 0.32], z: -d * 1.5, size: w * 0.024 }));
+    return g;
+  }
+  // Points of light far behind the subject: with cam.blur they open into soft discs.
+  function bokeh({ count = 12, seed = 2, color = 0xffb066, x = 800, y = [40, 400], z = -600, size = 6 } = {}) {
+    const g = group("bokeh");
+    const r = rng(seed);
+    for (let i = 0; i < count; i++) {
+      const c = new THREE.Color(color).offsetHSL((r() - 0.5) * 0.04, 0, (r() - 0.5) * 0.2);
+      const m = mesh(new THREE.SphereGeometry(size * (0.6 + r() * 0.9), 16, 12), new THREE.MeshBasicMaterial({ color: c.multiplyScalar(1.5 + r() * 2.5), toneMapped: false }), "light");
+      m.position.set((r() - 0.5) * x, y[0] + r() * (y[1] - y[0]), z + (r() - 0.5) * 200);
+      m.userData.shadow = false;
+      g.add(m);
+    }
+    return g;
+  }
+  // Dust or a particle stream: `count` soft points; `place(i, t, p)` sets point i's position p at time t (a pure
+  // function of t, so it renders the same every time). Call `dust.update(t)` each frame.
+  function dust({ count = 600, size = 1.2, color = 0xffc27a, opacity = 0.9, place, seed = 9, box = [200, 120, 120] } = {}) {
+    const r = rng(seed);
+    const seeds = Float32Array.from({ length: count * 4 }, r);
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(count * 3);
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    const sprite = once("dot", () => {
+      const c = canvasOf(64);
+      const ctx = c.getContext("2d");
+      const gr = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gr.addColorStop(0, "rgba(255,255,255,1)");
+      gr.addColorStop(0.35, "rgba(255,255,255,0.55)");
+      gr.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = gr;
+      ctx.fillRect(0, 0, 64, 64);
+      return texture(c, { color: true });
+    });
+    const mat = new THREE.PointsMaterial({ size, map: sprite, color, transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, toneMapped: false });
+    const points = new THREE.Points(geo, mat);
+    points.name = "dust";
+    points.userData.shadow = false;
+    const p = new THREE.Vector3();
+    const drift = (i, t, out) => {
+      const s = (k) => seeds[i * 4 + k];
+      out.set((s(0) - 0.5) * box[0] + Math.sin(t * 0.3 + s(3) * 9) * 4, (s(1) - 0.5) * box[1] + ((t * 2 + s(3) * 50) % 20) - 10, (s(2) - 0.5) * box[2]);
+    };
+    points.update = (t) => {
+      for (let i = 0; i < count; i++) {
+        (place ?? drift)(i, t, p, (k) => seeds[i * 4 + k]);
+        pos[i * 3] = p.x;
+        pos[i * 3 + 1] = p.y;
+        pos[i * 3 + 2] = p.z;
+      }
+      geo.attributes.position.needsUpdate = true;
+    };
+    points.update(0);
+    return points;
+  }
+
+  return { desk, bokeh, dust, M, rng, noise, normalFrom, texture, canvasOf, mesh, group, roundedBox, lathe, smoothProfile, extrude, tube, at, explodable, pcb, ic, smd, shield, usbC, header, screw, driver, mic, grille, cable, mergeVertices, THREE };
 }

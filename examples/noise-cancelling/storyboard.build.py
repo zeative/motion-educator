@@ -1,17 +1,19 @@
-"""Writes storyboard.json for "How do noise-cancelling headphones erase sound?" (landscape, 1920 x 1080, English).
+"""Writes storyboard.json for "How do noise-cancelling headphones erase sound?" (portrait 1080 x 1920, English).
 
-The film is cut to one take of narration. This script writes the plan: the shots, each with its run of the script
-and its drawn frames. The times it writes are a guess; the take sets the real ones, so the script ends by asking the
-voice tool to retime the board (it does nothing until a take is there):
+The remake as a 3D teardown film. The take (voice/) and the 198-word script are kept exactly; this script writes the
+plan, and the take sets the times:
 
-    python3 examples/noise-cancelling/storyboard.build.py && node kit/tools/storyboard.mjs examples/noise-cancelling --png
+    python3 examples/noise-cancelling/storyboard.build.py && node kit/audio/voice.mjs examples/noise-cancelling --retime \
+      && node kit/tools/storyboard.mjs examples/noise-cancelling --png
 
-Colour means one thing all film: amber is the noise, cyan (the accent) is the flipped wave the chip makes, white is
-what your ear is left with. The numbers drawn are computed here and in film.js from the facts:
+Colour means one thing all film: amber is the noise, cyan (the accent) is the flipped wave the driver plays, white is
+what reaches the eardrum. The two heroes are built in models.js at 1 unit = 1 mm: an over-ear ANC headphone and the
+side of a head with its ear, canal and eardrum. Sound is light in that scene (light.js).
+
+The numbers the film draws, computed here and in film.js from the facts:
   wavelength = 343 m/s / frequency: 100 Hz -> 3.43 m, 5,000 Hz -> 6.86 cm (f4)
-  what is left of a tone when its flipped copy is late by d: 2 sin(pi f d) of the tone (f6). With the example delay
-  d = 1/30,000 s: 100 Hz -> 2.1 %, 5,000 Hz -> 100 %.
-The to-scale shots (s12 to s16) draw 400 px a metre (a 3.43 m wave is 1,372 px), then ten times closer.
+  left over when the flipped copy is late by d: 2 sin(pi f d). d = 1/30,000 s: 100 Hz -> 2.1 %, 5,000 Hz -> 100 % (f6)
+  both charts show the same 10 ms of time: 1 cycle of the hum, 50 of the squeak (f6)
 """
 import json
 import math
@@ -19,626 +21,544 @@ import subprocess
 from pathlib import Path
 
 HERE = Path(__file__).parent
+W, H = 1080, 1920
 shots = []
 
-# ── The arithmetic the film draws ────────────────────────────────────────────────────────────────────────────
 C = 343.0
 DELAY = 1 / 30000
-LOW, HIGH = 100, 5000
-LAM_LOW, LAM_HIGH = C / LOW, C / HIGH  # 3.43 m, 0.0686 m
-LEFT_LOW = 2 * math.sin(math.pi * LOW * DELAY)  # 0.0209
-LEFT_HIGH = 2 * math.sin(math.pi * HIGH * DELAY)  # 1.000
-PX_M = 400  # the to-scale view: 400 px a metre
-PX_M_ZOOM = 4000  # ten times closer
+LEFT_LOW = 2 * math.sin(math.pi * 100 * DELAY)  # 0.0209
+LEFT_HIGH = 2 * math.sin(math.pi * 5000 * DELAY)  # 1.000
+
+OLD = {s["id"]: s for s in json.loads((HERE / "storyboard.json").read_text())["shots"]}
 
 
-def shot(id, act, type, length=None, **fields):
-    """A speaking shot's length is the take's. A silent beat keeps the length it is given here."""
-    start = shots[-1]["end"] if shots else 0
-    guess = length if length is not None else round(len(fields.get("voice", "")) / 15 + 0.3, 2)
-    shots.append({"id": id, "act": act, "type": type, "start": round(start, 3), "end": round(start + guess, 3), **fields, "frames": FRAMES[id]})
+def shot(id, act, type, **fields):
+    o = OLD[id]
+    out = {"id": id, "act": act, "type": type, "start": o["start"], "end": o["end"]}
+    if "voice" in o:
+        out["voice"] = o["voice"]  # the performed words, never changed
+    if "hold" in o:
+        out["hold"] = o["hold"]
+    out.update(fields)
+    out["frames"] = FRAMES[id]
+    shots.append(out)
 
 
 def fr(at, note, *draw):
     return {"at": at, "note": note, "draw": list(draw)}
 
 
-def label(x, y, text, size=34, **more):
+def label(x, y, text, size=36, **more):
     return {"label": [x, y], "text": text, "size": size, **more}
 
 
-def wave(x0, x1, y, amp, length, colour="orange", phase=0, width=None):
-    w = {"wave": [x0, x1, y, amp, length], "colour": colour, "phase": phase}
-    if width:
-        w["width"] = width
-    return w
+def chip(x, y, text):
+    return {"chip": [x, y], "text": text}
 
 
-def flat(x0, x1, y):
-    return {"line": [x0, y, x1, y], "colour": "ink", "width": 8}
+def wave(x0, x1, y, amp, length, colour="orange", phase=0):
+    return {"wave": [x0, x1, y, amp, length], "colour": colour, "phase": phase}
 
 
-# ── The cross-section of one ear cup, seen from above (s05, s08, s09, s19, s20) ──────────────────────────────
-AXIS = 450
-SHELL = {"path": "M1440 170 L1170 170 Q1060 170 1060 280 L1060 620 Q1060 730 1170 730 L1440 730 L1440 650 L1205 650 Q1170 650 1170 615 L1170 285 Q1170 250 1205 250 L1440 250 Z", "colour": "ink", "fill": "ink", "width": 6}
-CUSHIONS = [{"path": "M1438 210 a34 62 0 1 0 68 0 a34 62 0 1 0 -68 0", "colour": "ink", "fill": "yellow", "width": 5},
-            {"path": "M1438 690 a34 62 0 1 0 68 0 a34 62 0 1 0 -68 0", "colour": "ink", "fill": "yellow", "width": 5}]
-HEAD = {"path": "M1506 0 Q1540 450 1506 1080 L1920 1080 L1920 0 Z", "colour": "ink", "fill": "orange", "width": 6}
-CANAL = {"path": "M1516 420 L1760 420 Q1790 450 1760 480 L1516 480", "colour": "ink", "width": 5}
-SPEAKER = {"path": "M1232 330 L1232 570 L1282 520 L1282 380 Z", "colour": "ink", "fill": "white", "width": 5}
-MIC = {"dot": [1050, 300, 16], "colour": "white"}
-CHIP = {"path": "M1088 423 h54 v54 h-54 Z", "colour": "ink", "fill": "blue", "width": 5}
-TRACE = {"path": "M1052 316 L1052 390 Q1052 450 1088 450 M1142 450 L1232 450", "colour": "blue", "width": 4}
-CUP = [HEAD, CANAL, SHELL, *CUSHIONS, SPEAKER, MIC, CHIP, TRACE]
-NOISE_OUT = wave(0, 1050, AXIS, 120, 420)
+def ell(cx, cy, a, b, **k):
+    return {"path": f"M{cx - a} {cy} a{a} {b} 0 1 0 {2 * a} 0 a{a} {b} 0 1 0 {-2 * a} 0", "colour": k.get("colour", "ink"), **({"fill": k["fill"]} if "fill" in k else {}), "width": k.get("width", 6)}
 
-# ── The three lanes (s10, s11) and the chip's panel (s06, s07) ──────────────────────────────────────────────
-LANES = [300, 500, 700]
 
-# ── The to-scale view (s12 to s15): 400 px a metre, the listener at x 1640 ───────────────────────────────────
-HEAD_X = 1640
-TINY_HEAD = [{"dot": [HEAD_X, 470, 31], "colour": "orange"}, {"path": f"M{HEAD_X - 40} 470 a40 46 0 0 1 80 0", "colour": "ink", "width": 6}]
-RULER_Y = 700
-LAM_LOW_PX = round(LAM_LOW * PX_M)  # 1372
-LAM_HIGH_PX = round(LAM_HIGH * PX_M, 1)  # 27.4
-LAM_HIGH_ZOOM = round(LAM_HIGH * PX_M_ZOOM)  # 274
+def phones(cx, cy, s=1.0):
+    """The headphone seen three-quarter: the band's arc, two oval cups with their cushions."""
+    return [
+        {"path": f"M{cx - 250 * s} {cy + 40 * s} Q{cx - 40 * s} {cy - 420 * s} {cx + 250 * s} {cy - 10 * s}", "colour": "ink", "width": 22},
+        ell(cx - 250 * s, cy + 170 * s, 78 * s, 112 * s, fill="ink"),
+        ell(cx - 225 * s, cy + 170 * s, 52 * s, 86 * s, colour="ink", width=5),
+        ell(cx + 250 * s, cy + 130 * s, 70 * s, 104 * s, fill="ink"),
+        {"dot": [cx + 222 * s, cy + 60 * s, 10 * s], "colour": "white"},
+    ]
 
-CARDS = [
-    {"card": [110, 150, 400, 480]}, {"dot": [310, 330, 30], "colour": "white"}, label(310, 560, "1  hear it", 40),
-    {"card": [560, 150, 400, 480]}, wave(600, 920, 280, 50, 160), wave(600, 920, 420, 50, 160, "blue", 180), label(760, 560, "2  flip it", 40),
-    {"card": [1010, 150, 400, 480]}, flat(1050, 1370, 350), label(1210, 560, "3  add them", 40),
-    {"card": [1460, 150, 350, 480]}, {"path": "M1600 260 a34 62 0 1 0 68 0 a34 62 0 1 0 -68 0", "colour": "ink", "fill": "yellow"}, label(1635, 540, "cushions:", 36), label(1635, 590, "the highs", 36),
-]
+
+def ear(cx, cy, s=1.0):
+    """A right ear from the side: the helix's C, the antihelix, the concha's bowl, the tragus and the lobe."""
+    return [
+        {"path": f"M{cx - 50 * s} {cy - 70 * s} C{cx - 20 * s} {cy - 190 * s} {cx + 150 * s} {cy - 170 * s} {cx + 150 * s} {cy - 20 * s} C{cx + 150 * s} {cy + 80 * s} {cx + 90 * s} {cy + 110 * s} {cx + 70 * s} {cy + 170 * s} C{cx + 50 * s} {cy + 220 * s} {cx - 20 * s} {cy + 220 * s} {cx - 25 * s} {cy + 160 * s}", "colour": "ink", "fill": "orange", "width": 7},
+        {"path": f"M{cx + 30 * s} {cy + 100 * s} C{cx + 100 * s} {cy + 40 * s} {cx + 110 * s} {cy - 50 * s} {cx + 60 * s} {cy - 100 * s} M{cx + 85 * s} {cy - 70 * s} L{cx + 10 * s} {cy - 90 * s}", "colour": "ink", "width": 5},
+        ell(cx + 15 * s, cy + 15 * s, 34 * s, 44 * s, colour="ink", width=5),
+        {"path": f"M{cx - 45 * s} {cy - 5 * s} q-20 25 0 50", "colour": "ink", "width": 6},
+    ]
+
+
+def head_side(cx, cy, s=1.0):
+    """The side of a head: the skull's curve, the hairline, the jaw and the neck going down."""
+    return [
+        {"path": f"M{cx - 320 * s} {cy + 520 * s} C{cx - 330 * s} {cy + 200 * s} {cx - 360 * s} {cy - 380 * s} {cx + 40 * s} {cy - 420 * s} C{cx + 330 * s} {cy - 430 * s} {cx + 420 * s} {cy - 140 * s} {cx + 400 * s} {cy + 80 * s} C{cx + 380 * s} {cy + 260 * s} {cx + 300 * s} {cy + 330 * s} {cx + 260 * s} {cy + 560 * s}", "colour": "ink", "fill": "orange", "width": 7},
+        {"path": f"M{cx - 330 * s} {cy - 40 * s} C{cx - 250 * s} {cy - 220 * s} {cx - 40 * s} {cy - 170 * s} {cx + 120 * s} {cy - 240 * s} C{cx + 260 * s} {cy - 260 * s} {cx + 360 * s} {cy - 200 * s} {cx + 390 * s} {cy - 120 * s}", "colour": "ink", "width": 9, "dashed": True},
+    ]
+
+
+def cut_view(cx, cy, s=1.0, cyan=False, white=False, amber=True):
+    """The cutaway from above, canal running up the frame: the head's section above, the ear cup's section below,
+    cushions left and right against the skin, the driver, the canal going up to the eardrum."""
+    d = [
+        {"path": f"M0 {cy - 40 * s} L{W} {cy - 40 * s} L{W} 0 L0 0 Z", "colour": "ink", "fill": "red", "width": 4},
+        {"path": f"M{cx - 22 * s} {cy - 40 * s} L{cx - 18 * s} {cy - 330 * s} L{cx + 18 * s} {cy - 330 * s} L{cx + 22 * s} {cy - 40 * s}", "colour": "ink", "width": 6},
+        {"line": [cx - 46 * s, cy - 350 * s, cx + 40 * s, cy - 320 * s], "width": 10},
+        {"path": f"M{cx - 300 * s} {cy - 40 * s} L{cx - 300 * s} {cy + 120 * s} Q{cx - 300 * s} {cy + 380 * s} {cx} {cy + 380 * s} Q{cx + 300 * s} {cy + 380 * s} {cx + 300 * s} {cy + 120 * s} L{cx + 300 * s} {cy - 40 * s}", "colour": "ink", "width": 10},
+        ell(cx - 255 * s, cy + 15 * s, 45 * s, 55 * s, fill="ink"),
+        ell(cx + 255 * s, cy + 15 * s, 45 * s, 55 * s, fill="ink"),
+        {"path": f"M{cx - 120 * s} {cy + 150 * s} L{cx + 120 * s} {cy + 150 * s} L{cx + 70 * s} {cy + 230 * s} L{cx - 70 * s} {cy + 230 * s} Z", "colour": "ink", "fill": "ink"},
+    ]
+    if amber:
+        d.append({"path": f"M{cx - 420 * s} {cy + 520 * s} Q{cx - 340 * s} {cy + 80 * s} {cx - 200 * s} {cy - 10 * s} Q{cx - 60 * s} {cy - 60 * s} {cx} {cy - 120 * s}", "colour": "orange", "width": 8})
+    if cyan:
+        d.append({"path": f"M{cx} {cy + 140 * s} Q{cx + 40 * s} {cy + 40 * s} {cx} {cy - 120 * s}", "colour": "blue", "width": 8})
+    if white:
+        d.append({"line": [cx, cy - 120 * s, cx, cy - 320 * s], "colour": "ink", "width": 6})
+    return d
+
+
+TOP = 260  # the first line a reader can rely on, under the app's header
 
 FRAMES = {
-    # ── Hook ──────────────────────────────────────────────────────────────────────────────────────────────
     "s01": [
-        fr(0.0, "Frame 0 is finished: lit 3D over-ear headphones (generic, no logo) turning slowly on the right; amber rings of a low drone already rolling in from the left edge; the question in metal type on the left, first line in place.",
-           {"glow": [1450, 470, 420], "colour": "orange"}, {"ring": [-300, 470, 700], "colour": "orange"}, {"ring": [-300, 470, 1000], "colour": "orange", "dashed": True},
-           {"path": "M1210 520 Q1210 160 1450 160 Q1690 160 1690 520", "colour": "ink", "width": 22}, {"path": "M1150 470 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1630 470 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [90, 300], "text": "How do noise-cancelling", "size": 84, "align": "start"}, {"move": [80, 900, 700, 900], "text": "drone rolls in"}, {"camera": "push"}),
-        fr(0.5, "Each line of the question lands as it is said. The rings reach the headphones and light the cups' rims amber.",
-           {"glow": [1450, 470, 420], "colour": "orange"}, {"ring": [-300, 470, 1300], "colour": "orange"}, {"ring": [-300, 470, 1600], "colour": "orange", "dashed": True},
-           {"path": "M1210 520 Q1210 160 1450 160 Q1690 160 1690 520", "colour": "ink", "width": 22}, {"path": "M1150 470 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1630 470 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [90, 300], "text": "How do noise-cancelling\nheadphones make\na noise disappear?", "size": 84, "align": "start", "accent": "disappear?"}),
-        fr(1.0, "The whole question holds; a sheen crosses 'disappear?'. The title lifts away as the headphones slide back and right.",
-           {"glow": [1450, 470, 420], "colour": "orange"}, {"path": "M1210 520 Q1210 160 1450 160 Q1690 160 1690 520", "colour": "ink", "width": 22}, {"path": "M1150 470 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1630 470 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [90, 300], "text": "How do noise-cancelling\nheadphones make\na noise disappear?", "size": 84, "align": "start", "accent": "disappear?"}, {"cut": "title lifts; headphones recede behind the sum"}),
+        fr(0.0, "Frame 0 is finished: the headphone stands on a dark satin set, three-quarter view, large in the middle of the frame; amber pressure bands and a glowing amber wave already roll in from the upper left through the air round it. The question's first line is in metal type at the top.",
+           *phones(560, 1000, 1.25), {"move": [80, 700, 380, 860], "text": "noise rolls in"}, wave(60, 1020, 1350, 40, 180), {"title": [540, TOP + 70], "text": "How do noise-cancelling", "size": 84}, {"camera": "orbit"}),
+        fr(0.5, "Each line of the question lands as it is said; the camera orbits a little and pushes in. Amber light catches the cups' rims as the bands pass.",
+           *phones(560, 1010, 1.3), wave(60, 1020, 1350, 40, 180), {"title": [540, TOP + 70], "text": "How do noise-cancelling\nheadphones make\na noise disappear?", "size": 84, "accent": "disappear?"}, {"camera": "push"}),
+        fr(1.0, "The question holds; a sheen crosses 'disappear?'. The camera keeps orbiting round toward the inside of the right cup.",
+           *phones(540, 1020, 1.35), {"title": [540, TOP + 70], "text": "How do noise-cancelling\nheadphones make\na noise disappear?", "size": 84, "accent": "disappear?"}, {"cut": "no cut: the orbit carries on to the cup's inside"}),
     ],
     "s02": [
-        fr(0.0, "The headphones sit back, dimmed and large, behind three glass cards across the frame. The first card fills with the amber noise wave.",
-           {"card": [110, 250, 480, 360]}, wave(150, 550, 430, 90, 200), label(350, 300, "noise", 36), {"camera": "push"}),
-        fr(0.5, "On 'adding': a plus, and the second card fills with a cyan wave (the same shape, flipped). On 'more sound' an equals and the third card with a question mark.",
-           {"card": [110, 250, 480, 360]}, wave(150, 550, 430, 90, 200), label(350, 300, "noise", 36), label(650, 450, "+", 90),
-           {"card": [720, 250, 480, 360]}, wave(760, 1160, 430, 90, 200, "blue", 180), label(960, 300, "more sound", 36), {"move": [600, 700, 760, 700], "text": "it adds"}),
-        fr(1.0, "Three cards: noise + more sound = ?. The cut dives into the first card's wave.",
-           {"card": [110, 250, 480, 360]}, wave(150, 550, 430, 90, 200), label(350, 300, "noise", 36), label(650, 450, "+", 90),
-           {"card": [720, 250, 480, 360]}, wave(760, 1160, 430, 90, 200, "blue", 180), label(960, 300, "more sound", 36), label(1260, 450, "=", 90),
-           {"card": [1330, 250, 480, 360]}, {"number": [1570, 490], "text": "?", "size": 160}, {"cut": "dive into the noise card"}),
+        fr(0.0, "The orbit carries on round the right cup to its inside: the leather cushion's ring and the fabric cover fill the middle; amber bands pass round it.",
+           ell(560, 880, 260, 360, fill="ink"), ell(560, 880, 150, 250, colour="ink"), wave(40, 1040, 420, 50, 200), {"camera": "orbit"}),
+        fr(0.5, "On 'adding': behind the fabric the driver glows cyan and a cyan wave leaves the cup, beside the amber one: more sound.",
+           ell(560, 880, 260, 360, fill="ink"), ell(560, 880, 150, 250, colour="ink"), {"glow": [560, 880, 140], "colour": "blue"}, wave(40, 1040, 420, 50, 200), wave(300, 1040, 1300, 50, 200, "blue", 180), {"move": [560, 1050, 560, 1260], "text": "more sound"}),
+        fr(1.0, "Both waves glow; the camera dives toward the amber bands in the air beside the cup.",
+           ell(560, 880, 260, 360, fill="ink"), {"glow": [560, 880, 140], "colour": "blue"}, wave(40, 1040, 420, 50, 200), wave(300, 1040, 1300, 50, 200, "blue", 180), {"camera": "push"}, {"cut": "dive into the amber air"}),
     ],
-    # ── Sound is a wave of pressure ───────────────────────────────────────────────────────────────────────
     "s03": [
-        fr(0.0, "The noise card's wave has become the air itself: a field of fine air dots filling the frame, still even. A drone arrives at the left edge and the first dots start to bunch.",
-           {"molecules": [60, 110, 1800, 690, 70], "seed": 4}, {"move": [80, 460, 560, 460], "text": "the drone pushes"}, {"camera": "push"}),
-        fr(1.0, "On 'pressure': bands of bunched dots (bright) and spread dots (dark) travel to the right across the whole field. A chip 'air' sits at the top left.",
-           {"molecules": [60, 110, 1800, 690, 120], "seed": 5}, {"chip": [150, 120], "text": "air"}, {"move": [700, 820, 1300, 820], "text": "the wave travels"}, {"cut": "no cut: the pressure curve draws over the dots"}),
+        fr(0.0, "Inside the air: a field of specks fills the frame, out of focus near and far, sharp in the middle; amber bands of light slide through them.",
+           {"molecules": [40, 300, 1000, 1000, 110], "seed": 4}, {"glow": [540, 800, 360]}, {"camera": "push"}),
+        fr(1.0, "On 'pressure': the specks bunch into bright bands and spread into dark ones, and the bands travel to the right; a small note 'slowed down, not to scale'.",
+           {"molecules": [40, 300, 1000, 1000, 160], "seed": 5}, {"move": [200, 1180, 880, 1180], "text": "the squeeze travels"}, label(700, TOP + 20, "slowed down, not to scale", 30), {"cut": "no cut: the camera drifts back and the pressure line draws"}),
     ],
     "s04": [
-        fr(0.0, "The same field; the pressure curve draws over it from left to right, high where the dots bunch, low where they spread.",
-           {"molecules": [60, 110, 1800, 690, 120], "seed": 5}, wave(60, 900, 450, 150, 420), label(140, 260, "pressure", 34, align="start")),
-        fr(0.5, "On 'squeezed' a chip lands on a crest band; on 'stretched' another on a trough band.",
-           {"molecules": [60, 110, 1800, 690, 120], "seed": 5}, wave(60, 1860, 450, 150, 420), {"chip": [470, 230], "text": "squeezed"}, {"chip": [680, 670], "text": "stretched"}),
-        fr(1.0, "On 'over and over' the bands keep rolling past; the camera starts to pull back to show where they are heading: an ear cup at the right.",
-           {"molecules": [60, 110, 1800, 690, 120], "seed": 5}, wave(60, 1860, 450, 150, 420), {"chip": [470, 230], "text": "squeezed"}, {"chip": [680, 670], "text": "stretched"}, {"camera": "pull"}, {"cut": "pull back: the field becomes the air outside the cup"}),
+        fr(0.0, "The camera drifts back. Over the specks a glowing amber line draws itself: high where they bunch, low where they spread.",
+           {"molecules": [40, 360, 1000, 760, 160], "seed": 5}, wave(40, 700, 740, 170, 420), {"camera": "pull"}),
+        fr(0.5, "On 'squeezed' a pin lands on a bright band; on 'stretched' another on a dark one.",
+           {"molecules": [40, 360, 1000, 760, 160], "seed": 5}, wave(40, 1040, 740, 170, 420), chip(300, 470, "squeezed"), chip(520, 1020, "stretched")),
+        fr(1.0, "On 'over and over' the bands keep coming; the camera pulls back and up and the field becomes the air outside a head wearing the headphone.",
+           *head_side(760, 900, 0.8), wave(40, 700, 600, 90, 260), {"camera": "pull"}, {"cut": "the pull back lands on the ear cup"}),
     ],
-    # ── The flip ──────────────────────────────────────────────────────────────────────────────────────────
     "s05": [
-        fr(0.0, "The cut through one ear cup, seen from above, fills the right half: graphite shell, foam cushions against the side of the head, the speaker inside, the ear canal. The air and its amber wave fill the left half and roll toward the cup.",
-           *CUP, NOISE_OUT, label(1250, 120, "one ear cup, cut through", 32), {"camera": "pull"}),
-        fr(0.5, "On 'microphone': the small microphone on the outside of the cup lights; a chip names it with a leader line.",
-           *CUP, NOISE_OUT, {"chip": [800, 230], "text": "microphone"}, {"line": [920, 250, 1036, 296]}, {"glow": [1050, 300, 60], "colour": "blue"}),
-        fr(1.0, "On 'hears that wave coming in': a copy of the amber wave runs along the trace from the microphone into the chip, which lights.",
-           *CUP, NOISE_OUT, {"chip": [800, 230], "text": "microphone"}, {"line": [920, 250, 1036, 296]}, {"move": [1052, 320, 1100, 440], "text": "signal"}, {"glow": [1115, 450, 60], "colour": "blue"}, {"camera": "push"}, {"cut": "dive into the chip"}),
+        fr(0.0, "The side of a head wearing the headphone, from behind and outside: the right cup big, the amber wave arriving across the frame from the left.",
+           *head_side(620, 900, 0.9), ell(560, 860, 200, 270, fill="ink"), wave(30, 400, 820, 80, 240), {"camera": "push"}),
+        fr(0.3, "By 'microphone' the camera is close on the cup's back: a small oval grille near its top edge; a pin 'feed-forward mic' on it.",
+           ell(560, 980, 420, 560, fill="ink"), ell(420, 600, 60, 40, colour="white"), {"dot": [420, 600, 14], "colour": "blue"}, chip(300, 420, "feed-forward mic"), {"camera": "push"}),
+        fr(1.0, "On 'hears that wave coming in': the amber wave reaches the grille and a spark of it runs in; the grille glows.",
+           ell(560, 980, 420, 560, fill="ink"), ell(420, 600, 60, 40, colour="white"), {"glow": [420, 600, 90], "colour": "orange"}, wave(20, 380, 600, 50, 160), chip(300, 420, "feed-forward mic"), {"cut": "no cut: the shell lifts away"}),
     ],
     "s06": [
-        fr(0.0, "Inside the chip: a large glass panel across the frame. Top lane 'in: the noise' carries the amber wave arriving from the microphone.",
-           {"panel": [140, 110, 1640, 720], "title": "the chip"}, label(200, 260, "in: the noise", 34, align="start"), wave(200, 1720, 330, 90, 420), {"camera": "push"}),
-        fr(1.0, "On 'upside-down copy': the bottom lane 'out: flipped' draws the cyan wave left to right, the same shape upside down.",
-           {"panel": [140, 110, 1640, 720], "title": "the chip"}, label(200, 260, "in: the noise", 34, align="start"), wave(200, 1720, 330, 90, 420),
-           label(200, 520, "out: flipped", 34, align="start"), wave(200, 1720, 620, 90, 420, "blue", 180), {"move": [200, 760, 1700, 760], "text": "built as it arrives"}, {"cut": "no cut: crests and troughs get linked"}),
+        fr(0.0, "The cup's shell lifts straight off, taking the grille with it; inside, the board with its chips sits behind the driver, the battery below.",
+           {"path": "M140 260 h800 v300 h-800 Z", "colour": "ink", "fill": "ink"}, {"move": [540, 600, 540, 300], "text": "shell lifts"}, {"card": [200, 700, 680, 400]}, {"path": "M420 820 h120 v120 h-120 Z", "colour": "ink", "fill": "ink"}, {"camera": "push"}),
+        fr(0.5, "Macro on the board: by 'chip' the small square chip marked ANC fills the frame, in focus, the rest soft; a pin 'ANC chip'. A spark runs along the flex from the mic into it.",
+           {"card": [80, 520, 920, 700]}, {"path": "M360 720 h300 v300 h-300 Z", "colour": "ink", "fill": "ink"}, label(510, 880, "ANC", 60, colour="white"), chip(330, 460, "ANC chip"), {"move": [80, 600, 360, 760], "text": "the noise, as a signal"}),
+        fr(1.0, "On 'upside-down copy' the chip glows cyan; above it an amber wave and, under it, its flipped copy begin to draw in light.",
+           {"card": [80, 520, 920, 700]}, {"path": "M360 720 h300 v300 h-300 Z", "colour": "ink", "fill": "blue"}, wave(80, 1000, 380, 60, 300), {"camera": "up"}, {"cut": "no cut: the camera rises over the board"}),
     ],
     "s07": [
-        fr(0.0, "The same panel. On 'a stretch wherever the noise squeezes': a dashed line drops from an amber crest to the cyan trough under it; a chip 'squeeze' on the crest, 'stretch' on the trough.",
-           {"panel": [140, 110, 1640, 720], "title": "the chip"}, wave(200, 1720, 330, 90, 420), wave(200, 1720, 620, 90, 420, "blue", 180),
-           {"line": [515, 240, 515, 710], "dashed": True}, {"chip": [515, 200], "text": "squeeze"}, {"chip": [515, 770], "text": "stretch"}),
-        fr(0.6, "On 'a squeeze wherever it stretches': the next pair, the other way round. Every crest now has its trough under it.",
-           {"panel": [140, 110, 1640, 720], "title": "the chip"}, wave(200, 1720, 330, 90, 420), wave(200, 1720, 620, 90, 420, "blue", 180),
-           {"line": [515, 240, 515, 710], "dashed": True}, {"line": [725, 240, 725, 710], "dashed": True}, {"line": [935, 240, 935, 710], "dashed": True}, {"line": [1145, 240, 1145, 710], "dashed": True}),
-        fr(1.0, "The cyan wave lifts out of the panel and flies right, toward the speaker.",
-           {"panel": [140, 110, 1640, 720], "title": "the chip"}, wave(200, 1720, 330, 90, 420), wave(200, 1720, 620, 90, 420, "blue", 180), {"move": [1200, 620, 1800, 620], "text": "to the speaker"}, {"cut": "pull out to the cup"}),
+        fr(0.0, "The camera rises over the board. Floating above it: the amber wave, labelled 'noise', and under it the cyan wave, labelled 'flipped copy', the same shape upside down.",
+           {"card": [120, 1100, 840, 260]}, wave(60, 1020, 520, 120, 400), wave(60, 1020, 860, 120, 400, "blue", 180), chip(220, 360, "noise"), chip(260, 1010, "flipped copy")),
+        fr(0.5, "On 'a stretch wherever the noise squeezes': a line of light drops from an amber crest to the cyan trough under it; pins 'squeeze' and 'stretch'.",
+           wave(60, 1020, 520, 120, 400), wave(60, 1020, 860, 120, 400, "blue", 180), {"line": [360, 400, 360, 980], "dashed": True}, chip(360, 340, "squeeze"), chip(360, 1060, "stretch")),
+        fr(1.0, "On 'a squeeze wherever it stretches': the next pair the other way round; every crest has its trough under it.",
+           wave(60, 1020, 520, 120, 400), wave(60, 1020, 860, 120, 400, "blue", 180), {"line": [360, 400, 360, 980], "dashed": True}, {"line": [560, 400, 560, 980], "dashed": True}, chip(560, 1060, "squeeze"), {"camera": "orbit"}, {"cut": "the camera swings round to the driver"}),
     ],
     "s08": [
-        fr(0.0, "Back at the cut-through cup. The amber noise reaches the cavity past the cushions.",
-           *CUP, NOISE_OUT, wave(1282, 1506, AXIS, 70, 420), {"camera": "pull"}),
-        fr(1.0, "On 'flipped wave': the speaker's cone pushes and the cyan wave flows from it toward the ear canal, over the amber one.",
-           *CUP, NOISE_OUT, wave(1282, 1506, AXIS, 70, 420), wave(1282, 1506, AXIS, 70, 420, "blue", 180), {"chip": [1350, 820], "text": "speaker"}, {"move": [1290, 380, 1500, 380], "text": "flipped wave"}, {"cut": "push in on the ear"}),
+        fr(0.0, "The cup opened along its axis, seen from the front of the head: the cushion still against the skin, the driver moved out from it, the shell and board further out.",
+           *head_side(260, 900, 0.6), {"path": "M520 500 v800", "colour": "ink", "width": 30}, ell(720, 900, 60, 300, fill="ink"), ell(900, 900, 40, 280, fill="ink"), {"camera": "orbit"}),
+        fr(0.5, "By 'speaker' the camera is close on the driver: copper coil, cone, surround; a pin '40 mm driver'. On 'flipped' its cone pushes and pulls, and cyan bands leave it toward the ear.",
+           ell(640, 900, 120, 380, fill="ink"), ell(640, 900, 60, 200, colour="white"), chip(700, 420, "40 mm driver"), wave(80, 560, 900, 80, 220, "blue", 180), {"move": [560, 1160, 120, 1160], "text": "into your ear"}),
+        fr(1.0, "The cyan wave runs into the gap toward the ear; the parts slide back together as the cut begins.",
+           ell(640, 900, 120, 380, fill="ink"), wave(80, 560, 900, 80, 220, "blue", 180), {"camera": "up"}, {"cut": "the parts close up and the scene is cut open"}),
     ],
     "s09": [
-        fr(0.0, "Closer on the cavity and the ear (1.6 times): amber and cyan side by side between the speaker and the ear canal.",
-           {"path": "M1200 0 Q1260 540 1200 1080 L1920 1080 L1920 0 Z", "colour": "ink", "fill": "orange"}, {"path": "M300 160 L300 920", "colour": "ink", "width": 20},
-           wave(330, 1200, 540, 140, 670), wave(330, 1200, 540, 140, 670, "blue", 180), {"camera": "push"}),
-        fr(1.0, "On 'add up to almost nothing': the two fold into one white line, flat, entering the ear. The air dots inside the cup go even and still. A chip '≈ silence' at the canal.",
-           {"path": "M1200 0 Q1260 540 1200 1080 L1920 1080 L1920 0 Z", "colour": "ink", "fill": "orange"}, {"path": "M300 160 L300 920", "colour": "ink", "width": 20},
-           flat(330, 1640, 540), {"chip": [1500, 430], "text": "≈ silence"}, {"cut": "the flat line stays, two lanes open above it"}),
+        fr(0.0, "From above, the head and the cup cut through at the canal's height: the head's section at the top, the canal running up into it to the eardrum, the cup's section below with its cushions against the skin. The amber noise leaks in past the cushion.",
+           *cut_view(540, 900, 1.0), chip(160, 1130, "noise leaks in"), {"camera": "down"}),
+        fr(0.5, "The cyan wave leaves the driver; in the cavity amber and cyan overlap, crest on trough.",
+           *cut_view(540, 900, 1.0, cyan=True), chip(820, 1150, "flipped")),
+        fr(1.0, "On 'almost nothing': where they meet, the line goes flat white up the canal; the eardrum stays still. A pin '≈ silence' at the eardrum.",
+           *cut_view(540, 900, 1.0, cyan=True, white=True), chip(760, 520, "≈ silence"), {"cut": "lift out of the cut: the three waves float free"}),
     ],
     "s10": [
-        fr(0.0, "Three lanes across the frame: the noise (amber), plus the flipped wave (cyan), equals what you hear (white, flat). Each lane has its name on the left.",
-           label(130, 300, "noise", 34, align="start"), wave(380, 1790, 300, 80, 420), label(130, 500, "+ flipped", 34, align="start"), wave(380, 1790, 500, 80, 420, "blue", 180),
-           label(130, 700, "= you hear", 34, align="start"), flat(380, 1790, 700)),
-        fr(1.0, "On 'destructive interference' the name lands in metal type at the top, the accent on 'destructive'.",
-           {"title": [960, 170], "text": "destructive interference", "size": 80, "accent": "destructive"}, wave(380, 1790, 300, 80, 420), wave(380, 1790, 500, 80, 420, "blue", 180), flat(380, 1790, 700), {"cut": "no cut: the turn"}),
+        fr(0.0, "Three glowing lines float in the dark above the cut-open cup, stacked down the frame: amber 'noise', plus cyan 'flipped', equals white 'what you hear', flat.",
+           wave(80, 1000, 520, 90, 360), label(540, 420, "noise", 36), label(540, 660, "+", 70), wave(80, 1000, 780, 90, 360, "blue", 180), label(540, 920, "=", 70), {"line": [80, 1040, 1000, 1040], "width": 8}, {"camera": "orbit"}),
+        fr(0.5, "On 'destructive interference' the name lands in metal type at the top, the accent on 'destructive'.",
+           {"title": [540, TOP + 60], "text": "destructive\ninterference", "size": 104, "accent": "destructive"}, wave(80, 1000, 620, 90, 360), wave(80, 1000, 860, 90, 360, "blue", 180), {"line": [80, 1060, 1000, 1060], "width": 8}),
+        fr(1.0, "The name holds a beat; a sheen crosses it. The lines hold still, exactly opposite.",
+           {"title": [540, TOP + 60], "text": "destructive\ninterference", "size": 104, "accent": "destructive"}, wave(80, 1000, 620, 90, 360), wave(80, 1000, 860, 90, 360, "blue", 180), {"line": [80, 1060, 1000, 1060], "width": 8}, {"cut": "no cut: the turn"}),
     ],
-    # ── The catch ─────────────────────────────────────────────────────────────────────────────────────────
     "s11": [
-        fr(0.0, "On 'But': a hit. The title slides away; the cyan lane starts to slip to the right, a little late.",
-           label(130, 300, "noise", 34, align="start"), wave(380, 1790, 300, 80, 420), label(130, 500, "+ flipped", 34, align="start"), wave(380, 1790, 500, 80, 420, "blue", 230),
-           label(130, 700, "= you hear", 34, align="start"), wave(380, 1790, 700, 30, 420, "ink"), {"move": [900, 420, 1100, 420], "text": "a little late"}),
-        fr(1.0, "On 'in step': it slides back into place and the white line goes flat again. A chip 'in step' lights.",
-           wave(380, 1790, 300, 80, 420), wave(380, 1790, 500, 80, 420, "blue", 180), flat(380, 1790, 700), {"chip": [1600, 600], "text": "in step"}, {"cut": "whip to the hum, to scale"}),
+        fr(0.0, "On 'But': a hit. The name lifts away; a time arrow 'time →' appears under the lines; the cyan copy slides to the right, later in time.",
+           wave(80, 1000, 560, 90, 360), wave(80, 1000, 800, 90, 360, "blue", 230), {"move": [400, 700, 560, 700], "text": "late"}, wave(80, 1000, 1040, 40, 360, "ink"), {"arrow": [120, 1180, 900, 1180]}, label(510, 1230, "time", 32)),
+        fr(1.0, "On 'in step': it slides back into place; the white line goes flat again; a pin 'in step'.",
+           wave(80, 1000, 560, 90, 360), wave(80, 1000, 800, 90, 360, "blue", 180), {"line": [80, 1040, 1000, 1040], "width": 8}, chip(760, 940, "in step"), {"cut": "back to the head, to scale"}),
     ],
     "s12": [
-        fr(0.0, "To scale (400 px a metre, said on screen): a listener's head with headphones, small, at x 1640; a generic engine's dark nacelle at the left edge; one long amber wave of a 100 Hz hum between them.",
-           {"path": "M0 330 L180 360 L180 580 L0 610 Z", "colour": "ink", "fill": "ink"}, wave(180, 1600, 470, 110, LAM_LOW_PX), *TINY_HEAD, label(1640, 560, "you", 32),
-           label(960, 130, "to scale: 1 m = 400 px", 30), {"camera": "right"}),
-        fr(1.0, "On 'engine's drone' a chip '100 Hz hum' sits on the wave. The wave rolls slowly toward you; on 'easy' the head's headphones glow cyan.",
-           {"path": "M0 330 L180 360 L180 580 L0 610 Z", "colour": "ink", "fill": "ink"}, wave(180, 1600, 470, 110, LAM_LOW_PX), *TINY_HEAD, {"chip": [700, 300], "text": "100 Hz hum"},
-           {"glow": [HEAD_X, 470, 60], "colour": "blue"}, {"cut": "no cut: the ruler draws"}),
+        fr(0.0, "The head and the headphone from behind and to the side, whole. The light turns amber and slow: one enormous swell of pressure passes over the whole head at once.",
+           *head_side(540, 820, 0.7), {"glow": [300, 700, 500]}, chip(250, 380, "100 Hz hum"), {"camera": "up"}),
+        fr(0.5, "The camera cranes up and back: the head shrinks; the hum's glowing wave, metres long, comes into view lying across the set.",
+           {"dot": [540, 1100, 60], "colour": "orange"}, wave(40, 1040, 1100, 120, 1640), {"camera": "up"}),
+        fr(1.0, "On 'easy' the headphone's cups glow cyan for a beat. The camera is high above, looking down.",
+           {"dot": [540, 1150, 40], "colour": "orange"}, {"glow": [540, 1150, 80], "colour": "blue"}, {"path": "M540 1600 Q440 1200 540 800 Q640 400 540 0", "colour": "orange", "width": 9}, {"cut": "no cut: the ruler draws"}),
     ],
     "s13": [
-        fr(0.0, "The same view. A ruler draws under one whole cycle of the wave: '≈ 3.4 m' (343 / 100 = 3.43 m).",
-           wave(180, 1600, 470, 110, LAM_LOW_PX), *TINY_HEAD, {"bracket": [228, 228 + LAM_LOW_PX, RULER_Y], "text": "one wave ≈ 3.4 m"}),
-        fr(1.0, "On 'keep repeating': the cycle copies itself ahead of the wave, ghosted, again and again; a chip '100 times a second'.",
-           wave(180, 1600, 470, 110, LAM_LOW_PX), *TINY_HEAD, {"bracket": [228, 228 + LAM_LOW_PX, RULER_Y], "text": "one wave ≈ 3.4 m"}, {"chip": [960, 860], "text": "the same, 100 times a second"}, {"cut": "the meters panel rises"}),
+        fr(0.0, "Straight down from above, to scale: the head with its headphone is a small dot near the bottom; the hum's wave runs up the frame past it, one whole cycle 1,650 px tall. A note 'to scale'.",
+           {"dot": [540, 1300, 36], "colour": "orange"}, {"path": "M540 1920 Q300 1500 540 1100 Q780 700 540 300 Q300 -100 540 -500", "colour": "orange", "width": 9}, label(700, TOP + 10, "to scale", 32)),
+        fr(1.0, "A ruler draws beside one whole wave: '≈ 3.4 m'; the bands keep repeating up the frame.",
+           {"dot": [540, 1300, 36], "colour": "orange"}, {"path": "M540 1920 Q300 1500 540 1100 Q780 700 540 300 Q300 -100 540 -500", "colour": "orange", "width": 9}, {"line": [860, 1100, 860, 300], "width": 6}, label(900, 700, "≈ 3.4 m", 44, align="start"), {"cut": "the chart panel rises over the scene"}),
     ],
     "s14": [
-        fr(0.0, "The view dims; a glass panel rises at the left: 'the copy is late by 0.033 ms (an example)'. Two lanes in it: the hum and its flipped copy, a hair late.",
-           {"panel": [120, 140, 1000, 640], "title": "100 Hz hum"}, wave(180, 1060, 330, 70, 880), wave(180, 1060, 470, 70, 880, "blue", 181), label(620, 740, "copy late by 0.033 ms (example)", 30)),
-        fr(1.0, "On 'match them': two bars on the right, drawn to proportion: 'noise 100%' full, 'left over 2%' a sliver. A chip 'easy'.",
-           {"panel": [120, 140, 1000, 640], "title": "100 Hz hum"}, wave(180, 1060, 330, 70, 880), wave(180, 1060, 470, 70, 880, "blue", 181),
-           {"bar": [1250, 720, 160, 500], "colour": "orange", "label": "noise 100%"}, {"bar": [1520, 720, 160, 10], "colour": "ink", "label": "left over 2%"}, {"cut": "the panel drops away; the squeak arrives"}),
+        fr(0.0, "A glass panel rises over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum, its flipped copy late by 0.033 ms, and what is left.",
+           {"panel": [64, 300, 860, 900], "title": "100 Hz hum · 10 ms shown"}, wave(110, 880, 520, 90, 770), wave(110, 880, 760, 90, 770, "blue", 181), {"line": [110, 980, 880, 980], "width": 6}, label(500, 1150, "copy late by 0.033 ms (example)", 30)),
+        fr(1.0, "On 'match them' two bars to proportion: 'noise 100%' full, 'left over 2%' a sliver.",
+           {"panel": [64, 300, 860, 900], "title": "100 Hz hum · 10 ms shown"}, {"bar": [180, 1330, 220, 300], "colour": "orange", "label": "noise 100%"}, {"bar": [560, 1330, 220, 6], "colour": "ink", "label": "left over 2%"}, {"cut": "the panel drops; back to the cup"}),
     ],
     "s15": [
-        fr(0.0, "Back to the to-scale view, same 400 px a metre. The long hum fades; a dense amber ripple races in from a small source on the left: a 5,000 Hz squeak.",
-           wave(180, 1600, 470, 70, LAM_HIGH_PX * 4), *TINY_HEAD, label(960, 130, "to scale: 1 m = 400 px", 30), {"move": [200, 600, 800, 600], "text": "squeak"}),
-        fr(1.0, "On 'harder' the chip '5,000 Hz squeak' lands; the headphones' cyan glow flickers.",
-           wave(180, 1600, 470, 70, LAM_HIGH_PX * 4), *TINY_HEAD, {"chip": [700, 300], "text": "5,000 Hz squeak"}, {"camera": "push", "text": "ten times closer"}, {"cut": "zoom ten times onto the head"}),
+        fr(0.0, "Back down at the head, three-quarter from the front, to scale: a dense amber ripple races in, its waves not much longer than the cup is tall.",
+           *head_side(600, 880, 0.75), ell(560, 860, 120, 170, fill="ink"), wave(30, 440, 860, 60, 70), chip(240, 420, "5,000 Hz squeak"), {"camera": "down"}),
+        fr(1.0, "On 'harder' the camera pushes toward the cup; the ripples break on it.",
+           ell(560, 860, 200, 280, fill="ink"), wave(30, 360, 860, 60, 70), {"camera": "push"}, {"cut": "no cut: the push carries on"}),
     ],
     "s16": [
-        fr(0.0, "Ten times closer (4,000 px a metre): the side of the head fills the right, the cup on it; the squeak's waves now readable, one every 274 px.",
-           {"path": "M1300 0 Q1380 540 1300 1080 L1920 1080 L1920 0 Z", "colour": "ink", "fill": "orange"}, {"path": "M1150 250 h150 v580 h-150 Z", "colour": "ink", "fill": "ink"},
-           wave(60, 1150, 540, 120, LAM_HIGH_ZOOM), label(960, 130, "ten times closer: 1 m = 4,000 px", 30), {"camera": "push"}),
-        fr(1.0, "On 'centimetres': a ruler under one cycle, '≈ 7 cm' (343 / 5,000 = 6.9 cm): smaller than the ear cup.",
-           {"path": "M1300 0 Q1380 540 1300 1080 L1920 1080 L1920 0 Z", "colour": "ink", "fill": "orange"}, {"path": "M1150 250 h150 v580 h-150 Z", "colour": "ink", "fill": "ink"},
-           wave(60, 1150, 540, 120, LAM_HIGH_ZOOM), {"bracket": [300, 300 + LAM_HIGH_ZOOM, 760], "text": "one wave ≈ 7 cm"}, {"cut": "the meters panel rises again"}),
+        fr(0.0, "Close on the cup's outside: the dense ripple passes it; a ruler draws beside one wave: '≈ 7 cm', set against the 9.4 cm cup.",
+           ell(600, 900, 300, 420, fill="ink"), wave(30, 300, 900, 50, 210), {"bracket": [60, 270, 680], "text": "≈ 7 cm"}, {"camera": "push"}),
+        fr(1.0, "On 'centimetres' the ruler holds; the cup is barely more than one wave tall.",
+           ell(600, 900, 300, 420, fill="ink"), wave(30, 300, 900, 50, 210), {"bracket": [60, 270, 680], "text": "≈ 7 cm"}, {"line": [960, 480, 960, 1320], "width": 6}, label(980, 900, "9.4 cm", 32, align="start"), {"cut": "the chart panel rises again"}),
     ],
     "s17": [
-        fr(0.0, "The same panel as s14, now for the squeak: the same delay, 0.033 ms, is a sixth of a cycle here, so the cyan copy sits visibly out of step.",
-           {"panel": [120, 140, 1000, 640], "title": "5,000 Hz squeak"}, wave(180, 1060, 330, 70, 220), wave(180, 1060, 470, 70, 220, "blue", 240), label(620, 740, "same delay: 0.033 ms (example)", 30)),
-        fr(1.0, "On 'out of step': the bars, to proportion: 'noise 100%', 'left over 100%': nothing cancelled. The 2% sliver of the hum stays beside them, faint, for comparison.",
-           {"panel": [120, 140, 1000, 640], "title": "5,000 Hz squeak"}, wave(180, 1060, 330, 70, 220), wave(180, 1060, 470, 70, 220, "blue", 240),
-           {"bar": [1250, 720, 160, 500], "colour": "orange", "label": "noise 100%"}, {"bar": [1520, 720, 160, 500], "colour": "ink", "label": "left over 100%"}, {"cut": "a clatter cuts in"}),
+        fr(0.0, "The same panel, the same 10 ms of time: '5,000 Hz squeak · 10 ms shown'. The squeak is fifty tight cycles; its copy, late by the same 0.033 ms.",
+           {"panel": [64, 300, 860, 900], "title": "5,000 Hz squeak · same 10 ms"}, wave(110, 880, 520, 70, 16), wave(110, 880, 760, 70, 16, "blue", 240), {"magnifier": [760, 640, 120]}),
+        fr(0.5, "A magnifier, marked 'zoom ×20', shows two cycles: the copy one sixth of a cycle late, crest no longer under trough.",
+           {"panel": [64, 300, 860, 900], "title": "5,000 Hz squeak · same 10 ms"}, {"magnifier": [560, 760, 260]}, label(560, 1060, "zoom ×20", 32)),
+        fr(1.0, "On 'out of step' the bars: 'noise 100%' and 'left over 100%', the same height.",
+           {"panel": [64, 300, 860, 900], "title": "5,000 Hz squeak · same 10 ms"}, {"bar": [180, 1330, 220, 300], "colour": "orange", "label": "noise 100%"}, {"bar": [560, 1330, 220, 300], "colour": "ink", "label": "left over 100%"}, {"cut": "the panel drops; a clatter hits"}),
     ],
     "s18": [
-        fr(0.0, "A full-width trace: a sudden clatter, an irregular burst of spikes arriving from the left, nothing like a repeating wave. Above it 'sudden clatter'.",
-           {"curve": [[100, 400], [300, 400], [330, 250], [360, 560], [390, 300], [420, 480], [460, 400], [700, 400]], "colour": "orange"}, label(160, 200, "sudden clatter", 36, align="start")),
-        fr(0.6, "The cyan copy follows a beat behind and never matches; the white line under them stays jagged.",
-           {"curve": [[100, 400], [600, 400], [630, 250], [660, 560], [690, 300], [720, 480], [760, 400], [1800, 400]], "colour": "orange"},
-           {"curve": [[100, 400], [700, 400], [730, 560], [760, 250], [790, 500], [820, 320], [860, 400], [1800, 400]], "colour": "blue"},
-           {"curve": [[100, 700], [600, 700], [640, 600], [680, 820], [720, 600], [760, 780], [800, 620], [860, 700], [1800, 700]], "colour": "ink"}, {"chip": [1400, 560], "text": "too late"}),
-        fr(1.0, "Another burst, another miss. The cut pulls back to the cup.",
-           {"curve": [[100, 400], [1100, 400], [1130, 250], [1160, 560], [1190, 300], [1220, 480], [1260, 400], [1800, 400]], "colour": "orange"},
-           {"curve": [[100, 700], [1100, 700], [1140, 600], [1180, 820], [1220, 600], [1260, 780], [1300, 620], [1360, 700], [1800, 700]], "colour": "ink"}, {"cut": "pull back to the cup"}),
+        fr(0.0, "The head and headphone from the front three-quarter; below, out of shot, something drops: a bright amber shell of sound bursts from a point and races outward.",
+           *head_side(620, 820, 0.7), {"ring": [260, 1300, 160], "colour": "orange"}, {"ring": [260, 1300, 300], "colour": "orange", "dashed": True}, {"camera": "left"}),
+        fr(1.0, "On 'harder still' the shell hits the cup: a flash on the shell, and a pin 'sudden clatter'.",
+           *head_side(620, 820, 0.7), {"ring": [260, 1300, 520], "colour": "orange"}, chip(260, 480, "sudden clatter"), {"cut": "the chart panel rises"}),
     ],
-    "s18b": [],
-    # ── Cushions ──────────────────────────────────────────────────────────────────────────────────────────
+    "s18b": [
+        fr(0.0, "The panel again, the same 10 ms: a clatter's trace, quiet, then a sudden spike that rings away. Under it the chip's copy, which only starts to follow after the spike has begun.",
+           {"panel": [64, 300, 860, 900], "title": "a sudden clatter · 10 ms shown"}, {"path": "M110 520 H300 L320 400 L340 640 L360 440 L390 600 L430 480 L480 560 L560 500 L700 530 H880", "colour": "orange", "width": 6}, {"path": "M110 760 H330 L360 860 L390 700 L430 820 L480 740 L560 790 L700 760 H880", "colour": "blue", "width": 6}),
+        fr(1.0, "On 'faster than the chip can follow': the leftover trace keeps the spike's sharp front; a note 'illustration'.",
+           {"panel": [64, 300, 860, 900], "title": "a sudden clatter · 10 ms shown"}, {"path": "M110 1000 H300 L320 880 L340 1120 L360 940 L400 1040 L460 990 H880", "colour": "ink", "width": 6}, label(500, 1150, "illustration", 30), {"cut": "back to the cup: the cushions"}),
+    ],
     "s19": [
-        fr(0.0, "The cut-through cup again. The two foam cushions brighten and swell slightly; a chip 'cushions' with leader lines to both.",
-           *CUP, {"chip": [1250, 900], "text": "cushions"}, {"line": [1340, 870, 1472, 752]}, {"glow": [1472, 210, 80], "colour": "yellow"}, {"glow": [1472, 690, 80], "colour": "yellow"}),
-        fr(1.0, "The camera settles; the shell and cushions hold the lit cyan rim.",
-           *CUP, {"chip": [1250, 900], "text": "cushions"}, {"line": [1340, 870, 1472, 752]}, {"camera": "push"}, {"cut": "no cut: two kinds of sound arrive"}),
+        fr(0.0, "Low and close on the cushion where it meets the skin: the leather's grain and its pleats sharp, the head soft behind.",
+           ell(560, 900, 480, 330, fill="ink"), ell(560, 900, 260, 150, colour="white"), {"camera": "push"}),
+        fr(1.0, "On 'cushions' the leather is cut away along the camera's line: the memory foam inside shows its pores; pins 'memory foam' and 'leather cover'.",
+           ell(560, 900, 480, 330, fill="ink"), ell(560, 900, 380, 230, colour="white"), chip(260, 480, "memory foam"), chip(700, 1150, "leather cover"), {"cut": "no cut: the camera rises over the cut"}),
     ],
     "s20": [
-        fr(0.0, "Two sounds arrive from the left on two lanes: an upper dense squeak (short waves) and a lower long hum.",
-           *CUP, wave(0, 1050, 300, 60, 60), wave(0, 1050, 600, 100, 420)),
-        fr(0.5, "On 'high, sharp sounds': the squeak hits the shell and cushions and comes out inside much smaller. A chip 'highs: blocked'.",
-           *CUP, wave(0, 1050, 300, 60, 60), wave(1282, 1500, 300, 12, 60), wave(0, 1050, 600, 100, 420), {"chip": [520, 180], "text": "highs: blocked by the cushions"}),
-        fr(1.0, "On 'the chip can't catch': the hum passes in and is met by the cyan wave; the line to the ear goes flat. A chip 'lows: cancelled by the chip'.",
-           *CUP, wave(0, 1050, 300, 60, 60), wave(1282, 1500, 300, 12, 60), wave(0, 1050, 600, 100, 420), flat(1282, 1500, 600), {"chip": [520, 180], "text": "highs: blocked by the cushions"}, {"chip": [520, 760], "text": "lows: cancelled by the chip"}, {"cut": "the cup shrinks into the recap"}),
+        fr(0.0, "From above, the cut through head and cup again; the high squeak's dense ripples arrive from below.",
+           *cut_view(540, 900, 1.0, amber=False), wave(40, 1040, 1400, 30, 70), {"camera": "down"}),
+        fr(0.5, "On 'block': the ripples hit the shell and the cushions and bounce off; only a faint trace gets in.",
+           *cut_view(540, 900, 1.0, amber=False), wave(40, 1040, 1400, 30, 70), {"move": [300, 1300, 160, 1500], "text": "bounces off"}, chip(160, 1120, "cushion blocks it")),
+        fr(1.0, "The canal stays nearly dark; a pin on the cushion, 'blocks the highs'.",
+           *cut_view(540, 900, 1.0, amber=False), chip(160, 1120, "blocks the highs"), {"cut": "lift out to the whole headphone, opened up"}),
     ],
-    # ── Recap ─────────────────────────────────────────────────────────────────────────────────────────────
     "s21": [
-        fr(0.0, "Four glass cards rise in a row: 1 hear it (the microphone), 2 flip it (amber over cyan), 3 add them (a flat line), and a narrower fourth: cushions for the highs.",
-           *CARDS[:3], {"move": [310, 780, 310, 660], "text": "cards rise"}),
-        fr(1.0, "All four cards in place, each lit as the voice reaches it.",
-           *CARDS, {"cut": "cards part; the headphones come forward"}),
+        fr(0.0, "The recap in one frame: the headphone on its set, its right cup opened along its axis. Numbered pins rise one after another: 1 hear (the outside mic), 2 flip (the chip).",
+           *phones(560, 900, 1.0), chip(240, 420, "1  hear"), chip(780, 560, "2  flip"), {"camera": "orbit"}),
+        fr(0.5, "3 play (the driver) and the cushions: 'blocks the highs'.",
+           *phones(560, 900, 1.0), chip(240, 420, "1  hear"), chip(780, 560, "2  flip"), chip(260, 1120, "3  play"), chip(800, 1200, "cushions: the highs")),
+        fr(1.0, "All four pins hold; the camera keeps its slow orbit; the parts start to close up.",
+           *phones(560, 900, 1.0), chip(240, 420, "1  hear"), chip(780, 560, "2  flip"), chip(260, 1120, "3  play"), {"cut": "the parts close; the two waves meet at the ear"}),
     ],
     "s22": [
-        fr(0.0, "The 3D headphones come forward through the parted cards, centre; an amber ring meets a cyan ring around the cups.",
-           {"glow": [960, 450, 420], "colour": "blue"}, {"path": "M720 500 Q720 140 960 140 Q1200 140 1200 500", "colour": "ink", "width": 22},
-           {"path": "M660 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1140 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"ring": [960, 520, 470], "colour": "orange"}, {"ring": [960, 520, 430], "colour": "blue"}),
-        fr(1.0, "On 'right on time': the rings close on each other and vanish; a soft flash, then stillness.",
-           {"glow": [960, 450, 420], "colour": "blue"}, {"path": "M720 500 Q720 140 960 140 Q1200 140 1200 500", "colour": "ink", "width": 22},
-           {"path": "M660 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1140 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"camera": "pull"}, {"cut": "the poster line lands"}),
+        fr(0.0, "The head and headphone, cut open from above once more: the amber and the cyan waves arrive at the canal from both sides, exactly opposite.",
+           *cut_view(540, 900, 1.0, cyan=True), {"camera": "pull"}),
+        fr(0.6, "On 'right on time' they meet in the canal and fold into one flat white line; a ring of light closes on the eardrum and vanishes.",
+           *cut_view(540, 900, 1.0, cyan=True, white=True), {"ring": [540, 560, 120]}),
+        fr(1.0, "Silence: the canal is dark and still; the camera keeps pulling back.",
+           *cut_view(540, 900, 1.0, amber=False), {"camera": "pull"}, {"cut": "dissolve to the headphone on its set"}),
     ],
     "s23": [
-        fr(0.0, "The poster: the headphones on the right, still turning slowly; on the left the line to remember in metal type, the accent on 'silence'; under it the three lanes small: amber + cyan = flat white.",
-           {"path": "M1240 500 Q1240 140 1480 140 Q1720 140 1720 500", "colour": "ink", "width": 22}, {"path": "M1180 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1660 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [110, 340], "text": "Noise + its flip\n≈ silence", "size": 110, "align": "start", "accent": "silence"}, wave(120, 520, 700, 40, 200), label(560, 712, "+", 50), wave(600, 1000, 700, 40, 200, "blue", 180)),
-        fr(1.0, "It holds, breathing: a slow push, a sheen across the line, the bed's last chord.",
-           {"path": "M1240 500 Q1240 140 1480 140 Q1720 140 1720 500", "colour": "ink", "width": 22}, {"path": "M1180 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1660 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [110, 340], "text": "Noise + its flip\n≈ silence", "size": 110, "align": "start", "accent": "silence"}, flat(120, 1000, 800), {"camera": "push"}),
+        fr(0.0, "The poster: the headphone on its set, as in the first frame, turning slowly; the line in metal type at the top.",
+           *phones(560, 1000, 1.25), {"title": [540, TOP + 80], "text": "Hear it.\nFlip it.\nPlay it on time.", "size": 104, "accent": "on time."}, {"camera": "orbit"}),
+        fr(1.0, "The line holds for two seconds; a sheen crosses 'on time.'. The last frame matches the first, so the loop has no jolt.",
+           *phones(560, 1000, 1.25), {"title": [540, TOP + 80], "text": "Hear it.\nFlip it.\nPlay it on time.", "size": 104, "accent": "on time."}, {"cut": "loops to the first frame"}),
     ],
 }
 
-# The middle frame of every two-frame shot: the event the shot exists for, drawn on the state it ends in.
-MID = {
-    "s03": "Mid-line: the first bands of bunched dots have crossed a third of the field; behind them the dots still rock.",
-    "s06": "Half way: the cyan wave has drawn under the first two cycles of the amber one, a beat behind its arrival.",
-    "s08": "On 'plays': the speaker's cone pushes out; the cyan wave leaves it, half way to the ear.",
-    "s09": "On 'add up': the amber and cyan waves slide onto one line; the white sum starts to draw from the speaker side.",
-    "s10": "The name half typed; the three lanes roll in step.",
-    "s11": "The slip at its widest: the cyan lane a fifth of a cycle late, the white lane rippling, the chip 'a little late'.",
-    "s12": "On 'hum' the chip lands on the wave; the wave rolls a little toward the head.",
-    "s13": "The ruler complete under one cycle; the first ghost copy slides out ahead of the wave.",
-    "s14": "The copy has lined up a hair behind the hum; the two bars start to grow.",
-    "s15": "The ripple has crossed half the space; the long hum is almost gone.",
-    "s16": "The zoom settling: the ripple's crests sharpen into readable waves.",
-    "s17": "The copy slides into its late place, a sixth of a cycle behind; the left-over bar starts to grow.",
-    "s19": "On 'cushions': both cushions swell and light; the chip pops.",
-    "s21": "The third card lands; the fourth is rising.",
-    "s22": "On 'flipped': the cyan ring appears just inside the amber one; both start to close on the cups.",
-    "s23": "The line complete; the sheen crosses 'silence'.",
-}
-FRAMES["s18b"] = [dict(FRAMES["s18"][1], at=0.0), dict(FRAMES["s18"][1], at=0.5, note="On 'faster': a second burst arrives; the copy answers late again."), dict(FRAMES["s18"][2], at=1.0)]
-FRAMES["s18"] = [FRAMES["s18"][0], fr(1.0, "The first burst has passed; the white line under it took the whole burst. The cyan copy is about to try.", *FRAMES["s18"][0]["draw"], {"curve": [[100, 700], [300, 700], [330, 550], [360, 860], [390, 600], [420, 780], [460, 700], [1800, 700]], "colour": "ink"}, {"cut": "no cut: the copy tries"})]
-for sid, note in MID.items():
-    first, last = FRAMES[sid][0], FRAMES[sid][-1]
-    if len(FRAMES[sid]) == 2:
-        keep = [d for d in last["draw"] if not ("cut" in d or "camera" in d)]
-        FRAMES[sid].insert(1, fr(0.5, note, *keep, {"move": [760, 1000, 1160, 1000], "text": "the event"} if sid in ("s10", "s23") else {"camera": "push"}))
+# ── The shots ────────────────────────────────────────────────────────────────────────────────────────────────────
+WORN = "the head and headphone"
+shot("s01", "hook", "object3d", caption=False, facts=["f1", "f2", "f9"],
+     teaches="Asks the question over the real object: a pair of noise-cancelling headphones, with noise in the air round it.",
+     screen="The headphone on a dark satin set, three-quarter, filling the middle of the frame (y 650 to 1350): graphite cups, leather cushions, brushed yokes and sliders. Amber pressure bands and a glowing amber wave roll through the air round it from the upper left. The question in metal type at the top, y 300 to 640, three lines, 'disappear?' in cyan.",
+     camera="Starts three-quarter front-right (az 32, el 16, 560 mm off, 30 mm lens-equivalent fov 30), target the band's middle; orbits to az 60 and pushes to 500 mm over the shot; slow sway. No depth of field.",
+     motion="The camera orbits and pushes in; the title types in line by line as it is said; the amber bands keep travelling; a sheen crosses 'disappear?' at the end.",
+     carries="The headphone and the amber noise: the orbit keeps going round to the cup's inside.",
+     transition="No cut: the orbit carries the camera round to the inside of the right cup as the title lifts away.",
+     sound="The bed starts at full level; a low amber drone texture is the music's own; no effects under the question.",
+     check="Frame 0 is a finished picture; the title sits inside the safe area; the headphone reads at a glance; nothing important under y 1490.")
+shot("s02", "hook", "object3d", facts=["f2"],
+     teaches="The surprise: they cancel noise by adding sound, not only by blocking it.",
+     screen="The right cup from its inside, large (y 500 to 1300): the leather cushion ring with its pleats, the dark fabric cover inside it. Amber bands pass through the air beside it. On 'adding' the fabric glows cyan from the driver behind it and a cyan wave leaves the cup down the frame beside the amber one.",
+     camera="Continues the orbit from s01: az 60 to az 125 round the right cup (its inside faces the camera), el 16 to 8, dist 500 to 300 mm, target eases onto the cushion's centre; fov 30 to 27.",
+     motion="The orbit swings round; on 'adding' the cyan light swells behind the fabric and the cyan wave draws out; the camera begins to dive toward the amber bands at the end.",
+     carries="The amber bands in the air: the dive goes into them.",
+     transition="A push through the amber bands into the air itself; a soft whoosh on the cut.",
+     sound="A soft whoosh on the dive at the cut into s03.",
+     check="The cushion's inside and the fabric read as a real ear cup; the cyan comes from the driver behind the fabric, not from outside.")
+shot("s03", "wave", "macro", facts=["f1", "f11"],
+     teaches="Sound is a wave of pressure: air squeezed and stretched, travelling.",
+     screen="Inside the air: thousands of tiny specks fill the frame, sharp in the middle and soft near and far; they bunch into bright bands and spread into dark ones, and the bands travel left to right. A small note at the top, 'slowed down, not to scale', 30 px.",
+     camera="Inside the speck field, side-on to the travel (az 90, el 6), 90 mm off, fov 22; drifts along with the bands from tx -30 to +10 mm; depth of field on (blur 0.7) focused on the field's middle plane; sway 0.6.",
+     motion="The specks rock back and forth about their places, so bands of squeeze and stretch travel through them; the camera drifts with them.",
+     carries="The speck field and the travelling bands.",
+     transition="No cut: the camera drifts back and a pressure line draws over the specks.",
+     sound="The music alone; a faint air hiss belongs to the bed.",
+     check="The specks only rock about their places; the pattern is what travels. The note 'slowed down, not to scale' is readable (30 px).")
+shot("s04", "wave", "diagram", facts=["f1", "f11"],
+     teaches="Squeezed then stretched, over and over: the pressure line names the bands.",
+     screen="The same speck field, wider; a glowing amber line draws over it, high over the bright bands, low over the dark. Pins 'squeezed' (on a bright band, left, y about 470) and 'stretched' (on a dark band, y about 1020). At the end the camera pulls back and the field becomes the air beside the side of a head wearing the headphone.",
+     camera="From 90 mm to 240 mm off the field (az 90 to 105, el 6 to 12), fov 22 to 28, blur 0.7 to 0; in the last second the target moves toward the right ear cup and the camera keeps pulling back to 420 mm.",
+     motion="The amber line draws from left to right as the voice says 'the air'; the pins ride on a crest and a trough as they travel; the pull back reveals the head.",
+     carries="The amber bands: they keep rolling toward the ear cup.",
+     transition="No cut: the pull back lands on the ear cup, which the next shot approaches.",
+     sound="The music alone; nothing on the words.",
+     check="'squeezed' sits on a bright band, 'stretched' on a dark one, as they move. The pins are at least 36 px and inside the safe area.")
+shot("s05", "cancel", "object3d", facts=["f2", "f7", "f9"],
+     teaches="A microphone on the outside of the cup hears the noise before it reaches the ear.",
+     screen="The side of a head wearing the headphone, from behind and outside: skin, the hairline, the right cup. The camera closes on the cup's back panel: a small oval perforated grille near its top front edge, with a metal bezel. The amber wave arrives from the left and touches it; the grille glows; a pin 'feed-forward mic · outside the cup'.",
+     camera="Approach: from behind the head (az 140, el 14, 420 mm, fov 28, target the cup) in to the grille by 'microphone' (az 112, el 22, 110 mm, fov 22, target the grille), then a slow push to 90 mm; depth of field 0.5 focused on the grille; sway 0.6.",
+     motion="The camera travels to the grille; the amber wave runs across and reaches it; a spark of amber runs into the grille on 'coming in' and it glows.",
+     carries="The grille and the spark of noise in it.",
+     transition="No cut: the shell lifts away from the camera to show what the mic is wired to.",
+     sound="The music alone; a tiny tick as the grille lights (between 'cup' and 'hears').",
+     check="By 13.9 s the grille fills a third or more of the frame; the pin names it; the amber wave visibly arrives from outside.")
+shot("s06", "cancel", "macro", facts=["f2"],
+     teaches="A chip in the cup makes an upside-down copy of the noise.",
+     screen="The shell lifts off the cup, straight back toward the camera and out of shot; inside, the main board sits behind the driver: a small square chip marked 'ANC', a shielded radio, tiny resistors and capacitors, a crystal, copper flex. A spark runs along the flex from the mic to the chip; the chip glows cyan. A pin 'ANC chip'.",
+     camera="Macro: from the grille (100 mm) the target travels down the flex to the chip (az 100 to 92, el 24 to 34, dist 100 to 70 mm, fov 22 to 20); rack focus from the grille to the chip by 'chip'; blur 0.8; sway 0.6.",
+     motion="The shell lifts 74 mm along the cup's axis in 1 s; the camera follows the flex down to the chip; the spark runs; the chip glows on 'upside-down copy'.",
+     carries="The chip and the light over it.",
+     transition="No cut: the camera rises over the board and the two waves draw above it.",
+     sound="A soft mechanical slide as the shell lifts, under 'Then'.",
+     check="The chip fills 30 to 60% of the frame's height within half a second of 'chip' (18.4 s); its marking reads; the board looks like a board.")
+shot("s07", "cancel", "diagram", facts=["f2", "f11"],
+     teaches="Upside down means a stretch for every squeeze and a squeeze for every stretch.",
+     screen="Over the board, two waves of light float: the amber 'noise' above and the cyan 'flipped copy' below, the same shape upside down. A line of light drops from an amber crest to the cyan trough under it; pins 'squeeze' and 'stretch'; then the next pair the other way round.",
+     camera="Rises above the board: az 92 to 70, el 34 to 52, dist 120 to 160 mm, fov 26, target 25 mm above the chip; no depth of field (the waves must be sharp).",
+     motion="The two waves hold their shapes and travel slowly together; the dashed lines of light drop one by one on 'squeezes' and 'stretches'.",
+     carries="The cyan wave: the next shot follows it to the driver.",
+     transition="The camera swings round the cup to its ear side as it opens.",
+     sound="The music alone.",
+     check="Every amber crest sits exactly over a cyan trough (180 degrees apart).")
+shot("s08", "cancel", "macro", facts=["f2", "f9"],
+     teaches="The speaker (the driver) plays the flipped wave into the ear.",
+     screen="The cup opened along its axis, seen from in front of the head: the cushion still against the skin round the ear, the driver moved out from it, the board and shell further out. Close on the driver: its cone, surround and copper coil; the cone pushes and pulls; cyan bands and a cyan wave leave it toward the ear. A pin '40 mm driver'.",
+     camera="Orbit and approach: az 30, el 10, 320 mm to az 52, el 6, 130 mm, target the driver's face; fov 24; blur 0.4 focused on the cone; sway 0.5.",
+     motion="The parts slide apart along the cup's axis; the camera closes on the driver; the cone moves with the cyan wave; the bands travel to the ear.",
+     carries="The cyan wave travelling to the ear.",
+     transition="The parts slide back together and the scene is cut open from above.",
+     sound="A soft whoosh as the parts open; the cone's motion is silent.",
+     check="The driver fills 30 to 60% of the frame by 25.8 s; the cyan comes out of the cone, toward the ear.")
+shot("s09", "cancel", "macro", facts=["f2", "f3", "f11"],
+     teaches="In the cup, the flipped wave and the noise add up to almost nothing at the ear.",
+     screen="From above, the head and cup cut through at the canal's height: the head's section (flesh, hatched) at the top, the canal running up into it to the eardrum; the cup's section below: shell, board, driver, fabric, the cushions' foam inside leather, pressed against the skin. The amber noise squeezes in past the cushion's edge; the cyan leaves the driver; where they overlap the line goes flat and white up the canal; the eardrum stays still.",
+     camera="Top-down cutaway: az 90, el 62 to 70, dist 260 to 210 mm, target the canal's mouth; fov 26; the frame turned so the canal runs up the frame; no depth of field.",
+     motion="The cut plane sweeps down through head and cup; the amber leaks in, the cyan leaves the driver, the white sum draws up the canal and fades; a pin '≈ silence' at the eardrum on 'nothing'.",
+     carries="The amber, cyan and white lines: they lift out into the next shot.",
+     transition="A hit on the payoff; the three waves lift out of the cut.",
+     sound="The payoff hit after 'nothing', in the hold.",
+     check="The noise comes in past the cushion (never out of the driver); only the cyan comes from the driver; amber and cyan are exactly 180 degrees apart where they meet.")
+shot("s10", "cancel", "compare", facts=["f2"],
+     teaches="The name for it: destructive interference.",
+     screen="Three glowing lines float in the dark stacked down the frame: amber 'noise', '+', cyan 'flipped', '=', white 'what you hear', flat; the cut-open cup soft and far behind. The name 'destructive interference' lands in metal type at the top, 'destructive' in cyan.",
+     camera="The lines in 3D: camera front-on to them, slow orbit az -8 to 8, el 4, 420 mm, fov 26; the cup far behind, out of focus (blur 0.3, focus on the lines).",
+     motion="The name types in; the three lines hold; a sheen crosses the name at the end of the hold.",
+     carries="The three lines.",
+     transition="No cut: on 'But' the name lifts and the cyan line slips.",
+     sound="A shimmer under the sheen; the turn's hit at the end of the hold, before 'But'.",
+     check="Cyan is exactly the amber upside down; the white line is flat; the name sits at y 300 to 560.")
+shot("s11", "limits", "diagram", facts=["f6"],
+     teaches="The copy has to stay exactly in step: a copy late in time leaves something behind.",
+     screen="The same three lines, now with a time axis under them, 'time →'. The cyan copy slides right, later in time; the white sum grows a ripple; a tag 'late' rides on the cyan; then the cyan slides back, the white goes flat, a pin 'in step'.",
+     camera="The same lines from a little lower and closer: az 8 to 0, el 4 to -2, dist 380 mm, fov 26; drifts.",
+     motion="The cyan line shifts right by a quarter cycle and back; the white line is computed from the two and follows.",
+     carries="The amber hum: it becomes the hum round the head.",
+     transition="The lines drift down out of frame and the head comes up, to scale.",
+     sound="The turn's hit lands at the cut, before 'But'.",
+     check="'Late' is drawn later in time: the cyan moves right, along the time arrow. The white is always amber plus cyan.")
+shot("s12", "limits", "wide", facts=["f3", "f4", "f8"],
+     teaches="A steady low hum is easy to cancel.",
+     screen="The head and headphone whole, from behind and to the side, on the set; the light amber and slow. One huge swell of pressure passes over the whole head at once. A pin '100 Hz hum'. The camera cranes up; the glowing hum, metres long, comes into view lying across the set. On 'easy' the cups glow cyan for a beat.",
+     camera="Pull back and crane: from az 125, el 14, 700 mm (fov 30) to straight down from above (el 88) at 4,300 mm, the frame turned so the wave runs up it; target the head; no depth of field.",
+     motion="The crane is the main move (3 s, power2.inOut); the swell travels slowly past; the cups' cyan glow pulses once on 'easy'.",
+     carries="The head seen from above and the long wave beside it.",
+     transition="No cut: the ruler draws beside the wave.",
+     sound="A slow whoosh under the crane, soft.",
+     check="The head and the wave are both to scale (the head 15 cm, the wave 3.43 m).")
+shot("s13", "limits", "wide", facts=["f4", "f8"],
+     teaches="The hum's waves are metres long and repeat.",
+     screen="Straight down from above, to scale: the head with its headphone a small shape near the bottom (about 70 px), the hum's wave running up the frame past it, one cycle about 1,650 px. A ruler beside one whole wave: '≈ 3.4 m'. A note 'to scale'.",
+     camera="Held high above (el 88, 4,300 mm, fov 30), drifting a little; the roll keeps the wave running up the frame.",
+     motion="The ruler draws along one cycle; the bands keep travelling up past the head.",
+     carries="The hum: it becomes a trace on the chart.",
+     transition="The chart panel rises over the dimmed scene.",
+     sound="The music alone.",
+     check="The ruler spans exactly one cycle (3.43 m at the scene's scale); 'to scale' is said on screen.")
+shot("s14", "limits", "chart", facts=["f6"],
+     teaches="With a hum, a tiny delay hardly matters: about 2% is left.",
+     screen="A glass panel (x 64 to 924, y 300 to 1200) over the dimmed scene: '100 Hz hum · 10 ms shown'. Three traces against a time axis: the hum (amber), its flipped copy late by 0.033 ms (cyan), what is left (white, nearly flat). Under it two bars to proportion: 'noise 100%' and 'left over 2%'.",
+     camera="Not a 3D shot: the scene behind is held, dimmed, as the panel rises.",
+     motion="The traces draw left to right; the bars grow to their values; nothing counts up.",
+     carries="The panel: it stays for the squeak.",
+     transition="The panel drops away and the camera is back at the head.",
+     sound="The music alone.",
+     check="The bars are 100 and 2.1 (2 sin(pi x 100 / 30,000)); the time window is said on screen.")
+shot("s15", "limits", "wide", facts=["f3", "f4", "f8"],
+     teaches="A high squeak is harder to cancel.",
+     screen="Back at the head, three-quarter from the front, to scale: a dense amber ripple races in, its waves 6.86 cm long, not much shorter than the 9.4 cm cup is tall. A pin '5,000 Hz squeak'.",
+     camera="From high above, the camera drops to the side of the head: az 40, el 12, 520 mm, fov 28, then pushes toward the cup on 'harder'.",
+     motion="The ripples travel quickly toward the cup and break on it; the push begins on 'harder'.",
+     carries="The cup and the ripples on it.",
+     transition="No cut: the push carries on to the cup.",
+     sound="A soft whoosh as the camera drops back down.",
+     check="The ripple's spacing is 6.86 cm at the scene's scale.")
+shot("s16", "limits", "macro", facts=["f4", "f8"],
+     teaches="The squeak's waves are only a few centimetres long.",
+     screen="Close on the cup's outside, the ripple passing it; a ruler of light beside one wave '≈ 7 cm', and the cup's height '9.4 cm' beside it.",
+     camera="Push: from az 40, el 12, 360 mm to az 60, el 8, 230 mm, fov 24, target the cup; blur 0.3 focused on the cup; sway 0.5.",
+     motion="The ripples keep passing; the ruler draws on 'centimetres'.",
+     carries="The squeak: it becomes the trace on the chart.",
+     transition="The chart panel rises again, over the dimmed scene.",
+     sound="The music alone.",
+     check="The ruler spans one 6.86 cm wave; the cup measures 9.4 cm.")
+shot("s17", "limits", "chart", facts=["f6"],
+     teaches="For the squeak, the same tiny delay leaves the copy out of step: nothing is cancelled.",
+     screen="The same panel, the same 10 ms of time: '5,000 Hz squeak · same 10 ms'. Fifty tight cycles; the copy late by the same 0.033 ms. A magnifier 'zoom ×20' shows two cycles: crest no longer under trough. Bars: 'noise 100%' and 'left over 100%'.",
+     camera="Not a 3D shot: the scene behind stays dimmed.",
+     motion="The traces draw; the magnifier opens; the bars grow; nothing counts up.",
+     carries="The panel's frame.",
+     transition="The panel drops; a clatter bursts in the scene.",
+     sound="The music alone.",
+     check="The time window is the same as in s14 and says so; the zoom says ×20; 'late' is to the right on the time axis; left over is 100% (2 sin 30 degrees).")
+shot("s18", "limits", "diagram", facts=["f3", "f10"],
+     teaches="A sudden clatter is harder still.",
+     screen="The head and headphone from the front three-quarter; a bright amber shell of sound bursts from a point below and to the left and races outward; it hits the cup; a flash. A pin 'sudden clatter'.",
+     camera="A side-on medium shot: az 20, el 4, 520 mm to az 12, el 8, 460 mm, fov 28; slow push.",
+     motion="The shell grows fast (343 m/s slowed, said in f11); a hit flash when it reaches the cup.",
+     carries="The clatter: its trace is the next chart.",
+     transition="The chart panel rises.",
+     sound="A small sharp clack under 'clatter' is not used (it would sit on the word); the hit flash is silent.",
+     check="The shell starts after the shot starts and reaches the cup on 'harder'.")
+shot("s18b", "limits", "chart", facts=["f10"],
+     teaches="It changes faster than the chip can follow, so its sharp front gets through.",
+     screen="The panel: 'a sudden clatter · 10 ms shown'. The clatter's trace (amber): quiet, then a sharp spike ringing away; the chip's copy (cyan) only follows after a lag; what is left (white) keeps the spike's front. A note 'illustration'.",
+     camera="Not a 3D shot: the scene behind stays dimmed.",
+     motion="The traces draw left to right; the leftover's front flashes once.",
+     carries="Back to the cup: the cushions.",
+     transition="The panel drops; the camera is low and close on the cushion.",
+     sound="The music alone.",
+     check="The leftover is the clatter plus its copy, computed, not drawn by hand.")
+shot("s19", "cushions", "macro", facts=["f5", "f9"],
+     teaches="The cushions still matter.",
+     screen="Low and close on the cushion where it meets the skin: the leather's grain and pleats, the piping seam. The leather cuts away along the camera's line: the memory foam inside shows its pores. Pins 'memory foam' and 'leather cover'.",
+     camera="Macro: az 25, el -4, 120 mm to az 35, el 2, 90 mm, target the cushion's front edge; fov 20; blur 0.9 focused on the cushion, then racking to the foam as it shows; sway 0.6.",
+     motion="A slow push; the cut plane slides across the cushion to show the foam.",
+     carries="The cut: it widens to the whole head and cup.",
+     transition="No cut: the camera rises over the cut, to the view from above.",
+     sound="A soft whoosh as the camera rises.",
+     check="Leather grain, pleats and foam pores read at full size.")
+shot("s20", "cushions", "diagram", facts=["f3", "f5"],
+     teaches="They block the high, sharp sounds the chip cannot catch.",
+     screen="From above, the cut through head and cup: the squeak's dense ripples arrive from below, hit the shell and the cushions and bounce back; a faint trace gets in; the canal stays nearly dark. A pin 'cushion blocks the highs'.",
+     camera="Top-down cutaway again, from a new side: az 70 to 100, el 64, dist 300 to 250 mm, fov 26; no depth of field.",
+     motion="The ripples come and bounce; the camera turns a little over the cut.",
+     carries="The headphone: it lifts out whole.",
+     transition="The cut closes and the camera lifts out to the whole headphone on its set.",
+     sound="The music alone.",
+     check="What gets in is visibly weaker; no number is claimed.")
+shot("s21", "recap", "recap", facts=["f2", "f5"],
+     teaches="The whole answer in one frame: hear, flip, play, and cushions for the highs.",
+     screen="The headphone on its set, its right cup opened along its axis so every part is in its row. Four pins rise one after another: '1  hear' (the outside mic), '2  flip' (the ANC chip), '3  play' (the driver), 'cushions: the highs'.",
+     camera="Establish and slow orbit: az 120 to 95, el 18 to 14, 640 mm, fov 28, target the opened cup; no depth of field.",
+     motion="The parts slide apart; the pins rise in order; the camera orbits.",
+     carries="The headphone: it closes and goes back on the head.",
+     transition="The parts close and the scene is cut open at the ear again.",
+     sound="The recap's cards land in the pause after 'catch.'.",
+     check="Every pin is on its part and inside the safe area; at most four at once, two each side.")
+shot("s22", "recap", "object3d", facts=["f2"],
+     teaches="Flipped upside down, played right on time: the two waves meet and vanish.",
+     screen="From above, the cut through head and cup: the amber noise and the cyan flipped wave arrive at the canal, exactly opposite; they fold into one flat white line; a ring of light closes on the eardrum and vanishes; the canal goes dark.",
+     camera="Top-down cutaway, pulling back: az 90, el 70 to 58, 200 to 320 mm, fov 26; target the canal's mouth.",
+     motion="The two waves converge and cancel on 'time'; a ring closes and goes out.",
+     carries="The headphone.",
+     transition="A dissolve to the headphone on its set.",
+     sound="The answer's hit after 'time', with its body.",
+     check="The closing waves are exactly 180 degrees apart.")
+shot("s23", "recap", "endcard", length=3.2, facts=["f2"],
+     teaches="The line to remember, on a frame that loops.",
+     screen="The headphone on its set, three-quarter as in the first frame, turning slowly. The poster line in metal type at the top: 'Hear it. Flip it. Play it on time.', 'on time.' in cyan.",
+     camera="Slow orbit: az 10 to 32, el 16, 560 mm, fov 30, ending on the first frame's view.",
+     motion="The line types in; a sheen crosses 'on time.'; the camera turns into the first frame's view.",
+     carries="Nothing: the last frame.",
+     transition="Loops to the first frame without a jolt.",
+     sound="The bed's last chord rings out; a shimmer under the sheen.",
+     check="The line is readable for at least two seconds; the last frame matches the first.")
 
-# ── The shots ────────────────────────────────────────────────────────────────────────────────────────────────
-CUP_SCREEN = ("The cut through one ear cup, seen from above, filling the right half: a graphite shell (x 1060 to 1440, y 170 to 730) open toward the head, "
-              "two foam cushions where it meets the side of the head (x 1440 to 1506), skin from x 1506 with the ear canal at y 450, the speaker's cone inside at x 1232, "
-              "a small microphone on the outside of the shell at (1050, 300) and the chip in the shell's back wall at (1115, 450), joined by thin glowing traces. "
-              "A small note 'one ear cup, cut through · not to scale'.")
+for s in shots:
+    s.pop("length", None)
 
-shot("s01", "hook", "object3d",
-     voice="How do noise-cancelling headphones make a noise *disappear?*", caption=False,
-     teaches="Asks the one question, over the thing itself: a pair of headphones in a room full of drone.",
-     screen="Generic over-ear headphones in lit 3D (graphite cups, soft cushions, a brushed band, no logo or brand) turning slowly at the right, about 700 px tall. Amber rings of pressure roll in from the left edge across the floor. On the left the question in metal type, three lines at 84 px, the accent on 'disappear?'. No caption pill: the title is the spoken line.",
-     motion="Frame 0 is finished and moving: the rings already rolling, the headphones mid-turn, the first line arriving. Each line of the title types in as it is said. A sheen across 'disappear?' at the end; a slow push all through.",
-     carries="The headphones (they stay, dimmed, behind the next shot) and the amber of the noise.",
-     transition="The title lifts out by character; the headphones slide back and darken while three cards rise in front.",
-     sound="The bed from the first frame. A soft low swell under the rings; nothing on the words.",
-     check="Frame 0 is a finished picture. No brand, logo or real product shape. The title is fully readable for a second before it leaves.",
-     facts=["f1", "f2"])
-
-shot("s02", "hook", "compare",
-     voice="Surprisingly, they do it by *adding* more sound.",
-     teaches="The surprise that frames the film: the headphones make the noise go away by adding sound, not only by blocking it.",
-     screen="Three glass cards across the frame (x 110 to 1810, y 250 to 610): 'noise' with the amber wave, '+', 'more sound' with a cyan wave of the same shape flipped, '=', and a third card holding a large question mark. Behind them the headphones, dimmed and soft.",
-     motion="The cards land left to right with the words: the first as the shot opens, the plus and the second card on 'adding', the equals and the question mark on 'more sound'. The waves inside the cards roll slowly.",
-     carries="The amber wave of the first card: the camera dives into it.",
-     transition="A dive into the first card: its wave grows to fill the frame and becomes the air.",
-     sound="A soft card landing for each card, between the words where it can be.",
-     check="The cyan wave is exactly the amber wave upside down (same length, same height). The question mark stays a question here: the answer comes in s09.",
-     facts=["f2"])
-
-shot("s03", "wave", "macro",
-     voice="Sound is a wave of *pressure:*",
-     teaches="What a sound is: air pushed together and pulled apart, travelling.",
-     screen="A field of fine air dots fills the frame (x 60 to 1860, y 110 to 800), lit from above. A drone arrives from the left: bands where the dots bunch (brighter, amber-tinted) and bands where they spread (darker) travel right. A small chip 'air' at the top left.",
-     motion="The dots start even at the left; the first band of bunching rolls in on 'Sound'. By 'pressure' the bands fill the field and travel at a steady slow speed. Each dot only rocks back and forth: none travels with the wave. A slow push.",
-     carries="The field of dots, still rolling.",
-     transition="No cut: the pressure curve draws over the same dots.",
-     sound="A whoosh on the dive, before the line.",
-     check="The dots rock in place (their rest positions do not drift); the bands travel. No two dots overlap into a blob.",
-     facts=["f1"])
-
-shot("s04", "wave", "diagram",
-     voice="the air gets *squeezed,* then *stretched,* over and over.",
-     teaches="Squeezed is high pressure, stretched is low: the wave's curve is the pressure of the air.",
-     screen="The same field. Over it the pressure curve in amber, drawn left to right, high over the bunched bands and low over the spread ones, labelled 'pressure' on the left. Two chips: 'squeezed' over a crest band, 'stretched' over a trough band.",
-     motion="The curve draws during 'the air gets'; 'squeezed' pops on its crest band as the word is said, 'stretched' on its trough band. The chips ride with their bands for a moment, then hold. On 'over and over' the camera starts to pull back.",
-     carries="The amber curve and the moving air: they become the air outside the ear cup.",
-     transition="The camera pulls back and the cut-through ear cup slides in on the right.",
-     sound="No effect under the words.",
-     check="The curve's highs sit exactly over the bunched bands. Chips at 30 px or more, readable against the dots.",
-     facts=["f1"])
-
-shot("s05", "cancel", "wide",
-     voice="A tiny *microphone* on the outside of each ear cup hears that wave coming in.",
-     teaches="Step one: the headphones listen to the noise before it reaches you.",
-     screen=CUP_SCREEN + " The air field and its amber curve fill the left half and roll into the cup. A chip 'microphone' with a leader to it.",
-     motion="The pull back settles in the first 0.6 s. On 'microphone' it lights cyan and its chip pops. On 'hears that wave coming in' a small copy of the amber wave runs along the trace from the microphone into the chip, which lights.",
-     carries="The chip, lit.",
-     transition="A push into the chip: it grows to fill the frame and becomes a glass panel.",
-     sound="A small click when the microphone lights, after 'microphone'.",
-     check="The microphone is on the outside of the shell, facing the noise. The shell, cushions and head read as a cut-through drawing, labelled not to scale.",
-     facts=["f2", "f7"])
-
-shot("s06", "cancel", "macro",
-     voice="Then a chip builds an *upside-down* copy:",
-     teaches="Step two: the chip makes the same wave upside down.",
-     screen="A glass panel across the frame titled 'the chip' (x 140 to 1780, y 110 to 830). Top lane 'in: the noise' with the amber wave; bottom lane 'out: flipped' with the cyan wave drawn under it, the same shape upside down.",
-     motion="The amber wave flows in from the left. On 'upside-down copy' the cyan wave draws from left to right just behind the amber one's arrival, as if built as it comes in.",
-     carries="Both lanes.",
-     transition="No cut: crests and troughs get linked.",
-     sound="A whoosh into the chip before the line.",
-     check="The cyan wave is the amber wave times minus one, at the same x. The panel fills the frame.",
-     facts=["f2"])
-
-shot("s07", "cancel", "diagram",
-     voice="a *stretch* wherever the noise squeezes, and a *squeeze* wherever it stretches.",
-     teaches="What flipped means: every high of the noise gets a low, every low a high.",
-     screen="The same panel. Dashed vertical lines from amber crests down to the cyan troughs under them and from troughs to crests. Two chips on the first pair: 'squeeze' on the amber crest, 'stretch' on the cyan trough; then the next pair the other way round.",
-     motion="The first dashed line drops on 'a stretch wherever the noise squeezes', its two chips pop; the second pair on 'a squeeze wherever it stretches'; then the remaining links draw quickly across. At the end the cyan wave lifts and slides right.",
-     carries="The cyan wave, flying right toward the speaker.",
-     transition="A pull back out of the chip to the cut-through cup; the cyan wave lands in the speaker.",
-     sound="No effect under the words.",
-     check="Each dashed line is vertical and joins a crest to the trough directly under it.",
-     facts=["f2"])
-
-shot("s08", "cancel", "wide",
-     voice="The speaker plays that *flipped* wave into your ear,",
-     teaches="Step three: the flipped wave is played into the same space the noise fills.",
-     screen=CUP_SCREEN + " Inside the cup the amber noise (what gets past the shell) runs from the speaker to the ear; the cyan wave flows from the speaker's cone over it, toward the ear canal. A chip 'speaker'.",
-     motion="The pull back settles; the cone pushes on 'plays'; the cyan wave flows from it on 'flipped wave' and reaches the canal on 'your ear'.",
-     carries="The two waves inside the cup.",
-     transition="A push in on the space between the speaker and the ear.",
-     sound="No effect under the words.",
-     check="Inside the cup the two waves have the same length and height and are opposite at every x.",
-     facts=["f2", "f7"])
-
-shot("s09", "cancel", "macro",
-     voice="and the two add up to *almost nothing.*", hold=0.55,
-     teaches="The result: noise plus its flip is near silence.",
-     screen="1.6 times closer on the cavity: the speaker's edge at the left, the ear at the right. The amber and cyan waves fold into one white line that is flat; the air dots inside the cup go even and still. A chip '≈ silence' at the ear canal.",
-     motion="On 'add up' the two waves slide onto each other and the white sum draws; on 'almost nothing' it lies flat (a tiny ripple left, not zero) and the chip pops. A soft cyan bloom on the canal.",
-     carries="The flat white line: it becomes the bottom lane of the next shot.",
-     transition="The camera pulls up; two lanes open above the flat line.",
-     sound="THE PAYOFF of the mechanism: a soft, deep hit after 'nothing', with the bed ducked.",
-     check="The white line is the sum of the two drawn waves at every x. It is close to flat, not perfectly flat (the voice says 'almost').",
-     facts=["f2", "f3"])
-
-shot("s10", "cancel", "compare",
-     voice="Physicists call it *destructive interference.*", hold=0.45,
-     teaches="Names what was just seen.",
-     screen="Three lanes across the frame: 'noise' (amber) at y 300, '+ flipped' (cyan) at y 500, '= you hear' (white, flat) at y 700, names at the left at 34 px. At the top, in metal type at 80 px, 'destructive interference', the accent on 'destructive'.",
-     motion="The lanes are in place as the shot opens; the name types in as it is said; a sheen across it. The waves roll.",
-     carries="The three lanes.",
-     transition="No cut: the turn happens on the same lanes.",
-     sound="A shimmer as the name's sheen crosses it, after the line.",
-     check="The third lane is the sum of the first two.",
-     facts=["f2"])
-
-shot("s11", "limits", "diagram",
-     voice="*But* the copy has to stay exactly *in step.*",
-     teaches="The catch: cancelling only works if the flipped wave is lined up with the noise.",
-     screen="The same three lanes; the name gone. The cyan lane slips to the right (late); the white lane grows a ripple at once. Then it slides back and the white lane goes flat. A chip 'a little late' while it slips, 'in step' when it returns.",
-     motion="On 'But' a hit; the cyan lane slips a fifth of a cycle and the white ripple grows from the sum. On 'in step' it slides back; the ripple dies.",
-     carries="The amber wave.",
-     transition="A whip to the right into the to-scale view.",
-     sound="THE TURN: a deep hit in the pause before 'But'.",
-     check="At every moment the white lane is the sum of the two above it.",
-     facts=["f6"])
-
-shot("s12", "limits", "wide",
-     voice="With a steady, low *hum,* like an engine's drone, that's easy.",
-     teaches="Low steady sounds are the easy case.",
-     screen="To scale, with the scale on screen ('to scale: 1 m = 400 px'): at the left edge the dark nacelle of a generic engine; at x 1640 a listener's head with headphones, small (15 cm wide is 62 px); between them one long amber wave of a 100 Hz hum, one cycle 1,372 px long. A chip '100 Hz hum'. The headphones glow cyan on 'easy'.",
-     motion="The whip lands; the wave rolls slowly toward the head; the chip pops on 'hum'; on 'easy' the headphones glow.",
-     carries="The wave and the head.",
-     transition="No cut: the ruler draws.",
-     sound="A whoosh on the whip, before the line.",
-     check="The head and the wave are both at 400 px a metre: 3.43 m is 1,372 px.",
-     facts=["f3", "f4", "f8"])
-
-shot("s13", "limits", "diagram",
-     voice="Its waves are *metres* long and keep repeating,",
-     teaches="A low hum's waves are metres long and the same every time.",
-     screen="The same view. A ruler under one full cycle, '≈ 3.4 m'. Then ghosted copies of that cycle stack ahead of the wave, one after another; a chip 'the same, 100 times a second'.",
-     motion="The ruler draws from crest to crest on 'metres'; on 'keep repeating' three ghost copies slide out ahead in rhythm.",
-     carries="The wave, dimmed.",
-     transition="A glass panel rises over the dimmed view.",
-     sound="No effect under the words.",
-     check="The ruler spans exactly one cycle (1,372 px). 343 / 100 = 3.43 m.",
-     facts=["f4"])
-
-shot("s14", "limits", "chart",
-     voice="so the chip has time to *match* them.",
-     teaches="With a hum, even a copy that is a little late still cancels almost all of it.",
-     screen="A glass panel on the left, '100 Hz hum': the amber wave and its cyan copy under it, late by an example delay, 'copy late by 0.033 ms (example)'. On the right two bars drawn to proportion: 'noise 100%' and 'left over 2%' (a sliver).",
-     motion="The panel rises; the copy lines up a hair behind; on 'match' the bars grow, the left-over bar stops at 2% of the noise bar's height.",
-     carries="The panel and its bars, which the squeak will reuse.",
-     transition="The panel drops; the to-scale view returns with a new sound.",
-     sound="A soft tick when the bars lock, after 'them'.",
-     check="2 x sin(pi x 100 x 0.0000333) = 2.1%: the sliver is 2.1% of the full bar. The delay is labelled an example.",
-     facts=["f6"])
-
-shot("s15", "limits", "wide",
-     voice="A *high-pitched* squeak is harder.",
-     teaches="High sounds are the hard case.",
-     screen="The same to-scale view (1 m = 400 px). The long hum has faded; a dense amber ripple of a 5,000 Hz squeak fills the space from a small source on the left to the head: one cycle every 27 px. A chip '5,000 Hz squeak'.",
-     motion="The ripple races in on 'high-pitched'; the chip pops; on 'harder' the headphones' cyan glow flickers.",
-     carries="The head and the ripple.",
-     transition="A zoom ten times onto the head.",
-     sound="No effect under the words.",
-     check="One cycle is 27.4 px (6.86 cm at 400 px a metre).",
-     facts=["f3", "f4"])
-
-shot("s16", "limits", "macro",
-     voice="Its waves are only a few *centimetres* long,",
-     teaches="A squeak's waves are shorter than the ear cup itself.",
-     screen="Ten times closer (1 m = 4,000 px, on screen): the side of the head at the right, the cup on it, the squeak's waves readable, one every 274 px. A ruler under one cycle: '≈ 7 cm'.",
-     motion="The zoom settles in 0.6 s; the ruler draws on 'centimetres'.",
-     carries="The squeak.",
-     transition="The panel from s14 rises again, now for the squeak.",
-     sound="A whoosh on the zoom, before the line.",
-     check="274 px a cycle at 4,000 px a metre is 6.86 cm. The cup is drawn about 9 cm across.",
-     facts=["f4", "f8"])
-
-shot("s17", "limits", "chart",
-     voice="so the tiniest delay knocks the copy out of *step.*",
-     teaches="The same small delay that cancelled the hum cancels none of the squeak.",
-     screen="The same panel, now '5,000 Hz squeak': the amber wave and its cyan copy, 'same delay: 0.033 ms (example)', which here is a sixth of a cycle: visibly out of step. Bars to proportion: 'noise 100%', 'left over 100%'. The hum's 2% sliver stays faint beside them for comparison.",
-     motion="The panel rises; the copy slips into its late place; on 'out of step' the left-over bar grows to the full height.",
-     carries="Nothing: a hard cut.",
-     transition="A hard cut on a sudden clatter.",
-     sound="No effect under the words.",
-     check="2 x sin(pi x 5,000 x 0.0000333) = 2 sin(30 degrees) = 1.00: the left-over bar is as tall as the noise bar.",
-     facts=["f6"])
-
-shot("s18", "limits", "diagram",
-     voice="A *sudden* clatter is harder still:",
-     teaches="Sudden sounds are the third case: nothing like a steady wave.",
-     screen="Two lanes across the frame: an amber trace, flat, then an irregular burst of spikes (a clatter) arriving from the left; under it the white 'you hear' line. Label 'sudden clatter' at the top left.",
-     motion="The burst arrives on 'sudden', out of a flat line; the white line takes it in full.",
-     carries="The trace and its lanes.",
-     transition="No cut: the copy tries to follow.",
-     sound="The clatter is drawn, not heard: no effect under the words.",
-     check="The white lane is the sum of the lanes above it.",
-     facts=["f3"])
-
-shot("s18b", "limits", "chart",
-     voice="it changes *faster* than the chip can follow.",
-     teaches="A sudden sound never repeats, so the copy is always too late.",
-     screen="The same lanes: the cyan copy now under the amber, a beat behind and wrong; the white 'you hear' line stays jagged. A chip 'too late' on the copy.",
-     motion="The cyan copy answers the first burst a beat late and wrongly; a second burst on 'faster', another miss; the white line stays jagged.",
-     carries="The amber bursts.",
-     transition="Pull back to the cut-through cup.",
-     sound="No effect under the words.",
-     check="The white lane is the sum of the two above it. The copy is visibly late.",
-     facts=["f3"])
-
-shot("s19", "cushions", "wide",
-     voice="That's why the soft *cushions* still matter.",
-     teaches="The cushions are the other half of the system.",
-     screen=CUP_SCREEN + " The two cushions brighten; a chip 'cushions' with leader lines to both.",
-     motion="The pull back settles; the cushions swell slightly and light on 'cushions'; the chip pops.",
-     carries="The cup.",
-     transition="No cut: two sounds arrive.",
-     sound="A soft pop when the cushions light, after 'cushions'.",
-     check="The cushions sit between the shell and the head, top and bottom.",
-     facts=["f5"])
-
-shot("s20", "cushions", "diagram",
-     voice="They block the *high,* sharp sounds the chip can't catch.", hold=0.4,
-     teaches="The cushions and shell block the highs; the chip cancels the lows: they share the work.",
-     screen=CUP_SCREEN + " Two lanes arrive from the left: an upper dense squeak and a lower long hum. Inside the cup the squeak comes out much smaller (labelled 'highs: blocked by the cushions'); the hum comes in, is met by the cyan wave and goes flat ('lows: cancelled by the chip').",
-     motion="The two lanes roll in; on 'high' the squeak meets the shell and comes out inside much smaller; on 'can't catch' the hum is met by cyan and goes flat; the two chips pop in turn.",
-     carries="The cup, which shrinks into the recap.",
-     transition="The scene recedes as four recap cards rise.",
-     sound="No effect under the words.",
-     check="The squeak inside is drawn smaller but not gone (the sizes are an illustration, said in the label 'illustration'). The hum line inside is flat.",
-     facts=["f3", "f5"])
-
-shot("s21", "recap", "recap",
-     voice="So that's the answer: your headphones erase a noise with its *own wave,*",
-     teaches="The three steps and the cushions, in one frame.",
-     screen="Four glass cards in a row (y 150 to 630): '1 hear it' with the microphone; '2 flip it' with amber over cyan; '3 add them' with the flat white line; and a narrower fourth, 'cushions: the highs', with a cushion.",
-     motion="The cards rise one after another in the first second; each lights as the voice reaches it.",
-     carries="The headphones behind the cards.",
-     transition="The cards part to the sides as the headphones come forward.",
-     sound="A soft card sound for each card, between the words where possible.",
-     check="Every small picture matches its big one (the flip card's cyan is the amber upside down).",
-     facts=["f2", "f5"])
-
-shot("s22", "recap", "object3d",
-     voice="flipped upside down and played right on *time.*",
-     teaches="The answer, said once more over the object.",
-     screen="The 3D headphones forward, centre, 900 px wide. Around the cups an amber ring and a cyan ring close on each other.",
-     motion="The headphones come forward and turn; on 'flipped' the cyan ring appears inside the amber; on 'right on time' they meet and vanish together, a soft flash.",
-     carries="The headphones.",
-     transition="The poster line types in beside them.",
-     sound="The payoff hit as the rings meet, after 'time'.",
-     check="No brand or logo. The rings vanish together.",
-     facts=["f2"])
-
-shot("s23", "recap", "endcard", 3.2,
-     teaches="The line to remember.",
-     screen="The poster: the headphones on the right, turning slowly; on the left in metal type at 110 px 'Noise + its flip' and '≈ silence', the accent on 'silence'. Under it the three lanes small: amber + cyan = flat white.",
-     motion="The line types in; a sheen; a slow push and the headphones' turn keep it breathing to the last frame.",
-     carries="The end.",
-     transition="The end: the bed's last chord rings out under the last frame.",
-     sound="The bed resolves on its last chord, still sounding on the last frame.",
-     check="Readable for more than two seconds. The sound runs to the last frame.",
-     facts=["f2"])
-
-duration = shots[-1]["end"]
-
-storyboard = {
+board = {
     "title": "How do noise-cancelling headphones erase sound?",
+    "standard": 2,
     "question": "How do noise-cancelling headphones make a noise disappear?",
     "audience": "Curious adults and teenagers anywhere, watching on a phone, English as a first or second language. Many own or have tried noise-cancelling headphones; they think the headphones just block sound, like earmuffs, and have not heard of anti-noise.",
     "promise": "The headphones listen to the noise, make the same wave flipped upside down, and play it so the two add up to almost nothing. That works on steady low hums, whose waves are long and repeat; it fails on high or sudden sounds, so the cushions still block those.",
     "language": "en",
-    "format": "1920x1080",
-    "subtitles": True,
-    "duration": round(duration, 3),
+    "format": "1080x1920",
+    "duration": 74.01,
     "fps": 60,
-    "poster": round(duration - 1.2, 3),
+    "poster": 72.41,
     "voice": {"voice_id": "MnTN9XubPKNlI4AwhLj5", "name": "Craig - Warm, Articulate, Conversational", "model": "eleven_v4", "language": "en", "direction": "[warmly]"},
-    "look": {
-        "accent": "#3fe0ff",
-        "accent2": "#ffb547",
-        "mood": "A quiet graphite studio. Amber is always the noise, cyan (the accent) is the flipped wave the chip makes, white is what your ear is left with. The stage light starts warm on the drone, turns cyan when the chip answers, and goes still and pale when the two cancel; it stays amber through the catch, and turns cyan again on the answer. The headphones are lit 3D: matte graphite cups, soft dark cushions, a brushed metal band, no logo.",
-    },
-    "music": {
-        "track": "composed for the film (music/bed.mp3)",
-        "bpm": 80,
-        "start": 0,
-        "note": "A bed composed for this film after the take, at its length: sparse, calm and curious, no lead melody, an even level. The cuts follow the take, not a beat. Kept low under the voice.",
-    },
+    "look": {"accent": "#3fe0ff", "accent2": "#ffb547", "mood": "A product teardown set: a graphite cyclorama with a bright seam where the floor meets the wall, a dark satin floor, dust catching the key light. The two heroes are lit like products: key from the upper side, rim from behind. Amber is always the noise, cyan (the accent) the flipped wave the driver plays, white what reaches the eardrum; the wall's wash takes the act's colour: amber for the noise, cyan when the driver answers, pale when the two cancel, amber again through the catch."},
+    "music": {"track": "composed for the film (music/bed-fit.mp3)", "bpm": 80, "start": 0, "note": "The bed composed for this film's take, reused: the length is unchanged (74.01 s). The cuts follow the take, not a beat."},
     "facts": [
-        {"id": "f1", "claim": "Sound in air is a pressure wave: the air is pushed together (compressions, higher pressure) and pulled apart (rarefactions, lower pressure) in turn, and that pattern travels, at about 343 m/s in air at 20 °C. Each bit of air only rocks back and forth about where it is; the pattern is what travels.",
-         "source": "Standard acoustics (Kinsler, Frey et al., Fundamentals of Acoustics, 4th ed., ch. 5); speed of sound 331.3 x sqrt(1 + 20/273.15) = 343.2 m/s. From the textbook, not looked up in this session."},
-        {"id": "f2", "claim": "Active noise cancellation: a microphone picks up the incoming noise, the electronics make a signal of the opposite phase (the same wave upside down, 'anti-noise'), and the speaker plays it with your audio. Where the noise is high the anti-noise is low, so they add up to much less: destructive interference. The film's 'add up to almost nothing' is said of the steady hum it shows.",
-         "source": "Kuo and Morgan, 'Active noise control: a tutorial review', Proc. IEEE 87(6), 943-973, 1999 (abstract: anti-noise from secondary sources); HowStuffWorks, 'How noise-canceling headphones work'; BBC Science Focus, 'How do noise-cancelling headphones cancel sounds?'. Read through search summaries; the pages could not be opened from this session."},
-        {"id": "f3", "claim": "ANC works best on steady, low-frequency noise (engine hum, air conditioning) and less well on higher frequencies and on sudden or quickly changing sounds (voices, clatter). NIOSH describes ANC as aimed at low-frequency noise, typically 500 Hz and below. No dB figure is stated in the film: published figures vary widely by product and test (consumer sources give anything from 10 to 40 dB), so none is used.",
-         "source": "CDC/NIOSH record stacks.cdc.gov/view/cdc/210761 (ANC 'typically at 500 Hz and below'); Sennheiser support, 'What impacts ANC performance'; Sonos, 'How do noise-canceling headphones work'; TechRadar, 'What is active noise cancellation'. All read through search summaries; stacks.cdc.gov and the others could not be opened from this session."},
-        {"id": "f4", "claim": "Wavelength = speed / frequency. A 100 Hz hum: 343 / 100 = 3.43 m, said 'metres long', shown '≈ 3.4 m'. A 5,000 Hz squeak: 343 / 5,000 = 0.0686 m, said 'a few centimetres', shown '≈ 7 cm'. 100 Hz repeats 100 times a second. The two frequencies are examples chosen for the film, not measurements of a particular engine or squeak.",
-         "source": "Arithmetic from f1."},
-        {"id": "f5", "claim": "The cups and cushions block sound passively, and passive isolation works better at mid and high frequencies than at low ones; so passive isolation handles the highs and ANC the lows. The film shows the squeak coming through smaller, as an illustration, without a figure.",
-         "source": "Sonos, 'How do noise-canceling headphones work' (cushions passively block high frequencies; ANC the lowest); Logitech blog, 'Passive noise isolation vs active noise cancellation' (passive works on mid to high frequencies); Sennheiser support. Read through search summaries."},
-        {"id": "f6", "claim": "Why a delay matters more for a high sound: if a tone's flipped copy is late by a time d, what is left is 2 sin(pi f d) of the tone's size. With an example delay d = 1/30,000 s (0.033 ms): at 100 Hz, 2 sin(pi x 100 / 30,000) = 0.021, about 2% left; at 5,000 Hz, 2 sin(pi x 5,000 / 30,000) = 2 sin(30 degrees) = 1.00, nothing cancelled. The delay is an illustration, not a measured figure for any headphone; real headphones are designed so their cancelling fades out at high frequencies instead of adding noise there.",
-         "source": "Arithmetic (sum of two equal sine waves with a phase difference of 2 pi f d)."},
-        {"id": "f7", "claim": "Simplification: many headphones also have a microphone inside the cup, near the ear (feedback or 'hybrid' ANC); the film shows only the outside (feedforward) microphone. The cut-through cup is a drawing, not to scale, and not any real product.",
-         "source": "BBC Science Focus and HowStuffWorks (feedforward and feedback designs), read through search summaries."},
-        {"id": "f8", "claim": "The to-scale view draws 400 px a metre: a 3.43 m wave is 1,372 px, a 6.86 cm wave 27.4 px, a head about 15 cm wide 62 px. Ten times closer (4,000 px a metre) the 6.86 cm wave is 274 px and an ear cup about 9 cm across is 360 px.",
-         "source": "Arithmetic from f4; head breadth about 15 cm (typical adult)."},
+        {"id": "f1", "claim": "Sound in air is a pressure wave: the air is pushed together (compressions, higher pressure) and pulled apart (rarefactions, lower pressure) in turn, and that pattern travels, at about 343 m/s in air at 20 °C. Each bit of air only rocks back and forth about where it is; the pattern is what travels.", "source": "Standard acoustics (Kinsler, Frey et al., Fundamentals of Acoustics, 4th ed., ch. 5); speed of sound 331.3 x sqrt(1 + 20/273.15) = 343.2 m/s. From the textbook, not looked up in this session."},
+        {"id": "f2", "claim": "Active noise cancellation: a microphone picks up the incoming noise, the electronics make a signal of the opposite phase (the same wave upside down, 'anti-noise'), and the speaker plays it with your audio. Where the noise is high the anti-noise is low, so they add up to much less: destructive interference. The film's 'add up to almost nothing' is said of the steady hum it shows.", "source": "Kuo and Morgan, 'Active noise control: a tutorial review', Proc. IEEE 87(6), 943-973, 1999; HowStuffWorks and BBC Science Focus explainers. Read through search summaries in the first cut; not reopened."},
+        {"id": "f3", "claim": "ANC works best on steady, low-frequency noise (engine hum, air conditioning) and less well on higher frequencies and on sudden or quickly changing sounds. NIOSH describes ANC as aimed at low-frequency noise, typically 500 Hz and below. No dB figure is stated in the film.", "source": "CDC/NIOSH record stacks.cdc.gov/view/cdc/210761; Sennheiser support; Sonos; TechRadar. Read through search summaries."},
+        {"id": "f4", "claim": "Wavelength = speed / frequency. A 100 Hz hum: 343 / 100 = 3.43 m, said 'metres long', shown '≈ 3.4 m'. A 5,000 Hz squeak: 343 / 5,000 = 0.0686 m, said 'a few centimetres', shown '≈ 7 cm'. The two frequencies are examples chosen for the film.", "source": "Arithmetic from f1."},
+        {"id": "f5", "claim": "The cups and cushions block sound passively, and passive isolation works better at mid and high frequencies than at low ones; so passive isolation handles the highs and ANC the lows. The film shows the squeak coming through weaker, as an illustration, without a figure.", "source": "Sonos, 'How do noise-canceling headphones work'; Logitech, 'Passive noise isolation vs active noise cancellation'; Sennheiser support. Read through search summaries."},
+        {"id": "f6", "claim": f"If a tone's flipped copy is late by d, what is left is 2 sin(pi f d) of the tone. With an example delay d = 1/30,000 s (0.033 ms): 100 Hz leaves {LEFT_LOW * 100:.1f}% (shown 2%), 5,000 Hz leaves {LEFT_HIGH * 100:.0f}% (2 sin 30°). Both charts show the same 10 ms of time: 1 cycle of the hum, 50 of the squeak; the squeak's magnifier is marked ×20. 'Late' is drawn to the right on a time axis. The delay is an illustration, not a measured figure for any headphone.", "source": "Arithmetic (sum of two equal sine waves with a phase difference of 2 pi f d)."},
+        {"id": "f7", "claim": "Many headphones have a microphone inside the cup too, in front of the driver (feedback or 'hybrid' ANC). The model has both; the film explains the outside (feed-forward) one and names the inside one only in the model. The headphone is generic: no real product, no logo.", "source": "Audio-Technica support, 'How do different active noise-cancelling headphones work'; SoundGuys, 'Noise canceling explained'; the 52Audio teardown of a 40 mm over-ear ANC headphone (feed-forward and feedback MEMS mics), all read through search results in this session."},
+        {"id": "f8", "claim": "The to-scale views put the head (about 15 cm across), the 100 Hz wave (3.43 m) and the 5,000 Hz wave (6.86 cm) in the same scene at 1 unit = 1 mm, with the 9.4 cm tall ear cup. Seen from above at 4.3 m with a 30 degree lens, the frame is about 2.3 m tall, so one 3.43 m wave runs past the top of the frame: the ruler is drawn on the part that shows and labelled with the full length.", "source": "Arithmetic from f4; head breadth about 15 cm (typical adult); the cup's size is the model's (f9)."},
+        {"id": "f9", "claim": "The headphone model: oval cups 76 x 94 mm, 30 mm deep; a 40 mm dynamic driver screwed to a baffle; feed-forward mic behind a grille on the outside of the cup; feedback MEMS mic in front of the driver; main board with the ANC chip behind the driver; a pouch battery; memory-foam cushions in a leather cover, 21 mm thick. The ear: pinna about 62 mm tall and 35 mm wide, canal about 25 mm long and 7 mm across, an eardrum about 9 mm across set at a slant.", "source": "Teardowns of 40 mm over-ear ANC headphones (qucox.com teardown of a Technics EAH-A800; 52Audio teardowns of Sony WH-1000XM4 and WH-XB910N as summarised by The Walkman Blog; a Lumafield CT scan of over-ear headphones), read through search results in this session, not opened; ear canal 2.5 cm by 0.7 cm from the ear canal article in Wikipedia's medical mirror (search result); pinna and eardrum sizes from textbook anatomy, not looked up."},
+        {"id": "f10", "claim": "The clatter chart is an illustration: a sharp burst (a fast rise, then a ringing that dies away in a few milliseconds) and the chip's copy modelled as the burst smoothed (the chip cannot follow a change faster than about a millisecond) and late by the same 0.033 ms; what is left is computed as their sum. It is not a measurement.", "source": "Arithmetic in film.js; the claim that ANC handles sudden sounds less well is f3."},
+        {"id": "f11", "claim": "The waves of light in the cup, in the air and over the chip are slowed down and not to scale (sound would cross the cup in a tenth of a millisecond); the to-scale views (f8) say so where they are.", "source": "The film's own drawing convention, said on screen in s03."},
+    ],
+    "models": [
+        {"name": "over-ear ANC headphone (generic)", "reference": "Teardowns of 40 mm over-ear ANC headphones (Technics EAH-A800 by qucox; Sony WH-1000XM4 and WH-XB910N by 52Audio via The Walkman Blog; Lumafield's CT scan of four over-ears: driver screwed to a sub-baffle, wiring packed round it); vendor explainers on feed-forward and feedback mic placement (Audio-Technica, SoundGuys). Read through search results; the teardown pages and their photos could not be opened from this session.",
+         "scale": "1 unit = 1 mm",
+         "parts": ["headband: plastic outer, leather pad (34 mm wide)", "sliders: brushed steel strips with size marks", "yokes: forks holding each cup at two pivots", "ear cup shell: dished oval 76 x 94 x 30 mm, 2 mm wall, parting line, brushed trim ring, buttons, USB-C, status light", "feed-forward mic behind an oval perforated grille on the outside of the shell", "feedback MEMS mic on a bracket in front of the driver", "40 mm dynamic driver (P.driver): basket, magnet, top plate, pole piece, copper voice coil, spider, cone, surround, dust cap", "baffle with four screws", "main board 34 x 20 mm: ANC chip (QFN), shielded radio, crystal, resistors and capacitors, flex connector", "pouch battery 36 x 15 x 5 mm with protection board and leads", "memory-foam cushion in a pleated protein-leather cover with piping, 21 mm thick", "fabric baffle cover", "copper flex from each mic to the board"]},
+        {"name": "the side of a head and the right ear", "reference": "Side-view anatomy plates of the auricle (helix, antihelix and its crura, triangular fossa, scapha, concha, tragus, antitragus, lobule) traced into an outline; textbook dimensions (pinna about 62 x 35 mm, standing out about 20 degrees from the head); ear canal about 25 mm long, 7 mm across, gently S-shaped, ending at a slanted eardrum about 9 mm across with the malleus showing through.",
+         "scale": "1 unit = 1 mm",
+         "parts": ["skin surface: one smooth union of cranium, jaw and neck, with pores", "hair: a shell over the scalp with a ragged hairline and strands", "pinna: traced outline extruded with a deep bevel (P.extrude), the relief laid over it: helix rim, scapha, antihelix and two crura, triangular fossa, concha, crus of the helix, tragus, antitragus, lobe", "ear canal: a tube lined with skin, cut in the cutaways", "eardrum: a thin pearly cone with its ring and the malleus handle"]},
     ],
     "acts": [
-        {"id": "hook", "title": "The question", "goal": "Ask the question over the headphones, then the surprise: they add sound.", "rail": False},
+        {"id": "hook", "title": "The question", "goal": "Ask the question over the real headphones, then the surprise: they add sound.", "rail": False},
         {"id": "wave", "title": "A wave of pressure", "goal": "What sound is: squeezed and stretched air, travelling.", "rail": False},
-        {"id": "cancel", "title": "The flip", "goal": "Hear it, flip it, play it: the two add up to almost nothing, and its name.", "rail": False},
-        {"id": "limits", "title": "The catch", "goal": "It must stay in step: easy for long, repeating waves; hard for short ones and sudden ones, with the arithmetic drawn.", "rail": False},
-        {"id": "cushions", "title": "Cushions", "goal": "Why passive isolation still matters: it blocks the highs the chip cannot.", "rail": False},
-        {"id": "recap", "title": "Recap", "goal": "The steps in one frame, then the line to remember.", "rail": False},
+        {"id": "cancel", "title": "The flip", "goal": "Hear it (the outside mic), flip it (the chip), play it (the driver): in the cup the two add up to almost nothing at the eardrum.", "rail": False},
+        {"id": "limits", "title": "The catch", "goal": "It must stay in step: easy for long, repeating waves; hard for short ones and sudden ones, drawn to scale and with the arithmetic.", "rail": False},
+        {"id": "cushions", "title": "Cushions", "goal": "Why passive isolation still matters: the cushions block the highs the chip cannot.", "rail": False},
+        {"id": "recap", "title": "Recap", "goal": "The parts and the steps in one frame, then the line to remember.", "rail": False},
     ],
     "shots": shots,
 }
-
-out = HERE / "storyboard.json"
-out.write_text(json.dumps(storyboard, ensure_ascii=False, indent=2) + "\n")
-print(f"{len(shots)} shots, {sum(len(s['frames']) for s in shots)} frames, about {duration:.1f} s before the take -> {out}")
-print(f"  hum: {LAM_LOW:.3f} m = {LAM_LOW_PX} px, left over {LEFT_LOW * 100:.2f}%; squeak: {LAM_HIGH * 100:.2f} cm = {LAM_HIGH_PX} px ({LAM_HIGH_ZOOM} px closer), left over {LEFT_HIGH * 100:.1f}%")
-# The take sets the times: once it is there, put them back after every build, then keep the poster inside the film.
-manifest = HERE / "voice" / "voice.json"
-if manifest.exists() and json.loads(manifest.read_text()).get("version") == 2:
-    kit = next(p for p in HERE.parents if (p / "kit" / "audio" / "voice.mjs").exists())
-    subprocess.run(["node", str(kit / "kit" / "audio" / "voice.mjs"), str(HERE), "--retime"], check=False, stdout=subprocess.DEVNULL)
-    sb = json.loads(out.read_text())
-    sb["poster"] = round(sb["shots"][-1]["start"] + 1.6, 3)
-    out.write_text(json.dumps(sb, ensure_ascii=False, indent=2) + "\n")
+(HERE / "storyboard.json").write_text(json.dumps(board, indent=1, ensure_ascii=False) + "\n")
+print(f"{len(shots)} shots, {sum(len(s['frames']) for s in shots)} frames -> storyboard.json")
+voice = subprocess.run(["node", str(HERE.parent.parent / "kit" / "audio" / "voice.mjs"), str(HERE), "--retime"], capture_output=True, text=True)
+print(voice.stdout[-400:], voice.stderr[-400:])

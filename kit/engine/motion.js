@@ -206,8 +206,11 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   // ── Captions ─────────────────────────────────────────────────────────────
   // Every shot's caption from the storyboard, set at the bottom of the frame and read in by word. Words wrapped in
   // *stars* in the storyboard take the accent colour. One source of truth: change the storyboard, the film follows.
-  // The words on screen. Two styles: "pill" (a glass bar near the bottom, the default for landscape) and "pop" (a
-  // few large words at a time, the default for portrait shorts).
+  // The words on screen. Three styles: "pill" (a glass bar near the bottom, the default for landscape), "pop" (a
+  // few large words at a time, the default for portrait shorts) and "frame" (the top of the frame, a short line in
+  // two weights: the words not yet said dim, each lit as it is said, and the shot's key words drawn inside a
+  // selection frame with corner handles, the way the best product shorts letter their narration). A shot's
+  // "keys": ["word", ...] names the words that get the frame (the narration itself stays plain).
   // In a film with no voice the caption carries the explanation. In a film that speaks, repeating the narration
   // word for word on screen makes it harder to follow, not easier, so a pill shows only a shot's "caption" (its key
   // phrase) and stays out of the way otherwise; set "subtitles": true in the storyboard to show every spoken line.
@@ -221,11 +224,13 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       $("#vignette").before(box);
     }
     box.dataset.style = style;
-    const limit = chunk ?? (style === "pop" ? { words: 3, chars: 18 } : { words: 99, chars: portrait ? 56 : 92 });
+    const limit = chunk ?? (style === "pop" ? { words: 3, chars: 18 } : style === "frame" ? { words: 5, chars: portrait ? 24 : 40 } : { words: 99, chars: portrait ? 56 : 92 });
+    const norm = (w) => w.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, "");
     for (const shot of storyboard.shots) {
       // "caption": false keeps a voiced shot's line off the screen (when the picture itself letters it).
       const said = shot.voice ? shot.voice.replace(/\[[^\]]*\]/g, " ").replace(/\s+/g, " ").trim() : null;
-      const subtitles = style === "pop" || !narrated || storyboard.subtitles === true;
+      const subtitles = style === "pop" || style === "frame" || !narrated || storyboard.subtitles === true;
+      const keys = new Set((shot.keys ?? []).map(norm));
       const text = shot.caption === false ? null : (shot.caption ?? (subtitles ? said : null));
       if (!text) continue;
       // Words, each knowing whether it carries the accent.
@@ -239,7 +244,7 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
           // Punctuation left outside the stars ("*Suara*?") belongs to the word before it.
           if (/^[.,;:!?)…]+$/.test(word) && tokens.length) tokens.at(-1).word += word;
           // A piece written straight against the last one is part of the same word on screen, with no space.
-          else tokens.push({ word, strong, glue: k === 0 && joined && !/^\s/.test(inner) });
+          else tokens.push({ word, strong: strong || keys.has(norm(word)), glue: k === 0 && joined && !/^\s/.test(inner) });
         });
         joined = !/\s$/.test(part);
       }
@@ -264,7 +269,8 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       for (const token of tokens) {
         const now = groups.at(-1);
         const chars = now.reduce((n, t) => n + t.word.length + 1, 0);
-        const ended = now.length && /[.!?]$/.test(now.at(-1).word) && style === "pop";
+        const stop = style === "frame" ? /[.!?,:;]$/ : style === "pop" ? /[.!?]$/ : null;
+        const ended = now.length && stop && stop.test(now.at(-1).word);
         if (now.length && (now.length >= limit.words || chars + token.word.length > limit.chars || ended)) groups.push([token]);
         else now.push(token);
       }
@@ -282,7 +288,21 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
         const start = g === 0 ? Math.min(group[0].at, shot.start + lead) : group[0].at;
         const end = g < groups.length - 1 ? groups[g + 1][0].at : shot.end - tail;
         gsap.set(el, { autoAlpha: 0 });
-        if (style === "pop") {
+        if (style === "frame") {
+          // The line rises in dim; each word lights as it is said; a key word's frame draws in around it.
+          for (const w of words) if (w.classList.contains("key")) w.append(Object.assign(document.createElement("i"), { className: "kf" }));
+          gsap.set(el, { y: 14 });
+          gsap.set(words, { opacity: 0.4 });
+          gsap.set(el.querySelectorAll(".kf"), { scale: 1.25, autoAlpha: 0 });
+          tl.to(el, { autoAlpha: 1, y: 0, duration: 0.24, ease: "power3.out" }, start);
+          group.forEach((token, i) => {
+            const at = Math.max(start, token.at);
+            tl.to(words[i], { opacity: 1, duration: 0.1, ease: "power1.out" }, at);
+            const kf = words[i].querySelector(".kf");
+            if (kf) tl.to(kf, { scale: 1, autoAlpha: 1, duration: 0.22, ease: "power3.out" }, at);
+          });
+          tl.to(el, { autoAlpha: 0, y: -8, duration: 0.14, ease: "power1.in" }, end - 0.14);
+        } else if (style === "pop") {
           // The group arrives as one, each word lighting as it is said.
           gsap.set(el, { scale: 0.86, y: 18 });
           gsap.set(words, { opacity: 0.38 });
