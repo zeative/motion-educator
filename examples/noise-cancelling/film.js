@@ -51,6 +51,37 @@ const cupW = (x, y, z) => V(cupBase.x + z, cupBase.y + y, cupBase.z - x); // the
 const MOUTH = Mo.canalCurve.getPointAt(0);
 const DRUM = A.drum;
 
+// Software GL: standard materials (the physical extras cost more than they show at this size), plain PCF
+// shadows, and only the parts big enough to matter cast them.
+space.renderer.shadowMap.type = THREE.PCFShadowMap;
+space.key.shadow.mapSize.set(1024, 1024);
+{
+  const keys = ["color", "map", "normalMap", "normalScale", "roughness", "roughnessMap", "metalness", "metalnessMap", "emissive", "emissiveIntensity", "emissiveMap", "alphaMap", "alphaTest", "alphaHash", "transparent", "opacity", "side", "vertexColors", "depthWrite", "blending", "envMapIntensity", "flatShading"];
+  const swap = new Map();
+  const toStd = (m) => {
+    if (!m.isMeshPhysicalMaterial) return m;
+    if (!swap.has(m)) {
+      const n = new THREE.MeshStandardMaterial();
+      for (const k of keys) if (m[k] !== undefined) n[k] = m[k]?.isColor || m[k]?.isVector2 ? m[k].clone() : m[k];
+      n.userData = { ...m.userData };
+      n.name = m.name;
+      swap.set(m, n);
+    }
+    return swap.get(m);
+  };
+  const box = new THREE.Box3();
+  const size = new THREE.Vector3();
+  scene.traverse((o) => {
+    if (!o.isMesh || o.material?.isShaderMaterial) return;
+    o.material = Array.isArray(o.material) ? o.material.map(toStd) : toStd(o.material);
+    if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+    box.copy(o.geometry.boundingBox).getSize(size);
+    const ws = new THREE.Vector3();
+    o.getWorldScale(ws);
+    if (Math.max(size.x * ws.x, size.y * ws.y, size.z * ws.z) < 9) o.userData.castShadow = false;
+  });
+}
+
 // Cut planes: one level cut through head and cup at the canal's height, one through the cushion for its macro.
 const cutH = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1e5);
 const cutC = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1e5);
@@ -391,8 +422,8 @@ move(T("s04", 0.6), s.s04.dur * 0.4 + 0.1, { az: 150, el: 16, dist: 380, tx: cup
 go(T("s04", 0.9), { slowNote: 0 }, 0.3);
 
 // s05: approach the outside mic.
-move(T("s05"), 0.95, { az: 110, el: 22, dist: 118, tx: GRILLE.x, ty: GRILLE.y, tz: GRILLE.z, fov: 22, blur: 0.45, focus: 118, sway: 0.6 }, "power2.inOut");
-move(T("s05") + 0.95, s.s05.dur - 0.95, { dist: 92, az: 104, focus: 92 }, "power1.inOut");
+move(T("s05"), 0.95, { az: 110, el: 22, dist: 118, tx: GRILLE.x, ty: GRILLE.y, tz: GRILLE.z, fov: 22, sway: 0.6 }, "power2.inOut");
+move(T("s05") + 0.95, s.s05.dur - 0.95, { dist: 92, az: 104 }, "power1.inOut");
 on(micRings, T("s05"), T("s06") + 0.6, { fade: 0.4 });
 on(inWave, T("s05") + 0.2, T("s06") + 0.4);
 tl.fromTo(inWave.state, { head: 0 }, { head: 1, duration: 2.6, ease: "power1.inOut", immediateRender: false }, T("s05") + 0.2);

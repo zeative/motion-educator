@@ -386,7 +386,7 @@ export function createModels(space, P) {
   strip.position.y = 17;
   slider.add(strip);
   for (let i = 0; i < 6; i++) {
-    const tick = P.mesh(P.roundedBox(3.4, 0.45, 0.3, 0.1), M.plastic(0x3a3c42), "size mark");
+    const tick = P.mesh(new THREE.BoxGeometry(3.4, 0.45, 0.3), M.plastic(0x3a3c42), "size mark");
     tick.position.set(-0.8, 10 + i * 3.4, 0.75);
     slider.add(tick);
   }
@@ -440,6 +440,9 @@ export function createModels(space, P) {
     copy.position.set(-right.position.x, right.position.y, right.position.z);
     copy.rotation.y = -Math.PI / 2;
     copy.scale.x = 1;
+    // what is inside the left cup is never seen: keep its outside only
+    const inner = ["driver (placed)", "main board (placed)", "battery", "feedback mic", "feed-forward mic", "ff flex", "ff cable", "screws", "baffle"];
+    for (const n of inner) copy.getObjectByName(n)?.removeFromParent();
     left.add(copy);
     // band from slider top to slider top
     const top = new THREE.Vector3(0, 110, 36.3);
@@ -503,7 +506,7 @@ export function createModels(space, P) {
 
   const head = new THREE.Group();
   head.name = "head";
-  const sphere = new THREE.SphereGeometry(1, 220, 160);
+  const sphere = new THREE.SphereGeometry(1, 190, 136);
   const sp = sphere.attributes.position;
   const hairMask = [];
   const nz = rng(5);
