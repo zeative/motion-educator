@@ -62,6 +62,14 @@ than the film and its tail is faded.
 - Put the film's biggest moments on bars, and the track's own change (a build arriving, a step up) on the film's
   turn.
 
+### A bed for a loop
+
+A short that loops has no ending: ask for music that "keeps the same groove to the last second, with no ending, no
+final chord and no fade", and leave out "lands on a resolved chord". `music.mjs` composes a second and a half past
+the film's end; with the storyboard's `loop`, `mix.py` lays that run-on over the opening, so the music carries on
+when the player jumps back. Put no hit on the last frame: the last effect is a soft one that also works under the
+first word.
+
 ## The cue sheet
 
 `films/NAME/cues.json`: the music, then every sound on the film's clock.

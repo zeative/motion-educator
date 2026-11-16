@@ -65,6 +65,9 @@ duration = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "for
 N = int(round(duration * SR))
 plan = json.loads((film / "cues.json").read_text())
 events = [] if "--no-sfx" in args else plan["events"]
+# A short made to loop (the storyboard's "loop"): the end runs straight into the start, in the sound as in the picture.
+board = film / "storyboard.json"
+loop = bool(json.loads(board.read_text()).get("loop")) if board.exists() else False
 report = []
 
 # Music: the chosen window of the track, levelled to its target, faded at both ends.
@@ -75,10 +78,24 @@ if "--no-music" not in args:
     a = int(m.get("start", 0) * SR)
     cut = track[a : a + N]
     music[: len(cut)] = cut
-    music *= gain(m["lufs"] - loudness(music)[0])
-    fade_in, fade_out = int(m.get("fade_in", 0.01) * SR), int(m.get("fade_out", 1.5) * SR)
-    music[:fade_in] *= np.linspace(0, 1, fade_in)[:, None]
-    music[N - fade_out :] *= (np.linspace(1, 0, fade_out) ** 1.5)[:, None]
+    level = gain(m["lufs"] - loudness(music)[0])
+    music *= level
+    if loop:
+        # A film that loops has no ending: the bed runs on past the last frame, and that run-on is laid over the first
+        # second and a half, fading out as the bed's own start fades in. When the player jumps from the last frame
+        # back to the first, the music carries straight on.
+        X = int(min(1.5, max(0.0, (len(track) - a - N) / SR)) * SR)
+        if X >= int(0.3 * SR):
+            tail = track[a + N : a + N + X] * level
+            ramp = np.linspace(0, np.pi / 2, X)[:, None]
+            music[:X] = music[:X] * np.sin(ramp) + tail * np.cos(ramp)
+            report.append(f"loop: the bed's {X / SR:.1f} s after the last frame run on into the first")
+        else:
+            report.append("  <- loop: the bed stops at the last frame, so the music jumps when the film loops: compose it again (music.mjs adds the run-on)")
+    else:
+        fade_in, fade_out = int(m.get("fade_in", 0.01) * SR), int(m.get("fade_out", 1.5) * SR)
+        music[:fade_in] *= np.linspace(0, 1, fade_in)[:, None]
+        music[N - fade_out :] *= (np.linspace(1, 0, fade_out) ** 1.5)[:, None]
     # Ducking: a quick dip under each marked hit, a slower climb back.
     duck = np.zeros(N)
     depth = m.get("duck_db", -6)
@@ -168,6 +185,14 @@ if lines_file.exists() and "--no-voice" not in args:
             a, b = int(line.get("lead", 0) * SR), len(s) - max(0, int(line.get("tail", 0) * SR) - int(0.06 * SR))
             place(s[max(0, a - edge) : b], shot["start"] + v.get("lead", 0.15))
             report.append(f"{shot['start'] + v.get('lead', 0.15):6.2f}s  voice        {line['file']}  {line.get('speech', 0):.2f} s  {shot['voice'][:60]}")
+    if spoken and loop:
+        # Across the loop the voice should run on like one sentence: the silence from the last word to the end plus the
+        # silence before the first word is the pause the viewer hears at the seam.
+        said = np.nonzero(np.abs(voice).max(axis=1) > 1e-4)[0]
+        if len(said):
+            seam = (N - said[-1]) / SR + said[0] / SR
+            note = "" if 0.12 <= seam <= 0.9 else ("  <- longer than a breath: the loop will sound like a restart; end the picture sooner after the last word or start the first word sooner" if seam > 0.9 else "  <- the words collide at the seam: leave a breath")
+            report.append(f"loop: {seam:.2f} s between the last word and the first{note}")
     if spoken:
         voice *= gain(v.get("lufs", -16) - loudness(voice)[0])
         # Where speech is: its envelope, opened a little early and closed slowly, so the bed breathes instead of pumping.
@@ -198,10 +223,11 @@ hop = SR // 20
 level = np.abs(mix).max(axis=1)[: N // hop * hop].reshape(-1, hop).max(axis=1)
 heard = np.nonzero(level > gain(-50))[0]
 last = (heard[-1] + 1) * hop / SR if len(heard) else 0
-if N / SR - last > 0.5:
+if N / SR - last > 0.5 and not loop:
     report.insert(1, f"  <- the sound stops at {last:.2f} s, {N / SR - last:.1f} s before the picture ends: let the music ring to the last frame (ride it up over its decay, a shorter fade_out) or end the picture sooner")
 wav.unlink()
 out.with_suffix(".mix.txt").write_text("\n".join(report) + "\n")
 print(report[0])
-if report[1].startswith("  <-"):
-    print(report[1])
+for line in report[1:]:
+    if line.startswith("  <-") or line.startswith("loop:"):
+        print(line)

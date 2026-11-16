@@ -29,7 +29,8 @@ team". Nobody whose work is admired writes a line per finished shot.
   already believes teaches measurably less than one that names the belief and breaks it.
 - **Every join is "but" or "therefore"**, never "and then". If two sentences could swap places, one of them is not
   doing work.
-- **End on the payoff**: the answer in one line the viewer can repeat, or the one thing they can now do.
+- **End on the payoff**: the answer in one line the viewer can repeat, or the one thing they can now do. In a
+  short that loops, the payoff comes second to last and the last line bridges into the first ("The loop", below).
 
 | Length | Words (English, 130 to 150 a minute) | Shape |
 | --- | --- | --- |
@@ -39,6 +40,33 @@ team". Nobody whose work is admired writes a line per finished shot.
 
 Indonesian words run longer, so the same time holds fewer of them: plan on 105 to 150 words a minute, and trust
 the timed read over the count.
+
+## The loop (shorts)
+
+A short is replayed: the app jumps from the last frame straight back to the first. Make that jump invisible, so the
+end runs into the start and a second viewing feels like the same film carrying on. Set `"loop"` in the storyboard
+(a portrait short has it by default) and write the script as a circle:
+
+- **The last line is the first half of a sentence whose second half is the first line.** Read the last line and
+  then the first: they must make one natural sentence. Read the first line alone: it must still be a strong cold
+  open for someone who has never seen the film.
+- **The payoff comes just before the bridge**, so the answer has landed before the film turns back on itself.
+- **End open.** No full stop, no "see you", no "follow for more", no silent poster after the last word. The take
+  ends mid-thought and the first word of the film finishes it. Put no closing punctuation on the last line, so the
+  voice does not fall into a final cadence.
+- **The seam is a breath long**: about 0.2 to 0.6 s from the last word to the end of the film plus the silence
+  before the first word. `mix.py` measures it.
+
+Examples (last line → first line):
+
+- Indonesian: "...jadi kalau udah bunyi klik, berarti" → "Nozzle SPBU bisa berhenti sendiri pas tangkinya penuh. Kok bisa?"
+- Indonesian: "...dan itu sebabnya kamu" → "Nangis tiap motong bawang. Padahal bawangnya nggak ngapa-ngapain."
+- English: "...and that is exactly why" → "Noise-cancelling headphones make noise disappear by adding more sound."
+
+The picture loops with the words: the last shot ends on the first shot's picture (the same camera, the same things
+in the same places, a moment before frame 0), so the cut back is a continuous move, not a jump. `check.mjs` compares
+the two frames. The music runs on past the last frame and `mix.py` lays that run-on over the opening, so the sound
+carries straight through too.
 
 ## Sentences for the ear
 

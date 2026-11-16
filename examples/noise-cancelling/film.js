@@ -584,8 +584,8 @@ go(T("s18b") - 0.05, { vis: 0.32, scope: 0 }, 0.4);
 // s19: low and close on the cushion; it cuts open to show the foam.
 snap(T("s19"), { vis: 1, scope: 1 });
 const CUSH = cupW(-30, -4, 9);
-place(T("s19"), { az: 24, el: 10, dist: 190, tx: CUSH.x, ty: CUSH.y, tz: CUSH.z + 4, fov: 22, sway: 0.6 });
-move(T("s19"), s.s19.dur, { az: 34, el: 6, dist: 150 }, "power1.inOut");
+place(T("s19"), { az: 24, el: 10, dist: 260, tx: CUSH.x, ty: CUSH.y, tz: CUSH.z + 4, fov: 22, sway: 0.6 });
+move(T("s19"), s.s19.dur, { az: 34, el: 6, dist: 215 }, "power1.inOut");
 tl.set(S, { cutC: 80 }, T("s19"));
 go(at("s19", "cushions") - 0.2, { cutC: CUSH.z + 1.5 }, 0.9, "power2.inOut");
 showPin(pins.foam, at("s19", "cushions") + 0.5, T("s20"));

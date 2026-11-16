@@ -22,6 +22,15 @@ console.log(errors ? `decode errors:\n${errors}` : "decodes cleanly");
 const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8")) : null;
 if (plan?.duration && Math.abs(duration - plan.duration) > 1.5 / fps + 0.01) console.log(`  <- the picture is ${duration.toFixed(3)} s but the storyboard is ${plan.duration.toFixed(3)} s: something in film.js runs past the last shot, or the storyboard changed after the render`);
 
+// A film made to loop: its last frame must lead into its first without a jump. Compare the two (SSIM, 1 = the same
+// picture). A loop whose last frame is the first frame's state a moment earlier scores about 0.9 or more.
+if (plan?.loop) {
+  const lastAt = Math.max(0, duration - 1.5 / fps).toFixed(4);
+  const ssim = spawnSync("ffmpeg", ["-hide_banner", "-i", picture, "-ss", lastAt, "-i", picture, "-filter_complex", "[0:v]trim=end_frame=1,setpts=PTS-STARTPTS[a];[1:v]trim=end_frame=1,setpts=PTS-STARTPTS[b];[b][a]ssim", "-f", "null", "-"]).stderr.toString();
+  const score = Number(ssim.match(/All:([0-9.]+)/)?.[1]);
+  console.log(`loop seam: last frame against the first, SSIM ${Number.isFinite(score) ? score.toFixed(3) : "?"}${score < 0.85 ? "  <- the picture jumps when the film loops: end on the first shot's picture (same camera, same things in place)" : ""}`);
+}
+
 // Contact sheets: a frame every half second, 36 to a sheet.
 const sheets = join(film, "out", "sheets");
 mkdirSync(sheets, { recursive: true });

@@ -216,8 +216,26 @@ if (new Set(shots.map((shot) => shot.type)).size < 4) err("storyboard", "fewer t
 // A shot made of type says its line itself; every other shot needs a caption.
 const spoken = shots.filter((shot) => !["type", "endcard"].includes(shot.type));
 if (spoken.length && spoken.filter((shot) => shot.caption || shot.voice).length / spoken.length < 0.85) err("storyboard", "fewer than 85% of the shots that are not type carry a caption: the film must explain itself with the sound off");
-if (shots.length && !["recap", "endcard"].includes(shots.at(-1).type)) err("storyboard", 'the last shot must be a "recap" or an "endcard"');
-if (shots.length && !shots.some((shot) => shot.type === "recap")) err("storyboard", "no recap shot: say again, in one frame, what the viewer now knows");
+// A short made to loop ends by running into its own start: its last line leads into its first, its last picture
+// into its first. It has no endcard and no silent poster (references/narration.md, "The loop").
+if (sb.loop) {
+  const where = "loop";
+  if (typeof sb.loop !== "object") err(where, '"loop" is an object: { "line": how the last line runs into the first, "picture": how the last frame becomes the first }');
+  else {
+    need(sb.loop, "line", where, 20);
+    need(sb.loop, "picture", where, 20);
+  }
+  const last = shots.at(-1);
+  if (last && !last.voice && narrated) err(where, `the last shot ${last.id} is silent: in a loop the last words run into the first, so the film ends while someone is speaking`);
+  if (last?.type === "endcard") err(where, "an endcard stops the loop: end on the picture the film opens with");
+  const firstWord = shots[0]?.voice?.trim().split(/\s+/)[0];
+  const lastLine = [...shots].reverse().find((shot) => shot.voice)?.voice.trim();
+  if (lastLine && /[.!?]["')\]]*$/.test(lastLine)) warn(where, `the last line ends on "${lastLine.slice(-12)}": a full stop closes the loop; end it open, so it runs on into "${firstWord ?? "the first line"}"`);
+} else {
+  if (shots.length && !["recap", "endcard"].includes(shots.at(-1).type)) err("storyboard", 'the last shot must be a "recap" or an "endcard"');
+  if (shots.length && !shots.some((shot) => shot.type === "recap")) err("storyboard", "no recap shot: say again, in one frame, what the viewer now knows");
+  if (portrait && narrated) warn("storyboard", 'a portrait short that does not loop: shorts are replayed, so make the end run into the start ("loop", references/narration.md)');
+}
 for (const act of acts.keys()) if (!shots.some((shot) => shot.act === act)) err(`act ${act}`, "has no shots");
 for (const id of facts.keys()) if (!used.has(id)) warn(`fact ${id}`, "is never cited by a shot");
 

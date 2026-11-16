@@ -37,6 +37,12 @@ music, frames written with a few helper functions, and the JSON generated from t
 `models` is the model sheet for every real object built in 3D (`detail.md`): required, with `camera` on every
 `object3d` and `macro` shot, when `standard` is 2 (the template's).
 
+`loop` makes a short that runs into its own start: `{ "line": "the last line, which completes into the first",
+"picture": "how the last frame becomes the first" }`. A portrait short has it by default (`new.mjs --portrait`).
+With a loop, the film ends while someone is speaking, on the first shot's picture: no endcard, no silent poster,
+and no recap is required (the recap, if any, comes before the bridge). Without a loop the last shot is a recap or
+an endcard, as below.
+
 `rail: false` keeps an act (the hook, the recap) out of the chapter rail the film shows.
 
 `format` is the frame: `"1920x1080"` for a landscape film, `"1080x1920"` for a portrait short. Every coordinate in
@@ -100,7 +106,8 @@ The check cannot judge the rest. You can:
   becomes the sky. `carries` names it. A shot that starts from nothing is a slide.
 - **Answer the objection the viewer will have** ("then why isn't the sky violet?").
 - **The recap is one frame** holding the three or so ideas, each with its small picture.
-- **The last frame is a poster**: the line to remember, readable for at least two seconds.
+- **The last frame is a poster**: the line to remember, readable for at least two seconds. In a loop the last
+  frame is instead the first shot's picture a moment early, and the line to remember is said just before the bridge.
 
 ## Drawing the frames
 
