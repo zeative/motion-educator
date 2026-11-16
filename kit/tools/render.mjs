@@ -54,7 +54,7 @@ const GL = {
   lavapipe: {
     args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader", "--use-gl=angle", "--use-angle=vulkan", "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan", "--disable-vulkan-surface"],
     // llvmpipe draws with a thread per core; split the cores between the jobs so they do not fight.
-    env: { VK_ICD_FILENAMES: LAVAPIPE ?? "", LP_NUM_THREADS: String(Math.max(1, Math.floor(availableParallelism() / Math.max(1, jobs)))) },
+    env: { VK_ICD_FILENAMES: LAVAPIPE ?? "", LP_NUM_THREADS: process.env.LP_NUM_THREADS ?? String(Math.max(1, Math.floor(availableParallelism() / Math.max(1, jobs)))) },
   },
   gpu: { args: ["--ignore-gpu-blocklist", "--enable-gpu", "--use-gl=angle"], env: {} },
 }[gl];

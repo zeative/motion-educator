@@ -1,0 +1,30 @@
+# The render worker as a Docker Compose service (Dokploy: a Compose service of type "raw" with this file, the
+# environment variable FARM_TOKEN, and a domain to port 8080). Limit its CPUs so the machine's other services keep
+# room: FARM_CPUS below.
+services:
+  worker:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM mcr.microsoft.com/playwright:v1.63.0-noble
+        RUN apt-get update && apt-get install -y --no-install-recommends mesa-vulkan-drivers ffmpeg git ca-certificates && apt-get clean
+        RUN npm install -g playwright@1.63.0
+        ENV NODE_PATH=/usr/lib/node_modules
+        ARG REVISION=main
+        RUN git clone --depth 1 --branch $${REVISION} https://github.com/zeative/motion-educator /opt/me
+        RUN node -e "require('playwright')" && ls /usr/share/vulkan/icd.d/lvp_icd.json
+        CMD ["node", "/opt/me/kit/farm/worker.mjs"]
+    environment:
+      - FARM_TOKEN=${FARM_TOKEN}
+      - FARM_JOBS=${FARM_JOBS:-5}
+      - LP_NUM_THREADS=${LP_NUM_THREADS:-2}
+    cpus: ${FARM_CPUS:-10}
+    mem_limit: 12g
+    shm_size: 2gb
+    volumes:
+      - farm-work:/work
+    expose:
+      - "8080"
+    restart: unless-stopped
+volumes:
+  farm-work: {}
