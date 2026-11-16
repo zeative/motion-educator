@@ -378,7 +378,7 @@ shot("s10", "cancel", "compare", facts=["f2"],
      teaches="The name for it: destructive interference.",
      screen="Three glowing lines float in the dim room stacked down the frame (y 720, 960, 1200): amber 'noise', '+', cyan 'flipped copy', '=', white 'what you hear', flat, each label on a dark plate at the left; small warm lamps far behind. The name 'destructive interference' is the framed caption at the top, 'destructive' in its frame: one name, no title.",
      camera="The lines in 3D, hung in the room with the warm lamps far behind them: camera front-on, slow orbit az 172 to 186, el 4, 300 mm, fov 26; no depth of field (the lines must stay sharp).",
-     motion="The lanes draw in one after another; the camera orbits slowly; the framed caption lights word by word."
+     motion="The lanes draw in one after another; the camera orbits slowly; the framed caption lights word by word.",
      carries="The three lines.",
      transition="No cut: on 'But' the cyan line slips.",
      sound="A shimmer under the sheen; the turn's hit at the end of the hold, before 'But'.",

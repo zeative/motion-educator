@@ -107,15 +107,15 @@
       ]
     },
     {
-      "name": "the side of a head and the right ear",
-      "reference": "Side-view anatomy plates of the auricle (helix, antihelix and its crura, triangular fossa, scapha, concha, tragus, antitragus, lobule) traced into an outline; textbook dimensions (pinna about 62 x 35 mm, standing out about 20 degrees from the head); ear canal about 25 mm long, 7 mm across, gently S-shaped, ending at a slanted eardrum about 9 mm across with the malleus showing through.",
+      "name": "a matte clay display bust with a sculpted right ear",
+      "reference": "Product photography of headphones on display busts (matte clay or off-white, no hair, no skin tone); side-view anatomy plates of the auricle (helix, antihelix and its crura, triangular fossa, scapha, concha, tragus, antitragus, lobule) traced into an outline; textbook dimensions (pinna about 62 x 35 mm, standing out about 20 degrees from the head); ear canal about 25 mm long, 7 mm across, gently S-shaped, ending at a slanted eardrum about 9 mm across with the malleus showing through.",
       "scale": "1 unit = 1 mm",
       "parts": [
-        "skin surface: one smooth union of cranium, jaw and neck, with pores",
-        "hair: a shell over the scalp with a ragged hairline and strands",
+        "bust surface: one smooth union of cranium, jaw and neck, in matte warm-grey clay with a fine cast grain",
+        "cut section: paler clay, hatched",
         "pinna: traced outline extruded with a deep bevel (P.extrude), the relief laid over it: helix rim, scapha, antihelix and two crura, triangular fossa, concha, crus of the helix, tragus, antitragus, lobe",
-        "ear canal: a tube lined with skin, cut in the cutaways",
-        "eardrum: a thin pearly cone with its ring and the malleus handle"
+        "ear canal: a tube cut in the cutaways, its inside lit in the accent cyan",
+        "eardrum: a thin cone with its ring and the malleus handle, lit in the accent"
       ]
     }
   ],
@@ -527,8 +527,8 @@
         "f11"
       ],
       "teaches": "Sound is a wave of pressure: air squeezed and stretched, travelling.",
-      "screen": "Inside the air: thousands of tiny specks fill the frame, sharp in the middle and soft near and far; they bunch into bright bands and spread into dark ones, and the bands travel left to right. A small note at the top, 'slowed down, not to scale', 30 px.",
-      "camera": "Inside the speck field, side-on to the travel (az 90, el 6), 90 mm off, fov 22; drifts along with the bands from tx -30 to +10 mm; depth of field on (blur 0.7) focused on the field's middle plane; sway 0.6.",
+      "screen": "The air beside the right ear cup of the headphone on a matte clay display bust: thousands of specks of air fill the left two thirds of the frame, the cup's outside at the right edge; the specks bunch into bands and spread between them, and the bands travel right, toward the cup. A small note 'slowed down, not to scale', 30 px, above the bottom of the safe area.",
+      "camera": "From behind the bust, side-on to the travel (az 186 to 182, el 6), 300 to 330 mm off, fov 26; drifts with the bands toward the cup; sway 0.6; no depth of field.",
       "motion": "The specks rock back and forth about their places, so bands of squeeze and stretch travel through them; the camera drifts with them.",
       "carries": "The speck field and the travelling bands.",
       "transition": "No cut: the camera drifts back and a pressure line draws over the specks.",
@@ -537,24 +537,23 @@
       "frames": [
         {
           "at": 0,
-          "note": "Inside the air: a field of specks fills the frame, out of focus near and far, sharp in the middle; amber bands of light slide through them.",
+          "note": "The air beside the right ear cup, on the display bust: thousands of specks of air fill the left of the frame; the cup's outside and the clay bust's ear region sit at the right edge.",
           "draw": [
             {
               "molecules": [
                 40,
-                300,
-                1000,
-                1000,
+                400,
+                760,
+                900,
                 110
               ],
               "seed": 4
             },
             {
-              "glow": [
-                540,
-                800,
-                360
-              ]
+              "path": "M880 860 a120 260 0 1 0 240 0 a120 260 0 1 0 -240 0",
+              "colour": "ink",
+              "fill": "ink",
+              "width": 6
             },
             {
               "camera": "push"
@@ -563,31 +562,37 @@
         },
         {
           "at": 1,
-          "note": "On 'pressure': the specks bunch into bright bands and spread into dark ones, and the bands travel to the right; a small note 'slowed down, not to scale'.",
+          "note": "On 'pressure': the specks bunch into bands and spread between them, and the bands travel right, toward the cup; a small note 'slowed down, not to scale'.",
           "draw": [
             {
               "molecules": [
                 40,
-                300,
-                1000,
-                1000,
+                400,
+                760,
+                900,
                 160
               ],
               "seed": 5
             },
             {
+              "path": "M880 860 a120 260 0 1 0 240 0 a120 260 0 1 0 -240 0",
+              "colour": "ink",
+              "fill": "ink",
+              "width": 6
+            },
+            {
               "move": [
                 200,
-                1180,
-                880,
-                1180
+                1100,
+                860,
+                1100
               ],
-              "text": "the squeeze travels"
+              "text": "toward the cup"
             },
             {
               "label": [
-                700,
-                280
+                300,
+                1200
               ],
               "text": "slowed down, not to scale",
               "size": 30
@@ -614,8 +619,8 @@
         "f11"
       ],
       "teaches": "Squeezed then stretched, over and over: the pressure line names the bands.",
-      "screen": "The same speck field, wider; a glowing amber line draws over it, high over the bright bands, low over the dark. Pins 'squeezed' (on a bright band, left, y about 470) and 'stretched' (on a dark band, y about 1020). At the end the camera pulls back and the field becomes the air beside the side of a head wearing the headphone.",
-      "camera": "From 90 mm to 240 mm off the field (az 90 to 105, el 6 to 12), fov 22 to 28, blur 0.7 to 0; in the last second the target moves toward the right ear cup and the camera keeps pulling back to 420 mm.",
+      "screen": "The same speck field, wider; a glowing amber line draws over it, high over the bright bands, low over the dark. Pins 'squeezed' (on a bright band, left, y about 470) and 'stretched' (on a dark band, y about 1020). At the end the camera swings round behind the bust to the ear cup.",
+      "camera": "Pull back from 330 to 400 mm (az 182 to 178, el 6 to 8, fov 26 to 28) as the line draws; then the target moves onto the right ear cup and the camera swings round behind the bust to 380 mm (az 150, el 16).",
       "motion": "The amber line draws from left to right as the voice says 'the air'; the pins ride on a crest and a trough as they travel; the pull back reveals the head.",
       "carries": "The amber bands: they keep rolling toward the ear cup.",
       "transition": "No cut: the pull back lands on the ear cup, which the next shot approaches.",
@@ -747,7 +752,7 @@
         "f9"
       ],
       "teaches": "A microphone on the outside of the cup hears the noise before it reaches the ear.",
-      "screen": "The side of a head wearing the headphone, from behind and outside: skin, the hairline, the right cup. The camera closes on the cup's back panel: a small oval perforated grille near its top front edge, with a metal bezel. The amber wave arrives from the left and touches it; the grille glows; a pin 'feed-forward mic · outside the cup'.",
+      "screen": "The clay display bust wearing the headphone, from behind and outside: the right cup big. The camera closes on the cup's back panel: a small oval perforated grille near its top front edge, with a metal bezel. The amber wave arrives from the left and touches it; the grille glows; a pin 'feed-forward mic · outside the cup'.",
       "camera": "Approach: from behind the head (az 140, el 14, 420 mm, fov 28, target the cup) in to the grille by 'microphone' (az 112, el 22, 110 mm, fov 22, target the grille), then a slow push to 90 mm; depth of field 0.5 focused on the grille; sway 0.6.",
       "motion": "The camera travels to the grille; the amber wave runs across and reaches it; a spark of amber runs into the grille on 'coming in' and it glows.",
       "carries": "The grille and the spark of noise in it.",
@@ -1227,7 +1232,7 @@
       "frames": [
         {
           "at": 0,
-          "note": "The cup opened along its axis, seen from the front of the head: the cushion still against the skin, the driver moved out from it, the shell and board further out.",
+          "note": "The cup opened along its axis, seen from the front of the head: the cushion still against the bust, the driver moved out from it, the shell and board further out.",
           "draw": [
             {
               "path": "M68.0 1212.0 C62.0 1020.0 44.0 672.0 284.0 648.0 C458.0 642.0 512.0 816.0 500.0 948.0 C488.0 1056.0 440.0 1098.0 416.0 1236.0",
@@ -1355,7 +1360,7 @@
         "f11"
       ],
       "teaches": "In the cup, the flipped wave and the noise add up to almost nothing at the ear.",
-      "screen": "From above, the head and cup cut through at the canal's height: the head's section (flesh, hatched) at the top, the canal running up into it to the eardrum; the cup's section below: shell, board, driver, fabric, the cushions' foam inside leather, pressed against the skin. The amber noise squeezes in past the cushion's edge; the cyan leaves the driver; where they overlap the line goes flat and white up the canal; the eardrum stays still.",
+      "screen": "From above, the head and cup cut through at the canal's height: the bust's clay section (pale, hatched) at the top, the canal lit cyan, the canal running up into it to the eardrum; the cup's section below: shell, board, driver, fabric, the cushions' foam inside leather, pressed against the bust. The amber noise squeezes in past the cushion's edge; the cyan leaves the driver; where they overlap the line goes flat and white up the canal; the eardrum stays still.",
       "camera": "Top-down cutaway, read like a section drawing: az 90, el 80 to 84, dist 270 to 235 mm, target just outside the canal's mouth; fov 26; the canal runs up the frame; no depth of field.",
       "motion": "The cut plane sweeps down through head and cup; the amber leaks in, the cyan leaves the driver, the white sum draws up the canal and fades; a pin '≈ silence' at the eardrum on 'nothing'.",
       "carries": "The amber, cyan and white lines: they lift out into the next shot.",
@@ -1365,7 +1370,7 @@
       "frames": [
         {
           "at": 0,
-          "note": "From above, the head and the cup cut through at the canal's height: the head's section at the top, the canal running up into it to the eardrum, the cup's section below with its cushions against the skin. The amber noise leaks in past the cushion.",
+          "note": "From above, the head and the cup cut through at the canal's height: the head's section at the top, the canal running up into it to the eardrum, the cup's section below with its cushions against the bust. The amber noise leaks in past the cushion.",
           "draw": [
             {
               "path": "M0 860.0 L1080 860.0 L1080 0 L0 0 Z",
@@ -1586,13 +1591,13 @@
         "f2"
       ],
       "teaches": "The name for it: destructive interference.",
-      "screen": "Three glowing lines float in the dim room stacked down the frame (y 720, 960, 1200): amber 'noise', '+', cyan 'flipped copy', '=', white 'what you hear', flat; warm lamps far behind. The name 'destructive interference' lands in metal type under the captions (y 440 to 660), 'destructive' in cyan.",
+      "screen": "Three glowing lines float in the dim room stacked down the frame (y 720, 960, 1200): amber 'noise', '+', cyan 'flipped copy', '=', white 'what you hear', flat, each label on a dark plate at the left; small warm lamps far behind. The name 'destructive interference' is the framed caption at the top, 'destructive' in its frame: one name, no title.",
       "camera": "The lines in 3D, hung in the room with the warm lamps far behind them: camera front-on, slow orbit az 172 to 186, el 4, 300 mm, fov 26; no depth of field (the lines must stay sharp).",
-      "motion": "The name types in; the three lines hold; a sheen crosses the name at the end of the hold.",
+      "motion": "The lanes draw in one after another; the camera orbits slowly; the framed caption lights word by word.",
       "carries": "The three lines.",
-      "transition": "No cut: on 'But' the name lifts and the cyan line slips.",
+      "transition": "No cut: on 'But' the cyan line slips.",
       "sound": "A shimmer under the sheen; the turn's hit at the end of the hold, before 'But'.",
-      "check": "Cyan is exactly the amber upside down; the white line is flat; the name sits at y 440 to 660, under the captions.",
+      "check": "Cyan is exactly the amber upside down; the white line is flat; the name appears once (the caption), nothing overlaps it.",
       "frames": [
         {
           "at": 0,
@@ -1660,22 +1665,20 @@
         },
         {
           "at": 0.5,
-          "note": "On 'destructive interference' the name lands in metal type at the top, the accent on 'destructive'.",
+          "note": "On 'destructive interference' the name is the framed caption at the top (one name, no title); the lanes hold, each with its label on a dark plate.",
           "draw": [
             {
-              "title": [
-                540,
-                520
+              "chip": [
+                200,
+                640
               ],
-              "text": "destructive\ninterference",
-              "size": 104,
-              "accent": "destructive"
+              "text": "noise"
             },
             {
               "wave": [
                 80,
                 1000,
-                620,
+                720,
                 90,
                 360
               ],
@@ -1683,10 +1686,17 @@
               "phase": 0
             },
             {
+              "chip": [
+                220,
+                880
+              ],
+              "text": "flipped copy"
+            },
+            {
               "wave": [
                 80,
                 1000,
-                860,
+                960,
                 90,
                 360
               ],
@@ -1694,11 +1704,18 @@
               "phase": 180
             },
             {
+              "chip": [
+                220,
+                1120
+              ],
+              "text": "what you hear"
+            },
+            {
               "line": [
                 80,
-                1060,
+                1200,
                 1000,
-                1060
+                1200
               ],
               "width": 8
             }
@@ -1706,22 +1723,20 @@
         },
         {
           "at": 1,
-          "note": "The name holds a beat; a sheen crosses it. The lines hold still, exactly opposite.",
+          "note": "The lines hold still, exactly opposite; the white one flat.",
           "draw": [
             {
-              "title": [
-                540,
-                520
+              "chip": [
+                200,
+                640
               ],
-              "text": "destructive\ninterference",
-              "size": 104,
-              "accent": "destructive"
+              "text": "noise"
             },
             {
               "wave": [
                 80,
                 1000,
-                620,
+                720,
                 90,
                 360
               ],
@@ -1729,10 +1744,17 @@
               "phase": 0
             },
             {
+              "chip": [
+                220,
+                880
+              ],
+              "text": "flipped copy"
+            },
+            {
               "wave": [
                 80,
                 1000,
-                860,
+                960,
                 90,
                 360
               ],
@@ -1740,11 +1762,18 @@
               "phase": 180
             },
             {
+              "chip": [
+                220,
+                1120
+              ],
+              "text": "what you hear"
+            },
+            {
               "line": [
                 80,
-                1060,
+                1200,
                 1000,
-                1060
+                1200
               ],
               "width": 8
             },
@@ -2758,8 +2787,8 @@
         "f9"
       ],
       "teaches": "The cushions still matter.",
-      "screen": "Low and close on the cushion where it meets the skin: the leather's grain and pleats, the piping seam. The leather cuts away along the camera's line: the memory foam inside shows its pores. Pins 'memory foam' and 'leather cover'.",
-      "camera": "Macro: az 24, el 10, 190 mm to az 34, el 6, 150 mm, target the cushion's front edge where it meets the skin; fov 22; blur 0.7 focused on the cushion; sway 0.6.",
+      "screen": "Low and close on the cushion where it meets the bust: the leather's grain and pleats, the piping seam. The leather cuts away along the camera's line: the memory foam inside shows its pores. Pins 'memory foam' and 'leather cover'.",
+      "camera": "Macro: az 24, el 10, 190 mm to az 34, el 6, 150 mm, target the cushion's front edge where it meets the bust; fov 22; no depth of field (its second pass costs too much in software GL for a 2.4 s shot); sway 0.6.",
       "motion": "A slow push; the cut plane slides across the cushion to show the foam.",
       "carries": "The cut: it widens to the whole head and cup.",
       "transition": "No cut: the camera rises over the cut, to the view from above.",
@@ -2768,7 +2797,7 @@
       "frames": [
         {
           "at": 0,
-          "note": "Low and close on the cushion where it meets the skin: the leather's grain and its pleats sharp, the head soft behind.",
+          "note": "Low and close on the cushion where it meets the bust: the leather's grain and its pleats sharp, the clay bust soft behind.",
           "draw": [
             {
               "path": "M80 900 a480 330 0 1 0 960 0 a480 330 0 1 0 -960 0",
