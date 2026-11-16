@@ -45,7 +45,10 @@ const jobs = Number(flag("--jobs") ?? Math.min(4, availableParallelism()));
 // frame with PBR, soft shadows and depth of field; PSNR 44.7 dB between them, the level of JPEG noise). Use it when
 // the machine has it (Debian/Ubuntu: mesa-vulkan-drivers), SwiftShader otherwise; `--gl gpu` on a machine with one.
 const LAVAPIPE = ["/usr/share/vulkan/icd.d/lvp_icd.json", "/etc/vulkan/icd.d/lvp_icd.json"].find(existsSync);
-const gl = flag("--gl") ?? (LAVAPIPE ? "lavapipe" : "swiftshader");
+// A real GPU draws a heavy 3D frame in tens of milliseconds instead of a second: use it whenever there is one
+// (any Mac, a Linux machine with a render node or an NVIDIA card).
+const HAS_GPU = process.platform === "darwin" || process.platform === "win32" || existsSync("/dev/nvidia0") || (existsSync("/dev/dri") && readdirSync("/dev/dri").some((name) => name.startsWith("renderD")));
+const gl = flag("--gl") ?? (HAS_GPU ? "gpu" : LAVAPIPE ? "lavapipe" : "swiftshader");
 const GL = {
   swiftshader: { args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"], env: {} },
   lavapipe: {
@@ -109,14 +112,17 @@ if (args.includes("--serve")) {
         `the film did not get ready in 120 s.\n${problems.length ? `What went wrong in the page:\n  ${[...new Set(problems)].slice(0, 8).join("\n  ")}` : "The page reported no error: check that film.js ends with film.finish()."}${state?.images?.length ? `\nImages still loading: ${state.images.join(", ")}` : ""}`,
       );
     }
-    if (gl === "lavapipe" && !openFilm.checked) {
+    if (!openFilm.checked) {
       openFilm.checked = true;
       const renderer = await page.evaluate(() => {
         const c = document.createElement("canvas").getContext("webgl2");
         const info = c?.getExtension("WEBGL_debug_renderer_info");
         return c ? c.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : c.RENDERER) : "none";
       });
-      if (!/llvmpipe/i.test(renderer)) console.warn(`lavapipe was asked for but WebGL runs on "${renderer}": rendering will be slower (--gl swiftshader to silence this)`);
+      const software = /swiftshader|llvmpipe|software/i.test(renderer);
+      if (gl === "lavapipe" && !/llvmpipe/i.test(renderer)) console.warn(`lavapipe was asked for but WebGL runs on "${renderer}": rendering will be slower (--gl swiftshader to silence this)`);
+      else if (gl === "gpu" && software) console.warn(`a GPU was expected but WebGL runs on "${renderer}": rendering will be slow (--gl lavapipe or swiftshader to choose)`);
+      else console.log(`WebGL: ${renderer}`);
     }
     return { browser, page };
   }

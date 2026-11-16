@@ -122,18 +122,32 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
     target.depthTexture = new THREE.DepthTexture(W, H);
     target.depthTexture.type = THREE.UnsignedIntType;
     const material = new THREE.ShaderMaterial({
-      uniforms: { tColor: { value: target.texture }, tDepth: { value: target.depthTexture }, near: { value: 0.1 }, far: { value: 4000 }, focus: { value: 50 }, amount: { value: 0 }, aspect: { value: W / H } },
+      uniforms: { tColor: { value: target.texture }, tDepth: { value: target.depthTexture }, near: { value: 0.1 }, far: { value: 4000 }, focus: { value: 50 }, amount: { value: 0 }, aspect: { value: W / H }, size: { value: new THREE.Vector2(W, H) } },
       vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }",
       fragmentShader: `
         uniform sampler2D tColor; uniform sampler2D tDepth; uniform float near, far, focus, amount, aspect; varying vec2 vUv;
         float depthAt(vec2 uv){ float z = texture2D(tDepth, uv).x * 2.0 - 1.0; return 2.0 * near * far / (far + near - z * (far - near)); }
         float coc(float d){ return clamp(abs(d - focus) / max(focus, 0.001), 0.0, 1.0) * amount * 0.018; }
+        uniform vec2 size;
         void main(){
           float c = coc(depthAt(vUv));
+          // In focus (the blur would move a sample by under half a pixel): the pixel is its own result. Most of a
+          // close-up's subject is in focus, so most pixels skip the gather; the picture is unchanged.
+          float px = c * size.x;
+          if (px < 0.5) {
+            gl_FragColor = texture2D(tColor, vUv);
+            #include <tonemapping_fragment>
+            #include <colorspace_fragment>
+            return;
+          }
+          // A small blur needs few samples to look smooth; a large one gets all 28.
+          int n = int(clamp(ceil(px * 1.6), 8.0, 28.0));
+          float fn = float(n);
           vec4 acc = vec4(0.0); float wsum = 0.0;
           for (int i = 0; i < 28; i++) {
+            if (i >= n) break;
             float fi = float(i) + 0.5;
-            float r = sqrt(fi / 28.0);
+            float r = sqrt(fi / fn);
             float a = fi * 2.39996;
             vec2 o = vec2(cos(a), sin(a) * aspect) * r * c;
             vec2 uv = vUv + o;
