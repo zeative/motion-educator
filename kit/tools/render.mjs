@@ -6,7 +6,8 @@
 //   node kit/tools/render.mjs films/NAME --stills 1,5.5     finished PNG stills at those seconds -> out/stills/
 //   node kit/tools/render.mjs films/NAME --serve            serve the film to watch it live in a browser (#play)
 //   --fps 30 halves the frames, --jobs 1 uses one browser, --raw skips the finishing pass, --dir writes elsewhere,
-//   --safe (stills only) shades the parts of the frame an app would cover.
+//   --safe (stills only) shades the parts of the frame an app would cover, --gl swiftshader|lavapipe|gpu picks the
+//   WebGL renderer (lavapipe when the machine has it: about five times faster than SwiftShader on heavy 3D).
 //
 // The frame's size is the storyboard's "format": 1920x1080 unless it says otherwise (1080x1920 for a short).
 //
@@ -39,6 +40,22 @@ while (!existsSync(join(workspace, "kit", "engine", "motion.js"))) {
 const out = resolve(flag("--dir") ?? join(film, "out"));
 const fps = Number(flag("--fps") ?? 60);
 const jobs = Number(flag("--jobs") ?? Math.min(4, availableParallelism()));
+// WebGL with no GPU. Mesa's lavapipe (software Vulkan on llvmpipe) draws the same pixels as SwiftShader, Chromium's
+// own software renderer, about five times faster on a heavy 3D frame (measured: 1.1 s against 7.1 s for a 1080x1920
+// frame with PBR, soft shadows and depth of field; PSNR 44.7 dB between them, the level of JPEG noise). Use it when
+// the machine has it (Debian/Ubuntu: mesa-vulkan-drivers), SwiftShader otherwise; `--gl gpu` on a machine with one.
+const LAVAPIPE = ["/usr/share/vulkan/icd.d/lvp_icd.json", "/etc/vulkan/icd.d/lvp_icd.json"].find(existsSync);
+const gl = flag("--gl") ?? (LAVAPIPE ? "lavapipe" : "swiftshader");
+const GL = {
+  swiftshader: { args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"], env: {} },
+  lavapipe: {
+    args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader", "--use-gl=angle", "--use-angle=vulkan", "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan", "--disable-vulkan-surface"],
+    // llvmpipe draws with a thread per core; split the cores between the jobs so they do not fight.
+    env: { VK_ICD_FILENAMES: LAVAPIPE ?? "", LP_NUM_THREADS: String(Math.max(1, Math.floor(availableParallelism() / Math.max(1, jobs)))) },
+  },
+  gpu: { args: ["--ignore-gpu-blocklist", "--enable-gpu", "--use-gl=angle"], env: {} },
+}[gl];
+if (!GL) throw new Error(`--gl ${gl}: use swiftshader, lavapipe or gpu`);
 const SEGMENT = Number(flag("--segment") ?? 4);
 const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8")) : {};
 const [W, H] = (flag("--size") ?? plan.format ?? "1920x1080").split("x").map(Number);
@@ -65,8 +82,10 @@ if (args.includes("--serve")) {
   mkdirSync(out, { recursive: true });
   // One browser per job: pages in the same browser share a compositor and would take turns.
   async function openFilm() {
-    const browser = await chromium.launch({ args: ["--ignore-gpu-blocklist", "--enable-unsafe-swiftshader"] });
+    const browser = await chromium.launch({ args: GL.args, env: { ...process.env, ...GL.env } });
     const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+    // Capture through the DevTools protocol with its fast encoder: the same JPEG bytes, a third less time.
+    page.capture = await page.context().newCDPSession(page);
     const problems = [];
     page.on("pageerror", (error) => {
       problems.push(error.message);
@@ -90,8 +109,18 @@ if (args.includes("--serve")) {
         `the film did not get ready in 120 s.\n${problems.length ? `What went wrong in the page:\n  ${[...new Set(problems)].slice(0, 8).join("\n  ")}` : "The page reported no error: check that film.js ends with film.finish()."}${state?.images?.length ? `\nImages still loading: ${state.images.join(", ")}` : ""}`,
       );
     }
+    if (gl === "lavapipe" && !openFilm.checked) {
+      openFilm.checked = true;
+      const renderer = await page.evaluate(() => {
+        const c = document.createElement("canvas").getContext("webgl2");
+        const info = c?.getExtension("WEBGL_debug_renderer_info");
+        return c ? c.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : c.RENDERER) : "none";
+      });
+      if (!/llvmpipe/i.test(renderer)) console.warn(`lavapipe was asked for but WebGL runs on "${renderer}": rendering will be slower (--gl swiftshader to silence this)`);
+    }
     return { browser, page };
   }
+  const grab = async (page) => Buffer.from((await page.capture.send("Page.captureScreenshot", { format: "jpeg", quality: 98, optimizeForSpeed: true })).data, "base64");
   const seek = (page, time) =>
     page.evaluate((t) => {
       window.__timelines.root.time(t);
@@ -184,7 +213,7 @@ if (args.includes("--serve")) {
           const { child, done } = ffmpeg([...input, ...encode, part], "pipe");
           for (let frame = from; frame < to; frame++) {
             await seek(page, frame / fps);
-            const shot = await page.screenshot({ type: "jpeg", quality: 98 });
+            const shot = await grab(page);
             if (!child.stdin.write(shot)) await new Promise((drain) => child.stdin.once("drain", drain));
             if (++drawn % 120 === 0) console.log(`${drawn} of ${frames} frames, ${((Date.now() - began) / 1000).toFixed(0)}s`);
           }

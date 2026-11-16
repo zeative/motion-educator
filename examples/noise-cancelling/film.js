@@ -209,7 +209,7 @@ const inWave = W(wave(space, { path: new THREE.CatmullRomCurve3([GRILLE.clone().
 // The spark along the flex to the chip (s06), then the two waves over the board (s07).
 const chipW = new THREE.Vector3();
 Mo.anc.getWorldPosition(chipW);
-const flexPts = [[-20.5, 28, 47.6], [-23, 22, 46], [-20, 15, 41], [-13, 10, 37.5]].map(([x, y, z]) => cupW(x, y, z + 0.8));
+const flexPts = [[-20.5, 28, 45.8], [-23, 22, 46], [-20, 15, 41], [-13, 10, 37.5]].map(([x, y, z]) => cupW(x, y, z + 0.8));
 const spark = W(wave(space, { path: new THREE.CatmullRomCurve3([GRILLE.clone().add(V(-3, -1, 0)), ...flexPts, chipW.clone().add(V(1.2, 0, 0))]), normal: up, color: AMBER, value: () => 0, width: 2.4, glow: 1.6 }));
 const OVER = chipW.clone().add(V(14, 0, 0)); // the plane over the board, toward the cup's back
 const LANE = 9; // mm between the two lanes
@@ -335,8 +335,8 @@ const pins = {
   flip7: pin(pinTrough, "<b>FLIPPED</b> · STRETCH", { dx: -120, dy: 250 }),
   noise7b: pin(pinCrest2, "STRETCH", { dx: 140, dy: -190 }),
   flip7b: pin(pinTrough2, "SQUEEZE", { dx: 140, dy: 190 }),
-  driver: pin(Mo.drv, "40 MM DRIVER<small>plays the flipped wave</small>", { dx: 140, dy: -300, at: V(0, 20, 6) }),
-  drvSize: pin(drvLabel, "40 mm", { dx: 0, dy: 120, className: "ruler" }),
+  driver: pin(Mo.drv, "40 MM DRIVER<small>plays the flipped wave</small>", { dx: -120, dy: -330, at: V(0, 20, 6) }),
+  drvSize: pin(drvLabel, "40 mm", { dx: -90, dy: 130, className: "ruler" }),
   leak: pin(new THREE.Object3D(), "<b class='am'>NOISE</b> LEAKS IN<small>past the cushion</small>", { dx: -60, dy: 210 }),
   flipped: pin(new THREE.Object3D(), "<b>FLIPPED</b> WAVE<small>from the driver</small>", { dx: 120, dy: 260 }),
   drum: pin(Mo.eardrum, "EARDRUM<small>≈ silence</small>", { dx: 170, dy: -150 }),
@@ -469,9 +469,9 @@ go(T("s07", 0.9), { chipGlow: 0 }, 0.4);
 // s08: the cup opens along its axis; close on the driver; it plays the flipped wave toward the ear.
 go(T("s08") - 0.1, { lift: 0, open: 1 }, 1.1, "power2.inOut");
 const DRV_C = cupW(0, 2, 28 + 78);
-const EAR_DRV = A.ear.clone().lerp(DRV_OPEN, 0.5).add(V(0, 4, -6));
-move(T("s08"), 1.0, { az: 26, el: 14, dist: 430, tx: EAR_DRV.x, ty: EAR_DRV.y, tz: EAR_DRV.z, fov: 26, blur: 0 }, "power2.inOut");
-move(T("s08") + 1.0, s.s08.dur - 1.0, { az: 34, el: 10, dist: 380 }, "power1.inOut");
+const EAR_DRV = A.ear.clone().lerp(DRV_OPEN, 0.6).add(V(0, 4, -6));
+move(T("s08"), 1.0, { az: 18, el: 14, dist: 470, tx: EAR_DRV.x, ty: EAR_DRV.y, tz: EAR_DRV.z, fov: 26, blur: 0 }, "power2.inOut");
+move(T("s08") + 1.0, s.s08.dur - 1.0, { az: 26, el: 10, dist: 420 }, "power1.inOut");
 go(T("s06"), { scope: 0 }, 0.3);
 go(T("s09"), { scope: 1 }, 0.3);
 showPin(pins.driver, at("s08", "speaker") - 0.05, T("s09") + 0.1);

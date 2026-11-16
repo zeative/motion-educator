@@ -168,9 +168,9 @@ export function createModels(space, P) {
   ffBezel.position.set(-20.5, 31, 51.6);
   const ffMic = P.mic({ w: 3.5, d: 2.65, h: 1, name: "feed-forward mic" });
   ffMic.rotation.x = Math.PI / 2; // port faces +z, out through the grille
-  ffMic.position.set(-20.5, 31, 48.2);
-  const ffMount = P.mesh(P.roundedBox(7, 6, 1.2, 0.4), mat.flex, "ff flex");
-  ffMount.position.set(-20.5, 31, 47.8);
+  ffMic.position.set(-20.5, 31, 46.6);
+  const ffMount = P.mesh(P.roundedBox(6, 5, 1.0, 0.4), mat.flex, "ff flex");
+  ffMount.position.set(-20.5, 31, 46.0);
   // Buttons and the charging port on the lower edge.
   const buttons = new THREE.Group();
   buttons.name = "buttons";
@@ -336,7 +336,7 @@ export function createModels(space, P) {
   battery.rotation.z = 0.0;
 
   // Flex from the feed-forward mic down the inside of the shell to the board.
-  const ffFlex = P.mesh(P.tube([[-20.5, 28, 47.6], [-23, 22, 46], [-20, 15, 41], [-13, 10, 37.5]], 0.6), mat.flex, "ff cable");
+  const ffFlex = P.mesh(P.tube([[-20.5, 28, 45.8], [-23, 22, 46], [-20, 15, 41], [-13, 10, 37.5]], 0.6), mat.flex, "ff cable");
   ffFlex.scale.set(1, 1, 1);
 
   cup.add(shell, baffle, screws, cushionRing, driver, fbMic, fabric, cushion, board, battery, ffMount, ffMic, ffFlex);

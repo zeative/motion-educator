@@ -15,18 +15,44 @@ thing is the hero and it is built as itself: in 3D, from its real parts, at its 
 read as what they are. A symbol (a box for a chip, a cone icon for a speaker, a circle for a cell) is allowed only
 for something the film does not explain, at the size of an icon.
 
+### Replicate the real one, the one your viewer knows
+
+The model is a replica, not an invention. Build the version of the object the viewer actually sees in their life,
+and build it accurately:
+
+- **Whose object.** The request tells you where the viewer is: its language, the places and words in it, the
+  platform. An Indonesian request means the nozzle at an Indonesian petrol station, the meter on an Indonesian
+  wall, the motorbike on an Indonesian road; English with no other clue means the most common international
+  version; another language, the version common where it is spoken. When the versions differ a lot and the clues
+  do not settle it, ask.
+- **Research it before you model it.** Find photographs of the real thing from several angles (image search,
+  product pages, manufacturer catalogues, teardown videos, patents and datasheets for the inside), and ask the
+  person for photos when you cannot find good ones. Write down what you see: the overall proportions, every
+  visible part, colours (and any colour code: by fuel, by voltage, by size), materials and finishes, markings,
+  how it is held or mounted, what it sits next to. The inside comes from teardowns, cut-away product photos,
+  patents or service manuals, not from a guess.
+- **Match it.** The silhouette, proportions, colours and the visible parts match the photos. The maker of one of
+  the best product shorts matched their model to 25 photographs of the real unit; aim for that. Logos and brand
+  names may be left off (or replaced by plain lettering) unless the person asks for them, but the shape, the
+  colours and the local conventions stay.
+- **Check it side by side.** Render the model at the angle of your best reference photo and put the two next to
+  each other. Every difference is either fixed or a choice you can name.
+
 ### The model sheet (before any shot is built)
 
 For each hero object, before building shots:
 
-1. **Reference.** Find how the real thing looks inside and out: a teardown, a cross-section, an exploded diagram,
+1. **Reference.** Decide which real version you are replicating (above), then find how it looks inside and out: a teardown, a cross-section, an exploded diagram,
    a datasheet drawing, an anatomy plate. Write down what you used in the storyboard's `models`, with the parts a
    viewer would see and their real sizes:
 
    ```json
    "models": [{
      "name": "over-ear noise-cancelling ear cup",
+     "variant": "the common over-ear ANC headphone sold worldwide; the viewer asked in English",
      "reference": "teardown photos of three over-ear ANC headphones; a 40 mm dynamic driver cross-section",
+     "photos": ["where each reference photo came from: a URL, a catalogue page, the person's own photo"],
+     "looks": "matte black shell, protein-leather cushions, brushed-metal slider; mic grille on the cup's rear",
      "scale": "1 unit = 1 mm",
      "parts": ["outer shell (ABS, 70 x 85 mm)", "feed-forward mic behind a grille on the shell", "feedback mic in front of the driver",
                "40 mm driver: basket, magnet, voice coil, cone, surround, dust cap", "main board with the ANC chip and battery",
@@ -152,6 +178,8 @@ board becomes a top-down view at an angle, or the camera travels along it.
 
 Look at the stills (`render.mjs --stills`) and answer each in writing:
 
+0. **The replica test.** Your model next to your best reference photo at the same angle: a viewer from that
+   place would say "that's the one".
 1. **The crop test.** Crop the hero out of a still and shrink it to a tenth: would a stranger name it? Crop a part
    at full size: would they name the part?
 2. **The parts count.** Every part on the model sheet that the film talks about appears, recognisable, in a close

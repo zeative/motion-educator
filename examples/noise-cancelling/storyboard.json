@@ -88,6 +88,13 @@
   "models": [
     {
       "name": "over-ear ANC headphone (generic)",
+      "variant": "The most common international over-ear ANC headphone, the kind an English-speaking viewer on X or Reddit owns or sees on a commuter: a closed-back, matte black, oval-cup wireless model with a plastic band, brushed metal sliders and forked yokes, protein-leather cushions and a 40 mm driver (the family the Sony WH-1000X, Bose QuietComfort and Sennheiser Momentum belong to), with no logo or product name.",
+      "looks": "Matte black or graphite plastic cups, oval (taller than wide, about 76 x 94 mm), a thin bright trim ring round the back panel, a small perforated mic grille near the top of each cup, buttons and a USB-C port on the lower edge; brushed stainless sliders with size marks; black protein-leather cushions, pleated on the inner wall, about 20 mm thick, in a black plastic ring; a dark fabric cover over the driver inside; a padded leather band under a plastic outer.",
+      "photos": [
+        "product listings found by search, not opened: Bose QuietComfort (black; protein-leather cushions), Cleer NC Over-Ear (protein leather, aluminium housing), JBL Club One (oval over-ear cups, metal hinges), Sennheiser Momentum 2.0 Wireless (brushed stainless sliders, memory foam cushions), Bang & Olufsen Beoplay H95 (oval memory-foam cushions)",
+        "teardown write-ups found by search, not opened: qucox.com Technics EAH-A800 teardown; 52Audio Sony WH-1000XM4 and WH-XB910N teardowns via The Walkman Blog; Lumafield 'scan of the month: headphones'",
+        "no photo was looked at in this session: the looks above are from the listings' text and from general knowledge of the category"
+      ],
       "reference": "Teardowns of 40 mm over-ear ANC headphones (Technics EAH-A800 by qucox; Sony WH-1000XM4 and WH-XB910N by 52Audio via The Walkman Blog; Lumafield's CT scan of four over-ears: driver screwed to a sub-baffle, wiring packed round it); vendor explainers on feed-forward and feedback mic placement (Audio-Technica, SoundGuys). Read through search results; the teardown pages and their photos could not be opened from this session.",
       "scale": "1 unit = 1 mm",
       "parts": [
@@ -108,6 +115,11 @@
     },
     {
       "name": "a matte clay display bust with a sculpted right ear",
+      "variant": "A product-photography display bust (the matte grey form headphones are shown on in shops and product shots) with an average adult right ear, so the ear and canal read as anatomy without a person's skin, hair or face; chosen after a reviewer found a skin-toned head uncanny.",
+      "looks": "Matte warm-grey clay with a fine cast grain, no hair, no skin tone, a smooth cranium, jaw and neck; the ear about 62 mm tall and 35 mm wide, standing out about 20 degrees, with a rolled helix, the antihelix and its two crura, a deep concha leading into the canal, the tragus over the canal's mouth, a soft lobe; in the cutaway a paler clay section, the canal and eardrum lit in the accent cyan.",
+      "photos": [
+        "no photographs: side-view anatomy plates of the auricle from textbook knowledge (helix, antihelix, crura, triangular fossa, scapha, concha, tragus, antitragus, lobule); ear canal size from the ear canal article (2.5 cm by 0.7 cm), read through search results"
+      ],
       "reference": "Product photography of headphones on display busts (matte clay or off-white, no hair, no skin tone); side-view anatomy plates of the auricle (helix, antihelix and its crura, triangular fossa, scapha, concha, tragus, antitragus, lobule) traced into an outline; textbook dimensions (pinna about 62 x 35 mm, standing out about 20 degrees from the head); ear canal about 25 mm long, 7 mm across, gently S-shaped, ending at a slanted eardrum about 9 mm across with the malleus showing through.",
       "scale": "1 unit = 1 mm",
       "parts": [
@@ -1223,7 +1235,7 @@
       ],
       "teaches": "The speaker (the driver) plays the flipped wave into the ear.",
       "screen": "The whole cup opened along its axis, out from the bust: the clay ear uncovered on the left, the cushion, the fabric, the driver, the board and the shell in a row going right. The driver's cone pushes and pulls; cyan motes and a cyan wave leave it and travel into the ear. Pins '40 mm driver' and 'your ear', a ruler '40 mm' across the driver.",
-      "camera": "Pull back and swing round to the front right of the bust as the cup opens: from over the board out to the front right of the bust, az 26, el 14, 430 mm, then a slow push to az 34, el 10, 380 mm, framing the ear and the driver together; fov 26; no depth of field (the cyan light must stay sharp).",
+      "camera": "Pull back and swing round to the front right of the bust as the cup opens: from over the board out to the front right of the bust, az 18, el 14, 470 mm, then a slow push to az 26, el 10, 420 mm, framing the ear and the driver together; fov 26; no depth of field (the cyan light must stay sharp).",
       "motion": "The parts slide apart along the cup's axis; the camera closes on the driver; the cone moves with the cyan wave; the bands travel to the ear.",
       "carries": "The cyan wave travelling to the ear.",
       "transition": "The parts slide back together and the scene is cut open from above.",
@@ -2788,7 +2800,7 @@
       ],
       "teaches": "The cushions still matter.",
       "screen": "Low and close on the cushion where it meets the bust: the leather's grain and pleats, the piping seam. The leather cuts away along the camera's line: the memory foam inside shows its pores. Pins 'memory foam' and 'leather cover'.",
-      "camera": "Macro: az 24, el 10, 190 mm to az 34, el 6, 150 mm, target the cushion's front edge where it meets the bust; fov 22; no depth of field (its second pass costs too much in software GL for a 2.4 s shot); sway 0.6.",
+      "camera": "Macro: az 24, el 10, 190 mm to az 34, el 6, 150 mm, target the cushion's front edge where it meets the bust; fov 22; sharp throughout (the leather and the foam are the subject); sway 0.6.",
       "motion": "A slow push; the cut plane slides across the cushion to show the foam.",
       "carries": "The cut: it widens to the whole head and cup.",
       "transition": "No cut: the camera rises over the cut, to the view from above.",

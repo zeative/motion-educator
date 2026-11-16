@@ -64,7 +64,8 @@ loudness, true peak, and whether an onset sits on each visual event.
 Report (under 900 words):
 1. Teaching: could a first-time viewer, on mute, say the promise afterwards? Where does the explanation skip a step,
    state something unsupported, or disagree with the fact sheet?
-2. Fidelity: for each real object the film explains, crop it from a frame. Would a stranger name it from the
+2. Fidelity: is each real object the version the audience knows (their country's petrol nozzle, their wall
+   socket, their motorbike), and does it match photographs of the real thing? For each, crop it from a frame. Would a stranger name it from the
    silhouette? Name its parts from the close-up? List what a real one has that this one lacks (parts, bevels,
    seams, markings, surface), against the storyboard's `models`.
 3. Camera: list each 3D shot's move. Which shots are static or straight-on, which repeat the shot before, which
