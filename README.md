@@ -162,8 +162,46 @@ node kit/tools/make.mjs films/moon-face
 ```
 
 Requirements: Node 20+, FFmpeg, Python 3 with numpy, and Playwright's Chromium
-(`npm i -D playwright && npx playwright install chromium`). No GPU needed; software WebGL renders about two frames
-a second, so a minute of film takes around half an hour.
+(`npm i -D playwright && npx playwright install chromium`). No GPU needed, but one is used when it is there; on a
+CPU-only Linux machine install Mesa's software Vulkan (`apt install mesa-vulkan-drivers`) for about five times the
+speed. See [Rendering](#rendering).
+
+## Rendering
+
+Every frame is drawn by seeking the timeline in headless Chromium, so nothing is ever dropped, and the picture is
+cut into four-second segments so a fix re-renders only the seconds it touches. How fast it goes depends on what
+draws the WebGL, and `render.mjs` picks the fastest the machine has:
+
+| Machine | WebGL on | Notes |
+| --- | --- | --- |
+| A Mac, Windows, or Linux with a GPU | the GPU | chosen automatically; the fastest by far |
+| Linux, CPU only, with `mesa-vulkan-drivers` | Mesa lavapipe (software Vulkan) | about 5× SwiftShader, same pixels |
+| Anything else | SwiftShader (Chromium's own) | the fallback |
+
+`--gl gpu|lavapipe|swiftshader` overrides the choice, and the renderer prints which one it got.
+
+Measured on one heavy portrait frame (1080x1920, PBR materials, soft shadows, depth of field), CPU only:
+
+| Change | Time per frame | Quality |
+| --- | --- | --- |
+| SwiftShader, `page.screenshot` | 7.1 s | the reference |
+| Mesa lavapipe, frames captured through the DevTools protocol | 1.1 s | PSNR 44.7 dB, SSIM 0.995 against the reference |
+| Depth of field that skips in-focus pixels and sizes its blur | the pass 245 → 125 ms | PSNR 45.4 dB, SSIM 0.997 |
+
+On a CPU about nine tenths of a frame is the 3D drawing itself, and it scales with cores. So the kit can also
+**render on a bigger machine**: a render worker runs in Docker anywhere you have room (a VPS, a home server, a
+Dokploy or Coolify host), with a CPU limit so the machine's other services keep theirs.
+
+```sh
+# on the bigger machine: run kit/farm/compose.yml (set FARM_TOKEN; FARM_CPUS caps the cores), expose port 8080
+# then, from your workspace:
+FARM_URL=https://your-host/farm FARM_TOKEN=... node kit/tools/farm.mjs films/moon-face --segment 1
+```
+
+It packs the kit and the film (with the segments already finished), sends them, follows the worker's log, and
+brings `out/picture.mp4` back; later fixes with `--only` render only what changed there too. Measured: a 4 s,
+1080x1920, 60 fps 3D test took **91 s on a 10-core worker** against 320 s on a busy 4-core machine. For a long
+film at 60 fps, a GPU is still the way to minutes; a short at 30 fps renders in minutes on a worker.
 
 ## How it works
 
@@ -256,10 +294,12 @@ machine away. How to write it: [`references/narration.md`](references/narration.
 | --- | --- |
 | [`kit/engine/motion.js`](kit/engine/motion.js) | the film engine: one timeline, scenes, type, captions, chapters, whips, hits |
 | [`kit/engine/stage.js`](kit/engine/stage.js) | the stage: one fragment shader of flowing light, a floor, dust, shock rings |
-| [`kit/engine/stage3d.js`](kit/engine/stage3d.js) | a three.js layer with a studio environment and materials that read as real |
+| [`kit/engine/stage3d.js`](kit/engine/stage3d.js) | the 3D layer: a directed camera, depth of field, soft shadows, pinned labels, exploded views, cutaways |
+| [`kit/engine/parts3d.js`](kit/engine/parts3d.js) | materials with real surface and ready-made parts: boards, chips, drivers, mics, screws, a desk set |
 | [`kit/css/film.css`](kit/css/film.css) | the look: tokens, glass, metal type, captions, panels, safe areas |
 | [`kit/tools/storyboard.mjs`](kit/tools/storyboard.mjs), [`sketch.mjs`](kit/tools/sketch.mjs) | the storyboard check and the pencil board |
-| [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview |
+| [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview; GPU, lavapipe or SwiftShader |
+| [`kit/tools/farm.mjs`](kit/tools/farm.mjs), [`kit/farm/`](kit/farm) | render on a bigger machine: the client, and the worker with its Docker Compose file |
 | [`kit/audio/voice.mjs`](kit/audio/voice.mjs) | narration: one take, matched to the script word by word, and the film cut to it |
 | [`kit/audio/mix.py`](kit/audio/mix.py) | the mixer: voice, music, effects, ducking, mastering, measurement |
 | [`kit/tools/check.mjs`](kit/tools/check.mjs) | contact sheets, frozen time, loudness |
@@ -282,7 +322,8 @@ motion-educator/
 | deciding what to teach and in what order | [`references/pedagogy.md`](references/pedagogy.md) |
 | writing and drawing the storyboard | [`references/storyboard.md`](references/storyboard.md) |
 | choosing the look, or making a portrait short | [`references/look.md`](references/look.md) |
-| building a film with the kit | [`references/engine.md`](references/engine.md), [`references/motion.md`](references/motion.md) |
+| building a film with the kit, and rendering it fast | [`references/engine.md`](references/engine.md), [`references/motion.md`](references/motion.md) |
+| building real objects in 3D and directing the camera | [`references/detail.md`](references/detail.md) |
 | writing narration that sounds like talk | [`references/narration.md`](references/narration.md) |
 | choosing a voice, performing the take, cutting to it | [`references/voice.md`](references/voice.md) |
 | choosing music and placing sounds | [`references/sound.md`](references/sound.md) |
@@ -293,7 +334,9 @@ motion-educator/
 
 - **Nobody has heard the films.** The agent that makes them cannot listen: sound is chosen by description and set
   by measurement, and each delivery says what a person should listen for.
-- **Rendering is slow without a GPU**: about half an hour for a minute of 1080p60.
+- **Rendering is slow without a GPU.** On a CPU, heavy 3D draws at about one frame a second per four cores, so a
+  minute of 1080p60 takes the better part of an hour on a small machine. A GPU, or a render worker on a machine
+  with more cores ([Rendering](#rendering)), is the way to minutes.
 - **The sound library is not in the repository.** Music and effects come from [Mixkit](https://mixkit.co), whose
   licence allows them inside a video but not passed on as files; `kit/audio/fetch.sh` downloads them.
 - **Narration costs credits** on your ElevenLabs account.
