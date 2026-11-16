@@ -1,0 +1,141 @@
+# Detail and camera
+
+The bar is the best product-teardown and engineering explainers: a circuit board you could almost pick up, the
+camera gliding over it, pushing in on one chip as the voice names it, the parts lifting apart to show what sits
+underneath, a label that rides on the part as the view turns. Next to those, a flat icon of a chip, a "C" standing
+for an ear cup or a brown wall standing for an ear reads as cheap at once, however good the script is. This page is
+how to reach that bar with the kit, and how to check that you did.
+
+Two things carry it: **the thing itself, built in detail**, and **a camera that is directed**.
+
+## 1. Real things are built, not symbolised
+
+When the film is about something physical (a device, a machine, an organ, a plant, a vehicle, a building), that
+thing is the hero and it is built as itself: in 3D, from its real parts, at its real proportions, in materials that
+read as what they are. A symbol (a box for a chip, a cone icon for a speaker, a circle for a cell) is allowed only
+for something the film does not explain, at the size of an icon.
+
+### The model sheet (before any shot is built)
+
+For each hero object, before building shots:
+
+1. **Reference.** Find how the real thing looks inside and out: a teardown, a cross-section, an exploded diagram,
+   a datasheet drawing, an anatomy plate. Write down what you used in the storyboard's `models`, with the parts a
+   viewer would see and their real sizes:
+
+   ```json
+   "models": [{
+     "name": "over-ear noise-cancelling ear cup",
+     "reference": "teardown photos of three over-ear ANC headphones; a 40 mm dynamic driver cross-section",
+     "scale": "1 unit = 1 mm",
+     "parts": ["outer shell (ABS, 70 x 85 mm)", "feed-forward mic behind a grille on the shell", "feedback mic in front of the driver",
+               "40 mm driver: basket, magnet, voice coil, cone, surround, dust cap", "main board with the ANC chip and battery",
+               "memory-foam cushion in a protein-leather cover", "fabric baffle cover", "yoke and headband slider"]
+   }]
+   ```
+
+   The storyboard check requires this for any film with `object3d` or `macro` shots (`"standard": 2`).
+2. **Block it out at real proportions** with the parts in `kit/engine/parts3d.js` and three.js shapes, every named
+   part its own mesh or group (named, so it can be pinned, exploded, ghosted or cut).
+3. **Turnaround.** Render it alone from four angles (front, three-quarter, side, top) and from close. Compare with
+   the reference: proportions, silhouette, the parts. Fix it until a stranger would name it from the silhouette
+   alone.
+4. **Detail pass**, three levels, each judged at its own distance:
+   - *Silhouette* (the whole object at a tenth of the frame): it reads as itself.
+   - *Parts* (the object filling the frame): every part from the model sheet is there and in the right place.
+   - *Micro* (the macro close-up): what rewards a close look: bevels on every edge (nothing razor-sharp),
+     seams and parting lines, screws, vents and grilles, markings printed on chips, solder fillets, wire
+     windings, fabric weave, foam pores, grain in leather.
+5. **Materials** from `parts3d.js` (`M.plastic`, `M.metal` with brushing, `M.rubber`, `M.foam`, `M.leather`,
+   `M.fabric`, `M.copper`, `M.solder`, `M.silicon`, `M.ferrite`, `M.skin`, `M.glass`...), never a default grey.
+   Each has a surface (a normal or roughness map), so light moves across it as the camera moves.
+6. **Light** like a product set: the key from the upper side, a rim from behind that separates the object from the
+   dark (`space.rim`), a soft fill, and the object standing on something (`shadows: true` and `space.floor()`) or
+   held in a lit void with a rim on every side. Never a flat-lit object pasted on the background.
+
+### Building shapes that are not boxes
+
+| The thing | How |
+| --- | --- |
+| Anything turned: a cone, a cup, a bottle, a knob, a lens, a fruit, a bulb, a can | `P.lathe(profile)` from a traced profile; `P.smoothProfile` rounds its corners |
+| A flat outline with thickness: a bracket, a leaf, a gear, a logo-less badge, a car's side, an ear's outline | `P.extrude(svgPathD, depth, { bevel })` from a traced outline; a deep bevel makes it soft |
+| Rounded blocks: housings, chips, batteries, phones | `P.roundedBox(w, h, d, r)` |
+| Wires, cables, pipes, veins, roads | `P.tube(points, radius)` |
+| Organic lumps: rocks, cells, organs | a sphere or a lathe shape, its vertices pushed out by a smooth noise |
+| Crowds of the same thing: cars, cells, trees, molecules | build one in detail, then `THREE.InstancedMesh` |
+| Electronics | `P.pcb`, `P.ic` (qfn / qfp / soic), `P.smd`, `P.shield`, `P.usbC`, `P.header`, `P.mic`, `P.screw` |
+| A speaker or headphone driver | `P.driver` (basket, magnet, pole piece, voice coil, spider, cone, surround, dust cap, all explodable) |
+
+Where the kit has no piece, build it from these, as `parts3d.js` builds its own, and keep it in the film's folder.
+
+### When 2D is right
+
+Charts, timelines, maths, text and the invisible (a sound wave, a field, a flow, a signal) are drawn in 2D or as
+light in the 3D scene, crisp and clean. The invisible is best drawn *where it happens*: the sound wave travels
+through the air around the 3D ear cup, the current runs along the board's traces, the field bends around the 3D
+magnet. A diagram is a cutaway of the real thing, not a different picture of it.
+
+## 2. The camera is directed
+
+The camera tells the viewer where to look, the way a hand would point. In the kit it is `space.cam` with
+`createStage3D(canvas, { rig: true })`: tween `az`, `el`, `dist`, the target `tx ty tz`, `fov`, `roll`, `focus`
+and `blur`; `sway` adds a slow hand-held drift.
+
+### The grammar of a teardown film
+
+| Move | What it does | How |
+| --- | --- | --- |
+| **Establish** | the whole object, three-quarter view, slow orbit | `az` 25-40, `el` 15-30, `fov` 28-35, orbit 10-25 degrees over the shot |
+| **Approach** | travel to the part the voice is about to name | ease the target onto the part and `dist` down to a third or less |
+| **Macro** | the part fills the frame; shallow focus | `fov` 18-24, `blur` 0.5-1, `focus` on the part, `sway` 0.6 |
+| **Rack focus** | from one part to the next without cutting | tween `focus` (and the target a little) |
+| **Reveal** | what is inside: lift the parts apart, cut it open, or fade the shell | `space.explode`, `space.cutaway`, `space.ghost`, with a camera move on top |
+| **Mechanism** | the part working: the coil pushing the cone, current flowing | hold or drift, slow, so the motion reads |
+| **Pull back** | the part in its place in the whole, then the whole in the world | the reverse of the approach |
+
+### Rules
+
+- **Every 3D shot moves.** A deliberate move (orbit, push, crane, rack focus) on top of a slow drift. A hero held
+  straight-on and still is a slide.
+- **Three-quarter views.** Straight-on and flat side views only for a cross-section that must be read like a
+  drawing, and even then the camera drifts.
+- **Close when named.** When the voice names a part, the part fills 30-60% of the frame's height within half a
+  second of the word, and a pin (`space.pin`) names it.
+- **Vary the angle.** No two consecutive shots from the same angle and distance; alternate wide, medium, macro.
+- **One continuous camera** while the subject stays the same: no cut between two views of one object when a move
+  can carry the eye there. Cut when the scale or the subject changes.
+- **Ease every move** (`power2.inOut` or `power3.inOut`), 1.5 to 3.5 s; never linear, never a jolt.
+- **Depth of field** only in macro and medium shots, focused on what the voice is about; nothing important blurred.
+- Write each 3D shot's move in the storyboard's `camera` field: where it starts and ends, the lens, the focus.
+  The check requires it on `object3d` and `macro` shots.
+
+## 3. Pins: labels that live on the part
+
+`space.pin(part, "voice coil<small>copper wire</small>", { dx, dy, at })` puts a dot on the part (`at` is a point in
+the part's own coordinates), an elbow line and a label chip; it follows the part through every camera move and
+explode. Tween `pin.show` 0 to 1 as the word is said, back to 0 when the voice moves on. Keep pins inside the safe
+area; put them on the side with space; at most three at once.
+
+## 4. Portrait
+
+In 9:16 the object is framed tall: stand it up or turn the camera so its long side runs down the frame, keep the
+subject in the upper two thirds, pins to the left or right inside the safe area, never under the captions. A wide
+board becomes a top-down view at an angle, or the camera travels along it.
+
+## 5. The check, before anyone else sees it
+
+Look at the stills (`render.mjs --stills`) and answer each in writing:
+
+1. **The crop test.** Crop the hero out of a still and shrink it to a tenth: would a stranger name it? Crop a part
+   at full size: would they name the part?
+2. **The parts count.** Every part on the model sheet that the film talks about appears, recognisable, in a close
+   shot.
+3. **No placeholders.** No default material, no unbevelled box standing for something round, no icon standing for
+   a thing the film explains.
+4. **The camera log.** Every 3D shot's move, in order: none static, none repeated back to back, every named part
+   seen close.
+5. **Side by side with the bar.** Put your best frame next to a frame of a top teardown explainer you know: would
+   yours sit in that film? If not, it is not finished: add the missing level of detail.
+
+The reviewer (`review.md`) is asked the same questions, and rates any schematic stand-in for a real object
+"ordinary".

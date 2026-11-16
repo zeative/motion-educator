@@ -15,9 +15,11 @@ expensive because every surface responds to the light and nothing is flat.
   soft shadow.
 - **Metal type** (`.display`, with `.key` for accent words): every character is its own box so it can arrive on
   its own; the fill and the sheen are laid out in line coordinates so they read as one surface.
-- **3D** (`kit/engine/stage3d.js`): physically based materials under a studio environment. Use it where the subject
-  is physical or spatial (a planet, a molecule, a machine, a cell). Type, panels, diagrams and charts stay HTML,
-  SVG and canvas, where they are crisp.
+- **3D** (`kit/engine/stage3d.js` and `kit/engine/parts3d.js`): detailed models in physically based materials with
+  real surface, under a studio environment, shot by a directed camera (orbits, push-ins, macro with shallow focus,
+  exploded views, cutaways, labels pinned to parts). Whenever the subject is physical (a device, a machine, an
+  organ, a plant, a vehicle, a planet), it is the hero and it is 3D: `detail.md`. Charts, timelines and text stay
+  HTML, SVG and canvas, where they are crisp.
 - **The finishing pass** (in the renderer): highlights bloom into their surroundings, then fine film grain that
   changes every frame.
 
@@ -32,7 +34,7 @@ storyboard's `mood` and each shot's `motion`. Move it toward what the viewer sho
 
 - **Fill the frame.** In a feature shot the subject covers most of it. Frames that are mostly empty read as cheap;
   check the stills for this before anything else.
-- **Sizes for a phone.** Captions 40 px, labels and chips 30 px or more, the smallest lettering 22 px, on a
+- **Sizes for a phone.** Captions 40 px, labels and chips 30 px or more, the smallest lettering 28 px, on a
   1920x1080 frame. Anything smaller will not be read.
 - **Do not blow out.** Bright things bloom. A white beam should still be white, an accent node still the accent's
   colour: look at the finished still (`--stills` applies the bloom), not the raw page.
@@ -63,5 +65,5 @@ the stage, the renderer and the board follow.
 ## A new subject
 
 Pick the accent from the subject (sky blue for the sky, a leaf green for photosynthesis, amber for electricity).
-Decide what the hero object is and whether it is 3D. Decide the stage's colour for each act. Everything else is
+Decide what the hero object is, find a reference for it and write its model sheet (`detail.md`). Decide the stage's colour for each act. Everything else is
 already there.

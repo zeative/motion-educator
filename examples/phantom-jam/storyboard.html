@@ -28,7 +28,7 @@
     <div><b>Look</b><span class="sw" style="background:#ff5a48"></span>#ff5a48 <span class="sw" style="background:#4fd0ff;margin-left:10px"></span>#4fd0ff<br>Night on a test track: the kit's graphite stage as the dark ground, the road a lit band of asphalt, the cars lit 3D models with glowing tail lights. Red (the accent) is braking and the jam, nothing else; cyan is the car that soaks the wave up, and the driver who started it. The stage light sits on the jam and follows it.</div>
   </div>
   <div class="report ok">The storyboard passes the standard: 25 shots, 75 drawn frames, 8 facts, 7 acts.</div>
-  
+  <div class="report warn">11 to look at:<br>storyboard: 3D shots but no &quot;models&quot;: list each real object you build, its reference and its parts (references/detail.md)<br>shot s02: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s06: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s08: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s10: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s11: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s13: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s17: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s18: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s19: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s22: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)</div>
   <h2>Acts</h2><div class="acts"><div style="flex:8.743"><b>Out of nowhere</b><span>0:00.00 · 8.7 s · 3 shots</span><p>The question, over a jam on an open road with no cause in sight.</p></div><div style="flex:5.555999999999999"><b>The surprise</b><span>0:08.74 · 5.6 s · 2 shots</span><p>Break the belief: no cause is needed, only enough cars close together.</p></div><div style="flex:15.571000000000002"><b>The ring</b><span>0:14.30 · 15.6 s · 5 shots</span><p>The 2008 experiment: 22 cars, a 230 m ring, 30 km/h, and still a jam.</p></div><div style="flex:10.559999999999999"><b>Why</b><span>0:29.87 · 10.6 s · 3 shots</span><p>One small slowdown grows from driver to driver until a car stops.</p></div><div style="flex:12.240000000000002"><b>The wave</b><span>0:40.43 · 12.2 s · 3 shots</span><p>The jam travels backwards at about 20 km/h while every car goes forwards, as on real highways.</p></div><div style="flex:18.188000000000002"><b>The fix</b><span>0:52.67 · 18.2 s · 6 shots</span><p>A big gap and a steady speed soak the wave up; one automated car did it for a whole ring.</p></div><div style="flex:8.512"><b>Recap</b><span>1:10.86 · 8.5 s · 3 shots</span><p>The three ideas in one frame, and the line to remember.</p></div></div>
   <h2>Fact sheet</h2><table><tr><th>Id</th><th>Claim</th><th>Source</th></tr><tr><td>f1</td><td>In the experiment 22 cars drove on a single-lane circular road 230 m around, on flat ground with no bottleneck; they started almost evenly spaced at about 30 km/h, the drivers asked to cruise at about 30 km/h and to follow the car ahead safely. Published 4 March 2008. The gap between cars: 230 / 22 = 10.45 m front to front; with cars 4.5 m long (the model's assumption), about 6 m (5.95 m) bumper to bumper.</td><td>Sugiyama, Fukui, Kikuchi, Hasebe, Nakayama, Nishinari, Tadaki and Yukawa, 'Traffic jams without bottlenecks: experimental evidence for the physical mechanism of the formation of a jam', New Journal of Physics 10 (2008) 033001 (read in full from the open-access copy, University of Osaka repository hdl.handle.net/11094/93262). The experiment was run at the track of Nakanihon Automotive College, Japan.</td></tr><tr><td>f2</td><td>Small fluctuations grew until free flow broke down: the paper's snapshot 3 minutes after the start shows a jam, and several cars were forced to stop completely for a moment. The paper's point: a jam forms spontaneously once the density of cars passes a critical value; a bottleneck is only a trigger. The film's 'within minutes' and 'stopping dead' are these.</td><td>Sugiyama et al. 2008 (f1), abstract, text and figure 3.</td></tr><tr><td>f3</td><td>The jam cluster moved backwards at roughly 20 km/h while the cars kept going forwards (outside the jam at about 40 km/h); about 20 km/h is the common speed of jams measured on real highways (the paper compares it with aerial traces of highway traffic, Treiterer and Myers 1974).</td><td>Sugiyama et al. 2008 (f1), text and figures 4 and 5.</td></tr><tr><td>f4</td><td>The chain from one small slowdown to a stop is the film's model, not a measurement from the experiment: in sim.py one driver eases off from 30 to 25 km/h (-0.5 m/s2 for 3 s); as the slowdown passes back, the lowest speed of each driver it reaches is 24.6, 24.9, 24.8, 24.7, 24.5, 24.3, 24.0, 23.6, 23.1, 22.5, 21.8, 20.9, 19.9, 18.5, 16.5, 13.6, 8.7, 1.9, 0.0 km/h: the first few about the same, then each lower, until the 19th driver stops. Simplification said in words: 'the drivers behind react late and brake harder'.</td><td>sim.py (this film), dips in sim.json.</td></tr><tr><td>f5</td><td>The ring on screen is a computer model, labelled as one: 22 cars 4.5 m long on a 230 m ring, Intelligent Driver Model (Treiber, Hennecke and Helbing 2000) with a 0.35 s reaction delay, parameters set so that 30 km/h at this spacing is steady. Its jam moves -18.5 km/h (backwards), close to the experiment's 20; cars outside reach 50.3 km/h (the experiment: about 40); about 11.0 cars are stopped at a time (the experiment's jam held about 5). The model's first car stops 20 s after the slowdown; the real drivers took a few minutes, so the film never shows the model's clock, and its sped-up passages are tagged.</td><td>sim.py and sim.json (this film); Treiber, Hennecke, Helbing, Phys. Rev. E 62, 1805 (2000).</td></tr><tr><td>f6</td><td>In a later ring experiment (260 m, 21 to 22 cars, run by the University of Arizona, USA), one car whose speed was controlled by a computer (a human still steered) dampened the stop-and-go waves; one of its controllers simply estimated the average speed and drove at it, letting the gap ahead open when the car in front sped up and close when it slowed. 'One car with a computer on the pedals' is that car. The driving advice (a big gap, a steady speed, don't copy the brakes ahead) is what that controller does; the film does not claim a human study.</td><td>Stern et al., 'Dissipation of stop-and-go waves via control of autonomous vehicles: Field experiments', Transportation Research Part C 89 (2018) 205-221 (read in full, arXiv:1705.01693), sections 2.1 and 3.2.</td></tr><tr><td>f7</td><td>In the film's model, one car (car 11) switched to that controller 140 s in (holding the ring's measured average, 12.5 km/h, and a long gap) smooths the ring: the spread of speeds over a minute falls from 18.76 km/h to 0.0 km/h. The car ahead of it stops and starts; it and the cars behind it roll at an even speed.</td><td>sim.py, scenario 'absorb' (this film).</td></tr><tr><td>f8</td><td>'Enough cars, close together' is the critical density of f2; '≈ 6 m' on screen is the ring's 5.95 m bumper-to-bumper gap (f1).</td><td>Sugiyama et al. 2008; arithmetic in f1.</td></tr></table>
   <h2>Music</h2><p>Composed for this film (kit/audio/music.mjs) · 96 BPM · A bed composed after the take, to the film's length; the cuts follow the voice.</p>
@@ -1001,6 +1001,7 @@
         <dt>Voice</dt><dd class="say">[curious] Why do traffic jams appear *out of nowhere?* <u>2.8 s</u></dd>
         <dt>Teaches</dt><dd>Asks the one question, over the thing itself: a queue of brake lights on an open road.</dd>
         <dt>On screen</dt><dd>Night. The 3D road (the ring of sim.py opened into a straight lane and repeated), seen low from behind a queue of crawling cars, every brake light lit and blooming. The question in metal type across the top third.</dd>
+        
         <dt>Motion</dt><dd>The camera creeps forward along the queue; the title types in by character and a sheen crosses 'out of nowhere?'.</dd>
         <dt>Carries on</dt><dd>The road and the queue.</dd>
         <dt>Transition</dt><dd>The camera rises; the title lifts away.</dd>
@@ -1055,6 +1056,7 @@
         <dt>Voice</dt><dd class="say">You crawl along, then the road clears. <u>2.7 s</u></dd>
         <dt>Teaches</dt><dd>Names the experience: the jam ends and the road ahead is empty.</dd>
         <dt>On screen</dt><dd>The camera flies low along the queue to its front, where cars pull away, lights off, onto open road.</dd>
+        
         <dt>Motion</dt><dd>A forward camera move along the lane, accelerating as the cars do.</dd>
         <dt>Carries on</dt><dd>The road.</dd>
         <dt>Transition</dt><dd>The camera tilts down over the empty road.</dd>
@@ -1109,6 +1111,7 @@
         <dt>Voice</dt><dd class="say">No crash, no roadworks, nothing. <u>2.6 s</u></dd>
         <dt>Teaches</dt><dd>Rules out the usual causes.</dd>
         <dt>On screen</dt><dd>Above the jam's front looking down the empty lane; two glass chips, 'no crash' and 'no roadworks', each struck through as it is said.</dd>
+        
         <dt>Motion</dt><dd>Chips pop in on their words; a strike line draws across each.</dd>
         <dt>Carries on</dt><dd>The road.</dd>
         <dt>Transition</dt><dd>Pull back high to see the whole packed road.</dd>
@@ -1164,6 +1167,7 @@
         <dt>Voice</dt><dd class="say">[excited] Here's the surprise: enough cars, close together, <u>3.4 s</u></dd>
         <dt>Teaches</dt><dd>The turn: density alone is enough.</dd>
         <dt>On screen</dt><dd>High above the straight road, side on: one lane full of moving cars; the gap between two of them bracketed '≈ 6 m'.</dd>
+        
         <dt>Motion</dt><dd>The camera pulls up and turns side on; the bracket draws on 'close together'.</dd>
         <dt>Carries on</dt><dd>The packed cars.</dd>
         <dt>Transition</dt><dd>Brake lights begin to spread in the middle.</dd>
@@ -1218,6 +1222,7 @@
         <dt>Voice</dt><dd class="say">make the jam themselves. <u>1.9 s</u></dd>
         <dt>Teaches</dt><dd>Nothing else is needed: the jam grows among the cars.</dd>
         <dt>On screen</dt><dd>The same side view: a block of red brake lights forms among the moving cars and grows.</dd>
+        
         <dt>Motion</dt><dd>Brake lights spread backwards car by car (the model's own jam).</dd>
         <dt>Carries on</dt><dd>The road.</dd>
         <dt>Transition</dt><dd>The road bends: it curls into a ring.</dd>
@@ -1272,6 +1277,7 @@
         <dt>Voice</dt><dd class="say">[warmly] In two thousand eight, Japanese scientists tested it. <u>3.1 s</u></dd>
         <dt>Teaches</dt><dd>Sets up the experiment that proved it.</dd>
         <dt>On screen</dt><dd>The straight lane curls into a closed ring, seen from above at an angle: the test track. Source chip top left: 'Sugiyama et al., 2008 · New Journal of Physics'.</dd>
+        
         <dt>Motion</dt><dd>The road's curvature runs from 0 to a full circle while the camera rises; the cars ride it.</dd>
         <dt>Carries on</dt><dd>The cars.</dd>
         <dt>Transition</dt><dd>Hold on the closed ring while the labels arrive.</dd>
@@ -1327,6 +1333,7 @@
         <dt>Voice</dt><dd class="say">Twenty-two cars, on a ring two hundred and thirty metres around. <u>3.9 s</u></dd>
         <dt>Teaches</dt><dd>The setup in numbers.</dd>
         <dt>On screen</dt><dd>The ring fills the frame, 22 cars evenly spaced; chip '22 cars' at the centre, then a cyan arc measures the lane and a chip '230 m around'.</dd>
+        
         <dt>Motion</dt><dd>A slow orbit round the ring as the cars cruise; each chip lands on its number and the cyan arc draws round the lane.</dd>
         <dt>Carries on</dt><dd>The ring.</dd>
         <dt>Transition</dt><dd>Push in to one side.</dd>
@@ -1381,6 +1388,7 @@
         <dt>Voice</dt><dd class="say">Everyone was told to hold thirty kilometres an hour. <u>2.9 s</u></dd>
         <dt>Teaches</dt><dd>The rule: a steady 30 km/h.</dd>
         <dt>On screen</dt><dd>Close on one side of the ring at a low angle: cars in an even row; a chip 'every driver: 30 km/h' and speed tags on three cars reading 30.</dd>
+        
         <dt>Motion</dt><dd>The camera tracks low alongside the cars at their own speed, so they hold still in frame while the ground slides.</dd>
         <dt>Carries on</dt><dd>The cars.</dd>
         <dt>Transition</dt><dd>The camera rises to the whole ring.</dd>
@@ -1435,6 +1443,7 @@
         <dt>Voice</dt><dd class="say">No bottleneck, nothing in the way. <u>2.3 s</u></dd>
         <dt>Teaches</dt><dd>Nothing in the setup could cause a jam.</dd>
         <dt>On screen</dt><dd>The whole ring from low over the infield, turning; chip 'no bottleneck'.</dd>
+        
         <dt>Motion</dt><dd>A slow orbit low over the infield while the cars circle evenly.</dd>
         <dt>Carries on</dt><dd>The ring.</dd>
         <dt>Transition</dt><dd>A soft flash: minutes later.</dd>
@@ -1490,6 +1499,7 @@
         <dt>Voice</dt><dd class="say">Within minutes, cars were stopping dead. <u>2.8 s</u></dd>
         <dt>Teaches</dt><dd>The result: a jam with no cause.</dd>
         <dt>On screen</dt><dd>The same ring a few minutes on (chip 'a few minutes later'; 'computer model' tag bottom right): half the ring is packed and red with brake lights, the cars there stopped ('0 km/h').</dd>
+        
         <dt>Motion</dt><dd>The camera pushes toward the jam; stopped cars, moving cars.</dd>
         <dt>Carries on</dt><dd>The ring.</dd>
         <dt>Transition</dt><dd>Rewind to the start, closer.</dd>
@@ -1544,6 +1554,7 @@
         <dt>Voice</dt><dd class="say">[short pause] Here's why. One driver eases off a little. <u>3.2 s</u></dd>
         <dt>Teaches</dt><dd>It starts with one small slowdown.</dd>
         <dt>On screen</dt><dd>The even ring again, a little closer and set to the left; one car ringed in cyan; its brake lights glow and its tag reads 30 → 25 km/h.</dd>
+        
         <dt>Motion</dt><dd>Push toward the marked car; its lights glow for three seconds of model time.</dd>
         <dt>Carries on</dt><dd>The ring and the marked car.</dd>
         <dt>Transition</dt><dd>A glass chart panel opens on the right.</dd>
@@ -1604,6 +1615,7 @@
         <dt>Voice</dt><dd class="say">The drivers behind react late and brake harder, <u>3.1 s</u></dd>
         <dt>Teaches</dt><dd>The slowdown passes back and grows.</dd>
         <dt>On screen</dt><dd>Ring left, panel right: 'Lowest speed, driver by driver', one bar per driver as the slowdown reaches them (sim.json 'dips'), each as tall as that driver's lowest speed, 30 km/h full height. The car whose bar is landing glows on the ring.</dd>
+        
         <dt>Motion</dt><dd>Model time runs about 1.8 times real time (tagged on screen, worked out so the easing-off lands on 'One' and the stop on 'stops'); bars land one by one in time with the cars.</dd>
         <dt>Carries on</dt><dd>The chart.</dd>
         <dt>Transition</dt><dd>Continues into the next line, same picture.</dd>
@@ -1665,6 +1677,7 @@
         <dt>Voice</dt><dd class="say">so it grows, car after car, until somebody stops. <u>4.1 s</u></dd>
         <dt>Teaches</dt><dd>The slowdown grows until a car stops.</dd>
         <dt>On screen</dt><dd>The bars fall steeply (16, 9, 2, 0 km/h); the last car stops on the ring ('stopped').</dd>
+        
         <dt>Motion</dt><dd>The last bar lands at zero; the camera swings to the stopped car.</dd>
         <dt>Carries on</dt><dd>The stopped car.</dd>
         <dt>Transition</dt><dd>The panel slides away; the ring fills the frame.</dd>
@@ -1719,6 +1732,7 @@
         <dt>Voice</dt><dd class="say">Now watch the jam. The cars go forwards, <u>2.8 s</u></dd>
         <dt>Teaches</dt><dd>Look at the jam, not the cars: the cars go one way.</dd>
         <dt>On screen</dt><dd>The whole ring with its jam; cyan arrows on the moving cars show the way they drive; one car is followed into the back of the jam.</dd>
+        
         <dt>Motion</dt><dd>Real model time; the camera tracks the followed car.</dd>
         <dt>Carries on</dt><dd>The ring.</dd>
         <dt>Transition</dt><dd>The jam gets outlined in red.</dd>
@@ -1773,6 +1787,7 @@
         <dt>Voice</dt><dd class="say">but the jam slides backwards, at about twenty kilometres an hour. <u>4.2 s</u></dd>
         <dt>Teaches</dt><dd>The jam goes the other way, at about 20 km/h.</dd>
         <dt>On screen</dt><dd>A red arc outlines the jam and slides backwards round the ring; a red arrow and chip 'jam: ≈ 20 km/h backwards'.</dd>
+        
         <dt>Motion</dt><dd>Real model time (the model's jam moves 18.5 km/h backwards); the arc follows the stopped cars.</dd>
         <dt>Carries on</dt><dd>The jam's arc.</dd>
         <dt>Transition</dt><dd>The ring flattens into a chart.</dd>
@@ -1834,6 +1849,7 @@
         <dt>Voice</dt><dd class="say">That's a stop-and-go wave. Real highway jams move at that same speed. <u>5.0 s</u></dd>
         <dt>Teaches</dt><dd>It is a wave, and the same one as on real highways.</dd>
         <dt>On screen</dt><dd>A time-and-place chart: every car's trace (time across, place on the ring up), drawn from the model; the flat parts (stopped) line up into a band sloping down; the band is labelled 'stop-and-go wave', a dashed line marks 20 km/h backwards, chip '≈ 20 km/h on real highways too'.</dd>
+        
         <dt>Motion</dt><dd>The traces draw left to right as model time runs; the band lights red.</dd>
         <dt>Carries on</dt><dd>The red band.</dd>
         <dt>Transition</dt><dd>Back to the road, close.</dd>
@@ -1888,6 +1904,7 @@
         <dt>Voice</dt><dd class="say">[short pause] How do you stop one? Don't tailgate. <u>2.7 s</u></dd>
         <dt>Teaches</dt><dd>The habit that passes the wave on.</dd>
         <dt>On screen</dt><dd>Close, side on, on two cars of the ring: the second right on the first's bumper; when the first brakes the second's lights flare; chip 'tailgating' crossed out.</dd>
+        
         <dt>Motion</dt><dd>The camera tracks alongside the pair, side on, as the front car brakes and the second one copies it at once.</dd>
         <dt>Carries on</dt><dd>The road.</dd>
         <dt>Transition</dt><dd>The camera drops back.</dd>
@@ -1942,6 +1959,7 @@
         <dt>Voice</dt><dd class="say">Leave a big gap, and keep a steady speed. <u>2.8 s</u></dd>
         <dt>Teaches</dt><dd>The habit that soaks it up: a big gap, a steady speed.</dd>
         <dt>On screen</dt><dd>The cyan car ('you', the model's wave-absorbing car) with a long gap bracketed in front; its tag holds a steady speed while the car ahead pulls away.</dd>
+        
         <dt>Motion</dt><dd>Camera tracks with the cyan car; the gap bracket stretches as the car ahead accelerates.</dd>
         <dt>Carries on</dt><dd>The cyan car.</dd>
         <dt>Transition</dt><dd>Continues: the same car, the gap now shrinking.</dd>
@@ -1997,6 +2015,7 @@
         <dt>Voice</dt><dd class="say">When the car ahead brakes, don't copy it. Let the gap shrink. <u>4.4 s</u></dd>
         <dt>Teaches</dt><dd>The gap is the buffer: it shrinks instead of you stopping.</dd>
         <dt>On screen</dt><dd>The car ahead stops in the jam (red); the cyan car keeps rolling, lights off, the gap bracket shrinking; the car ahead moves off before the gap is gone.</dd>
+        
         <dt>Motion</dt><dd>The camera tracks with the cyan car; the bracket shortens as it rolls up on the stopped car, then the car ahead moves off.</dd>
         <dt>Carries on</dt><dd>The cyan car.</dd>
         <dt>Transition</dt><dd>The two speeds become lines on a chart.</dd>
@@ -2051,6 +2070,7 @@
         <dt>Voice</dt><dd class="say">You soak up the wave instead of passing it on. <u>2.8 s</u></dd>
         <dt>Teaches</dt><dd>Proof in two lines: the wave stops at you.</dd>
         <dt>On screen</dt><dd>A chart of speed against time from the model: the car ahead (white) dives to zero and back; you (cyan) run flat; the car behind you (grey) runs flat too.</dd>
+        
         <dt>Motion</dt><dd>The three speed lines draw left to right in model time; the white one dives, the cyan and grey stay flat.</dd>
         <dt>Carries on</dt><dd>The cyan line.</dd>
         <dt>Transition</dt><dd>The chart fades as the camera rises to the ring.</dd>
@@ -2105,6 +2125,7 @@
         <dt>Voice</dt><dd class="say">Later, one car with a computer on the pedals did just that, <u>3.5 s</u></dd>
         <dt>Teaches</dt><dd>Real evidence: one automated car calmed a whole ring.</dd>
         <dt>On screen</dt><dd>The jammed ring; one car ringed in cyan ('one car, speed set by a computer'); source chip 'Stern et al., 2018 · USA'. The ringed car holds its speed and a big gap opens ahead of it.</dd>
+        
         <dt>Motion</dt><dd>A slow orbit over the jammed ring in real model time; the ringed car rolls steadily as the gap opens ahead of it.</dd>
         <dt>Carries on</dt><dd>The ring.</dd>
         <dt>Transition</dt><dd>Model time speeds up on the same picture.</dd>
@@ -2160,6 +2181,7 @@
         <dt>Voice</dt><dd class="say">and the waves faded. <u>1.5 s</u></dd>
         <dt>Teaches</dt><dd>The waves die out across the whole ring.</dd>
         <dt>On screen</dt><dd>Model time sped up (×8 tag): the red block shrinks and goes; every car rolls at the same speed.</dd>
+        
         <dt>Motion</dt><dd>Model time runs eight times faster (tagged), the camera turns slowly; the red lights go out one by one.</dd>
         <dt>Carries on</dt><dd>The calm ring.</dd>
         <dt>Transition</dt><dd>The recap cards rise.</dd>
@@ -2214,6 +2236,7 @@
         <dt>Voice</dt><dd class="say">[warmly] So a jam out of nowhere starts with one tap on the brakes. <u>3.7 s</u></dd>
         <dt>Teaches</dt><dd>The answer in three pictures.</dd>
         <dt>On screen</dt><dd>Three glass cards over the dimmed ring: 'one tap grows' (falling bars, the model's), 'the jam goes backwards' (a ring with a red backward arrow), 'a gap soaks it up' (the cyan car and its gap).</dd>
+        
         <dt>Motion</dt><dd>Cards rise in turn; their small pictures draw.</dd>
         <dt>Carries on</dt><dd>The calm ring behind.</dd>
         <dt>Transition</dt><dd>The cards fall away.</dd>
@@ -2268,6 +2291,7 @@
         <dt>Voice</dt><dd class="say">And it can end with you. <u>1.8 s</u></dd>
         <dt>Teaches</dt><dd>The payoff: the viewer can stop it.</dd>
         <dt>On screen</dt><dd>The calm ring, the cyan car leading a smooth line; the line to remember lands: 'Leave a gap. Soak up the wave.'</dd>
+        
         <dt>Motion</dt><dd>A slow pull back over the calm ring; the title types in by character and a sheen crosses its accent.</dd>
         <dt>Carries on</dt><dd>The title.</dd>
         <dt>Transition</dt><dd>Holds into the poster.</dd>
@@ -2323,6 +2347,7 @@
         
         <dt>Teaches</dt><dd>The poster: the line to remember, readable for over two seconds.</dd>
         <dt>On screen</dt><dd>As s24, held: the title 'Leave a gap. Soak up the wave.' over the calm ring, every car rolling, breathing.</dd>
+        
         <dt>Motion</dt><dd>A slow push of 3 percent; the cars keep circling at their even speed.</dd>
         <dt>Carries on</dt><dd>Nothing: the film ends.</dd>
         <dt>Transition</dt><dd>End on the poster: no fade to black.</dd>

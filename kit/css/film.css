@@ -176,7 +176,7 @@ canvas {
   justify-content: center;
   gap: 18px;
   color: #a3a3ab;
-  font: 500 22px / 1 var(--mono);
+  font: 500 28px / 1 var(--mono);
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -230,7 +230,7 @@ canvas {
   display: flex;
   align-items: center;
   gap: 16px;
-  font: 500 25px / 1 var(--sans);
+  font: 500 28px / 1 var(--sans);
   visibility: hidden;
 }
 .rail span {
@@ -243,7 +243,7 @@ canvas {
 }
 .rail b {
   color: var(--accent);
-  font: 500 16px / 1 var(--mono);
+  font: 500 24px / 1 var(--mono);
   letter-spacing: 0.12em;
 }
 .rail i {
@@ -282,12 +282,12 @@ canvas {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent);
   box-shadow: 0 1px 0 rgb(255 255 255 / 0.05);
   color: var(--t1);
-  font: 600 24px / 1 var(--sans);
+  font: 600 28px / 1 var(--sans);
 }
 .phead em {
   margin-left: auto;
   color: var(--t3);
-  font: 400 21px / 1 var(--mono);
+  font: 400 26px / 1 var(--mono);
 }
 .prow {
   display: flex;
@@ -296,7 +296,7 @@ canvas {
   height: 66px;
   padding: 0 28px;
   border-bottom: 1px solid var(--line);
-  font: 500 27px / 1 var(--sans);
+  font: 500 30px / 1 var(--sans);
   white-space: nowrap;
 }
 .prow:last-child {
@@ -313,17 +313,17 @@ canvas {
   border-radius: 999px;
   background: var(--glass);
   box-shadow: var(--glass-shadow);
-  font: 550 26px / 1 var(--sans);
+  font: 550 30px / 1 var(--sans);
   white-space: nowrap;
 }
 .chip b {
   color: var(--accent);
-  font: 600 20px / 1 var(--mono);
+  font: 600 26px / 1 var(--mono);
 }
 .label {
   position: absolute;
   color: var(--t2);
-  font: 500 24px / 1.2 var(--mono);
+  font: 500 28px / 1.2 var(--mono);
   white-space: nowrap;
 }
 .label b {
@@ -400,7 +400,7 @@ svg.ink circle {
   left: var(--safe-left);
   top: var(--safe-top);
   gap: 10px;
-  font-size: 22px;
+  font-size: 28px;
 }
 :root[data-format="portrait"] .rail i {
   width: 28px;
@@ -454,4 +454,39 @@ svg.ink circle {
   border-color: rgb(255 40 90 / 0.28);
   border-width: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
   pointer-events: none;
+}
+
+/* Pins: labels held on a part of a 3D model (stage3d.js space.pin). A dot on the part, an elbow line, a chip. */
+.pin3d {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: rgb(14 15 19 / 0.78);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14), 0 12px 30px rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(8px);
+  color: var(--t1);
+  font: 600 30px / 1.1 var(--sans);
+  white-space: nowrap;
+}
+.pin3d small {
+  display: block;
+  margin-top: 6px;
+  color: var(--t2);
+  font: 500 28px / 1.2 var(--sans);
+}
+.pin3d b {
+  color: var(--accent);
+}
+.pin3d-line {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.75);
+  stroke-width: 2.5;
+}
+.pin3d-dot {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px var(--accent));
 }

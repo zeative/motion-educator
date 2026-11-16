@@ -26,11 +26,16 @@ music, frames written with a few helper functions, and the JSON generated from t
   "fps": 60,
   "look": { "accent": "#4da3ff", "accent2": "#ffb21a", "mood": "one or two sentences on the stage, the light and the materials" },
   "music": { "track": "...", "bpm": 86, "beat": 0.697674, "offset": 0, "start": 0.679, "note": "why this track, and how it sits on the cuts" },
+  "standard": 2,
   "facts": [{ "id": "f4", "claim": "what is true, with the arithmetic if there is any", "source": "who says so" }],
+  "models": [{ "name": "the real object you build", "reference": "what you looked at", "scale": "1 unit = 1 mm", "parts": ["at least five named parts"] }],
   "acts": [{ "id": "hook", "title": "Pertanyaan", "goal": "what this act does for the viewer", "rail": false }],
   "shots": []
 }
 ```
+
+`models` is the model sheet for every real object built in 3D (`detail.md`): required, with `camera` on every
+`object3d` and `macro` shot, when `standard` is 2 (the template's).
 
 `rail: false` keeps an act (the hook, the recap) out of the chapter rail the film shows.
 
@@ -50,6 +55,7 @@ of the script (`narration.md`, `voice.md`); its shot times are then set by the r
   "caption": "Yang pendek *terhambur* ke segala arah.",
   "teaches": "the one thing this shot teaches, or the job it does",
   "screen": "what is on screen, concretely: every element, where it is, what it looks like",
+  "camera": "for 3D shots: where the camera starts and ends (angle, distance), the lens, what is in focus",
   "motion": "the main move, the supporting moves, the small detail",
   "carries": "what stays on screen into the next shot",
   "transition": "how the shot leaves",

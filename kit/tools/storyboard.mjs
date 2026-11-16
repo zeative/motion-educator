@@ -115,6 +115,23 @@ for (const act of sb.acts ?? []) {
 if (acts.size < 3) err("storyboard", "fewer than three acts: a hook, the explanation and a recap are the minimum");
 
 const shots = sb.shots ?? [];
+// A film that shows real things in 3D builds them from a reference: each model names where its shape comes from
+// and the parts a viewer would see in a teardown (references/detail.md).
+const CAMERA_TYPES = ["object3d", "macro"];
+const modelled = shots.filter((shot) => CAMERA_TYPES.includes(shot.type));
+// Storyboards written before this standard ("standard" below 2) get warnings, not errors.
+const strict = (sb.standard ?? 1) >= 2;
+const must = strict ? err : warn;
+if (modelled.length) {
+  const models = sb.models ?? [];
+  if (!models.length) must("storyboard", '3D shots but no "models": list each real object you build, its reference and its parts (references/detail.md)');
+  for (const model of models) {
+    const where = `model ${model.name ?? "?"}`;
+    need(model, "name", where, 2);
+    need(model, "reference", where, 15);
+    if (!Array.isArray(model.parts) || model.parts.length < 5) must(where, '"parts" needs at least five named parts, as a teardown or cross-section shows them');
+  }
+}
 const used = new Set();
 let previousEnd = 0;
 let frameCount = 0;
@@ -125,6 +142,8 @@ shots.forEach((shot, i) => {
   if (!TYPES.includes(shot.type)) err(where, `type "${shot.type}" is not one of ${TYPES.join(", ")}`);
   for (const [key, min] of Object.entries(MIN)) need(shot, key, where, min);
   if (i < shots.length - 1) need(shot, "carries", where, 8);
+  if (CAMERA_TYPES.includes(shot.type) && !(typeof shot.camera === "string" && shot.camera.trim().length >= 30)) must(where, '"camera" is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)');
+  if (i >= 1 && shot.camera && shots[i - 1].camera && shot.camera.trim() === shots[i - 1].camera.trim()) warn(where, "the same camera move as the shot before: change the angle or the move");
   if (Math.abs(shot.start - previousEnd) > 1e-3) err(where, `starts at ${shot.start} but the shot before ends at ${previousEnd}: no gaps, no overlaps`);
   const dur = shot.end - shot.start;
   if (dur < SHOT.shortest) err(where, `${dur.toFixed(2)} s is too short to read (minimum ${SHOT.shortest} s)`);
@@ -223,6 +242,7 @@ const row = (shot, i) => `
         ${shot.voice ? `<dt>Voice</dt><dd class="say">${esc(shot.voice)}${cutToTake && take.film?.[shot.id] ? ` <u>${(take.film[shot.id].to - take.film[shot.id].from).toFixed(1)} s</u>` : " <u>not performed yet</u>"}</dd>` : ""}
         <dt>Teaches</dt><dd>${esc(shot.teaches)}</dd>
         <dt>On screen</dt><dd>${esc(shot.screen)}</dd>
+        ${shot.camera ? `<dt>Camera</dt><dd>${esc(shot.camera)}</dd>` : ""}
         <dt>Motion</dt><dd>${esc(shot.motion)}</dd>
         <dt>Carries on</dt><dd>${esc(shot.carries ?? "the film ends here")}</dd>
         <dt>Transition</dt><dd>${esc(shot.transition)}</dd>

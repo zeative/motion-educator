@@ -28,7 +28,7 @@
     <div><b>Look</b><span class="sw" style="background:#2ee6ff"></span>#2ee6ff <span class="sw" style="background:#ff3d55;margin-left:10px"></span>#ff3d55<br>The kit's graphite stage, cool and clean. Electric cyan is data and speed (pages in use, the chip's light, a fast write); warning red is 'full' (the storage bar, the bounce, the block being cleaned). Grey is old data. The stage light sits on the phone, dives into the chip, turns red while the phone struggles and returns to cyan when it is fast again. A generic phone and a flash chip in lit 3D; the grid is a crisp glowing canvas.</div>
   </div>
   <div class="report ok">The storyboard passes the standard: 14 shots, 38 drawn frames, 8 facts, 5 acts.</div>
-  
+  <div class="report warn">4 to look at:<br>storyboard: 3D shots but no &quot;models&quot;: list each real object you build, its reference and its parts (references/detail.md)<br>shot s02: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s04: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s04b: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)</div>
   <h2>Acts</h2><div class="acts"><div style="flex:3.597"><b>Pertanyaan</b><span>0:00.00 · 3.6 s · 1 shots</span><p>Ask the question while a phone fills up, then go inside to the chip.</p></div><div style="flex:13.160000000000002"><b>Cara kerja</b><span>0:03.60 · 13.2 s · 5 shots</span><p>The two rules of flash: write a page at a time, erase a block at a time, never overwrite.</p></div><div style="flex:17.62"><b>Pas penuh</b><span>0:16.76 · 17.6 s · 5 shots</span><p>Show the mechanism of the slowness: no empty page, so copy, erase, then write; the fuller, the more work; and no room for temporary files.</p></div><div style="flex:7.3799999999999955"><b>Biar ngebut</b><span>0:34.38 · 7.4 s · 2 shots</span><p>The same write with room to spare, and what to do.</p></div><div style="flex:3"><b>Rangkuman</b><span>0:41.76 · 3.0 s · 1 shots</span><p>The ideas in one frame and the line to remember.</p></div></div>
   <h2>Fact sheet</h2><table><tr><th>Id</th><th>Claim</th><th>Source</th></tr><tr><td>f1</td><td>Phone storage is NAND flash. Its smallest unit for reading and writing (programming) is the page; its smallest unit for erasing is the block, which holds many pages. Typical figures: pages of about 4 to 16 KB, blocks of 64 to 512 pages or more (one datasheet: 16 384-byte pages, 256 pages a block, about 4 MB). The film draws 16 pages a block and says on screen that a real block has hundreds.</td><td>Phison / NYCU course slides on NAND flash ('Page is the smallest unit for read and program; Block is the smallest unit for erase', 1 block = 256 pages of 16 KB); flashdba.com, 'Understanding Flash: Blocks, Pages and Program / Erases' (2014); a 64 Gb MLC NAND datasheet (16 384-byte page, 256 pages a block). Read through search summaries; the pages themselves could not be opened from this session.</td></tr><tr><td>f2</td><td>A NAND page that holds data cannot be overwritten in place: it must be erased first, and erasing works only on a whole block. So changed data is written to an already-erased page and the old copy is marked stale (no longer used).</td><td>Phison / NYCU slides ('Must erase before program (cannot overwrite)'); Hu et al., 'Write Amplification Analysis in Flash-Based Solid State Drives', SYSTOR 2009 (IBM Zurich); flashdba.com (2014). Read through search summaries.</td></tr><tr><td>f3</td><td>When free space runs out, there is no erased page to write to until the controller makes one by garbage collection. Simplification: the film shows the six blocks with no empty page at all; a real controller keeps hidden spare blocks (over-provisioning) and collects garbage in the background, but when the drive is nearly full it has to do it more often and while you wait.</td><td>Hu et al., SYSTOR 2009; Stanford CS111 lecture notes on flash memory (garbage collection and TRIM). Read through search summaries.</td></tr><tr><td>f4</td><td>Garbage collection: the controller picks a block (usually the one with the fewest valid pages), copies its still-valid pages to an erased block, then erases the old block. Those copies are writes nobody asked for (write amplification). In the film one photo is drawn as one page; a real photo of a few megabytes fills hundreds of pages. The 11 pages moved in s07 match the toy model's average at 97% full (10,7 pages a clean-up).</td><td>Hu et al., SYSTOR 2009 (greedy reclaiming); IBM Research report RZ3757; sim.py in this folder for the 10,7.</td></tr><tr><td>f5</td><td>Write amplification grows as spare space shrinks: with less room, the blocks being cleaned hold more valid pages, so more must be copied, and clean-ups are needed more often. In the toy flash of sim.py (7 blocks of 16 pages, greedy garbage collection, random overwrites) the pages written per page of new data are 1,29 at 60% full, 1,82 at 80%, 2,32 at 90% and 3,00 at 97%, and clean-ups per write rise from 0,08 to 0,19. The film shows these as 1,3×, 1,8×, 2,3× and 3×, labelled as a simple model, not a measured phone.</td><td>Hu et al., SYSTOR 2009 ('The impact of garbage collection on write amplification is influenced by the level of over-provisioning'); 'Modelling and Managing SSD Write-amplification' (arXiv 1504.00229); the arithmetic: sim.py in this folder (200 000 writes a level, seed 1).</td></tr><tr><td>f6</td><td>The system and apps keep temporary (cache) files on the same storage, and Android may delete cache files when the device is low on internal storage. So a nearly full phone also has less room for the temporary files apps and the system use while working.</td><td>Android developer documentation on app-specific files ('When the device is low on internal storage space, Android may delete these cache files to recover space'), quoted via a forum post because developer.android.com could not be opened from this session.</td></tr><tr><td>f7</td><td>Google's Android help says a phone can start having issues when less than 10% of its storage is free. So the film says 'paling nggak sepuluh persen' (at least about ten percent) and shows '≥ 10% kosong'. Higher figures (15 to 20%) appear only in secondary sources and are not used.</td><td>Google, Android Help, 'Speed up a slow Android device' (support.google.com/android/answer/7667018), as quoted in search results; the page itself could not be opened from this session.</td></tr><tr><td>f8</td><td>TRIM: the phone's system tells the flash which pages belong to deleted files, so garbage collection need not copy them; Android has run this (fstrim) automatically during idle maintenance since Android 4.3 (2013). It cannot help when the storage is truly full of data you keep. Not spoken in the film; it is why deleting files really frees space for the controller. The percentages on the phone's screen (91%, 97%, 80%) are an illustration of a phone filling up.</td><td>AnandTech, 'Android 4.3 Update Brings TRIM to All Nexus Devices' (2013); Wikipedia, Trim (computing). Read through search summaries.</td></tr></table>
   <h2>Music</h2><p>Composed for this film (ElevenLabs Music, music/bed.mp3) · 100 BPM · A bed composed to the film's length after the take: light, curious tech; sparse under the voice; a small tension while the phone struggles and a release when it is fast again. The cuts follow the take, not a beat.</p>
@@ -553,6 +553,7 @@
         <dt>Voice</dt><dd class="say">[curious] Kenapa sih hape kamu makin *lemot* pas memorinya hampir penuh? <u>3.3 s</u></dd>
         <dt>Teaches</dt><dd>Asks the question in the viewer's own words while it happens: a phone's storage bar climbing into the red and a photo that will not finish saving.</dd>
         <dt>On screen</dt><dd>A generic phone in 3D (no brand, no real interface), 520 x 1050 px centred on (497, 760), graphite frame and glass front, lit from the upper left with a cyan rim. Its screen is a plain storage page: 'Penyimpanan', a large percentage, a thick bar, and below it a photo thumbnail with a spinner and 'menyimpan…'. The question pops in large words under the phone.</dd>
+        
         <dt>Motion</dt><dd>Frame 0 already shows the bar at 91% climbing, the phone turning slowly. On 'lemot' the bar reaches 97% and turns warning red, the figure ticks to 97% on that frame, 'Hampir penuh' drops in, and the spinner keeps turning. At the end the phone pushes toward the lens.</dd>
         <dt>Carries on</dt><dd>The red of 'full' and the push into the phone.</dd>
         <dt>Transition</dt><dd>The phone rushes at the lens; a soft flash; we are inside, at the chip.</dd>
@@ -595,6 +596,7 @@
         <dt>Voice</dt><dd class="say">Di dalam chipnya ada *blok-blok,* <u>2.0 s</u></dd>
         <dt>Teaches</dt><dd>Where the data really lives: a flash chip, and its inside is divided into blocks.</dd>
         <dt>On screen</dt><dd>A flash chip in 3D, a graphite package 880 px square on a dark board with fine traces, gold contacts along its edges, lit by a cyan rim. It turns from a steep three-quarter view to face the camera; its face lights up from inside as a grid: six blocks in two rows and a seventh below.</dd>
+        
         <dt>Motion</dt><dd>The chip turns and settles in 1.5 s (expo out). On 'blok-blok' the grid on its face lights block by block. In the last frames the 3D face hands over to the flat grid at the same pixels.</dd>
         <dt>Carries on</dt><dd>The grid, at the same pixels.</dd>
         <dt>Transition</dt><dd>No cut: the chip face becomes the flat grid.</dd>
@@ -637,6 +639,7 @@
         <dt>Voice</dt><dd class="say">tiap blok punya banyak *halaman* kecil. <u>2.4 s</u></dd>
         <dt>Teaches</dt><dd>A block is made of many pages: the page is the small unit, the block the big one.</dd>
         <dt>On screen</dt><dd>The grid face-on: six dark glass blocks (252 px) in a 3 x 2 grid from y 400 to 930, the spare block under them at (371, 966), each holding 4 x 4 pages. Pages in use glow electric cyan; empty pages are dark outlines; old ones are grey. A strip at the top, 'penyimpanan', is half full in cyan. A bracket '1 blok' over block 0, a chip 'halaman' at the top with a leader to one page, and a small note at the top right 'aslinya: ratusan halaman per blok'. (The storage strip comes in only at s06.)</dd>
+        
         <dt>Motion</dt><dd>Block 0's bracket draws as the line starts; its pages tick on one by one; on 'halaman' the chip pops on page 5. A slow push.</dd>
         <dt>Carries on</dt><dd>Block 0.</dd>
         <dt>Transition</dt><dd>The camera pushes in on block 0.</dd>
@@ -680,6 +683,7 @@
         <dt>Voice</dt><dd class="say">Data ditulis per *halaman,* <u>1.6 s</u></dd>
         <dt>Teaches</dt><dd>Writing goes one page at a time.</dd>
         <dt>On screen</dt><dd>Close on block 0, 2.2 times: its pages are 105 px squares, six lit cyan, ten empty. A small cyan packet drops into the next empty page, which lights. Chip: 'ditulis per halaman'.</dd>
+        
         <dt>Motion</dt><dd>The camera pushes in over 0.6 s; the packet falls and lands on 'halaman' with a small flash.</dd>
         <dt>Carries on</dt><dd>Block 0, close.</dd>
         <dt>Transition</dt><dd>No cut: a second packet comes down at the same block.</dd>
@@ -734,6 +738,7 @@
         <dt>Voice</dt><dd class="say">tapi halaman yang terisi nggak bisa *ditimpa.* <u>2.8 s</u></dd>
         <dt>Teaches</dt><dd>A page that holds data cannot be written over: a changed copy goes to an empty page and the old one becomes useless.</dd>
         <dt>On screen</dt><dd>Close on block 0. A changed copy of page 2 comes down onto it, bounces off with a red cross, and lands in the next empty page instead; page 2 turns grey. Chips: 'nggak bisa ditimpa', then 'lama, nggak dipakai'.</dd>
+        
         <dt>Motion</dt><dd>The changed copy hits page 2 on 'ditimpa' and bounces (a red flash and cross); it slides to page 6 and lights; page 2 greys.</dd>
         <dt>Carries on</dt><dd>Block 0 with its first grey page.</dd>
         <dt>Transition</dt><dd>The camera pulls back to the whole grid.</dd>
@@ -788,6 +793,7 @@
         <dt>Voice</dt><dd class="say">Harus dihapus dulu, dan hapusnya satu *blok* sekaligus. <u>3.4 s</u></dd>
         <dt>Teaches</dt><dd>Erasing works only on a whole block at once.</dd>
         <dt>On screen</dt><dd>The whole grid again. Block 2 is all grey (old data). A red frame closes around it; then all sixteen of its pages wipe in one flash, together. A chip: 'hapus 1 blok sekaligus'.</dd>
+        
         <dt>Motion</dt><dd>The camera pulls back in 0.5 s. The frame draws round block 2 on 'dihapus'; on 'blok' a single bright sweep crosses it and every page empties on the same frame.</dd>
         <dt>Carries on</dt><dd>The grid, now with one clean block.</dd>
         <dt>Transition</dt><dd>No cut: the grid starts to fill.</dd>
@@ -843,6 +849,7 @@
         <dt>Voice</dt><dd class="say">[short pause] Nah, pas hampir *penuh,* halaman kosongnya *habis.* <u>3.1 s</u></dd>
         <dt>Teaches</dt><dd>The turn: when the storage is nearly full, there is no empty page left to write to.</dd>
         <dt>On screen</dt><dd>The grid from a little further back, with the spare block labelled 'blok cadangan' under it. Empty pages light one after another until none is left; a few are grey. The strip at the top fills and turns red: 'hampir penuh'. A chip in red: '0 halaman kosong'.</dd>
+        
         <dt>Motion</dt><dd>Pages fill in a fast ripple from 'Nah' to 'penuh' (about 40 pages in 1.5 s); the strip turns red on 'penuh'; the stage light turns red; the chip lands on 'habis'.</dd>
         <dt>Carries on</dt><dd>The full grid and the empty spare block.</dd>
         <dt>Transition</dt><dd>No cut: a photo arrives.</dd>
@@ -901,6 +908,7 @@
         <dt>Voice</dt><dd class="say">Jadi buat nyimpan satu *foto,* hape harus mindahin data yang masih *dipakai.* <u>4.5 s</u></dd>
         <dt>Teaches</dt><dd>The extra work, step one: to make room, the phone's controller copies the pages still in use out of a block into a spare block.</dd>
         <dt>On screen</dt><dd>The full grid. A new photo (a generic landscape thumbnail) drops in at the top right and a red scan looks for an empty page. At the bottom left a chip 'pengendali' lights; at the bottom right a glass counter 'kerja ekstra: pindah 0, hapus 0'. Block 4, with the most grey pages, gets a red frame; its eleven cyan pages fly one by one to the spare block, the counter ticking 1 ... 11.</dd>
+        
         <dt>Motion</dt><dd>The photo drops on 'foto'; the scan runs 0.5 s; the frame closes round block 4; the copies leave one every 0.2 s or so along short arcs and land in order; each landing ticks the counter.</dd>
         <dt>Carries on</dt><dd>Block 4, left with grey pages only, and the photo still waiting.</dd>
         <dt>Transition</dt><dd>No cut: block 4 is erased.</dd>
@@ -961,6 +969,7 @@
         <dt>Voice</dt><dd class="say">Terus blok lamanya *dihapus,* baru fotonya *masuk.* <u>3.0 s</u></dd>
         <dt>Teaches</dt><dd>Step two and three: the old block is erased, and only then is the photo written.</dd>
         <dt>On screen</dt><dd>The same picture. Block 4 is wiped in one flash; the counter's 'hapus' reads 1. The photo shrinks into a page and flies into the first empty page of the spare block, which lights. A chip: 'baru tersimpan'.</dd>
+        
         <dt>Motion</dt><dd>The erase on 'dihapus'; the photo flies on 'fotonya' and lands on 'masuk'.</dd>
         <dt>Carries on</dt><dd>The counter: 11 moved and 1 erased for one photo.</dd>
         <dt>Transition</dt><dd>The grid steps back and becomes the chart's first bar.</dd>
@@ -1016,6 +1025,7 @@
         <dt>Voice</dt><dd class="say">Makin penuh, makin sering kerja ekstra ini, makanya *lemot.* <u>3.7 s</u></dd>
         <dt>Teaches</dt><dd>The fuller the storage, the more pages are written for each page of new data: that extra work is the slowness.</dd>
         <dt>On screen</dt><dd>A chart on glass: 'ditulis per 1 halaman data baru', four bars at '60%', '80%', '90%', '97%' full, heights computed by the toy flash in sim.py (1,3×, 1,8×, 2,3×, 3×): cyan, cyan, amber (90% is the limit), red. Under it: 'model sederhana, bukan ukuran HP asli'.</dd>
+        
         <dt>Motion</dt><dd>The bars rise one after another on 'Makin penuh, makin sering', each landing at its value with its figure; on 'lemot' the last one pulses red.</dd>
         <dt>Carries on</dt><dd>The red of 'full', into the phone.</dd>
         <dt>Transition</dt><dd>Cut back to the phone.</dd>
@@ -1058,6 +1068,7 @@
         <dt>Voice</dt><dd class="say">Belum lagi, ruang buat file sementara ikut *sempit.* <u>3.0 s</u></dd>
         <dt>Teaches</dt><dd>A second cost: the system also needs free room for temporary files, and a full phone has none to give.</dd>
         <dt>On screen</dt><dd>The phone at 97%, its bar split into Foto, Aplikasi and Sistem from the first frame. Under it the breakdown rows and 'File sementara', whose room is already only a sliver. Small file tiles try to fit into the slot and pile up, red: 'nggak muat'.</dd>
+        
         <dt>Motion</dt><dd>The breakdown rows land; small file tiles arrive and bump against the sliver of room; on 'sempit' the room squeezes shut and the chip 'nggak muat' pops.</dd>
         <dt>Carries on</dt><dd>The phone.</dd>
         <dt>Transition</dt><dd>A quick cut to the roomy grid.</dd>
@@ -1118,6 +1129,7 @@
         <dt>Voice</dt><dd class="say">Padahal kalau *lega,* fotonya langsung masuk. <u>2.6 s</u></dd>
         <dt>Teaches</dt><dd>The contrast: with free pages, the same photo is written at once, with no copying and no erasing.</dd>
         <dt>On screen</dt><dd>The grid with many empty pages, the strip at the top cyan and half full: 'lega'. The same photo drops straight into an empty page of block 0 with a cyan flash. The counter reads 'pindah 0, hapus 0'; a chip 'langsung masuk'.</dd>
+        
         <dt>Motion</dt><dd>The photo falls in one quick move on 'langsung' and lands on 'masuk'; the counter stays at zero.</dd>
         <dt>Carries on</dt><dd>The cyan, into the phone.</dd>
         <dt>Transition</dt><dd>Cut back to the phone.</dd>
@@ -1173,6 +1185,7 @@
         <dt>Voice</dt><dd class="say">Jadi sisakan ruang kosong, paling nggak *sepuluh persen,* biar tetap *ngebut.* <u>4.4 s</u></dd>
         <dt>Teaches</dt><dd>What to do: keep some room free, at least about a tenth of the storage.</dd>
         <dt>On screen</dt><dd>The phone, already cyan: its bar falls from 90% to 80% as it is cleared; the figure changes at its values. A marker stands at 90% and the last tenth of the bar is outlined: '≥ 10% kosong'. The photo below is saved at once: 'tersimpan ✓'.</dd>
+        
         <dt>Motion</dt><dd>The bar falls on 'sisakan ruang kosong'; the marker and its chip land on 'sepuluh persen'; the check lights on 'ngebut'. Slow push.</dd>
         <dt>Carries on</dt><dd>The phone, dimmed, behind the recap.</dd>
         <dt>Transition</dt><dd>The cards rise over the phone.</dd>
@@ -1227,6 +1240,7 @@
         
         <dt>Teaches</dt><dd>The three ideas in one frame, and the line to remember.</dd>
         <dt>On screen</dt><dd>Three glass cards, 866 px wide, at y 262, 486 and 710, each with a small picture: a block of pages with one page lit and the block outline red ('tulis per halaman, hapus per blok'); pages hopping to a new block ('penuh: pindah dulu, hapus, baru tulis'); a bar with its last tenth outlined ('sisakan ≥ 10% kosong'). Below, the poster line in metal type at 100 px on a dark glass plate: 'Sisakan ruang, / biar ngebut.', and under it a clean storage bar at 80% with its last tenth outlined, '≥ 10% kosong'.</dd>
+        
         <dt>Motion</dt><dd>The cards rise one after another in the first 0.5 s; the poster lines slam in; a sheen crosses them. It holds for two seconds with a slow push.</dd>
         <dt>Carries on</dt><dd>the film ends here</dd>
         <dt>Transition</dt><dd>The film ends on this frame; it can loop to frame 0, the same phone.</dd>

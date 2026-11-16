@@ -28,7 +28,7 @@
     <div><b>Look</b><span class="sw" style="background:#f4b740"></span>#f4b740 <span class="sw" style="background:#6fb6ff;margin-left:10px"></span>#6fb6ff<br>A dark graphite stage with warm gold light: 3D gold coins (reeded edges, raised rims, embossed faces) under a studio light, soft contact shadows on the floor. Gold is money that earns; a paler, hotter gold marks bunga; a cool blue-silver marks interest taken out (simple interest), the same blue as the straight line on the chart. The stage light is warm over the coins, cools toward the blue pile, follows the gold curve up and right, and settles warm behind the poster.</div>
   </div>
   <div class="report ok">The storyboard passes the standard: 17 shots, 46 drawn frames, 5 facts, 6 acts.</div>
-  
+  <div class="report warn">9 to look at:<br>storyboard: 3D shots but no &quot;models&quot;: list each real object you build, its reference and its parts (references/detail.md)<br>shot s01: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s02: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s04: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s05: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s07: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s08: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s09: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)<br>shot s16: &quot;camera&quot; is missing or too thin: where the camera starts and ends, the lens and what is in focus (references/detail.md)</div>
   <h2>Acts</h2><div class="acts"><div style="flex:3.488"><b>Pertanyaan</b><span>0:00.00 · 3.5 s · 1 shots</span><p>Ask the question over its picture: a stack of coins giving birth to a coin.</p></div><div style="flex:14.652000000000001"><b>Bunga diambil</b><span>0:03.49 · 14.7 s · 5 shots</span><p>Show the mechanism of interest on coins (each coin earns a tenth), then what happens when it is taken out: a straight line to Rp40 juta.</p></div><div style="flex:18.836999999999996"><b>Bunga berbunga</b><span>0:18.14 · 18.8 s · 6 shots</span><p>The turn: the interest joins the pile and earns too (bunga dari bunga), so the line curves up to about Rp174,5 juta.</p></div><div style="flex:6.2790000000000035"><b>Aturan 72</b><span>0:36.98 · 6.3 s · 2 shots</span><p>Turn the curve into a tool: 72 divided by the rate gives the years to double, drawn as a ladder on the curve.</p></div><div style="flex:5.581000000000003"><b>Jawaban</b><span>0:43.26 · 5.6 s · 2 shots</span><p>Answer the question in one line over the coins, then the poster.</p></div><div style="flex:3.488999999999997"><b>Rangkuman</b><span>0:48.84 · 3.5 s · 1 shots</span><p>The line to remember and the three ideas in one frame.</p></div></div>
   <h2>Fact sheet</h2><table><tr><th>Id</th><th>Claim</th><th>Source</th></tr><tr><td>f1</td><td>Simple interest (bunga diambil tiap tahun): 10% of Rp10 juta = Rp1 juta a year, every year, because the pokok never changes. After 30 years: 10 + 30 x 1 = Rp40 juta in all (the Rp10 juta pokok plus Rp30 juta taken out). Drawn as the line 10 + t.</td><td>Definition of simple interest (interest on the principal only), e.g. Investor.gov (US SEC), Compound Interest Calculator and glossary; arithmetic done here.</td></tr><tr><td>f2</td><td>Compounded once a year (bunga dibiarkan): the balance after t years is 10 x 1,1^t juta. Year 1: 11. Year 2's interest: 0,1 x 11 = 1,1 juta = 1 (from the pokok) + 0,1 (from last year's interest: 'bunga dari bunga'). Year 1 to 5 interest: 1; 1,1; 1,21; 1,331; 1,4641. Year 5: 16,11 vs 15 simple (gap 1,1). Year 30: 10 x 1,1^30 = 174,494 ≈ Rp174,5 juta (said 'hampir seratus tujuh puluh lima juta'). 174,5 / 40 = 4,36 ≈ 4,4×.</td><td>Compound interest formula A = P(1 + r)^n, e.g. Federal Reserve Bank of St. Louis, Open Vault, 'How Does Compound Interest Work?' (2018); arithmetic done here (Python).</td></tr><tr><td>f3</td><td>Rule of 72: years to double ≈ 72 / yearly rate in percent. At 10%: 72 / 10 = 7,2 years (said 'kira-kira tujuh tahun'). The exact doubling time at 10% compounded yearly is ln 2 / ln 1,1 = 7,27 years, so the ladder's corners are drawn at 7,27; 14,55; 21,82; 29,09 years for Rp20, 40, 80 and 160 juta, and the marks under the axis are rounded (≈7, ≈15, ≈22, ≈29). The rule is an estimate, closest for rates around 6 to 10%.</td><td>Investor.gov (US SEC), glossary: 'Rule of 72'; Federal Reserve Bank of St. Louis, Open Vault (2018); exact time computed here.</td></tr><tr><td>f4</td><td>10% a year is an illustration chosen to make the arithmetic easy, not the return of any product; the film says so on screen. It ignores tax, fees, inflation and changing rates, and compounds once a year. The film teaches the mechanism and gives no financial advice.</td><td>The film's own framing; simplifications listed here.</td></tr><tr><td>f5</td><td>In the pictures one coin stands for Rp1 juta and a slice a tenth of a coin's thickness for Rp100 ribu (10% of one coin). Ten slices make one coin (year 1's Rp1 juta), eleven make 1,1 coins (year 2's Rp1,1 juta). The columns in s14 are 3,9 px per Rp1 juta: 39 px at year 0, 680,5 px at year 30.</td><td>Arithmetic from f1 and f2.</td></tr></table>
   <h2>Music</h2><p>Xceed Thru Johann (Mixkit 556) · 86 BPM · A calm 86 BPM bed that rises slowly, started 0.679 s in so a beat falls on frame 0. Every shot length is a whole number of half beats, so every cut is on the grid. At -18 LUFS: there is no voice to make room for.</p>
@@ -633,6 +633,7 @@
         
         <dt>Teaches</dt><dd>Asks the one question the film answers, over the picture of it: a stack of coins giving birth to a new coin.</dd>
         <dt>On screen</dt><dd>Lower right: a stack of ten 3D gold coins (reeded edges, raised rims, an embossed face), base centre at (1400, 900), lit warm from the upper left with a soft contact shadow. Upper left: a small mono kicker 'BUNGA MAJEMUK' at y 190, then the question in metal type, 100 px, two lines centred on x 640 from y 330: 'Kok uang yang disimpan / bisa beranak sendiri?', 'beranak' in gold. The stack stands at (1400, 900). The lettering is the question, so the shot shows no caption pill.</dd>
+        
         <dt>Motion</dt><dd>Frame 0 holds the stack and the first line, the camera already orbiting slowly. On 'beranak' a bright coin rises out of the top of the stack, arcs right and lands at (1660, 870) with a ring on the floor; the second line lands with the word. Light pulses warm on the birth.</dd>
         <dt>Carries on</dt><dd>The stack of ten coins.</dd>
         <dt>Transition</dt><dd>The question lifts and fades; the camera glides left so the stack stands at x 820. The child coin fades: we start again from year 0.</dd>
@@ -675,6 +676,7 @@
         
         <dt>Teaches</dt><dd>The starting point: Rp10 juta of pokok, shown as ten coins, one coin per Rp1 juta.</dd>
         <dt>On screen</dt><dd>The stack of ten coins at x 820, base y 860, filling the middle height. Left of it a thin gold bracket up the stack, 'pokok' (50 px) above 'Rp10 juta' in big type (96 px) at x 430, and '1 koin = Rp1 juta' (34 px) under it.</dd>
+        
         <dt>Motion</dt><dd>The camera glides in from the hook framing and settles with a slow push. The bracket draws up the stack, the label lands on 'sepuluh juta'.</dd>
         <dt>Carries on</dt><dd>The stack and its label.</dd>
         <dt>Transition</dt><dd>No cut: the next line plays over the same stack.</dd>
@@ -717,6 +719,7 @@
         
         <dt>Teaches</dt><dd>What 10% a year means for coins: every coin earns a tenth of itself in a year.</dd>
         <dt>On screen</dt><dd>Same stack. A glass chip 'bunga 10% / tahun' at the upper right (1240, 300). Each coin pushes out of its right edge a thin bright slice a tenth of its thickness (2,6 px of 26), like a card sliding out of a deck; the coins stay whole. A small label 'tiap koin: 1/10' beside the slices. At the top of the frame (y 96), 30 px, clear of the caption band: '10% cuma contoh ilustrasi, bukan janji imbal hasil produk apa pun'.</dd>
+        
         <dt>Motion</dt><dd>The chip lands on 'bunganya'; on 'sepuluh persen' the ten slices slide out one after another from the bottom coin up, each with a glint. The note fades in under it.</dd>
         <dt>Carries on</dt><dd>The ten slices, out to the right of the stack.</dd>
         <dt>Transition</dt><dd>No cut: the slices keep moving into the next shot.</dd>
@@ -772,6 +775,7 @@
         
         <dt>Teaches</dt><dd>Ten tenths make one coin: the first year's bunga is Rp1 juta.</dd>
         <dt>On screen</dt><dd>A chip 'tahun 1' at the top centre. The ten slices fly from the stack to x 1360 and settle on each other into a column exactly one coin thick, which becomes a bright gold coin with a soft glow (the bunga colour: a paler, hotter gold than the pokok). A chip 'bunga Rp1 juta' above it.</dd>
+        
         <dt>Motion</dt><dd>The slices travel in a short arc, stacking from the bottom; on the last one the column flashes and is a coin. The camera pushes 4 percent.</dd>
         <dt>Carries on</dt><dd>The pokok stack and the new bunga coin beside it.</dd>
         <dt>Transition</dt><dd>No cut: the bunga coin is lifted in the next shot.</dd>
@@ -826,6 +830,7 @@
         
         <dt>Teaches</dt><dd>Simple interest: when the interest is taken out, the pokok never grows, so every year pays the same Rp1 juta.</dd>
         <dt>On screen</dt><dd>The pokok stack stays at x 820. The bunga coin lifts and slides to a separate pile at x 1660, turning from gold to a cool blue-silver as it goes (blue means: taken out, does not earn). The year chip runs 1 to 5; each year ten slices leave the stack and form one more coin that goes to the blue pile. A chip '+Rp1 juta / tahun' above the blue pile. Caption pill: 'bunga diambil'.</dd>
+        
         <dt>Motion</dt><dd>One year a second: slices out, coin formed, coin to the blue pile. The pokok never changes height. The stage light cools a little toward the blue pile.</dd>
         <dt>Carries on</dt><dd>The blue pile, which becomes the blue line.</dd>
         <dt>Transition</dt><dd>A horizontal whip to the chart.</dd>
@@ -880,6 +885,7 @@
         
         <dt>Teaches</dt><dd>Taken out, the money grows in a straight line: Rp40 juta after 30 years.</dd>
         <dt>On screen</dt><dd>Chart filling the frame: axes from (300, 840) to (1480, 170); x 0 to 30 years ('tahun'), y Rp0 to Rp180 juta ('Rp juta'), gridlines every 5 years and Rp20 juta. A blue line from Rp10 juta at year 0 to Rp40 juta at year 30 (10 + t, drawn by the year). A blue tag 'Rp40 juta' at its end.</dd>
+        
         <dt>Motion</dt><dd>Whip in. The blue line draws left to right as the caption reads, a dot at its head; the tag pops at year 30.</dd>
         <dt>Carries on</dt><dd>The axes and the blue line.</dd>
         <dt>Transition</dt><dd>A whip back to the coins.</dd>
@@ -935,6 +941,7 @@
         
         <dt>Teaches</dt><dd>Compound interest: the interest stays and joins the money that earns.</dd>
         <dt>On screen</dt><dd>Back at the coins in year 1: ten gold coins at x 820 and the newborn bunga coin at x 1360. The bunga coin hops onto the top of the stack: eleven coins, the top one still the brighter bunga gold. The bracket and label become 'pokok + bunga', 'Rp11 juta'. Caption pill: 'bunga gabung ke pokok'.</dd>
+        
         <dt>Motion</dt><dd>Whip in. On 'biarkan' the bunga coin lifts in an arc and lands on the stack with a small settle; the label swaps on one frame.</dd>
         <dt>Carries on</dt><dd>The stack of eleven with its bright top coin.</dd>
         <dt>Transition</dt><dd>The camera pushes in.</dd>
@@ -989,6 +996,7 @@
         
         <dt>Teaches</dt><dd>The mechanism: next year every coin earns a tenth, including last year's interest, so the interest itself earns interest.</dd>
         <dt>On screen</dt><dd>Closer on the stack (1.15x). Year chip 'tahun 2'. All eleven coins push out their tenth; the one from the bunga coin on top is white-hot and labelled 'bunga dari bunga · Rp0,1 juta'. The eleven slices fly to x 1360 and stack there, the bright one on top.</dd>
+        
         <dt>Motion</dt><dd>The slices slide out; the top slice flares and its label lands as 'berbunga' is read; then the slices fly and stack.</dd>
         <dt>Carries on</dt><dd>The column of eleven slices.</dd>
         <dt>Transition</dt><dd>No cut: the column becomes a coin in the next shot.</dd>
@@ -1031,6 +1039,7 @@
         
         <dt>Teaches</dt><dd>The payoff of the mechanism: interest made by interest, a tenth of a coin from last year's coin.</dd>
         <dt>On screen</dt><dd>The eleven slices have settled at x 1360 into one bright coin plus one thin slice on top (white-hot, from last year's bunga). A chip above it: 'bunga Rp1,1 juta'. The stack of eleven stays at x 820.</dd>
+        
         <dt>Motion</dt><dd>The column snaps into a coin with a glint; the thin slice pulses and a small ring spreads on the floor; the chip pops.</dd>
         <dt>Carries on</dt><dd>The new bunga (Rp1,1 juta), as the gold curve's first step.</dd>
         <dt>Transition</dt><dd>A whip to the chart.</dd>
@@ -1086,6 +1095,7 @@
         
         <dt>Teaches</dt><dd>At first the two ways barely differ; but the amount earning interest grows every year.</dd>
         <dt>On screen</dt><dd>The chart, zoomed to the first five years (0 to 5 years, Rp0 to Rp20 juta). The blue line and the gold curve (10 x 1,1^t) start together at Rp10 juta and are a hair apart at year 5 (Rp16,1 vs Rp15 juta): a small bracket 'beda Rp1,1 jt'. Small gold chips on the gold curve name each year's interest: +1 · +1,1 · +1,21 · +1,33 · +1,46.</dd>
+        
         <dt>Motion</dt><dd>The gold curve draws to year 5 on 'tipis'; the chips pop on it one by one, each a little larger, on 'makin besar'. Then the axes start to pull out.</dd>
         <dt>Carries on</dt><dd>Both lines, as the axes pull out.</dd>
         <dt>Transition</dt><dd>No cut: the axes rescale into the next shot.</dd>
@@ -1128,6 +1138,7 @@
         
         <dt>Teaches</dt><dd>Because the base grows, the growth grows: the line curves upward.</dd>
         <dt>On screen</dt><dd>The axes pull out to 30 years and Rp180 juta: the two lines shrink into the lower left together, then the gold curve draws on from year 5 to year 30 and bends away up from the straight blue line.</dd>
+        
         <dt>Motion</dt><dd>The axes rescale smoothly (the lines are recomputed each frame, never stretched). The gold head travels with a glow; the stage light follows it up and right.</dd>
         <dt>Carries on</dt><dd>Both lines, the gold one rising.</dd>
         <dt>Transition</dt><dd>No cut: the full chart carries on.</dd>
@@ -1182,6 +1193,7 @@
         
         <dt>Teaches</dt><dd>The end of the comparison: about Rp174,5 juta against Rp40 juta, from the same Rp10 juta and the same 10%.</dd>
         <dt>On screen</dt><dd>The full chart. Gold tag '≈ Rp174,5 juta' at the curve's end (1500, 177), blue tag 'Rp40 juta' at the line's end (1500, 689). A dashed bracket between the two ends: '≈ 4,4×'.</dd>
+        
         <dt>Motion</dt><dd>The gold dot lands at year 30 with a hit; the tag pops; the bracket draws down; the camera pushes 3 percent.</dd>
         <dt>Carries on</dt><dd>The gold curve.</dd>
         <dt>Transition</dt><dd>The blue line and tags dim; the gold curve stays.</dd>
@@ -1237,6 +1249,7 @@
         
         <dt>Teaches</dt><dd>The new question: how long until the money doubles.</dd>
         <dt>On screen</dt><dd>The chart with only the gold curve lit. A dashed line from Rp20 juta on the axis (twice the start) runs right until it meets the curve at year 7,27; a ring there and a tag '×2 ?'.</dd>
+        
         <dt>Motion</dt><dd>The dashed line draws on 'dua kali lipat'; the ring pops where it meets the curve.</dd>
         <dt>Carries on</dt><dd>The meeting point: the first step of the ladder.</dd>
         <dt>Transition</dt><dd>No cut: the ladder grows from the ring.</dd>
@@ -1291,6 +1304,7 @@
         
         <dt>Teaches</dt><dd>The rule of 72: 72 divided by the yearly rate is about the years it takes to double.</dd>
         <dt>On screen</dt><dd>Top left inside the chart, metal type 110 px: '72 ÷ 10' and under it '≈ 7,2 tahun' in gold. A gold ladder climbs the curve: across from Rp10 juta to year 7,27, up to Rp20 juta ('×2'), and so on to 40, 80 and Rp160 juta; marks under the axis: ≈7, ≈15, ≈22, ≈29. Caption pill: 'aturan 72'.</dd>
+        
         <dt>Motion</dt><dd>'72 ÷ 10' types in on 'tujuh puluh dua'; '≈ 7,2 tahun' slams in on 'tujuh tahun'; the ladder climbs step by step with it, each '×2' popping as its riser is drawn.</dd>
         <dt>Carries on</dt><dd>The gold curve and its ladder.</dd>
         <dt>Transition</dt><dd>The chart turns into coins: columns rise under the curve.</dd>
@@ -1345,6 +1359,7 @@
         
         <dt>Teaches</dt><dd>The answer: money grows on itself because the interest earns interest, and time is what makes it large.</dd>
         <dt>On screen</dt><dd>3D: under the place where the curve was, 31 columns of stacked gold coins, one per year from 0 to 30 at x 300 to 1500, each as tall as that year's money (3,9 px a juta: 39 px at year 0, 680 px at year 30), reeded edges catching the light. A faint blue line across marks the simple-interest heights. A tag 'tahun 30 ≈ Rp174,5 juta' near the tallest column.</dd>
+        
         <dt>Motion</dt><dd>The columns grow in from left to right, each to its height, as the camera orbits low and slow. The light sweeps across the tops.</dd>
         <dt>Carries on</dt><dd>The columns.</dd>
         <dt>Transition</dt><dd>No cut: the camera travels on along the columns.</dd>
@@ -1388,6 +1403,7 @@
         
         <dt>Teaches</dt><dd>Time is the ingredient: the tallest columns are the late years.</dd>
         <dt>On screen</dt><dd>The camera has travelled right and turned a little: all 31 columns rise from the lower left to the year-30 column at x 1240, whose top nearly reaches the top of the frame; the tag 'tahun 30 ≈ Rp174,5 juta' sits just left of its top (900, 150). The faint blue line of simple interest crosses the columns low.</dd>
+        
         <dt>Motion</dt><dd>A slow lateral dolly to the right and a tilt up the tallest column; the light sweeps across the tops.</dd>
         <dt>Carries on</dt><dd>The columns, which stay behind the poster.</dd>
         <dt>Transition</dt><dd>The columns dim and the poster lands over them.</dd>
@@ -1442,6 +1458,7 @@
         
         <dt>Teaches</dt><dd>The line to remember and the three ideas in one frame.</dd>
         <dt>On screen</dt><dd>The columns dimmed behind. Line to remember in metal type, 120 px, centred at y 300: 'Bunga yang ikut / berbunga.', 'berbunga.' in gold. Under it three glass cards (480 x 220): a small coin stack with a bright top coin, 'pokok + bunga ikut berbunga'; a straight blue line and a gold curve, 'Rp40 jt vs ≈ Rp174,5 jt'; '72 ÷ bunga ≈ tahun jadi 2×'. At the bottom, 30 px: the note that 10% is an illustration and not a promise.</dd>
+        
         <dt>Motion</dt><dd>The title lands line by line, the cards rise one after another in the first 0.6 s, a sheen crosses the title; then everything holds for two seconds with a 3 percent push.</dd>
         <dt>Carries on</dt><dd>Nothing: the film ends here.</dd>
         <dt>Transition</dt><dd>End: the film holds on the poster.</dd>

@@ -19,6 +19,7 @@ Read only the reference your current step needs.
 | Deciding what to teach and in what order | `references/pedagogy.md` |
 | Writing and drawing the storyboard (the gate) | `references/storyboard.md` |
 | Choosing the look, the accent, the stage light, 3D | `references/look.md` |
+| Building real things in detail; directing the camera | `references/detail.md` |
 | Building the film with the kit | `references/engine.md`, then `references/motion.md` |
 | Writing the narration: talk, not captions; Indonesian and English register | `references/narration.md` |
 | The voice: choosing it, performing one take with ElevenLabs, cutting the film to it | `references/voice.md` |
@@ -50,7 +51,11 @@ Read only the reference your current step needs.
 7. **A film that speaks is written as talk and performed as one take.** The script is written whole and said
    aloud before any shot exists; it is performed once, start to finish, and the picture is cut to the voice. Never
    one sentence a shot, never one recording a sentence, never a pause trimmed to fit a plan.
-8. **Say what was not checked.** You cannot hear. Say that the mix was set by measurement, name what a person
+8. **Real things are built, not symbolised, and the camera is directed.** A device, an organ, a plant, a machine
+   the film explains is built in 3D from its real parts at real proportions, from a reference, in materials that
+   read as what they are; a box, an icon or a flat shape never stands in for it. Every 3D shot has a deliberate
+   camera move, and when the voice names a part the camera goes to it (`references/detail.md`).
+9. **Say what was not checked.** You cannot hear. Say that the mix was set by measurement, name what a person
    should listen for, and deliver a music-only version beside the full mix.
 
 ## Workflow
@@ -103,6 +108,11 @@ node kit/audio/voice.mjs films/NAME --generate                     # with an API
 node kit/audio/voice.mjs films/NAME --take AUDIO --words WORDS     # with a speech connector: hand both back
 node kit/audio/voice.mjs films/NAME                                # every shot's time, and the words to listen to
 ```
+
+### 5b. The models, before the shots
+Follow `references/detail.md`: for each real object the film explains, the model sheet (reference, parts, real
+sizes) is in the storyboard's `models`; build it with `kit/engine/parts3d.js`, render a turnaround (four angles and a
+close-up) and fix it until it passes the crop test. Only then build shots around it.
 
 ### 6. Build, one shot at a time
 Follow `references/engine.md`. Give each shot a `<section class="scene">` and animate it between

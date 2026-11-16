@@ -11,7 +11,8 @@ After each shot, render a still from its middle and one from each transition, an
 node kit/tools/render.mjs films/NAME --stills 1.5,4.2,7.9
 ```
 
-Compare each with its drawn frame in the storyboard. Check: is the subject where the frame put it; is anything
+Compare each with its drawn frame in the storyboard, and run the five checks at the end of `detail.md` (the crop
+test, the parts count, no placeholders, the camera log, side by side with the bar). Check: is the subject where the frame put it; is anything
 clipped, overlapping or unreadable; is the frame mostly empty; did a bright thing blow out; is the lettering the
 right size. Do not start a full render with a shot you have not looked at.
 
@@ -50,8 +51,11 @@ Artifact: <path> (<seconds> s, 1920x1080, 60 fps, with audio). An educational fi
 Promise: <the storyboard's promise>. Audience: <audience>. Storyboard: <path to storyboard.json> (the plan and the
 fact sheet). Scene map: <shot ids with start times>.
 The person's criteria, in their words: <verbatim>.
-Benchmark: premium explainers and launch films: rich lighting, real material detail, a confident camera, motion blur
-on fast moves, no wasted space, type as choreography, sound that lands on the picture.
+Benchmark: the best product-teardown and science explainers: real objects built in detail (you could name every part
+from a close-up), a directed camera (orbits, push-ins, macro close-ups with shallow focus, parts lifting apart),
+labels riding on the parts, rich lighting and material, no wasted space, sound that lands on the picture.
+A schematic stand-in for a real object the film explains (a box for a chip, a cone icon for a speaker, a flat shape
+for an ear or a hand) is "ordinary" at best, however clean it is.
 
 Method: contact sheets every 0.25 s that you can read; native frames at the middle of every shot; dense windows at
 1/30 s around every cut. Frame differences for frozen stretches. Audio by measurement (you cannot listen: say so):
@@ -60,11 +64,16 @@ loudness, true peak, and whether an onset sits on each visual event.
 Report (under 900 words):
 1. Teaching: could a first-time viewer, on mute, say the promise afterwards? Where does the explanation skip a step,
    state something unsupported, or disagree with the fact sheet?
-2. Per shot: what is on screen, how much of the frame is empty, premium or ordinary and exactly why, defects with
+2. Fidelity: for each real object the film explains, crop it from a frame. Would a stranger name it from the
+   silhouette? Name its parts from the close-up? List what a real one has that this one lacks (parts, bevels,
+   seams, markings, surface), against the storyboard's `models`.
+3. Camera: list each 3D shot's move. Which shots are static or straight-on, which repeat the shot before, which
+   name a part without going close to it?
+4. Per shot: what is on screen, how much of the frame is empty, premium or ordinary and exactly why, defects with
    timestamps and screen regions.
-3. Per transition: intended or cheap; any defect frames (pops, overlaps, half-drawn states).
-4. Audio findings with numbers.
-5. The top eight changes, ranked by impact, each concrete and implementable.
+5. Per transition: intended or cheap; any defect frames (pops, overlaps, half-drawn states).
+6. Audio findings with numbers.
+7. The top eight changes, ranked by impact, each concrete and implementable.
 Be blunt. No praise for its own sake.
 ```
 

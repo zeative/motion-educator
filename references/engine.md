@@ -70,6 +70,38 @@ the subject sits on, so things can be placed by pixels with `space.at(x, y)`. `e
 globe with NASA's maps for its surface and a shader for its clouds, glint and air; `earth.render(state, t)` is
 called from `film.each`.
 
+### The directed camera and the teardown tools
+
+```js
+import { createStage3D } from "../../kit/engine/stage3d.js";
+import { createParts } from "../../kit/engine/parts3d.js";
+const space = createStage3D($("#space"), { rig: true, shadows: true, environment: 0.6 });
+const P = createParts(space);                       // materials with surface, shapes, ready-made parts
+const board = P.pcb({ w: 52, d: 28 });              // 1 unit = 1 mm
+board.add(P.at(P.ic({ w: 7, d: 7, pins: "qfn", count: 40, text: "MCU" }), -10, board.userData.top, 5));
+space.scene.add(board);
+space.floor({ y: -0.8 });
+Object.assign(space.cam, { az: -25, el: 38, dist: 120, sway: 1 });
+const pin = space.pin(board.getObjectByName("chip"), "the processor", { dx: 240, dy: -160 });
+tl.to(space.cam, { az: 20, el: 24, dist: 40, tx: -10, tz: 5, fov: 22, focus: 40, blur: 0.8, duration: 2.5, ease: "power2.inOut" }, s.s04.start);
+tl.to(pin, { show: 1, duration: 0.5 }, s.s04.start + 0.9);
+film.each((t) => space.render(1, t));               // pass t: the drift is a function of it
+```
+
+| Tool | Does |
+| --- | --- |
+| `space.cam` | `az el dist tx ty tz fov roll sway focus blur`, tweened by the timeline (with `rig: true`) |
+| `space.pin(part, html, { dx, dy, at })` | a label on a part (`at` in the part's own coordinates), following every move; tween `.show` |
+| `space.explode(group)` | children with `userData.out` fly apart as the returned `explode` goes 0 to 1 (`P.explodable`) |
+| `space.ghost(group, keep)` | everything but `keep` fades to a shell: tween the returned `v` |
+| `space.cutaway(group, plane)` | slices the group; cut faces show solid and hatched; tween `plane.constant` |
+| `space.floor({ y })`, `space.fitShadow(r)` | a shadow-catching floor; the key light's shadow box |
+| `P.M.*` | `plastic metal rubber foam leather fabric copper solder goldPlate silicon ferrite paper skin glass glow` |
+| `P.lathe P.smoothProfile P.extrude P.roundedBox P.tube` | shapes from profiles, outlines, blocks, paths |
+| `P.pcb P.ic P.smd P.shield P.usbC P.header P.screw P.mic P.grille P.cable P.driver` | ready-made parts, each a named group |
+
+Depth of field (`cam.blur`) costs a second pass: use it in close-ups only. Shadows cost a little on every frame.
+
 Anything loaded from a file (a texture, a font, data) must be loaded before `film.finish()`: `await` it, as
 `createEarth` does. A frame drawn before its texture arrived is a frame that renders differently each time.
 
