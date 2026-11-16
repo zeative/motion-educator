@@ -31,17 +31,20 @@
         </div>
       </section>
       <section class="scene" id="meters">
-        <div class="panel" id="mpanel" style="left: 110px; top: 130px; width: 1010px; height: 660px">
-          <div class="phead"><span class="mt" id="mt-hum">100 Hz hum</span><span class="mt" id="mt-sq">5,000 Hz squeak</span><em id="m-note"><span id="m-note1">copy late by 0.033 ms · an example</span><span id="m-note2" style="opacity: 0; position: absolute; right: 28px">same delay: 0.033 ms · an example</span></em></div>
+        <div class="panel" id="mpanel" style="left: 110px; top: 130px; width: 1010px; height: 690px">
+          <div class="phead"><span class="mt" id="mt-hum">100 Hz hum</span><span class="mt" id="mt-sq">5,000 Hz squeak</span></div>
         </div>
-        <div class="panel" id="bpanel" style="left: 1170px; top: 130px; width: 640px; height: 660px">
+        <div class="panel" id="bpanel" style="left: 1170px; top: 130px; width: 640px; height: 690px">
           <div class="phead">what reaches you</div>
         </div>
+        <p class="caveat" id="m-delay" style="left: 1200px; top: 222px">example delay: 0.033 ms</p>
+        <p class="caveat" id="m-per-hum" style="left: 150px; top: 222px">one wave = 10 ms</p>
+        <p class="caveat" id="m-per-sq" style="left: 150px; top: 222px; opacity: 0">one wave = 0.2 ms</p>
         <div class="bar amber" id="bar-noise" style="left: 1240px"><b>noise</b><i>100%</i></div>
         <div class="bar white" id="bar-left" style="left: 1560px"><b>left over</b><i class="v" id="v-left2">2%</i><i class="v" id="v-left100">100%</i></div>
         <div class="bar ghost" id="bar-hum" style="left: 1722px"><b>hum</b><i>2%</i></div>
-        <p class="tag lane-tag" style="left: 150px; top: 304px">noise</p>
-        <p class="tag lane-tag cyan" style="left: 150px; top: 467px">flipped<br />copy</p>
+        <p class="tag lane-tag" style="left: 150px; top: 329px">noise</p>
+        <p class="tag lane-tag cyan" style="left: 150px; top: 487px">flipped<br />copy</p>
       </section>
       <section class="scene" id="recap">
         <div class="card glass rc" id="rc1" style="left: 110px; top: 220px; width: 400px"><span class="n">1</span><b>hear it</b></div>
@@ -70,7 +73,7 @@
 
       <!-- s05, s08, s09, s19, s20: the cut-through cup -->
       <section class="scene" id="cup">
-        <p class="note" id="note-cup" style="left: 1060px; top: 96px">one ear cup, cut through · not to scale</p>
+        <p class="note" id="note-cup" style="left: 1000px; top: 92px">one ear cup, cut through · not to scale</p>
         <span class="chip" id="chip-mic" style="left: 700px; top: 200px"><i class="sw cyan"></i>microphone</span>
         <span class="chip" id="chip-speaker" style="left: 1150px; top: 760px">speaker</span>
         <span class="chip" id="chip-cush" style="left: 1580px; top: 760px">cushions</span>
@@ -112,14 +115,14 @@
         <p class="tag" id="t-you" style="left: 1606px; top: 556px">you</p>
         <p class="measure num" id="m-hum">one wave ≈ <b>3.4 m</b></p>
         <p class="measure num" id="m-sq">one wave ≈ <b>7 cm</b></p>
-        <div class="panel" id="earpanel" style="left: 1160px; top: 712px; width: 650px; height: 150px">
+        <div class="panel" id="earpanel" style="left: 1160px; top: 742px; width: 650px; height: 132px">
           <div class="phead">at your ear: the same, 100 times a second</div>
         </div>
       </section>
 
       <!-- s23: the poster -->
       <section class="scene" id="s23">
-        <h2 class="display left" id="poster"><span class="ln">Noise + its flip</span><span class="ln">= <em class="key">silence</em></span></h2>
+        <h2 class="display left" id="poster"><span class="ln">Noise + its flip</span><span class="ln">≈ <em class="key">silence</em></span></h2>
       </section>
     </div>
     <script type="module" src="film.js"></script>

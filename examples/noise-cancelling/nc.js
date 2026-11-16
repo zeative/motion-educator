@@ -124,11 +124,11 @@ export function createLab(under, over) {
       const dx = A * Math.sin(th);
       const P = -Math.cos(th) * amp; // squeezed where the dots bunch
       const edge = clamp((x - x0) / 80) * clamp((x1 - x) / 80) * clamp((y - y0) / 50) * clamp((y1 - y) / 50);
-      const a = (0.12 + 0.72 * ((P + 1) * 0.5) ** 1.4) * edge * alpha;
+      const a = Math.min(1, (0.08 + 1.25 * ((P + 1) * 0.5) ** 1.6) * edge * alpha);
       const warm = clamp(P);
       ctx.fillStyle = `rgba(${Math.round(mix(190, 255, warm))},${Math.round(mix(196, 190, warm))},${Math.round(mix(210, 110, warm))},${a.toFixed(3)})`;
       ctx.beginPath();
-      ctx.arc(x + dx, y, r * (1 + 0.25 * warm), 0, TAU);
+      ctx.arc(x + dx, y, r * (0.85 + 0.55 * warm), 0, TAU);
       ctx.fill();
     }
     ctx.restore();
@@ -174,7 +174,7 @@ export function createLab(under, over) {
       c.beginPath();
       c.rect(-400, -200, 1452, 1480);
     };
-    airField(ctx, t, { x0: -400, x1: 1048, y0: 60, y1: 880, amp: 1, alpha: C.air * 0.85, clip: outside });
+    airField(ctx, t, { x0: -400, x1: 1048, y0: 60, y1: 880, amp: 1, alpha: C.air * 0.6, clip: outside });
     if (C.single > 0.004) line(ctx, (x) => Y - 150 * pressure(x, t), -400, 1050, AMBER, { width: 6, alpha: C.curve * C.single });
     if (C.twoLanes > 0.004) {
       line(ctx, (x) => 300 - 42 * pressure(x, t, 64, 150), -400, 1050, AMBER, { width: 4, alpha: C.twoLanes, step: 1.5 });
@@ -242,7 +242,7 @@ export function createLab(under, over) {
     const x1 = 1500;
     if (C.single > 0.004) {
       const fade = 1 - 0.72 * C.merge;
-      line(ctx, (x) => Y - 70 * pressure(x, t), x0, x1, AMBER, { width: 5, alpha: C.amberIn * fade * C.single });
+      // (the amber that got in is drawn over the shell and the speaker, below: it leaks through the wall)
       line(ctx, (x) => Y + 70 * pressure(x, t), x0, mix(x0, x1, C.cyanDraw), CYAN, { width: 5, alpha: Math.min(1, C.cyanDraw * 4) * fade * C.single });
       // The sum: what is really left (the copy is a hair late: 3% of the noise).
       line(ctx, (x) => Y - 70 * (pressure(x, t) - pressure(x - 2, t)) * 2.2, x0, x1 + 260, WHITE, { width: 5, alpha: C.merge * C.single });
@@ -251,7 +251,7 @@ export function createLab(under, over) {
       line(ctx, (x) => 300 - 9 * pressure(x, t, 64, 150), x0, x1, AMBER, { width: 3, alpha: C.highsIn * C.twoLanes, step: 1.5 });
       line(ctx, (x) => 600 - 60 * pressure(x, t), x0, x1, AMBER, { width: 5, alpha: C.lowsIn * (1 - 0.72 * C.lowsMerge) * C.twoLanes });
       line(ctx, (x) => 600 + 60 * pressure(x, t), x0, mix(x0, x1, C.lowsCyan), CYAN, { width: 5, alpha: Math.min(1, C.lowsCyan * 4) * (1 - 0.72 * C.lowsMerge) * C.twoLanes });
-      line(ctx, () => 600, x0, x1 + 260, WHITE, { width: 5, alpha: C.lowsMerge * C.twoLanes });
+      line(ctx, () => 600, x0, 1496, WHITE, { width: 5, alpha: C.lowsMerge * C.twoLanes });
     }
 
     // The shell, cut through: graphite with a lit cut face.
@@ -344,6 +344,28 @@ export function createLab(under, over) {
     ctx.stroke();
     ctx.restore();
 
+    // The noise that gets in: through the shell wall (shrinking as it crosses it), past the speaker, to the ear; and
+    // small fronts slipping in at the two cushion gaps. Only the cyan starts at the cone.
+    if (C.single > 0.004 && C.amberIn > 0.004) {
+      const fade = 1 - 0.72 * C.merge;
+      const a = C.amberIn * fade * C.single;
+      const amp = (x) => (x < 1060 ? 150 : x > 1205 ? 70 : mix(150, 70, (x - 1060) / 145));
+      line(ctx, (x) => Y - amp(x) * pressure(x, t), 1060, 1205, AMBER, { width: 4, alpha: a * 0.55 });
+      line(ctx, (x) => Y - 70 * pressure(x, t), 1205, 1500, AMBER, { width: 5, alpha: a });
+      for (const [gx, gy, dir] of [[1452, 266, 1], [1452, 634, -1]]) {
+        for (let i = 0; i < 3; i++) {
+          const u = ((t * 1.4 + i / 3) % 1);
+          ctx.save();
+          ctx.globalAlpha = a * 0.8 * (1 - u);
+          ctx.strokeStyle = AMBER;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(gx, gy, 8 + u * 46, dir > 0 ? 0.35 * Math.PI : 1.15 * Math.PI, dir > 0 ? 0.85 * Math.PI : 1.65 * Math.PI);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
     // The traces: microphone to chip to speaker.
     ctx.strokeStyle = `rgba(63,224,255,${0.28 + 0.4 * C.chip})`;
     ctx.lineWidth = 3;
@@ -452,7 +474,7 @@ export function createLab(under, over) {
     const T0 = L.lanes.t0 ?? 0;
     const cl = (x) => clatter(t - T0 - (x - x0) / 380);
     const LAG = 0.09;
-    const clCopy = (x) => -clatter(t - T0 - LAG - (x - x0) / 380);
+    const clCopy = (x) => -clatter(t - T0 + LAG - (x - x0) / 380);
     const n = (x) => mix(noise(x), cl(x), N.clat);
     const f = (x) => mix(flip(x), clCopy(x) * N.copyVis, N.clat);
     ctx.save();
@@ -490,7 +512,7 @@ export function createLab(under, over) {
     const lamHum = 1372;
     const lamSq = 27.44;
     const yAxis = ys(HEAD.y);
-    if (S.hum > 0.004) line(ctx, (sx) => yAxis - 180 * pressure(toW(sx), t, lamHum, 90), Math.max(0, srcX), Math.min(W, headLeft), AMBER, { width: 6, alpha: S.hum });
+    if (S.hum > 0.004) line(ctx, (sx) => yAxis - 150 * pressure(toW(sx), t, lamHum, 90), Math.max(0, srcX), Math.min(W, headLeft), AMBER, { width: 6, alpha: S.hum });
     if (S.sq > 0.004) {
       const step = Math.max(0.8, Math.min(2, lamSq * S.z / 14));
       line(ctx, (sx) => yAxis - mix(120, 170, clamp((S.z - 1) / 9)) * pressure(toW(sx), t, lamSq, 90), Math.max(0, srcX), Math.min(W, headLeft), AMBER, { width: mix(3, 6, clamp((S.z - 1) / 9)), alpha: S.sq, step });
@@ -621,7 +643,8 @@ export function createLab(under, over) {
     // The sum cards (s02): noise, and the same wave flipped.
     const E = L.eq;
     if (E.vis > 0.004) {
-      const card = (x, sign, colour, a) => line(ctx, (xx) => 450 - sign * 80 * pressure(xx, t, 200, 60), x + 40, x + 440, colour, { width: 6, alpha: a * E.vis });
+      // Each card shows the same stretch of wave (measured from its own left edge); the second one upside down.
+      const card = (x, sign, colour, a) => line(ctx, (xx) => 450 - sign * 80 * pressure(xx - x + 110, t, 200, 60), x + 40, x + 440, colour, { width: 6, alpha: a * E.vis });
       card(110, 1, AMBER, E.a);
       card(720, -1, CYAN, E.b);
     }
@@ -670,10 +693,10 @@ export function createLab(under, over) {
       const shift = mix(lamP / 300, lamP / 6, M.sq) * M.copy;
       const n = (x) => pressure(x, t, lamP, v);
       const c = (x) => -pressure(x - shift, t, lamP, v);
-      line(ctx, (x) => 320 - 70 * n(x), 360, 1070, AMBER, { width: 5, alpha: M.vis });
-      line(ctx, (x) => 500 - 70 * c(x), 360, 1070, CYAN, { width: 5, alpha: M.vis });
-      line(ctx, (x) => 680 - 70 * (n(x) + c(x)), 360, 1070, WHITE, { width: 5, alpha: M.vis * M.left });
-      text(ctx, "left over", 150, 680, { size: 30, colour: WHITE, alpha: M.vis * M.left });
+      line(ctx, (x) => 345 - 70 * n(x), 360, 1070, AMBER, { width: 5, alpha: M.vis });
+      line(ctx, (x) => 520 - 70 * c(x), 360, 1070, CYAN, { width: 5, alpha: M.vis });
+      line(ctx, (x) => 695 - 70 * (n(x) + c(x)), 360, 1070, WHITE, { width: 5, alpha: M.vis * M.left });
+      text(ctx, "left over", 150, 695, { size: 30, colour: WHITE, alpha: M.vis * M.left });
     }
     // The recap's small pictures.
     const Rc = L.recap;
@@ -731,7 +754,8 @@ export function createLab(under, over) {
     if (P.vis > 0.004) {
       line(ctx, (x) => 760 - 42 * pressure(x, t, 150, 50), 120, 380, AMBER, { width: 5, alpha: P.vis });
       text(ctx, "+", 425, 760, { size: 52, alpha: P.vis, align: "center" });
-      line(ctx, (x) => 760 + 42 * pressure(x, t, 150, 50), 470, 730, CYAN, { width: 5, alpha: P.vis });
+      // The cyan is the amber moved 350 px and turned upside down: exactly 180 degrees from it at every frame.
+      line(ctx, (x) => 760 + 42 * pressure(x - 350, t, 150, 50), 470, 730, CYAN, { width: 5, alpha: P.vis });
       text(ctx, "=", 775, 760, { size: 52, alpha: P.vis, align: "center" });
       line(ctx, () => 760, 820, 1040, WHITE, { width: 6, alpha: P.vis });
     }
@@ -740,14 +764,14 @@ export function createLab(under, over) {
     if (S.inset > 0.004) {
       ctx.save();
       ctx.beginPath();
-      ctx.rect(1170, 778, 630, 70);
+      ctx.rect(1170, 818, 630, 50);
       ctx.clip();
-      line(ctx, (x) => 813 - 26 * pressure(x, t, 110, -150), 1185, 1785, AMBER, { width: 4, alpha: S.inset });
+      line(ctx, (x) => 843 - 18 * pressure(x, t, 110, -150), 1185, 1785, AMBER, { width: 4, alpha: S.inset });
       ctx.restore();
     }
     // The to-scale rulers: one wave of the hum (1,372 px) and, ten times closer, of the squeak (274 px).
     if (S.vis > 0.004) {
-      ruler(ctx, 228, 1600, 682, S.ruler, S.vis);
+      ruler(ctx, 228, 1600, 706, S.ruler, S.vis);
       ruler(ctx, 330, 604, 770, S.rulerSq, S.vis);
     }
   }

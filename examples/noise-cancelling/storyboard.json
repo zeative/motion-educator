@@ -4898,7 +4898,7 @@
       "start": 70.81,
       "end": 74.01,
       "teaches": "The line to remember.",
-      "screen": "The poster: the headphones on the right, turning slowly; on the left in metal type at 110 px 'Noise + its flip' and '= silence', the accent on 'silence'. Under it the three lanes small: amber + cyan = flat white.",
+      "screen": "The poster: the headphones on the right, turning slowly; on the left in metal type at 110 px 'Noise + its flip' and '≈ silence', the accent on 'silence'. Under it the three lanes small: amber + cyan = flat white.",
       "motion": "The line types in; a sheen; a slow push and the headphones' turn keep it breathing to the last frame.",
       "carries": "The end.",
       "transition": "The end: the bed's last chord rings out under the last frame.",
@@ -4932,7 +4932,7 @@
                 110,
                 340
               ],
-              "text": "Noise + its flip\n= silence",
+              "text": "Noise + its flip\n≈ silence",
               "size": 110,
               "align": "start",
               "accent": "silence"
@@ -4993,7 +4993,7 @@
                 110,
                 340
               ],
-              "text": "Noise + its flip\n= silence",
+              "text": "Noise + its flip\n≈ silence",
               "size": 110,
               "align": "start",
               "accent": "silence"
@@ -5043,7 +5043,7 @@
                 110,
                 340
               ],
-              "text": "Noise + its flip\n= silence",
+              "text": "Noise + its flip\n≈ silence",
               "size": 110,
               "align": "start",
               "accent": "silence"

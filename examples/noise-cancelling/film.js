@@ -81,8 +81,8 @@ film.light({ lx: 0.3, ly: 0.6, glow: 0.55 }, s.s03.start, 1.2);
 film.pop("#chip-air", at("s03", "wave") - 0.1);
 film.land("#note-air", s.s03.start + 0.3);
 // s04: the pressure curve, then the two names riding their bands.
-tl.fromTo(L.air, { curve: 0 }, { curve: 1, duration: 0.9, ease: "power2.inOut", immediateRender: false }, s.s04.start - 0.05);
-film.land("#tag-pressure", s.s04.start + 0.1);
+tl.fromTo(L.air, { curve: 0 }, { curve: 1, duration: 0.9, ease: "power2.inOut", immediateRender: false }, at("s03", "pressure:") - 0.05);
+film.land("#tag-pressure", at("s03", "pressure:") + 0.1);
 film.pop("#chip-sq", at("s04", "squeezed,") - 0.08);
 film.pop("#chip-st", at("s04", "stretched,") - 0.08);
 // Which bands they ride: the squeezed band nearest x 560 when "squeezed" is said, the stretched band next to it.
@@ -169,9 +169,9 @@ tl.to(L.chipw, { vis: 0, duration: 0.15 }, OUT + 0.25);
 
 // s08: back at the cup: the speaker plays the flipped wave.
 film.scene("#cup", s.s08.start - 0.1, s.s10.start + 0.2);
-tl.set(L.cup, { z: 1.9, fx: 1240, fy: 450, sx: 960, sy: 470, mic: 0.4, chip: 1, sig: 0 }, OUT + 0.36);
-tl.to(L.cup, { vis: 1, duration: 0.25 }, OUT + 0.38);
-cupAt(OUT + 0.38, { z: 1, fx: 960, fy: 460, sx: 960, sy: 460 }, 0.7, "power3.out");
+tl.set(L.cup, { z: 1.9, fx: 1240, fy: 450, sx: 960, sy: 470, mic: 0.4, chip: 1, sig: 0 }, OUT + 0.2);
+tl.to(L.cup, { vis: 1, duration: 0.22 }, OUT + 0.22);
+cupAt(OUT + 0.22, { z: 1, fx: 960, fy: 460, sx: 960, sy: 460 }, 0.7, "power3.out");
 tl.fromTo(L.cup, { amberIn: 0 }, { amberIn: 1, duration: 0.5, immediateRender: false }, s.s08.start + 0.1);
 tl.fromTo(L.cup, { sig2: 0 }, { sig2: 1, duration: 0.35, immediateRender: false }, at("s08", "plays") - 0.3);
 tl.to(L.cup, { push: 1, duration: 0.12, ease: "power2.out" }, at("s08", "plays"));
@@ -230,7 +230,7 @@ tl.to(L.sc, { glow: 1, duration: 0.4 }, at("s12", "easy.") - 0.05);
 film.light({ lx: 0.12, ly: 0.58, glow: 0.6 }, WHIP, 1.0);
 // s13: one wave is 3.4 m; at your ear it is the same again and again.
 tl.fromTo(L.sc, { ruler: 0 }, { ruler: 1, duration: 0.7, ease: "power2.inOut", immediateRender: false }, at("s13", "metres") - 0.25);
-gsap.set("#m-hum", { left: 914 - 160, top: 612 });
+gsap.set("#m-hum", { left: 914 - 160, top: 648 });
 film.land("#m-hum", at("s13", "metres") + 0.25);
 film.land("#earpanel", at("s13", "keep") - 0.2);
 tl.fromTo(L.sc, { inset: 0 }, { inset: 1, duration: 0.4, immediateRender: false }, at("s13", "keep"));
@@ -241,15 +241,15 @@ tl.to(L.sc, { vis: 0, inset: 0, ruler: 0, duration: 0.15 }, M1 - 0.22);
 tl.to("#chip-hum, #m-hum, #note-scale, #t-you, #earpanel", { opacity: 0, duration: 0.15 }, M1 - 0.22);
 gsap.set("#mpanel, #bpanel", { y: 60, opacity: 0 });
 tl.to("#mpanel, #bpanel", { y: 0, opacity: 1, duration: 0.45, ease: "expo.out", stagger: 0.06 }, M1 - 0.1);
-gsap.set("#mt-sq, #bar-hum", { opacity: 0 });
+gsap.set("#mt-sq, #bar-hum, #m-per-sq", { opacity: 0 });
 gsap.set("#v-left100", { opacity: 0 });
 gsap.set(".lane-tag", { opacity: 0 });
 tl.to(".lane-tag", { opacity: 1, duration: 0.3 }, M1 + 0.25);
 tl.set(L.mw, { sq: 0, copy: 1, left: 0 }, M1);
 tl.fromTo(L.mw, { vis: 0 }, { vis: 1, duration: 0.3, immediateRender: false }, M1 - 0.05);
 tl.to(L.mw, { left: 1, duration: 0.35 }, at("s14", "match") - 0.2);
-// The bars: 440 px is 100%. What is left of the hum: 2 sin(pi x 100 / 30,000) = 2.09% = 9.2 px.
-const FULL = 440;
+// The bars: 400 px is 100%. What is left of the hum: 2 sin(pi x 100 / 30,000) = 2.09% = 8.4 px.
+const FULL = 400;
 const LEFT_HUM = 2 * Math.sin((Math.PI * 100) / 30000);
 const LEFT_SQ = 2 * Math.sin((Math.PI * 5000) / 30000);
 gsap.set("#bar-noise, #bar-left, #bar-hum", { height: 0, opacity: 0 });
@@ -280,16 +280,16 @@ gsap.set("#m-sq", { left: 467 - 135, top: 700 });
 film.land("#m-sq", at("s16", "centimetres") + 0.1);
 // s17: the same delay leaves all of the squeak.
 const M2 = s.s17.start - 0.15;
-tl.to(L.sc, { vis: 0, rulerSq: 0, duration: 0.15 }, M2 - 0.05);
-tl.to("#m-sq, #note-zoom", { opacity: 0, duration: 0.15 }, M2 - 0.05);
+tl.to(L.sc, { vis: 0, rulerSq: 0, duration: 0.15 }, M2 - 0.12);
+tl.to("#m-sq, #note-zoom", { opacity: 0, duration: 0.15 }, M2 - 0.12);
 tl.set("#mt-hum", { opacity: 0 }, M2);
 tl.set("#mt-sq", { opacity: 1 }, M2);
-tl.set("#m-note1", { opacity: 0 }, M2);
-tl.set("#m-note2", { opacity: 1 }, M2);
-film.scene("#meters", M2, s.s18.start + 0.3);
-tl.to("#mpanel, #bpanel", { y: 0, opacity: 1, duration: 0.45, ease: "expo.out", stagger: 0.06 }, M2 + 0.05);
+tl.set("#m-per-hum", { opacity: 0 }, M2);
+tl.set("#m-per-sq", { opacity: 1 }, M2);
+film.scene("#meters", M2 - 0.12, s.s18.start + 0.3);
+tl.to("#mpanel, #bpanel", { y: 0, opacity: 1, duration: 0.45, ease: "expo.out", stagger: 0.06 }, M2 - 0.1);
 tl.set(L.mw, { sq: 1, copy: 0, left: 0 }, M2);
-tl.to(L.mw, { vis: 1, duration: 0.3 }, M2 + 0.1);
+tl.to(L.mw, { vis: 1, duration: 0.3 }, M2 - 0.05);
 tl.to(".lane-tag", { y: 0, opacity: 1, duration: 0.3 }, M2 + 0.25);
 tl.to(L.mw, { copy: 1, duration: 0.6, ease: "power2.inOut" }, at("s17", "delay") - 0.1);
 tl.set("#bar-left", { height: 0 }, M2);
@@ -313,7 +313,6 @@ tl.to("#l-copy", { opacity: 1, duration: 0.3 }, s.s18b.start - 0.1);
 tl.set(["#chip-late", "#chip-step", "#name"], { autoAlpha: 0 }, CL);
 tl.set(L.lanes, { x0: 380, x1: 1790, lag: 0, clat: 1, copyVis: 0, vis: 1, t0: at("s18", "sudden") - 0.25 - 0.0 }, CL);
 film.land("#t-clatter", CL + 0.05);
-film.hit(CL, 0.3, 0.2);
 tl.to(L.lanes, { copyVis: 1, duration: 0.4 }, s.s18b.start - 0.1);
 film.pop("#chip-toolate", at("s18b", "faster"));
 film.tintTo(AMBERHEX, CL, 0.3);
@@ -370,24 +369,25 @@ tl.to("#rc1, #rc2", { x: -1100, opacity: 0, duration: 0.32, ease: "power3.in", s
 tl.to("#rc3, #rc4", { x: 1100, opacity: 0, duration: 0.32, ease: "power3.in", stagger: 0.03 }, PART - 0.1);
 tl.to(L.recap, { vis: 0, duration: 0.25, ease: "power3.in" }, PART - 0.1);
 tl.set(P, { x: 0, y: -10, size: 520, turn: -0.9, blur: 0, tint: 0.5, tintColor: 0x3fe0ff }, PART);
-tl.to(P, { vis: 1, size: 700, turn: -0.35, duration: 0.9, ease: "expo.out" }, PART + 0.12);
-tl.to(P, { turn: 0.05, duration: s.s23.start - PART, ease: "none" }, PART + 1.0);
+tl.to(P, { vis: 1, size: 700, turn: -0.35, duration: 0.9, ease: "expo.out" }, PART + 0.26);
+tl.to(P, { turn: 0.05, duration: at("s22", "time.", true) + 0.2 - PART - 1.0, ease: "none" }, PART + 1.0);
 Object.assign(L.close, { cx: 960, cy: 530, r0: 980, r1: 420 });
 tl.fromTo(L.close, { vis: 0, k: 0 }, { vis: 1, duration: 0.4, immediateRender: false }, at("s22", "flipped") - 0.1);
-tl.to(L.close, { k: 1, duration: at("s22", "time.") - at("s22", "flipped") + 0.1, ease: "power2.in" }, at("s22", "flipped"));
-tl.to(L.close, { vis: 0, duration: 0.15 }, at("s22", "time.") + 0.2);
-film.hit(at("s22", "time.") + 0.2, 0.55, 0.4);
-tl.to(P, { glow: 1, duration: 0.15 }, at("s22", "time.") + 0.2);
-tl.to(P, { glow: 0.25, duration: 0.9 }, at("s22", "time.") + 0.35);
+const MEET = at("s22", "time.", true) + 0.2; // cues.build.py puts the impact here
+tl.to(L.close, { k: 1, duration: MEET - at("s22", "flipped"), ease: "power2.in" }, at("s22", "flipped"));
+tl.to(L.close, { vis: 0, duration: 0.12 }, MEET);
+film.hit(MEET, 0.55, 0.4);
+tl.to(P, { glow: 1, duration: 0.12 }, MEET);
+tl.to(P, { glow: 0.25, duration: 0.9 }, MEET + 0.15);
 film.tintTo(CYANHEX, s.s22.start, 0.6);
 // s23: the poster.
 film.scene("#s23", s.s23.start - 0.1, storyboard.duration + 1);
-tl.to(P, { x: 560, y: 20, size: 620, duration: 0.8, ease: "power3.inOut" }, s.s23.start - 0.3);
-tl.to(P, { turn: 0.28, duration: storyboard.duration - s.s23.start + 0.3, ease: "none" }, s.s23.start - 0.3);
+tl.to(P, { x: 560, y: 20, size: 620, duration: 0.8, ease: "power3.inOut" }, MEET + 0.2);
+tl.to(P, { turn: 0.28, duration: storyboard.duration - MEET - 0.2, ease: "none" }, MEET + 0.2);
 const poster = film.split("#poster");
-film.typeIn(poster, s.s23.start, { stagger: 0.02 });
-film.sheen("#poster", s.s23.start + 1.1, 1.0);
-tl.fromTo(L.poster, { vis: 0 }, { vis: 1, duration: 0.5, immediateRender: false }, s.s23.start + 0.5);
+film.typeIn(poster, MEET + 0.42, { stagger: 0.02 });
+film.sheen("#poster", MEET + 1.3, 1.0);
+tl.fromTo(L.poster, { vis: 0 }, { vis: 1, duration: 0.5, immediateRender: false }, MEET + 0.7);
 tl.fromTo("#poster", { scale: 1 }, { scale: 1.035, duration: storyboard.duration - s.s23.start, ease: "none", transformOrigin: "0% 50%", immediateRender: false }, s.s23.start);
 film.light({ lx: 0.75, ly: 0.58, glow: 0.7 }, s.s23.start - 0.3, 1.2);
 

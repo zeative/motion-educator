@@ -273,10 +273,10 @@ FRAMES = {
     "s23": [
         fr(0.0, "The poster: the headphones on the right, still turning slowly; on the left the line to remember in metal type, the accent on 'silence'; under it the three lanes small: amber + cyan = flat white.",
            {"path": "M1240 500 Q1240 140 1480 140 Q1720 140 1720 500", "colour": "ink", "width": 22}, {"path": "M1180 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1660 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [110, 340], "text": "Noise + its flip\n= silence", "size": 110, "align": "start", "accent": "silence"}, wave(120, 520, 700, 40, 200), label(560, 712, "+", 50), wave(600, 1000, 700, 40, 200, "blue", 180)),
+           {"title": [110, 340], "text": "Noise + its flip\n≈ silence", "size": 110, "align": "start", "accent": "silence"}, wave(120, 520, 700, 40, 200), label(560, 712, "+", 50), wave(600, 1000, 700, 40, 200, "blue", 180)),
         fr(1.0, "It holds, breathing: a slow push, a sheen across the line, the bed's last chord.",
            {"path": "M1240 500 Q1240 140 1480 140 Q1720 140 1720 500", "colour": "ink", "width": 22}, {"path": "M1180 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"}, {"path": "M1660 450 h120 v260 h-120 Z", "colour": "ink", "fill": "ink"},
-           {"title": [110, 340], "text": "Noise + its flip\n= silence", "size": 110, "align": "start", "accent": "silence"}, flat(120, 1000, 800), {"camera": "push"}),
+           {"title": [110, 340], "text": "Noise + its flip\n≈ silence", "size": 110, "align": "start", "accent": "silence"}, flat(120, 1000, 800), {"camera": "push"}),
     ],
 }
 
@@ -568,7 +568,7 @@ shot("s22", "recap", "object3d",
 
 shot("s23", "recap", "endcard", 3.2,
      teaches="The line to remember.",
-     screen="The poster: the headphones on the right, turning slowly; on the left in metal type at 110 px 'Noise + its flip' and '= silence', the accent on 'silence'. Under it the three lanes small: amber + cyan = flat white.",
+     screen="The poster: the headphones on the right, turning slowly; on the left in metal type at 110 px 'Noise + its flip' and '≈ silence', the accent on 'silence'. Under it the three lanes small: amber + cyan = flat white.",
      motion="The line types in; a sheen; a slow push and the headphones' turn keep it breathing to the last frame.",
      carries="The end.",
      transition="The end: the bed's last chord rings out under the last frame.",
