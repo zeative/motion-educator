@@ -95,6 +95,8 @@ tl.to("#q", { x: -320, opacity: 0, duration: 0.3, ease: "power3.in" }, s.s02.sta
 const CUT = said("s01", "onion");
 to(K.knife, { y: -11.7 * 1.3 - 0.2 }, 0, CUT - 0.02, "power1.in");
 to(K, { front: 1 }, CUT + 0.12, 0.62, "power2.in");
+// it leaves from inside the cut, just behind the cut face, so it never crosses in front of the rings
+set(K.knife, { z: -0.6 }, CUT + 0.3);
 to(K.knife, { y: 26, x: 38, rz: 0.25 }, CUT + 0.35, 0.8, "power2.inOut");
 to(K.cam, { z: 93, y: 39 }, 0, s.s02.start, "none");
 set(M.a, { wisp: 1 }, 0);
@@ -167,16 +169,16 @@ set(M, { link: 0 }, OUT + 0.62);
 
 // ── s05: the knife goes in, the cells burst ───────────────────────────────
 const BLADE = said("s05", "knife") - 0.1;
-set(M.sheet, { cut: 1, blade: 1, bladeY: -260 }, BLADE);
-to(M.sheet, { bladeY: 1250 }, BLADE, said("s05", "burst,") + 0.25 - BLADE, "power1.in");
-blurMicro(BLADE + 0.2, 0.6, 0, 18);
+// the tip enters on "knife" and runs down the sheet; each row bursts as it passes, the last on "burst"
+set(M.sheet, { cut: 1, blade: 1, bladeY: -40 }, BLADE);
+to(M.sheet, { bladeY: 1250 }, BLADE, said("s05", "burst,") + 0.25 - BLADE, "power1.inOut");
 film.tintTo("#ff9a5a", said("s05", "burst,") - 0.4, 0.8);
 to(M.sheet, { blade: 0 }, said("s05", "burst,") + 0.15, 0.2, "power1.in");
 // push into the seam: the juice
 const SEAM = s.s06.start - 0.15;
-to(M.sheet, { z: 2.4 }, SEAM - 0.2, 0.45, "power3.in");
-fade("juice", 1, SEAM, 0.3);
-fade("sheet", 0, SEAM + 0.15, 0.2);
+// a hard cut at the peak of the push, not a crossfade
+to(M.sheet, { z: 2.4 }, SEAM - 0.3, 0.4, "power3.in");
+set(M.a, { juice: 1, sheet: 0 }, SEAM + 0.1);
 set(M.juice, { z: 1.4 }, SEAM);
 to(M.juice, { z: 1 }, SEAM, 0.6, "expo.out");
 
