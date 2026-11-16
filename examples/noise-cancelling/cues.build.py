@@ -35,7 +35,7 @@ if not (HERE / "music" / "bed-fit.mp3").exists():
     raise SystemExit("make the fitted bed first: ffmpeg -i music/bed.mp3 -af atempo=0.987 music/bed-fit.mp3")
 music = {"file": "../../examples/noise-cancelling/music/bed-fit.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "fade_out": 0.3, "duck_db": -6,
          "ride": [[0, 0], [7, 0], [9, -2.5], [12.5, -2.5], [14, 0], [19.5, 0], [21, -2.5], [23, -2.5], [24.5, 0], [31.5, 0], [33.5, -2.5], [36, -2.5], [37.5, 0],
-                  [44, 0], [45.5, -2], [47.5, -2], [49, 0], [56, 0], [57.5, -2.5], [60, -2.5], [62, 0], [68, 1], [71, 4], [73, 8], [r(D), 11]],
+                  [44, 0], [45.5, -2], [47.5, -2], [49, 0], [56, 0], [57.5, -2.5], [60, -2.5], [62, 0], [68, 1], [71, 4], [73, 9], [r(D), 14]],
          "note": "Composed for this film (music/bed.json has the prompt), slowed 1.3 % (bed-fit.mp3) so its last chord rings to the final frame. -22 LUFS under the voice; ridden down over its swells and up over the last chord's decay."}
 
 PAYOFF = word("s09", "nothing.")[1] + 0.12
@@ -51,11 +51,11 @@ cues = {
         {"t": r(PAYOFF), "file": f"{L}/sfx/impact_big_3.mp3", "db": -10, "align": "peak", "duck": 0.6, "trim": [0, 0.6], "fade": 0.4, "note": "THE PAYOFF of the mechanism: almost nothing, in the hold after 'nothing'"},
         {"t": r(PAYOFF), "file": f"{L}/sfx/sub_drop_2.mp3", "db": -16, "align": "peak", "trim": [0, 0.55], "fade": 0.3, "note": "its body"},
         {"t": r(word("s10", "interference.")[1] + 0.03), "file": f"{L}/sfx/shimmer_1.mp3", "db": -15, "align": "peak", "trim": [0, 0.4], "fade": 0.2, "note": "the sheen across the name, in the hold"},
-        {"t": r(TURN), "file": f"{L}/sfx/impact_big_2.mp3", "db": -11, "align": "peak", "duck": 0.5, "trim": [0, 0.7], "fade": 0.45, "note": "THE TURN: at the end of the hold, before 'But'"},
+        {"t": r(TURN), "file": f"{L}/sfx/impact_big_2.mp3", "db": -7, "align": "peak", "duck": 0.5, "trim": [0, 0.7], "fade": 0.45, "note": "THE TURN: at the end of the hold, before 'But'"},
         {"t": r(TURN), "file": f"{L}/sfx/sub_drop_1.mp3", "db": -17, "align": "peak", "trim": [0, 0.6], "fade": 0.35, "note": "its body"},
         {"t": r(s["s12"]["start"] - 0.1), "file": f"{L}/sfx/whoosh_fast_5.mp3", "db": -17, "align": "peak", "note": "the whip to the to-scale view (soft, on the sentence end)"},
         {"t": r(s["s16"]["start"]), "file": f"{L}/sfx/whoosh_fast_6.mp3", "db": -19, "align": "peak", "note": "the zoom ten times closer (soft, in the gap after 'harder.')"},
-        {"t": r(RC + 0.32), "file": f"{L}/sfx/card_3.mp3", "db": -11, "align": "peak", "note": "the recap cards rise, in the pause after 'catch.'"},
+        {"t": r(RC + 0.32), "file": f"{L}/sfx/card_3.mp3", "db": -7, "align": "peak", "note": "the recap cards rise, in the pause after 'catch.'"},
         {"t": r(RINGS), "file": f"{L}/sfx/impact_big_3.mp3", "db": -9, "align": "peak", "duck": 0.6, "trim": [0, 1.4], "fade": 0.9, "note": "THE ANSWER: the two rings meet and vanish, after 'time'"},
         {"t": r(RINGS), "file": f"{L}/sfx/sub_drop_2.mp3", "db": -15, "align": "peak", "trim": [0, 1.0], "fade": 0.5, "note": "its body"},
         {"t": r(s["s23"]["start"] + 1.2), "file": f"{L}/sfx/shimmer_2.mp3", "db": -15, "align": "peak", "trim": [0, 1.2], "fade": 0.6, "note": "the sheen across the poster line"},

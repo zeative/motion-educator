@@ -237,10 +237,10 @@ tl.fromTo(L.sc, { inset: 0 }, { inset: 1, duration: 0.4, immediateRender: false 
 // s14: the meters: a copy a hair late still leaves only 2%.
 const M1 = s.s14.start - 0.2;
 film.scene("#meters", M1 - 0.15, s.s15.start + 0.35);
-tl.to(L.sc, { vis: 0, inset: 0, ruler: 0, duration: 0.15 }, M1 - 0.05);
-tl.to("#chip-hum, #m-hum, #note-scale, #t-you, #earpanel", { opacity: 0, duration: 0.15 }, M1 - 0.05);
+tl.to(L.sc, { vis: 0, inset: 0, ruler: 0, duration: 0.15 }, M1 - 0.22);
+tl.to("#chip-hum, #m-hum, #note-scale, #t-you, #earpanel", { opacity: 0, duration: 0.15 }, M1 - 0.22);
 gsap.set("#mpanel, #bpanel", { y: 60, opacity: 0 });
-tl.to("#mpanel, #bpanel", { y: 0, opacity: 1, duration: 0.45, ease: "expo.out", stagger: 0.06 }, M1 - 0.12);
+tl.to("#mpanel, #bpanel", { y: 0, opacity: 1, duration: 0.45, ease: "expo.out", stagger: 0.06 }, M1 - 0.1);
 gsap.set("#mt-sq, #bar-hum", { opacity: 0 });
 gsap.set("#v-left100", { opacity: 0 });
 gsap.set(".lane-tag", { opacity: 0 });

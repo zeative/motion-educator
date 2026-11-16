@@ -96,7 +96,7 @@ const CUT = said("s01", "onion");
 to(K.knife, { y: -11.7 * 1.3 - 0.2 }, 0, CUT - 0.02, "power1.in");
 to(K, { front: 1 }, CUT + 0.12, 0.62, "power2.in");
 // it leaves from inside the cut, just behind the cut face, so it never crosses in front of the rings
-set(K.knife, { z: -0.6 }, CUT + 0.3);
+set(K.knife, { z: -2.2 }, CUT + 0.3);
 to(K.knife, { y: 26, x: 38, rz: 0.25 }, CUT + 0.35, 0.8, "power2.inOut");
 to(K.cam, { z: 93, y: 39 }, 0, s.s02.start, "none");
 set(M.a, { wisp: 1 }, 0);
