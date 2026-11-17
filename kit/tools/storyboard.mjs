@@ -131,7 +131,10 @@ if (modelled.length) {
     need(model, "reference", where, 15);
     if (!(typeof model.variant === "string" && model.variant.trim().length >= 12)) must(where, '"variant" is missing: which real version you replicate, and why (the one your viewer knows, by their language and place)');
     if (!(typeof model.looks === "string" && model.looks.trim().length >= 20)) must(where, '"looks" is missing: the colours, materials, markings and proportions you saw in the reference photos');
-    if (!Array.isArray(model.photos) || !model.photos.length) warn(where, '"photos" is empty: list where the reference photos came from, so the replica can be checked against them');
+    // A replica drawn from text alone is a guess: the board waits until someone has looked at the real thing.
+    const photos = Array.isArray(model.photos) ? model.photos.filter((p) => typeof p === "string" && p.trim()) : [];
+    if (!photos.length) must(where, '"photos" is empty: look at photographs of the real thing before the board is shown (image search, product pages), and when you cannot open any, ask the person for photos first; list each one you looked at');
+    if (typeof model.looks === "string" && /assum|guess|unverified|belum dicek|asumsi/i.test(model.looks)) warn(where, '"looks" still holds assumptions: confirm them from a photo, or ask the person, before you build the model');
     if (!Array.isArray(model.parts) || model.parts.length < 5) must(where, '"parts" needs at least five named parts, as a teardown or cross-section shows them');
   }
 }

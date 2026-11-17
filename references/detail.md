@@ -25,9 +25,13 @@ and build it accurately:
   wall, the motorbike on an Indonesian road; English with no other clue means the most common international
   version; another language, the version common where it is spoken. When the versions differ a lot and the clues
   do not settle it, ask.
-- **Research it before you model it.** Find photographs of the real thing from several angles (image search,
-  product pages, manufacturer catalogues, teardown videos, patents and datasheets for the inside), and ask the
-  person for photos when you cannot find good ones. Write down what you see: the overall proportions, every
+- **Research it before you model it, with your eyes.** Text describes the mechanism; only photographs show the
+  thing. Find photographs of the real thing from several angles (image search, product pages, manufacturer
+  catalogues, teardown videos, patents and datasheets for the inside) and look at them yourself (download them and
+  read the images). When you cannot open any, ask the person for photos **before** you show the board, saying
+  exactly which views you need; never fill the gap with a plausible guess (one test film drew a fuel nozzle green
+  that is purple, blue and orange in every station the viewer knows). The board's check refuses a model with no
+  photos listed. Write down what you see: the overall proportions, every
   visible part, colours (and any colour code: by fuel, by voltage, by size), materials and finishes, markings,
   how it is held or mounted, what it sits next to. The inside comes from teardowns, cut-away product photos,
   patents or service manuals, not from a guess.
