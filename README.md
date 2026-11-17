@@ -188,7 +188,8 @@ Measured on one heavy portrait frame (1080x1920, PBR materials, soft shadows, de
 
 On a CPU about nine tenths of a frame is the 3D drawing itself, and it scales with cores. So the kit can also
 **render on a bigger machine**: a render worker runs in Docker anywhere you have room (a VPS, a home server, a
-Dokploy or Coolify host), with a CPU limit so the machine's other services keep theirs.
+Dokploy or Coolify host), capped in CPUs and memory and waiting before each job until the host has memory to spare,
+so the machine's other services keep theirs.
 
 ```sh
 # on the bigger machine: run kit/farm/compose.yml (set FARM_TOKEN; FARM_CPUS caps the cores), expose port 8080

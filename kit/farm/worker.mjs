@@ -11,7 +11,7 @@ import { spawn, spawnSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
-import { availableParallelism } from "node:os";
+import { availableParallelism, freemem, totalmem } from "node:os";
 import { join, normalize } from "node:path";
 
 const TOKEN = process.env.FARM_TOKEN;
@@ -40,7 +40,20 @@ function run(cmd, args, opts, job) {
   });
 }
 
+// The machine is shared: before a job starts, wait until enough of the host's memory is free (os.freemem() reads the
+// host's figure inside a container), so a render never pushes the other services out. FARM_MIN_FREE_GB, default 8.
+const MIN_FREE = Number(process.env.FARM_MIN_FREE_GB ?? 8) * 2 ** 30;
+async function roomToRender(job) {
+  for (let waited = 0; freemem() < MIN_FREE; waited += 30) {
+    if (waited === 0) job.log.push(`waiting for memory: ${(freemem() / 2 ** 30).toFixed(1)} GB free of ${(totalmem() / 2 ** 30).toFixed(0)}, need ${(MIN_FREE / 2 ** 30).toFixed(0)}`);
+    if (waited >= 1800) return false;
+    await new Promise((r) => setTimeout(r, 30000));
+  }
+  return true;
+}
+
 async function work(job) {
+  if (!(await roomToRender(job))) return fail(job, "the machine did not free enough memory in 30 minutes: not rendering");
   job.state = "running";
   job.started = Date.now();
   const home = join(ROOT, "films", job.key);

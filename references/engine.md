@@ -162,8 +162,9 @@ What was learned about speed on a machine with no GPU (four cores, Mesa lavapipe
   Chromium's own software renderer, same pixels). A CPU-only Linux machine needs `mesa-vulkan-drivers`; the
   renderer stops with that hint when neither is there, and prints which one it got.
 - With no GPU the 3D drawing is about nine tenths of a frame's cost and scales with CPU cores. A bigger machine
-  can render for you: run `kit/farm/compose.yml` there (Docker; it limits its CPUs so the machine's other
-  services keep room) and send the film with
+  can render for you: run `kit/farm/compose.yml` there (Docker; `FARM_CPUS` and `FARM_MEMORY` cap it, default 6 CPUs
+  and 6 GB, and it waits before each job until the host has `FARM_MIN_FREE_GB`, default 8, free; one worker with
+  12 GB on a host already using 19 of 32 GB took the whole host down) and send the film with
   `FARM_URL=https://host/farm FARM_TOKEN=... node kit/tools/farm.mjs films/NAME --segment 1`. The worker keeps the
   film's segments, so later fixes with `--only` render only what changed there too. Use short segments
   (`--segment 1`) for short films, so every core gets one.
