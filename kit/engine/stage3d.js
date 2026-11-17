@@ -266,7 +266,10 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
       m.side = THREE.DoubleSide;
       const cut = new THREE.Color(m.userData.cut ?? m.color ?? 0x888888);
       m.userData.cutColor = cut; // the live colour of the cut face: change it (copy/lerp) to recolour the section
-      m.onBeforeCompile = (shader) => {
+      const before = m.onBeforeCompile; // a material's own shader patch (body3d's fibres, say) still runs first
+      const beforeKey = m.customProgramCacheKey?.() ?? "";
+      m.onBeforeCompile = (shader, r) => {
+        before.call(m, shader, r);
         shader.uniforms.cutColor = { value: cut };
         shader.fragmentShader = shader.fragmentShader
           .replace("void main() {", "uniform vec3 cutColor;\nvoid main() {")
@@ -275,7 +278,7 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
           // afterwards): set after them, it jumped in brightness the moment a shot's blur rose above zero
           .replace("#include <tonemapping_fragment>", "if (!gl_FrontFacing) { float hatch = step(0.82, fract((gl_FragCoord.x + gl_FragCoord.y) / 16.0)); gl_FragColor = vec4(cutColor * (0.8 + 0.12 * hatch), 1.0); }\n#include <tonemapping_fragment>");
       };
-      m.customProgramCacheKey = () => `cut-${cut.getHexString()}`;
+      m.customProgramCacheKey = () => `${beforeKey}cut-${cut.getHexString()}`;
     });
     return plane;
   }

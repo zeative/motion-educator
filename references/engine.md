@@ -105,6 +105,16 @@ film.each((t) => space.render(1, t));               // pass t: the drift is a fu
 | `P.dust({ count, place })` | soft motes or a particle stream; `place(i, t, p, seed)` positions each; call `.update(t)` per frame |
 | `film.captions()` with `"captions": "frame"` | top-of-frame words lit as said, key words (`shot.keys`) in a selection frame |
 
+Living things have their own tools (`references/detail.md`, *Living things*):
+
+| Tool | Does |
+| --- | --- |
+| `node kit/tools/anatomy.mjs recipe.json` | a `.glb` of real human anatomy from BodyParts3D: named parts, smoothed, tendons marked, skin trimmed to a limb (`near`), the credit written beside it; `--find WORD` lists part names |
+| `B = createBody(space, P)`, `await B.load(url)` | loads it with tissue materials (`B.M.muscle bone skin fat fascia cartilage nerve artery vein`); parts in `group.userData.parts` |
+| `B.joint(group, { pivot, axis, below, above, blend })` | a hinge: tween `.angle` (degrees); bones below turn, crossing muscles and skin bend |
+| `B.flex(muscle, { amount })`, `B.xray(skin)` | a working muscle's belly thickens (tween `.v`); skin turns to a glass shell (tween `.v`) |
+| `B.update()` | call in `film.each` before `space.render` |
+
 Depth of field (`cam.blur`) costs a second pass: use it in close-ups only. Shadows cost a little on every frame.
 
 Anything loaded from a file (a texture, a font, data) must be loaded before `film.finish()`: `await` it, as

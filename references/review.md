@@ -68,7 +68,9 @@ Report (under 900 words):
 2. Fidelity: is each real object the version the audience knows (their country's petrol nozzle, their wall
    socket, their motorbike), and does it match photographs of the real thing? For each, crop it from a frame. Would a stranger name it from the
    silhouette? Name its parts from the close-up? List what a real one has that this one lacks (parts, bevels,
-   seams, markings, surface), against the storyboard's `models`.
+   seams, markings, surface), against the storyboard's `models`. For a living thing, compare each level with a
+   real anatomy plate or micrograph: a limb or organ built from primitives, or a cell whose parts sit in the wrong
+   place or at the wrong size, is "ordinary" however well it is lit.
 3. Camera: list each 3D shot's move. Which shots are static or straight-on, which repeat the shot before, which
    name a part without going close to it?
 4. Per shot: what is on screen, how much of the frame is empty, premium or ordinary and exactly why, defects with

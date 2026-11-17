@@ -67,7 +67,7 @@ Read only the reference your current step needs.
    one sentence a shot, never one recording a sentence, never a pause trimmed to fit a plan.
 8. **Real things are built, not symbolised, and the camera is directed.** A device, an organ, a plant, a machine
    the film explains is a replica: the version the viewer knows where they live, researched from photographs and
-   teardowns, built in 3D from its real parts at real proportions, in materials that read as what they are; a box, an icon or a flat shape never stands in for it. Every 3D shot has a deliberate
+   teardowns, built in 3D from its real parts at real proportions, in materials that read as what they are; a box, an icon or a flat shape never stands in for it. A body, a limb or an organ is never modelled from shapes: load the real anatomy (`kit/tools/anatomy.mjs`, `kit/engine/body3d.js`) or a measured scan, and build tissue and cells from a dimension sheet taken from histology. Every 3D shot has a deliberate
    camera move, and when the voice names a part the camera goes to it (`references/detail.md`).
 9. **Say what was not checked.** You cannot hear. Say that the mix was set by measurement, name what a person
    should listen for, and deliver a music-only version beside the full mix.

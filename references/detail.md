@@ -114,12 +114,64 @@ For each hero object, before building shots:
 | A flat outline with thickness: a bracket, a leaf, a gear, a logo-less badge, a car's side, an ear's outline | `P.extrude(svgPathD, depth, { bevel })` from a traced outline; a deep bevel makes it soft |
 | Rounded blocks: housings, chips, batteries, phones | `P.roundedBox(w, h, d, r)` |
 | Wires, cables, pipes, veins, roads | `P.tube(points, radius)` |
-| Organic lumps: rocks, cells, organs | a sphere or a lathe shape, its vertices pushed out by a smooth noise |
+| A body, a limb, a bone, a muscle, an organ | never built from shapes: the real mesh (see *Living things*, below) |
+| Organic lumps with no fixed shape: rocks, a blob of fat, a soft cell | a sphere or a lathe shape, its vertices pushed out by a smooth noise |
 | Crowds of the same thing: cars, cells, trees, molecules | build one in detail, then `THREE.InstancedMesh` |
 | Electronics | `P.pcb`, `P.ic` (qfn / qfp / soic), `P.smd`, `P.shield`, `P.usbC`, `P.header`, `P.mic`, `P.screw` |
 | A speaker or headphone driver | `P.driver` (basket, magnet, pole piece, voice coil, spider, cone, surround, dust cap, all explodable) |
 
 Where the kit has no piece, build it from these, as `parts3d.js` builds its own, and keep it in the film's folder.
+
+### Living things: anatomy is loaded, tissue is measured
+
+A viewer has looked at their own arm all their life: an arm made of cylinders, a muscle drawn as a smooth red
+sausage or a cell drawn as a pink tube with purple drops reads as a toy at once, however good the light. Organic
+form is never modelled from primitives.
+
+**The body, at the scale you can see: load the real one.** `kit/tools/anatomy.mjs` builds a `.glb` from
+BodyParts3D, a whole human body measured from a real person (every bone, muscle, organ, vessel and the skin, in
+millimetres, CC BY 4.0). Name the parts the way the database does (`--find biceps` lists them); the tool smooths
+them, marks where each muscle thins into tendon, trims the whole-body skin to a sleeve around a limb (`near`), and
+writes the credit beside the model. `kit/engine/body3d.js` loads it with tissue materials and poses it:
+
+```js
+const B = createBody(space, P);
+const arm = await B.load("assets/arm.glb");                          // parts: arm.userData.parts.biceps ...
+const elbow = B.joint(arm, { pivot, below: ["radius", "ulna", "hand"], above: ["humerus", "scapula"], blend: 6 });
+const flex = B.flex(arm.userData.parts.biceps);                        // the belly thickens, the tendons do not
+const glass = B.xray(arm.userData.parts.skin);                         // skin to a clear shell: the muscles show
+tl.to(elbow, { angle: 105, duration: 1.2 }, t); tl.to(flex, { v: 1, duration: 1.2 }, t);
+film.each((t) => { B.update(); space.render(1, t); });
+```
+
+- **Pose it as the body moves.** A hinge (`B.joint`) turns the bones below it rigidly and bends the muscles and
+  skin that cross it smoothly. A muscle that works flexes. Never turn a forearm by rotating a whole group, which
+  tears the skin and the muscles at the joint.
+- **Show the layers in order.** Skin, then skin as glass (`B.xray`) with the muscles under it, then the one
+  muscle (the others ghosted), then into it. The viewer keeps their place because the arm never changes.
+- **Frame around the database's limits.** The skin is one surface for the whole body, so where a limb meets the
+  trunk (the armpit, the inner thigh) a trimmed sleeve has an opening: frame skin shots from the outside of the
+  limb, or show the skin as glass there. The source is about 2000 triangles a muscle: smooth it (`"smooth": 1`
+  or `2`) and keep extreme close-ups for the tissue builders below.
+- **Animals, plants, fossils, objects in a museum**: look for a measured scan first. The Smithsonian's 3D
+  collection (3d.si.edu, many models CC0) and NIH 3D (3d.nih.gov: organs, cells, proteins, each with its own
+  licence) are reachable from most sessions. Record the source and licence in the model sheet and credit it in
+  the film. Build from drawings only what no scan exists for, and then from measured references (anatomical
+  plates, dissections, specimen photographs), never from memory.
+
+**Below what the eye can see: build it from measurements.** Tissue, cells and molecules have no scan you can load
+at film quality, so they are built, but from a dimension sheet: every size and count from histology or electron
+microscopy, with its source, written into the model sheet before the model. A muscle fibre is a long cylinder
+10 to 100 µm across, its many nuclei flattened and lying just under the membrane along its length (never round
+blobs on top), striated across its axis, packed with myofibrils; a sarcomere is about 2.2 µm, thin filaments
+anchored in zig-zag Z-discs, thick filaments with their heads in helical rows and a bare zone at the M-line, six
+thin around each thick in section. Get one level wrong and a biologist stops watching. `kit/engine/tissue3d.js`
+builds skeletal muscle at every level this way (muscle, fascicle, fibre, myofibril, sarcomere, with sliding
+filaments and hypertrophy); use it as the pattern for other tissue.
+
+**Scale is a journey, not a cut.** Go from the arm to the molecule in steps the viewer can follow: each level
+appears inside the one before it (the fascicle inside the cut muscle, the fibre inside the fascicle), with a
+scale note (`1 mm`, `50 µm`, `2 µm`) and the colour of each structure kept from level to level.
 
 ### When 2D is right
 
@@ -215,7 +267,11 @@ Look at the stills (`render.mjs --stills`) and answer each in writing:
    a thing the film explains.
 4. **The camera log.** Every 3D shot's move, in order: none static, none repeated back to back, every named part
    seen close.
-5. **Side by side with the bar.** Put your best frame next to a frame of a top teardown explainer you know: would
+5. **The anatomist's test** (living things). Each level next to a real image of it (an anatomy plate, a
+   dissection photo, a micrograph, an electron micrograph): the shape, the proportions, where things sit (nuclei at
+   the edge of a muscle fibre, tendon where the muscle thins) and the size note all agree with the source. Nothing
+   organic is a primitive.
+6. **Side by side with the bar.** Put your best frame next to a frame of a top teardown explainer you know: would
    yours sit in that film? If not, it is not finished: add the missing level of detail.
 
 The reviewer (`review.md`) is asked the same questions, and rates any schematic stand-in for a real object
