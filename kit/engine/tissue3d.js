@@ -69,8 +69,9 @@
 //   - Triads (one T-tubule between two terminal cisternae of the SR) sit at the A-I junction in mammals, so two
 //     per sarcomere.                                                                                       [S15]
 // Sarcomere
-//   - Sarcomere length about 2 µm [S8]; 2.2 µm in frog sartorius, 2-3 µm Z to Z in lecture notes [S16]; default
-//     rest length here 2.5 µm.
+//   - Sarcomere length about 2 µm [S8]; 2.2 µm in frog sartorius, 2-3 µm Z to Z in lecture notes [S16]. Human:
+//     optimal length 2.64 µm [S32], usually given as 2.8 µm [S33]; default rest length here 2.8 µm (H-zone
+//     0.26 µm with human thin filaments), contracted 2.2 µm (thin filaments overlap past the M-line).
 //   - Thick filament length about 1.65 µm, essentially constant across vertebrate muscles and species [S17];
 //     1.6 µm used. Diameter 10-12 nm (backbone) in lecture notes [S16]; 15 nm used for the backbone with heads
 //     folded (a common textbook value; the brief's figure).
@@ -79,7 +80,7 @@
 //     Bare zone (no heads) in the middle where the polarity reverses [S19]: about 0.16 µm used (210 nm reported in
 //     tarantula; mammalian value not confirmed here) (APPROX).
 //   - Thin filament length 0.95-1.40 µm across muscles and species [S17]; 1.19-1.37 µm in human deltoid and
-//     pectoralis [S21]; 1.0 µm used (frog, lecture notes [S16]) so the textbook H-zone shows at 2.5 µm.
+//     pectoralis [S21]; human 1.27 µm with thick 1.60 µm [S32]. Default 1.27 µm (a parameter: `thin`/`thinL`).
 //     Diameter 5-7 nm [S16]; 7 nm used.
 //   - F-actin: two-stranded helix, crossovers about 36 nm apart, 13 monomers per crossover [S22]. Tropomyosin spans
 //     seven actin monomers (38.5 nm); one troponin complex per tropomyosin; troponin in pairs every 38.5 nm;
@@ -132,6 +133,9 @@
 //   [S29] Jorgenson, Phillips & Hornberger, Cells 2020 (PMC7408414), "Building muscle: molecular regulation...".
 //   [S30] Jorgenson et al., eLife reviewed preprint 92674 (FIM-ID: myofibrillogenesis drives growth).
 //   [S31] Murach et al., Front Physiol 2018 (PMC5986879); Bagley et al. 2023 (PMC9931674) on the myonuclear domain.
+//   [S32] Burkholder & Lieber, J Exp Biol 204:1529 (2001), table after Walker & Schrodt: human thick 1.60, thin 1.27,
+//         optimal sarcomere 2.64 µm.
+//   [S33] Murray et al. 2000 (Stanford NMBL), "2.8 µm, the optimal sarcomere length in human muscle".
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 import { rng } from "./parts3d.js";
 
@@ -139,13 +143,13 @@ export const FACTS = {
   unit: "µm",
   fibreDiameter: { value: 50, range: [10, 100], src: "S7" },
   myofibrilDiameter: { value: 1.2, src: "S8" },
-  sarcomereRest: { value: 2.5, range: [2.0, 2.5], src: "S8 S16" },
-  sarcomereShort: { value: 2.0, note: "thin filaments meet at the M-line; H-zone gone", src: "S28 (geometry)" },
+  sarcomereRest: { value: 2.8, optimalHuman: [2.64, 2.8], src: "S32 S33" },
+  sarcomereShort: { value: 2.2, note: "H-zone gone; thin filaments overlap past the M-line", src: "S28 (geometry)" },
   thickLength: { value: 1.6, note: "~1.65 constant", src: "S17" },
   thickDiameter: { value: 0.015, note: "10-15 nm", src: "S16" },
   bareZone: { value: 0.16, note: "approx", src: "S19" },
   crown: { value: 0.0143, repeat: 0.0429, pairsPerCrown: 3, turn: 40, src: "S18 S19" },
-  thinLength: { value: 1.0, human: [1.19, 1.37], src: "S16 S17 S21" },
+  thinLength: { value: 1.27, range: [0.95, 1.4], human: [1.19, 1.37], src: "S17 S21 S32" },
   thinDiameter: { value: 0.007, src: "S16" },
   actinCrossover: { value: 0.036, monomers: 13, src: "S22" },
   troponinRepeat: { value: 0.0385, src: "S22" },
@@ -414,36 +418,48 @@ export function createTissue(space, P) {
     }
   }
   // A prism from outline (CCW) between z0 and z1, with a rounded bevel into its top cap (the cut face).
-  function prism(g, outline, z0, z1, { bevel = 0, cell = [0, 0, 0, 0], bottom = false } = {}) {
+  // segZ splits the long side into rows; displace(i, z) moves outline point i out along its normal at height z (a
+  // bundle bulging into a ridge, swelling and narrowing along its length). The cap uses the displacement at z1.
+  function prism(g, outline, z0, z1, { bevel = 0, cell = [0, 0, 0, 0], bottom = false, segZ = 1, displace = null } = {}) {
     let ol = outline;
     if (area(ol) < 0) ol = ol.slice().reverse();
     const m = ol.length;
     if (m < 3) return;
-    const nrm = ol.map((p, i) => {
-      const a = ol[(i + m - 1) % m];
-      const b = ol[(i + 1) % m];
-      const e1x = p[0] - a[0];
-      const e1y = p[1] - a[1];
-      const e2x = b[0] - p[0];
-      const e2y = b[1] - p[1];
-      const l1 = Math.hypot(e1x, e1y) || 1;
-      const l2 = Math.hypot(e2x, e2y) || 1;
-      let nx = e1y / l1 + e2y / l2;
-      let ny = -e1x / l1 - e2x / l2;
-      const l = Math.hypot(nx, ny) || 1;
-      return [nx / l, ny / l];
-    });
+    const normalsOf = (pts) =>
+      pts.map((p, i) => {
+        const a = pts[(i + m - 1) % m];
+        const b = pts[(i + 1) % m];
+        const e1x = p[0] - a[0];
+        const e1y = p[1] - a[1];
+        const e2x = b[0] - p[0];
+        const e2y = b[1] - p[1];
+        const l1 = Math.hypot(e1x, e1y) || 1;
+        const l2 = Math.hypot(e2x, e2y) || 1;
+        const nx = e1y / l1 + e2y / l2;
+        const ny = -e1x / l1 - e2x / l2;
+        const l = Math.hypot(nx, ny) || 1;
+        return [nx / l, ny / l];
+      });
+    const nrm0 = normalsOf(ol);
+    const at = (z) => {
+      if (!displace) return { pts: ol, nrm: nrm0 };
+      const pts = ol.map((p, i) => {
+        const d = displace(i, z);
+        return [p[0] + nrm0[i][0] * d, p[1] + nrm0[i][1] * d];
+      });
+      return { pts, nrm: normalsOf(pts) };
+    };
     const per = [0];
     for (let k = 1; k <= m; k++) per.push(per[k - 1] + Math.hypot(ol[k % m][0] - ol[k - 1][0], ol[k % m][1] - ol[k - 1][1]));
     const b = Math.min(bevel, (z1 - z0) * 0.45);
-    const ring = (z, inset, mixUp) => {
+    const ring = (z, inset, mixUp, shape = at(z)) => {
       const s = g.count;
       for (let k = 0; k <= m; k++) {
         const i = k % m;
-        const [nx, ny] = nrm[i];
+        const [nx, ny] = shape.nrm[i];
         const up = mixUp;
         const l = Math.hypot(nx * (1 - up), ny * (1 - up), up) || 1;
-        g.v(ol[i][0] - nx * inset, ol[i][1] - ny * inset, z, (nx * (1 - up)) / l, (ny * (1 - up)) / l, up / l, per[k], z, cell);
+        g.v(shape.pts[i][0] - nx * inset, shape.pts[i][1] - ny * inset, z, (nx * (1 - up)) / l, (ny * (1 - up)) / l, up / l, per[k], z, cell);
       }
       return s;
     };
@@ -453,28 +469,29 @@ export function createTissue(space, P) {
         g.t(a + k, c + k + 1, c + k);
       }
     };
-    const r0 = ring(z0, 0, 0);
-    const r1 = ring(z1 - b, 0, 0);
-    quads(r0, r1);
-    let top = r1;
+    let prev = ring(z0, 0, 0);
+    const rows = Math.max(1, segZ);
+    for (let j = 1; j <= rows; j++) {
+      const r = ring(lerp(z0, z1 - b, j / rows), 0, 0);
+      quads(prev, r);
+      prev = r;
+    }
+    const topShape = at(z1);
     if (b > 0) {
-      const r2 = ring(z1 - b * 0.3, b * 0.45, 0.55);
-      quads(r1, r2);
-      const r3 = ring(z1, b, 0.92);
+      const r2 = ring(z1 - b * 0.3, b * 0.45, 0.55, topShape);
+      quads(prev, r2);
+      const r3 = ring(z1, b, 0.92, topShape);
       quads(r2, r3);
-      top = r3;
     }
     // the cap: flat, its own up-facing vertices
-    const [cx, cy] = centroid(ol);
+    const [cx, cy] = centroid(topShape.pts);
     const cs = g.count;
     for (let k = 0; k < m; k++) {
-      const i = k;
-      const [nx, ny] = nrm[i];
-      g.v(ol[i][0] - nx * b, ol[i][1] - ny * b, z1, 0, 0, 1, per[k], z1, cell);
+      const [nx, ny] = topShape.nrm[k];
+      g.v(topShape.pts[k][0] - nx * b, topShape.pts[k][1] - ny * b, z1, 0, 0, 1, per[k], z1, cell);
     }
     const cc = g.v(cx, cy, z1, 0, 0, 1, 0, z1, cell);
     for (let k = 0; k < m; k++) g.t(cc, cs + k, cs + ((k + 1) % m));
-    void top;
     if (bottom) {
       const bs = g.count;
       for (let k = 0; k < m; k++) g.v(ol[k][0], ol[k][1], z0, 0, 0, -1, per[k], z0, cell);
@@ -574,8 +591,8 @@ export function createTissue(space, P) {
       for (let k = 0; k < radial; k++) {
         const a = s + i * (radial + 1) + k;
         const c = a + radial + 1;
-        g.t(a, c, c + 1);
-        g.t(a, c + 1, a + 1);
+        g.t(a, a + 1, c + 1);
+        g.t(a, c + 1, c);
       }
   }
 
@@ -713,8 +730,8 @@ export function createTissue(space, P) {
               float sa = abs(fract(sec) - 0.5);
               float nuc = on * (1.0 - smoothstep(0.25, 0.4, sa)) * (smoothstep(0.035, 0.05, border) - smoothstep(0.085, 0.11, border));
               vec3 col = fib;
-              col = mix(col, uC3, nuc * 0.95);
-              col = mix(col, uC2, endo * 0.9);
+              col = mix(col, uC3, nuc * 0.95 * (1.0 - smoothstep(0.06, 0.16, px)));
+              col = mix(col, uC2, endo * 0.9 * (1.0 - smoothstep(0.05, 0.16, px)));
               col = mix(col, uC4, corner * 0.85);
               float far = smoothstep(0.08, 0.3, px);
               col = mix(col, mix(fib, uC2, 0.12), far);
@@ -730,7 +747,7 @@ export function createTissue(space, P) {
               float line = 1.0 - smoothstep(0.0, 0.06 + px, min(f, 1.0 - f));
               float tone = mix(0.85, 1.08, tH1(k * 1.7));
               vec3 col = diffuseColor.rgb * tone;
-              col = mix(col, uC2, line * 0.3 * (1.0 - smoothstep(0.15, 0.4, px)));
+              col = mix(col, col * 0.62, line * 0.8 * (1.0 - smoothstep(0.12, 0.45, px)));
               diffuseColor.rgb = mix(col, diffuseColor.rgb, capness);
             }
           #endif
@@ -765,7 +782,7 @@ export function createTissue(space, P) {
               diffuseColor.rgb *= 0.86 + 0.18 * f;
             }
           #endif
-          if (uGlowNew > 0.0) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0, 0.82, 0.55), uGlowNew * vCell.w * 0.55);`,
+          if (uGlowNew > 0.0) diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * vec3(1.16, 1.3, 1.12) + vec3(0.05, 0.03, 0.0), uGlowNew * vCell.w);`,
         )
         .replace(
           "#include <normal_fragment_maps>",
@@ -858,9 +875,9 @@ export function createTissue(space, P) {
   })();
   function fibreMat(extra = {}, defines = {}) {
     const m = tissueMaterial(
-      { color: C.muscle, roughness: 0.42, metalness: 0, sheen: 0.7, sheenColor: new THREE.Color(0xff9a9a), sheenRoughness: 0.45, clearcoat: 0.25, clearcoatRoughness: 0.35, ...extra },
+      { color: C.muscle, roughness: 0.4, metalness: 0, sheen: 0.28, sheenColor: new THREE.Color(0xff8080), sheenRoughness: 0.5, clearcoat: 0.35, clearcoatRoughness: 0.3, ...extra },
       { SSS: "", ...defines },
-      { uSSSk: { value: 0.55 }, uADark: { value: new THREE.Color(...C.aDark) } },
+      { uSSSk: { value: 0.32 }, uADark: { value: new THREE.Color(...C.aDark) } },
     );
     m.userData.cut = 0x9c2430;
     return m;
@@ -972,22 +989,21 @@ export function createTissue(space, P) {
   // A short length of a small muscle, cut square at z = 0 (the section faces +z), its fascicles standing a little
   // proud of the cut by different amounts the way a sectioned specimen does. Sizes: radius 2500 µm (a muscle about
   // 5 mm across), fascicles about 0.7 mm, fibres 50 µm shown as the pattern on each fascicle's cut face.
-  function muscle({ radius = 2500, length = 5000, fascicles = 56, fibre = 50, stagger = 1, seed = 3, name = "muscle" } = {}) {
+  function muscle({ radius = 2500, length = 5000, fascicles = 56, fibre = 50, seed = 3, surfaceVessels = 3, name = "muscle" } = {}) {
     const rand = rng(seed);
-    const g = groupOf(name, "muscle-section", { radius, length, fascicleCount: fascicles, fibreDiameter: fibre }, ["S1", "S2", "S4", "S7"]);
-    const epiT = radius * 0.035;
+    const g = groupOf(name, "muscle-section", { radius, length, fascicleCount: fascicles, fibreDiameter: fibre, epimysium: "about 30 µm here, translucent" }, ["S1", "S2", "S4", "S7"]);
+    const epiT = radius * 0.012;
     const a1 = rand() * TAU;
     const a2 = rand() * TAU;
     const wob = (a) => 1 + 0.07 * Math.cos(2 * a + a1) + 0.025 * Math.cos(3 * a + a2);
-    const outer = circlePoly(radius, 128, 0, 0, wob);
-    const inner = circlePoly(radius - epiT, 96, 0, 0, wob);
+    const inner = circlePoly(radius - epiT, 128, 0, 0, wob);
     const spacing = Math.sqrt((Math.PI * (radius - epiT) ** 2) / (fascicles * 0.866));
     const pts = relaxedPoints(inner, spacing, rand, { jitter: 0.45, iters: 2 });
     const w = pts.map(() => (rand() - 0.5) * spacing * spacing * 0.45);
     const cells = powerCells(pts, w, inner, spacing * 2.4);
     // neurovascular bundles where three septa meet
-    const septum = spacing * 0.035;
-    const verts = corners(cells, spacing * 0.02).filter((v) => Math.hypot(v.x, v.y) < radius - epiT * 2.5);
+    const septum = spacing * 0.03;
+    const verts = corners(cells, spacing * 0.02).filter((v) => Math.hypot(v.x, v.y) < radius - spacing * 0.5);
     const bundles = [];
     for (const v of verts) {
       if (rand() > 0.55) continue;
@@ -1001,46 +1017,155 @@ export function createTissue(space, P) {
       });
     }
     const circles = bundles.map((b) => [b.x, b.y, b.r + septum * 1.4]);
-    // fascicles
+    const boundaryR = (x, y) => (radius - epiT) * wob(Math.atan2(y, x));
+    // fascicles: the section is one plane (each face bulges at most a few µm); where a fascicle reaches the surface
+    // it swells into a rounded ridge that wanders slightly along its length, like bundles under a sheath
     const fasc = new Geo();
-    const peri = new Geo();
     const shown = [];
-    cells.forEach((cell, i) => {
+    const NB = 720;
+    const envelope = new Float64Array(NB);
+    cells.forEach((cell) => {
       if (cell.length < 3) return;
       let ol = inset(cell, septum);
       if (ol.length < 3 || Math.abs(area(ol)) < spacing * spacing * 0.05) return;
-      ol = avoid(densify(fillet(ol, spacing * 0.12, 5), spacing * 0.05), circles);
+      ol = avoid(densify(fillet(ol, spacing * 0.14, 6), spacing * 0.04), circles);
+      if (area(ol) < 0) ol = ol.slice().reverse();
       const [cx, cy] = centroid(ol);
       const rr = Math.sqrt(Math.abs(area(ol)) / Math.PI);
-      // a third stand proud of the section by up to about a fascicle's width; the rest are cut flush (within a few µm)
-      const out = stagger * (rand() < 0.2 ? rr * (0.15 + rand() * 0.6) : rand() * 6);
-      prism(fasc, ol, -length, out, { bevel: rr * 0.06, cell: [cx, cy, rr, rand()] });
-      if (out > rr * 0.3) sheath(peri, ol, -length, out - rr * (0.25 + rand() * 0.4), { off: septum * 0.3, thick: septum * 0.25 });
+      const ridge = ridgeProfile(ol, (x, y) => boundaryR(x, y) - Math.hypot(x, y) < septum * 2.2, spacing * 0.11);
+      const ph = rand() * TAU;
+      const ph2 = rand() * TAU;
+      const along = (z) => 1 + 0.28 * Math.sin(z / 1400 + ph) + 0.12 * Math.sin(z / 520 + ph2);
+      const displace = ridge.any ? (i, z) => ridge.amp[i] * along(z) : null;
+      const out = rand() * 2.5;
+      prism(fasc, ol, -length, out, { bevel: rr * 0.015, cell: [cx, cy, rr, rand()], segZ: ridge.any ? 24 : 1, displace });
+      // the radial envelope the epimysium is stretched over
+      ol.forEach(([x, y], i) => {
+        const a = Math.atan2(y, x);
+        const r = Math.hypot(x, y) + ridge.amp[i] * 1.3;
+        const bin = Math.floor(((a + Math.PI) / TAU) * NB) % NB;
+        envelope[bin] = Math.max(envelope[bin], r);
+      });
       shown.push({ x: cx, y: cy, r: rr, out });
     });
-    const fasMat = fibreMat({ color: 0x9e2531, roughness: 0.5, sheen: 0.35 }, { CAPFIB: "", SIDEFIB: "" });
+    // fill and smooth the envelope
+    for (let k = 0; k < NB; k++) if (!envelope[k]) envelope[k] = (radius - epiT) * wob((k / NB) * TAU - Math.PI);
+    const env = Array.from(envelope, (_, k) => {
+      let sum = 0;
+      for (let d = -3; d <= 3; d++) sum += envelope[(k + d + NB) % NB];
+      return sum / 7;
+    });
+    const envAt = (a) => {
+      const f = ((a + Math.PI) / TAU) * NB;
+      const k = Math.floor(f);
+      return lerp(env[((k % NB) + NB) % NB], env[(((k + 1) % NB) + NB) % NB], f - k);
+    };
+    const fasMat = fibreMat({ color: 0x9a1f2c, roughness: 0.38, sheen: 0.2 }, { CAPFIB: "", SIDEFIB: "" });
     fasMat.userData.u.uFib.value = fibre;
-    fasMat.userData.u.uC2.value.set(0xeee3d8);
+    fasMat.userData.u.uC2.value.set(0xe9d6cc);
     fasMat.userData.u.uC3.value.set(C.nucleus);
     fasMat.userData.u.uC4.value.set(0x8a0f1c);
-    g.add(meshOf(fasc.build(), fasMat, "fascicles"));
-    g.add(meshOf(peri.build(), membraneMat(C.collagen, { opacity: 0.25, rim: 0.4, rimK: 0.2 }), "perimysium"));
-    // the septa between fascicles on the section: pale connective tissue, just behind the flush cut faces
+    g.add(meshOf(fasc.build(1 / 400), fasMat, "fascicles"));
+    // perimysium between the fascicles: pale connective tissue in the septa (on the section and in the grooves)
     const sep = new Geo();
-    prism(sep, inset(inner, septum * 2.5), -length, -1, { cell: [0, 0, radius, 0] });
-    g.add(meshOf(sep.build(), solid(C.septum, { rough: 0.7, sheen: 0.6, clear: 0.1 }), "perimysium-septa"));
-    // epimysium: a dense sheath around the whole, its lip on the section
+    prism(sep, inset(inner, septum * 0.5), -length, -0.5, { cell: [0, 0, radius, 0] });
+    g.add(meshOf(sep.build(1 / 400), solid(0xc08a84, { rough: 0.5, sheen: 0.25, clear: 0.25 }), "perimysium-septa"));
+    // epimysium: a thin glistening translucent sheath stretched over the bundles, ending at the section
+    const outerEnv = circlePoly(1, 256).map(([x, y]) => {
+      const a = Math.atan2(y, x);
+      const r = envAt(a) + epiT * 0.35;
+      return [Math.cos(a) * r, Math.sin(a) * r];
+    });
     const epi = new Geo();
-    sheath(epi, inner, -length, -radius * 0.55, { off: epiT * 0.15, thick: epiT * 0.85, segZ: 1 });
-    const epiMat = membraneMat(C.collagen, { opacity: 0.5, rim: 0.35, rimK: 0.25 });
-    epiMat.normalScale = new THREE.Vector2(0.8, 0.8);
-    g.add(meshOf(epi.build(), epiMat, "epimysium"));
+    sheath(epi, outerEnv, -length, -2, { off: 0, thick: epiT * 0.6, segZ: 1 });
+    const epiMat = membraneMat(0xf6efe9, { opacity: 0.06, rim: 0.32, rimK: 0.14, rough: 0.1 });
+    epiMat.clearcoat = 1;
+    epiMat.clearcoatRoughness = 0.08;
+    epiMat.normalScale = new THREE.Vector2(0.5, 0.5);
+    g.add(meshOf(epi.build(1 / 300), epiMat, "epimysium"));
     // vessels and nerves in the perimysium, cut on the section (lumen, wall, adventitia)
-    g.add(vesselSet(bundles, length, 4, "vessels"));
+    g.add(vesselSet(bundles, length, 1.5, "vessels"));
+    // vessels on the surface: arteries with their paired veins running along the muscle, branching around it
+    const art = new Geo();
+    const ven = new Geo();
+    const onSurf = (a, z, lift) => {
+      const r = envAt(a) + epiT * 0.6 + lift;
+      return V3(Math.cos(a) * r, Math.sin(a) * r, z);
+    };
+    for (let k = 0; k < surfaceVessels; k++) {
+      const a0 = a1 + (k * TAU) / surfaceVessels + rand() * 0.6;
+      const path = (da, rad) => {
+        const out = [];
+        for (let j = 0; j <= 90; j++) {
+          const z = -length + (length - radius * 0.02) * (j / 90);
+          const a = a0 + da + 0.08 * Math.sin(z / 900 + k) + 0.03 * Math.sin(z / 260 + k * 2);
+          out.push(onSurf(a, z, rad));
+        }
+        return out;
+      };
+      const rA = radius * 0.016;
+      const rV = radius * 0.021;
+      tubeInto(art, path(0, rA), rA, 10);
+      tubeInto(ven, path(rA * 2.6 / radius, rV), rV, 10);
+      // branches: leave the trunk at intervals, curve around the muscle and taper away
+      for (let z = -length + 500 + rand() * 400; z < -400; z += 650 + rand() * 500) {
+        const side = rand() < 0.5 ? -1 : 1;
+        const span = 0.35 + rand() * 0.45;
+        const dz = (rand() - 0.2) * 900;
+        const bA = [];
+        const bV = [];
+        for (let j = 0; j <= 28; j++) {
+          const u = j / 28;
+          const a = a0 + 0.08 * Math.sin(z / 900 + k) + side * span * u;
+          const zz = z + dz * u * u + 120 * Math.sin(u * 5 + k);
+          bA.push(onSurf(a, zz, rA * 0.5));
+          bV.push(onSurf(a + side * 0.012, zz + 40, rV * 0.5));
+        }
+        tubeInto(art, bA, rA * 0.55, 8, [0, 0, 0, 0], (u) => rA * lerp(0.6, 0.18, u));
+        tubeInto(ven, bV, rV * 0.5, 8, [0, 0, 0, 0], (u) => rV * lerp(0.55, 0.2, u));
+      }
+    }
+    g.add(
+      meshOf(art.build(), solid(0xd63a3e, { rough: 0.28, sheen: 0.3, clear: 0.8, defines: { SSS: "" }, uniforms: { uSSSk: { value: 0.5 }, uSSS: { value: new THREE.Color(0.7, 0.08, 0.06) } } }), "surface-arteries"),
+      meshOf(ven.build(), solid(0x3f4fa0, { rough: 0.3, sheen: 0.5, clear: 0.7, defines: { SSS: "" }, uniforms: { uSSSk: { value: 0.2 }, uSSS: { value: new THREE.Color(0.2, 0.1, 0.4) } } }), "surface-veins"),
+    );
     g.userData.fascicles = shown;
-    g.userData.outline = outer;
-    g.userData.top = (shown.length ? Math.max(...shown.map((f) => f.out)) : 0);
+    g.userData.top = 3;
     return g;
+  }
+  // For an outline, how far each point bulges out where it lies on a surface: rounded across each run of surface
+  // points (zero at the grooves where it dives between neighbours), `max` at the middle of a wide run.
+  function ridgeProfile(ol, onSurface, max) {
+    const m = ol.length;
+    const on = ol.map(([x, y]) => onSurface(x, y));
+    const amp = new Float64Array(m);
+    let any = false;
+    if (!on.some((v) => !v)) return { amp, any };
+    let start = on.findIndex((v, i) => v && !on[(i + m - 1) % m]);
+    if (start < 0) return { amp, any };
+    for (let n = 0, i = start; n < m; ) {
+      if (!on[i]) {
+        i = (i + 1) % m;
+        n++;
+        continue;
+      }
+      const run = [];
+      while (on[i] && run.length < m) {
+        run.push(i);
+        i = (i + 1) % m;
+        n++;
+      }
+      const lens = [0];
+      for (let k = 1; k < run.length; k++) lens.push(lens[k - 1] + Math.hypot(ol[run[k]][0] - ol[run[k - 1]][0], ol[run[k]][1] - ol[run[k - 1]][1]));
+      const L = lens[lens.length - 1];
+      if (L <= 0) continue;
+      const A = Math.min(max, L * 0.11);
+      run.forEach((idx, k) => {
+        amp[idx] = A * Math.sqrt(Math.max(0, Math.sin((Math.PI * lens[k]) / L)));
+      });
+      any = true;
+    }
+    return { amp, any };
   }
   // A set of cut vessels/nerves running along z, each [kind, x, y, r], their ends standing `out` above z = 0.
   function vesselSet(bundles, length, out = 4, name = "vessels") {
@@ -1088,56 +1213,59 @@ export function createTissue(space, P) {
   // ── 2. FASCICLE ────────────────────────────────────────────────────────────────────────────────────────────
   // About 120 fibres (mean 50 µm, type I and II mixed so sizes vary) packed as irregular polygons in endomysium,
   // capillaries at most fibre corners (about 2 per fibre), the whole in perimysium peeled back from the cut end.
-  function fascicle({ fibres = 120, diameter = 50, length = 900, stagger = 1, seed = 7, name = "fascicle" } = {}) {
+  function fascicle({ fibres = 120, diameter = 50, length = 900, seed = 7, name = "fascicle" } = {}) {
     const rand = rng(seed);
     const R = Math.sqrt((fibres * Math.PI * (diameter / 2) ** 2) / 0.86 / Math.PI);
-    const g = groupOf(name, "fascicle", { radius: R, fibres, fibreDiameter: diameter, length, capillaryOuter: 5.5, endomysium: 1.2 }, ["S2", "S3", "S4", "S5", "S7", "S9"]);
+    const g = groupOf(name, "fascicle", { radius: R, fibres, fibreDiameter: diameter, length, capillaryOuter: 5.5, endomysium: 1.2, perimysium: "thin translucent sheath" }, ["S2", "S3", "S4", "S5", "S7", "S9"]);
     const a1 = rand() * TAU;
-    const boundary = circlePoly(R, 96, 0, 0, (a) => 1 + 0.05 * Math.cos(2 * a + a1) + 0.02 * Math.cos(3 * a));
+    const wob = (a) => 1 + 0.05 * Math.cos(2 * a + a1) + 0.02 * Math.cos(3 * a);
+    const boundary = circlePoly(R, 128, 0, 0, wob);
     const spacing = Math.sqrt((Math.PI * R * R) / (fibres * 0.866));
     const w0 = [];
-    let pts = relaxedPoints(boundary, spacing, rand, { jitter: 0.3, iters: 3 });
+    const pts = relaxedPoints(boundary, spacing, rand, { jitter: 0.3, iters: 3 });
     for (let i = 0; i < pts.length; i++) w0.push((rand() - 0.5) * spacing * spacing * 0.5);
     const cells = powerCells(pts, w0, boundary, spacing * 2.4);
     const gap = 0.6; // half the endomysial space each side (µm)
-    // capillaries: at most interior corners (C:F about 2)
-    const cv = corners(cells, spacing * 0.01).filter((v) => Math.hypot(v.x, v.y) < R - spacing * 0.3);
+    // capillaries at the fibre corners (C:F about 2), including the grooves on the fascicle's surface
+    const cv = corners(cells, spacing * 0.01).filter((v) => Math.hypot(v.x, v.y) < R * wob(Math.atan2(v.y, v.x)) - 1.5);
     const caps = cv.filter(() => rand() < 0.86).map((v) => ({ x: v.x, y: v.y, r: 2.6 + rand() * 0.6 }));
     const circles = caps.map((c) => [c.x, c.y, c.r + gap * 1.2]);
+    const onSurface = (x, y) => R * wob(Math.atan2(y, x)) - Math.hypot(x, y) < gap * 3;
     const fib = new Geo();
     const nucleiSide = [];
     const nucleiCut = [];
-    const sheaths = new Geo();
     const fibreInfo = [];
-    cells.forEach((cell, i) => {
+    cells.forEach((cell) => {
       if (cell.length < 3) return;
       let ol = inset(cell, gap);
       if (ol.length < 3) return;
-      ol = avoid(densify(fillet(ol, 2.6, 4), 2.2), circles);
+      ol = avoid(densify(fillet(ol, 2.6, 4), 2.0), circles);
+      if (area(ol) < 0) ol = ol.slice().reverse();
       const [cx, cy] = centroid(ol);
       const rr = Math.sqrt(Math.abs(area(ol)) / Math.PI);
-      const dc = Math.hypot(cx, cy) / R;
-      // the cut end: most fibres flush, some (more toward the front edge) drawn out of the section
-      const pulled = rand() < 0.16 * stagger;
-      const out = pulled ? R * (0.05 + rand() * 0.3) * (0.4 + dc) : rand() * 1.5;
-      prism(fib, ol, -length, out, { bevel: 1.6, cell: [cx, cy, rr, rand()] });
+      // fibres on the surface swell into ridges that wander a little along their length
+      const ridge = ridgeProfile(ol, onSurface, 7);
+      const ph = rand() * TAU;
+      const along = (z) => 1 + 0.3 * Math.sin(z / 260 + ph) + 0.12 * Math.sin(z / 95 + ph * 2);
+      const out = rand() * 0.6; // a section is one plane: each face bulges only a fraction of a µm
+      prism(fib, ol, -length, out, { bevel: 1.2, cell: [cx, cy, rr, rand()], segZ: ridge.any ? 16 : 1, displace: ridge.any ? (i, z) => ridge.amp[i] * along(z) : null });
       fibreInfo.push({ cx, cy, rr, out, ol });
-      if (pulled) sheaths.count < 4e6 && sheath(sheaths, ol, Math.max(-length, out - R * 0.6), out - 6 - rand() * 20, { off: 0.5 });
-      // nuclei along the exposed sides (100-300 per mm of fibre: one every ~6 µm somewhere around the cell)
-      const exposed = out + 40;
-      const n = Math.round((exposed / 1000) * 220);
-      for (let k = 0; k < n; k++) {
-        const z = out - 4 - rand() * exposed;
-        if (z > out - 6) continue;
-        const idx = Math.floor(rand() * ol.length);
-        const p = ol[idx];
-        const q = ol[(idx + 1) % ol.length];
-        const tx = q[0] - p[0];
-        const ty = q[1] - p[1];
-        const tl = Math.hypot(tx, ty) || 1;
-        const nx = ty / tl;
-        const ny = -tx / tl;
-        nucleiSide.push({ x: p[0] - nx * 0.75, y: p[1] - ny * 0.75, z, a: Math.atan2(ny, nx) });
+      // nuclei just under the surface, along the whole visible length of the outer fibres (~220 per mm per fibre;
+      // the share on the outward face is drawn), oriented along the axis
+      if (ridge.any) {
+        const outward = ol.map((p, i) => i).filter((i) => ridge.amp[i] > 0.5);
+        const n = Math.round((length / 1000) * 220 * (outward.length / ol.length) * 1.4);
+        for (let k = 0; k < n; k++) {
+          const idx = outward[Math.floor(rand() * outward.length)];
+          const z = -4 - rand() * (length - 10);
+          const p = ol[idx];
+          const q = ol[(idx + 1) % ol.length];
+          const tl = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1;
+          const nx = (q[1] - p[1]) / tl;
+          const ny = -(q[0] - p[0]) / tl;
+          const d = ridge.amp[idx] * along(z) - 0.6;
+          nucleiSide.push({ x: p[0] + nx * d, y: p[1] + ny * d, z, a: Math.atan2(ny, nx) });
+        }
       }
       // nuclei cut by the section: one to three peripheral profiles per fibre, flattened against the edge
       const nc = rand() < 0.3 ? 0 : 1 + Math.floor(rand() * 2.4);
@@ -1150,38 +1278,40 @@ export function createTissue(space, P) {
         nucleiCut.push({ x: p[0] - (dx / d) * 1.9, y: p[1] - (dy / d) * 1.9, z: out + 0.04, a: Math.atan2(dy, dx) });
       }
     });
-    const fm = fibreMat({}, { BAND: "", CAPMYO: "" });
+    const fm = fibreMat({ color: 0xa3222f, roughness: 0.36, sheen: 0.2 }, { BAND: "", CAPMYO: "" });
     fm.userData.u.uRelief.value = 1.0;
-    g.add(meshOf(fib.build(), fm, "muscle-fibres"));
-    g.add(meshOf(sheaths.build(), membraneMat(C.collagen, { opacity: 0.18, rim: 0.45, rimK: 0.2 }), "endomysium-sleeves"));
-    // the endomysium between fibres on the section (pale, a little behind the flush faces)
+    g.add(meshOf(fib.build(1 / 60), fm, "muscle-fibres"));
+    // the endomysium between fibres (on the section and in the surface grooves)
     const endo = new Geo();
-    prism(endo, inset(boundary, 6), -length, -0.6, {});
-    g.add(meshOf(endo.build(), solid(C.septum, { rough: 0.7, sheen: 0.6, clear: 0.1 }), "endomysium"));
-    // capillaries: endothelial tube, lumen with blood, standing just proud of the section
+    prism(endo, inset(boundary, 1.5), -length, -0.4, {});
+    g.add(meshOf(endo.build(), solid(0xcf9f98, { rough: 0.55, sheen: 0.35, clear: 0.2 }), "endomysium"));
+    // capillaries: endothelial tube, lumen with blood, cut flush with the section
     const capOuter = new Geo();
     const capLumen = new Geo();
     for (const c of caps) {
-      const out = rand() < 0.15 ? 4 + rand() * 18 : 0.4 + rand() * 0.6;
+      const out = 0.3 + rand() * 0.4;
       prism(capOuter, circlePoly(c.r, 18, c.x, c.y), -length, out, { bevel: 0.5 });
-      prism(capLumen, circlePoly(c.r * 0.68, 16, c.x, c.y), -length * 0.02, out + 0.08, {});
+      prism(capLumen, circlePoly(c.r * 0.68, 16, c.x, c.y), -length * 0.02, out + 0.06, {});
     }
     g.add(meshOf(capOuter.build(), solid(C.endothelium, { rough: 0.35, clear: 0.6, defines: { SSS: "" }, uniforms: { uSSSk: { value: 0.3 } } }), "capillaries"));
     g.add(meshOf(capLumen.build(), solid(C.blood, { rough: 0.2, clear: 1 }), "capillary-lumen"));
     // nuclei
     const nm = nucleusMat();
-    const ns = instanced(ellipsoidLo, nm, nucleiSide.length, "myonuclei");
-    nucleiSide.forEach((n, i) => setInst(ns, i, n.x, n.y, n.z, 0, 0, n.a, 1.1, 2.2, 5.5, "XYZ"));
+    const ns = instanced(new THREE.SphereGeometry(1, 12, 7), nm, nucleiSide.length, "myonuclei");
+    nucleiSide.forEach((n, i) => setInst(ns, i, n.x, n.y, n.z, 0, 0, n.a, 0.8, 2.2, 5.5, "XYZ"));
     const nc = instanced(halfEllipsoid, nm, nucleiCut.length, "myonuclei-cut");
-    nucleiCut.forEach((n, i) => setInst(nc, i, n.x, n.y, n.z, 0, 0, n.a, 0.9, 2.3, 5.5, "XYZ"));
+    nucleiCut.forEach((n, i) => setInst(nc, i, n.x, n.y, n.z, 0, 0, n.a, 0.8, 2.3, 5.5, "XYZ"));
     g.add(ns, nc);
-    // perimysium: a collagen sheath around the fascicle, peeled back from the cut
+    // perimysium: a thin, glistening, translucent collagen sheath over the bundle, ending at the section
     const per = new Geo();
-    sheath(per, boundary, -length, -R * 0.45, { off: 3, thick: 5, segZ: 1 });
-    g.add(meshOf(per.build(), membraneMat(C.collagen, { opacity: 0.24, rim: 0.4, rimK: 0.2 }), "perimysium"));
+    sheath(per, boundary, -length, -1.5, { off: 11, thick: 1.5, segZ: 1 });
+    const pm = membraneMat(0xf7f0ea, { opacity: 0.05, rim: 0.3, rimK: 0.12, rough: 0.1 });
+    pm.clearcoat = 1;
+    pm.clearcoatRoughness = 0.08;
+    g.add(meshOf(per.build(1 / 80), pm, "perimysium"));
     g.userData.fibres = fibreInfo;
     g.userData.capillaries = caps;
-    g.userData.top = Math.max(...fibreInfo.map((f) => f.out));
+    g.userData.top = 1;
     return g;
   }
 
@@ -1191,7 +1321,11 @@ export function createTissue(space, P) {
   // sarcolemma under the basal lamina; the section shows the myofibrils (Voronoi-packed, about 1.2 µm), mitochondria
   // between them and under the sarcolemma, nuclei cut in profile; a sector of myofibrils is drawn out of the cut,
   // their bands in register with the fibre's striations, some wrapped in SR with triads at each A-I junction.
-  function fibre({ diameter = 50, length = 160, myo = 1.2, sr = 0.3, grow = 0, fuse = 0, contract = 0, glowNew = 0, sarcomere = 2.5, seed = 11, satellites = 1, name = "muscle-fibre" } = {}) {
+  // pull: how far a sector of myofibrils is drawn out of the cut (0 = a clean flat section). newAt: where grow adds
+  // myofibrils, "throughout" (between the old ones, which spread apart) or "periphery" (a ring under the sarcolemma);
+  // where new myofibrils form is not settled [S29][S30], so both are offered. Each new one grows in: it starts thin
+  // and short of the section, then thickens and lengthens to it.
+  function fibre({ diameter = 50, length = 160, myo = 1.2, sr = 0.3, pull = 1, newAt = "throughout", grow = 0, fuse = 0, contract = 0, glowNew = 0, sarcomere = 2.8, short = 2.2, thin = 1.27, seed = 11, satellites = 1, name = "muscle-fibre" } = {}) {
     const rand = rng(seed);
     const R0 = diameter / 2;
     const GROW = 0.5; // +50% CSA at grow = 1
@@ -1199,18 +1333,18 @@ export function createTissue(space, P) {
     const g = groupOf(
       name,
       "muscle-fibre",
-      { diameter, length, myofibril: myo, sarcomere, nucleus: [11, 4.5, 1.6], satelliteCell: [18, 6, 2.2], basalLamina: "drawn 0.3 µm off the sarcolemma (real: ~50 nm lamina + endomysium)" },
+      { diameter, length, myofibril: myo, sarcomere, thinFilament: thin, nucleus: [11, 4.5, 1.6], satelliteCell: [18, 6, 2.2], basalLamina: "drawn 0.3 µm off the sarcolemma (real: ~50 nm lamina + endomysium)" },
       ["S7", "S8", "S9", "S10", "S12", "S13", "S14", "S15", "S29", "S31"],
     );
     const bandU = {
       uSL: { value: sarcomere },
       uPhase: { value: -0.9 },
       uThickL: { value: 1.6 },
-      uThinL: { value: 1.0 },
+      uThinL: { value: thin },
     };
     const fm = fibreMat({}, { BAND: "" });
     Object.assign(fm.userData.u, bandU);
-    fm.userData.u.uRelief.value = 1.0;
+    fm.userData.u.uRelief.value = 0.35;
     // the myofibrils' material: the same bands (shared uniforms), cut faces lighter
     const mm = fibreMat({ color: 0xc63c48, roughness: 0.36 }, { BAND: "" });
     Object.assign(mm.userData.u, bandU);
@@ -1222,9 +1356,11 @@ export function createTissue(space, P) {
     core.geometry.rotateX(Math.PI / 2);
     core.geometry.translate(0, 0, -length / 2 - 0.4);
     const floor = meshOf(new THREE.CircleGeometry(1, 96), sarcoplasm, "sarcoplasm");
-    const sarcolemmaMat = membraneMat(0xe8939a, { opacity: 0.42, rim: 0.5, rimK: 0.22, defines: { BAND: "", PITS: "" }, normal: false });
+    const sarcolemmaMat = membraneMat(0xc95560, { opacity: 0.26, rim: 0.26, rimK: 0.07, rough: 0.22, defines: { BAND: "", PITS: "" }, normal: false });
     Object.assign(sarcolemmaMat.userData.u, bandU);
     sarcolemmaMat.userData.u.uADark.value.set(0.66, 0.5, 0.56);
+    sarcolemmaMat.userData.u.uRelief.value = 0;
+    sarcolemmaMat.clearcoat = 0.5;
     const sarcolemma = meshOf(new THREE.CylinderGeometry(1, 1, length, 128, 1, true), sarcolemmaMat, "sarcolemma");
     sarcolemma.geometry.rotateX(Math.PI / 2);
     sarcolemma.geometry.translate(0, 0, -length / 2);
@@ -1255,6 +1391,7 @@ export function createTissue(space, P) {
       for (let j = 0; j < k; j++) ssm.push({ a: n.a + (rand() - 0.5) * 0.18, z: n.z + (rand() - 0.5) * n.L * 1.3, s: 0.45 + rand() * 0.35 });
     }
     const mito = mitoMat();
+    const mitoCutMat = solid(0x8f4a24, { rough: 0.5, sheen: 0.2, clear: 0.2, defines: { CRISTAE: "" } });
     const ssmMesh = instanced(ellipsoidLo, mito, ssm.length, "mitochondria-subsarcolemmal");
     g.add(ssmMesh);
     // satellite cells: spindle-shaped, flattened between sarcolemma and basal lamina, nucleus filling most of it
@@ -1319,8 +1456,9 @@ export function createTissue(space, P) {
       const da = Math.abs(((a - sector.a + Math.PI * 3) % TAU) - Math.PI);
       const rr = Math.hypot(x, y) / Rc1;
       const inSector = da < sector.w / 2 && rr > 0.3;
-      const pull = inSector && rand() < 0.85 ? (2.5 + rand() * 9) * smooth(0.25, 0.8, rr) * (1 - smooth(sector.w * 0.3, sector.w * 0.5, da)) : rand() * 0.25;
-      return { pull, sr: pull > 3 && rand() < sr, mito: rand() };
+      const drawn = inSector && rand() < 0.85 ? (2.5 + rand() * 9) * smooth(0.25, 0.8, rr) * (1 - smooth(sector.w * 0.3, sector.w * 0.5, da)) * pull : 0;
+      const p2 = drawn > 2 ? drawn : rand() * 0.15;
+      return { pull: p2, sr: p2 > 3 && rand() < sr, mito: rand() };
     });
     const myoGroup = new THREE.Group();
     myoGroup.name = "myofibrils";
@@ -1338,10 +1476,30 @@ export function createTissue(space, P) {
     const ttMat = solid(C.ttubule, { rough: 0.35, sheen: 0.6, clear: 0.6 });
 
     function buildSection(Rg) {
-      const k = Rg / R1;
-      const Ng = Math.round(base.length * (Rg / R1) ** 2);
+      const periphery = newAt === "periphery";
+      const k = periphery ? 1 : Rg / R1;
+      const Ng = base.length * (Rg / R1) ** 2;
+      const ramp = Math.max(8, base.length * 0.06); // how many myofibrils are part-grown at once
       const vis = [];
-      for (let i = 0; i < base.length; i++) if (rank[i] < Ng) vis.push(i);
+      const fOf = [];
+      const newOf = [];
+      for (let i = 0; i < base.length; i++) {
+        let f;
+        let isNew;
+        if (periphery) {
+          const d = Rg - coreGap - Math.hypot(base[i][0], base[i][1]);
+          f = smooth(-0.4 * spacing, 0.9 * spacing, d);
+          isNew = Math.hypot(base[i][0], base[i][1]) > R0 - coreGap - 0.3 * spacing ? 1 : 0;
+        } else {
+          f = smooth(0, ramp, Ng - rank[i]);
+          isNew = rank[i] >= N0 ? 1 : 0;
+        }
+        if (f > 0.03) {
+          vis.push(i);
+          fOf.push(f);
+          newOf.push(isNew);
+        }
+      }
       let pts = vis.map((i) => [base[i][0] * k, base[i][1] * k]);
       const disc = circlePoly(Rg - coreGap, 96);
       // obstacles: the nuclei cut by the section push the myofibrils aside
@@ -1359,7 +1517,8 @@ export function createTissue(space, P) {
         }
         return p;
       });
-      const w = pts.map(() => 0);
+      // a growing myofibril claims less room (power-diagram weight), so its neighbours keep theirs
+      const w = fOf.map((f) => -(1 - f) * spacing * spacing * 0.9);
       // one relaxation pass, so every state is evenly packed
       let cells = powerCells(pts, w, disc, spacing * 2.3);
       pts = pts.map((p, i) => (cells[i].length >= 3 ? centroid(cells[i]) : p));
@@ -1370,22 +1529,31 @@ export function createTissue(space, P) {
       cells.forEach((cell, j) => {
         if (cell.length < 3) return;
         const i = vis[j];
-        let ol = inset(cell, 0.06);
+        const f = fOf[j];
+        let ol = inset(cell, 0.04);
         if (ol.length < 3) return;
-        ol = fillet(ol, 0.22, 2);
+        ol = fillet(ol, 0.18, 2);
+        if (f < 1) {
+          // thickening: the profile grows about its own centre
+          const [gx, gy] = centroid(ol);
+          const sc = lerp(0.35, 1, f);
+          ol = ol.map(([x, y]) => [gx + (x - gx) * sc, gy + (y - gy) * sc]);
+        }
         ol = avoid(ol, obst.map(([x, y, r]) => [x, y, r + 0.15]));
         const [cx, cy] = centroid(ol);
         const rr = Math.sqrt(Math.abs(area(ol)) / Math.PI);
-        if (rr < 0.2) return;
+        if (rr < 0.08) return;
         const pr = props[i];
-        const isNew = rank[i] >= N0 ? 1 : 0;
+        const isNew = newOf[j];
         if (pr.pull > 2) {
           // a myofibril drawn out of the section is free of its neighbours: round, its own diameter
           const r0 = Math.min(rr * 0.88, myo * 0.55);
           ol = circlePoly(r0, 22, cx, cy, (a) => 1 + 0.04 * Math.sin(3 * a + i));
         }
-        prism(geo, ol, -1.6, pr.pull, { bevel: pr.pull > 2 ? 0.2 : 0.12, cell: [cx, cy, rr, isNew] });
-        if (pr.pull > 2) pulled.push({ cx, cy, rr: Math.min(rr * 0.88, myo * 0.55), pull: pr.pull, sr: pr.sr, mito: pr.mito });
+        // lengthening: a new myofibril reaches the section last
+        const top = f < 1 ? lerp(-1.1, pr.pull, f) : pr.pull;
+        prism(geo, ol, -1.6, top, { bevel: pr.pull > 2 ? 0.2 : Math.min(0.12, rr * 0.25), cell: [cx, cy, rr, isNew] });
+        if (pr.pull > 2 && f >= 1) pulled.push({ cx, cy, rr: Math.min(rr * 0.88, myo * 0.55), pull: pr.pull, sr: pr.sr, mito: pr.mito });
       });
       for (const v of corners(cells, 0.01)) if (Math.hypot(v.x, v.y) < Rg - 1.5) triples.push(v);
       return { geo: geo.build(), pulled, triples };
@@ -1406,7 +1574,7 @@ export function createTissue(space, P) {
 
     function place(st) {
       const Rg = grow1(st.grow);
-      const SL = lerp(sarcomere, 2.0, st.contract);
+      const SL = lerp(sarcomere, short, st.contract);
       bandU.uSL.value = SL;
       fm.userData.u.uGlowNew.value = 0;
       mm.userData.u.uGlowNew.value = st.glowNew;
@@ -1494,9 +1662,9 @@ export function createTissue(space, P) {
         sectionMesh.geometry.dispose();
         sectionMesh.geometry = geo;
         // mitochondria in the section: at some myofibril corners (I-band level: the cut is near a Z-line)
-        const mc = triples.filter((_, i) => i % 3 === 0);
-        const mc2 = instanced(ellipsoidLo, mito, mc.length, "mitochondria-section");
-        mc.forEach((v, i) => setInst(mc2, i, v.x, v.y, -0.15, 0, 0, (i * 2.39) % TAU, 0.42, 0.26, 0.3));
+        const mc = triples.filter((_, i) => i % 4 === 0);
+        const mc2 = instanced(ellipsoidLo, mitoCutMat, mc.length, "mitochondria-section");
+        mc.forEach((v, i) => setInst(mc2, i, v.x, v.y, -0.12, 0, 0, (i * 2.39) % TAU, 0.34, 0.2, 0.26));
         const oldCut = place.mc ?? mitoCut;
         imfGroup.remove(oldCut);
         oldCut.dispose();
@@ -1578,10 +1746,10 @@ export function createTissue(space, P) {
   // the filament lattice shows on the face (blue myosin, gold actin, six thin around each thick). An SR sleeve
   // (longitudinal tubules, H-zone collar, terminal cisternae) with a T-tubule at each A-I junction wraps most of it;
   // paired mitochondria sit at the I-bands. Bands match the fibre's (same sarcomere length and phase rule).
-  function myofibril({ sarcomeres = 5, diameter = 1.2, sr = true, srArc = 2 * Math.PI, contract = 0, sarcomere = 2.5, spacing = 0.04, name = "myofibril" } = {}) {
+  function myofibril({ sarcomeres = 5, diameter = 1.2, sr = true, srArc = 2 * Math.PI, contract = 0, sarcomere = 2.8, short = 2.2, thinL = 1.27, spacing = 0.04, name = "myofibril" } = {}) {
     const R = diameter / 2;
     const g = groupOf(name, "myofibril", { diameter, sarcomeres, sarcomere, latticeSpacing: spacing }, ["S8", "S14", "S15", "S16", "S17", "S23"]);
-    const bandU = { uSL: { value: sarcomere }, uPhase: { value: 0 }, uThickL: { value: 1.6 }, uThinL: { value: 1.0 } };
+    const bandU = { uSL: { value: sarcomere }, uPhase: { value: 0 }, uThickL: { value: 1.6 }, uThinL: { value: thinL } };
     const mm = fibreMat({ color: 0xc8404c, roughness: 0.34 }, { BAND: "" });
     Object.assign(mm.userData.u, bandU);
     mm.userData.u.uRelief.value = 2.4;
@@ -1629,7 +1797,7 @@ export function createTissue(space, P) {
     g.add(srGroup, mitoGroup);
     const mito = mitoMat();
     function place(st) {
-      const SL = lerp(sarcomere, 2.0, st.contract);
+      const SL = lerp(sarcomere, short, st.contract);
       bandU.uSL.value = SL;
       // z = 0 cuts the last sarcomere 0.45 µm from its M-line (in the overlap zone at rest)
       const L = SL * (sarcomeres - 1) + SL / 2 + 0.45;
@@ -1710,9 +1878,9 @@ export function createTissue(space, P) {
   // apart; thin filaments (F-actin double helix, 36 nm crossovers, tropomyosin in the grooves, troponin every
   // 38.5 nm) in the trigonal positions, anchored in a Z-disc of alpha-actinin struts (zig-zag) where the next
   // sarcomere's filaments interdigitate; myomesin bridges at the M-line; titin from each Z to the M-line.
-  // state.contract 0..1 slides the thin filaments toward M (SL 2.5 -> 2.0: A-band constant, I-band and H-zone
-  // shrink); state.heads 0..1 is the cross-bridge stroke (lever from ~90° to ~45°, heads leaning toward M).
-  function sarcomere({ radius = 0.13, slab = null, span = null, contract = 0, heads = 0, rest = 2.5, short = 2.0, thickL = 1.6, thinL = 1.0, spacing = 0.04, bare = 0.16, titin = 2, seed = 23, name = "sarcomere" } = {}) {
+  // state.contract 0..1 slides the thin filaments toward M (SL rest -> short: A-band constant, I-band and H-zone
+  // shrink; defaults are human: rest 2.8, short 2.2, thin 1.27); state.heads 0..1 is the cross-bridge stroke (lever from ~90° to ~45°, heads leaning toward M).
+  function sarcomere({ radius = 0.13, slab = null, span = null, contract = 0, heads = 0, rest = 2.8, short = 2.2, thickL = 1.6, thinL = 1.27, spacing = 0.04, bare = 0.16, titin = 2, seed = 23, name = "sarcomere" } = {}) {
     // slab: [width, depth] µm keeps a flat slice of the lattice (like a longitudinal EM section) instead of a cylinder
     // span: [z0, z1] µm builds only what reaches into that range of z (a thin transverse slab for a cross-section)
     const keep = (a, b) => !span || (Math.max(a, b) >= span[0] && Math.min(a, b) <= span[1]);
@@ -2012,6 +2180,16 @@ export function createTissue(space, P) {
       titinMesh.geometry = tg.build();
       g.userData.length = SL;
       g.userData.bands = { A: thickL, I: Math.max(0, SL - thickL), H: Math.max(0, SL - 2 * thinL), SL };
+    }
+    // with a span, each filament is capped where the slab is cut, so the section reads as solid dots: a thick
+    // filament with its six thin neighbours
+    if (span) {
+      const disc = new THREE.CircleGeometry(1, 20);
+      const tc = instanced(disc, thickMat, thick.length, "thick-filaments-section");
+      thick.forEach(([x, y], k) => setInst(tc, k, x, y, span[1] - 0.0004, 0, 0, 0, 0.0075, 0.0075, 1));
+      const nc = instanced(disc, actinMat, thin.length, "thin-filaments-section");
+      thin.forEach(([x, y], k) => setInst(nc, k, x, y, span[1] - 0.0004, 0, 0, 0, 0.0042, 0.0042, 1));
+      g.add(tc, nc);
     }
     track(g, { contract, heads }, place);
     return g;
