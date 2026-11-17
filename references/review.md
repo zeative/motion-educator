@@ -54,6 +54,7 @@ The person's criteria, in their words: <verbatim>.
 Benchmark: the best product-teardown and science explainers: real objects built in detail (you could name every part
 from a close-up), a directed camera (orbits, push-ins, macro close-ups with shallow focus, parts lifting apart),
 labels riding on the parts, rich lighting and material, no wasted space, sound that lands on the picture.
+A blueprint or patent drawing pasted into the picture is a crutch, not a teardown: rate it ordinary.
 A schematic stand-in for a real object the film explains (a box for a chip, a cone icon for a speaker, a flat shape
 for an ear or a hand) is "ordinary" at best, however clean it is.
 

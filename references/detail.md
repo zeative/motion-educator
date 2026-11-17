@@ -45,6 +45,9 @@ and build it accurately:
 - **Photographs only for what drawings do not show**: colours (and colour codes: by fuel, by voltage, by size),
   materials, finishes, markings, wear, and how the thing sits in its place. List them in `photos`. When the drawings
   and a photograph of the viewer's version disagree on shape, the photograph wins for the outside and you say so.
+- **Blueprints are working material, not footage.** They shape the board and the model; they do not appear in the
+  film (no drawing inset in a corner, no patent page on screen) unless the person asks for one. The film shows the
+  real thing built from them; a source, when the film needs one, is a line of small type.
 - **Model it from the blueprint views.** Put each orthographic drawing behind the model at its own angle
   (`space.blueprintView("side" | "front" | "top", { width })` points the camera straight at the model with almost no
   perspective, and `await space.backplate(url, { opacity: 0.5 })` lays the drawing behind it), trace each outline as
