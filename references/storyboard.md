@@ -43,6 +43,12 @@ With a loop, the film ends while someone is speaking, on the first shot's pictur
 and no recap is required (the recap, if any, comes before the bridge). Without a loop the last shot is a recap or
 an endcard, as below.
 
+**Draw mechanisms with their blueprints.** A shot that shows how a real thing works places the technical drawing
+itself in its frames, exactly as it is, cropped to the part: `{ "blueprint": "reference/x.png", "at": [x, y, w, h],
+"crop": [x, y, w, h] }` (the file relative to the film's folder, the crop in the drawing's pixels). Labels, arrows,
+moves and the camera are drawn over it. Never redraw a blueprint by hand: a hand copy loses parts, and the model is
+built from what the board shows.
+
 `rail: false` keeps an act (the hook, the recap) out of the chapter rail the film shows.
 
 `format` is the frame: `"1920x1080"` for a landscape film, `"1080x1920"` for a portrait short. Every coordinate in

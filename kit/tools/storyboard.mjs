@@ -136,6 +136,9 @@ if (modelled.length) {
     const listed = (key) => (Array.isArray(model[key]) ? model[key].filter((p) => typeof p === "string" && p.trim()) : []);
     if (!listed("blueprints").length) ((sb.standard ?? 1) >= 3 ? err : warn)(where, '"blueprints" is empty: find the technical drawings first (blueprint, dimensional drawing, exploded view, parts list, cross-section, patent figures), look at them, and list each one; the model and the storyboard are built from them (references/detail.md)');
     if (!listed("photos").length) warn(where, '"photos" is empty: the drawings give the shape; list the photographs you took colour, finish and markings from, or ask the person for some');
+    // A mechanism is shown on the board as its drawing shows it: the blueprint itself, placed in the frame.
+    const placed = shots.some((shot) => (shot.frames ?? []).some((fr) => (fr.draw ?? []).some((thing) => "blueprint" in thing)));
+    if (listed("blueprints").length && !placed) warn(where, 'no frame places a blueprint: put the drawing itself in the mechanism shots ({ "blueprint": "file", "at": [x, y, w, h], "crop": [...] }) and mark over it, instead of redrawing it by hand');
     // Every part the drawings show is either drawn somewhere in the film or listed as left out, with why.
     const said = JSON.stringify(shots.map((shot) => [shot.screen, shot.camera, shot.motion, shot.caption, shot.voice, shot.frames])).toLowerCase();
     const skipped = listed("notShown").join(" ").toLowerCase();
@@ -262,7 +265,7 @@ const all = [];
 const frameOf = (shot, frame, k) => {
   number++;
   const at = shot.start + (shot.end - shot.start) * frame.at;
-  const svg = sketch(frame, `${shot.id}-${k}`, { width: W, height: H, lang: sb.language });
+  const svg = sketch(frame, `${shot.id}-${k}`, { width: W, height: H, lang: sb.language, base: film });
   all.push({ n: number, shot, at, svg, frame });
   return `<figure><div class="pic">${svg}</div><figcaption><span>frame ${number} · ${time(at)}</span>${esc(frame.note)}</figcaption></figure>`;
 };

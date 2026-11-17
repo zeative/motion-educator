@@ -34,10 +34,17 @@
 //   { cloud: [x, y, w] }                                 a cloud, w wide
 //   { bolt: [x0, y0, x1, y1], seed? }                    a jagged line: lightning, a crack, a spark
 //   { path: "M0 0 L10 10 ...", colour?, width?, fill?, dashed? }   any shape the list above lacks, as an SVG path
+//   { blueprint: "file", at: [x, y, w, h], crop?: [x, y, w, h], rotate?, opacity? }   a technical drawing itself,
+//       exactly as it is (no pencil wobble), fitted into the box; crop is in the drawing's own pixels; the file is
+//       relative to the film's folder (PNG, JPEG or WebP). Draw labels, arrows and moves over it as usual.
 // Direction, drawn in blue pencil the way a storyboard artist marks it:
 //   { move: [x0, y0, x1, y1], text? }                    this thing travels along the arrow
 //   { camera: "push" | "pull" | "up" | "down" | "left" | "right" | "orbit", text? }   what the camera does
 //   { cut: text }                                        how the shot leaves
+import { spawnSync } from "node:child_process";
+import { existsSync, readFileSync } from "node:fs";
+import { extname, resolve } from "node:path";
+
 const INK = "#26262b";
 const BLUE = "#2b62d9";
 const SPECTRUM = ["#d9382e", "#e8891a", "#d9b81c", "#2f9e52", "#2f6fd6", "#5350c4", "#8a45cf"];
@@ -233,20 +240,37 @@ const DRAW = {
     return `<g><rect x="${w - 40 - wide}" y="${h - 106}" width="${wide}" height="78" rx="12" fill="#eaf0ff" stroke="${BLUE}" stroke-width="4"/>${lettering([w - 70, h - 50], `→ ${text}`, 46, { align: "end", fill: BLUE, weight: 700 })}</g>`;
   },
 };
+// A drawing is placed as it is: embedded, not traced, so the board shows exactly what the blueprint shows.
+DRAW.blueprint = () => "";
+function blueprintImage(file, t) {
+  const path = resolve(SIZE.base, file);
+  if (!existsSync(path)) return `<g>${lettering([t.at?.[0] ?? 40, (t.at?.[1] ?? 40) + 60], `missing: ${file}`, 40, { align: "start", fill: COLOURS.red })}</g>`;
+  const probe = spawnSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", path], { encoding: "utf8" });
+  const [iw, ih] = probe.stdout.trim().split(",").map(Number);
+  const type = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp" }[extname(path).toLowerCase()] ?? "image/png";
+  const href = `data:${type};base64,${readFileSync(path).toString("base64")}`;
+  const [x, y, w, h] = t.at ?? [40, 40, SIZE.w - 80, SIZE.h - 80];
+  const [cx, cy, cw, ch] = t.crop ?? [0, 0, iw || 1000, ih || 1000];
+  const turn = t.rotate ? ` transform="rotate(${t.rotate} ${x + w / 2} ${y + h / 2})"` : "";
+  return `<g${turn} opacity="${t.opacity ?? 1}"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#fff"/><svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="${cx} ${cy} ${cw} ${ch}" preserveAspectRatio="xMidYMid meet"><image href="${href}" width="${iw}" height="${ih}"/></svg><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="${INK}" stroke-width="3"/></g>`;
+}
 export const THINGS = Object.keys(DRAW);
 // The size of the frame being drawn; sketch() sets it.
-const SIZE = { w: 1920, h: 1080, lang: "en" };
+const SIZE = { w: 1920, h: 1080, lang: "en", base: "." };
 
 // One frame as an SVG string. id keeps the clip paths of different frames apart on one page.
-export function sketch(frame, id = "f", { width = 1920, height = 1080, lang = "en" } = {}) {
+export function sketch(frame, id = "f", { width = 1920, height = 1080, lang = "en", base = "." } = {}) {
   SIZE.w = width;
   SIZE.h = height;
   SIZE.lang = lang;
+  SIZE.base = base;
   let body = "";
+  let plates = "";
   (frame.draw ?? []).forEach((thing, i) => {
     // A thing is named by its first key; the keys after it are its options.
     const kind = Object.keys(thing)[0];
-    if (kind in DRAW) body += DRAW[kind](thing[kind], thing, `${id}-${i}`);
+    if (kind === "blueprint") plates += blueprintImage(thing.blueprint, thing);
+    else if (kind in DRAW) body += DRAW[kind](thing[kind], thing, `${id}-${i}`);
   });
   return `<svg viewBox="0 0 ${width} ${height}" class="sketch" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -257,6 +281,7 @@ export function sketch(frame, id = "f", { width = 1920, height = 1080, lang = "e
       <pattern id="hatch3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><line x1="0" y1="0" x2="0" y2="26" stroke="${INK}" stroke-width="1.8" opacity=".7"/></pattern>
     </defs>
     <rect width="${width}" height="${height}" fill="#f6f3ec"/>
+    ${plates}
     <g filter="url(#pencil-${id})" stroke-linecap="round" stroke-linejoin="round">${body}</g>
     <rect width="${width}" height="${height}" filter="url(#grain-${id})"/>
     <rect x="6" y="6" width="${width - 12}" height="${height - 12}" rx="22" fill="none" stroke="${INK}" stroke-width="10"/>
