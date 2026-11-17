@@ -114,6 +114,7 @@ Living things have their own tools (`references/detail.md`, *Living things*):
 | `B.joint(group, { pivot, axis, below, above, blend })` | a hinge: tween `.angle` (degrees); bones below turn, crossing muscles and skin bend |
 | `B.flex(muscle, { amount })`, `B.xray(skin)` | a working muscle's belly thickens (tween `.v`); skin turns to a glass shell (tween `.v`) |
 | `B.update()` | call in `film.each` before `space.render` |
+| `T = createTissue(space, P)` (`kit/engine/tissue3d.js`) | skeletal muscle at every scale from measured sizes (1 unit = 1 µm): `T.muscle`, `T.fascicle`, `T.fibre` (state `grow fuse contract`), `T.myofibril`, `T.sarcomere` (state `contract heads`), `T.overlap` (molecules); `T.lens(space, µmAcross)` sets the camera's depth range; `T.update()` per frame. Each group's `userData.dims` and `sources` say what it was built from |
 
 Depth of field (`cam.blur`) costs a second pass: use it in close-ups only. Shadows cost a little on every frame.
 

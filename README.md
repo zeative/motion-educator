@@ -301,6 +301,7 @@ machine away. How to write it: [`references/narration.md`](references/narration.
 | [`kit/engine/stage3d.js`](kit/engine/stage3d.js) | the 3D layer: a directed camera, depth of field, soft shadows, pinned labels, exploded views, cutaways |
 | [`kit/engine/parts3d.js`](kit/engine/parts3d.js) | materials with real surface and ready-made parts: boards, chips, drivers, mics, screws, a desk set |
 | [`kit/tools/anatomy.mjs`](kit/tools/anatomy.mjs), [`kit/engine/body3d.js`](kit/engine/body3d.js) | real human anatomy (BodyParts3D, measured from a real body): bones, muscles with their tendons, skin; tissue materials, joints that bend, muscles that flex, skin that turns to glass |
+| [`kit/engine/tissue3d.js`](kit/engine/tissue3d.js) | skeletal muscle from the whole muscle down to its molecules, at measured sizes with sources: fascicles, fibres with their nuclei and satellite cells, myofibrils, sarcomeres that slide, hypertrophy |
 | [`kit/css/film.css`](kit/css/film.css) | the look: tokens, glass, metal type, captions, panels, safe areas |
 | [`kit/tools/storyboard.mjs`](kit/tools/storyboard.mjs), [`sketch.mjs`](kit/tools/sketch.mjs) | the storyboard check and the pencil board |
 | [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview; on the GPU, or Mesa lavapipe without one |
