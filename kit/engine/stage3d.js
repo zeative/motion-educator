@@ -222,8 +222,12 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
       el.style.opacity = t;
       const w = el.offsetWidth;
       const h = el.offsetHeight;
-      const left = state.side === "right" ? lx + 10 : lx - w - 10;
-      el.style.transform = `translate(${left}px, ${ly - h / 2}px) translateY(${(1 - t) * 10}px)`;
+      // keep the chip inside the frame, 40 px from every edge (and clear of the app's right column in portrait)
+      const edge = 40;
+      const maxX = W - edge - w - (H > W ? 110 : 0);
+      const left = Math.max(edge, Math.min(maxX, state.side === "right" ? lx + 10 : lx - w - 10));
+      const top = Math.max(edge, Math.min(H - edge - h, ly - h / 2));
+      el.style.transform = `translate(${left}px, ${top}px) translateY(${(1 - t) * 10}px)`;
     }
   }
 
@@ -265,7 +269,10 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
         shader.uniforms.cutColor = { value: cut };
         shader.fragmentShader = shader.fragmentShader
           .replace("void main() {", "uniform vec3 cutColor;\nvoid main() {")
-          .replace("#include <dithering_fragment>", "#include <dithering_fragment>\n if (!gl_FrontFacing) { float hatch = step(0.82, fract((gl_FragCoord.x + gl_FragCoord.y) / 16.0)); gl_FragColor = vec4(cutColor * (0.8 + 0.12 * hatch), 1.0); }");
+          // the cut face's colour goes in before tone mapping and the output colour space, so it comes out the same
+          // whether the frame is drawn straight to the canvas or through the depth-of-field pass (which tone-maps
+          // afterwards): set after them, it jumped in brightness the moment a shot's blur rose above zero
+          .replace("#include <tonemapping_fragment>", "if (!gl_FrontFacing) { float hatch = step(0.82, fract((gl_FragCoord.x + gl_FragCoord.y) / 16.0)); gl_FragColor = vec4(cutColor * (0.8 + 0.12 * hatch), 1.0); }\n#include <tonemapping_fragment>");
       };
       m.customProgramCacheKey = () => `cut-${cut.getHexString()}`;
     });
