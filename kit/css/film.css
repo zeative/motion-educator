@@ -451,7 +451,7 @@ svg.ink circle {
   height: 200px;
 }
 :root[data-format="portrait"] #captions[data-style="frame"] {
-  top: calc(var(--safe-top) - 40px);
+  top: calc(var(--safe-top) + 14px); /* the glyphs (and a key word's frame) on or under the safe line */
   bottom: auto;
 }
 .caption.frame {
@@ -474,6 +474,21 @@ svg.ink circle {
 }
 .caption.frame .cw {
   position: relative;
+}
+/* The backing plate: drawn where the picture behind the line is light (--plate, set per frame from the frame). */
+.caption.frame,
+.caption.pop {
+  isolation: isolate;
+}
+.caption.frame::before,
+.caption.pop::before {
+  content: "";
+  position: absolute;
+  inset: -10px -26px -12px;
+  z-index: -1;
+  border-radius: 20px;
+  background: rgb(10 10 14 / 0.6);
+  opacity: var(--plate, 0);
 }
 .caption.frame .cw.key {
   color: #fff;

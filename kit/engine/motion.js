@@ -63,6 +63,8 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   const stage = { t: 0, lx: 0.5, ly: 0.6, glow: 0.6, ...hex(tint), floor: 1, horizon: -0.16, camx: 0, camy: 0, pr: 0, ps: 0, flash: 0, streak: 0, silk: 1 };
   const jobs = [];
   const each = (job) => jobs.push(job);
+  // Jobs that read the finished frame (after every each() job and the backdrop have drawn it).
+  const afterJobs = [];
 
   // Shot times come from the storyboard, so the film and its plan cannot drift apart.
   const shots = {};
@@ -224,6 +226,33 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
       $("#vignette").before(box);
     }
     box.dataset.style = style;
+    // A backing plate where the picture behind a caption is light: after each frame is drawn, the band behind every
+    // caption on screen is read from the canvases (backdrop first, then the rest in page order, as they composite)
+    // and its mean luminance sets the caption's --plate (0 over a dark picture, 1 from about 0.6 up). Read from the
+    // frame itself, so every frame decides alone and a seek renders the same thing.
+    const probe = Object.assign(document.createElement("canvas"), { width: 48, height: 12 });
+    const pc = probe.getContext("2d", { willReadFrequently: true });
+    afterJobs.push(() => {
+      const shown = [...box.querySelectorAll(".caption")].filter((el) => el.style.visibility !== "hidden" && +getComputedStyle(el).opacity > 0.01);
+      if (!shown.length) return;
+      const layers = [...root.querySelectorAll("canvas")].filter((c) => c.width > 0 && getComputedStyle(c).visibility !== "hidden");
+      for (const el of shown) {
+        const r = el.getBoundingClientRect();
+        pc.clearRect(0, 0, 48, 12);
+        for (const c of layers) {
+          const cb = c.getBoundingClientRect();
+          const kx = c.width / cb.width, ky = c.height / cb.height;
+          try {
+            pc.drawImage(c, (r.left - cb.left) * kx, (r.top - cb.top) * ky, r.width * kx, r.height * ky, 0, 0, 48, 12);
+          } catch {}
+        }
+        const d = pc.getImageData(0, 0, 48, 12).data;
+        let lum = 0;
+        for (let i = 0; i < d.length; i += 4) lum += ((0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255) * (d[i + 3] / 255);
+        lum /= d.length / 4;
+        el.style.setProperty("--plate", Math.max(0, Math.min(1, (lum - 0.4) / 0.2)).toFixed(3));
+      }
+    });
     const limit = chunk ?? (style === "pop" ? { words: 3, chars: 18 } : style === "frame" ? { words: 5, chars: portrait ? 24 : 40 } : { words: 99, chars: portrait ? 56 : 92 });
     const norm = (w) => w.toLowerCase().replace(/[^\p{L}\p{N}'-]/gu, "");
     for (const shot of storyboard.shots) {
@@ -358,6 +387,7 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     stage.t = tl.time();
     for (const job of jobs) job(stage.t);
     backdrop.render(stage);
+    for (const job of afterJobs) job(stage.t);
   }
   const finish = () => {
     tl.set({}, {}, duration);

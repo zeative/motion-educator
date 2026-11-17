@@ -265,6 +265,7 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
       m.clippingPlanes = [plane];
       m.side = THREE.DoubleSide;
       const cut = new THREE.Color(m.userData.cut ?? m.color ?? 0x888888);
+      m.userData.cutColor = cut; // the live colour of the cut face: change it (copy/lerp) to recolour the section
       m.onBeforeCompile = (shader) => {
         shader.uniforms.cutColor = { value: cut };
         shader.fragmentShader = shader.fragmentShader

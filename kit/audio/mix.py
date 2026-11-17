@@ -185,6 +185,18 @@ if lines_file.exists() and "--no-voice" not in args:
             a, b = int(line.get("lead", 0) * SR), len(s) - max(0, int(line.get("tail", 0) * SR) - int(0.06 * SR))
             place(s[max(0, a - edge) : b], shot["start"] + v.get("lead", 0.15))
             report.append(f"{shot['start'] + v.get('lead', 0.15):6.2f}s  voice        {line['file']}  {line.get('speech', 0):.2f} s  {shot['voice'][:60]}")
+    # "gain": [{"from": s, "to": s, "db": dB}] in the plan's voice lifts (or lowers) a stretch of the narration that
+    # came out of the take quieter than the rest, with 60 ms ramps at both ends.
+    for g in v.get("gain", []):
+        a, b = int(g["from"] * SR), min(N, int(g["to"] * SR))
+        if b <= a:
+            continue
+        env = np.full(b - a, 10 ** (g["db"] / 20))
+        r = min(int(0.06 * SR), (b - a) // 2)
+        env[:r] = np.linspace(1, env[0], r)
+        env[-r:] = np.linspace(env[0], 1, r)
+        voice[a:b] *= env[:, None]
+        report.append(f"{g['from']:6.2f}s  voice        {g['db']:+.1f} dB to {g['to']:.2f} s")
     if spoken and loop:
         # Across the loop the voice should run on like one sentence: the silence from the last word to the end plus the
         # silence before the first word is the pause the viewer hears at the seam.
@@ -214,9 +226,16 @@ mix *= gain(target - before[0])
 # afterwards, because the encoder itself can add a decibel or two on the hardest hits.
 wav = out.with_suffix(".mix.wav")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-c:a", "pcm_f32le", str(wav)], input=mix.astype(np.float32).tobytes(), check=True)
-cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-i", str(wav), "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy", "-af", "alimiter=limit=0.8:attack=4:release=80:level=false", "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", str(out)]
+cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(picture), "-i", str(wav), "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy", "-af", "aresample=192000,alimiter=limit=0.84:attack=4:release=80:level=false,aresample=48000", "-c:a", "aac", "-b:a", "320k", "-t", f"{N / SR:.6f}", "-movflags", "+faststart", str(out)]
 subprocess.run(cmd, check=True)
 after = loudness(load(out))
+# The limiter takes a little off the loudest stretches: when that leaves the file more than 0.15 LU off the
+# target, level the mix again by the difference and encode it once more.
+if abs(after[0] - target) > 0.15:
+    mix *= gain(target - after[0])
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-c:a", "pcm_f32le", str(wav)], input=mix.astype(np.float32).tobytes(), check=True)
+    subprocess.run(cmd, check=True)
+    after = loudness(load(out))
 report.insert(0, f"mix: {after[0]:.1f} LUFS, range {after[1]:.1f} LU, true peak {after[2]:.1f} dBFS ({len(events)} effects, {spoken} voice stretches, master gain {target - before[0]:+.1f} dB)")
 # A film that goes quiet before its last frame holds its poster in silence: say so, with when it stops.
 hop = SR // 20

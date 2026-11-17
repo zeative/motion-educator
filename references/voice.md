@@ -151,6 +151,9 @@ Change any of it in `cues.json`:
 - Choose a bed without a lead melody, and keep it low: under a voice, music is felt more than heard.
 - Effects go between the words. A hit lands on a cut, before the line starts.
 - `mix.py --no-voice` makes the version without narration, for tracing a complaint to the right layer.
+- A stretch of the take that came out quieter than the rest: `"voice": { "gain": [{ "from": 56.2, "to": 59.1, "db": 2 }] }`
+  lifts it (film seconds, 60 ms ramps). The mix is trimmed to the picture and limited oversampled, so its true peak
+  holds under -1 dBTP. An AAC re-encode for delivery can add a decibel back: limit again (oversampled) when you make one.
 
 ## What to say when you deliver
 

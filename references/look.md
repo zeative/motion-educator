@@ -60,6 +60,8 @@ the stage, the renderer and the board follow.
 - **Faster.** A new picture every two to three seconds, the question in the first second and a half, and the first
   frame already moving: the viewer decides whether to stay before the first cut.
 - **Pop captions** by default: two or three large words at a time, in step with the voice (`voice.md`).
+  Captions read the picture behind them every frame and fade in a dark plate where it is light, so a white
+  caption never sits on white. Portrait `frame` captions sit just under the top safe line.
 - **The film loops.** The last shot ends on the first shot's picture, the last words run into the first, and the
   music carries through the seam (`narration.md`, "The loop"). `check.mjs` measures the picture seam.
 
