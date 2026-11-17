@@ -12,6 +12,21 @@ nothing is ever dropped and any shot can be fixed and re-rendered on its own. Th
 narration: `langit-biru` (captions only, the most reviewed) and `petir-guntur` (a narrated short) are the ones to
 read first.
 
+## The flow, as the person sees it
+
+**Their prompt → your research (the topic, the blueprints, the narration) → the storyboard, sent to them → their yes
+→ the finished film.** The storyboard is the only stop. Everything they might want to weigh in on goes into it: the
+script, the voice, the length, the real version of each object and the drawings it is built from. After their yes
+you build, check, review and fix on your own and deliver the best film you can make, without asking again.
+
+- **Decide; do not hand the person choices.** When sources disagree or a detail is open, choose what is most
+  faithful to the real thing the viewer knows and to the drawings (`references/detail.md` says how), write the
+  choice and its reason in the delivery note, and carry on. Ask only when the film cannot be made without them
+  (a missing drawing or photo that changes what the film shows), and ask it with the storyboard, not after.
+- **Quality is checked by you and by a fresh reviewer, not by the person.** The model against every blueprint, the
+  stills against the board, the render against the five detail checks, the independent review, the fixes: all of
+  it happens before delivery. The person sees the board once and the finished film once.
+
 Read only the reference your current step needs.
 
 | Step | Read |
@@ -32,7 +47,7 @@ Read only the reference your current step needs.
    `kit/tools/storyboard.mjs` with zero errors and the person has seen the board. Every shot has drawn frames (how
    it starts, what happens, how it ends), sketched in the real frame's coordinates, so the build can be cut
    straight from them. If the person asked for an unattended run, send the board and keep going; otherwise wait for
-   their yes.
+   their yes. That yes is the last thing you wait for: from there to the finished film, you decide.
 2. **True, with sources.** Every number and every claim on screen is in the storyboard's fact sheet with where it
    comes from. If you cannot source it, do not say it. What is drawn agrees with what is written: a bar, a meter
    or a path that stands for a number is computed from that number, a diagram that is not to scale says so on
@@ -182,6 +197,6 @@ films/NAME/
 ```
 
 ## Working style
-- Plan where the person can see it (the board), then build without asking about every step.
+- Plan where the person can see it (the board), then build to the finished film without asking about any step.
 - When work runs long, say in one line what you are doing.
 - Show the work: the board, stills, contact sheets, measured numbers, the reviewer's verdict.

@@ -37,6 +37,11 @@ and build it accurately:
   Write each drawing into the model sheet's `blueprints` (where it came from, which figure, what it shows); the
   board's check refuses a 3D model without one. Where sources disagree, use the one for the viewer's version and say
   so; what no drawing shows stays off screen or is labelled as unknown, never invented.
+- **When the outside and the inside come from different sources** (a photo of the viewer's version outside, the
+  drawings of a documented version of the same mechanism inside), fit the documented mechanism into the viewer's
+  shell: the same parts, the same connections and the same order of working, scaled and placed to sit inside the
+  outline they know, and say so on screen ("mechanism after US patent ..., fitted"). Do not cut between two
+  different objects, and do not ask the person to choose.
 - **Photographs only for what drawings do not show**: colours (and colour codes: by fuel, by voltage, by size),
   materials, finishes, markings, wear, and how the thing sits in its place. List them in `photos`. When the drawings
   and a photograph of the viewer's version disagree on shape, the photograph wins for the outside and you say so.
