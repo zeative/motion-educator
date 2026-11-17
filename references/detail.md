@@ -35,6 +35,12 @@ and build it accurately:
   visible part, colours (and any colour code: by fuel, by voltage, by size), materials and finishes, markings,
   how it is held or mounted, what it sits next to. The inside comes from teardowns, cut-away product photos,
   patents or service manuals, not from a guess.
+- **Trace it from the photo; do not assemble it from primitives.** A real object's body is not a sphere on a
+  cylinder. Put your best side-view photo behind the model (`await space.backplate(url, { opacity: 0.5 })` on a
+  turnaround page, the camera at the photo's angle), trace the silhouette as an SVG path over it, and build the
+  body from that outline (`P.extrude` with a deep bevel; a second traced outline from the top, intersected or
+  lofted, for the thickness). Then add the parts, each traced the same way. Overlay the photo on the render
+  (`over: true`) and correct until the outlines sit on each other.
 - **Match it.** The silhouette, proportions, colours and the visible parts match the photos. The maker of one of
   the best product shorts matched their model to 25 photographs of the real unit; aim for that. Logos and brand
   names may be left off (or replaced by plain lettering) unless the person asks for them, but the shape, the

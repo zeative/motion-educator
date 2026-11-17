@@ -282,6 +282,19 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
     return mesh;
   }
 
+  // Photo matching: a reference photograph laid behind (or over) the 3D view, so a model can be shaped against the
+  // real thing at the photo's own angle. Turnaround pages only, never a film. Await it: the image must be loaded.
+  //   await space.backplate("../reference/nozzle-side.jpg", { opacity: 0.5, over: true });
+  async function backplate(src, { opacity = 0.5, over = false, fit = "contain" } = {}) {
+    const img = new Image();
+    img.src = src;
+    await img.decode();
+    img.style.cssText = `position:absolute;left:${canvas.offsetLeft || 0}px;top:${canvas.offsetTop || 0}px;width:${W}px;height:${H}px;object-fit:${fit};opacity:${opacity};pointer-events:none;`;
+    if (over) overlay.before(img);
+    else canvas.before(img);
+    return img;
+  }
+
   function apply() {
     for (const { group, parts } of exploders) {
       const e = group.userData.explode;
@@ -324,6 +337,7 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
     ghost,
     cutaway,
     floor,
+    backplate,
     // A position on the z = 0 plane from pixels off the frame's centre (y down), for the fixed camera.
     at: (x, y, z = 0) => new THREE.Vector3(x / UNIT, -y / UNIT, z),
     // Draws the layer at the given opacity; at zero it clears once and then costs nothing. Pass the film's time
