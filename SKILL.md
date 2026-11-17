@@ -81,6 +81,13 @@ List every claim the film will make, each with its source, as `facts` in `storyb
 institutional sources. Do the arithmetic yourself and show it (a number like "5,9x" is written with what it is
 computed from). Write down what you are simplifying, and decide how the film will be honest about it.
 
+Research does not stop at the first closed door. When a page will not open, try the other routes before you call
+it unavailable: the same document elsewhere (Google Patents for patents, with its drawings on
+patentimages.storage.googleapis.com; Wikimedia Commons for photographs; the manufacturer's PDF catalogue; an archived
+copy), a direct download with `curl`, a different search. Read images by downloading them and looking at them. Say
+exactly which address failed and how, and only then ask the person for what is still missing. A mechanism or a
+real object is never filled in from memory because a search was hard (`references/detail.md`).
+
 ### 3. The script, if the film speaks
 Follow `references/narration.md`: one question, written as continuous talk in the audience's own register, said
 aloud and timed, before there is a shot list. Then cut it into shots: each speaking shot's `voice` is its run of
