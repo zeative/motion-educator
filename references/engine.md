@@ -96,7 +96,8 @@ film.each((t) => space.render(1, t));               // pass t: the drift is a fu
 | `space.ghost(group, keep)` | everything but `keep` fades to a shell: tween the returned `v` |
 | `space.cutaway(group, plane)` | slices the group; cut faces show solid and hatched; tween `plane.constant` |
 | `space.floor({ y })`, `space.fitShadow(r)` | a shadow-catching floor; the key light's shadow box |
-| `await space.backplate(url, { opacity, over })` | a reference photo behind or over the view, to shape a model against the real thing (turnaround pages) |
+| `await space.backplate(url, { opacity, over })` | a blueprint or photo behind or over the view, to shape a model against it (turnaround pages) |
+| `space.blueprintView("side" \| "front" \| "top", { width })` | the camera straight at the model with no visible perspective, to line it up with an orthographic drawing |
 | `P.M.*` | `plastic metal rubber foam leather fabric copper solder goldPlate silicon ferrite paper skin glass glow` |
 | `P.lathe P.smoothProfile P.extrude P.roundedBox P.tube` | shapes from profiles, outlines, blocks, paths |
 | `P.pcb P.ic P.smd P.shield P.usbC P.header P.screw P.mic P.grille P.cable P.driver` | ready-made parts, each a named group |

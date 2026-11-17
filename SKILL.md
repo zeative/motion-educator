@@ -116,8 +116,10 @@ node kit/audio/voice.mjs films/NAME                                # every shot'
 ```
 
 ### 5b. The models, before the shots
-Follow `references/detail.md`: for each real object the film explains, the model sheet (reference, parts, real
-sizes) is in the storyboard's `models`; build it with `kit/engine/parts3d.js`, render a turnaround (four angles and a
+Follow `references/detail.md`: for each real object the film explains, find its blueprints first (technical and
+dimensional drawings, exploded views, parts lists, patent figures) and write the model sheet (the drawings, every
+part they show, real sizes) into the storyboard's `models` before drawing the board, so the board shows the real
+parts; build it with `kit/engine/parts3d.js`, render a turnaround (four angles and a
 close-up) and fix it until it passes the crop test. Only then build shots around it.
 
 ### 6. Build, one shot at a time

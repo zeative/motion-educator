@@ -42,7 +42,7 @@ if (portrait) {
     plan,
     readFileSync(plan, "utf8")
       .replace('"format": "1920x1080"', '"format": "1080x1920"')
-      .replace('"standard": 2,', '"standard": 2,\n  "captions": "frame",\n  "loop": { "line": "How the last line runs on into the first: say both, as one sentence.", "picture": "How the last shot ends on the first shot\'s picture." },'),
+      .replace('"standard": 3,', '"standard": 3,\n  "captions": "frame",\n  "loop": { "line": "How the last line runs on into the first: say both, as one sentence.", "picture": "How the last shot ends on the first shot\'s picture." },'),
   );
 }
 console.log(`made ${film}\nnext: write ${join(film, "storyboard.json")}, then: node kit/tools/storyboard.mjs films/${name} --png`);

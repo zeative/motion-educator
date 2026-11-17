@@ -26,16 +26,16 @@ music, frames written with a few helper functions, and the JSON generated from t
   "fps": 60,
   "look": { "accent": "#4da3ff", "accent2": "#ffb21a", "mood": "one or two sentences on the stage, the light and the materials" },
   "music": { "track": "...", "bpm": 86, "beat": 0.697674, "offset": 0, "start": 0.679, "note": "why this track, and how it sits on the cuts" },
-  "standard": 2,
+  "standard": 3,
   "facts": [{ "id": "f4", "claim": "what is true, with the arithmetic if there is any", "source": "who says so" }],
-  "models": [{ "name": "the real object you build", "reference": "what you looked at", "scale": "1 unit = 1 mm", "parts": ["at least five named parts"] }],
+  "models": [{ "name": "the real object you build", "variant": "which real version, and why", "reference": "what you looked at", "blueprints": ["each technical drawing used"], "photos": ["photographs for colour and finish"], "looks": "colours, materials, markings", "scale": "1 unit = 1 mm", "parts": ["every part the drawings show, numbered as they number them"], "notShown": ["parts left out, each with why"] }],
   "acts": [{ "id": "hook", "title": "Pertanyaan", "goal": "what this act does for the viewer", "rail": false }],
   "shots": []
 }
 ```
 
 `models` is the model sheet for every real object built in 3D (`detail.md`): required, with `camera` on every
-`object3d` and `macro` shot, when `standard` is 2 (the template's).
+`object3d` and `macro` shot, when `standard` is 2 or more (the template's is 3, which also requires `blueprints`).
 
 `loop` makes a short that runs into its own start: `{ "line": "the last line, which completes into the first",
 "picture": "how the last frame becomes the first" }`. A portrait short has it by default (`new.mjs --portrait`).

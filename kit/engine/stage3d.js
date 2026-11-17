@@ -295,6 +295,21 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
     return img;
   }
 
+  // Blueprint matching: the camera straight at the model from one side, with almost no perspective (a 1-degree lens
+  // from far away), so the render lines up with an orthographic drawing laid behind it with backplate().
+  // `width` is how many world units the frame's width shows. Needs `rig: true`. Turnaround pages only.
+  const VIEWS = { front: [0, 0], back: [180, 0], side: [90, 0], left: [-90, 0], right: [90, 0], top: [0, 89.9], bottom: [0, -89.9] };
+  function blueprintView(view = "side", { width = 100, tx = 0, ty = 0, tz = 0 } = {}) {
+    const [az, el] = VIEWS[view] ?? VIEWS.side;
+    const dist = width / (2 * Math.tan(deg(0.5)) * (W / H));
+    Object.assign(cam, { az, el, dist, tx, ty, tz, fov: 1, roll: 0, sway: 0, blur: 0 });
+    camera.near = dist * 0.5;
+    camera.far = dist * 2;
+    camera.fov = 1;
+    camera.updateProjectionMatrix();
+    return cam;
+  }
+
   function apply() {
     for (const { group, parts } of exploders) {
       const e = group.userData.explode;
@@ -338,6 +353,7 @@ export function createStage3D(canvas, { distance = 100, fov = 30, exposure = 1.0
     cutaway,
     floor,
     backplate,
+    blueprintView,
     // A position on the z = 0 plane from pixels off the frame's centre (y down), for the fixed camera.
     at: (x, y, z = 0) => new THREE.Vector3(x / UNIT, -y / UNIT, z),
     // Draws the layer at the given opacity; at zero it clears once and then costs nothing. Pass the film's time

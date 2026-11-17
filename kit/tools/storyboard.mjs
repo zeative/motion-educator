@@ -131,9 +131,19 @@ if (modelled.length) {
     need(model, "reference", where, 15);
     if (!(typeof model.variant === "string" && model.variant.trim().length >= 12)) must(where, '"variant" is missing: which real version you replicate, and why (the one your viewer knows, by their language and place)');
     if (!(typeof model.looks === "string" && model.looks.trim().length >= 20)) must(where, '"looks" is missing: the colours, materials, markings and proportions you saw in the reference photos');
-    // A replica drawn from text alone is a guess: the board waits until someone has looked at the real thing.
-    const photos = Array.isArray(model.photos) ? model.photos.filter((p) => typeof p === "string" && p.trim()) : [];
-    if (!photos.length) must(where, '"photos" is empty: look at photographs of the real thing before the board is shown (image search, product pages), and when you cannot open any, ask the person for photos first; list each one you looked at');
+    // A replica is built from technical drawings (shape and parts) and photographs (colour and finish), never from a
+    // guess: the board waits until someone has looked at both.
+    const listed = (key) => (Array.isArray(model[key]) ? model[key].filter((p) => typeof p === "string" && p.trim()) : []);
+    if (!listed("blueprints").length) ((sb.standard ?? 1) >= 3 ? err : warn)(where, '"blueprints" is empty: find the technical drawings first (blueprint, dimensional drawing, exploded view, parts list, cross-section, patent figures), look at them, and list each one; the model and the storyboard are built from them (references/detail.md)');
+    if (!listed("photos").length) warn(where, '"photos" is empty: the drawings give the shape; list the photographs you took colour, finish and markings from, or ask the person for some');
+    // Every part the drawings show is either drawn somewhere in the film or listed as left out, with why.
+    const said = JSON.stringify(shots.map((shot) => [shot.screen, shot.camera, shot.motion, shot.caption, shot.voice, shot.frames])).toLowerCase();
+    const skipped = listed("notShown").join(" ").toLowerCase();
+    for (const part of Array.isArray(model.parts) ? model.parts : []) {
+      const name = String(part).toLowerCase().replace(/\(.*?\)/g, "").split(/[:,;]/)[0].trim();
+      const key = name.split(/\s+/).filter((w) => w.length > 3).slice(0, 2);
+      if (key.length && !key.some((w) => said.includes(w)) && !key.some((w) => skipped.includes(w))) warn(where, `part "${name}" is in the model sheet but no shot shows or names it: draw it where it matters, or list it in "notShown" with why`);
+    }
     if (typeof model.looks === "string" && /assum|guess|unverified|belum dicek|asumsi/i.test(model.looks)) warn(where, '"looks" still holds assumptions: confirm them from a photo, or ask the person, before you build the model');
     if (!Array.isArray(model.parts) || model.parts.length < 5) must(where, '"parts" needs at least five named parts, as a teardown or cross-section shows them');
   }

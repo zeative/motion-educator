@@ -25,58 +25,59 @@ and build it accurately:
   wall, the motorbike on an Indonesian road; English with no other clue means the most common international
   version; another language, the version common where it is spoken. When the versions differ a lot and the clues
   do not settle it, ask.
-- **Research it before you model it, with your eyes.** Text describes the mechanism; only photographs show the
-  thing. Find photographs of the real thing from several angles (image search, product pages, manufacturer
-  catalogues, teardown videos, patents and datasheets for the inside) and look at them yourself (download them and
-  read the images). When you cannot open any, ask the person for photos **before** you show the board, saying
-  exactly which views you need; never fill the gap with a plausible guess (one test film drew a fuel nozzle green
-  that is purple, blue and orange in every station the viewer knows). The board's check refuses a model with no
-  photos listed. Write down what you see: the overall proportions, every
-  visible part, colours (and any colour code: by fuel, by voltage, by size), materials and finishes, markings,
-  how it is held or mounted, what it sits next to. The inside comes from teardowns, cut-away product photos,
-  patents or service manuals, not from a guess.
-- **The inside comes from drawings, not from your own simplification.** A mechanism the film explains is built
-  from a source that shows it: the patent (patents.google.com: read the description, download the drawing pages and
-  look at them), a service manual's exploded view, a teardown photo or a manufacturer's cut-away. Build each
-  internal part as the figure shows it, cite the figure in the fact sheet and the model sheet, and check your
-  cutaway beside the figure at the same angle. Where sources disagree, show the one the viewer's version uses and
-  say so; what you cannot source stays off screen or is labelled as unknown, never invented.
-- **Trace it from the photo; do not assemble it from primitives.** A real object's body is not a sphere on a
-  cylinder. Put your best side-view photo behind the model (`await space.backplate(url, { opacity: 0.5 })` on a
-  turnaround page, the camera at the photo's angle), trace the silhouette as an SVG path over it, and build the
-  body from that outline (`P.extrude` with a deep bevel; a second traced outline from the top, intersected or
-  lofted, for the thickness). Then add the parts, each traced the same way. Overlay the photo on the render
-  (`over: true`) and correct until the outlines sit on each other.
-- **Match it.** The silhouette, proportions, colours and the visible parts match the photos. The maker of one of
-  the best product shorts matched their model to 25 photographs of the real unit; aim for that. Logos and brand
-  names may be left off (or replaced by plain lettering) unless the person asks for them, but the shape, the
-  colours and the local conventions stay.
-- **Check it side by side.** Render the model at the angle of your best reference photo and put the two next to
-  each other. Every difference is either fixed or a choice you can name.
+- **Blueprints first.** Shape and parts come from technical drawings, not from guessing at photographs: they show
+  every part, at true proportion, from straight on, with its name or number. Search for them before anything else:
+  "<object> blueprint", "technical drawing", "dimensional drawing", "exploded view", "parts diagram", "parts list",
+  "cross section", "cutaway", "CAD", "patent" (patents.google.com: the drawing pages download from
+  patentimages.storage.googleapis.com), the manufacturer's spec sheet or service manual (often a PDF with an
+  exploded view and a numbered parts list). Download each drawing and look at it. Collect, for each object:
+  - **orthographic views** (side, front, top), with the overall dimensions;
+  - **the exploded view or cross-section**, with every part named or numbered;
+  - **the parts list**, so the model sheet can name every part the drawing shows.
+  Write each drawing into the model sheet's `blueprints` (where it came from, which figure, what it shows); the
+  board's check refuses a 3D model without one. Where sources disagree, use the one for the viewer's version and say
+  so; what no drawing shows stays off screen or is labelled as unknown, never invented.
+- **Photographs only for what drawings do not show**: colours (and colour codes: by fuel, by voltage, by size),
+  materials, finishes, markings, wear, and how the thing sits in its place. List them in `photos`. When the drawings
+  and a photograph of the viewer's version disagree on shape, the photograph wins for the outside and you say so.
+- **Model it from the blueprint views.** Put each orthographic drawing behind the model at its own angle
+  (`space.blueprintView("side" | "front" | "top", { width })` points the camera straight at the model with almost no
+  perspective, and `await space.backplate(url, { opacity: 0.5 })` lays the drawing behind it), trace each outline as
+  an SVG path over it, and build from those outlines (`P.extrude` with a bevel for a flat profile; the side and top
+  outlines together for a body; `P.lathe` for a turned part). Each part from the exploded view is its own named
+  mesh, built the same way, in its place. A real object is never assembled from spheres and cylinders by eye.
+- **Check it against every drawing.** Overlay each blueprint on the render at its view (`over: true`) until the
+  outlines sit on each other, then render the cutaway or exploded view beside the drawing's own at the same angle.
+  Every difference is either fixed or a choice you can name. Logos and brand names may be left off unless the person
+  asks for them; the shape, the colours and the local conventions stay.
 
 ### The model sheet (before any shot is built)
 
 For each hero object, before building shots:
 
-1. **Reference.** Decide which real version you are replicating (above), then find how it looks inside and out: a teardown, a cross-section, an exploded diagram,
-   a datasheet drawing, an anatomy plate. Write down what you used in the storyboard's `models`, with the parts a
-   viewer would see and their real sizes:
+1. **Blueprints and parts.** Decide which real version you are replicating (above), find its blueprints, and write
+   the model sheet in the storyboard's `models`: the drawings, the photographs for colour and finish, and **every
+   part the drawings show**, numbered as they number them, with real sizes. The storyboard is drawn from this list:
+   each part a shot explains is drawn in that shot's frames, and a part no shot shows is listed in `notShown` with
+   the reason.
 
    ```json
    "models": [{
      "name": "over-ear noise-cancelling ear cup",
      "variant": "the common over-ear ANC headphone sold worldwide; the viewer asked in English",
      "reference": "teardown photos of three over-ear ANC headphones; a 40 mm dynamic driver cross-section",
-     "photos": ["where each reference photo came from: a URL, a catalogue page, the person's own photo"],
+     "blueprints": ["each drawing: where it came from, which figure, what it shows (side view, exploded view, parts list)"],
+     "photos": ["photographs used for colour, finish and markings: a URL, a catalogue page, the person's own photo"],
      "looks": "matte black shell, protein-leather cushions, brushed-metal slider; mic grille on the cup's rear",
      "scale": "1 unit = 1 mm",
      "parts": ["outer shell (ABS, 70 x 85 mm)", "feed-forward mic behind a grille on the shell", "feedback mic in front of the driver",
                "40 mm driver: basket, magnet, voice coil, cone, surround, dust cap", "main board with the ANC chip and battery",
-               "memory-foam cushion in a protein-leather cover", "fabric baffle cover", "yoke and headband slider"]
+               "memory-foam cushion in a protein-leather cover", "fabric baffle cover", "yoke and headband slider"],
+     "notShown": ["parts in the drawings the film leaves out, each with why"]
    }]
    ```
 
-   The storyboard check requires this for any film with `object3d` or `macro` shots (`"standard": 2`).
+   The storyboard check requires this for any film with `object3d` or `macro` shots (`"standard": 2` or more).
 2. **Block it out at real proportions** with the parts in `kit/engine/parts3d.js` and three.js shapes, every named
    part its own mesh or group (named, so it can be pinned, exploded, ghosted or cut).
 3. **Turnaround.** Render it alone from four angles (front, three-quarter, side, top) and from close. Compare with
