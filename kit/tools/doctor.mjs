@@ -80,7 +80,7 @@ if (chromium) {
 const lib = join(kit, "audio", "lib");
 const count = (folder) => (existsSync(join(lib, folder)) ? readdirSync(join(lib, folder)).filter((file) => file.endsWith(".mp3")).length : 0);
 if (count("sfx") >= 40 && count("music") >= 3) ok("sound library", `${count("sfx")} effects, ${count("music")} music tracks`);
-else optional("sound library not downloaded", "sh kit/audio/fetch.sh   (music and effects; a film can still be rendered silent)");
+else optional("sound library not downloaded", "bash kit/audio/fetch.sh   (music and effects; a film can still be rendered silent)");
 
 if (process.env.ELEVENLABS_API_KEY) ok("ELEVENLABS_API_KEY", "narration can be generated with kit/audio/voice.mjs --generate");
 else optional("no ELEVENLABS_API_KEY", "narration is then performed through a speech connector and handed in with kit/audio/voice.mjs --take (see references/voice.md)");

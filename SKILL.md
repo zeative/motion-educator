@@ -65,7 +65,7 @@ The kit is copied into the person's project, never used from the skill's own fol
 ```sh
 node <skill>/kit/tools/new.mjs <workspace> <film-name>   # copies kit/ and package.json if missing, scaffolds films/<film-name>/
 cd <workspace> && npm install                            # three.js, GSAP, the fonts
-sh kit/audio/fetch.sh                                    # the sound library (not committed: licence)
+bash kit/audio/fetch.sh                                    # the sound library (not committed: licence)
 ```
 
 Needs Node 20+, Playwright with Chromium, FFmpeg, and Python 3 with numpy for the mix. `node kit/tools/doctor.mjs`

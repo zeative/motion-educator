@@ -143,11 +143,11 @@ builds anything.
 
 ```sh
 git clone https://github.com/zeative/motion-educator && cd motion-educator
-npm install && sh kit/audio/fetch.sh
+npm install && bash kit/audio/fetch.sh
 node kit/tools/doctor.mjs                                # is this machine ready?
 
 node kit/tools/new.mjs ~/films moon-face --portrait      # a workspace and films/moon-face
-cd ~/films && npm install && sh kit/audio/fetch.sh
+cd ~/films && npm install && bash kit/audio/fetch.sh
 ```
 
 ```sh

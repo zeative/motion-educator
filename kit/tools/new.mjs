@@ -4,7 +4,7 @@
 //
 // --portrait starts a 1080x1920 short; without it the film is 1920x1080.
 //
-// Afterwards: cd <workspace> && npm install && sh kit/audio/fetch.sh. Write storyboard.json first.
+// Afterwards: cd <workspace> && npm install && bash kit/audio/fetch.sh. Write storyboard.json first.
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
