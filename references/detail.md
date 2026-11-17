@@ -35,6 +35,12 @@ and build it accurately:
   visible part, colours (and any colour code: by fuel, by voltage, by size), materials and finishes, markings,
   how it is held or mounted, what it sits next to. The inside comes from teardowns, cut-away product photos,
   patents or service manuals, not from a guess.
+- **The inside comes from drawings, not from your own simplification.** A mechanism the film explains is built
+  from a source that shows it: the patent (patents.google.com: read the description, download the drawing pages and
+  look at them), a service manual's exploded view, a teardown photo or a manufacturer's cut-away. Build each
+  internal part as the figure shows it, cite the figure in the fact sheet and the model sheet, and check your
+  cutaway beside the figure at the same angle. Where sources disagree, show the one the viewer's version uses and
+  say so; what you cannot source stays off screen or is labelled as unknown, never invented.
 - **Trace it from the photo; do not assemble it from primitives.** A real object's body is not a sphere on a
   cylinder. Put your best side-view photo behind the model (`await space.backplate(url, { opacity: 0.5 })` on a
   turnaround page, the camera at the photo's angle), trace the silhouette as an SVG path over it, and build the
