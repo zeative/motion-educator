@@ -137,8 +137,8 @@ if (modelled.length) {
     if (!listed("blueprints").length) ((sb.standard ?? 1) >= 3 ? err : warn)(where, '"blueprints" is empty: find the technical drawings first (blueprint, dimensional drawing, exploded view, parts list, cross-section, patent figures), look at them, and list each one; the model and the storyboard are built from them (references/detail.md)');
     if (!listed("photos").length) warn(where, '"photos" is empty: the drawings give the shape; list the photographs you took colour, finish and markings from, or ask the person for some');
     // A mechanism is shown on the board as its drawing shows it: the blueprint itself, placed in the frame.
-    const placed = shots.some((shot) => (shot.frames ?? []).some((fr) => (fr.draw ?? []).some((thing) => "blueprint" in thing)));
-    if (listed("blueprints").length && !placed) warn(where, 'no frame places a blueprint: put the drawing itself in the mechanism shots ({ "blueprint": "file", "at": [x, y, w, h], "crop": [...] }) and mark over it, instead of redrawing it by hand');
+    const placed = shots.some((shot) => (shot.frames ?? []).some((fr) => fr.from || (fr.draw ?? []).some((thing) => "blueprint" in thing)));
+    if (listed("blueprints").length && !placed) warn(where, 'no frame shows a blueprint: put the drawing itself in the mechanism shots ({ "blueprint": "file", "at": [x, y, w, h], "crop": [...] }), or trace it exactly and name the drawing in the frame\'s "from"');
     // Every part the drawings show is either drawn somewhere in the film or listed as left out, with why.
     const said = JSON.stringify(shots.map((shot) => [shot.screen, shot.camera, shot.motion, shot.caption, shot.voice, shot.frames])).toLowerCase();
     const skipped = listed("notShown").join(" ").toLowerCase();

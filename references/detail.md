@@ -59,8 +59,9 @@ For each hero object, before building shots:
    the model sheet in the storyboard's `models`: the drawings, the photographs for colour and finish, and **every
    part the drawings show**, numbered as they number them, with real sizes. The storyboard is drawn from this list:
    each part a shot explains appears in that shot's frames, and a part no shot shows is listed in `notShown` with
-   the reason. The board's mechanism frames place the blueprint itself (cropped to the part, with labels and arrows
-   over it), never a hand copy of it, so the board, the model and the drawing show the same parts.
+   the reason. The board's mechanism frames show the blueprint itself (cropped to the part, with labels and arrows
+   over it) or an exact tracing of it, never a loose hand copy, so the board, the model and the drawing show the
+   same parts.
 
    ```json
    "models": [{

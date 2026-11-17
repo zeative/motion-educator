@@ -46,8 +46,9 @@ an endcard, as below.
 **Draw mechanisms with their blueprints.** A shot that shows how a real thing works places the technical drawing
 itself in its frames, exactly as it is, cropped to the part: `{ "blueprint": "reference/x.png", "at": [x, y, w, h],
 "crop": [x, y, w, h] }` (the file relative to the film's folder, the crop in the drawing's pixels). Labels, arrows,
-moves and the camera are drawn over it. Never redraw a blueprint by hand: a hand copy loses parts, and the model is
-built from what the board shows.
+moves and the camera are drawn over it. A redrawing is allowed when it is exact: traced over the drawing, every part
+in it, at its proportions, with the frame's `"from"` naming the drawing. A loose hand copy is not: it loses parts,
+and the model is built from what the board shows. Placing the drawing itself is the surest way.
 
 `rail: false` keeps an act (the hook, the recap) out of the chapter rail the film shows.
 
