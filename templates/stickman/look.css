@@ -1,0 +1,27 @@
+/* Stickman: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Caveat Brush";
+  src: url("../../node_modules/@fontsource/caveat-brush/files/caveat-brush-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+:root[data-look="stickman"] {
+  --accent: #f2c14e;
+  --ink: #1b1b1b;
+  --paper: #f6f1e7;
+  --brand: "Caveat Brush", var(--sans);
+  --sans: "Caveat Brush", ui-sans-serif, sans-serif;
+}
+:root[data-look="stickman"] .caption,
+:root[data-look="stickman"] .caption.pop,
+:root[data-look="stickman"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 400 92px / 1.05 var(--brand); letter-spacing: 0;
+}
+:root[data-look="stickman"] .caption .key, :root[data-look="stickman"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="stickman"] .caption::before { display: none; }
+:root[data-look="stickman"] #vignette { opacity: 0.35; }
+:root[data-look="stickman"] { --card: transparent; }
+/* The key word is ink under a flat stroke of marker, the way a highlighter crosses a word. */
+:root[data-look="stickman"] .key .ch, :root[data-look="stickman"] .caption .key { color: var(--ink); }
+:root[data-look="stickman"] .key { background: linear-gradient(transparent 54%, var(--accent) 54%, var(--accent) 92%, transparent 92%); }
+:root[data-look="stickman"] .chip { border: 0; box-shadow: none; padding: 6px 10px; font: 400 44px / 1 var(--brand); }

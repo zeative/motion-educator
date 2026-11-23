@@ -1,0 +1,57 @@
+{
+  "key": "cosmos",
+  "name": "Cosmos",
+  "medium": "3D",
+  "mode": "3D and light",
+  "status": "ready",
+  "version": 1,
+  "summary": "Earth, Sun, sky and space as real places, with light drawn the way light behaves.",
+  "worksFor": "astronomy, geography, weather, light and sound",
+  "example": "why we only ever see one side of the Moon",
+  "defaults": {
+    "format": "1920x1080",
+    "narration": "text",
+    "accent": "#4da3ff"
+  },
+  "stage": "graphite",
+  "paper": null,
+  "ink": null,
+  "palette": [
+    "#05060a",
+    "#0b0b0c",
+    "#ededf0",
+    "#4da3ff",
+    "#ffb21a"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0.34,
+    "grain": 5
+  },
+  "type": {
+    "display": "Sora Variable",
+    "body": "Inter Variable",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "house",
+  "samples": [
+    "blue-sky",
+    "how-gps-works",
+    "seasons",
+    "lightning"
+  ],
+  "golden": [
+    "blue-sky-1.jpg",
+    "blue-sky-2.jpg",
+    "blue-sky-3.jpg",
+    "how-gps-works-1.jpg",
+    "how-gps-works-2.jpg",
+    "how-gps-works-3.jpg",
+    "lightning-1.jpg",
+    "lightning-2.jpg",
+    "lightning-3.jpg",
+    "seasons-1.jpg",
+    "seasons-2.jpg",
+    "seasons-3.jpg"
+  ]
+}

@@ -1,0 +1,31 @@
+/* Comic: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Bangers";
+  src: url("../../node_modules/@fontsource/bangers/files/bangers-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Kalam";
+  src: url("../../node_modules/@fontsource/kalam/files/kalam-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+:root[data-look="comic"] {
+  --accent: #ff3b30;
+  --ink: #1c1c1e;
+  --paper: #fffdf6;
+  --brand: "Bangers", var(--sans);
+  --sans: "Kalam", ui-sans-serif, sans-serif;
+}
+:root[data-look="comic"] .caption,
+:root[data-look="comic"] .caption.pop,
+:root[data-look="comic"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 700 58px / 1.2 var(--sans); background: #ffcc00; padding: 16px 26px; border-radius: 0; border: 5px solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+}
+:root[data-look="comic"] .caption .key, :root[data-look="comic"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="comic"] .caption::before { display: none; }
+:root[data-look="comic"] #vignette { opacity: 0.35; }
+:root[data-look="comic"] { --card: #ffffff; }
+:root[data-look="comic"] .display { font-family: "Bangers", var(--sans); letter-spacing: 0.04em; }
+:root[data-look="comic"] .glass, :root[data-look="comic"] .panel, :root[data-look="comic"] .chip { border-width: 5px; border-radius: 0; box-shadow: 8px 8px 0 var(--ink); }

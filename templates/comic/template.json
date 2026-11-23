@@ -1,0 +1,41 @@
+{
+  "key": "comic",
+  "name": "Comic",
+  "medium": "2D",
+  "mode": "Ink and halftone",
+  "status": "concept",
+  "version": 1,
+  "summary": "Comic book pages: bold ink, halftone dots, speech bubbles and a splash panel for the payoff.",
+  "worksFor": "history, science myths, stories with characters",
+  "example": "why popcorn pops",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#ff3b30"
+  },
+  "stage": "paper",
+  "paper": "#fffdf6",
+  "ink": "#1c1c1e",
+  "palette": [
+    "#fffdf6",
+    "#1c1c1e",
+    "#ff3b30",
+    "#ffcc00",
+    "#007aff"
+  ],
+  "stepped": 12,
+  "finish": {
+    "bloom": 0,
+    "grain": 3
+  },
+  "type": {
+    "display": "Bangers",
+    "body": "Kalam",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "caption-box",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

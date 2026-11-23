@@ -1,0 +1,41 @@
+{
+  "key": "chalkboard",
+  "name": "Chalkboard",
+  "medium": "2D",
+  "mode": "Chalk on board",
+  "status": "concept",
+  "version": 1,
+  "summary": "A good teacher's board: chalk diagrams, formulas and graphs drawn as the voice explains.",
+  "worksFor": "maths, physics, chemistry, lessons",
+  "example": "why the Pythagorean theorem works",
+  "defaults": {
+    "format": "1920x1080",
+    "narration": "voice",
+    "accent": "#9bd3ae"
+  },
+  "stage": "board",
+  "paper": "#1f3b2d",
+  "ink": "#f2f2ea",
+  "palette": [
+    "#1f3b2d",
+    "#f2f2ea",
+    "#f6d365",
+    "#f7a1b5",
+    "#8fd3f4"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0,
+    "grain": 4
+  },
+  "type": {
+    "display": "Cabin Sketch",
+    "body": "Cabin Sketch",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "chalk",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

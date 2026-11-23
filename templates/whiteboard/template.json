@@ -1,0 +1,40 @@
+{
+  "key": "whiteboard",
+  "name": "Whiteboard",
+  "medium": "2D",
+  "mode": "Marker sketch",
+  "status": "concept",
+  "version": 1,
+  "summary": "Marker sketches drawn live on a white board, from drawing to drawing as the story goes.",
+  "worksFor": "business, science, step-by-step processes",
+  "example": "how a battery stores energy",
+  "defaults": {
+    "format": "1920x1080",
+    "narration": "voice",
+    "accent": "#2f80ed"
+  },
+  "stage": "whiteboard",
+  "paper": "#fbfbf8",
+  "ink": "#1e1e1e",
+  "palette": [
+    "#fbfbf8",
+    "#1e1e1e",
+    "#2f80ed",
+    "#eb5757"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0,
+    "grain": 0
+  },
+  "type": {
+    "display": "Patrick Hand",
+    "body": "Patrick Hand",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "marker",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

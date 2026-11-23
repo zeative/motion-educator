@@ -1,0 +1,42 @@
+{
+  "key": "clay",
+  "name": "Clay",
+  "medium": "3D",
+  "mode": "Claymation",
+  "status": "concept",
+  "version": 1,
+  "summary": "A handmade plasticine world on a little tabletop set, animated in stop motion.",
+  "worksFor": "kids' science, nature, friendly explainers",
+  "example": "why we have seasons",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#ff8a65"
+  },
+  "stage": "none",
+  "paper": null,
+  "ink": "#5a3a28",
+  "palette": [
+    "#ffd8c2",
+    "#ff8a65",
+    "#ffd166",
+    "#06d6a0",
+    "#118ab2",
+    "#f6f1e7"
+  ],
+  "stepped": 12,
+  "finish": {
+    "bloom": 0,
+    "grain": 3
+  },
+  "type": {
+    "display": "Fredoka",
+    "body": "Fredoka",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "card",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

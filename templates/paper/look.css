@@ -1,0 +1,30 @@
+/* Paper Cut-out: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Fraunces";
+  src: url("../../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("../../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+  font-style: normal;
+}
+:root[data-look="paper"] {
+  --accent: #f4a261;
+  --ink: #264653;
+  --paper: #f8f1e5;
+  --brand: "Fraunces", var(--sans);
+  --sans: "DM Sans", ui-sans-serif, sans-serif;
+}
+:root[data-look="paper"] .caption,
+:root[data-look="paper"] .caption.pop,
+:root[data-look="paper"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 600 72px / 1.1 var(--brand); background: #fff8ec; padding: 14px 30px 18px; border-radius: 2px; box-shadow: 0 10px 16px -8px rgb(59 42 26 / 0.35); transform: translateX(-50%) rotate(-1.2deg);
+}
+:root[data-look="paper"] .caption .key, :root[data-look="paper"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="paper"] .caption::before { display: none; }
+:root[data-look="paper"] #vignette { opacity: 0.35; }
+:root[data-look="paper"] { --card: #fff8ec; }
+:root[data-look="paper"] .glass, :root[data-look="paper"] .panel, :root[data-look="paper"] .chip { border: 0; border-radius: 3px; box-shadow: 0 10px 14px -8px rgb(59 42 26 / 0.38); }

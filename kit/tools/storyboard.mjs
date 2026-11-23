@@ -98,6 +98,18 @@ if (narrated) {
   // On screen, the narration's own words again: harder to follow, not easier.
   if (!portrait) for (const shot of sb.shots ?? []) if (shot.voice && shot.caption && plain(shot.caption).toLowerCase() === plain(shot.voice).toLowerCase() && count(plain(shot.caption)) > 5) warn(`shot ${shot.id}`, "the caption repeats the spoken line word for word: make it the key phrase (three or four words), or leave it out");
 }
+// The visual template the film is made in (templates/<key>/): the board shows it, and its lines are the look.
+let template = null;
+if (sb.template) {
+  let dir = film, file = null;
+  for (let i = 0; i < 5 && !file; i++, dir = dirname(dir)) if (existsSync(join(dir, "templates", sb.template, "template.json"))) file = join(dir, "templates", sb.template, "template.json");
+  if (!file) err("storyboard", `"template": "${sb.template}" is not a visual template here: copy templates/ into the workspace (kit/tools/new.mjs does) or pick one from templates/catalog.json`);
+  else {
+    template = JSON.parse(readFileSync(file, "utf8"));
+    if (template.defaults?.format && sb.format && template.defaults.format !== sb.format) warn("storyboard", `the ${template.name} template's films are ${template.defaults.format}; this one is ${sb.format}: fine when the person asked for it`);
+    if (template.status === "concept") warn("storyboard", `${template.name} is a concept template: no sample film has been checked against its lines yet, so compare the first stills with templates/${sb.template}/golden/ and its template.md line by line (kit/tools/lookmatch.mjs)`);
+  }
+} else warn("storyboard", '"template" is missing: the film gets the house look (graphite, glass, metal type). Name the visual template the person asked for (templates/catalog.json)');
 if (!sb.look?.accent) err("storyboard", '"look.accent" is missing: the one colour that carries the point');
 need(sb.look ?? {}, "mood", "look", 20);
 if (!sb.music?.bpm) warn("storyboard", '"music.bpm" is missing: cuts cannot be checked against the beat');
@@ -343,7 +355,7 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
   <div class="meta">
     <div><b>Promise</b>${esc(sb.promise)}</div><div><b>Audience</b>${esc(sb.audience)}</div>
     <div><b>Length</b>${sb.duration} s · ${shots.length} shots · ${frameCount} drawn frames · ${W}×${H} · ${sb.fps ?? 60} fps · ${esc(sb.language)}${narrated ? ` · voice: ${esc(sb.voice?.name ?? sb.voice?.voice_id ?? "?")}` : " · captions only"}</div>
-    <div><b>Look</b><span class="sw" style="background:${accent}"></span>${accent}${sb.look?.accent2 ? ` <span class="sw" style="background:${esc(sb.look.accent2)};margin-left:10px"></span>${esc(sb.look.accent2)}` : ""}<br>${esc(sb.look?.mood)}</div>
+    <div><b>Look</b>${template ? `${esc(template.name)} template (${esc(template.mode)}) · ` : ""}<span class="sw" style="background:${accent}"></span>${accent}${sb.look?.accent2 ? ` <span class="sw" style="background:${esc(sb.look.accent2)};margin-left:10px"></span>${esc(sb.look.accent2)}` : ""}<br>${esc(sb.look?.mood)}</div>
   </div>
   <div class="report ${errors.length ? "bad" : "ok"}">${errors.length ? `${errors.length} rule(s) broken:<br>${errors.map(esc).join("<br>")}` : `The storyboard passes the standard: ${shots.length} shots, ${frameCount} drawn frames, ${facts.size} facts, ${acts.size} acts.`}</div>
   ${warns.length ? `<div class="report warn">${warns.length} to look at:<br>${warns.map(esc).join("<br>")}</div>` : ""}

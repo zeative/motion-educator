@@ -1,0 +1,24 @@
+/* Low Poly: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Nunito";
+  src: url("../../node_modules/@fontsource-variable/nunito/files/nunito-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 200 1000;
+  font-style: normal;
+}
+:root[data-look="lowpoly"] {
+  --accent: #ff9f1c;
+  --ink: #293241;
+  --brand: "Nunito", var(--sans);
+  --sans: "Nunito", ui-sans-serif, sans-serif;
+}
+:root[data-look="lowpoly"] .caption,
+:root[data-look="lowpoly"] .caption.pop,
+:root[data-look="lowpoly"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 800 64px / 1.1 var(--brand); background: rgb(255 255 255 / 0.62); padding: 18px 34px 20px; border-radius: 26px; backdrop-filter: blur(6px);
+}
+:root[data-look="lowpoly"] .caption .key, :root[data-look="lowpoly"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="lowpoly"] .caption::before { display: none; }
+:root[data-look="lowpoly"] #vignette { opacity: 0.7; }
+:root[data-look="lowpoly"] { --card: rgb(255 255 255 / 0.62); --paper: #cbf3f0; }
+:root[data-look="lowpoly"] .display { font-weight: 800; letter-spacing: -0.02em; }
+:root[data-look="lowpoly"] .glass, :root[data-look="lowpoly"] .panel, :root[data-look="lowpoly"] .chip { border: 0; border-radius: 22px; backdrop-filter: blur(6px); }

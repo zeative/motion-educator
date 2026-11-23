@@ -1,0 +1,31 @@
+/* Watercolour: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+}
+:root[data-look="watercolour"] {
+  --accent: #5fb49c;
+  --ink: #2b2b2b;
+  --paper: #fbf8f1;
+  --brand: "Cormorant Garamond", var(--sans);
+  --sans: "Cormorant Garamond", ui-sans-serif, sans-serif;
+}
+:root[data-look="watercolour"] .caption,
+:root[data-look="watercolour"] .caption.pop,
+:root[data-look="watercolour"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 600 82px / 1.1 var(--brand); letter-spacing: 0;
+}
+:root[data-look="watercolour"] .caption .key, :root[data-look="watercolour"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="watercolour"] .caption::before { display: none; }
+:root[data-look="watercolour"] #vignette { opacity: 0.35; }
+:root[data-look="watercolour"] { --card: transparent; }
+:root[data-look="watercolour"] .display { font-weight: 600; }
+:root[data-look="watercolour"] .label, :root[data-look="watercolour"] .chip { font-style: italic; border: 0; box-shadow: none; }

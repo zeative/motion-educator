@@ -1,0 +1,52 @@
+{
+  "key": "pixel",
+  "name": "Pixel",
+  "medium": "2D",
+  "mode": "Pixel art",
+  "status": "concept",
+  "version": 1,
+  "summary": "A retro game screen: sprites, a 16-colour palette, a HUD and dialogue boxes.",
+  "worksFor": "biology, computing, games, young audiences",
+  "example": "why your heart beats faster when you run",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#ff4d6d"
+  },
+  "stage": "none",
+  "paper": null,
+  "ink": "#1d2b53",
+  "palette": [
+    "#1d2b53",
+    "#7e2553",
+    "#008751",
+    "#ab5236",
+    "#5f574f",
+    "#c2c3c7",
+    "#fff1e8",
+    "#ff004d",
+    "#ffa300",
+    "#ffec27",
+    "#00e436",
+    "#29adff",
+    "#83769c",
+    "#ff77a8",
+    "#ffccaa",
+    "#000000"
+  ],
+  "stepped": 12,
+  "finish": {
+    "bloom": 0,
+    "grain": 0
+  },
+  "type": {
+    "display": "Press Start 2P",
+    "body": "Press Start 2P",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "dialog",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

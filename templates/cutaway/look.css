@@ -1,0 +1,4 @@
+/* Studio Cutaway: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+:root[data-look="cutaway"] {
+  --accent: #ffb90e;
+}

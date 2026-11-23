@@ -1,0 +1,41 @@
+{
+  "key": "lowpoly",
+  "name": "Low Poly",
+  "medium": "3D",
+  "mode": "Faceted 3D",
+  "status": "concept",
+  "version": 1,
+  "summary": "A faceted 3D world of flat-shaded triangles under a soft gradient sky.",
+  "worksFor": "earth science, geography, ecosystems",
+  "example": "how volcanoes erupt",
+  "defaults": {
+    "format": "1920x1080",
+    "narration": "text",
+    "accent": "#ff9f1c"
+  },
+  "stage": "none",
+  "paper": null,
+  "ink": "#293241",
+  "palette": [
+    "#ff9f1c",
+    "#ffbf69",
+    "#cbf3f0",
+    "#2ec4b6",
+    "#293241"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0.18,
+    "grain": 0
+  },
+  "type": {
+    "display": "Nunito",
+    "body": "Nunito",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "panel",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "key": "cutaway",
+  "name": "Studio Cutaway",
+  "medium": "3D",
+  "mode": "Photoreal 3D",
+  "status": "ready",
+  "version": 1,
+  "summary": "Real objects rebuilt as photoreal 3D replicas, lit like a product shot and cut open so you watch the inside work.",
+  "worksFor": "machines, gadgets, the body, anything with parts",
+  "example": "how a bicycle's gears make pedalling easier",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#ffb90e"
+  },
+  "stage": "graphite",
+  "paper": null,
+  "ink": null,
+  "palette": [
+    "#0b0b0c",
+    "#19191b",
+    "#ededf0",
+    "#ffb90e",
+    "#3fe0ff"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0.34,
+    "grain": 5
+  },
+  "type": {
+    "display": "Sora Variable",
+    "body": "Inter Variable",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "house",
+  "samples": [
+    "fuel-nozzle",
+    "noise-cancelling",
+    "arm-model"
+  ],
+  "golden": [
+    "arm-model-1.jpg",
+    "arm-model-2.jpg",
+    "arm-model-3.jpg",
+    "fuel-nozzle-1.jpg",
+    "fuel-nozzle-2.jpg",
+    "fuel-nozzle-3.jpg",
+    "noise-cancelling-1.jpg",
+    "noise-cancelling-2.jpg",
+    "noise-cancelling-3.jpg"
+  ]
+}

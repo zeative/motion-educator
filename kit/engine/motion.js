@@ -13,16 +13,23 @@
 //   plain object the timeline tweens, and draws it in a function passed to film.each();
 // - a fromTo() on state that an earlier tween also animates takes immediateRender: false.
 import { createBackdrop } from "./stage.js";
+import { createFlatBackdrop } from "./backdrops.js";
+import { applyLook, holder } from "./look.js";
 
 const hex = (value) => {
   const n = Number.parseInt(value.replace("#", ""), 16);
   return { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 };
 };
 
-export async function createFilm({ storyboard, duration = storyboard?.duration, tint = storyboard?.look?.accent ?? "#ffb90e" } = {}) {
+export async function createFilm({ storyboard, duration = storyboard?.duration, tint } = {}) {
   const gsap = window.gsap;
   const $ = (sel) => (typeof sel === "string" ? document.querySelector(sel) : sel);
   const $$ = (sel) => (typeof sel === "string" ? [...document.querySelectorAll(sel)] : [].concat(sel));
+  // The visual template first (kit/engine/look.js): it decides the stage, the type, the captions and the frame rate
+  // the picture advances at, so nothing is drawn before it is in place.
+  const look = await applyLook(storyboard);
+  tint ??= storyboard?.look?.accent ?? look.defaults?.accent ?? "#ffb90e";
+  const held = holder(look.stepped);
   await document.fonts.ready;
   // The frame's size comes from the storyboard: "1920x1080" for a landscape film, "1080x1920" for a short.
   const [W, H] = (storyboard?.format ?? "1920x1080").split("x").map(Number);
@@ -58,7 +65,7 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   }
   document.body.insertAdjacentHTML("beforeend", '<svg class="defs" width="0" height="0" aria-hidden="true"><defs id="filters"></defs></svg>');
 
-  const backdrop = createBackdrop(canvas);
+  const backdrop = look.stage === "graphite" ? createBackdrop(canvas) : createFlatBackdrop(canvas, look);
   const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
   const stage = { t: 0, lx: 0.5, ly: 0.6, glow: 0.6, ...hex(tint), floor: 1, horizon: -0.16, camx: 0, camy: 0, pr: 0, ps: 0, flash: 0, streak: 0, silk: 1 };
   const jobs = [];
@@ -392,6 +399,12 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   const finish = () => {
     tl.set({}, {}, duration);
     window.__frame = frame;
+    // The renderer seeks through this: a stepped template's picture holds between its steps (look.js holder).
+    window.__seek = (t) => {
+      tl.time(held(t));
+      frame();
+    };
+    window.__stepped = look.stepped || 0;
     window.__timelines = { ...(window.__timelines ?? {}), root: tl };
     window.startRender = () => tl;
     frame();
@@ -402,5 +415,5 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
     }
   };
 
-  return { gsap, tl, $, $$, W, H, portrait, voiced, narrated, stage, shots, duration, each, show, hide, scene, land, pop, split, typeIn, typeOut, sheen, motionBlur, hit, whip, light, tintTo, draw, count, captions, chapters, finish };
+  return { gsap, tl, $, $$, W, H, portrait, voiced, narrated, look, held, stage, shots, duration, each, show, hide, scene, land, pop, split, typeIn, typeOut, sheen, motionBlur, hit, whip, light, tintTo, draw, count, captions, chapters, finish };
 }

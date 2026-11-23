@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "note": "Visual templates: a template is a look, never a topic. templates/<key>/ holds its lines, its engine settings, its type and captions, and the stills to check against.",
+  "templates": [
+    {
+      "key": "cutaway",
+      "name": "Studio Cutaway",
+      "medium": "3D",
+      "mode": "Photoreal 3D",
+      "status": "ready"
+    },
+    {
+      "key": "glass",
+      "name": "Graphite Glass",
+      "medium": "Motion graphics",
+      "mode": "Motion graphics",
+      "status": "ready"
+    },
+    {
+      "key": "cosmos",
+      "name": "Cosmos",
+      "medium": "3D",
+      "mode": "3D and light",
+      "status": "ready"
+    },
+    {
+      "key": "micro",
+      "name": "Micro",
+      "medium": "3D",
+      "mode": "Illustrated 3D",
+      "status": "ready"
+    },
+    {
+      "key": "stickman",
+      "name": "Stickman",
+      "medium": "2D",
+      "mode": "Hand-drawn 2D",
+      "status": "concept"
+    },
+    {
+      "key": "clay",
+      "name": "Clay",
+      "medium": "3D",
+      "mode": "Claymation",
+      "status": "concept"
+    },
+    {
+      "key": "paper",
+      "name": "Paper Cut-out",
+      "medium": "2D",
+      "mode": "Layered paper",
+      "status": "concept"
+    },
+    {
+      "key": "chalkboard",
+      "name": "Chalkboard",
+      "medium": "2D",
+      "mode": "Chalk on board",
+      "status": "concept"
+    },
+    {
+      "key": "blueprint",
+      "name": "Blueprint",
+      "medium": "2D",
+      "mode": "Technical drawing",
+      "status": "concept"
+    },
+    {
+      "key": "isometric",
+      "name": "Isometric",
+      "medium": "3D",
+      "mode": "Isometric diorama",
+      "status": "concept"
+    },
+    {
+      "key": "pixel",
+      "name": "Pixel",
+      "medium": "2D",
+      "mode": "Pixel art",
+      "status": "concept"
+    },
+    {
+      "key": "whiteboard",
+      "name": "Whiteboard",
+      "medium": "2D",
+      "mode": "Marker sketch",
+      "status": "concept"
+    },
+    {
+      "key": "watercolour",
+      "name": "Watercolour",
+      "medium": "2D",
+      "mode": "Painted",
+      "status": "concept"
+    },
+    {
+      "key": "neon",
+      "name": "Neon Line",
+      "medium": "Motion graphics",
+      "mode": "Glowing lines",
+      "status": "concept"
+    },
+    {
+      "key": "comic",
+      "name": "Comic",
+      "medium": "2D",
+      "mode": "Ink and halftone",
+      "status": "concept"
+    },
+    {
+      "key": "lowpoly",
+      "name": "Low Poly",
+      "medium": "3D",
+      "mode": "Faceted 3D",
+      "status": "concept"
+    }
+  ]
+}

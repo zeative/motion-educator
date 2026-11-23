@@ -1,0 +1,40 @@
+{
+  "key": "blueprint",
+  "name": "Blueprint",
+  "medium": "2D",
+  "mode": "Technical drawing",
+  "status": "concept",
+  "version": 1,
+  "summary": "White technical drawing on a blueprint grid: sections, exploded views and real dimensions.",
+  "worksFor": "engineering, machines, architecture",
+  "example": "how gears change speed and force",
+  "defaults": {
+    "format": "1920x1080",
+    "narration": "text",
+    "accent": "#5fa8ff"
+  },
+  "stage": "blueprint",
+  "paper": "#0d3b66",
+  "ink": "#e8f1ff",
+  "palette": [
+    "#0d3b66",
+    "#134e8a",
+    "#e8f1ff",
+    "#ffd166"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0,
+    "grain": 3
+  },
+  "type": {
+    "display": "Share Tech Mono",
+    "body": "Share Tech Mono",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "title-block",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

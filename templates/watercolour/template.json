@@ -1,0 +1,42 @@
+{
+  "key": "watercolour",
+  "name": "Watercolour",
+  "medium": "2D",
+  "mode": "Painted",
+  "status": "concept",
+  "version": 1,
+  "summary": "Soft washes and fine ink on textured paper, accurate like a natural history plate.",
+  "worksFor": "nature, animals, plants, the body",
+  "example": "how bees make honey",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#5fb49c"
+  },
+  "stage": "paper",
+  "paper": "#fbf8f1",
+  "ink": "#2b2b2b",
+  "palette": [
+    "#fbf8f1",
+    "#2b2b2b",
+    "#5fb49c",
+    "#3d5a98",
+    "#c0703f",
+    "#d77a8b"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0,
+    "grain": 3
+  },
+  "type": {
+    "display": "Cormorant Garamond",
+    "body": "Cormorant Garamond",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "ink",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

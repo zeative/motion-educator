@@ -1,0 +1,25 @@
+/* Chalkboard: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Cabin Sketch";
+  src: url("../../node_modules/@fontsource/cabin-sketch/files/cabin-sketch-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+:root[data-look="chalkboard"] {
+  --accent: #9bd3ae;
+  --ink: #f2f2ea;
+  --paper: #1f3b2d;
+  --brand: "Cabin Sketch", var(--sans);
+  --sans: "Cabin Sketch", ui-sans-serif, sans-serif;
+}
+:root[data-look="chalkboard"] .caption,
+:root[data-look="chalkboard"] .caption.pop,
+:root[data-look="chalkboard"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 700 70px / 1.15 var(--brand); filter: url(#chalk);
+}
+:root[data-look="chalkboard"] .caption .key, :root[data-look="chalkboard"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="chalkboard"] .caption::before { display: none; }
+:root[data-look="chalkboard"] #vignette { opacity: 0.7; }
+:root[data-look="chalkboard"] { --card: transparent; }
+:root[data-look="chalkboard"] .display, :root[data-look="chalkboard"] .chip, :root[data-look="chalkboard"] .label { filter: url(#chalk); }
+:root[data-look="chalkboard"] .glass, :root[data-look="chalkboard"] .panel, :root[data-look="chalkboard"] .chip { box-shadow: none; border-radius: 10px; }

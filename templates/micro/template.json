@@ -1,0 +1,49 @@
+{
+  "key": "micro",
+  "name": "Micro",
+  "medium": "3D",
+  "mode": "Illustrated 3D",
+  "status": "ready",
+  "version": 1,
+  "summary": "The world too small to see: cells, tissue and molecules, magnified and lit so they look alive.",
+  "worksFor": "biology, health, chemistry, states of matter",
+  "example": "why salt dissolves in water",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#7fe3da"
+  },
+  "stage": "graphite",
+  "paper": null,
+  "ink": null,
+  "palette": [
+    "#0b0b0c",
+    "#e8463d",
+    "#7fe3da",
+    "#f3ead8",
+    "#7fe6ff"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0.34,
+    "grain": 5
+  },
+  "type": {
+    "display": "Sora Variable",
+    "body": "Inter Variable",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "house",
+  "samples": [
+    "wound-healing",
+    "floating-ice"
+  ],
+  "golden": [
+    "floating-ice-1.jpg",
+    "floating-ice-2.jpg",
+    "floating-ice-3.jpg",
+    "wound-healing-1.jpg",
+    "wound-healing-2.jpg",
+    "wound-healing-3.jpg"
+  ]
+}

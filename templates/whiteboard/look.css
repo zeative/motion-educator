@@ -1,0 +1,25 @@
+/* Whiteboard: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Patrick Hand";
+  src: url("../../node_modules/@fontsource/patrick-hand/files/patrick-hand-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+:root[data-look="whiteboard"] {
+  --accent: #2f80ed;
+  --ink: #1e1e1e;
+  --paper: #fbfbf8;
+  --brand: "Patrick Hand", var(--sans);
+  --sans: "Patrick Hand", ui-sans-serif, sans-serif;
+}
+:root[data-look="whiteboard"] .caption,
+:root[data-look="whiteboard"] .caption.pop,
+:root[data-look="whiteboard"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 400 80px / 1.1 var(--brand); filter: url(#marker);
+}
+:root[data-look="whiteboard"] .caption .key, :root[data-look="whiteboard"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="whiteboard"] .caption::before { display: none; }
+:root[data-look="whiteboard"] #vignette { opacity: 0.35; }
+:root[data-look="whiteboard"] { --card: transparent; }
+:root[data-look="whiteboard"] .display, :root[data-look="whiteboard"] .chip { filter: url(#marker); }
+:root[data-look="whiteboard"] .glass, :root[data-look="whiteboard"] .panel, :root[data-look="whiteboard"] .chip { box-shadow: none; border-radius: 12px; }

@@ -1,0 +1,4 @@
+/* Micro: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+:root[data-look="micro"] {
+  --accent: #7fe3da;
+}

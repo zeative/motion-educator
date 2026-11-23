@@ -55,6 +55,10 @@ const GL = HAS_GPU
     };
 const SEGMENT = Number(flag("--segment") ?? 4);
 const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync(join(film, "storyboard.json"), "utf8")) : {};
+// The visual template the film is made in (templates/<key>/template.json): its finishing pass and its frame steps.
+const lookFile = plan.template ? join(workspace, "templates", plan.template, "template.json") : null;
+if (lookFile && !existsSync(lookFile)) throw new Error(`the storyboard names the template "${plan.template}", but ${lookFile} is missing`);
+const look = lookFile ? JSON.parse(readFileSync(lookFile, "utf8")) : {};
 const [W, H] = (flag("--size") ?? plan.format ?? "1920x1080").split("x").map(Number);
 if (!(W > 0 && H > 0) || W % 2 || H % 2) throw new Error(`the frame size "${W}x${H}" must be two even numbers, like 1920x1080`);
 
@@ -122,8 +126,11 @@ if (args.includes("--serve")) {
   const grab = async (page) => Buffer.from((await page.capture.send("Page.captureScreenshot", { format: "jpeg", quality: 98, optimizeForSpeed: true })).data, "base64");
   const seek = (page, time) =>
     page.evaluate((t) => {
-      window.__timelines.root.time(t);
-      window.__frame();
+      if (window.__seek) window.__seek(t);
+      else {
+        window.__timelines.root.time(t);
+        window.__frame();
+      }
     }, time);
   const ffmpeg = (ffmpegArgs, stdin = "ignore") => {
     const child = spawn("ffmpeg", ["-y", "-loglevel", "error", ...ffmpegArgs], { stdio: [stdin, "inherit", "inherit"] });
@@ -134,10 +141,14 @@ if (args.includes("--serve")) {
     return { child, done };
   };
   // The finishing pass: highlights bloom into their surroundings (blurred at quarter size, which is far cheaper and
-  // looks the same), then fine grain that changes every frame.
-  const FINISH =
-    `format=gbrp,split[a][b];[b]scale=${W / 4}:${H / 4},curves=all='0/0 0.56/0 1/1',gblur=sigma=6.5,scale=${W}:${H}:flags=bicubic[glow];[a][glow]blend=all_mode=screen:all_opacity=0.34,noise=alls=5:allf=t,format=yuv420p`;
-  const finish = args.includes("--raw") ? ["-pix_fmt", "yuv420p"] : ["-filter_complex", FINISH];
+  // looks the same), then fine grain that changes every frame. A template sets how much of each (template.json
+  // "finish"): paper and ink looks have no bloom, pixel art has neither.
+  const bloom = look.finish?.bloom ?? 0.34, grainAmount = look.finish?.grain ?? 5;
+  const steps = [];
+  if (bloom > 0) steps.push(`format=gbrp,split[a][b];[b]scale=${W / 4}:${H / 4},curves=all='0/0 0.56/0 1/1',gblur=sigma=6.5,scale=${W}:${H}:flags=bicubic[glow];[a][glow]blend=all_mode=screen:all_opacity=${bloom}`);
+  if (grainAmount > 0) steps.push(`noise=alls=${grainAmount}:allf=t`);
+  const FINISH = steps.length ? `${steps.join(",")},format=yuv420p` : "";
+  const finish = args.includes("--raw") || !FINISH ? ["-pix_fmt", "yuv420p"] : ["-filter_complex", FINISH];
 
   // In time order: a film whose state cannot run backwards would draw a wrong frame after a seek back.
   const stills = flag("--stills")?.split(",").map(Number).sort((a, b) => a - b);
@@ -159,6 +170,7 @@ if (args.includes("--serve")) {
   } else {
     const first = await openFilm();
     const duration = await first.page.evaluate(() => window.__timelines.root.duration());
+    const stepped = await first.page.evaluate(() => window.__stepped || 0);
     const segments = Math.ceil(duration / SEGMENT);
     const segDir = join(out, "segments");
     mkdirSync(segDir, { recursive: true });
@@ -178,6 +190,7 @@ if (args.includes("--serve")) {
     walk(film, (name) => ["out", "storyboard", "node_modules"].includes(name) || /^cues\.|^storyboard\.html$|\.mp3$|\.wav$|\.py$|^\./.test(name));
     walk(join(workspace, "kit", "engine"), () => false);
     walk(join(workspace, "kit", "css"), () => false);
+    if (plan.template) walk(join(workspace, "templates", plan.template), () => false);
     fingerprint.update(`${W}x${H}@${fps}/${SEGMENT}${args.includes("--raw") ? "raw" : ""}`);
     const source = fingerprint.digest("hex");
     const stamp = join(segDir, `source-${fps}.sha`);
@@ -210,9 +223,18 @@ if (args.includes("--serve")) {
           const input = ["-f", "image2pipe", "-framerate", String(fps), "-c:v", "mjpeg", "-i", "-"];
           const part = join(segDir, `part-${i}-${fps}.mp4`);
           const { child, done } = ffmpeg([...input, ...encode, part], "pipe");
+          // A stepped template holds its picture between steps: a held frame is the same picture, so it is drawn
+          // once and sent again (five times faster for a 12-step look at 60 fps).
+          let heldAt = null, heldShot = null;
           for (let frame = from; frame < to; frame++) {
-            await seek(page, frame / fps);
-            const shot = await grab(page);
+            const at = stepped > 0 ? Math.floor((frame / fps) * stepped + 1e-6) : frame;
+            let shot = at === heldAt ? heldShot : null;
+            if (!shot) {
+              await seek(page, frame / fps);
+              shot = await grab(page);
+              heldAt = at;
+              heldShot = shot;
+            }
             if (!child.stdin.write(shot)) await new Promise((drain) => child.stdin.once("drain", drain));
             if (++drawn % 120 === 0) console.log(`${drawn} of ${frames} frames, ${((Date.now() - began) / 1000).toFixed(0)}s`);
           }

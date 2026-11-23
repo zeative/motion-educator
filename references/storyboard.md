@@ -24,6 +24,7 @@ music, frames written with a few helper functions, and the JSON generated from t
   "format": "1920x1080",
   "duration": 66.977,
   "fps": 60,
+  "template": "stickman",
   "look": { "accent": "#4da3ff", "accent2": "#ffb21a", "mood": "one or two sentences on the stage, the light and the materials" },
   "music": { "track": "...", "bpm": 86, "beat": 0.697674, "offset": 0, "start": 0.679, "note": "why this track, and how it sits on the cuts" },
   "standard": 3,
@@ -51,6 +52,11 @@ in it, at its proportions, with the frame's `"from"` naming the drawing. A loose
 and the model is built from what the board shows. Placing the drawing itself is the surest way.
 
 `rail: false` keeps an act (the hook, the recap) out of the chapter rail the film shows.
+
+`template` is the visual template the film is made in (`templates/catalog.json`), as the person's prompt names it.
+Its lines (`templates/<key>/template.md`) are the look of every shot, so the board's `screen`, `motion` and drawn
+frames describe them in that template's terms: ink strokes drawn on and boiling for Stickman, clay that rolls and
+plops for Clay, chalk written on for Chalkboard. `look.accent` comes from the template's palette.
 
 `format` is the frame: `"1920x1080"` for a landscape film, `"1080x1920"` for a portrait short. Every coordinate in
 the drawn frames is in that frame. A film that speaks also names its `voice` and gives each speaking shot its run

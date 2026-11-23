@@ -1,0 +1,4 @@
+/* Graphite Glass: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+:root[data-look="glass"] {
+  --accent: #b794ff;
+}

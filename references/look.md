@@ -1,8 +1,14 @@
-# The look
+# The house look
 
-The look is the same for every subject, which is why it holds up for any of them: a dark graphite stage, one accent
-colour that belongs to the topic, light that behaves like light, panels of glass, type of metal. It reads as
-expensive because every surface responds to the light and nothing is flat.
+This is the look of the four house templates (Studio Cutaway, Graphite Glass, Cosmos and Micro) and of any film
+whose storyboard names no template: a dark graphite stage, one accent colour that belongs to the topic, light that
+behaves like light, panels of glass, type of metal. It reads as expensive because every surface responds to the
+light and nothing is flat.
+
+Every other visual template (Stickman, Clay, Paper Cut-out, Chalkboard and the rest) replaces the stage, the type,
+the captions and the finish with its own lines in `templates/<key>/template.md`, and `kit/engine/look.js` applies them.
+What this page says about the frame holds for every template: fill the frame, sizes for a phone, colour that keeps
+its meaning, nothing still for more than about 0.6 seconds, the portrait safe areas and the loop.
 
 ## The parts
 
@@ -66,6 +72,10 @@ the stage, the renderer and the board follow.
   music carries through the seam (`narration.md`, "The loop"). `check.mjs` measures the picture seam.
 
 ## A new subject
+
+In a template other than the house look, take the accent from the template's palette (`template.json`) and keep its
+rules; what follows is for the house look.
+
 
 Pick the accent from the subject (sky blue for the sky, a leaf green for photosynthesis, amber for electricity).
 Decide what the hero object is, find a reference for it and write its model sheet (`detail.md`). Decide the stage's colour for each act. Everything else is

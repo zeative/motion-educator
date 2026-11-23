@@ -1,0 +1,25 @@
+/* Isometric: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Manrope";
+  src: url("../../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 200 800;
+  font-style: normal;
+}
+:root[data-look="isometric"] {
+  --accent: #7b8cff;
+  --ink: #2d3047;
+  --paper: #eef1ff;
+  --brand: "Manrope", var(--sans);
+  --sans: "Manrope", ui-sans-serif, sans-serif;
+}
+:root[data-look="isometric"] .caption,
+:root[data-look="isometric"] .caption.pop,
+:root[data-look="isometric"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 700 54px / 1.15 var(--brand); background: #ffffff; padding: 16px 34px 18px; border-radius: 999px; box-shadow: 0 14px 30px -18px rgb(45 48 71 / 0.45);
+}
+:root[data-look="isometric"] .caption .key, :root[data-look="isometric"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="isometric"] .caption::before { display: none; }
+:root[data-look="isometric"] #vignette { opacity: 0.35; }
+:root[data-look="isometric"] { --card: #ffffff; }
+:root[data-look="isometric"] .display { font-weight: 800; letter-spacing: -0.02em; }
+:root[data-look="isometric"] .glass, :root[data-look="isometric"] .panel, :root[data-look="isometric"] .chip { border: 0; border-radius: 999px; }

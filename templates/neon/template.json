@@ -1,0 +1,40 @@
+{
+  "key": "neon",
+  "name": "Neon Line",
+  "medium": "Motion graphics",
+  "mode": "Glowing lines",
+  "status": "concept",
+  "version": 1,
+  "summary": "Thin glowing lines on near-black: circuits, networks and signals as pulses of light.",
+  "worksFor": "AI, computing, electricity, networks",
+  "example": "how a neural network learns",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "text",
+    "accent": "#00f5d4"
+  },
+  "stage": "neon",
+  "paper": "#07070c",
+  "ink": "#e9fffb",
+  "palette": [
+    "#07070c",
+    "#00f5d4",
+    "#f15bb5",
+    "#e9fffb"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0.6,
+    "grain": 4
+  },
+  "type": {
+    "display": "Space Grotesk",
+    "body": "Space Grotesk",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "glow",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

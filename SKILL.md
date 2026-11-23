@@ -1,6 +1,7 @@
 ---
 name: motion-educator
-description: Make educational motion videos (explainers, lessons, concept films, shorts, "video edukasi") as premium films built in code - a lit shader stage, glass panels, metal type, 3D objects, diagrams, charts, captions, narration, music and sound effects - rendered frame by frame to MP4, landscape 16:9 or portrait 9:16. Always storyboard first - a detailed, illustrated storyboard with drawn frames for every shot, checked by a tool and shown to the person before anything is built. Narration is written as talk (Indonesian or English), performed as one take with ElevenLabs, and the picture is cut to the voice. Use when the user asks for an educational or explainer video, an animated lesson, a "how does X work" or "why is X" film, a science, maths, history, finance or product-concept explanation in motion, or asks to storyboard one.
+description: Make educational motion videos (explainers, lessons, concept films, shorts, "video edukasi") in a chosen visual template - Studio Cutaway, Graphite Glass, Cosmos, Micro, Stickman, Clay, Paper Cut-out, Chalkboard, Blueprint, Isometric, Pixel, Whiteboard, Watercolour, Neon Line, Comic or Low Poly - built in code with diagrams, charts, 3D, captions, narration, music and sound, rendered frame by frame to MP4, landscape 16:9 or portrait 9:16. Always storyboard first - a drawn storyboard checked by a tool and shown to the person before anything is built. Narration is written as talk (Indonesian or English), performed as one take with ElevenLabs, and the picture is cut to the voice. Use when the user asks for an educational or explainer video, an animated lesson, a "how does X work" or "why is X" film, a science, maths, history, finance or product explanation in motion, pastes a template prompt from the motion-educator gallery, invokes /motion-educator, asks to storyboard one, or wants a new visual template made from a reference video or site.
+argument-hint: "[a topic, or a template prompt from the gallery]"
 ---
 
 # Motion Educator
@@ -11,6 +12,30 @@ nothing is ever dropped and any shot can be fixed and re-rendered on its own. Th
 `examples/` holds finished films made by following this skill, each with its storyboard, source, cue sheet and
 narration: `langit-biru` (captions only, the most reviewed) and `petir-guntur` (a narrated short) are the ones to
 read first.
+
+## The visual template
+
+Every film is made in one visual template: a look, never a topic. Any topic can be made in any template.
+`templates/catalog.json` lists them, and `templates/<key>/` holds each one:
+
+- `template.md`: the look line by line, the same lines as the gallery's prompt;
+- `template.json`: the stage, palette, type, captions, frame steps and finishing pass the engine applies;
+- `look.css`: the template's fonts, colours and caption skin;
+- `golden/`: stills to check the film against.
+
+- **The prompt names it.** A gallery prompt says "in the Stickman visual template" and spells out its lines. Read
+  `templates/<key>/template.md` and follow every line in every shot; where it differs from `references/look.md` (the
+  house look) the template wins. When the person names no template, pick the one that fits the audience and the
+  subject, and say which on the board.
+- **`/motion-educator <text>`.** Typed as a slash command, the text after it is the person's prompt: a topic, or a
+  whole template prompt pasted from the gallery. Treat it exactly as if they had written it to you.
+- **The storyboard records it** (`"template": "<key>"`). `kit/engine/look.js` then applies the look before anything
+  is drawn: the stage, the type and captions, and for stepped looks (stop motion, drawings on twos) the frame rate
+  the picture advances at. `node kit/tools/new.mjs <workspace> <film> --template <key>` starts a film in it.
+- **It is checked**, not assumed: `node kit/tools/lookmatch.mjs films/NAME` compares stills with the template's
+  `golden/` frames before the full render (`references/templates.md`).
+- **A concept template** (no sample film yet) is held to its lines and its concept still. The first film made in it
+  is its sample. **A new template** is made from a reference with the reanimate method in `references/templates.md`.
 
 ## The flow, as the person sees it
 
@@ -33,7 +58,8 @@ Read only the reference your current step needs.
 | --- | --- |
 | Deciding what to teach and in what order | `references/pedagogy.md` |
 | Writing and drawing the storyboard (the gate) | `references/storyboard.md` |
-| Choosing the look, the accent, the stage light, 3D | `references/look.md` |
+| Applying a visual template, or making a new one from a reference | `references/templates.md`, then `templates/<key>/template.md` |
+| The house look (graphite, glass, metal type), the accent, the stage light, 3D | `references/look.md` |
 | Building real things in detail; directing the camera | `references/detail.md` |
 | Building the film with the kit | `references/engine.md`, then `references/motion.md` |
 | Writing the narration: talk, not captions; Indonesian and English register | `references/narration.md` |
@@ -65,8 +91,9 @@ Read only the reference your current step needs.
 7. **A film that speaks is written as talk and performed as one take.** The script is written whole and said
    aloud before any shot exists; it is performed once, start to finish, and the picture is cut to the voice. Never
    one sentence a shot, never one recording a sentence, never a pause trimmed to fit a plan.
-8. **Real things are built, not symbolised, and the camera is directed.** A device, an organ, a plant, a machine
-   the film explains is a replica: the version the viewer knows where they live, researched from photographs and
+8. **Real things are built, not symbolised, and the camera is directed.** In a drawn or flat template (Stickman,
+   Chalkboard, Paper, Pixel and the rest) the real thing is drawn in that medium, recognisable and true to its
+   proportions, never an icon. In a 3D template, a device, an organ, a plant, a machine the film explains is a replica: the version the viewer knows where they live, researched from photographs and
    teardowns, built in 3D from its real parts at real proportions, in materials that read as what they are; a box, an icon or a flat shape never stands in for it. A body, a limb or an organ is never modelled from shapes: load the real anatomy (`kit/tools/anatomy.mjs`, `kit/engine/body3d.js`) or a measured scan, and build tissue and cells from a dimension sheet taken from histology. Every 3D shot has a deliberate
    camera move, and when the voice names a part the camera goes to it (`references/detail.md`).
 9. **Say what was not checked.** You cannot hear. Say that the mix was set by measurement, name what a person
@@ -78,13 +105,14 @@ Read only the reference your current step needs.
 The kit is copied into the person's project, never used from the skill's own folder.
 
 ```sh
-node <skill>/kit/tools/new.mjs <workspace> <film-name>   # copies kit/ and package.json if missing, scaffolds films/<film-name>/
+node <skill>/kit/tools/new.mjs <workspace> <film-name> --template <key>   # copies kit/, templates/ and package.json if missing, scaffolds films/<film-name>/
 cd <workspace> && npm install                            # three.js, GSAP, the fonts
 bash kit/audio/fetch.sh                                    # the sound library (not committed: licence)
 ```
 
 Needs Node 20+, Playwright with Chromium, FFmpeg, and Python 3 with numpy for the mix. `node kit/tools/doctor.mjs`
-checks all of it and says what to install. Add `--portrait` to `new.mjs` for a 1080x1920 short.
+checks all of it and says what to install. The template sets the default format; `--portrait` or `--landscape`
+overrides it.
 
 ### 1. Brief (a few lines, in the storyboard's head)
 Who is watching, what they already know, and the **promise**: the one sentence they can say after watching. One

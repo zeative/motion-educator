@@ -1,0 +1,25 @@
+/* Pixel: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("../../node_modules/@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+:root[data-look="pixel"] {
+  --accent: #ff4d6d;
+  --ink: #1d2b53;
+  --brand: "Press Start 2P", var(--sans);
+  --sans: "Press Start 2P", ui-sans-serif, sans-serif;
+}
+:root[data-look="pixel"] .caption,
+:root[data-look="pixel"] .caption.pop,
+:root[data-look="pixel"] .caption.frame {
+  color: #fff1e8; text-shadow: none; font: 400 44px / 1.5 var(--brand); background: #1d2b53; padding: 26px 30px; border-radius: 0; box-shadow: inset 0 0 0 6px #fff1e8, inset 0 0 0 12px #1d2b53; text-transform: uppercase; image-rendering: pixelated;
+}
+:root[data-look="pixel"] .caption .key, :root[data-look="pixel"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="pixel"] .caption::before { display: none; }
+:root[data-look="pixel"] #vignette { opacity: 0.7; }
+:root[data-look="pixel"] { --card: #1d2b53; --paper: #1d2b53; --ink: #fff1e8; }
+:root[data-look="pixel"] * { image-rendering: pixelated; }
+:root[data-look="pixel"] .display { text-transform: uppercase; line-height: 1.4; }
+:root[data-look="pixel"] .glass, :root[data-look="pixel"] .panel, :root[data-look="pixel"] .chip { border: 0; border-radius: 0; box-shadow: inset 0 0 0 6px #fff1e8, inset 0 0 0 12px #1d2b53; }

@@ -1,0 +1,42 @@
+{
+  "key": "paper",
+  "name": "Paper Cut-out",
+  "medium": "2D",
+  "mode": "Layered paper",
+  "status": "concept",
+  "version": 1,
+  "summary": "Layers of cut craft paper with soft shadows between them, opening like a pop-up book.",
+  "worksFor": "nature, geography, biology, stories",
+  "example": "how plants turn light into food",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#f4a261"
+  },
+  "stage": "paper",
+  "paper": "#f8f1e5",
+  "ink": "#264653",
+  "palette": [
+    "#f8f1e5",
+    "#264653",
+    "#2a9d8f",
+    "#e9c46a",
+    "#f4a261",
+    "#e76f51"
+  ],
+  "stepped": 12,
+  "finish": {
+    "bloom": 0,
+    "grain": 3
+  },
+  "type": {
+    "display": "Fraunces",
+    "body": "DM Sans",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "strip",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

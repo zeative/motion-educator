@@ -1,0 +1,41 @@
+{
+  "key": "stickman",
+  "name": "Stickman",
+  "medium": "2D",
+  "mode": "Hand-drawn 2D",
+  "status": "concept",
+  "version": 1,
+  "summary": "Black-ink stick figures on warm paper, drawn line by line, with one marker colour for the point.",
+  "worksFor": "everyday physics, habits, history, quick explainers",
+  "example": "why it is harder to push a full trolley",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#f2c14e"
+  },
+  "stage": "paper",
+  "paper": "#f6f1e7",
+  "ink": "#1b1b1b",
+  "palette": [
+    "#f6f1e7",
+    "#1b1b1b",
+    "#f2c14e",
+    "#e4572e",
+    "#3a86ff"
+  ],
+  "stepped": 12,
+  "finish": {
+    "bloom": 0,
+    "grain": 3
+  },
+  "type": {
+    "display": "Caveat Brush",
+    "body": "Caveat Brush",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "hand",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

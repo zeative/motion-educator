@@ -1,0 +1,42 @@
+{
+  "key": "isometric",
+  "name": "Isometric",
+  "medium": "3D",
+  "mode": "Isometric diorama",
+  "status": "concept",
+  "version": 1,
+  "summary": "A soft pastel miniature world at a fixed isometric angle, where systems run like little cities.",
+  "worksFor": "systems, the internet, economics, logistics",
+  "example": "how the internet finds a website",
+  "defaults": {
+    "format": "1920x1080",
+    "narration": "voice",
+    "accent": "#7b8cff"
+  },
+  "stage": "flat",
+  "paper": "#eef1ff",
+  "ink": "#2d3047",
+  "palette": [
+    "#eef1ff",
+    "#7b8cff",
+    "#ffb4a2",
+    "#9ee6c5",
+    "#ffe08a",
+    "#2d3047"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0,
+    "grain": 0
+  },
+  "type": {
+    "display": "Manrope",
+    "body": "Manrope",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "pill",
+  "samples": [],
+  "golden": [
+    "concept.jpg"
+  ]
+}

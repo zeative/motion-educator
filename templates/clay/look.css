@@ -1,0 +1,23 @@
+/* Clay: type, colours and captions, loaded by kit/engine/look.js after kit/css/film.css. */
+@font-face {
+  font-family: "Fredoka";
+  src: url("../../node_modules/@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+}
+:root[data-look="clay"] {
+  --accent: #ff8a65;
+  --ink: #5a3a28;
+  --brand: "Fredoka", var(--sans);
+  --sans: "Fredoka", ui-sans-serif, sans-serif;
+}
+:root[data-look="clay"] .caption,
+:root[data-look="clay"] .caption.pop,
+:root[data-look="clay"] .caption.frame {
+  color: var(--ink); text-shadow: none; font: 600 76px / 1.08 var(--brand); background: #fff6ea; padding: 18px 34px 22px; border-radius: 28px; box-shadow: 0 18px 40px -18px rgb(138 75 42 / 0.45);
+}
+:root[data-look="clay"] .caption .key, :root[data-look="clay"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="clay"] .caption::before { display: none; }
+:root[data-look="clay"] #vignette { opacity: 0.7; }
+:root[data-look="clay"] { --card: #fff6ea; --paper: #ffd8c2; }
+:root[data-look="clay"] .chip { border: 0; border-radius: 14px; font: 600 34px / 1 var(--brand); }

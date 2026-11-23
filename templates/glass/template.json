@@ -1,0 +1,57 @@
+{
+  "key": "glass",
+  "name": "Graphite Glass",
+  "medium": "Motion graphics",
+  "mode": "Motion graphics",
+  "status": "ready",
+  "version": 1,
+  "summary": "Ideas drawn as crisp motion graphics on a dark graphite stage: glass panels, metal type, charts and counters.",
+  "worksFor": "money, data, code, psychology, how apps work",
+  "example": "why prices rise every year",
+  "defaults": {
+    "format": "1080x1920",
+    "narration": "voice",
+    "accent": "#b794ff"
+  },
+  "stage": "graphite",
+  "paper": null,
+  "ink": null,
+  "palette": [
+    "#0b0b0c",
+    "#19191b",
+    "#ededf0",
+    "#ffb02e",
+    "#4ee68f"
+  ],
+  "stepped": 0,
+  "finish": {
+    "bloom": 0.34,
+    "grain": 5
+  },
+  "type": {
+    "display": "Sora Variable",
+    "body": "Inter Variable",
+    "mono": "JetBrains Mono Variable"
+  },
+  "captions": "house",
+  "samples": [
+    "slow-phone",
+    "compound-interest",
+    "float-math",
+    "repeated-hoaxes"
+  ],
+  "golden": [
+    "compound-interest-1.jpg",
+    "compound-interest-2.jpg",
+    "compound-interest-3.jpg",
+    "float-math-1.jpg",
+    "float-math-2.jpg",
+    "float-math-3.jpg",
+    "repeated-hoaxes-1.jpg",
+    "repeated-hoaxes-2.jpg",
+    "repeated-hoaxes-3.jpg",
+    "slow-phone-1.jpg",
+    "slow-phone-2.jpg",
+    "slow-phone-3.jpg"
+  ]
+}
