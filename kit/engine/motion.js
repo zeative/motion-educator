@@ -393,11 +393,14 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   };
 
   // ── Drawing a frame ──────────────────────────────────────────────────────
+  // Every job gets the frame's own time, t. stage.t is what the stage backdrop flows by: a job may set it (to keep
+  // the flow seamless across a loop seam, say) without changing the time any other job sees.
   function frame() {
-    stage.t = tl.time();
-    for (const job of jobs) job(stage.t);
+    const t = tl.time();
+    stage.t = t;
+    for (const job of jobs) job(t);
     backdrop.render(stage);
-    for (const job of afterJobs) job(stage.t);
+    for (const job of afterJobs) job(t);
   }
   const finish = () => {
     tl.set({}, {}, duration);

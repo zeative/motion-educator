@@ -19,6 +19,11 @@ its meaning, nothing still for more than about 0.6 seconds, the portrait safe ar
   so the stage light, the captions' key words and the film's CSS all follow it (a `--accent` in the film's
   stylesheet loses to the template's more specific rule). `--accent-2` in the film's stylesheet is the second voice.
   One accent. It marks the words and things that carry the point.
+- **Key words and colour meanings.** A caption's key word takes the accent, and each colour keeps one meaning for the
+  whole film. When the accent also codes a thing in the picture (amber for oil, say), choose key words that name that
+  thing or its part in the point, and give the other colours (`--accent-2`, the palette's others) the other things.
+  A key word that belongs to none of them carries no colour: leave its asterisks out, or restyle that one caption in
+  the film's CSS (an underline in the text colour), never paint it in a colour that means something else.
 - **Glass** (`.glass`, `.panel`, `.chip`): lit from above, a bright top edge, an accent-tinted bottom edge, a long
   soft shadow.
 - **Metal type** (`.display`, with `.key` for accent words): every character is its own box so it can arrive on

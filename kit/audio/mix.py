@@ -10,17 +10,20 @@ The sounds themselves live in kit/audio/lib (kit/audio/fetch.sh downloads them);
 cues.json:
     music:  {file, start, lufs, fade_in, fade_out, duck_db, fill}   start = where in the track the film begins;
             fill true patches the bed's rests from a bar away
-    events: [{t, file, db, align, duck, pan, trim, fade, fade_in, note}]   t = film time in seconds
+    events: [{t, file, db, align, duck, pan, trim, fade, fade_in, under, note}]   t = film time in seconds
             align "peak" puts the sound's loudest moment on t, "end" its last moment, "start" its first sample.
             db is the level of the sound's own peak, in dBFS, before the master gain.
             duck true dips the music under the sound, so a hit lands in a hole.
+            under true marks a texture (pen strokes, writing) heard as a layer: the lift check leaves it out.
     voice:  {lufs, duck_db, sfx_db, chain}   optional; the narration itself is films/NAME/voice/take.mp3, cut as
             voice.json says (kit/audio/voice.mjs). chain is an ffmpeg filter chain for the voice (a high-pass, a
             little presence, de-essing and compression by default). While someone speaks the music sits duck_db
             lower and the effects sfx_db lower.
 
 The picture is copied untouched. Needs ffmpeg and numpy. A report of every placed sound goes beside the film as
-NAME.mix.txt, headed by the loudness and true peak measured on the finished file.
+NAME.mix.txt, headed by the loudness and true peak measured on the finished file and by the lift of every effect:
+how far its loudest 50 ms rise over the half second before it, in the finished mix. Under 5 dB it is felt rather
+than heard, and the report names the quietest.
 """
 import json
 import re
@@ -189,6 +192,8 @@ for e in events:
     a, b = max(0, i), min(N, i + len(s))
     if b > a:
         fx[a:b] += s[a - i : b - i]
+    e["_at"], e["_len"] = i, len(s)
+    e["_line"] = len(report)
     report.append(f"{e['t']:6.2f}s  {e['db']:+5.1f} dB  {align:5s}  {e['file']}  {e.get('note', '')}")
 
 # Narration. The film was cut to one continuous take (kit/audio/voice.mjs): the take is played in the stretches
@@ -282,6 +287,27 @@ if abs(after[0] - target) > 0.15:
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-c:a", "pcm_f32le", str(wav)], input=mix.astype(np.float32).tobytes(), check=True)
     subprocess.run(cmd, check=True)
     after = loudness(load(out))
+# Lift: how far each effect rises over what plays just before it, in the finished mix (references/sound.md). The
+# loudest 50 ms of its first 0.4 s against the level of the half second before it; under about 5 dB it is felt
+# rather than heard. Sounds meant to sit under are left out: long ones (beds, hums, over 2 s) and any cue marked
+# "under": true (a texture such as pen strokes or writing, heard as a layer rather than as an event).
+mono = mix.mean(axis=1)
+win = SR // 20
+def rms(x):
+    return float(np.sqrt(np.mean(x * x))) if len(x) else 0.0
+lifts = []
+for e in events:
+    if "_at" not in e or e["_len"] > 2 * SR or e.get("under"):
+        continue
+    a = max(0, e["_at"])
+    head = mono[a : min(N, a + int(0.4 * SR))]
+    if len(head) < win:
+        continue
+    loud = max(rms(head[k : k + win]) for k in range(0, len(head) - win + 1, win // 2))
+    before_ = rms(mono[max(0, a - SR // 2) : a])
+    lift = 20 * np.log10(max(loud, 1e-9) / max(before_, 1e-6))
+    lifts.append((lift, e))
+    report[e["_line"]] += f"  lift {lift:+.1f} dB"
 report.insert(0, f"mix: {after[0]:.1f} LUFS, range {after[1]:.1f} LU, true peak {after[2]:.1f} dBFS ({len(events)} effects, {spoken} voice stretches, master gain {target - before[0]:+.1f} dB)")
 # A film that goes quiet before its last frame holds its poster in silence: say so, with when it stops.
 hop = SR // 20
@@ -290,9 +316,15 @@ heard = np.nonzero(level > gain(-50))[0]
 last = (heard[-1] + 1) * hop / SR if len(heard) else 0
 if N / SR - last > 0.5 and not loop:
     report.insert(1, f"  <- the sound stops at {last:.2f} s, {N / SR - last:.1f} s before the picture ends: let the music ring to the last frame (ride it up over its decay, a shorter fade_out) or end the picture sooner")
+if lifts:
+    low = sorted((x for x in lifts if x[0] < 5), key=lambda x: x[0])
+    report.insert(1, f"lift: {len(lifts) - len(low)} of {len(lifts)} effects rise 5 dB or more over the half second before them")
+    if low:
+        worst = ", ".join(f"{e['t']:.2f}s {Path(e['file']).stem} {l:+.1f}" for l, e in low[:6])
+        report.insert(2, f"  <- lift: {len(low)} under 5 dB, quietest {worst}: raise them (db), or lower the bed under them")
 wav.unlink()
 out.with_suffix(".mix.txt").write_text("\n".join(report) + "\n")
 print(report[0])
 for line in report[1:]:
-    if line.startswith("  <-") or line.startswith("loop:"):
+    if line.startswith("  <-") or line.startswith("loop:") or line.startswith("lift:"):
         print(line)

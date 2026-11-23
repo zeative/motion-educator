@@ -127,9 +127,14 @@ These are peaks in dBFS before the master gain, against music at -17 to -18 LUFS
 | Counter ticks, typing | -22 | -14 |
 | Beds (a hum, typing) | -21 | -9 to -12 |
 
-Under narration these are too quiet: a pop at -14 measured a lift of 0 to 3 dB against the voice and the bed. With
-a voice in the film, small effects sit at -8 to -11, they go between the words (not under them), and the music bed
-drops to -20 LUFS or lower. Measure the lift of each one; raise what lifts less than about 4 dB.
+These levels are where to start, not where to stop: what decides is the lift, which `mix.py` measures for every
+effect in the finished mix (the `lift:` line of its report, and `lift` on each effect's line in NAME.mix.txt). Under
+narration the table is too quiet: a pop at -14 measured a lift of 0 to 3 dB against the voice and the bed. With a
+voice in the film, small effects sit at -8 to -11, they go between the words (not under them), and the music bed
+drops to -20 LUFS or lower. A captions-only film over a busy library track needs more still: in one test only 3 of
+50 effects at the table's levels rose 5 dB; with the effects 7 to 10 dB higher and the bed at -23 LUFS, 21 did.
+Raise what lifts less than about 5 dB, or lower the bed under it (`duck: true` on the cue). A texture meant to sit
+under the picture (pen strokes, writing, a hum) says `"under": true` on its cue, and the lift check leaves it out.
 
 ## Rules
 

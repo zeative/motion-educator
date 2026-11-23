@@ -390,11 +390,21 @@ svg.ink circle {
 :root[data-format="portrait"] body {
   font-size: 26px;
 }
+/* On a phone the smallest words still have to read: headings 100 px and up, labels 36 px (references/look.md). */
 :root[data-format="portrait"] .display.huge {
-  font-size: 96px;
+  font-size: 112px;
 }
 :root[data-format="portrait"] .display.mid {
-  font-size: 84px;
+  font-size: 100px;
+}
+:root[data-format="portrait"] .chip {
+  font-size: 36px;
+}
+:root[data-format="portrait"] .chip b {
+  font-size: 32px;
+}
+:root[data-format="portrait"] .label {
+  font-size: 36px;
 }
 :root[data-format="portrait"] .rail {
   left: var(--safe-left);

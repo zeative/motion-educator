@@ -165,7 +165,9 @@ How to draw a shot well:
   commonest way a film looks cheap, and it shows on the board first.
 - **Mark every motion** with a `move` or a `camera`. A frame with no blue pencil is a still.
 - A topic that needs a thing the sketcher cannot draw gets a new entry in `DRAW` in `kit/tools/sketch.mjs` (a few
-  lines of SVG). Do not fake it with boxes.
+  lines of SVG), or a `path` thing with the outline computed by the film's own script. Do not fake it with boxes.
+  In a workspace made by `new.mjs`, `kit/` is the workspace's own copy: adding a `DRAW` entry there is fine for
+  this film; to keep it for later films, add it to the skill's kit as well.
 
 If an image model is connected and the person wants painted frames (characters, places), generate them from each
 frame's `note` and `screen`, save them under `films/NAME/storyboard/art/`, and keep the sketched frames as the

@@ -38,7 +38,7 @@ if ((sb.shots ?? []).some((shot) => shot.voice)) step("narration", "node", [join
 step(draft ? "render (draft, 30 fps)" : "render", "node", [join(kit, "tools", "render.mjs"), film, ...(draft ? ["--fps", "30"] : []), ...only, ...jobs]);
 if (existsSync(join(film, "cues.json"))) {
   step("mix", "python3", [join(kit, "audio", "mix.py"), film]);
-  step("mix (music and voice only)", "python3", [join(kit, "audio", "mix.py"), film, "--no-sfx", "--out", join(film, "out", `${name}-no-sfx.mp4`)]);
+  step("mix (music and voice only)", "python3", [join(kit, "audio", "mix.py"), film, "--no-sfx", "--out", join(film, "out", `${name}-music-only.mp4`)]);
 }
 step("measure", "node", [join(kit, "tools", "check.mjs"), film]);
 const finished = existsSync(join(film, "out", `${name}.mp4`)) ? join(film, "out", `${name}.mp4`) : join(film, "out", "picture.mp4");

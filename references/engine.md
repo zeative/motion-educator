@@ -49,7 +49,7 @@ film.finish();                                     // always last
 | `draw(pathSel, at, dur)` | draws SVG paths from their start (give the path `pathLength="1"`) |
 | `count(sel, from, to, at, dur, format)` | counts a number in an element |
 | `captions({ style })`, `chapters({ from, until })` | generated from the storyboard; captions keep time with the narration when there is one (`voice.md`) |
-| `each(fn)` | a job run on every frame, after the timeline: draw canvases and anything GSAP cannot hold |
+| `each(fn)` | a job run on every frame, after the timeline: draw canvases and anything GSAP cannot hold. Each job is called with the frame's time `t`; use that, not `stage.t`. `stage.t` is what the stage backdrop flows by, and a job may set it: in a loop, `stage.t = (D / (2 * Math.PI)) * Math.sin((2 * Math.PI * t) / D)` (D the film's duration) makes the flow meet itself at the seam |
 | `stage` | the stage's state: `lx ly glow r g b floor horizon camx camy pr ps flash streak silk` |
 | `look` | the visual template the storyboard names (`templates/<key>/template.json`): `stage`, `palette`, `ink`, `paper`, `stepped`, `type`; the house look when it names none |
 | `held(t)` | the time a stepped template's picture shows at `t` (it advances `look.stepped` times a second); use it for anything drawn in `each()` |

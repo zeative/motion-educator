@@ -92,7 +92,8 @@ Read only the reference your current step needs.
    and the chapter rail are generated from it. Change the plan there, never by hand in the film. In a film that
    speaks, the recorded take writes those times (`voice.mjs`).
 6. **You do not grade your own work.** Stills of every shot are looked at before a full render, measurements are
-   run on the render, and a fresh reviewer who did not build it judges the result (`references/review.md`).
+   run on the render, and a fresh reviewer who did not build it judges the result (`references/review.md`). Where
+   you have no way to start a fresh agent, review.md says what to do instead; never skip the review silently.
 7. **A film that speaks is written as talk and performed as one take.** The script is written whole and said
    aloud before any shot exists; it is performed once, start to finish, and the picture is cut to the voice. Never
    one sentence a shot, never one recording a sentence, never a pause trimmed to fit a plan.

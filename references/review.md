@@ -53,6 +53,13 @@ extracts its own frames. Fix the largest gaps, re-render only the segments that 
 reviewer the new cut and the old report to verify item by item. Two rounds is usual. Stop when the remaining items
 are cosmetic.
 
+**When no fresh agent can be started** (the session has no tool for it, or it cannot see the film's folder), the
+review still happens, as a separate pass: finish building first, then read only the prompt below, the rendered
+frames you extract from the MP4 (not your stills), `check.mjs`'s and `mix.py`'s numbers and the person's own words,
+and answer every line of the rubric as the critic would, with timestamps. Fix, re-render, and verify the old report
+item by item the same way. In the delivery note, say plainly that the review was your own and not independent, and
+name what most needs a second pair of eyes (and ears: nobody has listened to it).
+
 ### First review
 
 ```

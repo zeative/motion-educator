@@ -65,7 +65,7 @@ export async function lookmatch(filmDir, { template: key, frames: count = 8, she
   const results = [];
   const add = (name, ok, value, expected, hint) => results.push({ name, ok, value, expected, hint: ok ? undefined : hint });
   const bg = deltaE(mine.backgroundLab, golden.backgroundLab);
-  add("background", bg <= LIMITS.background, `${mine.background} (ΔE ${bg.toFixed(1)})`, golden.background, `the stage is not the template's: the storyboard must say "template": "${key}" and film.js must pass it to createFilm({ storyboard }); a film-drawn background must use film.look.paper`);
+  add("background", bg <= LIMITS.background, `${mine.background} (ΔE ${bg.toFixed(1)})`, golden.background, `the stage is not the template's: the storyboard must say "template": "${key}" and film.js must pass it to createFilm({ storyboard }); a film-drawn background must use film.look.paper; if the template's own lines change the light (a cool half once the answer lands), the drift is that change: keep it under the limit by keeping the changed stretch short or darker, and name it in the review`);
   // A template that draws (its template.json has an "ink") is measured for its ink and how much of it is line; a
   // motion-graphics or 3D template has no ink, and its golden stills' darkest tone and edges say nothing about it.
   const drawn = Boolean(template.ink);
