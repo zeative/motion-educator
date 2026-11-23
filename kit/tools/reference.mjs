@@ -218,9 +218,10 @@ function compare(refDir, cloneDir, out, { offset, maxShift = 15, blurR = 0, thre
 // Cuts, holds, and how often the picture really changes: drawn animation and stop motion hold each drawing for two or
 // three frames, which shows as a change on every second or third frame however smooth the playback rate is.
 export function motionOf(set) {
-  // The share of pixels that change by more than 4 % from one frame to the next: film grain that changes every frame
-  // stays under that, a line being drawn or a thing moving does not.
-  const act = set.frames.map((f, i) => (i ? mismatch(set.frames[i - 1], f, 0.04) : 0));
+  // The share of pixels that change by more than 8 % from one frame to the next: film grain that changes every frame,
+  // and the encoder's noise on fine texture such as halftone dots, stay under that; a line being drawn or a thing
+  // moving does not.
+  const act = set.frames.map((f, i) => (i ? mismatch(set.frames[i - 1], f, 0.08) : 0));
   const fps = set.fps;
   const moving = act.slice(1).filter((v) => v > 0);
   const top = median(moving.filter((v) => v >= median(moving)));
