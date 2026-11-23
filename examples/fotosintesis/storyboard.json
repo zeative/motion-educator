@@ -8,7 +8,7 @@
   "language": "id",
   "format": "1080x1920",
   "captions": "pop",
-  "duration": 52.51,
+  "duration": 55.09,
   "fps": 60,
   "loop": {
     "line": "Makanya, / pohon bisa tumbuh segede ini, tapi tanah di bawahnya hampir nggak berkurang.",
@@ -125,8 +125,8 @@
       "id": "s01",
       "act": "hook",
       "type": "wide",
-      "start": 0.0,
-      "end": 5.2,
+      "start": 0,
+      "end": 5.65,
       "voice": "Pohon bisa tumbuh segede ini, tapi tanah di bawahnya hampir nggak *berkurang*.",
       "teaches": "The puzzle: a tree grows huge, yet the soil it stands in barely gets less.",
       "screen": "Cream card backdrop. Three paper layers: a yellow paper sun top right (820, 430); a green hill across the middle (top edge about y 1000); in front, the deep-teal soil from y 1195 down, cut like a cross-section, with the tree's orange roots on it. In the middle a big paper tree: an orange trunk (sugar is what it is built from, so the trunk is the sugar colour all film) under four overlapping discs of green canopy, top at y 300. Every layer casts a small soft shadow on the one behind.",
@@ -371,8 +371,8 @@
       "id": "s02",
       "act": "hook",
       "type": "type",
-      "start": 5.2,
-      "end": 7.18,
+      "start": 5.65,
+      "end": 7.73,
       "voice": "Terus, bahannya dari mana?",
       "teaches": "Asks the question out loud: what is the tree made of, if not the soil?",
       "screen": "A cream paper layer has slid over the scene. Printed on a paper strip, in Fraunces: 'Bahannya / dari mana?', the word 'mana?' on an orange tab. Beside it a big cut-out question mark in deep teal, standing up from the layer like a pop-up.",
@@ -534,8 +534,8 @@
       "id": "s03",
       "act": "bukti",
       "type": "diagram",
-      "start": 7.18,
-      "end": 11.03,
+      "start": 7.73,
+      "end": 11.71,
       "voice": "Dulu ada yang pernah nyoba: pohon kecil ditanam di *pot*,",
       "teaches": "The test: a small tree planted in a pot of weighed, dried soil.",
       "screen": "A workbench scene on the cream card. A big deep-teal paper pot with an orange rim fills the lower middle (x 280-800, y 820-1250), dry soil inside. A cut-out figure on split pins (deep-teal clothes, cream face, yellow pins at the joints) holds a willow cutting over it. A tag tied to the pot: 'tanah 91 kg'; a tag on the cutting: 'pohon 2,3 kg'. A strip at the top: 'Van Helmont · abad ke-17'.",
@@ -1034,8 +1034,8 @@
       "id": "s03b",
       "act": "bukti",
       "type": "wide",
-      "start": 11.03,
-      "end": 12.94,
+      "start": 11.71,
+      "end": 13.65,
       "voice": "terus dirawat *lima tahun*.",
       "teaches": "Five years go by; the only thing added is rainwater.",
       "screen": "The pot outside on the green hill. A paper cloud top left drips cream raindrops into it, tag 'cuma disiram air hujan'. Right, a little stack of paper calendar sheets: 'tahun 1' turning to 'tahun 5'. The willow in the pot grows in pop-up steps into a small tree with long hanging leaves.",
@@ -1291,8 +1291,8 @@
       "id": "s04",
       "act": "bukti",
       "type": "diagram",
-      "start": 12.94,
-      "end": 15.76,
+      "start": 13.65,
+      "end": 16.35,
       "voice": "Pohonnya nambah *tujuh puluh kilo* lebih,",
       "teaches": "The tree gained about 74 kg.",
       "screen": "A paper platform scale on the bench (deep-teal platform x 200-720 at y 1200, a cream dial on a post at the right, centre (860, 760)). The willow, lifted out of its pot with its bare orange roots, stands on the platform. A big stamped tag hangs from the dial: '+74 kg'.",
@@ -1318,9 +1318,9 @@
             {
               "line": [
                 150,
-                776.0,
+                776,
                 150,
-                794.0
+                794
               ],
               "colour": "#264653",
               "width": 24
@@ -1559,8 +1559,8 @@
       "id": "s05",
       "act": "bukti",
       "type": "chart",
-      "start": 15.76,
-      "end": 19.29,
+      "start": 16.35,
+      "end": 19.57,
       "voice": "tapi tanahnya cuma berkurang sekitar *setengah ons*.",
       "teaches": "The soil lost only about 57 grams: on the same scale, nothing.",
       "screen": "A bar chart made of paper on the cream card, one scale for both: left, a green paper column 260 wide and 760 px tall for the tree's gain, stamped '+74 kg'; right, the soil's loss on the same scale is 0.58 px tall, a hairline on the base. A paper magnifier slides over it: inside, '−57 g'. Under it a tag '< 0,1 %'. Words under the bars on paper strips: 'pohon', 'tanah'.",
@@ -1778,8 +1778,8 @@
       "id": "s06",
       "act": "bahan",
       "type": "wide",
-      "start": 19.29,
-      "end": 21.98,
+      "start": 19.57,
+      "end": 22.53,
       "voice": "Ternyata bahannya dari *udara* dan air.",
       "teaches": "The answer to where it comes from: air and water.",
       "screen": "Back to the opening tree on its hill. In the sky, three paper CO₂ molecules (a deep-teal carbon disc between two red oxygen discs) drift towards the leaves; a tag 'udara (CO₂)' flips up on a thread. In the soil, three paper water molecules (a red oxygen disc with two small cream hydrogen discs) sit by the roots; a tag 'air (H₂O)'. Two cut-paper arrows: one from the sky into the canopy, one up the trunk from the roots.",
@@ -2263,8 +2263,8 @@
       "id": "s07",
       "act": "bahan",
       "type": "diagram",
-      "start": 21.98,
-      "end": 25.63,
+      "start": 22.53,
+      "end": 25.95,
       "voice": "Karbon dioksida masuk lewat pori-pori kecil di *daun*,",
       "teaches": "Carbon dioxide gets in through tiny pores on the underside of the leaf (stomata).",
       "screen": "One leaf fills the frame: green paper with deep-teal veins (x 110-980, y 470-1060). Its top layer peels back from the right like a flap, showing the underside dotted with pores; then one pore close up, as big as the frame allows: two green paper guard cells round a slit (centre 540, 820), a CO₂ molecule passing through it. Tags on threads: 'pori daun (stomata)', 'CO₂'.",
@@ -2480,8 +2480,8 @@
       "id": "s08",
       "act": "bahan",
       "type": "wide",
-      "start": 25.63,
-      "end": 27.16,
+      "start": 25.95,
+      "end": 27.73,
       "voice": "air naik dari *akar*.",
       "teaches": "Water comes up from the roots, through the stem, to the leaves.",
       "screen": "The camera has tilted down: the ground at y 880, the trunk rising out of frame. The front soil layer folds down like a flap to show the orange roots spreading to y 1250. Water molecules (red with two cream discs) sit at the root tips and climb in a line up a cream channel in the trunk. Tags: 'akar', 'air (H₂O)'.",
@@ -2769,8 +2769,8 @@
       "id": "s09",
       "act": "bahan",
       "type": "diagram",
-      "start": 27.16,
-      "end": 31.72,
+      "start": 27.73,
+      "end": 32.77,
       "voice": "Nah, di daun ada *klorofil*, zat hijau yang nangkep cahaya matahari.",
       "teaches": "Inside the leaf, chlorophyll (the green stuff) catches the sunlight.",
       "screen": "The leaf opened like a pop-up: a row of six tall cream paper cells (x 130-950, y 560-980) under a thin green top layer, each holding small green paper discs (chloroplasts). Strips of yellow paper (sunlight) slant in from the top right and land on them. Then a push into one chloroplast: stacks of green paper coins (the grana), tag 'klorofil (zat hijau)'.",
@@ -3547,8 +3547,8 @@
       "id": "s10",
       "act": "dapur",
       "type": "diagram",
-      "start": 31.72,
-      "end": 34.6,
+      "start": 32.77,
+      "end": 35.81,
       "voice": "Energi cahayanya dipakai buat *mecah* air.",
       "teaches": "The light's energy splits water apart.",
       "screen": "Inside the chloroplast, filling the frame (a green paper oval, x 60-1020, y 420-1200) with three stacks of green coins. A water molecule (red disc, two cream discs, as big as a fist: r 40) drifts to the middle stack; a yellow strip of light lands on it; the molecule is snipped apart: the red oxygen to one side, the two cream hydrogens to the other. Tags: 'H₂O', then 'O' and 'H'.",
@@ -4052,8 +4052,8 @@
       "id": "s11",
       "act": "dapur",
       "type": "wide",
-      "start": 34.6,
-      "end": 37.29,
+      "start": 35.81,
+      "end": 38.53,
       "voice": "Oksigennya dilepas, terus kita *hirup*.",
       "teaches": "The oxygen from the water is let out into the air, and it is what we breathe.",
       "screen": "Pulled back: the tree on the left (trunk at x 380), a cut-out figure on split pins standing on the right under the canopy's edge. Pairs of red discs (O₂) float out of the leaves and drift to the figure's face. A tag 'O₂ (oksigen)' tied to one pair.",
@@ -4475,8 +4475,8 @@
       "id": "s12",
       "act": "dapur",
       "type": "diagram",
-      "start": 37.29,
-      "end": 41.01,
+      "start": 38.53,
+      "end": 42.53,
       "voice": "Hidrogennya digabung sama karbon dioksida, jadi *gula*.",
       "teaches": "The hydrogen from the water is joined with carbon dioxide to make sugar.",
       "screen": "The chloroplast again (the green oval, its coin stacks now at the left). Cream hydrogen discs slide in from the left; CO₂ molecules (teal between two reds) come down from the top; they meet in the middle and are pressed together into one orange paper hexagon, the sugar, centre (620, 860), r 150. A stamped tag: 'gula (C₆H₁₂O₆)'.",
@@ -4944,8 +4944,8 @@
       "id": "s13",
       "act": "gula",
       "type": "wide",
-      "start": 41.01,
-      "end": 43.18,
+      "start": 42.53,
+      "end": 44.67,
       "voice": "Gula inilah *makanan* tumbuhan,",
       "teaches": "That sugar is the plant's food: it is sent all over the plant.",
       "screen": "The whole tree again. Small orange paper hexagons appear in the canopy and travel down the trunk and out along the roots, and up to the top of the canopy; a tag 'makanan' tied to one of them.",
@@ -5199,8 +5199,8 @@
       "id": "s14",
       "act": "gula",
       "type": "diagram",
-      "start": 43.18,
-      "end": 46.32,
+      "start": 44.67,
+      "end": 48.13,
       "voice": "yang disusun jadi daun, batang, sampai *kayu*.",
       "teaches": "The sugar is also the building material: chained up, it becomes the stuff of leaves, stems and wood.",
       "screen": "Close on the trunk, an orange band filling most of the frame (x 250-830, y 240-1300). A flap of its surface lifts at the right; underneath, the orange hexagons link up into long vertical chains packed side by side, like grain in wood. Tags: 'rantai gula = selulosa' and 'kayu'.",
@@ -5286,9 +5286,9 @@
             {
               "line": [
                 380,
-                630.0,
+                630,
                 380,
-                639.0
+                639
               ],
               "colour": "#264653",
               "width": 6
@@ -5318,9 +5318,9 @@
             {
               "line": [
                 380,
-                759.0,
+                759,
                 380,
-                768.0
+                768
               ],
               "colour": "#264653",
               "width": 6
@@ -5340,9 +5340,9 @@
             {
               "line": [
                 500,
-                550.0,
+                550,
                 500,
-                559.0
+                559
               ],
               "colour": "#264653",
               "width": 6
@@ -5372,9 +5372,9 @@
             {
               "line": [
                 500,
-                679.0,
+                679,
                 500,
-                688.0
+                688
               ],
               "colour": "#264653",
               "width": 6
@@ -5404,9 +5404,9 @@
             {
               "line": [
                 500,
-                808.0,
+                808,
                 500,
-                817.0
+                817
               ],
               "colour": "#264653",
               "width": 6
@@ -5426,9 +5426,9 @@
             {
               "line": [
                 620,
-                670.0,
+                670,
                 620,
-                679.0
+                679
               ],
               "colour": "#264653",
               "width": 6
@@ -5485,9 +5485,9 @@
             {
               "line": [
                 320,
-                500.0,
+                500,
                 320,
-                509.0
+                509
               ],
               "colour": "#264653",
               "width": 6
@@ -5517,9 +5517,9 @@
             {
               "line": [
                 320,
-                629.0,
+                629,
                 320,
-                638.0
+                638
               ],
               "colour": "#264653",
               "width": 6
@@ -5549,9 +5549,9 @@
             {
               "line": [
                 320,
-                758.0,
+                758,
                 320,
-                767.0
+                767
               ],
               "colour": "#264653",
               "width": 6
@@ -5581,9 +5581,9 @@
             {
               "line": [
                 320,
-                887.0,
+                887,
                 320,
-                896.0
+                896
               ],
               "colour": "#264653",
               "width": 6
@@ -5613,9 +5613,9 @@
             {
               "line": [
                 320,
-                1016.0,
+                1016,
                 320,
-                1025.0
+                1025
               ],
               "colour": "#264653",
               "width": 6
@@ -5651,9 +5651,9 @@
             {
               "line": [
                 430,
-                500.0,
+                500,
                 430,
-                509.0
+                509
               ],
               "colour": "#264653",
               "width": 6
@@ -5683,9 +5683,9 @@
             {
               "line": [
                 430,
-                629.0,
+                629,
                 430,
-                638.0
+                638
               ],
               "colour": "#264653",
               "width": 6
@@ -5715,9 +5715,9 @@
             {
               "line": [
                 430,
-                758.0,
+                758,
                 430,
-                767.0
+                767
               ],
               "colour": "#264653",
               "width": 6
@@ -5747,9 +5747,9 @@
             {
               "line": [
                 430,
-                887.0,
+                887,
                 430,
-                896.0
+                896
               ],
               "colour": "#264653",
               "width": 6
@@ -5779,9 +5779,9 @@
             {
               "line": [
                 430,
-                1016.0,
+                1016,
                 430,
-                1025.0
+                1025
               ],
               "colour": "#264653",
               "width": 6
@@ -5817,9 +5817,9 @@
             {
               "line": [
                 540,
-                500.0,
+                500,
                 540,
-                509.0
+                509
               ],
               "colour": "#264653",
               "width": 6
@@ -5849,9 +5849,9 @@
             {
               "line": [
                 540,
-                629.0,
+                629,
                 540,
-                638.0
+                638
               ],
               "colour": "#264653",
               "width": 6
@@ -5881,9 +5881,9 @@
             {
               "line": [
                 540,
-                758.0,
+                758,
                 540,
-                767.0
+                767
               ],
               "colour": "#264653",
               "width": 6
@@ -5913,9 +5913,9 @@
             {
               "line": [
                 540,
-                887.0,
+                887,
                 540,
-                896.0
+                896
               ],
               "colour": "#264653",
               "width": 6
@@ -5945,9 +5945,9 @@
             {
               "line": [
                 540,
-                1016.0,
+                1016,
                 540,
-                1025.0
+                1025
               ],
               "colour": "#264653",
               "width": 6
@@ -5983,9 +5983,9 @@
             {
               "line": [
                 650,
-                500.0,
+                500,
                 650,
-                509.0
+                509
               ],
               "colour": "#264653",
               "width": 6
@@ -6015,9 +6015,9 @@
             {
               "line": [
                 650,
-                629.0,
+                629,
                 650,
-                638.0
+                638
               ],
               "colour": "#264653",
               "width": 6
@@ -6047,9 +6047,9 @@
             {
               "line": [
                 650,
-                758.0,
+                758,
                 650,
-                767.0
+                767
               ],
               "colour": "#264653",
               "width": 6
@@ -6079,9 +6079,9 @@
             {
               "line": [
                 650,
-                887.0,
+                887,
                 650,
-                896.0
+                896
               ],
               "colour": "#264653",
               "width": 6
@@ -6111,9 +6111,9 @@
             {
               "line": [
                 650,
-                1016.0,
+                1016,
                 650,
-                1025.0
+                1025
               ],
               "colour": "#264653",
               "width": 6
@@ -6149,9 +6149,9 @@
             {
               "line": [
                 760,
-                500.0,
+                500,
                 760,
-                509.0
+                509
               ],
               "colour": "#264653",
               "width": 6
@@ -6181,9 +6181,9 @@
             {
               "line": [
                 760,
-                629.0,
+                629,
                 760,
-                638.0
+                638
               ],
               "colour": "#264653",
               "width": 6
@@ -6213,9 +6213,9 @@
             {
               "line": [
                 760,
-                758.0,
+                758,
                 760,
-                767.0
+                767
               ],
               "colour": "#264653",
               "width": 6
@@ -6245,9 +6245,9 @@
             {
               "line": [
                 760,
-                887.0,
+                887,
                 760,
-                896.0
+                896
               ],
               "colour": "#264653",
               "width": 6
@@ -6277,9 +6277,9 @@
             {
               "line": [
                 760,
-                1016.0,
+                1016,
                 760,
-                1025.0
+                1025
               ],
               "colour": "#264653",
               "width": 6
@@ -6359,8 +6359,8 @@
       "id": "s15",
       "act": "recap",
       "type": "recap",
-      "start": 46.32,
-      "end": 51.01,
+      "start": 48.13,
+      "end": 53.85,
       "voice": "Jadi tumbuhan bikin makanannya sendiri, dari *cahaya*, udara, dan air.",
       "teaches": "The answer in one frame: light, air and water go into the leaf; sugar and oxygen come out.",
       "screen": "A cream recipe card (x 70-1010, y 260-1295) laid over the scene with a shadow. Top row, three ingredients with paper tags: the yellow sun 'cahaya', a CO₂ molecule 'udara', a water molecule 'air'. Arrows into a green paper leaf in the middle. Out of it: the orange hexagon 'gula' and a red O₂ pair 'oksigen'. Printed along the bottom strip: '6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂'.",
@@ -6802,8 +6802,8 @@
       "id": "s16",
       "act": "recap",
       "type": "wide",
-      "start": 51.01,
-      "end": 52.51,
+      "start": 53.85,
+      "end": 55.09,
       "voice": "Makanya,",
       "teaches": "The bridge back into the first line.",
       "screen": "The recipe card slides off to the right and the opening picture is under it: the big paper tree on the hill, the sun, the soil, the same layers in the same places as frame 0.",

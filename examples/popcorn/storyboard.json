@@ -7,7 +7,7 @@
   "language": "id",
   "format": "1080x1920",
   "captions": "pop",
-  "duration": 54.71,
+  "duration": 49.81,
   "fps": 60,
   "standard": 3,
   "loop": {
@@ -115,8 +115,8 @@
       "id": "s01",
       "act": "hook",
       "type": "wide",
-      "start": 0.0,
-      "end": 3.48,
+      "start": 0,
+      "end": 3.456,
       "voice": "Biji jagung sekeras ini bisa *meledak* jadi popcorn.",
       "teaches": "The everyday wonder the film explains: a hard dry kernel bursts into a soft white flake.",
       "screen": "A comic page on warm white paper, two stacked panels with thick ink borders. Top (y 236 to 744): a close-up of a real popcorn kernel pinched between finger and thumb, drawn in confident ink: the broad rounded crown, the pointed tip cap, the germ's teardrop on its face, glossy yellow with a white highlight; blue halftone dots in the panel's lower right; a callout 'KERAS' with a pointer. Bottom (y 774 to 1290): the same kernel bursting: a yellow impact burst, the white flake of foam with bits of hull at its base, speed lines, and the sound word 'POP!' in red Bangers with an ink edge; red halftone.",
@@ -561,8 +561,8 @@
       "id": "s02",
       "act": "hook",
       "type": "wide",
-      "start": 3.48,
-      "end": 6.5,
+      "start": 3.456,
+      "end": 6.19,
       "voice": "Kok bisa, padahal bijinya kelihatan kering?",
       "teaches": "Asks the question, with the tension: the kernel looks completely dry.",
       "screen": "One tall panel (y 236 to 1290): the narrator, a kid in a blue T-shirt drawn from the shoulders up, holds the kernel up to one eye and squints at it, eyebrows up; a thought bubble with '?!' in Bangers; a callout 'KERING?' pointing at the kernel. Blue halftone shading on the background.",
@@ -596,7 +596,7 @@
               "ring": [
                 420,
                 760,
-                165.0
+                165
               ],
               "width": 9
             },
@@ -608,17 +608,17 @@
             },
             {
               "dot": [
-                360.0,
-                775.0,
-                18.0
+                360,
+                775,
+                18
               ],
               "colour": "#1c1c1e"
             },
             {
               "dot": [
-                480.0,
-                775.0,
-                18.0
+                480,
+                775,
+                18
               ],
               "colour": "#1c1c1e"
             },
@@ -710,7 +710,7 @@
               "ring": [
                 420,
                 760,
-                165.0
+                165
               ],
               "width": 9
             },
@@ -722,17 +722,17 @@
             },
             {
               "dot": [
-                360.0,
-                775.0,
-                18.0
+                360,
+                775,
+                18
               ],
               "colour": "#1c1c1e"
             },
             {
               "dot": [
-                480.0,
-                775.0,
-                18.0
+                480,
+                775,
+                18
               ],
               "colour": "#1c1c1e"
             },
@@ -844,8 +844,8 @@
       "id": "s03",
       "act": "dalam",
       "type": "diagram",
-      "start": 6.5,
-      "end": 11.07,
+      "start": 6.19,
+      "end": 10.95,
       "voice": "Ternyata, di dalamnya ada *air*: sekitar empat belas persen beratnya.",
       "teaches": "The surprise: a dry-looking kernel holds water, about 14 % of its weight.",
       "screen": "A zoom panel (round-cornered inset bursting out of the last one): the kernel cut in half, huge (x 220 to 860, y 300 to 1240): the hull as a thin hard orange skin, the hard glassy starch inside it (yellow), the soft white starch in the middle, the germ (yellow teardrop) at the bottom, and blue drops of water in the soft starch. Callouts with pointers: 'KULIT', 'PATI', and in bold block letters 'AIR ±14%' in blue.",
@@ -1186,8 +1186,8 @@
       "id": "s04",
       "act": "dalam",
       "type": "diagram",
-      "start": 11.07,
-      "end": 15.9,
+      "start": 10.95,
+      "end": 15.15,
       "voice": "Airnya tersimpan di pati yang lembut, dibungkus kulit keras yang rapat.",
       "teaches": "Where the water sits and what holds it in: soft starch inside, a hard tight hull outside.",
       "screen": "The same cutaway. First the soft starch gets a red outline and a callout 'PATI LEMBUT'; then the hull's outline thickens to a heavy red ink line all round and a callout 'KULIT KERAS & RAPAT' points at it. The rest stays as in s03.",
@@ -1573,8 +1573,8 @@
       "id": "s05",
       "act": "uap",
       "type": "wide",
-      "start": 15.9,
-      "end": 18.86,
+      "start": 15.15,
+      "end": 18.01,
       "voice": "Waktu dipanasin, air itu berubah jadi *uap*.",
       "teaches": "Heat turns the water inside into steam.",
       "screen": "Two panels. Top (y 236 to 744): a frying pan on a gas ring, oil and four kernels in it, flames under it, red heat squiggles rising, the sound word 'SSSS' in Bangers. Bottom (y 774 to 1290): a round zoom inset on the cutaway kernel: the blue drops turning into small white steam puffs with ink edges.",
@@ -1959,7 +1959,7 @@
             },
             {
               "cloud": [
-                540.0,
+                540,
                 916.8,
                 57.2
               ]
@@ -1980,8 +1980,8 @@
             },
             {
               "cloud": [
-                606.0,
-                1040.0,
+                606,
+                1040,
                 57.2
               ]
             },
@@ -2014,9 +2014,9 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 1119.2,
-                540.0,
+                540,
                 1156.1599999999999
               ],
               "colour": "#ff3b30",
@@ -2054,9 +2054,9 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 890.4,
-                540.0,
+                540,
                 853.4399999999999
               ],
               "colour": "#ff3b30",
@@ -2251,7 +2251,7 @@
             },
             {
               "cloud": [
-                540.0,
+                540,
                 916.8,
                 57.2
               ]
@@ -2272,8 +2272,8 @@
             },
             {
               "cloud": [
-                606.0,
-                1040.0,
+                606,
+                1040,
                 57.2
               ]
             },
@@ -2306,10 +2306,10 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 1119.2,
-                540.0,
-                1172.0
+                540,
+                1172
               ],
               "colour": "#ff3b30",
               "width": 7
@@ -2346,9 +2346,9 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 890.4,
-                540.0,
+                540,
                 837.5999999999999
               ],
               "colour": "#ff3b30",
@@ -2419,8 +2419,8 @@
       "id": "s06",
       "act": "uap",
       "type": "compare",
-      "start": 18.86,
-      "end": 23.56,
+      "start": 18.01,
+      "end": 22.41,
       "voice": "Uapnya ketahan kulit, jadi tekanannya naik terus, kayak panci presto.",
       "teaches": "The hull traps the steam, so the pressure inside keeps rising, like a pressure cooker.",
       "screen": "Two panels side by side (y 236 to 1290). Left: the cutaway kernel, steam puffs inside and red arrows pushing outward on every side of the hull; a callout 'TEKANAN NAIK'. Right: a pressure cooker (panci presto) on a flame, lid locked, the weight on top lifting with a puff of steam and the sound word 'PSST' in Bangers; a callout 'SAMA!'.",
@@ -2517,7 +2517,7 @@
             },
             {
               "cloud": [
-                292.0,
+                292,
                 639.6,
                 55.9
               ]
@@ -2539,7 +2539,7 @@
             {
               "cloud": [
                 356.5,
-                760.0,
+                760,
                 55.9
               ]
             },
@@ -2572,9 +2572,9 @@
             },
             {
               "arrow": [
-                292.0,
+                292,
                 837.4,
-                292.0,
+                292,
                 870.94
               ],
               "colour": "#ff3b30",
@@ -2612,9 +2612,9 @@
             },
             {
               "arrow": [
-                292.0,
+                292,
                 613.8000000000001,
-                292.0,
+                292,
                 580.26
               ],
               "colour": "#ff3b30",
@@ -2709,7 +2709,7 @@
             },
             {
               "cloud": [
-                292.0,
+                292,
                 639.6,
                 55.9
               ]
@@ -2731,7 +2731,7 @@
             {
               "cloud": [
                 356.5,
-                760.0,
+                760,
                 55.9
               ]
             },
@@ -2764,10 +2764,10 @@
             },
             {
               "arrow": [
-                292.0,
+                292,
                 837.4,
-                292.0,
-                889.0
+                292,
+                889
               ],
               "colour": "#ff3b30",
               "width": 7
@@ -2804,7 +2804,7 @@
             },
             {
               "arrow": [
-                292.0,
+                292,
                 613.8000000000001,
                 291.99999999999994,
                 562.2
@@ -2920,7 +2920,7 @@
             },
             {
               "cloud": [
-                292.0,
+                292,
                 639.6,
                 55.9
               ]
@@ -2942,7 +2942,7 @@
             {
               "cloud": [
                 356.5,
-                760.0,
+                760,
                 55.9
               ]
             },
@@ -2975,10 +2975,10 @@
             },
             {
               "arrow": [
-                292.0,
+                292,
                 837.4,
-                292.0,
-                889.0
+                292,
+                889
               ],
               "colour": "#ff3b30",
               "width": 7
@@ -3015,7 +3015,7 @@
             },
             {
               "arrow": [
-                292.0,
+                292,
                 613.8000000000001,
                 291.99999999999994,
                 562.2
@@ -3082,9 +3082,9 @@
             },
             {
               "cloud": [
-                745.0,
-                674.0,
-                120.0
+                745,
+                674,
+                120
               ]
             },
             {
@@ -3151,8 +3151,8 @@
       "id": "s07",
       "act": "uap",
       "type": "chart",
-      "start": 23.56,
-      "end": 26.46,
+      "start": 22.41,
+      "end": 24.49,
       "voice": "Di sekitar seratus delapan puluh derajat,",
       "teaches": "When it pops: at about 180 degrees C.",
       "screen": "A tall panel: a big thermometer (scale 0 to 200 °C, ticks every 50) beside the kernel on its hot pan; the red column computed to stand at 180 °C; the number '±180 °C' in bold block letters in red at the column's top.",
@@ -3202,7 +3202,7 @@
             {
               "label": [
                 380,
-                1074.0
+                1074
               ],
               "text": "0",
               "size": 38,
@@ -3216,7 +3216,7 @@
             {
               "label": [
                 380,
-                899.0
+                899
               ],
               "text": "50",
               "size": 38,
@@ -3230,7 +3230,7 @@
             {
               "label": [
                 380,
-                724.0
+                724
               ],
               "text": "100",
               "size": 38,
@@ -3244,7 +3244,7 @@
             {
               "label": [
                 380,
-                549.0
+                549
               ],
               "text": "150",
               "size": 38,
@@ -3258,7 +3258,7 @@
             {
               "label": [
                 380,
-                374.0
+                374
               ],
               "text": "200",
               "size": 38,
@@ -3384,7 +3384,7 @@
             {
               "label": [
                 380,
-                1074.0
+                1074
               ],
               "text": "0",
               "size": 38,
@@ -3398,7 +3398,7 @@
             {
               "label": [
                 380,
-                899.0
+                899
               ],
               "text": "50",
               "size": 38,
@@ -3412,7 +3412,7 @@
             {
               "label": [
                 380,
-                724.0
+                724
               ],
               "text": "100",
               "size": 38,
@@ -3426,7 +3426,7 @@
             {
               "label": [
                 380,
-                549.0
+                549
               ],
               "text": "150",
               "size": 38,
@@ -3440,7 +3440,7 @@
             {
               "label": [
                 380,
-                374.0
+                374
               ],
               "text": "200",
               "size": 38,
@@ -3548,8 +3548,8 @@
       "id": "s07b",
       "act": "uap",
       "type": "chart",
-      "start": 26.46,
-      "end": 29.87,
+      "start": 24.49,
+      "end": 27.697,
       "voice": "tekanannya kira-kira *sembilan kali* tekanan udara.",
       "teaches": "The pressure inside then: about 931 kPa, 9.2 times the air's.",
       "screen": "A panel with a big pressure gauge (0 to 10 times the air's pressure, a red zone at the top end), its red needle computed to 9.2; under it in bold block letters '≈ 9× TEKANAN UDARA' and smaller '931 kPa · 135 psi'. The kernel, small, in the top right corner with its hull straining (stress lines).",
@@ -3600,15 +3600,15 @@
             {
               "label": [
                 368.52697005068114,
-                835.0
+                835
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                540.0,
-                538.0
+                540,
+                538
               ],
               "text": "5",
               "size": 46
@@ -3616,7 +3616,7 @@
             {
               "label": [
                 711.4730299493189,
-                835.0
+                835
               ],
               "text": "10",
               "size": 46
@@ -3701,15 +3701,15 @@
             {
               "label": [
                 368.52697005068114,
-                835.0
+                835
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                540.0,
-                538.0
+                540,
+                538
               ],
               "text": "5",
               "size": 46
@@ -3717,7 +3717,7 @@
             {
               "label": [
                 711.4730299493189,
-                835.0
+                835
               ],
               "text": "10",
               "size": 46
@@ -3821,15 +3821,15 @@
             {
               "label": [
                 368.52697005068114,
-                835.0
+                835
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                540.0,
-                538.0
+                540,
+                538
               ],
               "text": "5",
               "size": 46
@@ -3837,7 +3837,7 @@
             {
               "label": [
                 711.4730299493189,
-                835.0
+                835
               ],
               "text": "10",
               "size": 46
@@ -3926,8 +3926,8 @@
       "id": "s08",
       "act": "pop",
       "type": "wide",
-      "start": 29.87,
-      "end": 32.31,
+      "start": 27.697,
+      "end": 30.17,
       "voice": "Kulitnya nggak kuat lagi, dan *POP!*",
       "teaches": "The hull gives way all at once.",
       "screen": "The splash: the camera breaks out of the panels; the whole page is one full-bleed splash panel (the ink border torn open at the top). The kernel in the middle, its hull split by jagged cracks, a huge yellow impact burst behind it, speed lines from the centre, and 'POP!' in giant red Bangers with an ink edge and a blue misregistered shadow.",
@@ -3968,10 +3968,10 @@
             },
             {
               "bolt": [
-                498.0,
-                550.0,
+                498,
+                550,
                 573.6,
-                739.0
+                739
               ],
               "seed": 3,
               "width": 7
@@ -4046,10 +4046,10 @@
             },
             {
               "bolt": [
-                502.0,
-                570.0,
+                502,
+                570,
                 570.4,
-                741.0
+                741
               ],
               "seed": 3,
               "width": 7
@@ -4127,10 +4127,10 @@
             },
             {
               "bolt": [
-                506.0,
-                630.0,
+                506,
+                630,
                 567.2,
-                783.0
+                783
               ],
               "seed": 3,
               "width": 7
@@ -4180,8 +4180,8 @@
       "id": "s09",
       "act": "pop",
       "type": "wide",
-      "start": 32.31,
-      "end": 33.81,
+      "start": 30.17,
+      "end": 31.25,
       "voice": "Uapnya nyembur,",
       "teaches": "The steam rushes out through the split hull.",
       "screen": "A wide panel (y 236 to 1000) close on the split kernel: white steam jets blasting out of the cracks with speed lines, the hull flaps peeling back; the sound word 'FWOOSH' in Bangers. Under it a thin panel strip (y 1030 to 1290) with the hull flaps drawn as curling orange shards.",
@@ -4227,33 +4227,33 @@
             },
             {
               "bolt": [
-                504.0,
-                580.0,
+                504,
+                580,
                 568.8,
-                742.0
+                742
               ],
               "seed": 3,
               "width": 7
             },
             {
               "cloud": [
-                500.0,
-                576.0,
-                136.0
+                500,
+                576,
+                136
               ]
             },
             {
               "cloud": [
-                480.0,
-                480.0,
-                200.0
+                480,
+                480,
+                200
               ]
             },
             {
               "cloud": [
-                516.0,
-                360.0,
-                264.0
+                516,
+                360,
+                264
               ]
             },
             {
@@ -4325,33 +4325,33 @@
             },
             {
               "bolt": [
-                506.0,
-                610.0,
+                506,
+                610,
                 567.2,
-                763.0
+                763
               ],
               "seed": 3,
               "width": 7
             },
             {
               "cloud": [
-                500.0,
-                593.0,
-                153.0
+                500,
+                593,
+                153
               ]
             },
             {
               "cloud": [
                 477.5,
-                485.0,
-                225.0
+                485,
+                225
               ]
             },
             {
               "cloud": [
-                518.0,
-                350.0,
-                297.0
+                518,
+                350,
+                297
               ]
             },
             {
@@ -4415,8 +4415,8 @@
       "id": "s09b",
       "act": "pop",
       "type": "diagram",
-      "start": 33.81,
-      "end": 36.51,
+      "start": 31.25,
+      "end": 33.37,
       "voice": "pati yang lembek mengembang jadi *busa*,",
       "teaches": "The softened starch swells into a foam as the steam expands it.",
       "screen": "A zoom panel on the kernel's insides: the soft starch, softened by the hot steam, swelling out of the split hull as a white foam of bubbles (ink circles of many sizes), the hull pushed aside; callouts 'PATI LEMBEK' and 'BUSA'. Red halftone behind.",
@@ -4461,10 +4461,10 @@
             },
             {
               "bolt": [
-                504.0,
-                780.0,
+                504,
+                780,
                 568.8,
-                942.0
+                942
               ],
               "seed": 3,
               "width": 7
@@ -4735,8 +4735,8 @@
       "id": "s10",
       "act": "pop",
       "type": "diagram",
-      "start": 36.51,
-      "end": 39.34,
+      "start": 33.37,
+      "end": 35.77,
       "voice": "terus mengeras jadi popcorn yang renyah.",
       "teaches": "The foam cools and sets hard: that is the crunchy popcorn.",
       "screen": "A panel turning from red halftone to blue (cooling): the finished popcorn flake, white puffy foam with ink edges, the leftover hull bits (orange) at its base; callouts 'BUSA PATI, MENGERAS' and 'SISA KULIT'; a tiny frost of blue lines for 'cooling'. A small inset (y 980 to 1270, right) of the kernel before, for comparison, marked 'bukan skala'.",
@@ -5024,8 +5024,8 @@
       "id": "s11",
       "act": "bunyi",
       "type": "compare",
-      "start": 39.34,
-      "end": 42.24,
+      "start": 35.77,
+      "end": 37.93,
       "voice": "Bunyi pop-nya itu bukan kulit yang pecah,",
       "teaches": "The surprise about the sound: the 'pop' is not the hull cracking.",
       "screen": "Two panels side by side (y 236 to 1290). Left, now: the hull cracking open in close-up with the sound word 'KRAK?' over it, struck through with a thick red X. Right: still empty (white paper, a pencil frame).",
@@ -5070,10 +5070,10 @@
             },
             {
               "bolt": [
-                260.0,
-                660.0,
+                260,
+                660,
                 317.6,
-                804.0
+                804
               ],
               "seed": 3,
               "width": 7
@@ -5141,10 +5141,10 @@
             },
             {
               "bolt": [
-                260.0,
-                660.0,
+                260,
+                660,
                 317.6,
-                804.0
+                804
               ],
               "seed": 3,
               "width": 7
@@ -5204,8 +5204,8 @@
       "id": "s11b",
       "act": "bunyi",
       "type": "compare",
-      "start": 42.24,
-      "end": 44.36,
+      "start": 37.93,
+      "end": 39.85,
       "voice": "tapi *uap* yang nyembur keluar.",
       "teaches": "The 'pop' you hear is the steam escaping.",
       "screen": "The right panel fills: the steam jet blasting out of the split kernel with speed lines, and the sound word 'POP!' attached to the jet, with a green-free tick (a bold ink check mark in blue) and a callout 'UAP!'. The left panel stays with its red X.",
@@ -5250,10 +5250,10 @@
             },
             {
               "bolt": [
-                260.0,
-                660.0,
+                260,
+                660,
                 317.6,
-                804.0
+                804
               ],
               "seed": 3,
               "width": 7
@@ -5300,33 +5300,33 @@
             },
             {
               "bolt": [
-                760.0,
-                840.0,
+                760,
+                840,
                 810.4,
-                966.0
+                966
               ],
               "seed": 3,
               "width": 7
             },
             {
               "cloud": [
-                770.0,
-                826.0,
-                136.0
+                770,
+                826,
+                136
               ]
             },
             {
               "cloud": [
-                750.0,
-                730.0,
-                200.0
+                750,
+                730,
+                200
               ]
             },
             {
               "cloud": [
-                786.0,
-                610.0,
-                264.0
+                786,
+                610,
+                264
               ]
             },
             {
@@ -5393,10 +5393,10 @@
             },
             {
               "bolt": [
-                260.0,
-                660.0,
+                260,
+                660,
                 317.6,
-                804.0
+                804
               ],
               "seed": 3,
               "width": 7
@@ -5443,33 +5443,33 @@
             },
             {
               "bolt": [
-                760.0,
-                840.0,
+                760,
+                840,
                 810.4,
-                966.0
+                966
               ],
               "seed": 3,
               "width": 7
             },
             {
               "cloud": [
-                770.0,
-                826.0,
-                136.0
+                770,
+                826,
+                136
               ]
             },
             {
               "cloud": [
-                750.0,
-                730.0,
-                200.0
+                750,
+                730,
+                200
               ]
             },
             {
               "cloud": [
-                786.0,
-                610.0,
-                264.0
+                786,
+                610,
+                264
               ]
             },
             {
@@ -5546,8 +5546,8 @@
       "id": "s12",
       "act": "bunyi",
       "type": "diagram",
-      "start": 44.36,
-      "end": 46.67,
+      "start": 39.85,
+      "end": 41.69,
       "voice": "Makanya biji yang kulitnya retak",
       "teaches": "Sets up the consequence: some kernels have a cracked hull.",
       "screen": "A panel of the pan full of popped flakes; among them one kernel still whole and hard, with a hairline crack across its hull; a callout 'RETAK' pointing at the crack. Red halftone.",
@@ -5741,10 +5741,10 @@
             },
             {
               "bolt": [
-                496.0,
-                600.0,
+                496,
+                600,
                 539.2,
-                708.0
+                708
               ],
               "seed": 3,
               "width": 7
@@ -5804,8 +5804,8 @@
       "id": "s12b",
       "act": "bunyi",
       "type": "compare",
-      "start": 46.67,
-      "end": 49.18,
+      "start": 41.69,
+      "end": 44.25,
       "voice": "nggak meletus: uapnya bocor duluan.",
       "teaches": "Shown twice, changed once: a sealed hull builds pressure and pops; a cracked one leaks its steam and never does.",
       "screen": "Two panels side by side (y 236 to 1290). Left, 'UTUH': a whole kernel full of steam, its gauge needle high in the red zone, a small 'POP!' burst. Right, 'RETAK': the cracked kernel with thin steam wisps leaking out of the crack, the sound word 'fsss...' small and droopy, its gauge needle low; under the gauges 'MELETUS' and, in red, 'NGGAK MELETUS'. The two gauges are the same size and scale as s07b's.",
@@ -5894,10 +5894,10 @@
             },
             {
               "bolt": [
-                766.0,
-                530.0,
+                766,
+                530,
                 805.6,
-                629.0
+                629
               ],
               "seed": 3,
               "width": 7
@@ -5914,7 +5914,7 @@
               "ring": [
                 292,
                 1030,
-                18.0
+                18
               ]
             },
             {
@@ -5925,15 +5925,15 @@
             {
               "label": [
                 214.05771365940052,
-                1091.0
+                1091
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                292.0,
-                956.0
+                292,
+                956
               ],
               "text": "5",
               "size": 46
@@ -5941,7 +5941,7 @@
             {
               "label": [
                 369.9422863405995,
-                1091.0
+                1091
               ],
               "text": "10",
               "size": 46
@@ -5968,7 +5968,7 @@
               "ring": [
                 788,
                 1030,
-                18.0
+                18
               ]
             },
             {
@@ -5979,15 +5979,15 @@
             {
               "label": [
                 710.0577136594005,
-                1091.0
+                1091
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                788.0,
-                956.0
+                788,
+                956
               ],
               "text": "5",
               "size": 46
@@ -5995,7 +5995,7 @@
             {
               "label": [
                 865.9422863405995,
-                1091.0
+                1091
               ],
               "text": "10",
               "size": 46
@@ -6102,10 +6102,10 @@
             },
             {
               "bolt": [
-                766.0,
-                530.0,
+                766,
+                530,
                 805.6,
-                629.0
+                629
               ],
               "seed": 3,
               "width": 7
@@ -6135,7 +6135,7 @@
               "ring": [
                 292,
                 1030,
-                18.0
+                18
               ]
             },
             {
@@ -6146,15 +6146,15 @@
             {
               "label": [
                 214.05771365940052,
-                1091.0
+                1091
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                292.0,
-                956.0
+                292,
+                956
               ],
               "text": "5",
               "size": 46
@@ -6162,7 +6162,7 @@
             {
               "label": [
                 369.9422863405995,
-                1091.0
+                1091
               ],
               "text": "10",
               "size": 46
@@ -6189,7 +6189,7 @@
               "ring": [
                 788,
                 1030,
-                18.0
+                18
               ]
             },
             {
@@ -6200,15 +6200,15 @@
             {
               "label": [
                 710.0577136594005,
-                1091.0
+                1091
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                788.0,
-                956.0
+                788,
+                956
               ],
               "text": "5",
               "size": 46
@@ -6216,7 +6216,7 @@
             {
               "label": [
                 865.9422863405995,
-                1091.0
+                1091
               ],
               "text": "10",
               "size": 46
@@ -6349,10 +6349,10 @@
             },
             {
               "bolt": [
-                766.0,
-                530.0,
+                766,
+                530,
                 805.6,
-                629.0
+                629
               ],
               "seed": 3,
               "width": 7
@@ -6382,7 +6382,7 @@
               "ring": [
                 292,
                 1030,
-                18.0
+                18
               ]
             },
             {
@@ -6393,15 +6393,15 @@
             {
               "label": [
                 214.05771365940052,
-                1091.0
+                1091
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                292.0,
-                956.0
+                292,
+                956
               ],
               "text": "5",
               "size": 46
@@ -6409,7 +6409,7 @@
             {
               "label": [
                 369.9422863405995,
-                1091.0
+                1091
               ],
               "text": "10",
               "size": 46
@@ -6436,7 +6436,7 @@
               "ring": [
                 788,
                 1030,
-                18.0
+                18
               ]
             },
             {
@@ -6447,15 +6447,15 @@
             {
               "label": [
                 710.0577136594005,
-                1091.0
+                1091
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                788.0,
-                956.0
+                788,
+                956
               ],
               "text": "5",
               "size": 46
@@ -6463,7 +6463,7 @@
             {
               "label": [
                 865.9422863405995,
-                1091.0
+                1091
               ],
               "text": "10",
               "size": 46
@@ -6531,8 +6531,8 @@
       "id": "s13",
       "act": "recap",
       "type": "recap",
-      "start": 49.18,
-      "end": 52.85,
+      "start": 44.25,
+      "end": 47.81,
       "voice": "Jadi rahasianya cuma *air* yang kejebak di kulit keras.",
       "teaches": "The answer in one page: water, trapped by a hard hull, turns to steam and bursts it.",
       "screen": "A summary page of three panels in a row across the top half and one wide below: 1 the cutaway with blue drops, 'AIR'; 2 the steam pushing on the hull with the gauge, 'UAP + TEKANAN'; 3 the burst and the flake, 'POP!'. Below, a wide yellow caption panel with the line in bold block letters: 'AIR + KULIT KERAS = POP!'.",
@@ -6774,7 +6774,7 @@
             },
             {
               "cloud": [
-                540.0,
+                540,
                 402.8,
                 31.200000000000003
               ]
@@ -6795,8 +6795,8 @@
             },
             {
               "cloud": [
-                576.0,
-                470.0,
+                576,
+                470,
                 31.200000000000003
               ]
             },
@@ -6829,10 +6829,10 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 513.2,
-                540.0,
-                542.0
+                540,
+                542
               ],
               "colour": "#ff3b30",
               "width": 7
@@ -6869,9 +6869,9 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 388.4,
-                540.0,
+                540,
                 359.6
               ],
               "colour": "#ff3b30",
@@ -6910,15 +6910,15 @@
             {
               "label": [
                 503.6269330410536,
-                677.0
+                677
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                540.0,
-                614.0
+                540,
+                614
               ],
               "text": "5",
               "size": 46
@@ -6926,7 +6926,7 @@
             {
               "label": [
                 576.3730669589464,
-                677.0
+                677
               ],
               "text": "10",
               "size": 46
@@ -7144,7 +7144,7 @@
             },
             {
               "cloud": [
-                540.0,
+                540,
                 402.8,
                 31.200000000000003
               ]
@@ -7165,8 +7165,8 @@
             },
             {
               "cloud": [
-                576.0,
-                470.0,
+                576,
+                470,
                 31.200000000000003
               ]
             },
@@ -7199,10 +7199,10 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 513.2,
-                540.0,
-                542.0
+                540,
+                542
               ],
               "colour": "#ff3b30",
               "width": 7
@@ -7239,9 +7239,9 @@
             },
             {
               "arrow": [
-                540.0,
+                540,
                 388.4,
-                540.0,
+                540,
                 359.6
               ],
               "colour": "#ff3b30",
@@ -7280,15 +7280,15 @@
             {
               "label": [
                 503.6269330410536,
-                677.0
+                677
               ],
               "text": "0",
               "size": 46
             },
             {
               "label": [
-                540.0,
-                614.0
+                540,
+                614
               ],
               "text": "5",
               "size": 46
@@ -7296,7 +7296,7 @@
             {
               "label": [
                 576.3730669589464,
-                677.0
+                677
               ],
               "text": "10",
               "size": 46
@@ -7420,8 +7420,8 @@
       "id": "s14",
       "act": "recap",
       "type": "wide",
-      "start": 52.85,
-      "end": 54.71,
+      "start": 47.81,
+      "end": 49.81,
       "voice": "Dan gara-gara air itulah,",
       "teaches": "The bridge back into the first line.",
       "screen": "The page turns back to the opening: the kernel between finger and thumb above, the same kernel bursting into a flake with 'POP!' below, the same drawing as frame 0.",

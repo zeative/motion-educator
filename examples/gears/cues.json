@@ -1,6 +1,19 @@
 {
-  "music": { "file": "lib/music/xceed_thru_johann.mp3", "start": 0.679, "lufs": -18, "fade_in": 0.01, "fade_out": 2.4, "duck_db": -6 },
+  "music": {
+    "fade_out": 2.4,
+    "file": "../../examples/gears/music/bed.mp3",
+    "start": 0,
+    "lufs": -22,
+    "fade_in": 0.01,
+    "duck_db": -6
+  },
   "events": [
-    { "t": 1.75, "file": "lib/sfx/shimmer_1.mp3", "db": -18, "align": "peak", "note": "light crosses the title" }
+    {
+      "t": 1.75,
+      "file": "lib/sfx/shimmer_1.mp3",
+      "db": -18,
+      "align": "peak",
+      "note": "light crosses the title"
+    }
   ]
 }

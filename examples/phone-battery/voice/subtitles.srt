@@ -1,0 +1,79 @@
+1
+00:00:00,150 --> 00:00:04,660
+A full phone battery and an empty one hold exactly the same stuff.
+
+2
+00:00:04,550 --> 00:00:06,340
+So where's the energy?
+
+3
+00:00:06,230 --> 00:00:07,460
+Let's open one.
+
+4
+00:00:07,350 --> 00:00:10,260
+Inside, thin sheets, rolled up tight.
+
+5
+00:00:10,150 --> 00:00:13,060
+Graphite on one side, metal oxide on the other,
+
+6
+00:00:12,950 --> 00:00:14,673
+a thin separator between,
+
+7
+00:00:14,577 --> 00:00:16,567
+and lithium moving across.
+
+8
+00:00:16,443 --> 00:00:18,993
+Charging pushes electrons into the graphite,
+
+9
+00:00:18,897 --> 00:00:20,620
+and lithium ions cross over
+
+10
+00:00:20,590 --> 00:00:22,420
+and slip between its layers.
+
+11
+00:00:22,310 --> 00:00:25,380
+Here's the catch: lithium doesn't like it there.
+
+12
+00:00:25,270 --> 00:00:27,233
+It's a ball pushed up a hill:
+
+13
+00:00:27,137 --> 00:00:29,220
+the energy is in its position.
+
+14
+00:00:29,110 --> 00:00:31,980
+Now use your phone, and the lithium heads home.
+
+15
+00:00:31,910 --> 00:00:34,900
+Ions cross the separator. Electrons can't.
+
+16
+00:00:34,790 --> 00:00:37,740
+So they go the long way round, through your phone.
+
+17
+00:00:37,670 --> 00:00:40,433
+That flow is the current that runs your phone.
+
+18
+00:00:40,337 --> 00:00:42,740
+Once it's all home, the battery's empty.
+
+19
+00:00:42,630 --> 00:00:46,980
+Charging doesn't add electricity. It pushes lithium back up the hill.
+
+20
+00:00:46,870 --> 00:00:47,740
+That's why

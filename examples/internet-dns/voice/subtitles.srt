@@ -1,0 +1,79 @@
+1
+00:00:00,150 --> 00:00:03,740
+You type a name, hit Enter, and there's the page.
+
+2
+00:00:03,670 --> 00:00:05,900
+How does the internet know where to go?
+
+3
+00:00:05,830 --> 00:00:08,300
+Thing is, it doesn't know names.
+
+4
+00:00:08,230 --> 00:00:11,500
+It only knows numbers: IP addresses.
+
+5
+00:00:11,430 --> 00:00:14,140
+So your phone asks DNS first.
+
+6
+00:00:14,070 --> 00:00:17,420
+Like contacts: you tap a name, you're calling a number.
+
+7
+00:00:17,350 --> 00:00:20,540
+If DNS doesn't know, it asks a chain.
+
+8
+00:00:20,470 --> 00:00:22,620
+A root server points to dot org,
+
+9
+00:00:22,550 --> 00:00:24,940
+dot org to Wikipedia's own server,
+
+10
+00:00:24,910 --> 00:00:26,860
+and that one has the number.
+
+11
+00:00:26,750 --> 00:00:29,980
+The answer's kept a few minutes, so next time's quick.
+
+12
+00:00:29,870 --> 00:00:33,420
+Your request goes out as a packet, labelled with that number.
+
+13
+00:00:33,350 --> 00:00:35,660
+No router knows the whole route.
+
+14
+00:00:35,630 --> 00:00:37,980
+Each reads the number and passes it on.
+
+15
+00:00:37,910 --> 00:00:40,940
+Router to router, under the sea from Australia,
+
+16
+00:00:40,830 --> 00:00:42,727
+to a server in Singapore.
+
+17
+00:00:42,603 --> 00:00:44,540
+The page comes back in packets,
+
+18
+00:00:44,590 --> 00:00:45,900
+addressed to you.
+
+19
+00:00:45,870 --> 00:00:49,393
+So: name to number, and the number finds the way.
+
+20
+00:00:49,297 --> 00:00:51,900
+And it all happens again, every time

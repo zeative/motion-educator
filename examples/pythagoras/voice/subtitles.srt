@@ -1,0 +1,79 @@
+1
+00:00:00,150 --> 00:00:02,300
+In any right triangle you draw,
+
+2
+00:00:02,310 --> 00:00:05,260
+a squared plus b squared equals c squared.
+
+3
+00:00:05,350 --> 00:00:07,420
+Why does it always work?
+
+4
+00:00:07,510 --> 00:00:09,580
+Squared means an actual square:
+
+5
+00:00:09,510 --> 00:00:12,620
+a squared is the area of a square with side a.
+
+6
+00:00:12,670 --> 00:00:14,380
+Try three, four, five.
+
+7
+00:00:14,270 --> 00:00:17,020
+The square on three holds nine little squares,
+
+8
+00:00:16,910 --> 00:00:18,700
+the one on four, sixteen.
+
+9
+00:00:18,750 --> 00:00:22,060
+Together, twenty-five: the square on the long side.
+
+10
+00:00:21,950 --> 00:00:23,580
+But that's one triangle.
+
+11
+00:00:23,510 --> 00:00:26,300
+For every case, put four identical triangles
+
+12
+00:00:26,230 --> 00:00:28,860
+inside a square with sides a plus b.
+
+13
+00:00:28,790 --> 00:00:31,820
+That leaves a tilted square in the middle, side c.
+
+14
+00:00:31,790 --> 00:00:34,220
+Now slide two of them, without turning.
+
+15
+00:00:34,110 --> 00:00:37,820
+The gap becomes two squares: a squared and b squared.
+
+16
+00:00:37,750 --> 00:00:41,500
+Same square, same triangles: the gaps must match.
+
+17
+00:00:41,430 --> 00:00:44,860
+Which means c squared equals a squared plus b squared.
+
+18
+00:00:44,790 --> 00:00:47,740
+Flat or tall, any right triangle works.
+
+19
+00:00:47,630 --> 00:00:50,620
+The gap just changes shape, never its area.
+
+20
+00:00:50,550 --> 00:00:51,420
+That's why
