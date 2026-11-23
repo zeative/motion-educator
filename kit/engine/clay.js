@@ -231,31 +231,38 @@ export function createClay(space, { stepped = 12 } = {}) {
 
   // A paper flag on a toothpick, stuck into a part: the label as a clay film labels things.
   // `side: -1` hangs the paper to the left of the pick (toward the middle of the frame when the part sits on the right).
-  function flag(text, { at = [0, 0, 0], height = 4, colour = "#fffaf0", ink = "#2b2b2b", font = "600 120px Fredoka, sans-serif", lean = 0.12, side = 1 } = {}) {
+  // `size` is the paper's height in world units; its width follows the words, so a long label is never cut. The
+  // canvas is sized to the text (measured), and the paper keeps the canvas's shape.
+  function flag(text, { at = [0, 0, 0], height = 4, size = 1.2, colour = "#fffaf0", ink = "#2b2b2b", font = "600 120px Fredoka, sans-serif", lean = 0.12, side = 1 } = {}) {
     const group = new THREE.Group();
-    const pick = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, height, 10), new THREE.MeshStandardMaterial({ color: "#d9b48a", roughness: 0.8 }));
+    const pick = new THREE.Mesh(new THREE.CylinderGeometry(0.06 * size, 0.06 * size, height, 10), new THREE.MeshStandardMaterial({ color: "#d9b48a", roughness: 0.8 }));
     pick.position.y = height / 2;
-    const c = canvasOf(512, 256), g = c.getContext("2d");
+    const probe = canvasOf(8, 8).getContext("2d");
+    probe.font = font;
+    const tw = Math.ceil(probe.measureText(text).width), H = 200, W = Math.max(260, tw + 90);
+    const c = canvasOf(W, H), g = c.getContext("2d");
     g.fillStyle = colour;
-    g.fillRect(0, 0, 512, 256);
+    g.fillRect(0, 0, W, H);
     g.fillStyle = ink;
     g.font = font;
     g.textAlign = "center";
     g.textBaseline = "middle";
-    g.fillText(text, 256, 136);
+    g.fillText(text, W / 2, H / 2 + 8);
     const tex = new THREE.CanvasTexture(c);
     tex.colorSpace = THREE.SRGBColorSpace;
-    const w = Math.max(1.8, 0.62 * text.length);
-    const paper = new THREE.Mesh(new THREE.PlaneGeometry(w, w / 2, 8, 1), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9, side: THREE.DoubleSide }));
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    const h = size, w = (size * W) / H;
+    const paper = new THREE.Mesh(new THREE.PlaneGeometry(w, h, 12, 1), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9, side: THREE.DoubleSide }));
     // A slight curl, as paper does.
     const pp = paper.geometry.attributes.position;
-    for (let i = 0; i < pp.count; i++) pp.setZ(i, Math.sin((pp.getX(i) / w + 0.5) * Math.PI) * 0.12);
+    for (let i = 0; i < pp.count; i++) pp.setZ(i, Math.sin((pp.getX(i) / w + 0.5) * Math.PI) * 0.06 * w);
     paper.geometry.computeVertexNormals();
-    paper.position.set(side * (w / 2 + 0.05), height - w / 4 - 0.1, 0);
+    paper.position.set(side * (w / 2 + 0.05 * size), height - h / 2 - 0.05 * size, 0);
     group.add(pick, paper);
     group.rotation.z = -lean * side;
     group.position.set(...at);
     group.traverse((o) => { if (o.isMesh) o.castShadow = o.receiveShadow = true; });
+    group.userData.paper = paper;
     return group;
   }
 

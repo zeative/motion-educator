@@ -38,7 +38,8 @@ let manifest = existsSync(manifestFile) ? JSON.parse(readFileSync(manifestFile, 
 // How the cut sits on the voice. A shot starts LEAD before its first word; the film's first word comes at FIRST;
 // a pause the performer held longer than PAUSE is shortened to it; the film runs TAIL past the last word when no
 // silent shot follows.
-const cut = { first: 0.15, lead: 0.1, pause: sb.voice?.max_pause ?? 0.75, tail: 0.9 };
+// A film that loops runs only a breath past its last word, since the first word follows straight after it.
+const cut = { first: 0.15, lead: 0.1, pause: sb.voice?.max_pause ?? 0.75, tail: sb.loop ? 0.3 : 0.9 };
 const round = (n) => Math.round(n * 1000) / 1000;
 
 // ── The script ─────────────────────────────────────────────────────────────

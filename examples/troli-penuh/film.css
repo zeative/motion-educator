@@ -1,11 +1,25 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
-}
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
-}
+/* Kenapa troli penuh susah didorong? The Stickman template's look comes from templates/stickman/look.css; this is
+   only the film's own pieces: the pages, the ink, the lettering. */
+.page { position: absolute; inset: 0; overflow: hidden; }
+.page .cam { position: absolute; inset: 0; transform-origin: 0 0; }
+.page svg { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+.page svg path, .page svg circle, .page svg ellipse, .page svg line, .page svg rect { fill: none; stroke: var(--ink); stroke-width: 6px; stroke-linecap: round; stroke-linejoin: round; }
+.page svg .thin { stroke-width: 4px; }
+.page svg .fat { stroke-width: 9px; }
+.page svg .red { stroke: #d9412b; }
+.page svg .blue { stroke: #3a6fd8; }
+.page svg .fill-ink { fill: var(--ink); stroke: none; }
+.page svg .fill-red { fill: #d9412b; stroke: none; }
+.page svg .fill-blue { fill: #3a6fd8; stroke: none; }
+.page svg .hatch { stroke-width: 3px; opacity: 0.85; }
+.page svg .figure path, .page svg .figure circle { stroke-width: 8px; }
+/* Lettering: hand-lettered marker type, written on by ink.write. */
+.t { position: absolute; color: var(--ink); font: 400 64px / 1.05 var(--brand); white-space: nowrap; transform: translate(-50%, -50%); }
+.t.big { font-size: 128px; }
+.t.huge { font-size: 190px; }
+.t.mid { font-size: 76px; }
+.t.small { font-size: 44px; }
+.t.red { color: #d9412b; }
+.t.blue { color: #3a6fd8; }
+.t.left { transform: translate(0, -50%); }
+.mk { position: relative; display: inline-block; }

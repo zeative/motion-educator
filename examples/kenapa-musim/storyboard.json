@@ -7,7 +7,7 @@
   "language": "id",
   "format": "1080x1920",
   "captions": "pop",
-  "duration": 53.0,
+  "duration": 65.25,
   "fps": 60,
   "loop": {
     "line": "Dan itu sebabnya, tiap bulan Desember, / Eropa lagi bersalju, sementara Australia malah musim panas.",
@@ -104,7 +104,7 @@
       "act": "hook",
       "type": "wide",
       "start": 0,
-      "end": 4.0,
+      "end": 4.736,
       "voice": "Eropa lagi *bersalju*, sementara Australia malah musim panas.",
       "teaches": "The puzzle: in the same December, one place is snowy and another is in summer.",
       "screen": "A tabletop set seen from the front, painted card backdrop in peach. Top half of the frame: a little clay village with white snow caps and clay snowflakes, a paper flag 'Eropa, Desember'. Bottom half: a clay beach with a striped umbrella and a small yellow clay sun, flag 'Australia, Desember'.",
@@ -315,8 +315,8 @@
       "id": "s02",
       "act": "hook",
       "type": "type",
-      "start": 4.0,
-      "end": 5.4,
+      "start": 4.736,
+      "end": 6.124,
       "voice": "Kok bisa beda?",
       "teaches": "Asks the question out loud: why the difference?",
       "screen": "On the bare table a big clay question mark plops down, squashes and settles.",
@@ -372,8 +372,8 @@
       "id": "s03",
       "act": "salah",
       "type": "diagram",
-      "start": 5.4,
-      "end": 7.6,
+      "start": 6.124,
+      "end": 8.99,
       "voice": "Banyak yang ngira, musim itu soal *jarak*:",
       "teaches": "Names the common wrong idea: seasons come from the distance to the Sun.",
       "screen": "Top-down on the table: the clay Sun in the middle and a rolled clay orbit pressed into a long oval (exaggerated, labelled 'bukan skala'), the clay Earth on it.",
@@ -446,8 +446,8 @@
       "id": "s03b",
       "act": "salah",
       "type": "diagram",
-      "start": 7.6,
-      "end": 9.6,
+      "start": 8.99,
+      "end": 11.79,
       "voice": "dekat Matahari panas, jauh dingin.",
       "teaches": "The wrong idea spelled out: near means hot, far means cold.",
       "screen": "The Earth slides round the oval: near the Sun a red flag 'panas?', far from it a blue flag 'dingin?'.",
@@ -569,23 +569,68 @@
       "id": "s04",
       "act": "salah",
       "type": "chart",
-      "start": 9.6,
-      "end": 13.4,
-      "voice": "Padahal Bumi justru paling dekat ke Matahari di awal *Januari*.",
-      "teaches": "The fact that breaks it: Earth is closest to the Sun in early January.",
-      "screen": "The orbit pressed into a near circle. The Earth at its closest point with a flag 'Januari · 147 juta km'; on the far side a flag 'Juli · 152 juta km'.",
-      "motion": "The oval is squashed round by a clay thumb; the Earth rolls to the January point; flags stick in.",
+      "start": 11.79,
+      "end": 14.67,
+      "voice": "Padahal Bumi justru paling dekat ke Matahari",
+      "teaches": "The fact that breaks it, part one: the orbit is nearly a circle, and Earth has a closest point.",
+      "screen": "A clay thumb presses the stretched oval back into a near circle round the Sun; the Earth rolls to the point nearest the Sun.",
+      "motion": "The oval squashes round (on twelves); the Earth rolls to the near point.",
       "carries": "The near-circular orbit.",
-      "transition": "Push in on the Earth at the January point.",
-      "sound": "A squish as the orbit is reshaped; two flag knocks.",
-      "check": "The two distances are the fact sheet's: 147 and 152 million km.",
+      "transition": "Continuous: a flag goes into the near point.",
+      "sound": "A squish as the orbit is reshaped.",
+      "check": "The orbit now looks almost round.",
       "facts": [
         "f2"
       ],
       "frames": [
         {
           "at": 0,
-          "note": "The orbit becomes almost a circle.",
+          "note": "The stretched oval; a clay thumb comes in.",
+          "draw": [
+            {
+              "sun": [
+                540,
+                900,
+                90
+              ]
+            },
+            {
+              "path": "M100 900 a440 230 0 1 0 880 0 a440 230 0 1 0 -880 0",
+              "width": 7,
+              "colour": "orange"
+            },
+            {
+              "move": [
+                940,
+                600,
+                900,
+                720
+              ],
+              "text": "dibulatkan"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Pressed almost round.",
+          "draw": [
+            {
+              "sun": [
+                540,
+                900,
+                90
+              ]
+            },
+            {
+              "path": "M140 900 a400 200 0 1 0 800 0 a400 200 0 1 0 -800 0",
+              "width": 7,
+              "colour": "orange"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The Earth at the point nearest the Sun.",
           "draw": [
             {
               "sun": [
@@ -600,19 +645,41 @@
               "colour": "orange"
             },
             {
-              "move": [
-                940,
-                700,
-                900,
-                760
+              "planet": [
+                935,
+                930,
+                50
               ],
-              "text": "dibulatkan"
+              "light": "left"
+            },
+            {
+              "cut": "tanpa potongan"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s04b",
+      "act": "salah",
+      "type": "diagram",
+      "start": 14.67,
+      "end": 16.21,
+      "voice": "di awal *Januari*.",
+      "teaches": "The fact that breaks it, part two: the closest point comes in early January.",
+      "screen": "Flags go in: 'Januari · 147 juta km' at the near point, 'Juli · 152 juta km' on the far side.",
+      "motion": "Two paper flags are pushed into the card, each with a small wobble before it settles.",
+      "carries": "The orbit with its flags.",
+      "transition": "Push in on the Earth at the January point.",
+      "sound": "Two small wooden knocks.",
+      "check": "The two distances are the fact sheet's: 147 and 152 million km.",
+      "facts": [
+        "f2"
+      ],
+      "frames": [
         {
-          "at": 0.6,
-          "note": "The Earth at the January point.",
+          "at": 0,
+          "note": "The January flag goes in.",
           "draw": [
             {
               "sun": [
@@ -654,7 +721,7 @@
         },
         {
           "at": 1,
-          "note": "The far side flag too.",
+          "note": "The far side's July flag too.",
           "draw": [
             {
               "sun": [
@@ -719,8 +786,8 @@
       "id": "s05",
       "act": "salah",
       "type": "wide",
-      "start": 13.4,
-      "end": 16.0,
+      "start": 16.21,
+      "end": 18.97,
       "voice": "Pas itu, Eropa lagi dingin-dinginnya.",
       "teaches": "Closest to the Sun, yet Europe is in deep winter: distance is not the reason.",
       "screen": "Close on the clay Earth at the January point: its northern cap has white clay snow on it; a tiny flag 'Eropa: musim dingin' stuck in the north.",
@@ -798,13 +865,82 @@
     {
       "id": "s06",
       "act": "miring",
+      "type": "wide",
+      "start": 18.97,
+      "end": 20.99,
+      "voice": "Rahasianya ada di sini:",
+      "teaches": "Points at where the answer is: the Earth's axis.",
+      "screen": "The Earth turns on the table to show its wooden toothpick axis; the camera pushes in.",
+      "motion": "A quarter turn of the Earth (on twelves); camera push.",
+      "carries": "The Earth.",
+      "transition": "Continuous: the toothpick starts to tip.",
+      "sound": "A soft wooden rub as it turns.",
+      "check": "The toothpick is clearly visible.",
+      "frames": [
+        {
+          "at": 0,
+          "note": "The snowy Earth turns; the toothpick comes into view.",
+          "draw": [
+            {
+              "planet": [
+                540,
+                900,
+                240
+              ],
+              "light": "left"
+            },
+            {
+              "line": [
+                540,
+                560,
+                540,
+                1240
+              ],
+              "width": 8
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Close: the Earth and its toothpick, upright for now.",
+          "draw": [
+            {
+              "planet": [
+                540,
+                920,
+                260
+              ],
+              "light": "left"
+            },
+            {
+              "line": [
+                540,
+                540,
+                540,
+                1300
+              ],
+              "width": 9
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06b",
+      "act": "miring",
       "type": "diagram",
-      "start": 16.0,
-      "end": 20.0,
-      "voice": "Rahasianya ada di sini: sumbu Bumi *miring*, sekitar dua puluh tiga koma empat derajat.",
+      "start": 20.99,
+      "end": 25.37,
+      "voice": "sumbu Bumi *miring*, sekitar dua puluh tiga koma empat derajat.",
       "teaches": "The real cause: Earth's axis is tilted about 23.4 degrees.",
-      "screen": "The Earth close, its wooden toothpick axis tilted; a paper protractor behind it with the angle between the toothpick and the upright marked '23,4°'.",
-      "motion": "The toothpick tips from upright to 23.4 degrees (on twelves); the paper protractor slides in; the angle arc draws.",
+      "screen": "The toothpick tips to 23.4 degrees; a paper protractor behind it marks the angle between the upright and the toothpick: '23,4°'.",
+      "motion": "The pick tips (on twelves); the protractor slides in; the arc draws.",
       "carries": "The tilted Earth.",
       "transition": "Pull back to the orbit.",
       "sound": "A wooden click as the pick tilts.",
@@ -837,7 +973,7 @@
           ]
         },
         {
-          "at": 0.6,
+          "at": 0.5,
           "note": "The axis tips to 23.4 degrees.",
           "draw": [
             {
@@ -924,12 +1060,117 @@
       "id": "s07",
       "act": "miring",
       "type": "wide",
-      "start": 20.0,
-      "end": 24.0,
-      "voice": "Miringnya selalu ke arah yang sama, sepanjang Bumi mengelilingi Matahari.",
-      "teaches": "The tilt keeps pointing the same way all the way round the orbit.",
-      "screen": "Pulled back: the Sun, the round orbit, the Earth at four places round it (June, September, December, March), each with its toothpick leaning the same way (parallel), a small paper arrow above each showing the same direction.",
-      "motion": "The Earth rolls round the orbit; ghost Earths are left at the four places; the toothpicks stay parallel.",
+      "start": 25.37,
+      "end": 27.47,
+      "voice": "Miringnya selalu ke arah yang sama,",
+      "teaches": "The tilt keeps pointing the same way.",
+      "screen": "Pulled back: the Sun, the round orbit, the Earth on it; a paper arrow above the toothpick shows its direction.",
+      "motion": "The camera pulls back to the whole orbit; a paper arrow is stuck on above the toothpick.",
+      "carries": "The orbit and the Earth.",
+      "transition": "Continuous: the Earth starts to roll round.",
+      "sound": "A soft pull-back whoosh of air.",
+      "check": "The arrow lines up with the toothpick.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Pulling back from the Earth to the orbit.",
+          "draw": [
+            {
+              "sun": [
+                540,
+                900,
+                80
+              ]
+            },
+            {
+              "path": "M140 900 a400 200 0 1 0 800 0 a400 200 0 1 0 -800 0",
+              "width": 7,
+              "colour": "orange"
+            },
+            {
+              "planet": [
+                940,
+                900,
+                45
+              ],
+              "light": "left"
+            },
+            {
+              "line": [
+                968.6407725326524,
+                833.9416458823498,
+                911.3592274673476,
+                966.0583541176502
+              ],
+              "width": 6
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "A paper arrow along the toothpick.",
+          "draw": [
+            {
+              "sun": [
+                540,
+                900,
+                80
+              ]
+            },
+            {
+              "path": "M140 900 a400 200 0 1 0 800 0 a400 200 0 1 0 -800 0",
+              "width": 7,
+              "colour": "orange"
+            },
+            {
+              "planet": [
+                940,
+                900,
+                45
+              ],
+              "light": "left"
+            },
+            {
+              "line": [
+                968.6407725326524,
+                833.9416458823498,
+                911.3592274673476,
+                966.0583541176502
+              ],
+              "width": 6
+            },
+            {
+              "arrow": [
+                930,
+                860,
+                900,
+                790
+              ],
+              "colour": "red"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07b",
+      "act": "miring",
+      "type": "wide",
+      "start": 27.47,
+      "end": 30.03,
+      "voice": "sepanjang Bumi mengelilingi Matahari.",
+      "teaches": "All the way round the orbit, the tilt points the same way.",
+      "screen": "The Earth rolls round the orbit; ghost Earths are left at June, September, December and March, each toothpick parallel, each with the same paper arrow.",
+      "motion": "The roll round (on twelves); the ghosts are pressed in at each quarter.",
       "carries": "The orbit and the Earth.",
       "transition": "The roll stops at the June place; the camera eases round.",
       "sound": "A gentle roll of clay on card.",
@@ -940,7 +1181,7 @@
       "frames": [
         {
           "at": 0,
-          "note": "The orbit; the Earth starts to roll.",
+          "note": "The Earth starts round the orbit.",
           "draw": [
             {
               "sun": [
@@ -1129,8 +1370,8 @@
       "id": "s08",
       "act": "miring",
       "type": "diagram",
-      "start": 24.0,
-      "end": 27.6,
+      "start": 30.03,
+      "end": 33.89,
       "voice": "Jadi di bulan *Juni*, belahan utara condong ke Matahari.",
       "teaches": "In June the northern half leans towards the Sun.",
       "screen": "The Earth at the June place, right of the Sun; its top leans towards the Sun; the lit half faces the Sun; flag 'Juni'; a paper label 'utara condong' on the north.",
@@ -1275,8 +1516,8 @@
       "id": "s09",
       "act": "miring",
       "type": "compare",
-      "start": 27.6,
-      "end": 30.8,
+      "start": 33.89,
+      "end": 38.67,
       "voice": "Sinarnya jatuh lebih *tegak*, jadi panasnya numpuk di tempat yang lebih sempit.",
       "teaches": "Direct sunlight packs the same light into a smaller area, so it warms more.",
       "screen": "A clay torch (a short cylinder with a paper beam) above a clay slab, shining straight down: a small bright patch labelled 'sempit = panas'.",
@@ -1363,8 +1604,8 @@
       "id": "s09b",
       "act": "miring",
       "type": "diagram",
-      "start": 30.8,
-      "end": 32.6,
+      "start": 38.67,
+      "end": 40.59,
       "voice": "Siangnya juga lebih panjang.",
       "teaches": "And the days are longer in the hemisphere that leans towards the Sun.",
       "screen": "A round clay clock card beside the slab: a yellow day arc longer than half the face, 'siang lebih panjang'.",
@@ -1433,8 +1674,8 @@
       "id": "s10",
       "act": "miring",
       "type": "diagram",
-      "start": 32.6,
-      "end": 36.0,
+      "start": 40.59,
+      "end": 44.43,
       "voice": "Nah, enam bulan lagi, giliran belahan *selatan* yang condong.",
       "teaches": "Six months on, the southern half leans towards the Sun.",
       "screen": "The Earth at the December place, left of the Sun now on the right of frame; the toothpick still leans the same way, so the south faces the Sun; flag 'Desember'; label 'selatan condong'.",
@@ -1483,6 +1724,45 @@
                 600
               ],
               "text": "setengah putaran"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "December: the south half now faces the Sun.",
+          "draw": [
+            {
+              "sun": [
+                940,
+                900,
+                110
+              ]
+            },
+            {
+              "planet": [
+                440,
+                900,
+                220
+              ],
+              "light": "right"
+            },
+            {
+              "line": [
+                580.0215546040783,
+                577.0480465359326,
+                299.97844539592165,
+                1222.9519534640674
+              ],
+              "width": 6
+            },
+            {
+              "arrow": [
+                800,
+                1040,
+                640,
+                1040
+              ],
+              "colour": "yellow"
             }
           ]
         },
@@ -1549,8 +1829,8 @@
       "id": "s11",
       "act": "miring",
       "type": "compare",
-      "start": 36.0,
-      "end": 40.0,
+      "start": 44.43,
+      "end": 48.85,
       "voice": "Utara cuma kebagian sinar miring yang *menyebar*, dan itulah musim dingin.",
       "teaches": "Slanting light spreads the same light over a bigger area: colder. That is winter.",
       "screen": "The clay torch tipped to a slant over the same slab: the patch is long and dim, labelled 'lebar = dingin'. Small snow returns to the village flag.",
@@ -1637,8 +1917,8 @@
       "id": "s12",
       "act": "indonesia",
       "type": "diagram",
-      "start": 40.0,
-      "end": 42.8,
+      "start": 48.85,
+      "end": 53.07,
       "voice": "Terus, Indonesia gimana? Kita ada di dekat *khatulistiwa*.",
       "teaches": "Indonesia sits on the equator.",
       "screen": "The clay Earth, face-on: a red clay band round its middle (the equator) and a tiny red-and-white flag 'Indonesia' stuck on it.",
@@ -1653,6 +1933,24 @@
       "frames": [
         {
           "at": 0,
+          "note": "The Earth face-on, bare, on the table.",
+          "draw": [
+            {
+              "planet": [
+                540,
+                920,
+                250
+              ],
+              "light": "left"
+            },
+            {
+              "path": "M40 1300 H1040",
+              "width": 6
+            }
+          ]
+        },
+        {
+          "at": 0.4,
           "note": "The Earth with the equator band.",
           "draw": [
             {
@@ -1714,15 +2012,128 @@
       "id": "s13",
       "act": "indonesia",
       "type": "compare",
-      "start": 42.8,
-      "end": 47.6,
-      "voice": "Matahari siangnya tetap tinggi sepanjang tahun, makanya kita nggak kenal *musim dingin*.",
-      "teaches": "Near the equator the noon Sun stays high all year: no winter.",
-      "screen": "Two small plates on the table, each with a clay figure and a stick holding a little clay sun at the noon angle: 'Jakarta, paling rendah' at 60 degrees, 'Berlin, Desember' at 14 degrees; the angles on paper cards.",
-      "motion": "The two little suns rise on their sticks to their angles (on twelves); the cards stick in.",
+      "start": 53.07,
+      "end": 55.95,
+      "voice": "Matahari siangnya tetap tinggi sepanjang tahun,",
+      "teaches": "Near the equator the noon Sun stays high all year.",
+      "screen": "A small plate on the table: a clay figure 'Jakarta' and a stick holding a little clay sun; through the year it swings only between overhead and 60 degrees.",
+      "motion": "The little sun rises to its noon height and sways a little (June to December) without dropping low.",
+      "carries": "The Jakarta plate.",
+      "transition": "A second plate slides in beside it.",
+      "sound": "A soft tick as the sun sets on its stick.",
+      "check": "The lowest angle drawn is 60 degrees.",
+      "facts": [
+        "f6",
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The Jakarta plate, the sun low at the horizon.",
+          "draw": [
+            {
+              "path": "M300 1200 H780",
+              "width": 8
+            },
+            {
+              "person": [
+                540,
+                1190,
+                200
+              ]
+            },
+            {
+              "label": [
+                540,
+                1300
+              ],
+              "text": "Jakarta",
+              "size": 44
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The sun high overhead at noon.",
+          "draw": [
+            {
+              "path": "M300 1200 H780",
+              "width": 8
+            },
+            {
+              "person": [
+                540,
+                1190,
+                200
+              ]
+            },
+            {
+              "sun": [
+                560,
+                900,
+                40
+              ]
+            },
+            {
+              "label": [
+                540,
+                1300
+              ],
+              "text": "Jakarta",
+              "size": 44
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "At its lowest, still 60° up.",
+          "draw": [
+            {
+              "path": "M300 1200 H780",
+              "width": 8
+            },
+            {
+              "person": [
+                540,
+                1190,
+                200
+              ]
+            },
+            {
+              "sun": [
+                675,
+                955.1,
+                40
+              ]
+            },
+            {
+              "label": [
+                540,
+                1300
+              ],
+              "text": "Jakarta · ≥ 60°",
+              "size": 44
+            },
+            {
+              "cut": "piring kedua"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13b",
+      "act": "indonesia",
+      "type": "compare",
+      "start": 55.95,
+      "end": 58.51,
+      "voice": "makanya kita nggak kenal *musim dingin*.",
+      "teaches": "Compared with Europe in December, our noon Sun never drops low: no winter.",
+      "screen": "Two plates side by side: Jakarta's sun at 60 degrees or more, Berlin's in December at 14 degrees, low and pale; snow on the Berlin plate.",
+      "motion": "The Berlin sun sinks to its angle; snow lands on its plate.",
       "carries": "The two plates.",
       "transition": "The plates slide away; the summary card.",
-      "sound": "Two soft ticks.",
+      "sound": "A soft wind for Berlin.",
       "check": "Angles drawn at 60 and 14 degrees.",
       "facts": [
         "f6",
@@ -1731,31 +2142,7 @@
       "frames": [
         {
           "at": 0,
-          "note": "Two plates, two figures, the suns at the horizon.",
-          "draw": [
-            {
-              "path": "M120 1200 H500 M580 1200 H960",
-              "width": 8
-            },
-            {
-              "person": [
-                310,
-                1190,
-                170
-              ]
-            },
-            {
-              "person": [
-                770,
-                1190,
-                170
-              ]
-            }
-          ]
-        },
-        {
-          "at": 0.5,
-          "note": "The suns rise to their noon angles.",
+          "note": "Two plates, Jakarta and Berlin.",
           "draw": [
             {
               "path": "M120 1200 H500 M580 1200 H960",
@@ -1777,7 +2164,38 @@
             },
             {
               "sun": [
-                425.0,
+                425,
+                989.9,
+                36
+              ]
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Berlin's sun sinks low.",
+          "draw": [
+            {
+              "path": "M120 1200 H500 M580 1200 H960",
+              "width": 8
+            },
+            {
+              "person": [
+                310,
+                1190,
+                170
+              ]
+            },
+            {
+              "person": [
+                770,
+                1190,
+                170
+              ]
+            },
+            {
+              "sun": [
+                425,
                 989.9,
                 36
               ]
@@ -1815,7 +2233,7 @@
             },
             {
               "sun": [
-                425.0,
+                425,
                 989.9,
                 36
               ]
@@ -1854,8 +2272,8 @@
       "id": "s14",
       "act": "recap",
       "type": "recap",
-      "start": 47.6,
-      "end": 51.2,
+      "start": 58.51,
+      "end": 62.35,
       "voice": "Jadi musim itu soal *miringnya* Bumi, bukan jaraknya.",
       "teaches": "The answer in one frame: tilt, not distance.",
       "screen": "A clay plate as a card: the tilted Earth with its toothpick at 23,4°, 'miring ✓' beside it; a small orbit with 'jarak ✗' crossed out; two tiny scenes under it: June (north sunny), December (south sunny).",
@@ -2048,8 +2466,8 @@
       "id": "s15",
       "act": "recap",
       "type": "wide",
-      "start": 51.2,
-      "end": 53.0,
+      "start": 62.35,
+      "end": 65.25,
       "voice": "Dan itu sebabnya, tiap bulan Desember,",
       "teaches": "The bridge back into the first line.",
       "screen": "The camera rises back up the table to the opening: the snowy village with its flag, the beach below, the same framing as frame 0.",
@@ -2061,7 +2479,20 @@
       "frames": [
         {
           "at": 0,
-          "note": "Rising from the table.",
+          "note": "The summary card slides away; the table again.",
+          "draw": [
+            {
+              "path": "M40 1300 H1040",
+              "width": 6
+            },
+            {
+              "camera": "up"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Rising from the table past the beach.",
           "draw": [
             {
               "path": "M40 1300 H1040",

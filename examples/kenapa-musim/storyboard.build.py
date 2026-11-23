@@ -114,14 +114,22 @@ shot("s03b", "salah", "diagram", 7.6, 9.6, "dekat Matahari panas, jauh dingin.",
      frames=[fr(0, "Near: a red flag 'panas?'.", sun(90), {"path": f"M{SUN[0] - 440} {SUN[1]} a440 230 0 1 0 880 0 a440 230 0 1 0 -880 0", "width": 7, "colour": "orange"}, earth(SUN[0] + 300, SUN[1] - 20, 50, axis=False), flag(870, 900, "panas?")),
              fr(1, "Far: a blue flag 'dingin?'.", sun(90), {"path": f"M{SUN[0] - 440} {SUN[1]} a440 230 0 1 0 880 0 a440 230 0 1 0 -880 0", "width": 7, "colour": "orange"}, earth(SUN[0] - 430, SUN[1], 50, axis=False), flag(870, 900, "panas?"), flag(140, 900, "dingin?"), {"cut": "orbit dibulatkan"})])
 
-shot("s04", "salah", "chart", 9.6, 13.4, "Padahal Bumi justru paling dekat ke Matahari di awal *Januari*.",
-     teaches="The fact that breaks it: Earth is closest to the Sun in early January.",
-     screen="The orbit pressed into a near circle. The Earth at its closest point with a flag 'Januari · 147 juta km'; on the far side a flag 'Juli · 152 juta km'.",
-     motion="The oval is squashed round by a clay thumb; the Earth rolls to the January point; flags stick in.", carries="The near-circular orbit.",
-     transition="Push in on the Earth at the January point.", sound="A squish as the orbit is reshaped; two flag knocks.", check="The two distances are the fact sheet's: 147 and 152 million km.", facts=["f2"],
-     frames=[fr(0, "The orbit becomes almost a circle.", sun(90), orbit(400, 200), {"move": [940, 700, 900, 760], "text": "dibulatkan"}),
-             fr(0.6, "The Earth at the January point.", sun(90), orbit(400, 200), earth(SUN[0] + 395, SUN[1] + 30, 50, axis=False), flag(640, 820, "Januari · 147 juta km")),
-             fr(1, "The far side flag too.", sun(90), orbit(400, 200), earth(SUN[0] + 395, SUN[1] + 30, 50, axis=False), flag(640, 820, "Januari · 147 juta km"), flag(150, 1060, "Juli · 152 juta km"), {"cut": "mendekat ke Bumi"})])
+shot("s04", "salah", "chart", 11.79, 14.4, "Padahal Bumi justru paling dekat ke Matahari",
+     teaches="The fact that breaks it, part one: the orbit is nearly a circle, and Earth has a closest point.",
+     screen="A clay thumb presses the stretched oval back into a near circle round the Sun; the Earth rolls to the point nearest the Sun.",
+     motion="The oval squashes round (on twelves); the Earth rolls to the near point.", carries="The near-circular orbit.",
+     transition="Continuous: a flag goes into the near point.", sound="A squish as the orbit is reshaped.", check="The orbit now looks almost round.", facts=["f2"],
+     frames=[fr(0, "The stretched oval; a clay thumb comes in.", sun(90), {"path": f"M{SUN[0] - 440} {SUN[1]} a440 230 0 1 0 880 0 a440 230 0 1 0 -880 0", "width": 7, "colour": "orange"}, {"move": [940, 600, 900, 720], "text": "dibulatkan"}),
+             fr(0.5, "Pressed almost round.", sun(90), orbit(400, 200)),
+             fr(1, "The Earth at the point nearest the Sun.", sun(90), orbit(400, 200), earth(SUN[0] + 395, SUN[1] + 30, 50, axis=False), {"cut": "tanpa potongan"})])
+
+shot("s04b", "salah", "diagram", 14.4, 16.21, "di awal *Januari*.",
+     teaches="The fact that breaks it, part two: the closest point comes in early January.",
+     screen="Flags go in: 'Januari · 147 juta km' at the near point, 'Juli · 152 juta km' on the far side.",
+     motion="Two paper flags are pushed into the card, each with a small wobble before it settles.", carries="The orbit with its flags.",
+     transition="Push in on the Earth at the January point.", sound="Two small wooden knocks.", check="The two distances are the fact sheet's: 147 and 152 million km.", facts=["f2"],
+     frames=[fr(0, "The January flag goes in.", sun(90), orbit(400, 200), earth(SUN[0] + 395, SUN[1] + 30, 50, axis=False), flag(640, 820, "Januari · 147 juta km")),
+             fr(1, "The far side's July flag too.", sun(90), orbit(400, 200), earth(SUN[0] + 395, SUN[1] + 30, 50, axis=False), flag(640, 820, "Januari · 147 juta km"), flag(150, 1060, "Juli · 152 juta km"), {"cut": "mendekat ke Bumi"})])
 
 shot("s05", "salah", "wide", 13.4, 16.0, "Pas itu, Eropa lagi dingin-dinginnya.",
      teaches="Closest to the Sun, yet Europe is in deep winter: distance is not the reason.",
@@ -131,21 +139,37 @@ shot("s05", "salah", "wide", 13.4, 16.0, "Pas itu, Eropa lagi dingin-dinginnya."
      frames=[fr(0, "The Earth close, bare, the Sun glowing at the left edge.", earth(540, 900, 260, axis=False), {"sun": [40, 900, 90]}),
              fr(1, "Snow on the north; the flag 'Eropa: musim dingin'.", earth(540, 900, 260, axis=False), {"path": "M330 760 Q540 600 750 760", "colour": "white", "width": 40}, flag(600, 660, "Eropa: musim dingin"), {"cut": "Bumi berputar"})])
 
-shot("s06", "miring", "diagram", 16.0, 20.0, "Rahasianya ada di sini: sumbu Bumi *miring*, sekitar dua puluh tiga koma empat derajat.",
+shot("s06", "miring", "wide", 18.97, 21.0, "Rahasianya ada di sini:",
+     teaches="Points at where the answer is: the Earth's axis.",
+     screen="The Earth turns on the table to show its wooden toothpick axis; the camera pushes in.",
+     motion="A quarter turn of the Earth (on twelves); camera push.", carries="The Earth.", transition="Continuous: the toothpick starts to tip.",
+     sound="A soft wooden rub as it turns.", check="The toothpick is clearly visible.",
+     frames=[fr(0, "The snowy Earth turns; the toothpick comes into view.", earth(540, 900, 240, axis=False), {"line": [540, 560, 540, 1240], "width": 8}, {"camera": "push"}),
+             fr(1, "Close: the Earth and its toothpick, upright for now.", earth(540, 920, 260, axis=False), {"line": [540, 540, 540, 1300], "width": 9}, {"cut": "tanpa potongan"})])
+
+shot("s06b", "miring", "diagram", 21.0, 25.37, "sumbu Bumi *miring*, sekitar dua puluh tiga koma empat derajat.",
      teaches="The real cause: Earth's axis is tilted about 23.4 degrees.",
-     screen="The Earth close, its wooden toothpick axis tilted; a paper protractor behind it with the angle between the toothpick and the upright marked '23,4°'.",
-     motion="The toothpick tips from upright to 23.4 degrees (on twelves); the paper protractor slides in; the angle arc draws.", carries="The tilted Earth.",
+     screen="The toothpick tips to 23.4 degrees; a paper protractor behind it marks the angle between the upright and the toothpick: '23,4°'.",
+     motion="The pick tips (on twelves); the protractor slides in; the arc draws.", carries="The tilted Earth.",
      transition="Pull back to the orbit.", sound="A wooden click as the pick tilts.", check="The drawn angle is 23.4 degrees.", facts=["f1"],
      frames=[fr(0, "The toothpick axis stands straight up.", earth(540, 920, 230, axis=False), {"line": [540, 560, 540, 1280], "width": 8}),
-             fr(0.6, "The axis tips to 23.4 degrees.", earth(540, 920, 230, lean=-1), {"line": [540, 560, 540, 700], "width": 3, "dashed": True}),
+             fr(0.5, "The axis tips to 23.4 degrees.", earth(540, 920, 230, lean=-1), {"line": [540, 560, 540, 700], "width": 3, "dashed": True}),
              fr(1, "The angle between upright and toothpick is labelled 23,4°.", earth(540, 920, 230, lean=-1), {"line": [540, 560, 540, 700], "width": 3, "dashed": True}, {"path": "M540 640 A 280 280 0 0 0 430 660", "width": 5, "colour": "orange"}, label(470, 600, "23,4°", 64), {"cut": "mundur ke orbit"})])
 
-shot("s07", "miring", "wide", 20.0, 24.0, "Miringnya selalu ke arah yang sama, sepanjang Bumi mengelilingi Matahari.",
-     teaches="The tilt keeps pointing the same way all the way round the orbit.",
-     screen="Pulled back: the Sun, the round orbit, the Earth at four places round it (June, September, December, March), each with its toothpick leaning the same way (parallel), a small paper arrow above each showing the same direction.",
-     motion="The Earth rolls round the orbit; ghost Earths are left at the four places; the toothpicks stay parallel.", carries="The orbit and the Earth.",
+shot("s07", "miring", "wide", 25.37, 27.6, "Miringnya selalu ke arah yang sama,",
+     teaches="The tilt keeps pointing the same way.",
+     screen="Pulled back: the Sun, the round orbit, the Earth on it; a paper arrow above the toothpick shows its direction.",
+     motion="The camera pulls back to the whole orbit; a paper arrow is stuck on above the toothpick.", carries="The orbit and the Earth.",
+     transition="Continuous: the Earth starts to roll round.", sound="A soft pull-back whoosh of air.", check="The arrow lines up with the toothpick.", facts=["f3"],
+     frames=[fr(0, "Pulling back from the Earth to the orbit.", sun(80), orbit(400, 200), earth(SUN[0] + 400, SUN[1], 45), {"camera": "pull"}),
+             fr(1, "A paper arrow along the toothpick.", sun(80), orbit(400, 200), earth(SUN[0] + 400, SUN[1], 45), {"arrow": [930, 860, 900, 790], "colour": "red"}, {"cut": "tanpa potongan"})])
+
+shot("s07b", "miring", "wide", 27.6, 30.03, "sepanjang Bumi mengelilingi Matahari.",
+     teaches="All the way round the orbit, the tilt points the same way.",
+     screen="The Earth rolls round the orbit; ghost Earths are left at June, September, December and March, each toothpick parallel, each with the same paper arrow.",
+     motion="The roll round (on twelves); the ghosts are pressed in at each quarter.", carries="The orbit and the Earth.",
      transition="The roll stops at the June place; the camera eases round.", sound="A gentle roll of clay on card.", check="All four toothpicks are parallel.", facts=["f3"],
-     frames=[fr(0, "The orbit; the Earth starts to roll.", sun(80), orbit(400, 200), earth(SUN[0] + 400, SUN[1], 45)),
+     frames=[fr(0, "The Earth starts round the orbit.", sun(80), orbit(400, 200), earth(SUN[0] + 400, SUN[1], 45)),
              fr(0.5, "Half way round: the axis still leans the same way.", sun(80), orbit(400, 200), earth(SUN[0] + 400, SUN[1], 45), earth(SUN[0], SUN[1] + 200, 45), {"move": [940, 1000, 640, 1180], "text": "arah sama"}),
              fr(1, "Four places, four parallel toothpicks.", sun(80), orbit(400, 200), earth(SUN[0] + 400, SUN[1], 45), earth(SUN[0], SUN[1] + 200, 45), earth(SUN[0] - 400, SUN[1], 45), earth(SUN[0], SUN[1] - 200, 45), {"cut": "berhenti di Juni"})])
 
@@ -181,6 +205,7 @@ shot("s10", "miring", "diagram", 32.6, 36.0, "Nah, enam bulan lagi, giliran bela
      motion="The Earth rolls half the orbit; the toothpick does not turn; flag in.", carries="The December Earth.",
      transition="The torch tips over to a slant.", sound="A roll, a flag knock.", check="The axis leans the same way as in s08; now the south faces the Sun.", facts=["f3"],
      frames=[fr(0, "The Earth rolling to the other side.", {"sun": [940, 900, 110]}, earth(440, 900, 220, light="right", lean=-1), {"move": [700, 600, 480, 600], "text": "setengah putaran"}),
+             fr(0.5, "December: the south half now faces the Sun.", {"sun": [940, 900, 110]}, earth(440, 900, 220, light="right", lean=-1), {"arrow": [800, 1040, 640, 1040], "colour": "yellow"}),
              fr(1, "Flag 'Desember'; 'selatan condong'.", {"sun": [940, 900, 110]}, earth(440, 900, 220, light="right", lean=-1), flag(220, 1180, "Desember"), label(520, 1220, "selatan condong", 48), {"cut": "senter dimiringkan"})])
 
 shot("s11", "miring", "compare", 36.0, 40.0, "Utara cuma kebagian sinar miring yang *menyebar*, dan itulah musim dingin.",
@@ -197,16 +222,26 @@ shot("s12", "indonesia", "diagram", 40.0, 42.8, "Terus, Indonesia gimana? Kita a
      screen="The clay Earth, face-on: a red clay band round its middle (the equator) and a tiny red-and-white flag 'Indonesia' stuck on it.",
      motion="The band is pressed on; the flag goes in with a wobble.", carries="The Earth with its band.", transition="Two clay figures appear on two small plates.",
      sound="A squish, a flag knock.", check="The flag sits on the band.", facts=["f6"],
-     frames=[fr(0, "The Earth with the equator band.", earth(540, 920, 250, axis=False), {"path": "M290 920 Q540 980 790 920", "colour": "red", "width": 16}),
+     frames=[fr(0, "The Earth face-on, bare, on the table.", earth(540, 920, 250, axis=False), table(1300)),
+             fr(0.4, "The Earth with the equator band.", earth(540, 920, 250, axis=False), {"path": "M290 920 Q540 980 790 920", "colour": "red", "width": 16}),
              fr(1, "The flag 'Indonesia' on the band.", earth(540, 920, 250, axis=False), {"path": "M290 920 Q540 980 790 920", "colour": "red", "width": 16}, flag(600, 950, "Indonesia"), {"cut": "dua piring"})])
 
-shot("s13", "indonesia", "compare", 42.8, 47.6, "Matahari siangnya tetap tinggi sepanjang tahun, makanya kita nggak kenal *musim dingin*.",
-     teaches="Near the equator the noon Sun stays high all year: no winter.",
-     screen=f"Two small plates on the table, each with a clay figure and a stick holding a little clay sun at the noon angle: 'Jakarta, paling rendah' at {round(JAKARTA_LOW)} degrees, 'Berlin, Desember' at {round(BERLIN_DEC)} degrees; the angles on paper cards.",
-     motion="The two little suns rise on their sticks to their angles (on twelves); the cards stick in.", carries="The two plates.",
-     transition="The plates slide away; the summary card.", sound="Two soft ticks.", check=f"Angles drawn at {round(JAKARTA_LOW)} and {round(BERLIN_DEC)} degrees.", facts=["f6", "f7"],
-     frames=[fr(0, "Two plates, two figures, the suns at the horizon.", {"path": "M120 1200 H500 M580 1200 H960", "width": 8}, {"person": [310, 1190, 170]}, {"person": [770, 1190, 170]}),
-             fr(0.5, "The suns rise to their noon angles.", {"path": "M120 1200 H500 M580 1200 H960", "width": 8}, {"person": [310, 1190, 170]}, {"person": [770, 1190, 170]}, {"sun": [310 + 230 * 0.5, 1190 - 230 * 0.87, 36]}, {"sun": [770 + 230 * 0.97, 1190 - 230 * 0.24, 36]}),
+shot("s13", "indonesia", "compare", 53.07, 55.9, "Matahari siangnya tetap tinggi sepanjang tahun,",
+     teaches="Near the equator the noon Sun stays high all year.",
+     screen=f"A small plate on the table: a clay figure 'Jakarta' and a stick holding a little clay sun; through the year it swings only between overhead and {round(JAKARTA_LOW)} degrees.",
+     motion="The little sun rises to its noon height and sways a little (June to December) without dropping low.", carries="The Jakarta plate.",
+     transition="A second plate slides in beside it.", sound="A soft tick as the sun sets on its stick.", check=f"The lowest angle drawn is {round(JAKARTA_LOW)} degrees.", facts=["f6", "f7"],
+     frames=[fr(0, "The Jakarta plate, the sun low at the horizon.", {"path": "M300 1200 H780", "width": 8}, {"person": [540, 1190, 200]}, label(540, 1300, "Jakarta", 44)),
+             fr(0.5, "The sun high overhead at noon.", {"path": "M300 1200 H780", "width": 8}, {"person": [540, 1190, 200]}, {"sun": [560, 900, 40]}, label(540, 1300, "Jakarta", 44)),
+             fr(1, "At its lowest, still 60° up.", {"path": "M300 1200 H780", "width": 8}, {"person": [540, 1190, 200]}, {"sun": [540 + 270 * 0.5, 1190 - 270 * 0.87, 40]}, label(540, 1300, f"Jakarta · ≥ {round(JAKARTA_LOW)}°", 44), {"cut": "piring kedua"})])
+
+shot("s13b", "indonesia", "compare", 55.9, 58.51, "makanya kita nggak kenal *musim dingin*.",
+     teaches="Compared with Europe in December, our noon Sun never drops low: no winter.",
+     screen=f"Two plates side by side: Jakarta's sun at {round(JAKARTA_LOW)} degrees or more, Berlin's in December at {round(BERLIN_DEC)} degrees, low and pale; snow on the Berlin plate.",
+     motion="The Berlin sun sinks to its angle; snow lands on its plate.", carries="The two plates.",
+     transition="The plates slide away; the summary card.", sound="A soft wind for Berlin.", check=f"Angles drawn at {round(JAKARTA_LOW)} and {round(BERLIN_DEC)} degrees.", facts=["f6", "f7"],
+     frames=[fr(0, "Two plates, Jakarta and Berlin.", {"path": "M120 1200 H500 M580 1200 H960", "width": 8}, {"person": [310, 1190, 170]}, {"person": [770, 1190, 170]}, {"sun": [310 + 230 * 0.5, 1190 - 230 * 0.87, 36]}),
+             fr(0.5, "Berlin's sun sinks low.", {"path": "M120 1200 H500 M580 1200 H960", "width": 8}, {"person": [310, 1190, 170]}, {"person": [770, 1190, 170]}, {"sun": [310 + 230 * 0.5, 1190 - 230 * 0.87, 36]}, {"sun": [770 + 230 * 0.97, 1190 - 230 * 0.24, 36]}),
              fr(1, "Cards on each plate: Jakarta 60° and Berlin 14°.", {"path": "M120 1200 H500 M580 1200 H960", "width": 8}, {"person": [310, 1190, 170]}, {"person": [770, 1190, 170]}, {"sun": [310 + 230 * 0.5, 1190 - 230 * 0.87, 36]}, {"sun": [770 + 230 * 0.97, 1190 - 230 * 0.24, 36]}, label(310, 1300, f"Jakarta · ≥ {round(JAKARTA_LOW)}°", 40), label(770, 1300, f"Berlin, Des · {round(BERLIN_DEC)}°", 40), {"cut": "kartu rangkuman"})])
 
 shot("s14", "recap", "recap", 47.6, 51.2, "Jadi musim itu soal *miringnya* Bumi, bukan jaraknya.",
@@ -223,7 +258,8 @@ shot("s15", "recap", "wide", 51.2, 53.0, "Dan itu sebabnya, tiap bulan Desember,
      screen="The camera rises back up the table to the opening: the snowy village with its flag, the beach below, the same framing as frame 0.",
      motion="A camera crane up from the table to the village; snow starts falling again a moment before frame 0.", carries="Into s01.", transition="No cut: the film loops straight into s01.",
      sound="The bed runs on into the opening.", check="The last frame matches frame 0 (check.mjs SSIM).",
-     frames=[fr(0, "Rising from the table.", table(1300), {"camera": "up"}, BEACH),
+     frames=[fr(0, "The summary card slides away; the table again.", table(1300), {"camera": "up"}),
+             fr(0.5, "Rising from the table past the beach.", table(1300), {"camera": "up"}, BEACH),
              fr(1, "The opening picture, a moment before frame 0.", table(1300), VILLAGE, flag(560, 760, "Eropa · Desember"), {"cut": "loop ke s01"})])
 
 duration = shots[-1]["end"]

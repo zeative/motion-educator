@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Kenapa ada musim?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
     <script type="importmap">
@@ -13,10 +13,10 @@
   </head>
   <body>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
-      </section>
+      <!-- One tabletop set, filmed in stop motion: every thing in it is clay (kit/engine/clay.js), every label a paper
+           flag. The scene section only carries the captions' layer above the 3D. -->
+      <canvas id="space" width="1080" height="1920"></canvas>
+      <section class="scene" id="set"></section>
     </div>
     <script type="module" src="film.js"></script>
   </body>

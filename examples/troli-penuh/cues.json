@@ -1,6 +1,33 @@
 {
-  "music": { "file": "lib/music/xceed_thru_johann.mp3", "start": 0.679, "lufs": -18, "fade_in": 0.01, "fade_out": 2.4, "duck_db": -6 },
+  "music": {"fade_out": 0.6, "file": "../../examples/troli-penuh/music/bed.mp3", "start": 0, "lufs": -22, "fade_in": 0.01, "duck_db": -6, "note": "Composed for this film (ElevenLabs Music, the prompt in music/bed.json); -22 LUFS under the voice."},
   "events": [
-    { "t": 1.75, "file": "lib/sfx/shimmer_1.mp3", "db": -18, "align": "peak", "note": "light crosses the title" }
+    {"t": 1.15, "file": "lib/sfx/pop_1.mp3", "db": -16, "align": "peak", "note": "the shove: the trolley gives a little"},
+    {"t": 3.897, "file": "lib/sfx/alert_1.mp3", "db": -17, "align": "peak", "note": "the crossed-out lift arrow"},
+    {"t": 5.047, "file": "lib/sfx/pop_2.mp3", "db": -13, "align": "peak", "note": "the question mark"},
+    {"t": 5.8, "file": "lib/sfx/card_1.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s03)"},
+    {"t": 6.95, "file": "lib/sfx/tick_1.mp3", "db": -15, "align": "peak", "note": "the weight arrows land on the wheels"},
+    {"t": 10.17, "file": "lib/sfx/whoosh_fast_1.mp3", "db": -19, "align": "peak", "note": "the marker swipe under 'kelembaman'"},
+    {"t": 11.48, "file": "lib/sfx/card_2.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s05)"},
+    {"t": 12.58, "file": "lib/sfx/pop_1.mp3", "db": -16, "align": "peak", "note": "the shove that hardly moves it"},
+    {"t": 13.7, "file": "lib/sfx/card_3.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s06)"},
+    {"t": 17.0, "file": "lib/sfx/card_1.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s07)"},
+    {"t": 18.4, "file": "lib/sfx/tick_2.mp3", "db": -13, "align": "peak", "note": "the scale reads 21 kg"},
+    {"t": 20.34, "file": "lib/sfx/pop_3.mp3", "db": -11, "pan": -0.15, "align": "peak", "note": "shopping item 1 lands"},
+    {"t": 20.74, "file": "lib/sfx/pop_3.mp3", "db": -11, "pan": 0.0, "align": "peak", "note": "shopping item 2 lands"},
+    {"t": 21.14, "file": "lib/sfx/pop_3.mp3", "db": -11, "pan": 0.15, "align": "peak", "note": "shopping item 3 lands"},
+    {"t": 23.33, "file": "lib/sfx/pop_2.mp3", "db": -13, "align": "peak", "note": "3x and its marker"},
+    {"t": 24.12, "file": "lib/sfx/card_2.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s09)"},
+    {"t": 25.17, "file": "lib/sfx/whoosh_long_2.mp3", "db": -20, "align": "peak", "note": "both trolleys pushed off"},
+    {"t": 28.04, "file": "lib/sfx/card_3.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s10)"},
+    {"t": 28.14, "file": "lib/sfx/sub_drop_1.mp3", "db": -10, "align": "peak", "duck": 0.5, "note": "THE TURN: 'Masalahnya belum selesai'"},
+    {"t": 30.27, "file": "lib/sfx/whoosh_fast_4.mp3", "db": -17, "align": "peak", "note": "heels skid as it drags on"},
+    {"t": 32.42, "file": "lib/sfx/card_1.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s12)"},
+    {"t": 33.57, "file": "lib/sfx/whoosh_fast_6.mp3", "db": -16, "align": "peak", "note": "both start braking at the line"},
+    {"t": 34.362, "file": "lib/sfx/tick_1.mp3", "db": -14, "align": "peak", "note": "the empty trolley has stopped"},
+    {"t": 35.945, "file": "lib/sfx/tick_1.mp3", "db": -12, "align": "peak", "note": "the full one stops, three times further on"},
+    {"t": 36.26, "file": "lib/sfx/card_2.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s13)"},
+    {"t": 37.16, "file": "lib/sfx/success_2.mp3", "db": -15, "align": "peak", "note": "THE PAYOFF: 'massa' gets its marker"},
+    {"t": 38.71, "file": "lib/sfx/alert_2.mp3", "db": -18, "align": "peak", "trim": [0, 0.6], "fade": 0.3, "note": "'berat' crossed out"},
+    {"t": 39.66, "file": "lib/sfx/card_3.mp3", "db": -15, "align": "peak", "note": "fresh paper slides in (s14)"}
   ]
 }
