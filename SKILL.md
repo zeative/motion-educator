@@ -82,7 +82,10 @@ Read only the reference your current step needs.
    sound make it land. A first-time viewer with the sound off can say what they learned. The step the whole explanation turns on is drawn as a mechanism
    (what goes in, what it meets, what comes out, where it ends up), never left to the caption alone.
 4. **One clock.** Every animated value is a function of the timeline's time. No CSS animations, no
-   `requestAnimationFrame` loops, no `Date.now()`, no unseeded randomness.
+   `requestAnimationFrame` loops, no `Date.now()`, no unseeded randomness. The one exception is a library or an
+   effect that keeps its own time (a Lottie player, a particle system, a CSS keyframe, a `<video>`): set
+   `"clock": "virtual"` in the storyboard and the renderer runs the page's timers, frames, animations and video on
+   the film's time (`kit/engine/clock.js`, from reanimate). `Math.random` is seeded in every render either way.
 5. **The storyboard is the source of time.** The film reads shot starts and ends from `storyboard.json`; captions
    and the chapter rail are generated from it. Change the plan there, never by hand in the film. In a film that
    speaks, the recorded take writes those times (`voice.mjs`).

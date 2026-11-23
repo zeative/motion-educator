@@ -59,6 +59,11 @@ const plan = existsSync(join(film, "storyboard.json")) ? JSON.parse(readFileSync
 const lookFile = plan.template ? join(workspace, "templates", plan.template, "template.json") : null;
 if (lookFile && !existsSync(lookFile)) throw new Error(`the storyboard names the template "${plan.template}", but ${lookFile} is missing`);
 const look = lookFile ? JSON.parse(readFileSync(lookFile, "utf8")) : {};
+// The page's own clock (kit/engine/clock.js, from reanimate). Math.random is always seeded, so whatever a film scatters
+// as it loads is the same in every browser that renders a segment. With "clock": "virtual" in the storyboard, timers,
+// requestAnimationFrame, CSS and Web Animations, <video> and Date follow the film's time too.
+const CLOCK = readFileSync(join(workspace, "kit", "engine", "clock.js"), "utf8").trim().replace(/;$/, "");
+const virtualClock = plan.clock === "virtual";
 const [W, H] = (flag("--size") ?? plan.format ?? "1920x1080").split("x").map(Number);
 if (!(W > 0 && H > 0) || W % 2 || H % 2) throw new Error(`the frame size "${W}x${H}" must be two even numbers, like 1920x1080`);
 
@@ -85,6 +90,7 @@ if (args.includes("--serve")) {
   async function openFilm() {
     const browser = await chromium.launch({ args: GL.args, env: { ...process.env, ...GL.env } });
     const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+    await page.addInitScript({ content: `(${CLOCK})(${JSON.stringify({ virtual: virtualClock, seed: plan.seed ?? 1, rafHz: fps, freezeAtStart: virtualClock })});` });
     // Capture through the DevTools protocol with its fast encoder: the same JPEG bytes, a third less time.
     page.capture = await page.context().newCDPSession(page);
     const problems = [];
@@ -101,7 +107,12 @@ if (args.includes("--serve")) {
     page.on("response", (response) => response.status() >= 400 && problems.push(`${response.status()} for ${response.url()}`));
     await page.goto(url);
     try {
-      await page.waitForFunction(() => window.__ready && [...document.images].every((img) => img.complete), null, { timeout: 120000 });
+      // Polled from here, not from the page: under a virtual clock the page's own timers wait for the renderer.
+      const until = Date.now() + 120000;
+      while (!(await page.evaluate(() => Boolean(window.__ready) && [...document.images].every((img) => img.complete)))) {
+        if (Date.now() > until) throw new Error("timeout");
+        await new Promise((wait) => setTimeout(wait, 100));
+      }
     } catch {
       // The film never said it was ready: say why, instead of a bare timeout.
       const state = await page.evaluate(() => ({ ready: Boolean(window.__ready), images: [...document.images].filter((img) => !img.complete).map((img) => img.src) })).catch(() => null);
@@ -124,14 +135,29 @@ if (args.includes("--serve")) {
     return { browser, page };
   }
   const grab = async (page) => Buffer.from((await page.capture.send("Page.captureScreenshot", { format: "jpeg", quality: 98, optimizeForSpeed: true })).data, "base64");
-  const seek = (page, time) =>
-    page.evaluate((t) => {
+  // Under a virtual clock the page's time only moves forward: each browser advances it to the frame's time (a segment
+  // that starts at 40 s first runs the clock through the 40 s before it, without drawing them).
+  const advance = (page, time) =>
+    page.evaluate(async (ms) => {
+      const clock = window.__mcClock;
+      clock.base ??= clock.now();
+      const target = clock.base + ms;
+      if (target < clock.now() - 0.5) throw new Error("the virtual clock cannot run backwards: render frames in time order");
+      if (target > clock.now()) await clock.advance(target - clock.now());
+    }, time * 1000).then(async () => {
+      // A <video> still seeking or a worker still answering holds the frame (waited out on this side's real clock).
+      for (let i = 0; i < 100 && (await page.evaluate(() => window.__mcClock.busy())) > 0; i++) await new Promise((wait) => setTimeout(wait, 20));
+    });
+  const seek = async (page, time) => {
+    if (virtualClock) await advance(page, time);
+    await page.evaluate((t) => {
       if (window.__seek) window.__seek(t);
       else {
         window.__timelines.root.time(t);
         window.__frame();
       }
     }, time);
+  };
   const ffmpeg = (ffmpegArgs, stdin = "ignore") => {
     const child = spawn("ffmpeg", ["-y", "-loglevel", "error", ...ffmpegArgs], { stdio: [stdin, "inherit", "inherit"] });
     const done = new Promise((ok, fail) => {

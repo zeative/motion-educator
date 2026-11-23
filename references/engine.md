@@ -51,6 +51,8 @@ film.finish();                                     // always last
 | `captions({ style })`, `chapters({ from, until })` | generated from the storyboard; captions keep time with the narration when there is one (`voice.md`) |
 | `each(fn)` | a job run on every frame, after the timeline: draw canvases and anything GSAP cannot hold |
 | `stage` | the stage's state: `lx ly glow r g b floor horizon camx camy pr ps flash streak silk` |
+| `look` | the visual template the storyboard names (`templates/<key>/template.json`): `stage`, `palette`, `ink`, `paper`, `stepped`, `type`; the house look when it names none |
+| `held(t)` | the time a stepped template's picture shows at `t` (it advances `look.stepped` times a second); use it for anything drawn in `each()` |
 
 `tl` is the timeline itself: use `tl.to(...)`, `tl.set(...)`, `tl.fromTo(...)` for everything else.
 
@@ -181,4 +183,15 @@ What was learned about speed on a machine with no GPU (four cores, Mesa lavapipe
   (`--segment 1`) for short films, so every core gets one.
 - Measured: a 4 s, 1080x1920, 60 fps 3D test (shadows, depth of field) took 91 s on a 10-core worker against
   320 s on a busy 4-core machine.
+
+## Visual templates and the page clock
+
+| File | Does |
+| --- | --- |
+| `kit/engine/look.js` | applies the storyboard's `"template"` before anything is drawn: `templates/<key>/look.css` (type, colours, caption skin), `data-look` and `data-flat` on the page, and `template.json` |
+| `kit/engine/backdrops.js` | the stages that are not graphite: `paper`, `board`, `whiteboard`, `blueprint`, `flat`, `neon`, or `none` for a 3D or pixel layer that draws the whole frame. Painted once, seeded, and moved a fifth of the camera's travel |
+| `kit/engine/clock.js` | the page clock from reanimate (MIT). Always: a seeded `Math.random`. With `"clock": "virtual"`: timers, `requestAnimationFrame`, CSS and Web Animations, `<video>` and `Date` run on the film's time, advanced by the renderer frame by frame |
+
+A stepped template (`"stepped": 12` for stop motion and drawings on twos) holds its picture between steps; the
+renderer draws a held frame once and repeats it. The finishing pass (bloom, grain) follows `template.json` `finish`.
 
