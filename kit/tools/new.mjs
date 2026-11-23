@@ -64,12 +64,13 @@ if (template) {
 }
 if (portrait) {
   const plan = join(film, "storyboard.json");
-  // A short is replayed: it loops by default (references/narration.md, "The loop").
+  // A short is replayed: it loops by default (references/narration.md, "The loop"). Its captions pop in under the
+  // picture, where every template's caption skin (its strip, box or dialog) is made to sit.
   writeFileSync(
     plan,
     readFileSync(plan, "utf8")
       .replace('"format": "1920x1080"', '"format": "1080x1920"')
-      .replace('"standard": 3,', '"standard": 3,\n  "captions": "frame",\n  "loop": { "line": "How the last line runs on into the first: say both, as one sentence.", "picture": "How the last shot ends on the first shot\'s picture." },'),
+      .replace('"standard": 3,', '"standard": 3,\n  "captions": "pop",\n  "loop": { "line": "How the last line runs on into the first: say both, as one sentence.", "picture": "How the last shot ends on the first shot\'s picture." },'),
   );
 }
 console.log(`made ${film}${template ? ` in the ${template.name} template (read templates/${template.key}/template.md)` : ""}\nnext: write ${join(film, "storyboard.json")}, then: node kit/tools/storyboard.mjs films/${name} --png`);

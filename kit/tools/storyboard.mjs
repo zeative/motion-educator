@@ -6,7 +6,8 @@
 //   node kit/tools/storyboard.mjs films/NAME --png      also write storyboard/storyboard-01.png ... (needs Playwright)
 //
 // Exit code 1 when a rule is broken. Nothing is built until this passes and the person has seen the board.
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -381,7 +382,15 @@ if (args.includes("--png")) {
   await page.goto(pathToFileURL(join(film, "storyboard.html")).href);
   await page.evaluate(() => document.fonts.ready);
   const sections = await page.locator(".page").all();
-  for (const [i, section] of sections.entries()) await section.screenshot({ path: join(dir, `storyboard-${String(i + 1).padStart(2, "0")}.png`) });
+  for (const [i, section] of sections.entries()) {
+    const file = join(dir, `storyboard-${String(i + 1).padStart(2, "0")}.png`);
+    await section.screenshot({ path: file });
+    // A board is pencil on paper: 96 colours hold it, at a third of the size (FFmpeg, which the kit needs anyway).
+    // Without FFmpeg the full-colour page stays.
+    const small = `${file}.pal.png`;
+    const r = spawnSync("ffmpeg", ["-v", "error", "-y", "-i", file, "-vf", "split[a][b];[a]palettegen=max_colors=96:stats_mode=full[p];[b][p]paletteuse=dither=none", "-pix_fmt", "pal8", small]);
+    if (r.status === 0 && existsSync(small)) renameSync(small, file);
+  }
   await browser.close();
   console.log(`${sections.length} pages in ${dir}`);
 }
