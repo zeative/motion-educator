@@ -614,4 +614,12 @@ svg.ink circle {
   background: var(--accent);
   box-shadow: none;
 }
+/* A drawn look marks a caption's key word its own way (templates/<key>/look.css: a marker swipe, an underline, a
+   colour): the house's selection frame with corner handles is not drawn over it. */
+:root[data-flat] .caption.frame .kf {
+  display: none;
+}
+:root[data-flat] .caption.frame .cw.key {
+  text-shadow: none;
+}
 

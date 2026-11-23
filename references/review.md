@@ -11,7 +11,17 @@ After each shot, render a still from its middle and one from each transition, an
 node kit/tools/render.mjs films/NAME --stills 1.5,4.2,7.9
 ```
 
-Compare each with its drawn frame in the storyboard, and run the five checks at the end of `detail.md` (the crop
+When the film is made in a visual template, check the look on the first stills, before anything else is built:
+
+```sh
+node kit/tools/lookmatch.mjs films/NAME
+```
+
+It measures the stills and the template's golden stills the same way (background, ink, palette, lightness,
+colourfulness, how much is line, grain) and writes `out/lookmatch/lookmatch.png`, the two side by side. A `DRIFT`
+names what to fix. A film that is right in every number can still be wrong: look at the sheet.
+
+Compare each still with its drawn frame in the storyboard, and run the five checks at the end of `detail.md` (the crop
 test, the parts count, no placeholders, the camera log, side by side with the bar). Check: is the subject where the frame put it; is anything
 clipped, overlapping or unreadable; is the frame mostly empty; did a bright thing blow out; is the lettering the
 right size. Do not start a full render with a shot you have not looked at.
@@ -23,11 +33,13 @@ node kit/tools/check.mjs films/NAME
 ```
 
 It writes contact sheets (a frame every half second) to `out/sheets/`, counts frozen time (stretches where nothing
-moves) and, when the mixed film exists, reads its loudness. Look at every sheet.
+moves), checks the look against the template (as above, now with the drawing rate: a stepped template must hold its
+drawings) and, when the mixed film exists, reads its loudness. Look at every sheet.
 
 | Check | Target |
 | --- | --- |
 | Frozen time | none over 0.6 s, except the last frame |
+| Look | no `DRIFT` against the template; a stepped template changes its picture `stepped` times a second (within 2) |
 | Frame count and length | exactly duration x fps; the file decodes without errors |
 | Loudness | about -14 LUFS integrated, true peak under -1 dBFS, measured on the encoded file |
 | Sounds on events | each lands within a frame or two of its picture; each lifts at least about 5 dB over the half second before it |

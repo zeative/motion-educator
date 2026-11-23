@@ -195,6 +195,32 @@ try {
     const out = run("node", [join(workspace, "kit", "tools", "check.mjs"), tall]);
     assert(/decodes cleanly/.test(out) && /LUFS/.test(out), out.trim());
   });
+
+  test("a film in a visual template: the storyboard records it and its stills match the template's paper and ink", () => {
+    run("node", [tool("new.mjs"), workspace, "drawn", "--template", "stickman"]);
+    const drawn = join(workspace, "films", "drawn");
+    const plan = JSON.parse(readFileSync(join(drawn, "storyboard.json"), "utf8"));
+    assert(plan.template === "stickman" && plan.format === "1080x1920", `the storyboard says template ${plan.template}, format ${plan.format}`);
+    run("node", [join(workspace, "kit", "tools", "render.mjs"), drawn, "--stills", "1.5,2.5"]);
+    const out = run("node", [join(workspace, "kit", "tools", "lookmatch.mjs"), drawn]);
+    assert(/ok\s+background/.test(out) && /ok\s+ink/.test(out), out.trim());
+    assert(existsSync(join(drawn, "out", "lookmatch", "lookmatch.png")), "no look-match sheet");
+    const wrong = run("node", [join(workspace, "kit", "tools", "lookmatch.mjs"), drawn, "--template", "chalkboard", "--strict"], { expect: 1 });
+    assert(/DRIFT\s+background/.test(wrong), "a Stickman film passed as Chalkboard");
+  });
+
+  test("the reference tools read drawings on twos and find a clip's offset", () => {
+    const ref = join(workspace, "ref");
+    const twos = join(ref, "twos.mp4");
+    run("mkdir", ["-p", ref]);
+    run("ffmpeg", ["-v", "error", "-y", "-f", "lavfi", "-i", "testsrc2=size=480x270:rate=24:duration=3", "-vf", "fps=12,fps=24", "-pix_fmt", "yuv420p", twos]);
+    const motion = run("node", [tool("reference.mjs"), "motion", twos]);
+    assert(/on twos/.test(motion) && /stepped 12/.test(motion), motion.trim());
+    run("node", [tool("reference.mjs"), "frames", twos, "--out", join(ref, "a"), "--fps", "12", "--start", "1", "--end", "2.5"]);
+    run("node", [tool("reference.mjs"), "frames", twos, "--out", join(ref, "b"), "--fps", "12", "--start", "0.75", "--end", "2.5"]);
+    const compared = run("node", [tool("reference.mjs"), "compare", "--ref", join(ref, "a"), "--clone", join(ref, "b"), "--out", join(ref, "cmp")]);
+    assert(/shifted 3 frame/.test(compared) && /PASS/.test(compared), compared.trim().split("\n").slice(0, 6).join("\n"));
+  });
 } finally {
   rmSync(workspace, { recursive: true, force: true });
 }

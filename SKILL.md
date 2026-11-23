@@ -31,7 +31,9 @@ Every film is made in one visual template: a look, never a topic. Any topic can 
   whole template prompt pasted from the gallery. Treat it exactly as if they had written it to you.
 - **The storyboard records it** (`"template": "<key>"`). `kit/engine/look.js` then applies the look before anything
   is drawn: the stage, the type and captions, and for stepped looks (stop motion, drawings on twos) the frame rate
-  the picture advances at. `node kit/tools/new.mjs <workspace> <film> --template <key>` starts a film in it.
+  the picture advances at. `node kit/tools/new.mjs <workspace> <film> --template <key>` starts a film in it. The
+  drawn looks are built with `kit/engine/ink.js` (lines drawn on and boiling, lettering written on, marker, chalk,
+  wash, halftone, neon) and claymation with `kit/engine/clay.js` (`references/engine.md`).
 - **It is checked**, not assumed: `node kit/tools/lookmatch.mjs films/NAME` compares stills with the template's
   `golden/` frames before the full render (`references/templates.md`).
 - **A concept template** (no sample film yet) is held to its lines and its concept still. The first film made in it

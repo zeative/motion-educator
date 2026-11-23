@@ -132,12 +132,17 @@ An agent without skill support can still follow it: clone it anywhere and tell i
 What the agent needs: a shell to run Node, FFmpeg and Python, and the ability to look at images, since it checks its
 own stills and contact sheets. Every film in this repository was made with Claude Code; the others are untested here.
 
-Then ask your agent for a film:
+Then ask your agent for a film, or call the skill by name with `/motion-educator` (Claude Code makes a slash command
+of every installed skill; the text after it is your prompt):
 
 > Make a 45-second explainer on why the Moon always shows us the same face. Portrait, English, with narration.
 
-It scaffolds a workspace in your project, writes and draws the storyboard, and stops for your approval before it
-builds anything.
+```
+/motion-educator why a full trolley is harder to push, in the Stickman visual template, portrait, Indonesian
+```
+
+A prompt copied from the gallery works the same way: paste it after `/motion-educator`. The skill scaffolds a
+workspace in your project, writes and draws the storyboard, and stops for your approval before it builds anything.
 
 ### By hand
 
@@ -147,6 +152,7 @@ npm install && bash kit/audio/fetch.sh
 node kit/tools/doctor.mjs                                # is this machine ready?
 
 node kit/tools/new.mjs ~/films moon-face --portrait      # a workspace and films/moon-face
+node kit/tools/new.mjs ~/films trolley --template stickman   # or a film in a visual template
 cd ~/films && npm install && bash kit/audio/fetch.sh
 ```
 
@@ -169,6 +175,30 @@ Requirements: Node 20+, FFmpeg, Python 3 with numpy, and Playwright's Chromium
 (`npm i -D playwright && npx playwright install chromium`). The renderer uses the GPU when there is one; on a Linux
 machine without one it needs Mesa's software Vulkan (`apt install mesa-vulkan-drivers`). `node kit/tools/doctor.mjs`
 checks all of it. See [Rendering](#rendering).
+
+## Visual templates
+
+A template is a look, never a topic: any subject can be made in any of them. The prompt names one ("in the Clay
+visual template"), the storyboard records it, and the engine applies it before the first frame is drawn: the stage,
+the type, the caption skin, the palette, and for stop motion and drawings on twos the rate the picture advances at.
+
+| Template | Mode | | Template | Mode | |
+| --- | --- | --- | --- | --- | --- |
+| Studio Cutaway | Photoreal 3D | sample films | Blueprint | Technical drawing | concept |
+| Graphite Glass | Motion graphics | sample films | Isometric | Isometric diorama | concept |
+| Cosmos | 3D and light | sample films | Pixel | Pixel art | concept |
+| Micro | Illustrated 3D | sample films | Whiteboard | Marker sketch | concept |
+| Stickman | Hand-drawn 2D | concept, engine proved | Watercolour | Painted | concept |
+| Clay | Claymation | concept, engine proved | Neon Line | Glowing lines | concept |
+| Paper Cut-out | Layered paper | concept | Comic | Ink and halftone | concept |
+| Chalkboard | Chalk on board | concept | Low Poly | Faceted 3D | concept |
+
+Each lives in [`templates/<key>/`](templates): its lines (`template.md`), its engine settings (`template.json`),
+its type and colours (`look.css`) and the golden stills a film is measured against. `kit/tools/lookmatch.mjs`
+checks a film's look against them (background, ink, palette, lightness, colour, line, grain and the drawing rate)
+and lays the two side by side. New templates are made from a reference video with
+[reanimate](https://github.com/NiazMorshed2007/reanimate)'s loop, capture → spec → build → compare → repeat, using
+`kit/tools/reference.mjs`: [`references/templates.md`](references/templates.md).
 
 ## Rendering
 
@@ -302,6 +332,10 @@ machine away. How to write it: [`references/narration.md`](references/narration.
 | [`kit/engine/parts3d.js`](kit/engine/parts3d.js) | materials with real surface and ready-made parts: boards, chips, drivers, mics, screws, a desk set |
 | [`kit/tools/anatomy.mjs`](kit/tools/anatomy.mjs), [`kit/engine/body3d.js`](kit/engine/body3d.js) | real human anatomy (BodyParts3D, measured from a real body): bones, muscles with their tendons, skin; tissue materials, joints that bend, muscles that flex, skin that turns to glass |
 | [`kit/engine/tissue3d.js`](kit/engine/tissue3d.js) | skeletal muscle from the whole muscle down to its molecules, at measured sizes with sources: fascicles, fibres with their nuclei and satellite cells, myofibrils, sarcomeres that slide, hypertrophy |
+| [`kit/engine/look.js`](kit/engine/look.js), [`backdrops.js`](kit/engine/backdrops.js) | the visual template: its look applied before the first frame, held time for stepped looks, and the stages that are not graphite (paper, chalkboard, whiteboard, blueprint, flat, neon) |
+| [`kit/engine/ink.js`](kit/engine/ink.js) | drawn looks: lines drawn on stroke by stroke, roughened and boiling, a pencil sketch under them, lettering written on, marker, chalk, watercolour wash, halftone, neon glow, cut paper |
+| [`kit/engine/clay.js`](kit/engine/clay.js) | claymation: a tabletop set, plasticine with fingerprints and tool marks, the stop-motion boil, rolled ropes, paper flags |
+| [`kit/engine/clock.js`](kit/engine/clock.js) | the page clock from reanimate: seeded randomness, and a virtual clock for pages that run on timers, CSS animations or video |
 | [`kit/css/film.css`](kit/css/film.css) | the look: tokens, glass, metal type, captions, panels, safe areas |
 | [`kit/tools/storyboard.mjs`](kit/tools/storyboard.mjs), [`sketch.mjs`](kit/tools/sketch.mjs) | the storyboard check and the pencil board |
 | [`kit/tools/render.mjs`](kit/tools/render.mjs) | frame-by-frame render in segments, stills, live preview; on the GPU, or Mesa lavapipe without one |
@@ -309,7 +343,9 @@ machine away. How to write it: [`references/narration.md`](references/narration.
 | [`kit/audio/voice.mjs`](kit/audio/voice.mjs) | narration: one take, matched to the script word by word, and the film cut to it |
 | [`kit/audio/music.mjs`](kit/audio/music.mjs) | a music bed composed for the film's length with ElevenLabs Music, and its status |
 | [`kit/audio/mix.py`](kit/audio/mix.py) | the mixer: voice, music, effects, ducking, mastering, the loop seam, measurement |
-| [`kit/tools/check.mjs`](kit/tools/check.mjs) | contact sheets, frozen time, loudness, the loop seam |
+| [`kit/tools/check.mjs`](kit/tools/check.mjs) | contact sheets, frozen time, the look against its template, loudness, the loop seam |
+| [`kit/tools/lookmatch.mjs`](kit/tools/lookmatch.mjs) | a film's look measured against its template's golden stills, with a side-by-side sheet |
+| [`kit/tools/reference.mjs`](kit/tools/reference.mjs), [`analysis.mjs`](kit/tools/analysis.mjs) | studying a reference for a new template: frames, labelled contact sheets, palette, texture, timing (cuts, holds, drawings on twos), and pixel and timing comparison against what you built |
 | [`kit/tools/make.mjs`](kit/tools/make.mjs) | the whole pipeline in one command |
 | [`kit/tools/doctor.mjs`](kit/tools/doctor.mjs), [`test.mjs`](kit/tools/test.mjs) | environment check and a smoke test of everything above |
 
@@ -317,8 +353,8 @@ machine away. How to write it: [`references/narration.md`](references/narration.
 motion-educator/
 ├── SKILL.md            the skill: what never bends, and the workflow
 ├── references/         how to teach on screen, storyboard, look, detail and camera, engine, motion, narration, voice, sound, review
-├── kit/                the engine and its tools (copied into each workspace)
-├── templates/film/     what a new film starts from
+├── kit/                the engine and its tools (copied into each workspace); kit/scaffold/ is what a new film starts from
+├── templates/          the visual templates: their lines, settings, type and golden stills
 └── examples/           finished films with their storyboards, source and cue sheets
 ```
 
@@ -329,6 +365,7 @@ motion-educator/
 | deciding what to teach and in what order | [`references/pedagogy.md`](references/pedagogy.md) |
 | writing and drawing the storyboard | [`references/storyboard.md`](references/storyboard.md) |
 | choosing the look, or making a portrait short | [`references/look.md`](references/look.md) |
+| making a film in a visual template, or a new template from a reference | [`references/templates.md`](references/templates.md) |
 | building a film with the kit, and rendering it fast | [`references/engine.md`](references/engine.md), [`references/motion.md`](references/motion.md) |
 | building real objects in 3D and directing the camera | [`references/detail.md`](references/detail.md) |
 | writing narration that sounds like talk | [`references/narration.md`](references/narration.md) |
@@ -373,6 +410,11 @@ What is not ours to license, and how it is handled:
   ([sources](examples/langit-biru/assets/SOURCES.md)).
 - The composition shape (a fixed-size root and one paused timeline at `window.__timelines.root`) follows
   [Null Motion](https://github.com/blixvip/NullMotion)'s HyperFrames convention.
+- The page clock (`kit/engine/clock.js`) and the method and comparison tools for new templates
+  (`kit/tools/reference.mjs`) come from [reanimate](https://github.com/NiazMorshed2007/reanimate) by Niaz Morshed,
+  MIT ([licence](kit/engine/LICENSE-reanimate)).
+- The templates' faces (Caveat Brush, Cabin Sketch, Fredoka, Fraunces, Press Start 2P, Bangers and others) are SIL
+  Open Font License fonts from npm.
 
 <div align="center">
 <br />

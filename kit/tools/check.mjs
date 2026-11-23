@@ -1,4 +1,5 @@
-// Measures a rendered film: contact sheets to look at, frozen time, and the loudness of the mixed film.
+// Measures a rendered film: contact sheets to look at, frozen time, the look against its template, and the loudness
+// of the mixed film.
 //
 //   node kit/tools/check.mjs films/NAME
 //
@@ -53,6 +54,12 @@ for (const sample of still) {
 }
 const long = runs.filter((run) => run.end - run.start >= 0.5);
 console.log(`frozen time: ${(still.length / 10).toFixed(1)} s in all${long.length ? `; holds of half a second or more at ${long.map((run) => `${run.start.toFixed(1)}-${run.end.toFixed(1)}`).join(", ")}` : "; no hold of half a second or more"}`);
+
+// The look against the visual template's golden stills (kit/tools/lookmatch.mjs), when the storyboard names one.
+if (plan?.template) {
+  const { lookmatch } = await import("./lookmatch.mjs");
+  console.log((await lookmatch(film)).lines.join("\n"));
+}
 
 // Loudness of the mixed film, read from the encoded file.
 const mixed = join(film, "out", `${basename(film)}.mp4`);
