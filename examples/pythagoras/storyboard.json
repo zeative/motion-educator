@@ -1,0 +1,6980 @@
+{
+  "title": "Kenapa a² + b² = c² selalu benar?",
+  "question": "Rumus Pythagoras itu kita hafal, tapi kenapa a kuadrat tambah b kuadrat selalu sama dengan c kuadrat di segitiga siku-siku mana pun?",
+  "audience": "Pelajar SMA di Indonesia dan orang dewasa yang penasaran. Mereka hafal a² + b² = c² dari SMP dan bisa memakainya, tapi kebanyakan belum pernah melihat kenapa rumus itu benar, dan menganggap 'kuadrat' cuma operasi hitung.",
+  "promise": "a² itu luas persegi bersisi a; empat segitiga siku-siku yang sama, disusun di persegi bersisi a + b, menyisakan c², dan disusun ulang menyisakan a² dan b², jadi c² = a² + b² untuk segitiga siku-siku apa pun.",
+  "template": "chalkboard",
+  "standard": 3,
+  "language": "id",
+  "format": "1920x1080",
+  "duration": 59.56,
+  "fps": 60,
+  "loop": {
+    "line": "Makanya, / di segitiga siku-siku mana pun, a kuadrat tambah b kuadrat pasti sama dengan c kuadrat.",
+    "picture": "The last shot slides back along the board to section A, which has not been touched since frame 0, and settles on frame 0's framing: the figure, the question and the formula."
+  },
+  "voice": {
+    "voice_id": "xlBOShi2835jfBgaEld4",
+    "name": "Rafiq",
+    "model": "eleven_v4",
+    "language": "id",
+    "direction": "[warmly]"
+  },
+  "look": {
+    "accent": "#f6d365",
+    "accent2": "#8fd3f4",
+    "mood": "The Chalkboard template: one long dark green board (#1f3b2d) in a wooden frame, faint smudges of old erased chalk, flat classroom light with a soft vignette and chalk-dust grain, no glow. White chalk (#f2f2ea) for everything; yellow chalk (#f6d365) only for c² and the point, blue chalk (#8fd3f4) only for a² and b², so the colour says which squares are the pieces and which is the whole. Every line and letter is drawn on stroke by stroke with grainy edges (ink.js drawOn and write under url(#chalk)); hatching for filled areas; corrections crossed out; a cloth wipe leaves a faint smear. Cabin Sketch for headings and the formula, numbers large and neat. The camera slides and pushes along the one board (stage.camx). Captions are short chalk lines; their key word in yellow (film.css should set --accent to #f6d365: look.css ships #9bd3ae, which is not in this template's palette)."
+  },
+  "music": {
+    "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
+    "bpm": 84,
+    "note": "A quiet classroom bed composed to the take's length: felt piano and soft pizzicato strings with a brushed pulse, no lead melody, low under the voice; it thins to piano alone under the proof (s11 to s16) and lifts gently on 'Artinya' (s17); its tail runs on over the opening so the loop is seamless. Effects per shot, from the template's Sound line: chalk taps on the right angle and each formula term (s01, s02), a scratch for each stroke and letter drawn (s04 to s18), quick ticks while the cells are counted (s07 to s09), long hatching strokes when a hole is filled (s13, s15), the soft wipe of the eraser cloth (s13, s14, s19), and the air of the board sliding by under s20. The cuts follow the take."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "In any right triangle the square on the side opposite the right angle (the hypotenuse c) equals the sum of the squares on the two other sides (the legs a and b): a² + b² = c². The film says it for 'segitiga siku-siku mana pun' and writes 'a² + b² = c²'.",
+      "source": "Euclid, Elements I.47, in D. E. Joyce's edition, Clark University (mathcs.clarku.edu/~djoyce/elements/bookI/propI47.html): 'In right-angled triangles the square on the side opposite the right angle equals the sum of the squares on the sides containing the right angle.' OpenStax Prealgebra 2e, §9.3 (openstax.org/books/prealgebra-2e/pages/9-3-use-properties-of-angles-triangles-and-the-pythagorean-theorem): 'In any right triangle, a² + b² = c², where c is the length of the hypotenuse and a and b are the lengths of the legs.'"
+    },
+    {
+      "id": "f2",
+      "claim": "a² is the area of a square with side a: a square is a rectangle with length = width = a, and a rectangle's area is length × width, which counts the unit squares that cover it. Euclid's own statement of the theorem is about these squares ('the square on the side'), not about a number squared.",
+      "source": "OpenStax Prealgebra 2e, §9.4 'Use Properties of Rectangles, Triangles, and Trapezoids' (area as the number of unit squares that cover a region; the rug 2 ft by 3 ft is 6 squares; area of a rectangle = L × W); Euclid I.47 as f1."
+    },
+    {
+      "id": "f3",
+      "claim": "The triangle with sides 3, 4 and 5 is a right triangle: 3² + 4² = 9 + 16 = 25 = 5² (by the converse of the theorem, Euclid I.48, the angle between the sides 3 and 4 is right). The square on 3 holds 3 × 3 = 9 unit squares, the one on 4 holds 4 × 4 = 16, the one on 5 holds 5 × 5 = 25. The same 3-4-5 case is drawn in the ancient Chinese 'hypotenuse diagram' of the Zhou bi suan jing (not shown in the film).",
+      "source": "Arithmetic; Euclid I.48 (Joyce, Clark University, mathcs.clarku.edu/~djoyce/elements/bookI/propI48.html); Joyce's note to I.47 on Plimpton 322 and the Zhou bi hypotenuse diagram ('the smallest of these is 3, 4, 5')."
+    },
+    {
+      "id": "f4",
+      "claim": "The rearrangement proof. A square of side a + b holds four copies of the right triangle (legs a, b). Placed at the four corners, they leave a tilted square of side c in the middle: area (a + b)² = 4 triangles + c². Moved (two of them slide, none turns or changes), they leave a square a × a and a square b × b: area (a + b)² = 4 triangles + a² + b². The big square and the four triangles are the same both times, so c² = a² + b². In the film's drawing a = 240 px and b = 320 px (the 3 : 4 triangle); triangle 3 slides by (−a, −b) and triangle 2 by (−b, +a), and the holes left are 240 × 240 and 320 × 320 (checked in storyboard.build.py: 4 × ½ab + a² + b² = (a + b)²).",
+      "source": "NRICH (University of Cambridge, Millennium Mathematics Project), 'Pythagoras Proofs', problem 6553, method 2 and its published solution (nrich.maths.org/problems/pythagoras-proofs): 'The area of the first square is given by (a+b)² or 4(½ab) + c². The area of the second square is given by (a+b)² or 4(½ab) + a² + b² ... Subtracting equals from both sides we have a² + b² = c².' Triangle area ½bh: OpenStax Prealgebra 2e §9.4."
+    },
+    {
+      "id": "f5",
+      "claim": "The middle shape is a true square: its four sides are each a hypotenuse c, and at each of its corners the two triangles' acute angles (x and y) and the square's corner make a straight line, 180°. The acute angles of a right triangle add up to 90° (the three angles of a triangle add up to 180°, one is 90°), so the corner is 180° − 90° = 90°. On screen: 'x + y = 90°' and 'jadi sudut ini juga 90°'.",
+      "source": "OpenStax Prealgebra 2e §9.3: 'For any ΔABC, the sum of the measures of the angles is 180°' and 'A right triangle has one 90° angle'. NRICH 'Pythagoras Proofs' solution, which points out this step (Lewis's diagram, 'x + y = 90°') as the piece a proof by this picture must not leave out."
+    },
+    {
+      "id": "f6",
+      "claim": "It holds only for right triangles: when the angle between a and b is obtuse, the square on the third side is larger than a² + b²; when it is acute, smaller (Euclid's geometric form of the law of cosines). The film says 'asal siku-siku' and rings the right angle; the proof needs it in f5.",
+      "source": "Euclid, Elements II.12 and II.13 (Joyce, Clark University, mathcs.clarku.edu/~djoyce/elements/bookII/propII12.html and propII13.html); Joyce's note to I.47: 'Propositions II.12 and II.13 consider triangles other than right triangles ... geometric forms of the law of cosines.'"
+    },
+    {
+      "id": "f7",
+      "claim": "The proof uses nothing but the legs a and b of one right triangle and four copies of it, so it works for every right triangle, flat or tall. The film's two other triangles are drawn with legs 64 and 296 px (gepeng) and 250 and 110 px (tinggi); their pairs follow the same two moves.",
+      "source": "NRICH 'Pythagoras Proofs' (as f4): the proof is written for general a, b, c; the mini figures are computed in storyboard.build.py."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "Pertanyaan",
+      "goal": "The rule everyone memorised, and why it always works.",
+      "rail": false
+    },
+    {
+      "id": "persegi",
+      "title": "Kuadrat = persegi",
+      "goal": "a² is a real square: its area is a times a.",
+      "rail": false
+    },
+    {
+      "id": "hitung",
+      "title": "3-4-5",
+      "goal": "Count one case: 9 + 16 = 25, then ask about every other triangle.",
+      "rail": false
+    },
+    {
+      "id": "bukti",
+      "title": "Bukti",
+      "goal": "Four identical triangles in a square of side a + b, moved: the leftover space is c², then a² + b².",
+      "rail": false
+    },
+    {
+      "id": "umum",
+      "title": "Semua siku-siku",
+      "goal": "The same moves work for any right triangle, flat or tall.",
+      "rail": false
+    },
+    {
+      "id": "jawab",
+      "title": "Jawaban",
+      "goal": "The leftover space only changes shape; then the bridge into the first line.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "wide",
+      "start": 0.0,
+      "end": 2.14,
+      "voice": "Di segitiga *siku-siku* mana pun,",
+      "caption": "segitiga *siku-siku*",
+      "teaches": "Opens on the rule the viewer already knows, over the figure that it is about: a right triangle with a square on each side.",
+      "screen": "The whole board, finished at frame 0: dark green chalkboard (#1f3b2d) with faint smudges of old chalk, a wooden frame round it. Left: a right triangle drawn in white chalk and lightly hatched (legs 3 and 4 in proportion, the right angle marked with a little square), a blue-chalk square on each leg labelled a² and b², a yellow-chalk square on the hypotenuse labelled c², sides lettered a, b, c. Right: 'Kok bisa / selalu pas?' in Cabin Sketch chalk lettering with 'selalu' underlined in yellow, and under it the formula 'a² + b² = c²' in large neat chalk figures.",
+      "motion": "Frame 0 is the finished board (nothing half-drawn). The camera pushes in slowly (about 1.4x) toward the right angle; on 'siku-siku' the chalk taps the little square twice, leaving two puffs of dust.",
+      "carries": "The figure and the formula on section A of the board.",
+      "transition": "The camera slides right along the board to the formula.",
+      "sound": "The quiet bed starts under the first word; two chalk taps on 'siku-siku'.",
+      "check": "Frame 0 is complete and readable; the triangle is clearly right-angled; only white, yellow and blue chalk.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Frame 0: the finished board, the figure left, the question and the formula right.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "a",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "c",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "a²",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "b²",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                775,
+                379
+              ],
+              "text": "c²",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1470,
+                220
+              ],
+              "text": "Kok bisa",
+              "size": 92
+            },
+            {
+              "label": [
+                1470,
+                322
+              ],
+              "text": "selalu pas?",
+              "size": 92
+            },
+            {
+              "path": "M1290 344 C 1359 350, 1451 340, 1520 346",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "title": [
+                1470,
+                560
+              ],
+              "text": "a² + b² = c²",
+              "size": 104
+            }
+          ]
+        },
+        {
+          "at": 0.55,
+          "note": "The camera pushes in toward the triangle.",
+          "draw": [
+            {
+              "path": "M876 296 L876 548 L1212 548 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M876 526 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M624 296 L876 296 L876 548 L624 548 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M876 548 L1212 548 L1212 884 L876 884 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M876 296 L1212 548 L1464 212 L1128 -40 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                895,
+                442
+              ],
+              "text": "a",
+              "size": 55,
+              "align": "start"
+            },
+            {
+              "label": [
+                1061,
+                531
+              ],
+              "text": "b",
+              "size": 55
+            },
+            {
+              "label": [
+                1018,
+                458
+              ],
+              "text": "c",
+              "size": 55
+            },
+            {
+              "label": [
+                750,
+                448
+              ],
+              "text": "a²",
+              "size": 77,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1044,
+                742
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1170,
+                283
+              ],
+              "text": "c²",
+              "size": 89,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                2004,
+                92
+              ],
+              "text": "Kok bisa",
+              "size": 110
+            },
+            {
+              "label": [
+                2004,
+                214
+              ],
+              "text": "selalu pas?",
+              "size": 110
+            },
+            {
+              "title": [
+                2004,
+                500
+              ],
+              "text": "a² + b² = c²",
+              "size": 125
+            },
+            {
+              "path": "M1788 241 C 1871 247, 1981 237, 2064 243",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Close on the right angle: two chalk taps on its little square.",
+          "draw": [
+            {
+              "path": "M916 254 L916 558 L1322 558 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M916 536 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M612 254 L916 254 L916 558 L612 558 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M916 558 L1322 558 L1322 964 L916 964 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M916 254 L1322 558 L1627 152 L1221 -152 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                940,
+                430
+              ],
+              "text": "a",
+              "size": 67,
+              "align": "start"
+            },
+            {
+              "label": [
+                1140,
+                538
+              ],
+              "text": "b",
+              "size": 67
+            },
+            {
+              "label": [
+                1088,
+                449
+              ],
+              "text": "c",
+              "size": 67
+            },
+            {
+              "label": [
+                764,
+                438
+              ],
+              "text": "a²",
+              "size": 93,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1120,
+                793
+              ],
+              "text": "b²",
+              "size": 102,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1272,
+                238
+              ],
+              "text": "c²",
+              "size": 107,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                2280,
+                7
+              ],
+              "text": "Kok bisa",
+              "size": 133
+            },
+            {
+              "label": [
+                2280,
+                155
+              ],
+              "text": "selalu pas?",
+              "size": 133
+            },
+            {
+              "title": [
+                2280,
+                500
+              ],
+              "text": "a² + b² = c²",
+              "size": 151
+            },
+            {
+              "path": "M2018 187 C 2119 193, 2252 183, 2352 189",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "dot": [
+                960,
+                500,
+                10
+              ],
+              "colour": "white"
+            },
+            {
+              "cut": "geser ke rumus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "hook",
+      "type": "type",
+      "start": 2.14,
+      "end": 5.86,
+      "voice": "a kuadrat tambah b kuadrat pasti sama dengan *c kuadrat*.",
+      "teaches": "States the rule as the formula on the board, term by term.",
+      "screen": "Section A, the camera on the formula 'a² + b² = c²' in large chalk figures (about 140 px high on screen); a² and b² in white with their blue squares just in view at left, c² in white.",
+      "motion": "The camera slides right and steadies on the formula; as each term is said the chalk taps under it (a², b², then c²), a puff of dust each time. Nothing new is written: section A stays as frame 0 drew it.",
+      "carries": "The formula.",
+      "transition": "The camera pulls back to the whole board.",
+      "sound": "Three soft chalk taps, one a term.",
+      "check": "The formula is the largest thing on screen and reads at a glance.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Sliding right from the triangle to the formula.",
+          "draw": [
+            {
+              "path": "M349 331 L349 604 L713 604 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M349 582 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M76 331 L349 331 L349 604 L76 604 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M349 604 L713 604 L713 968 L349 968 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M349 331 L713 604 L986 240 L622 -33 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                370,
+                489
+              ],
+              "text": "a",
+              "size": 60,
+              "align": "start"
+            },
+            {
+              "label": [
+                549,
+                586
+              ],
+              "text": "b",
+              "size": 60
+            },
+            {
+              "label": [
+                502,
+                506
+              ],
+              "text": "c",
+              "size": 60
+            },
+            {
+              "label": [
+                212,
+                496
+              ],
+              "text": "a²",
+              "size": 83,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                531,
+                815
+              ],
+              "text": "b²",
+              "size": 91,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                668,
+                317
+              ],
+              "text": "c²",
+              "size": 96,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1571,
+                110
+              ],
+              "text": "Kok bisa",
+              "size": 120
+            },
+            {
+              "label": [
+                1571,
+                243
+              ],
+              "text": "selalu pas?",
+              "size": 120
+            },
+            {
+              "title": [
+                1571,
+                552
+              ],
+              "text": "a² + b² = c²",
+              "size": 135
+            },
+            {
+              "path": "M1337 271 C 1427 277, 1546 267, 1636 273",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 0.45,
+          "note": "On the formula; the chalk taps under a² and b².",
+          "draw": [
+            {
+              "path": "M-309 324 L-309 608 L69 608 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M-309 586 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M-593 324 L-309 324 L-309 608 L-593 608 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M-309 608 L69 608 L69 986 L-309 986 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M-309 324 L69 608 L352 230 L-26 -54 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                -287,
+                489
+              ],
+              "text": "a",
+              "size": 62,
+              "align": "start"
+            },
+            {
+              "label": [
+                -101,
+                589
+              ],
+              "text": "b",
+              "size": 62
+            },
+            {
+              "label": [
+                -150,
+                507
+              ],
+              "text": "c",
+              "size": 62
+            },
+            {
+              "label": [
+                -451,
+                496
+              ],
+              "text": "a²",
+              "size": 86,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                -120,
+                827
+              ],
+              "text": "b²",
+              "size": 94,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                22,
+                310
+              ],
+              "text": "c²",
+              "size": 100,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                960,
+                95
+              ],
+              "text": "Kok bisa",
+              "size": 124
+            },
+            {
+              "label": [
+                960,
+                233
+              ],
+              "text": "selalu pas?",
+              "size": 124
+            },
+            {
+              "title": [
+                960,
+                554
+              ],
+              "text": "a² + b² = c²",
+              "size": 140
+            },
+            {
+              "path": "M717 262 C 810 268, 934 258, 1027 264",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "dot": [
+                720,
+                600,
+                9
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                930,
+                600,
+                9
+              ],
+              "colour": "white"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "On 'c kuadrat' the last tap, under c².",
+          "draw": [
+            {
+              "path": "M-309 324 L-309 608 L69 608 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M-309 586 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M-593 324 L-309 324 L-309 608 L-593 608 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M-309 608 L69 608 L69 986 L-309 986 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M-309 324 L69 608 L352 230 L-26 -54 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                -287,
+                489
+              ],
+              "text": "a",
+              "size": 62,
+              "align": "start"
+            },
+            {
+              "label": [
+                -101,
+                589
+              ],
+              "text": "b",
+              "size": 62
+            },
+            {
+              "label": [
+                -150,
+                507
+              ],
+              "text": "c",
+              "size": 62
+            },
+            {
+              "label": [
+                -451,
+                496
+              ],
+              "text": "a²",
+              "size": 86,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                -120,
+                827
+              ],
+              "text": "b²",
+              "size": 94,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                22,
+                310
+              ],
+              "text": "c²",
+              "size": 100,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                960,
+                95
+              ],
+              "text": "Kok bisa",
+              "size": 124
+            },
+            {
+              "label": [
+                960,
+                233
+              ],
+              "text": "selalu pas?",
+              "size": 124
+            },
+            {
+              "title": [
+                960,
+                554
+              ],
+              "text": "a² + b² = c²",
+              "size": 140
+            },
+            {
+              "path": "M717 262 C 810 268, 934 258, 1027 264",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "dot": [
+                1190,
+                600,
+                9
+              ],
+              "colour": "white"
+            },
+            {
+              "cut": "kamera mundur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "hook",
+      "type": "type",
+      "start": 5.86,
+      "end": 7.28,
+      "voice": "Kok bisa *selalu* pas?",
+      "teaches": "Asks the one question the film answers: why it always works.",
+      "screen": "Section A again, whole: the figure, the question 'Kok bisa / selalu pas?' (selalu underlined in yellow) and the formula. The question is now the thing to read.",
+      "motion": "The camera pulls back to the framing of frame 0 and rises a little to the question; the yellow underline under 'selalu' is retraced once by the chalk (the same line, no new mark).",
+      "carries": "The figure, which the next section redraws as a square.",
+      "transition": "The camera slides right to a clean section of the board.",
+      "sound": "A light chalk scratch on 'selalu'.",
+      "check": "Readable as a question in under a second; frame 0's framing is reached at the end.",
+      "frames": [
+        {
+          "at": 0,
+          "note": "Pulling back from the formula.",
+          "draw": [
+            {
+              "path": "M36 392 L36 644 L372 644 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M36 622 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M-216 392 L36 392 L36 644 L-216 644 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M36 644 L372 644 L372 980 L36 980 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M36 392 L372 644 L624 308 L288 56 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                55,
+                538
+              ],
+              "text": "a",
+              "size": 55,
+              "align": "start"
+            },
+            {
+              "label": [
+                221,
+                627
+              ],
+              "text": "b",
+              "size": 55
+            },
+            {
+              "label": [
+                178,
+                554
+              ],
+              "text": "c",
+              "size": 55
+            },
+            {
+              "label": [
+                -90,
+                544
+              ],
+              "text": "a²",
+              "size": 77,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                204,
+                838
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                330,
+                379
+              ],
+              "text": "c²",
+              "size": 89,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1164,
+                188
+              ],
+              "text": "Kok bisa",
+              "size": 110
+            },
+            {
+              "label": [
+                1164,
+                310
+              ],
+              "text": "selalu pas?",
+              "size": 110
+            },
+            {
+              "title": [
+                1164,
+                596
+              ],
+              "text": "a² + b² = c²",
+              "size": 125
+            },
+            {
+              "path": "M948 337 C 1031 343, 1141 333, 1224 339",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The whole board, the question in view: the same framing as frame 0.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "a",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "c",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "a²",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "b²",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                775,
+                379
+              ],
+              "text": "c²",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1470,
+                220
+              ],
+              "text": "Kok bisa",
+              "size": 92
+            },
+            {
+              "label": [
+                1470,
+                322
+              ],
+              "text": "selalu pas?",
+              "size": 92
+            },
+            {
+              "path": "M1290 344 C 1359 350, 1451 340, 1520 346",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "title": [
+                1470,
+                560
+              ],
+              "text": "a² + b² = c²",
+              "size": 104
+            },
+            {
+              "cut": "geser ke papan kosong"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "persegi",
+      "type": "diagram",
+      "start": 7.28,
+      "end": 10.01,
+      "voice": "Rahasianya, kuadrat itu beneran *persegi*.",
+      "caption": "kuadrat = *persegi*",
+      "teaches": "The key idea: 'squared' is not just a number operation; a² is an actual square.",
+      "screen": "Section B, a clean stretch of board. Left: 'a²' in blue chalk, very large (about 230 px). Middle: '='. Right: a blue-chalk square 420 px on a side, labelled 'persegi' with a leader line from the right.",
+      "motion": "The camera slides right along the board to a clean section. 'a²' is written on stroke by stroke; '=' follows; the square is drawn side by side, its four strokes at chalk speed; the leader and the word 'persegi' last.",
+      "carries": "The square.",
+      "transition": "Continuous: its sides get their letters.",
+      "sound": "Chalk scratches for each stroke; a tap as the square closes.",
+      "check": "The square really is square (420 x 420); a² and the square are the same blue.",
+      "facts": [
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Arriving at a clean section; 'a²' written large.",
+          "draw": [
+            {
+              "label": [
+                470,
+                520
+              ],
+              "text": "a²",
+              "size": 230,
+              "colour": "blue"
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "'=' and the square drawn on.",
+          "draw": [
+            {
+              "label": [
+                470,
+                520
+              ],
+              "text": "a²",
+              "size": 230,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                760,
+                500
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "path": "M960 190 L1380 190 L1380 610 L960 610 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "move": [
+                960,
+                650,
+                1380,
+                650
+              ],
+              "text": "digambar"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The word 'persegi' with its leader.",
+          "draw": [
+            {
+              "label": [
+                470,
+                520
+              ],
+              "text": "a²",
+              "size": 230,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                760,
+                500
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "path": "M960 190 L1380 190 L1380 610 L960 610 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                1170,
+                170
+              ],
+              "text": "a",
+              "size": 56
+            },
+            {
+              "label": [
+                926,
+                420
+              ],
+              "text": "a",
+              "size": 56
+            },
+            {
+              "label": [
+                1640,
+                330
+              ],
+              "text": "persegi",
+              "size": 56
+            },
+            {
+              "line": [
+                1520,
+                340,
+                1390,
+                380
+              ],
+              "width": 5
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "persegi",
+      "type": "type",
+      "start": 10.01,
+      "end": 12.87,
+      "voice": "a kuadrat itu *luas* persegi yang sisinya a.",
+      "caption": "*luas* persegi",
+      "teaches": "a² is the area of the square whose side is a.",
+      "screen": "The same section: the blue square with 'a' on its top and left sides, and under it 'luas = a × a' in large chalk lettering (about 100 px).",
+      "motion": "'luas = a × a' is written on as the voice says it; 'luas' gets a yellow underline on the word.",
+      "carries": "The idea that a square's area is side times side.",
+      "transition": "The camera slides right to a clean section; a triangle is drawn there.",
+      "sound": "Chalk writing; a short underline scratch.",
+      "check": "The lettering reads 'luas = a × a' and sits above y 940.",
+      "facts": [
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The square with its sides lettered a.",
+          "draw": [
+            {
+              "label": [
+                470,
+                520
+              ],
+              "text": "a²",
+              "size": 230,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                760,
+                500
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "path": "M960 190 L1380 190 L1380 610 L960 610 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                1170,
+                170
+              ],
+              "text": "a",
+              "size": 56
+            },
+            {
+              "label": [
+                926,
+                420
+              ],
+              "text": "a",
+              "size": 56
+            },
+            {
+              "label": [
+                1640,
+                330
+              ],
+              "text": "persegi",
+              "size": 56
+            },
+            {
+              "line": [
+                1520,
+                340,
+                1390,
+                380
+              ],
+              "width": 5
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "'luas = a × a' written under it, 'luas' underlined in yellow.",
+          "draw": [
+            {
+              "label": [
+                470,
+                520
+              ],
+              "text": "a²",
+              "size": 230,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                760,
+                500
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "path": "M960 190 L1380 190 L1380 610 L960 610 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                1170,
+                170
+              ],
+              "text": "a",
+              "size": 56
+            },
+            {
+              "label": [
+                926,
+                420
+              ],
+              "text": "a",
+              "size": 56
+            },
+            {
+              "label": [
+                1640,
+                330
+              ],
+              "text": "persegi",
+              "size": 56
+            },
+            {
+              "line": [
+                1520,
+                340,
+                1390,
+                380
+              ],
+              "width": 5
+            },
+            {
+              "label": [
+                1170,
+                790
+              ],
+              "text": "luas = a × a",
+              "size": 104
+            },
+            {
+              "path": "M870 812 C 933 818, 1017 808, 1080 814",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "cut": "geser ke segitiga 3-4-5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "hitung",
+      "type": "diagram",
+      "start": 12.87,
+      "end": 15.08,
+      "voice": "Coba segitiga *tiga, empat, lima*.",
+      "caption": "segitiga *3-4-5*",
+      "teaches": "A concrete case first: the right triangle with sides 3, 4 and 5.",
+      "screen": "Section C, the camera close: one right triangle in white chalk, legs 3 (up) and 4 (along), hypotenuse 5, each side's number written beside it in large chalk numerals; the right angle marked.",
+      "motion": "The camera slides right along the board to a clean section. The three sides are drawn in turn (up, along, across) and each number is written as it is said.",
+      "carries": "The 3-4-5 triangle.",
+      "transition": "The camera pulls back as squares grow off its sides.",
+      "sound": "Three strokes of chalk, three taps for the numbers.",
+      "check": "The legs are drawn in the ratio 3 : 4 and the long side reads as 5.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "A clean section; the first leg drawn.",
+          "draw": [
+            {
+              "path": "M700 760 V340",
+              "width": 9
+            },
+            {
+              "label": [
+                650,
+                580
+              ],
+              "text": "3",
+              "size": 96
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The second leg along the bottom: 4.",
+          "draw": [
+            {
+              "path": "M700 340 V760 H1260",
+              "width": 9
+            },
+            {
+              "label": [
+                650,
+                580
+              ],
+              "text": "3",
+              "size": 96
+            },
+            {
+              "label": [
+                980,
+                850
+              ],
+              "text": "4",
+              "size": 96
+            },
+            {
+              "path": "M700 724 h36 v36",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The hypotenuse: 5. The triangle is whole.",
+          "draw": [
+            {
+              "path": "M700 340 L700 760 L1260 760 Z",
+              "width": 9,
+              "fill": "ink"
+            },
+            {
+              "path": "M700 724 h36 v36",
+              "width": 4
+            },
+            {
+              "label": [
+                650,
+                580
+              ],
+              "text": "3",
+              "size": 96
+            },
+            {
+              "label": [
+                980,
+                850
+              ],
+              "text": "4",
+              "size": 96
+            },
+            {
+              "label": [
+                1030,
+                530
+              ],
+              "text": "5",
+              "size": 96
+            },
+            {
+              "cut": "kamera mundur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "hitung",
+      "type": "chart",
+      "start": 15.08,
+      "end": 18.01,
+      "voice": "Persegi di sisi tiga isinya *sembilan* kotak,",
+      "caption": "3 × 3 = *9* kotak",
+      "teaches": "The square on the side 3 holds 9 unit squares.",
+      "screen": "Pulled back: the 3-4-5 triangle at the same place and size as the opening figure. A blue-chalk square on the side 3 with a 3 x 3 grid inside, '9' in its middle; on the right of the board '3 × 3 = 9' in blue.",
+      "motion": "The camera pulls back; the square is drawn off the side 3, then its grid lines, then the cells are counted with quick chalk ticks (1 to 9) and '9' is written; the sum on the right writes on.",
+      "carries": "The triangle and its first square.",
+      "transition": "Continuous: the next square grows off the side 4.",
+      "sound": "Nine quick chalk ticks.",
+      "check": "The grid is exactly 3 x 3 and each cell is the same size as a unit of the legs.",
+      "facts": [
+        "f3",
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Pulled back: the triangle at the opening figure's size.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The square on 3 drawn, its 3 x 3 grid.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Counted: 9; '3 × 3 = 9' on the right.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "hitung",
+      "type": "chart",
+      "start": 18.01,
+      "end": 19.75,
+      "voice": "di sisi empat *enam belas*.",
+      "caption": "4 × 4 = *16* kotak",
+      "teaches": "The square on the side 4 holds 16.",
+      "screen": "The same board: a blue-chalk square on the side 4 with a 4 x 4 grid, '16' in its middle; '4 × 4 = 16' added under '3 × 3 = 9' on the right.",
+      "motion": "The square and its grid are drawn on; the count ticks run fast; '16' and the sum write on.",
+      "carries": "Both small squares, counted.",
+      "transition": "Continuous: the square on the long side follows.",
+      "sound": "Sixteen fast ticks, almost a roll.",
+      "check": "4 x 4 grid; cells the same size as in the square on 3.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The square on 4 starts off the bottom leg.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "move": [
+                740,
+                650,
+                740,
+                860
+              ],
+              "text": "persegi tumbuh"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Counted: 16; '4 × 4 = 16' on the right.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M600 600 V880 M530 670 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M670 600 V880 M530 740 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M740 600 V880 M530 810 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "16",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                340
+              ],
+              "text": "4 × 4 = 16",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "hitung",
+      "type": "compare",
+      "start": 19.75,
+      "end": 23.8,
+      "voice": "Totalnya *dua puluh lima*, pas sama persegi di sisi miringnya.",
+      "caption": "9 + 16 = *25*",
+      "teaches": "9 + 16 = 25, and the square on the side 5 holds exactly 25.",
+      "screen": "The full counted figure: the yellow-chalk square on the hypotenuse with its tilted 5 x 5 grid and '25'; on the right '9 + 16 = 25' with 25 underlined in yellow, and '= 5 × 5' under it in yellow.",
+      "motion": "'9 + 16 = 25' writes on first; then the yellow square and its tilted grid are drawn off the long side and '25' is written in it; the underline joins the two 25s.",
+      "carries": "The counted figure.",
+      "transition": "Continuous: two other triangles appear lower right.",
+      "sound": "A chalk scratch for the underline.",
+      "check": "The tilted grid is 5 x 5 with cells the same size as the others; the sums are right.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The sum writes on: 9 + 16 = 25.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M600 600 V880 M530 670 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M670 600 V880 M530 740 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M740 600 V880 M530 810 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "16",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                340
+              ],
+              "text": "4 × 4 = 16",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                470
+              ],
+              "text": "9 + 16 = 25",
+              "size": 84
+            }
+          ]
+        },
+        {
+          "at": 0.55,
+          "note": "The yellow square on 5 and its grid.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M600 600 V880 M530 670 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M670 600 V880 M530 740 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M740 600 V880 M530 810 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M586 432 L796 152 M572 334 L852 544",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M642 474 L852 194 M614 278 L894 488",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M698 516 L908 236 M656 222 L936 432",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M754 558 L964 278 M698 166 L978 376",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "16",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                340
+              ],
+              "text": "4 × 4 = 16",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                470
+              ],
+              "text": "9 + 16 = 25",
+              "size": 84
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "25 in the big square, '= 5 × 5' under the sum.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M600 600 V880 M530 670 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M670 600 V880 M530 740 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M740 600 V880 M530 810 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M586 432 L796 152 M572 334 L852 544",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M642 474 L852 194 M614 278 L894 488",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M698 516 L908 236 M656 222 L936 432",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M754 558 L964 278 M698 166 L978 376",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "16",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                775,
+                379
+              ],
+              "text": "25",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                340
+              ],
+              "text": "4 × 4 = 16",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                470
+              ],
+              "text": "9 + 16 = 25",
+              "size": 84
+            },
+            {
+              "path": "M1640 492 C 1670 498, 1710 488, 1740 494",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                1480,
+                570
+              ],
+              "text": "= 5 × 5",
+              "size": 72,
+              "colour": "yellow"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "act": "hitung",
+      "type": "diagram",
+      "start": 23.8,
+      "end": 25.74,
+      "voice": "Tapi itu baru *satu* segitiga.",
+      "caption": "segitiga *lain*?",
+      "teaches": "The turn: one example is not a reason; other right triangles exist.",
+      "screen": "Lower right of the same section: a flat right triangle and a tall one, quick white chalk sketches, each followed by a large '?'.",
+      "motion": "The two triangles are sketched fast, each with its '?'.",
+      "carries": "The question: does it hold for every right triangle?",
+      "transition": "The camera slides right to a long clean section.",
+      "sound": "Two quick sketch scratches.",
+      "check": "The two triangles are clearly different shapes and both right-angled.",
+      "facts": [
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The counted figure; a flat triangle sketched lower right.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M600 600 V880 M530 670 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M670 600 V880 M530 740 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M740 600 V880 M530 810 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M586 432 L796 152 M572 334 L852 544",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M642 474 L852 194 M614 278 L894 488",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M698 516 L908 236 M656 222 L936 432",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M754 558 L964 278 M698 166 L978 376",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "16",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                775,
+                379
+              ],
+              "text": "25",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                340
+              ],
+              "text": "4 × 4 = 16",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                470
+              ],
+              "text": "9 + 16 = 25",
+              "size": 84
+            },
+            {
+              "path": "M1640 492 C 1670 498, 1710 488, 1740 494",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                1480,
+                570
+              ],
+              "text": "= 5 × 5",
+              "size": 72,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1180 840 L1180 790 L1450 840 Z",
+              "width": 6,
+              "fill": "ink"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Both other triangles with their question marks.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "path": "M390 390 V600 M320 460 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M460 390 V600 M320 530 H530",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M600 600 V880 M530 670 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M670 600 V880 M530 740 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M740 600 V880 M530 810 H810",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M586 432 L796 152 M572 334 L852 544",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M642 474 L852 194 M614 278 L894 488",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M698 516 L908 236 M656 222 L936 432",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "path": "M754 558 L964 278 M698 166 L978 376",
+              "colour": "yellow",
+              "width": 3
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "3",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "4",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "5",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "9",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "16",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                775,
+                379
+              ],
+              "text": "25",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1480,
+                230
+              ],
+              "text": "3 × 3 = 9",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                340
+              ],
+              "text": "4 × 4 = 16",
+              "size": 72,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                1480,
+                470
+              ],
+              "text": "9 + 16 = 25",
+              "size": 84
+            },
+            {
+              "path": "M1640 492 C 1670 498, 1710 488, 1740 494",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                1480,
+                570
+              ],
+              "text": "= 5 × 5",
+              "size": 72,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1180 840 L1180 790 L1450 840 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1500,
+                830
+              ],
+              "text": "?",
+              "size": 80
+            },
+            {
+              "path": "M1600 840 L1600 660 L1690 840 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1740,
+                760
+              ],
+              "text": "?",
+              "size": 80
+            },
+            {
+              "cut": "geser ke bagian bersih"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "act": "bukti",
+      "type": "compare",
+      "start": 25.74,
+      "end": 28.87,
+      "voice": "Buktinya gampang: ambil empat segitiga *kembar*,",
+      "caption": "4 segitiga *kembar*",
+      "teaches": "The proof uses four identical copies of one right triangle (any one: legs a and b).",
+      "screen": "Section D. Right half: the triangle (legs a and b, hypotenuse c, in the 3 : 4 shape) with '× 4' beside it. Left half: four identical copies drawn, numbered 1 to 4, at the four corners of what will be a square of side a + b (560 px), each turned a quarter turn from the last.",
+      "motion": "The camera slides right along the board to a clean section. The triangle and '× 4' are written; then the four copies are drawn into place one after another, a number in each.",
+      "carries": "The four numbered triangles.",
+      "transition": "Continuous: the square round them is closed.",
+      "sound": "Four chalk strokes in a rhythm, a tap for each number.",
+      "check": "The four triangles are the same size and shape (computed corners, not drawn by eye).",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "A clean section; the triangle a, b, c and '× 4'.",
+          "draw": [
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M1300 478 h22 v22",
+              "width": 4
+            },
+            {
+              "label": [
+                1270,
+                400
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                1460,
+                550
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                1480,
+                380
+              ],
+              "text": "c",
+              "size": 46
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Copies 1 and 2 drawn at two corners.",
+          "draw": [
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "All four copies, numbered.",
+          "draw": [
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "act": "bukti",
+      "type": "diagram",
+      "start": 28.87,
+      "end": 31.73,
+      "voice": "terus susun di persegi bersisi *a tambah b*.",
+      "caption": "sisi *a + b*",
+      "teaches": "Together they sit inside one big square whose side is a + b.",
+      "screen": "The outer square drawn round the four triangles; along its top 'b' then 'a', down its left 'a' then 'b'; under it a bracket 'a + b'.",
+      "motion": "The outer square is drawn in one continuous stroke round the triangles; the letters and the bracket follow.",
+      "carries": "The square with the four triangles.",
+      "transition": "Continuous: the hole in the middle fills with yellow.",
+      "sound": "One long chalk stroke, then taps.",
+      "check": "Each side reads as b + a: the parts are drawn at 320 and 240 px.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The four triangles; the outer square starts.",
+          "draw": [
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            },
+            {
+              "path": "M200 130 H760",
+              "width": 7
+            },
+            {
+              "move": [
+                240,
+                80,
+                760,
+                80
+              ],
+              "text": "persegi besar"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The square closed round them.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Its sides lettered: b + a along the top, a + b down the side, bracket 'a + b'.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "label": [
+                360,
+                112
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                640,
+                112
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                266
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                546
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "path": "M200 724 V748 H760 V724",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                802
+              ],
+              "text": "a + b",
+              "size": 52
+            },
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "act": "bukti",
+      "type": "diagram",
+      "start": 31.73,
+      "end": 35.58,
+      "voice": "Ruang kosong di tengahnya jadi persegi miring, sisinya *c*.",
+      "caption": "tengahnya: *c²*",
+      "teaches": "The space left in the middle is a tilted square on c, and it is a true square because each of its corners is 90 degrees.",
+      "screen": "The middle hatched in yellow chalk, 'c²' in it. At its top corner, small arc marks for the two triangles' acute angles (x and y) and a right-angle mark for the square's corner. Right half (the '× 4' wiped away): 'x + y = 90°' and 'jadi sudut ini juga 90°' with an arrow to that corner.",
+      "motion": "The hole is hatched in yellow; 'c²' is written; the camera pushes in a little; '× 4' is wiped with a cloth (a faint smear stays) and the angle note is written with its arrow.",
+      "carries": "The first arrangement: four triangles and c².",
+      "transition": "The angle note is wiped; a second square of the same size is drawn on the right.",
+      "sound": "Chalk hatching; the soft wipe of the eraser.",
+      "check": "The middle shape has four equal sides; the angle note is small but readable.",
+      "facts": [
+        "f4",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The hole hatched yellow; c² written.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                360,
+                112
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                640,
+                112
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                266
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                546
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "path": "M200 724 V748 H760 V724",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                802
+              ],
+              "text": "a + b",
+              "size": 52
+            },
+            {
+              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1730,
+                420
+              ],
+              "text": "× 4",
+              "size": 80
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "'× 4' wiped; arc marks at the top corner.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                360,
+                112
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                640,
+                112
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                266
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                546
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "path": "M200 724 V748 H760 V724",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                802
+              ],
+              "text": "a + b",
+              "size": 52
+            },
+            {
+              "path": "M460 130 A60 60 0 0 0 472 166",
+              "width": 5
+            },
+            {
+              "path": "M580 130 A60 60 0 0 1 568 166",
+              "width": 5
+            },
+            {
+              "label": [
+                440,
+                174
+              ],
+              "text": "x",
+              "size": 40
+            },
+            {
+              "label": [
+                600,
+                174
+              ],
+              "text": "y",
+              "size": 40
+            },
+            {
+              "path": "M1200 460 C 1400 440, 1600 470, 1800 450",
+              "colour": "white",
+              "width": 30
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The angle note: x + y = 90°, so this corner is 90° too.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                360,
+                112
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                640,
+                112
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                266
+              ],
+              "text": "a",
+              "size": 46
+            },
+            {
+              "label": [
+                166,
+                546
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "path": "M200 724 V748 H760 V724",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                802
+              ],
+              "text": "a + b",
+              "size": 52
+            },
+            {
+              "label": [
+                1450,
+                300
+              ],
+              "text": "x + y = 90°",
+              "size": 72
+            },
+            {
+              "label": [
+                1450,
+                400
+              ],
+              "text": "jadi sudut ini juga 90°",
+              "size": 52
+            },
+            {
+              "arrow": [
+                1160,
+                380,
+                560,
+                190
+              ],
+              "colour": "yellow"
+            },
+            {
+              "path": "M504 142 l16 12 l12 -16",
+              "colour": "yellow",
+              "width": 5
+            },
+            {
+              "cut": "hapus, persegi kedua"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "act": "bukti",
+      "type": "wide",
+      "start": 35.58,
+      "end": 38.64,
+      "voice": "Sekarang *geser* dua segitiganya, tanpa diubah.",
+      "caption": "*geser*, tanpa diubah",
+      "teaches": "The same four triangles, moved without turning or resizing: two of them slide.",
+      "screen": "Both squares, side by side, the same size: left, the first arrangement with c². Right, a new square of side a + b: triangles 1 and 4 drawn where they were; triangles 2 and 3 first as dashed outlines in their old places, then chalk arrows to their new places (3 first, then 2) and a small note above the square, '3 dulu, lalu 2: cuma digeser', where they are drawn solid. Triangle 3 slides up-left by (a, b), triangle 2 down-left by (b, a).",
+      "motion": "The angle note is wiped; the right square and triangles 1 and 4 are drawn; ghosts of 2 and 3 are dotted in, the arrows drawn, then 3 is drawn at its new place, then 2 (one after the other, so the arrows never cross at the same moment), and the ghosts are wiped (leaving a faint smear).",
+      "carries": "Both arrangements, side by side.",
+      "transition": "Continuous: the two holes on the right are hatched.",
+      "sound": "Chalk strokes; two soft wipes as the ghosts go.",
+      "check": "2 and 3 keep their orientation (pure slides); the moved corners are the computed ones.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Right square, 1 and 4 in place, 2 and 3 dashed where they were.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1720 130 L1480 130 L1720 450 Z",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "label": [
+                1640,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1720 690 L1720 450 L1400 690 Z",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "label": [
+                1613,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "camera": "pull"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Arrows: 3 slides up-left, 2 slides down-left.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1720 130 L1480 130 L1720 450 Z",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "label": [
+                1640,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1720 690 L1720 450 L1400 690 Z",
+              "width": 6,
+              "dashed": true
+            },
+            {
+              "label": [
+                1613,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "move": [
+                1640,
+                237,
+                1320,
+                477
+              ]
+            },
+            {
+              "move": [
+                1613,
+                610,
+                1373,
+                290
+              ]
+            },
+            {
+              "label": [
+                1440,
+                110
+              ],
+              "text": "3 dulu, lalu 2: cuma digeser",
+              "size": 40
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "2 and 3 at their new places; ghosts wiped.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "act": "bukti",
+      "type": "diagram",
+      "start": 38.64,
+      "end": 42.56,
+      "voice": "Ruang kosongnya jadi dua persegi: *a kuadrat* dan *b kuadrat*.",
+      "caption": "jadi *a²* dan *b²*",
+      "teaches": "Now the empty space is two squares: one a by a, one b by b.",
+      "screen": "The right square's two holes hatched in blue chalk: top right a² (240 x 240), bottom right b² (320 x 320), each lettered. The left square with c² stays beside it.",
+      "motion": "The small hole is hatched and lettered on 'a kuadrat', the big one on 'b kuadrat'.",
+      "carries": "c² on the left, a² and b² on the right.",
+      "transition": "Continuous: an '=' is written between the squares.",
+      "sound": "Two runs of chalk hatching.",
+      "check": "The holes measure 240 and 320 px: a and b exactly.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The two holes, still empty.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "a² hatched and lettered.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "b² hatched and lettered.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "act": "bukti",
+      "type": "compare",
+      "start": 42.56,
+      "end": 46.87,
+      "voice": "Persegi besarnya sama, segitiganya sama, jadi sisanya *sama luas*.",
+      "caption": "sisanya *sama luas*",
+      "teaches": "Same big square minus the same four triangles: what is left must be the same area.",
+      "screen": "Both squares complete; a large '=' between them; under each 'persegi besar - 4 segitiga'; the outer edges retraced and the triangles ticked 1 to 4 on both sides.",
+      "motion": "The chalk runs round both outer squares (same size), ticks each pair of matching triangles, writes '=' between, then the two short lines under them.",
+      "carries": "The two equal leftovers.",
+      "transition": "Continuous: the conclusion is written under them.",
+      "sound": "Four ticks; a firm double stroke for '='.",
+      "check": "Both outer squares are 560 px; the '=' sits midway between them.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Both arrangements complete.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "'=' written between them.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                960,
+                450
+              ],
+              "text": "=",
+              "size": 150
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Under each: 'persegi besar - 4 segitiga'.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                960,
+                450
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "label": [
+                480,
+                770
+              ],
+              "text": "persegi besar - 4 segitiga",
+              "size": 44
+            },
+            {
+              "label": [
+                1440,
+                770
+              ],
+              "text": "persegi besar - 4 segitiga",
+              "size": 44
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "act": "bukti",
+      "type": "type",
+      "start": 46.87,
+      "end": 50.79,
+      "voice": "Artinya, c kuadrat sama dengan *a kuadrat tambah b kuadrat*.",
+      "teaches": "The conclusion, read off the two squares: c² = a² + b².",
+      "screen": "Under the two squares, large: 'c² = a² + b²', c² in yellow chalk and a² + b² in blue; thin chalk arrows from the c² in the left square and from a² and b² in the right one down to their terms.",
+      "motion": "The formula is written term by term with the voice; the arrows are drawn last.",
+      "carries": "The proof and its formula.",
+      "transition": "The camera slides right to a clean section.",
+      "sound": "Chalk writing; a satisfied double tap at the end.",
+      "check": "The formula sits above y 940 and is the largest lettering on screen.",
+      "facts": [
+        "f1",
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "'c² =' written under the squares.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                960,
+                450
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "label": [
+                800,
+                890
+              ],
+              "text": "c² =",
+              "size": 100,
+              "colour": "yellow"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "'a² + b²' follows in blue.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                960,
+                450
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "label": [
+                800,
+                890
+              ],
+              "text": "c² =",
+              "size": 100,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1080,
+                890
+              ],
+              "text": "a² + b²",
+              "size": 100,
+              "colour": "blue"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "'c² = a² + b²' complete, arrows from the squares.",
+          "draw": [
+            {
+              "path": "M200 130 L760 130 L760 690 L200 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M200 130 L520 130 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                307,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M760 130 L520 130 L760 450 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                680,
+                253
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M760 690 L760 450 L440 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                653,
+                626
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M200 690 L440 690 L200 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                280,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M520 130 L760 450 L440 690 L200 370 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                480,
+                440
+              ],
+              "text": "c²",
+              "size": 84,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1160 130 L1720 130 L1720 690 L1160 690 Z",
+              "width": 7
+            },
+            {
+              "path": "M1160 130 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1267,
+                226
+              ],
+              "text": "1",
+              "size": 42
+            },
+            {
+              "path": "M1160 690 L1400 690 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1240,
+                599
+              ],
+              "text": "4",
+              "size": 42
+            },
+            {
+              "path": "M1400 370 L1160 370 L1400 690 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1320,
+                493
+              ],
+              "text": "2",
+              "size": 42
+            },
+            {
+              "path": "M1480 370 L1480 130 L1160 370 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "label": [
+                1373,
+                306
+              ],
+              "text": "3",
+              "size": 42
+            },
+            {
+              "path": "M1480 130 L1720 130 L1720 370 L1480 370 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1600,
+                276
+              ],
+              "text": "a²",
+              "size": 74,
+              "colour": "blue"
+            },
+            {
+              "path": "M1400 370 L1720 370 L1720 690 L1400 690 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 7
+            },
+            {
+              "label": [
+                1560,
+                558
+              ],
+              "text": "b²",
+              "size": 84,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                960,
+                450
+              ],
+              "text": "=",
+              "size": 150
+            },
+            {
+              "label": [
+                800,
+                890
+              ],
+              "text": "c² =",
+              "size": 100,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1080,
+                890
+              ],
+              "text": "a² + b²",
+              "size": 100,
+              "colour": "blue"
+            },
+            {
+              "arrow": [
+                480.0,
+                710,
+                760,
+                820
+              ],
+              "colour": "yellow"
+            },
+            {
+              "arrow": [
+                1460,
+                710,
+                1100,
+                820
+              ],
+              "colour": "blue"
+            },
+            {
+              "cut": "geser ke bagian bersih"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "act": "umum",
+      "type": "compare",
+      "start": 50.79,
+      "end": 54.84,
+      "voice": "Segitiganya gepeng atau tinggi, asal *siku-siku*, tetap jalan.",
+      "caption": "asal *siku-siku*",
+      "teaches": "The proof never used the numbers: it works the same for any right triangle, flat or tall.",
+      "screen": "Section E: the same two arrangements again, smaller, for a flat right triangle (left pair) and a tall one (right pair), each pair with its triangle drawn underneath, its right angle ringed in yellow, labelled 'gepeng' and 'tinggi', and under each 'c² = a² + b²' with a drawn tick.",
+      "motion": "The camera slides right along the board to a clean section. Each pair is drawn quickly, the holes hatched (yellow on the left of the pair, blue on the right), then the ticks.",
+      "carries": "The rule for every right triangle.",
+      "transition": "The board is wiped with a cloth for the recap.",
+      "sound": "Quick chalk strokes; two ticks.",
+      "check": "Both pairs follow the same moves; the two triangles are clearly different shapes.",
+      "facts": [
+        "f6",
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The flat triangle's pair drawn.",
+          "draw": [
+            {
+              "path": "M110 150 L470 150 L470 510 L110 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M110 150 L406 150 L110 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M470 150 L406 150 L470 446 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M470 510 L470 446 L174 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M110 510 L174 510 L110 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M406 150 L470 446 L174 510 L110 214 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M510 150 L870 150 L870 510 L510 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M510 150 L806 150 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M574 214 L510 214 L574 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M806 214 L806 150 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M510 510 L574 510 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M806 150 L870 150 L870 214 L806 214 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M574 214 L870 214 L870 510 L574 510 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M330 720 L330 656 L626 720 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "path": "M330 698 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                342,
+                708,
+                30
+              ],
+              "colour": "yellow",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                800
+              ],
+              "text": "gepeng",
+              "size": 46
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The tall triangle's pair drawn.",
+          "draw": [
+            {
+              "path": "M110 150 L470 150 L470 510 L110 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M110 150 L406 150 L110 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M470 150 L406 150 L470 446 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M470 510 L470 446 L174 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M110 510 L174 510 L110 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M406 150 L470 446 L174 510 L110 214 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M510 150 L870 150 L870 510 L510 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M510 150 L806 150 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M574 214 L510 214 L574 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M806 214 L806 150 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M510 510 L574 510 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M806 150 L870 150 L870 214 L806 214 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M574 214 L870 214 L870 510 L574 510 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1010 150 L1370 150 L1370 510 L1010 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M1010 150 L1120 150 L1010 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1370 150 L1120 150 L1370 260 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1370 510 L1370 260 L1260 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1010 510 L1260 510 L1010 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1120 150 L1370 260 L1260 510 L1010 400 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M1410 150 L1770 150 L1770 510 L1410 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M1410 150 L1520 150 L1410 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1660 400 L1410 400 L1660 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1520 400 L1520 150 L1410 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1410 510 L1660 510 L1410 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1520 150 L1770 150 L1770 400 L1520 400 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1660 400 L1770 400 L1770 510 L1660 510 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M330 720 L330 656 L626 720 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "path": "M330 698 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                342,
+                708,
+                30
+              ],
+              "colour": "yellow",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                800
+              ],
+              "text": "gepeng",
+              "size": 46
+            },
+            {
+              "path": "M1350 790 L1350 540 L1460 790 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "path": "M1350 768 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                1362,
+                778,
+                30
+              ],
+              "colour": "yellow",
+              "width": 5
+            },
+            {
+              "label": [
+                1470,
+                800
+              ],
+              "text": "tinggi",
+              "size": 46
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Ticks: c² = a² + b² for both.",
+          "draw": [
+            {
+              "path": "M110 150 L470 150 L470 510 L110 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M110 150 L406 150 L110 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M470 150 L406 150 L470 446 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M470 510 L470 446 L174 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M110 510 L174 510 L110 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M406 150 L470 446 L174 510 L110 214 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M510 150 L870 150 L870 510 L510 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M510 150 L806 150 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M574 214 L510 214 L574 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M806 214 L806 150 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M510 510 L574 510 L510 214 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M806 150 L870 150 L870 214 L806 214 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M574 214 L870 214 L870 510 L574 510 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1010 150 L1370 150 L1370 510 L1010 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M1010 150 L1120 150 L1010 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1370 150 L1120 150 L1370 260 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1370 510 L1370 260 L1260 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1010 510 L1260 510 L1010 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1120 150 L1370 260 L1260 510 L1010 400 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M1410 150 L1770 150 L1770 510 L1410 510 Z",
+              "width": 5
+            },
+            {
+              "path": "M1410 150 L1520 150 L1410 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1660 400 L1410 400 L1660 510 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1520 400 L1520 150 L1410 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1410 510 L1660 510 L1410 400 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1520 150 L1770 150 L1770 400 L1520 400 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1660 400 L1770 400 L1770 510 L1660 510 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M330 720 L330 656 L626 720 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "path": "M330 698 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                342,
+                708,
+                30
+              ],
+              "colour": "yellow",
+              "width": 5
+            },
+            {
+              "label": [
+                480,
+                800
+              ],
+              "text": "gepeng",
+              "size": 46
+            },
+            {
+              "path": "M1350 790 L1350 540 L1460 790 Z",
+              "width": 6,
+              "fill": "ink"
+            },
+            {
+              "path": "M1350 768 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                1362,
+                778,
+                30
+              ],
+              "colour": "yellow",
+              "width": 5
+            },
+            {
+              "label": [
+                1470,
+                800
+              ],
+              "text": "tinggi",
+              "size": 46
+            },
+            {
+              "label": [
+                460,
+                880
+              ],
+              "text": "c² = a² + b²",
+              "size": 54,
+              "colour": "yellow"
+            },
+            {
+              "path": "M640 858 l16 18 l30 -40",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                1450,
+                880
+              ],
+              "text": "c² = a² + b²",
+              "size": 54,
+              "colour": "yellow"
+            },
+            {
+              "path": "M1630 858 l16 18 l30 -40",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "cut": "lap bersih"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "act": "jawab",
+      "type": "recap",
+      "start": 54.84,
+      "end": 58.16,
+      "voice": "Ruang kosongnya cuma ganti bentuk, luasnya *tetap*.",
+      "caption": "luasnya *tetap*",
+      "teaches": "The answer in one frame: the squares are areas, the same leftover space changes shape, so c² = a² + b².",
+      "screen": "One board after a cloth wipe (faint smears): left, a blue square with sides a and 'a² = luas persegi'; middle, the two small arrangements with '=' between and 'persegi besar sama, 4 segitiga sama / sisanya sama luas'; right, 'c² = a² + b²' boxed in white chalk with c² in yellow, and 'asal siku-siku' under it.",
+      "motion": "The cloth wipes left to right; the three small pictures are drawn in order, the box last.",
+      "carries": "The proof's picture, which the camera passes on its way back.",
+      "transition": "The camera slides back left along the whole board.",
+      "sound": "The soft wipe of the eraser; chalk strokes.",
+      "check": "Readable as a summary with the sound off.",
+      "facts": [
+        "f2",
+        "f4",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Wiped; the square and 'a² = luas persegi'.",
+          "draw": [
+            {
+              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                320,
+                198
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                108,
+                416
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                320,
+                436
+              ],
+              "text": "a²",
+              "size": 110,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                320,
+                690
+              ],
+              "text": "a² = luas persegi",
+              "size": 54
+            },
+            {
+              "path": "M120 860 C 600 840, 1200 870, 1800 850",
+              "colour": "white",
+              "width": 40
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The two arrangements with '='.",
+          "draw": [
+            {
+              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                320,
+                198
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                108,
+                416
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                320,
+                436
+              ],
+              "text": "a²",
+              "size": 110,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                320,
+                690
+              ],
+              "text": "a² = luas persegi",
+              "size": 54
+            },
+            {
+              "path": "M580 220 L910 220 L910 550 L580 550 Z",
+              "width": 5
+            },
+            {
+              "path": "M580 220 L768 220 L580 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M910 220 L768 220 L910 408 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M910 550 L910 408 L722 550 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M580 550 L722 550 L580 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M768 220 L910 408 L722 550 L580 362 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M1030 220 L1360 220 L1360 550 L1030 550 Z",
+              "width": 5
+            },
+            {
+              "path": "M1030 220 L1218 220 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1172 362 L1030 362 L1172 550 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1218 362 L1218 220 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1030 550 L1172 550 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1218 220 L1360 220 L1360 362 L1218 362 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1172 362 L1360 362 L1360 550 L1172 550 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "label": [
+                970,
+                420
+              ],
+              "text": "=",
+              "size": 100
+            },
+            {
+              "label": [
+                970,
+                690
+              ],
+              "text": "persegi besar sama, 4 segitiga sama",
+              "size": 44
+            },
+            {
+              "label": [
+                970,
+                760
+              ],
+              "text": "sisanya sama luas",
+              "size": 50
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "'c² = a² + b²' boxed; 'asal siku-siku'.",
+          "draw": [
+            {
+              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                320,
+                198
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                108,
+                416
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                320,
+                436
+              ],
+              "text": "a²",
+              "size": 110,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                320,
+                690
+              ],
+              "text": "a² = luas persegi",
+              "size": 54
+            },
+            {
+              "path": "M580 220 L910 220 L910 550 L580 550 Z",
+              "width": 5
+            },
+            {
+              "path": "M580 220 L768 220 L580 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M910 220 L768 220 L910 408 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M910 550 L910 408 L722 550 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M580 550 L722 550 L580 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M768 220 L910 408 L722 550 L580 362 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M1030 220 L1360 220 L1360 550 L1030 550 Z",
+              "width": 5
+            },
+            {
+              "path": "M1030 220 L1218 220 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1172 362 L1030 362 L1172 550 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1218 362 L1218 220 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1030 550 L1172 550 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1218 220 L1360 220 L1360 362 L1218 362 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1172 362 L1360 362 L1360 550 L1172 550 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "label": [
+                970,
+                420
+              ],
+              "text": "=",
+              "size": 100
+            },
+            {
+              "label": [
+                970,
+                690
+              ],
+              "text": "persegi besar sama, 4 segitiga sama",
+              "size": 44
+            },
+            {
+              "label": [
+                970,
+                760
+              ],
+              "text": "sisanya sama luas",
+              "size": 50
+            },
+            {
+              "path": "M1420 330 L1820 330 L1820 500 L1420 500 Z",
+              "width": 7
+            },
+            {
+              "label": [
+                1620,
+                446
+              ],
+              "text": "c² = a² + b²",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1620,
+                600
+              ],
+              "text": "asal siku-siku",
+              "size": 54
+            },
+            {
+              "cut": "geser balik ke awal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "act": "jawab",
+      "type": "wide",
+      "start": 58.16,
+      "end": 59.56,
+      "voice": "Makanya,",
+      "teaches": "The bridge: the last word runs into the first line, the picture into frame 0.",
+      "screen": "The camera slides back left past the proof, the counted 3-4-5 and the square, and settles on section A: the opening figure, the question and the formula, the same picture as frame 0.",
+      "motion": "A fast slide left along the board (about 1.2 s, eased), settling exactly on the framing of frame 0 a moment before the cut.",
+      "carries": "Into s01.",
+      "transition": "No cut: the film loops straight into s01.",
+      "sound": "The bed runs on into the opening.",
+      "check": "The last frame matches frame 0 (check.mjs SSIM).",
+      "frames": [
+        {
+          "at": 0,
+          "note": "Sliding back left along the board.",
+          "draw": [
+            {
+              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "colour": "blue",
+              "width": 8
+            },
+            {
+              "label": [
+                320,
+                198
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                108,
+                416
+              ],
+              "text": "a",
+              "size": 50
+            },
+            {
+              "label": [
+                320,
+                436
+              ],
+              "text": "a²",
+              "size": 110,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                320,
+                690
+              ],
+              "text": "a² = luas persegi",
+              "size": 54
+            },
+            {
+              "path": "M580 220 L910 220 L910 550 L580 550 Z",
+              "width": 5
+            },
+            {
+              "path": "M580 220 L768 220 L580 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M910 220 L768 220 L910 408 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M910 550 L910 408 L722 550 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M580 550 L722 550 L580 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M768 220 L910 408 L722 550 L580 362 Z",
+              "colour": "yellow",
+              "fill": "yellow",
+              "width": 5
+            },
+            {
+              "path": "M1030 220 L1360 220 L1360 550 L1030 550 Z",
+              "width": 5
+            },
+            {
+              "path": "M1030 220 L1218 220 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1172 362 L1030 362 L1172 550 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1218 362 L1218 220 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1030 550 L1172 550 L1030 362 Z",
+              "width": 4,
+              "fill": "ink"
+            },
+            {
+              "path": "M1218 220 L1360 220 L1360 362 L1218 362 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1172 362 L1360 362 L1360 550 L1172 550 Z",
+              "colour": "blue",
+              "fill": "blue",
+              "width": 5
+            },
+            {
+              "label": [
+                970,
+                420
+              ],
+              "text": "=",
+              "size": 100
+            },
+            {
+              "label": [
+                970,
+                690
+              ],
+              "text": "persegi besar sama, 4 segitiga sama",
+              "size": 44
+            },
+            {
+              "label": [
+                970,
+                760
+              ],
+              "text": "sisanya sama luas",
+              "size": 50
+            },
+            {
+              "path": "M1420 330 L1820 330 L1820 500 L1420 500 Z",
+              "width": 7
+            },
+            {
+              "label": [
+                1620,
+                446
+              ],
+              "text": "c² = a² + b²",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1620,
+                600
+              ],
+              "text": "asal siku-siku",
+              "size": 54
+            },
+            {
+              "camera": "left"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The opening board, a moment before frame 0.",
+          "draw": [
+            {
+              "path": "M530 390 L530 600 L810 600 Z",
+              "width": 7,
+              "fill": "ink"
+            },
+            {
+              "path": "M530 578 h22 v22",
+              "width": 4
+            },
+            {
+              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "colour": "blue",
+              "width": 7
+            },
+            {
+              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "label": [
+                546,
+                512
+              ],
+              "text": "a",
+              "size": 46,
+              "align": "start"
+            },
+            {
+              "label": [
+                684,
+                586
+              ],
+              "text": "b",
+              "size": 46
+            },
+            {
+              "label": [
+                648,
+                525
+              ],
+              "text": "c",
+              "size": 46
+            },
+            {
+              "label": [
+                425,
+                517
+              ],
+              "text": "a²",
+              "size": 64,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                670,
+                762
+              ],
+              "text": "b²",
+              "size": 70,
+              "colour": "blue"
+            },
+            {
+              "label": [
+                775,
+                379
+              ],
+              "text": "c²",
+              "size": 74,
+              "colour": "yellow"
+            },
+            {
+              "label": [
+                1470,
+                220
+              ],
+              "text": "Kok bisa",
+              "size": 92
+            },
+            {
+              "label": [
+                1470,
+                322
+              ],
+              "text": "selalu pas?",
+              "size": 92
+            },
+            {
+              "path": "M1290 344 C 1359 350, 1451 340, 1520 346",
+              "colour": "yellow",
+              "width": 7
+            },
+            {
+              "title": [
+                1470,
+                560
+              ],
+              "text": "a² + b² = c²",
+              "size": 104
+            },
+            {
+              "cut": "loop ke s01"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
