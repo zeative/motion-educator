@@ -47,6 +47,8 @@
   "captions": "dialog",
   "samples": [],
   "golden": [
-    "concept.jpg"
+    "concept.jpg",
+    "proof-1.jpg",
+    "proof-2.jpg"
   ]
 }

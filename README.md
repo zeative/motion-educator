@@ -184,14 +184,17 @@ the type, the caption skin, the palette, and for stop motion and drawings on two
 
 | Template | Mode | | Template | Mode | |
 | --- | --- | --- | --- | --- | --- |
-| Studio Cutaway | Photoreal 3D | sample films | Blueprint | Technical drawing | concept |
-| Graphite Glass | Motion graphics | sample films | Isometric | Isometric diorama | concept |
-| Cosmos | 3D and light | sample films | Pixel | Pixel art | concept |
-| Micro | Illustrated 3D | sample films | Whiteboard | Marker sketch | concept |
-| Stickman | Hand-drawn 2D | concept, engine proved | Watercolour | Painted | concept |
-| Clay | Claymation | concept, engine proved | Neon Line | Glowing lines | concept |
-| Paper Cut-out | Layered paper | concept | Comic | Ink and halftone | concept |
-| Chalkboard | Chalk on board | concept | Low Poly | Faceted 3D | concept |
+| Studio Cutaway | Photoreal 3D | sample films | Blueprint | Technical drawing | engine proof |
+| Graphite Glass | Motion graphics | sample films | Isometric | Isometric diorama | engine proof |
+| Cosmos | 3D and light | sample films | Pixel | Pixel art | engine proof |
+| Micro | Illustrated 3D | sample films | Whiteboard | Marker sketch | engine proof |
+| Stickman | Hand-drawn 2D | engine proof | Watercolour | Painted | engine proof |
+| Clay | Claymation | engine proof | Neon Line | Glowing lines | engine proof |
+| Paper Cut-out | Layered paper | engine proof | Comic | Ink and halftone | engine proof |
+| Chalkboard | Chalk on board | engine proof | Low Poly | Faceted 3D | engine proof |
+
+An engine proof is a few seconds made with the kit in that template, checked against its stills on every measure
+`lookmatch.mjs` takes; the template's first sample film comes next.
 
 Each lives in [`templates/<key>/`](templates): its lines (`template.md`), its engine settings (`template.json`),
 its type and colours (`look.css`) and the golden stills a film is measured against. `kit/tools/lookmatch.mjs`

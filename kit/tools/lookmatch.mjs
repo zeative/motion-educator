@@ -85,7 +85,7 @@ export async function lookmatch(filmDir, { template: key, frames: count = 8, she
   if (existsSync(picture)) {
     const info = probeVideo(picture);
     const from = Math.max(0, Math.min(info.duration - 4, info.duration * 0.3));
-    motion = motionOf(decodeVideo(picture, { fps: info.fps, width: 192, start: from, end: Math.min(info.duration, from + 4) }));
+    motion = motionOf(decodeVideo(picture, { fps: info.fps, width: 384, start: from, end: Math.min(info.duration, from + 4) }));
     if (template.stepped > 0) add("drawing rate", Math.abs(motion.rate - template.stepped) <= LIMITS.stepped, `${motion.rate} pictures a second`, `${template.stepped} (held)`, `the template holds each drawing for 1/${template.stepped} s: end film.js with film.finish() (the renderer seeks the held time through it), and draw each() jobs from the time they are given, never from a clock of their own`);
     else add("drawing rate", motion.rate >= Math.min(20, info.fps * 0.6), `${motion.rate} pictures a second`, "smooth", "the picture moves in steps but the template is smooth");
   }

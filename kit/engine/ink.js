@@ -28,7 +28,7 @@ const FILTERS = `
   </filter>`).join("")}
   <filter id="chalk" x="-5%" y="-5%" width="110%" height="110%">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="grain"/>
-    <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.55" result="holes"/>
+    <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.6" result="holes"/>
     <feComposite in="SourceGraphic" in2="holes" operator="in" result="dusty"/>
     <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="1" seed="9" result="wob"/>
     <feDisplacementMap in="dusty" in2="wob" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>

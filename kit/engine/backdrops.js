@@ -66,7 +66,7 @@ const PAINT = {
     ctx.fillStyle = look.paper ?? "#1f3b2d";
     ctx.fillRect(0, 0, w, h);
     smudges(ctx, w, h, rand, 14, [255, 255, 255], 0.035);
-    grain(ctx, w, h, rand, { amount: 9, fibres: Math.round((w * h) / 30000), ink: [255, 255, 255] });
+    grain(ctx, w, h, rand, { amount: 4, fibres: Math.round((w * h) / 40000), ink: [255, 255, 255] });
   },
   whiteboard(ctx, w, h, look, rand) {
     const g = ctx.createLinearGradient(0, 0, w, h);

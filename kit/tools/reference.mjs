@@ -224,7 +224,9 @@ export function motionOf(set) {
   const fps = set.fps;
   const moving = act.slice(1).filter((v) => v > 0);
   const top = median(moving.filter((v) => v >= median(moving)));
-  const floor = Math.max(0.0004, top * 0.04);
+  // A frame counts as changed when a few pixels change: a chalk line drawn on at writing speed touches only a handful
+  // a frame. Grain never gets past the 4 % threshold above, so this can be low.
+  const floor = Math.max(4 / (set.w * set.h), top * 0.02);
   const changed = act.map((v, i) => i > 0 && v > floor);
   const cuts = act.map((v, i) => ({ i, v })).filter(({ v, i }) => i > 0 && v > 0.45 && v > 5 * median(act.slice(Math.max(1, i - 6), i + 6)));
   // Holds of half a second or more: where the picture stops.
@@ -243,7 +245,7 @@ export function motionOf(set) {
   }
   const rate = inMotion.length ? (inMotion.filter(Boolean).length / inMotion.length) * fps : 0;
   // Each drawing held for `on` frames: 1 is smooth, 2 at 24 fps is drawn on twos (12 drawings a second).
-  const on = rate > 0 ? Math.max(1, Math.round(fps / rate)) : 1;
+  const on = rate > 0 ? Math.max(1, Math.round(fps / rate - 0.25)) : 1;
   const label = on === 1 ? "on ones (every frame a new picture)" : `each drawing held ${on} frames (${["", "", "on twos", "on threes"][on] ?? `on ${on}s`})`;
   return { fps, frames: act.length, floor: +floor.toFixed(4), rate: +rate.toFixed(1), on, label, stepped: on > 1 ? Math.round(fps / on) : 0, cuts: cuts.map((c) => +(c.i / fps).toFixed(2)), holds, activity: act.map((v) => +v.toFixed(4)) };
 }
@@ -319,7 +321,7 @@ async function main() {
   }
   if (command === "motion") {
     const input = resolve(positional[0]);
-    const set = isVideo(input) ? decodeVideo(input, { fps: num("fps", Math.min(60, probeVideo(input).fps || 24)), width: 192, start: time(flag("start")), end: time(flag("end")) }) : { ...decode(listFrames(input), 192), fps: num("fps", fpsOf(input)) };
+    const set = isVideo(input) ? decodeVideo(input, { fps: num("fps", Math.min(60, probeVideo(input).fps || 24)), width: 384, start: time(flag("start")), end: time(flag("end")) }) : { ...decode(listFrames(input), 384), fps: num("fps", fpsOf(input)) };
     const m = motionOf(set);
     console.log(`${m.frames} frames at ${m.fps} fps: the picture changes ${m.rate} times a second, ${m.label}${m.stepped ? ` (stepped ${m.stepped})` : ""}`);
     console.log(`cuts at ${m.cuts.join(", ") || "none"} s; holds of half a second or more: ${m.holds.map((h) => `${h.from}-${h.to}`).join(", ") || "none"}`);
@@ -340,7 +342,7 @@ async function main() {
       const still = extract(input, join(out, "frames"), { fps: num("fps", 2), start, end, width: 960 });
       look = lookOf(decode(listFrames(join(out, "frames")), 320));
       const rate = Math.min(60, Math.round(info.fps || 24));
-      motion = motionOf(decodeVideo(input, { fps: rate, width: 192, start, end: Math.min(end, start + 6) }));
+      motion = motionOf(decodeVideo(input, { fps: rate, width: 384, start, end: Math.min(end, start + 6) }));
       sheets = await filmstrip(join(out, "frames"), out, { every: Math.max(1, Math.ceil(still.count / 24)), title: `${basename(input)} · ${start}-${end.toFixed(1)} s`, swatches: look.palette });
     } else {
       const files = statSync(input).isDirectory() ? listFrames(input) : [input];

@@ -40,5 +40,7 @@ whatever the topic: the topic decides what is shown, the template decides how it
 
 ## Status
 
-A concept: `golden/concept.jpg` is a drawn still, not a frame of a film. The first film made in this template is
-its sample: check it against these lines and the still, then replace the still with its frames.
+A concept: no sample film yet. `golden/concept.jpg` is a drawn still; `golden/proof-1.jpg` and `proof-2.jpg` are
+frames of a short engine proof made with a 270 x 480 canvas scaled up four times (the PICO-8 palette, sprites, a HUD and a typed dialogue box, held at 12 frames a second), which matches this template on every `lookmatch.mjs` measure.
+The first real film made in this template is its sample: check it against these lines and the stills, then add its
+frames to `golden/`.

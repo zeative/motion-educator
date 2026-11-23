@@ -26,7 +26,7 @@
   "stepped": 0,
   "finish": {
     "bloom": 0,
-    "grain": 4
+    "grain": 2
   },
   "type": {
     "display": "Cabin Sketch",
@@ -36,6 +36,8 @@
   "captions": "chalk",
   "samples": [],
   "golden": [
-    "concept.jpg"
+    "concept.jpg",
+    "proof-1.jpg",
+    "proof-2.jpg"
   ]
 }
