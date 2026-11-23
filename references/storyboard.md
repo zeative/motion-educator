@@ -144,6 +144,7 @@ that is what makes the build cuttable from the board. Each thing is one object w
 | `{ "ring": [x, y, r] }`, `{ "cloud": [x, y, w] }`, `{ "bolt": [x0, y0, x1, y1] }` | a circle's outline (an orbit, a front of sound); a cloud; a jagged line |
 | `{ "path": "M100 100 L300 400 ...", "colour": "blue", "fill": "blue" }` | any shape the list lacks, as an SVG path in the frame's coordinates |
 | `{ "person": [x, y, size] }`, `{ "horizon": [y] }`, `{ "sky": [y0, y1], "tone": "dusk" }` | someone standing; the ground; a graded sky |
+| `{ "pusher": [x, y, size], "lean": 18 }`, `{ "trolley": [x, y, width], "full": true }` | someone leaning into a push; a shopping trolley, empty or loaded |
 | `{ "magnifier": [x, y, r] }`, `{ "dot": [x, y, r] }`, `{ "line": [x0, y0, x1, y1], "dashed": true }`, `{ "arrow": [x0, y0, x1, y1] }`, `{ "glow": [x, y, r] }` | a lens, marks, where the stage's light sits |
 
 Direction is drawn in blue pencil, the way a storyboard artist marks it:

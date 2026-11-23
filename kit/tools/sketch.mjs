@@ -189,6 +189,19 @@ const DRAW = {
   number: ([x, y], t) => lettering([x, y], t.text, t.size ?? 150, { fill: colour(t.colour, BLUE), weight: 700 }),
   person: ([x, y, s]) =>
     `<circle cx="${x}" cy="${f(y - s * 0.86)}" r="${f(s * 0.13)}" fill="${INK}"/><path d="M${x} ${f(y - s * 0.72)} V${f(y - s * 0.3)} M${x} ${f(y - s * 0.3)} L${f(x - s * 0.14)} ${y} M${x} ${f(y - s * 0.3)} L${f(x + s * 0.14)} ${y} M${f(x - s * 0.16)} ${f(y - s * 0.56)} L${x} ${f(y - s * 0.64)} L${f(x + s * 0.2)} ${f(y - s * 0.8)}" stroke="${INK}" stroke-width="${f(s * 0.07)}" fill="none"/>`,
+  // Someone leaning into a push: feet at (x, y), size s, facing right; `lean` in degrees (default 18).
+  pusher: ([x, y, s], t) => {
+    const a = ((t.lean ?? 18) * Math.PI) / 180, hip = [x + Math.sin(a) * s * 0.3, y - Math.cos(a) * s * 0.3 - s * 0.02];
+    const up = (d) => [hip[0] + Math.sin(a) * s * d, hip[1] - Math.cos(a) * s * d];
+    const [sx, sy] = up(0.36), [hx, hy] = up(0.52);
+    return `<circle cx="${f(hx)}" cy="${f(hy)}" r="${f(s * 0.12)}" fill="none" stroke="${INK}" stroke-width="${f(s * 0.05)}"/><path d="M${f(hip[0])} ${f(hip[1])} L${f(sx)} ${f(sy)} M${f(sx)} ${f(sy)} L${f(sx + s * 0.34)} ${f(sy + s * 0.04)} M${f(sx)} ${f(sy + s * 0.04)} L${f(sx + s * 0.32)} ${f(sy + s * 0.1)} M${f(hip[0])} ${f(hip[1])} L${f(x - s * 0.12)} ${y} M${f(hip[0])} ${f(hip[1])} L${f(x + s * 0.14)} ${f(y - s * 0.12)} L${f(x + s * 0.2)} ${y}" stroke="${INK}" stroke-width="${f(s * 0.05)}" fill="none" stroke-linecap="round"/>`;
+  },
+  // A shopping trolley: handle end at the left, wheels on the ground at y, basket w wide; `full` piles it with shopping.
+  trolley: ([x, y, w], t) => {
+    const top = y - w * 0.95, bottom = y - w * 0.38, r = w * 0.07;
+    const load = t.full ? `<path d="M${f(x + w * 0.08)} ${f(top)} v${f(-w * 0.16)} h${f(w * 0.3)} v${f(w * 0.16)} M${f(x + w * 0.42)} ${f(top)} v${f(-w * 0.28)} h${f(w * 0.2)} v${f(w * 0.28)} M${f(x + w * 0.66)} ${f(top)} v${f(-w * 0.18)} h${f(w * 0.26)} v${f(w * 0.18)}" stroke="${INK}" stroke-width="5" fill="url(#hatch2)"/>` : "";
+    return `${load}<path d="M${x} ${f(top)} H${f(x + w)} L${f(x + w * 0.92)} ${f(bottom)} H${f(x + w * 0.1)} Z" stroke="${colour(t.colour)}" stroke-width="7" fill="none"/><path d="M${x} ${f(top)} L${f(x - w * 0.2)} ${f(top - w * 0.12)} M${f(x + w * 0.1)} ${f(bottom)} L${f(x + w * 0.15)} ${f(y - r * 2)} M${f(x + w * 0.92)} ${f(bottom)} L${f(x + w * 0.85)} ${f(y - r * 2)} M${f(x + w * 0.06)} ${f(y - r * 2.2)} H${f(x + w * 0.94)}" stroke="${colour(t.colour)}" stroke-width="6" fill="none"/><circle cx="${f(x + w * 0.15)}" cy="${f(y - r)}" r="${f(r)}" fill="none" stroke="${INK}" stroke-width="5"/><circle cx="${f(x + w * 0.85)}" cy="${f(y - r)}" r="${f(r)}" fill="none" stroke="${INK}" stroke-width="5"/>`;
+  },
   horizon: ([y]) =>
     `<path d="M0 ${y + 20} C240 ${y - 40} 420 ${y + 30} 700 ${y - 6} S1180 ${y - 50} 1460 ${y + 4} S1800 ${y - 30} 1920 ${y + 10} V${SIZE.h} H0 Z" transform="scale(${f(SIZE.w / 1920)} 1)" fill="url(#hatch2)" stroke="${INK}" stroke-width="7"/>`,
   sky: ([y0, y1], t) => {

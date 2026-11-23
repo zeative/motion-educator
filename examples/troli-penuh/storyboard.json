@@ -1,0 +1,1866 @@
+{
+  "title": "Kenapa troli penuh susah didorong?",
+  "question": "Kenapa troli belanja yang penuh lebih susah didorong, padahal beratnya nggak kita angkat?",
+  "audience": "Orang Indonesia yang belanja ke supermarket dan nonton video pendek. Mereka tahu troli penuh terasa berat, tapi mengira itu soal berat yang harus diangkat atau ditahan, bukan soal massa.",
+  "promise": "Yang bikin troli penuh susah didorong itu massanya, bukan beratnya: dorongan yang sama ke massa tiga kali lipat cuma menghasilkan sepertiga percepatan, dan dia juga tiga kali lebih susah dihentikan.",
+  "template": "stickman",
+  "language": "id",
+  "format": "1080x1920",
+  "captions": "pop",
+  "duration": 47.4,
+  "fps": 60,
+  "loop": {
+    "line": "Itulah kenapa / troli penuh lebih susah didorong, padahal beratnya nggak kamu angkat sama sekali.",
+    "picture": "The last shot slides back to the opening picture: the figure leaning into the loaded trolley, the same pixels as frame 0."
+  },
+  "voice": {
+    "voice_id": "xlBOShi2835jfBgaEld4",
+    "name": "Rafiq",
+    "model": "eleven_v4",
+    "language": "id",
+    "direction": "[warmly]"
+  },
+  "look": {
+    "accent": "#f2c14e",
+    "mood": "The Stickman template: warm off-white paper with grain and a soft vignette, black ink drawn on stroke by stroke and boiling, a faint pencil sketch under the ink, one marker colour (yellow) for the word or the number that matters. Red is only for forces (push and weight arrows), blue for the floor's answer and the motion marks. Characters on twos."
+  },
+  "music": {
+    "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
+    "bpm": 96,
+    "note": "A light acoustic bed (ukulele, pizzicato, soft claps), composed to the take's length; it thins under the numbers and lifts on the payoff. Pen scratches as lines draw, a thump for each item of shopping, skids in s12. The cuts follow the take."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "A real supermarket trolley: the Wanzl ELT7/130, with a 131-litre basket, weighs 21 kg (load capacity 131 kg). The film calls the empty trolley 'sekitar dua puluh satu kilo' and writes '21 kg' and the model on screen.",
+      "source": "Wanzl, Shopping trolleys catalogue (1193_Shopping-trolleys_EN.pdf, wanzl.com), 'Order section for ELT series': ELT7/130, basket volume 131 l, load capacity 131 kg, weight 21.0 kg."
+    },
+    {
+      "id": "f2",
+      "claim": "On a level floor you do not lift the trolley: its weight is carried by the wheels and held up by the floor (the floor's upward push balances the weight). Simplification: the film draws two equal arrow pairs; there are four wheels.",
+      "source": "NASA Glenn Research Center, Beginner's Guide, 'Newton's Laws of Motion' and 'Weight' (grc.nasa.gov/www/k-12): a body at rest has balanced forces."
+    },
+    {
+      "id": "f3",
+      "claim": "Inertia (Newton's first law): a body at rest stays at rest, and a body in motion keeps moving at the same speed, unless an outside force acts on it.",
+      "source": "NASA Glenn Research Center, 'Newton's First Law of Motion' (grc.nasa.gov/www/k-12/airplane/newton1g.html)."
+    },
+    {
+      "id": "f4",
+      "claim": "Newton's second law: F = m × a, so a = F / m. With the same push F, three times the mass gives a third of the acceleration. Starting from rest for the same time t, the distance is a t² / 2, so the full trolley covers a third as far (the film's lanes: 640 px and 213 px).",
+      "source": "NASA Glenn Research Center, 'Newton's Second Law of Motion' (grc.nasa.gov/www/k-12/BGP/newton2.html); 'Motion equations' (grc.nasa.gov/www/k-12/airplane/motion.html) for distance = a t² / 2."
+    },
+    {
+      "id": "f5",
+      "claim": "The shopping is an example: 42 kg (a big week's shop: drinks, rice, detergent). 21 + 42 = 63 kg, and 63 / 21 = 3: three times the empty trolley's mass. On screen: '21 + 42 = 63 kg' and '3×'.",
+      "source": "Arithmetic from f1; the 42 kg is chosen for the example and is said as one ('Tambah belanjaan empat puluh dua kilo')."
+    },
+    {
+      "id": "f6",
+      "claim": "Stopping: with the same braking force F from the same speed v, the deceleration is F / m and the stopping distance is v² / (2a) = m v² / (2F), proportional to the mass. Three times the mass: three times the distance (the film's marks: 190 px and 570 px). Rolling friction is ignored in both lanes.",
+      "source": "NASA Glenn Research Center, 'Newton's Second Law of Motion' and 'Motion equations' (v² = 2 a d), as f4; the arithmetic is shown in storyboard.build.py."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "Pertanyaan",
+      "goal": "The puzzle: hard to push, yet never lifted.",
+      "rail": false
+    },
+    {
+      "id": "massa",
+      "title": "Kelembaman",
+      "goal": "Not weight: inertia, and it grows with mass.",
+      "rail": false
+    },
+    {
+      "id": "angka",
+      "title": "Tiga kali",
+      "goal": "A real trolley, a real load, the arithmetic of a third.",
+      "rail": false
+    },
+    {
+      "id": "berhenti",
+      "title": "Susah berhenti",
+      "goal": "The same mass also resists stopping: three times the distance.",
+      "rail": false
+    },
+    {
+      "id": "recap",
+      "title": "Jawaban",
+      "goal": "Mass, not weight; then the bridge into the first line.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "wide",
+      "start": 0,
+      "end": 4.4,
+      "voice": "Troli penuh lebih susah didorong, padahal *beratnya* nggak kamu angkat sama sekali.",
+      "teaches": "The puzzle: a full trolley is hard to push, yet you never lift it.",
+      "screen": "Warm paper. A hand-drawn floor across the frame at y 1150. A stick figure leans into a shopping trolley piled with three boxes of shopping; push arrow from the hands; sweat flicks by the head.",
+      "motion": "Frame 0 is finished. The figure shoves (anticipation back, then forward, on twos); the trolley gives a few pixels and stops. The word 'beratnya' gets a marker swipe in the caption.",
+      "carries": "The figure and the trolley.",
+      "transition": "Hold, then the camera pushes in on the face.",
+      "sound": "Paper bed starts; a strained 'hngg' is the voice's, a creak on the shove.",
+      "check": "The trolley reads as a trolley at a glance; the figure is leaning, not standing.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Frame 0 is finished: the figure leaning into the loaded trolley, both drawn and still.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 20
+            },
+            {
+              "arrow": [
+                450,
+                870,
+                520,
+                870
+              ],
+              "colour": "red"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The shove: the figure rocks back then forward; the trolley moves a hair and stops.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 26
+            },
+            {
+              "move": [
+                520,
+                700,
+                560,
+                700
+              ],
+              "text": "nyaris diam"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "On 'angkat' a dotted arrow points up from the trolley with a cross through it: you never lift it.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 20
+            },
+            {
+              "arrow": [
+                710,
+                690,
+                710,
+                520
+              ],
+              "colour": "red"
+            },
+            {
+              "path": "M670 560 L750 640 M750 560 L670 640",
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "cut": "dorong kamera ke wajah"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "hook",
+      "type": "type",
+      "start": 4.4,
+      "end": 5.8,
+      "voice": "Kok bisa?",
+      "teaches": "Asks the question out loud.",
+      "screen": "Close on the figure's head: a big hand-drawn question mark draws on beside it.",
+      "motion": "Camera push to the face; the question mark draws on in two strokes.",
+      "carries": "The face.",
+      "transition": "Cut to a side view of the wheels.",
+      "sound": "A pen scratch for the question mark.",
+      "check": "Readable as a question in under a second.",
+      "frames": [
+        {
+          "at": 0,
+          "note": "Push in: the head and shoulders fill the upper half.",
+          "draw": [
+            {
+              "ring": [
+                470,
+                700,
+                130
+              ]
+            },
+            {
+              "path": "M430 690 v4 M510 690 v4 M440 760 q30 -16 60 0",
+              "width": 6
+            },
+            {
+              "camera": "push"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "A big question mark beside the head.",
+          "draw": [
+            {
+              "ring": [
+                470,
+                700,
+                130
+              ]
+            },
+            {
+              "path": "M700 560 q0 -90 80 -90 q80 0 80 80 q0 60 -70 80 v60 M790 830 v6",
+              "width": 14
+            },
+            {
+              "cut": "potong ke roda"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "massa",
+      "type": "diagram",
+      "start": 5.8,
+      "end": 9.4,
+      "voice": "Semua beratnya ditahan roda ke lantai.",
+      "teaches": "The weight goes down through the wheels into the floor; the floor holds it.",
+      "screen": "The trolley side-on, larger. Red arrows from the load down through the frame to the four wheels; blue arrows from the floor back up. Label 'berat' at the load, 'lantai menahan' at the floor.",
+      "motion": "The down arrows draw on from the load to the wheels; the up arrows answer from the floor.",
+      "carries": "The loaded trolley.",
+      "transition": "The arrows erase; the word 'kelembaman' is written across the top.",
+      "sound": "Two soft taps as the arrows land.",
+      "check": "Down and up arrows are the same length.",
+      "facts": [
+        "f2"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The loaded trolley, larger, centred on the floor.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                350,
+                1150,
+                470
+              ],
+              "full": true
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Weight arrows from the load down to the wheels.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                350,
+                1150,
+                470
+              ],
+              "full": true
+            },
+            {
+              "arrow": [
+                420,
+                820,
+                420,
+                1110
+              ],
+              "colour": "red"
+            },
+            {
+              "arrow": [
+                760,
+                820,
+                760,
+                1110
+              ],
+              "colour": "red"
+            },
+            {
+              "label": [
+                590,
+                760
+              ],
+              "text": "berat",
+              "size": 46,
+              "colour": "red"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The floor pushes back up: equal arrows; label 'lantai menahan'.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                350,
+                1150,
+                470
+              ],
+              "full": true
+            },
+            {
+              "arrow": [
+                420,
+                1250,
+                420,
+                1160
+              ],
+              "colour": "blue"
+            },
+            {
+              "arrow": [
+                760,
+                1250,
+                760,
+                1160
+              ],
+              "colour": "blue"
+            },
+            {
+              "label": [
+                590,
+                1310
+              ],
+              "text": "lantai yang menahan",
+              "size": 44,
+              "colour": "blue"
+            },
+            {
+              "cut": "tulisan baru di atas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "massa",
+      "type": "type",
+      "start": 9.4,
+      "end": 12.6,
+      "voice": "Yang kamu lawan itu hal lain: *kelembaman*.",
+      "teaches": "Names the real thing you fight: inertia.",
+      "screen": "The word KELEMBAMAN hand-lettered big across the upper third, a marker swipe under it; the small trolley below.",
+      "motion": "The word writes on letter by letter; the marker swipes under it on the word in the voice.",
+      "carries": "The small trolley.",
+      "transition": "The word slides up as a ball rolls in.",
+      "sound": "A marker squeak under the swipe.",
+      "check": "The word is the biggest thing on the page.",
+      "frames": [
+        {
+          "at": 0,
+          "note": "The word starts to write on.",
+          "draw": [
+            {
+              "label": [
+                540,
+                560
+              ],
+              "text": "Kelem",
+              "size": 120
+            },
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                380,
+                1150,
+                320
+              ],
+              "full": true
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The whole word with its marker swipe.",
+          "draw": [
+            {
+              "path": "M170 600 H910",
+              "colour": "yellow",
+              "width": 34
+            },
+            {
+              "label": [
+                540,
+                560
+              ],
+              "text": "Kelembaman",
+              "size": 120
+            },
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                380,
+                1150,
+                320
+              ],
+              "full": true
+            },
+            {
+              "cut": "kata naik"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "massa",
+      "type": "diagram",
+      "start": 12.6,
+      "end": 16.2,
+      "voice": "Benda yang diam maunya tetap diam.",
+      "teaches": "Inertia, part one: what is at rest stays at rest unless something pushes it.",
+      "screen": "The empty floor; a stick figure flicks a ball and it rolls; then pushes the full trolley and it barely moves. Label 'diam → tetap diam'.",
+      "motion": "The ball rolls off easily (on twos); the trolley jerks a few pixels and stops.",
+      "carries": "The trolley and the figure.",
+      "transition": "A second trolley slides in beside it.",
+      "sound": "A light roll; a heavy creak.",
+      "check": "The contrast between the ball and the trolley is obvious on mute.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The trolley at rest; label 'diam'.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                710,
+                680
+              ],
+              "text": "diam",
+              "size": 54
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The figure pushes; arrow; the trolley hardly moves.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 20
+            },
+            {
+              "arrow": [
+                450,
+                870,
+                530,
+                870
+              ],
+              "colour": "red"
+            },
+            {
+              "move": [
+                700,
+                650,
+                730,
+                650
+              ],
+              "text": "sedikit"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Label: 'maunya tetap diam'.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 20
+            },
+            {
+              "label": [
+                710,
+                600
+              ],
+              "text": "maunya tetap diam",
+              "size": 50
+            },
+            {
+              "cut": "troli kedua masuk"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "massa",
+      "type": "compare",
+      "start": 16.2,
+      "end": 19.8,
+      "voice": "Makin besar massanya, makin susah diubah geraknya.",
+      "teaches": "Inertia grows with mass: more mass, harder to change its motion.",
+      "screen": "Two trolleys side by side: empty (left, small label 'massa kecil') and full (right, 'massa besar'); a hand-drawn bar under each, the full one's three times longer.",
+      "motion": "The bars draw on; the full one's marker swipe.",
+      "carries": "The two trolleys.",
+      "transition": "The empty trolley rolls onto a scale.",
+      "sound": "Two pen strokes.",
+      "check": "The bars are in the ratio 1 : 3.",
+      "facts": [
+        "f1",
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Two trolleys side by side on one floor.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                130,
+                1150,
+                300
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                610,
+                1150,
+                300
+              ],
+              "full": true
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Labels under them: massa kecil, massa besar.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                130,
+                1150,
+                300
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                610,
+                1150,
+                300
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                280,
+                1230
+              ],
+              "text": "massa kecil",
+              "size": 42
+            },
+            {
+              "label": [
+                760,
+                1230
+              ],
+              "text": "massa besar",
+              "size": 42
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Bars for 'susah diubah': 1 and 3.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                130,
+                1150,
+                300
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                610,
+                1150,
+                300
+              ],
+              "full": true
+            },
+            {
+              "bar": [
+                220,
+                1420,
+                120,
+                80
+              ]
+            },
+            {
+              "bar": [
+                600,
+                1420,
+                360,
+                80
+              ],
+              "colour": "red"
+            },
+            {
+              "cut": "troli kosong ke timbangan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "angka",
+      "type": "diagram",
+      "start": 19.8,
+      "end": 23.6,
+      "voice": "Troli kosong cuma sekitar *dua puluh satu kilo*.",
+      "teaches": "A real trolley: an empty one weighs about 21 kg.",
+      "screen": "The empty trolley on a big platform scale drawn on the floor; the scale's window reads 21 kg; small note 'Wanzl ELT7/130, 131 liter'.",
+      "motion": "The trolley rolls onto the scale; the reading writes on.",
+      "carries": "The trolley on the scale.",
+      "transition": "Shopping drops in from above.",
+      "sound": "A clunk onto the scale.",
+      "check": "The number is 21, as the fact sheet says.",
+      "facts": [
+        "f1"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The empty trolley rolls in from the left.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                120,
+                1150,
+                340
+              ],
+              "full": false
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "",
+              "size": 34
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The empty trolley stands on the scale.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "",
+              "size": 34
+            },
+            {
+              "trolley": [
+                430,
+                1146,
+                340
+              ],
+              "full": false
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The reading: 21 kg, and the model's name small.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "21 kg",
+              "size": 34
+            },
+            {
+              "trolley": [
+                430,
+                1146,
+                340
+              ],
+              "full": false
+            },
+            {
+              "number": [
+                600,
+                600
+              ],
+              "text": "21 kg",
+              "size": 130
+            },
+            {
+              "label": [
+                600,
+                680
+              ],
+              "text": "Wanzl ELT7/130, 131 liter",
+              "size": 34
+            },
+            {
+              "cut": "belanjaan jatuh"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "angka",
+      "type": "diagram",
+      "start": 23.6,
+      "end": 25.8,
+      "voice": "Tambah belanjaan empat puluh dua kilo,",
+      "teaches": "A real week's shop goes in: 42 kg of it.",
+      "screen": "Boxes and bags drop one by one into the empty trolley standing on the scale; each lands with a squash.",
+      "motion": "Each item drops and squashes into the basket on twos; the scale's needle waits.",
+      "carries": "The trolley on the scale.",
+      "transition": "Continuous: the reading changes on the next line.",
+      "sound": "Three thumps as the items land.",
+      "check": "The items land inside the basket, not floating.",
+      "facts": [
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Shopping falls into the basket from above.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "21 kg",
+              "size": 34
+            },
+            {
+              "trolley": [
+                430,
+                1146,
+                340
+              ],
+              "full": false
+            },
+            {
+              "move": [
+                600,
+                420,
+                600,
+                640
+              ],
+              "text": "belanjaan"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The basket is full; label '+42 kg'.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "21 kg",
+              "size": 34
+            },
+            {
+              "trolley": [
+                430,
+                1146,
+                340
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                600,
+                560
+              ],
+              "text": "+ 42 kg",
+              "size": 64
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08b",
+      "act": "angka",
+      "type": "chart",
+      "start": 25.8,
+      "end": 27.6,
+      "voice": "massanya jadi *tiga kali lipat*.",
+      "teaches": "21 + 42 = 63 kg: three times the empty trolley.",
+      "screen": "The scale reads 63 kg; above it '21 + 42 = 63 kg' and a big '3×' with the marker.",
+      "motion": "The reading changes once; the sum writes on; the marker swipes under 3×.",
+      "carries": "The full trolley on the scale.",
+      "transition": "Split into two lanes.",
+      "sound": "A pen tick on '3×'.",
+      "check": "21 + 42 = 63 is written; 63 / 21 = 3.",
+      "facts": [
+        "f1",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The scale's reading turns to 63 kg; the sum writes on.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "63 kg",
+              "size": 34
+            },
+            {
+              "trolley": [
+                430,
+                1146,
+                340
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                600,
+                520
+              ],
+              "text": "21 + 42 = 63 kg",
+              "size": 54
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The big 3× with its marker swipe.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "path": "M380 1146 H820 V1216 H380 Z",
+              "width": 6
+            },
+            {
+              "path": "M530 1164 H670 V1202 H530 Z",
+              "width": 4
+            },
+            {
+              "label": [
+                600,
+                1196
+              ],
+              "text": "63 kg",
+              "size": 34
+            },
+            {
+              "trolley": [
+                430,
+                1146,
+                340
+              ],
+              "full": true
+            },
+            {
+              "path": "M420 440 H660",
+              "colour": "yellow",
+              "width": 34
+            },
+            {
+              "number": [
+                540,
+                430
+              ],
+              "text": "3×",
+              "size": 160
+            },
+            {
+              "cut": "dua lajur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "angka",
+      "type": "compare",
+      "start": 27.6,
+      "end": 31.8,
+      "voice": "Artinya, dorongan yang sama cuma bikin dia ngebut *sepertiganya*.",
+      "teaches": "Same push, three times the mass: a third of the acceleration, so in the same time it gets a third as far.",
+      "screen": "Two lanes, one above the other. Top: empty trolley with a push arrow F. Bottom: full trolley with the same arrow F. A start line; after the same time the empty one has gone 640 px, the full one 213 px, ticks along each lane.",
+      "motion": "Both arrows are drawn the same length first; then both trolleys move for the same time (on twos); the full one lags at a third.",
+      "carries": "The two lanes.",
+      "transition": "Hold on the gap, then the full lane fills the frame.",
+      "sound": "Two rolls, one long, one short.",
+      "check": "Distances are 640 and 213 px: 3 : 1.",
+      "facts": [
+        "f4",
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Two lanes, same push arrow F on each.",
+          "draw": [
+            {
+              "path": "M80 760 H1000 M80 1260 H1000",
+              "width": 5
+            },
+            {
+              "trolley": [
+                120,
+                760,
+                220
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                120,
+                1260,
+                220
+              ],
+              "full": true
+            },
+            {
+              "arrow": [
+                40,
+                640,
+                110,
+                640
+              ],
+              "colour": "red"
+            },
+            {
+              "arrow": [
+                40,
+                1140,
+                110,
+                1140
+              ],
+              "colour": "red"
+            },
+            {
+              "label": [
+                70,
+                600
+              ],
+              "text": "F",
+              "size": 50,
+              "colour": "red"
+            },
+            {
+              "label": [
+                70,
+                1100
+              ],
+              "text": "F",
+              "size": 50,
+              "colour": "red"
+            }
+          ]
+        },
+        {
+          "at": 0.6,
+          "note": "Both move for the same time.",
+          "draw": [
+            {
+              "path": "M80 760 H1000 M80 1260 H1000",
+              "width": 5
+            },
+            {
+              "trolley": [
+                504.0,
+                760,
+                220
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                248.0,
+                1260,
+                220
+              ],
+              "full": true
+            },
+            {
+              "move": [
+                120,
+                520,
+                504.0,
+                520
+              ],
+              "text": "cepat"
+            },
+            {
+              "move": [
+                120,
+                1020,
+                248.0,
+                1020
+              ],
+              "text": "lambat"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Where they are after the same time: 3 : 1.",
+          "draw": [
+            {
+              "path": "M80 760 H1000 M80 1260 H1000",
+              "width": 5
+            },
+            {
+              "trolley": [
+                760,
+                760,
+                220
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                333.33333333333337,
+                1260,
+                220
+              ],
+              "full": true
+            },
+            {
+              "bracket": [
+                120,
+                760,
+                830
+              ],
+              "text": "1 bagian kosong"
+            },
+            {
+              "bracket": [
+                120,
+                333,
+                1330
+              ],
+              "text": "1/3"
+            },
+            {
+              "cut": "lajur penuh membesar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "act": "berhenti",
+      "type": "wide",
+      "start": 31.8,
+      "end": 34.0,
+      "voice": "Masalahnya belum selesai.",
+      "teaches": "Turn: inertia also works the other way.",
+      "screen": "The full trolley now rolling along the floor with speed lines; the figure walking behind it.",
+      "motion": "Speed lines flick on twos; the camera pans with the trolley.",
+      "carries": "The rolling trolley.",
+      "transition": "Continuous: the figure grabs the handle.",
+      "sound": "Wheels rumbling.",
+      "check": "It reads as moving, not standing.",
+      "frames": [
+        {
+          "at": 0,
+          "note": "Rolling, speed lines behind.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                480,
+                1150,
+                360
+              ],
+              "full": true
+            },
+            {
+              "path": "M300 900 h120 M280 980 h140 M320 1060 h100",
+              "width": 6
+            },
+            {
+              "camera": "right"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Still rolling; the figure catches up.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                560,
+                1150,
+                360
+              ],
+              "full": true
+            },
+            {
+              "person": [
+                380,
+                1150,
+                400
+              ]
+            },
+            {
+              "cut": "tanpa potongan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "act": "berhenti",
+      "type": "diagram",
+      "start": 34.0,
+      "end": 37.2,
+      "voice": "Begitu udah jalan, dia juga ogah *berhenti*.",
+      "teaches": "Inertia, part two: what moves keeps moving; stopping a big mass is hard too.",
+      "screen": "The figure leans back on the handle, heels dug in; the trolley keeps rolling and drags them along; label 'maunya tetap jalan'.",
+      "motion": "The figure leans back (pose held on twos), feet slide; the trolley keeps going.",
+      "carries": "The figure and trolley.",
+      "transition": "Split into two lanes again.",
+      "sound": "Shoes squeak as the heels slide.",
+      "check": "The figure leans backwards, the opposite of s01.",
+      "facts": [
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Grabbing the handle, starting to lean back.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                560,
+                1150,
+                360
+              ],
+              "full": true
+            },
+            {
+              "person": [
+                400,
+                1150,
+                400
+              ]
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Leaning back, heels skidding; the trolley rolls on.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                620,
+                1150,
+                360
+              ],
+              "full": true
+            },
+            {
+              "path": "M420 1150 l-60 -380 M420 1150 l40 -10",
+              "width": 10
+            },
+            {
+              "move": [
+                620,
+                700,
+                700,
+                700
+              ],
+              "text": "tetap jalan"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Label 'maunya tetap jalan'.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                660,
+                1150,
+                360
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                540,
+                560
+              ],
+              "text": "maunya tetap jalan",
+              "size": 52
+            },
+            {
+              "cut": "dua lajur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "act": "berhenti",
+      "type": "compare",
+      "start": 37.2,
+      "end": 41.8,
+      "voice": "Kalau kamu ngerem sekuat tadi, jaraknya *tiga kali* lebih panjang.",
+      "teaches": "Same braking force from the same speed: the full trolley needs three times the distance to stop.",
+      "screen": "Two lanes again, both trolleys arriving at the same speed at a line; a brake mark from the line: 190 px for the empty one, 570 px for the full one; '×3' in marker.",
+      "motion": "Both brake at the line at the same moment; the empty one stops early, the full one slides on; the marker writes ×3.",
+      "carries": "The two stopping marks.",
+      "transition": "The lanes slide away; one frame of the summary.",
+      "sound": "Two skids, the second three times as long.",
+      "check": "Stopping marks 190 and 570 px: 1 : 3.",
+      "facts": [
+        "f4",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Both arrive at the braking line at the same speed.",
+          "draw": [
+            {
+              "path": "M80 760 H1040 M80 1260 H1040",
+              "width": 5
+            },
+            {
+              "path": "M300 540 V1290",
+              "colour": "red",
+              "dashed": true
+            },
+            {
+              "trolley": [
+                80,
+                760,
+                220
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                80,
+                1260,
+                220
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                300,
+                500
+              ],
+              "text": "mulai ngerem",
+              "size": 40,
+              "colour": "red"
+            }
+          ]
+        },
+        {
+          "at": 0.6,
+          "note": "The empty one has stopped; the full one is still sliding.",
+          "draw": [
+            {
+              "path": "M80 760 H1040 M80 1260 H1040",
+              "width": 5
+            },
+            {
+              "path": "M300 540 V1290",
+              "colour": "red",
+              "dashed": true
+            },
+            {
+              "trolley": [
+                270,
+                760,
+                220
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                422.0,
+                1260,
+                220
+              ],
+              "full": true
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Both stopped: marks 1 and 3; '×3'.",
+          "draw": [
+            {
+              "path": "M80 760 H1040 M80 1260 H1040",
+              "width": 5
+            },
+            {
+              "path": "M300 540 V1290",
+              "colour": "red",
+              "dashed": true
+            },
+            {
+              "trolley": [
+                270,
+                760,
+                220
+              ],
+              "full": false
+            },
+            {
+              "trolley": [
+                650.0,
+                1260,
+                220
+              ],
+              "full": true
+            },
+            {
+              "bracket": [
+                300,
+                490,
+                830
+              ],
+              "text": "1"
+            },
+            {
+              "bracket": [
+                300,
+                870,
+                1330
+              ],
+              "text": "×3"
+            },
+            {
+              "cut": "rangkuman"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "act": "recap",
+      "type": "recap",
+      "start": 41.8,
+      "end": 45.6,
+      "voice": "Jadi yang bikin capek itu *massanya*, bukan beratnya.",
+      "teaches": "The answer in one frame: you fight the mass (inertia), not the weight.",
+      "screen": "One page: the two ideas as small drawings in a column: 'susah mulai' (figure pushing), 'susah berhenti' (figure leaning back); at the top 'massa ✓' with the marker and 'berat ✗' crossed out.",
+      "motion": "The two small drawings draw on; 'berat' is crossed out on 'bukan'.",
+      "carries": "The pushing figure.",
+      "transition": "The page slides; the camera returns to the opening picture.",
+      "sound": "Two ticks and a cross-out scratch.",
+      "check": "Readable as a summary with the sound off.",
+      "facts": [
+        "f3",
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The two words at the top.",
+          "draw": [
+            {
+              "path": "M250 450 H510",
+              "colour": "yellow",
+              "width": 34
+            },
+            {
+              "label": [
+                380,
+                420
+              ],
+              "text": "massa ✓",
+              "size": 70
+            },
+            {
+              "label": [
+                720,
+                420
+              ],
+              "text": "berat",
+              "size": 70
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Two small drawings: hard to start, hard to stop.",
+          "draw": [
+            {
+              "label": [
+                380,
+                420
+              ],
+              "text": "massa ✓",
+              "size": 70
+            },
+            {
+              "label": [
+                720,
+                420
+              ],
+              "text": "berat",
+              "size": 70
+            },
+            {
+              "pusher": [
+                300,
+                900,
+                260
+              ]
+            },
+            {
+              "trolley": [
+                430,
+                900,
+                200
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                420,
+                960
+              ],
+              "text": "susah mulai",
+              "size": 40
+            },
+            {
+              "person": [
+                680,
+                1300,
+                260
+              ]
+            },
+            {
+              "trolley": [
+                760,
+                1300,
+                200
+              ],
+              "full": true
+            },
+            {
+              "label": [
+                760,
+                1360
+              ],
+              "text": "susah berhenti",
+              "size": 40
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "'berat' crossed out.",
+          "draw": [
+            {
+              "label": [
+                380,
+                420
+              ],
+              "text": "massa ✓",
+              "size": 70
+            },
+            {
+              "label": [
+                720,
+                420
+              ],
+              "text": "berat",
+              "size": 70
+            },
+            {
+              "path": "M630 400 L820 430",
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "pusher": [
+                300,
+                900,
+                260
+              ]
+            },
+            {
+              "trolley": [
+                430,
+                900,
+                200
+              ],
+              "full": true
+            },
+            {
+              "person": [
+                680,
+                1300,
+                260
+              ]
+            },
+            {
+              "trolley": [
+                760,
+                1300,
+                200
+              ],
+              "full": true
+            },
+            {
+              "cut": "kembali ke awal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "act": "recap",
+      "type": "wide",
+      "start": 45.6,
+      "end": 47.4,
+      "voice": "Itulah kenapa",
+      "teaches": "The bridge back into the first line.",
+      "screen": "Back to the opening picture: the figure leaning into the full trolley, the same pixels as frame 0.",
+      "motion": "The page slides back; the figure settles into the s01 pose a moment before frame 0.",
+      "carries": "Into s01.",
+      "transition": "No cut: the film loops straight into s01.",
+      "sound": "The bed runs on into the opening.",
+      "check": "The last frame matches frame 0 (check.mjs SSIM).",
+      "frames": [
+        {
+          "at": 0,
+          "note": "The page slides back to the opening picture.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 14
+            },
+            {
+              "move": [
+                900,
+                900,
+                700,
+                900
+              ],
+              "text": "halaman kembali"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The opening picture, a moment before frame 0.",
+          "draw": [
+            {
+              "path": "M40 1150 C 300 1138, 700 1158, 1040 1144",
+              "width": 6
+            },
+            {
+              "trolley": [
+                520,
+                1150,
+                380
+              ],
+              "full": true
+            },
+            {
+              "pusher": [
+                310,
+                1150,
+                430
+              ],
+              "lean": 20
+            },
+            {
+              "cut": "loop ke s01"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
