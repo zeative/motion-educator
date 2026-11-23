@@ -173,7 +173,7 @@ layout of record: a painted frame shows mood, the sketch shows where things are.
 
 ## Showing it to the person
 
-Send the PNG pages: the contact sheets first (the whole film in frames, in order), then the shot pages, then the
-summary with the fact sheet. Ask the two questions that matter: is the explanation right and in the right order, and
+Send the PNG pages in the order `storyboard.mjs --png` numbers them: `storyboard-01` is the summary (the brief, the
+script and the fact sheet), then the contact sheets (the whole film in frames, in order), then the shot pages. Ask the two questions that matter: is the explanation right and in the right order, and
 is anything missing or too long. Their corrections go into `storyboard.json`, the check runs again, and only then is
 anything built.

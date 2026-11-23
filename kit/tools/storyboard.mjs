@@ -263,8 +263,11 @@ if (sb.loop) {
   const last = shots.at(-1);
   if (last && !last.voice && narrated) err(where, `the last shot ${last.id} is silent: in a loop the last words run into the first, so the film ends while someone is speaking`);
   if (last?.type === "endcard") err(where, "an endcard stops the loop: end on the picture the film opens with");
-  const firstWord = shots[0]?.voice?.trim().split(/\s+/)[0];
-  const lastLine = [...shots].reverse().find((shot) => shot.voice)?.voice.trim();
+  // In a film that speaks the words are its voice; in a captions-only film, its captions.
+  const said = (shot) => (narrated ? shot.voice : shot.caption)?.replaceAll("*", "").trim();
+  const firstWord = said(shots[0] ?? {})?.split(/\s+/)[0];
+  const lastLine = [...shots].reverse().map(said).find(Boolean);
+  if (!narrated && last && !said(last)) warn(where, `the last shot ${last.id} has no caption: in a captions-only loop the last words on screen lead into the first`);
   if (lastLine && /[.!?]["')\]]*$/.test(lastLine)) warn(where, `the last line ends on "${lastLine.slice(-12)}": a full stop closes the loop; end it open, so it runs on into "${firstWord ?? "the first line"}"`);
 } else {
   if (shots.length && !["recap", "endcard"].includes(shots.at(-1).type)) err("storyboard", 'the last shot must be a "recap" or an "endcard"');

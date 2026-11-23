@@ -150,7 +150,8 @@ the sound, what to check, the facts it cites, and **two or three drawn frames**.
 node kit/tools/storyboard.mjs films/NAME --png     # zero errors, then show films/NAME/storyboard/*.png
 ```
 
-Send the pages to the person. The contact sheets (the whole film in frames) go first.
+Send the pages to the person, in their numbered order: the summary with the facts, the contact sheets (the whole
+film in frames), then the shots.
 
 ### 5. The take, if the film speaks
 Follow `references/voice.md`: choose a voice native to the language (let the person hear two or three if you can),
@@ -193,7 +194,10 @@ sheet meanwhile.
 ### 8. Sound
 Follow `references/sound.md`: one music bed whose beat the cuts already sit on, and small clean effects on real
 events, written as `films/NAME/cues.json`. A bed composed for the film (`kit/audio/music.mjs`) fits better than a library track
-when the film will be published.
+when the film will be published. Without `ELEVENLABS_API_KEY` there is no composing: choose the library track
+(`kit/audio/lib/music/`, three of them, `references/sound.md`) whose tempo and mood fit, cut the shots to its beat,
+and tell the person in the delivery note that the bed is a library track and a composed one needs a key. A template
+whose Sound line asks for a composed bed is still met by the cues and the cut; the note says what was used.
 
 ```sh
 python3 kit/audio/mix.py films/NAME                   # out/NAME.mp4, loudness measured on the finished file

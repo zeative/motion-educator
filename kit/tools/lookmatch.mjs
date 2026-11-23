@@ -66,8 +66,11 @@ export async function lookmatch(filmDir, { template: key, frames: count = 8, she
   const add = (name, ok, value, expected, hint) => results.push({ name, ok, value, expected, hint: ok ? undefined : hint });
   const bg = deltaE(mine.backgroundLab, golden.backgroundLab);
   add("background", bg <= LIMITS.background, `${mine.background} (ΔE ${bg.toFixed(1)})`, golden.background, `the stage is not the template's: the storyboard must say "template": "${key}" and film.js must pass it to createFilm({ storyboard }); a film-drawn background must use film.look.paper`);
+  // A template that draws (its template.json has an "ink") is measured for its ink and how much of it is line; a
+  // motion-graphics or 3D template has no ink, and its golden stills' darkest tone and edges say nothing about it.
+  const drawn = Boolean(template.ink);
   const ink = deltaE(hexToLab(mine.ink), hexToLab(golden.ink));
-  add("ink", ink <= LIMITS.ink, `${mine.ink} (ΔE ${ink.toFixed(1)})`, golden.ink, `lines and type are not in the template's ink: draw with film.look.ink (var(--ink) in CSS), not white or the house greys`);
+  if (drawn) add("ink", ink <= LIMITS.ink, `${mine.ink} (ΔE ${ink.toFixed(1)})`, golden.ink, `lines and type are not in the template's ink: draw with film.look.ink (var(--ink) in CSS), not white or the house greys`);
   const cover = covered(golden.palette, mine.palette), foreign = 1 - covered(mine.palette, golden.palette);
   add("palette", cover >= LIMITS.coverage, `${pct(cover)} of the template's colours present`, `${pct(LIMITS.coverage)} or more`, `the film is missing the template's colours: use film.look.palette and the template's accent`);
   add("foreign colours", foreign <= LIMITS.foreign, `${pct(foreign)} of the picture`, `${pct(LIMITS.foreign)} or less`, `colours the template does not have cover much of the picture: the house look, a stock image or a 3D material has crept in`);
@@ -76,7 +79,7 @@ export async function lookmatch(filmDir, { template: key, frames: count = 8, she
   const dc = mine.chroma - golden.chroma;
   add("colourfulness", Math.abs(dc) <= LIMITS.chroma, `${mine.chroma} (${dc > 0 ? "+" : ""}${dc.toFixed(1)})`, String(golden.chroma), dc < 0 ? "the picture is greyer than the template: its fills are its colours" : "the picture is more saturated than the template");
   const er = mine.edges / Math.max(1e-4, golden.edges);
-  add("line", er >= LIMITS.edges[0] && er <= LIMITS.edges[1], `${pct(mine.edges)} of the frame (${er.toFixed(2)}x)`, pct(golden.edges), er < 1 ? "far less line than the template: a drawn template outlines its things (kit/engine/ink.js), and its type is its own" : "far more edge than the template: the frame is busy, or a texture is too strong");
+  if (drawn) add("line", er >= LIMITS.edges[0] && er <= LIMITS.edges[1], `${pct(mine.edges)} of the frame (${er.toFixed(2)}x)`, pct(golden.edges), er < 1 ? "far less line than the template: a drawn template outlines its things (kit/engine/ink.js), and its type is its own" : "far more edge than the template: the frame is busy, or a texture is too strong");
   const dg = mine.grain - golden.grain;
   add("grain", Math.abs(dg) <= LIMITS.grain, `${mine.grain} (${dg > 0 ? "+" : ""}${dg.toFixed(2)})`, String(golden.grain), dg < 0 ? "flatter than the template: its paper, chalk or film grain is missing (the stage, finish.grain)" : "grainier than the template: lower finish.grain or the texture");
 
@@ -109,7 +112,9 @@ export async function lookmatch(filmDir, { template: key, frames: count = 8, she
       writeFrames(big, dir);
       frameFiles.push(...listFrames(dir).slice(0, 6));
     }
-    const strip = (title, files, look) => `<p class="hdr">${title}</p><div class="sw">${look.palette.map((c) => `<div style="background:${c.hex};color:${c.lab[0] > 55 ? "#000" : "#fff"}">${c.hex} ${pct(c.share)}</div>`).join("")}</div><div class="grid" style="grid-template-columns:repeat(${Math.min(6, files.length)},max-content);margin-bottom:18px">${files.slice(0, 6).map((f) => `<img src="${uri(f)}" style="width:250px">`).join("")}</div>`;
+    // Six frames spread over all of them, not the first six.
+    const spread = (files) => (files.length <= 6 ? files : Array.from({ length: 6 }, (_, i) => files[Math.round((i * (files.length - 1)) / 5)]));
+    const strip = (title, files, look) => `<p class="hdr">${title}</p><div class="sw">${look.palette.map((c) => `<div style="background:${c.hex};color:${c.lab[0] > 55 ? "#000" : "#fff"}">${c.hex} ${pct(c.share)}</div>`).join("")}</div><div class="grid" style="grid-template-columns:repeat(${Math.min(6, files.length)},max-content);margin-bottom:18px">${spread(files).map((f) => `<img src="${uri(f)}" style="width:250px">`).join("")}</div>`;
     const table = `<p class="hdr">measures</p><pre style="color:#ddd">${lines.slice(1).join("\n").replace(/</g, "&lt;")}</pre>`;
     await shoot([{ name: "lookmatch.png", html: strip(`${template.name} · golden`, goldenFiles, golden) + strip(`${basename(film)} · film`, frameFiles, mine) + table }], out);
     lines.push(`  sheet: ${join(out, "lookmatch.png")}`);

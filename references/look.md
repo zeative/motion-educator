@@ -15,8 +15,10 @@ its meaning, nothing still for more than about 0.6 seconds, the portrait safe ar
 - **The stage** (`kit/engine/stage.js`): one fragment shader behind everything. A slowly flowing field of light, a
   key light with an anamorphic streak, a floor in perspective, dust, shock rings, speed lines. The film moves its
   light and changes its colour; it has no clock of its own.
-- **The accent**: set `--accent` (and `--accent-2` for a second voice) in the film's stylesheet and `look.accent`
-  in the storyboard. One accent. It marks the words and things that carry the point.
+- **The accent**: set `look.accent` in the storyboard; the engine sets `--accent` from it, over the template's own,
+  so the stage light, the captions' key words and the film's CSS all follow it (a `--accent` in the film's
+  stylesheet loses to the template's more specific rule). `--accent-2` in the film's stylesheet is the second voice.
+  One accent. It marks the words and things that carry the point.
 - **Glass** (`.glass`, `.panel`, `.chip`): lit from above, a bright top edge, an accent-tinted bottom edge, a long
   soft shadow.
 - **Metal type** (`.display`, with `.key` for accent words): every character is its own box so it can arrive on

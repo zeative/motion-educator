@@ -64,13 +64,23 @@ if (template) {
 }
 if (portrait) {
   const plan = join(film, "storyboard.json");
+  const sb = JSON.parse(readFileSync(plan, "utf8"));
   // A short is replayed: it loops by default (references/narration.md, "The loop"). Its captions pop in under the
-  // picture, where every template's caption skin (its strip, box or dialog) is made to sit.
-  writeFileSync(
-    plan,
-    readFileSync(plan, "utf8")
-      .replace('"format": "1920x1080"', '"format": "1080x1920"')
-      .replace('"standard": 3,', '"standard": 3,\n  "captions": "pop",\n  "loop": { "line": "How the last line runs on into the first: say both, as one sentence.", "picture": "How the last shot ends on the first shot\'s picture." },'),
-  );
+  // picture, where every template's caption skin (its strip, box or dialog) is made to sit. The sample frames are
+  // moved into the tall frame, so the first board drawn from them is not a landscape one.
+  const out = {};
+  for (const [k, v] of Object.entries(sb)) {
+    out[k] = v;
+    if (k === "standard") {
+      out.captions = "pop";
+      out.loop = { line: "How the last line runs on into the first: say both, as one sentence.", picture: "How the last shot ends on the first shot's picture." };
+    }
+  }
+  out.format = "1080x1920";
+  for (const shot of out.shots ?? []) for (const frame of shot.frames ?? []) for (const thing of frame.draw ?? []) {
+    if (thing.glow) thing.glow = [540, 860, thing.glow[2]];
+    if (thing.title) { thing.title = [540, thing.title[1] + 280]; thing.size = Math.min(thing.size ?? 96, 96); }
+  }
+  writeFileSync(plan, `${JSON.stringify(out, null, 2)}\n`);
 }
 console.log(`made ${film}${template ? ` in the ${template.name} template (read templates/${template.key}/template.md)` : ""}\nnext: write ${join(film, "storyboard.json")}, then: node kit/tools/storyboard.mjs films/${name} --png`);

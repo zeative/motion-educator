@@ -1,6 +1,6 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
+/* This film's own pieces, on top of the kit's look. The accent is the storyboard's look.accent (the engine sets
+   --accent from it, over the template's): change it there. --accent-2 is the second colour, for the opposite. */
 :root {
-  --accent: #ffb90e;
   --accent-2: #4da3ff;
 }
 #title {
