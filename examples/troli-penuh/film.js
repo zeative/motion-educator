@@ -28,6 +28,8 @@ const logged = (kind, fn) => (sel, at, o = {}) => {
   return end;
 };
 const drawOn = logged("line", ink.drawOn), write = logged("write", ink.write), erase = logged("erase", ink.erase);
+// A whole drawing (a trolley) drawn on fast, stroke after stroke, in `duration` seconds.
+const sketch = (sel, at, duration) => drawOn(sel, at, { duration, min: 0.012, gap: 0.004 });
 
 // ── The numbers (storyboard.build.py, f1, f4 to f6) ─────────────────────────────────────────────────────────────
 const EMPTY = 21, FULL = 63, RATIO = FULL / EMPTY;
@@ -68,8 +70,11 @@ const cams = {};
 for (const id of PAGES) cams[id] = { x: 540, y: 860, z: 1 };
 film.each(() => {
   for (const [id, c0] of Object.entries(cams)) {
-    const c = c0.at ? { ...c0, ...c0.at() } : c0;
-    page(id).querySelector(".cam").style.transform = `translate(${540 - c.x * c.z}px, ${860 - c.y * c.z}px) scale(${c.z})`;
+    const c = c0.at ? { ...c0, ...c0.at() } : { ...c0, x: c0.x + (c0.dx ? c0.dx() : 0) };
+    const cam = page(id).querySelector(".cam");
+    cam.style.transform = `translate(${540 - c.x * c.z}px, ${860 - c.y * c.z}px) scale(${c.z})`;
+    // A pen is the same pen however close the camera is: the line keeps its width on screen.
+    cam.style.setProperty("--z", c.z);
   }
 });
 const camTo = (id, to, at, duration = 0.6) => tl.to(cams[id], { ...to, duration, ease: "power2.inOut" }, at);
@@ -127,6 +132,7 @@ function figure(id, size) {
     const hip = [x + Math.sin(a) * S * 0.2, y - S * 0.44];
     const up = (k) => [hip[0] + Math.sin(a) * S * k, hip[1] - Math.cos(a) * S * k];
     const sh = up(0.31), neck = up(0.37), hc = up(0.46), r = S * 0.09;
+    pose.hc = hc;
     const leg = (fx, knee) => {
       const foot = [x + fx * S, y], mid = [(hip[0] + foot[0]) / 2 + knee * S, (hip[1] + foot[1]) / 2];
       return `M${P(hip)} Q${P(mid)} ${P(foot)} l${(S * 0.05).toFixed(1)} 0`;
@@ -173,7 +179,8 @@ const look = (sel, seed) => {
 
 // ═══ Sheet A: someone pushing a loaded trolley (s01, s02, s05, s14) ══════════════════════════════════════════════
 const WA = 300, SA = WA * TALL, XA = 560;
-ground("pA", GROUND, 60, 1000);
+ground("pA", GROUND, -260, 1500);
+draw("pA", Array.from({ length: 14 }, (_, i) => `<path class="thin" d="M${-200 + i * 120} ${GROUND + 6} l-16 26"/>`).join(""));
 const tA = placed("pA", WA, { full: true });
 const man = figure("pA", SA);
 const ride = { x: XA }; // the trolley's x; the man keeps his hands on it
@@ -182,26 +189,44 @@ const gripA = () => [ride.x + gripOf(WA)[0], GROUND + gripOf(WA)[1]];
 const PUSH = { lean: 22, back: -0.22, front: 0.12, kneeB: 0, kneeF: 0.04, reach: 1, bend: 0.07, face: "strain" };
 Object.assign(man, PUSH, { y: GROUND, gripAt: gripA, follow: () => ride.x - XA + man.x });
 man.x = 242;
-const sweat = draw("pA", '<path class="thin" d="M318 606 q-14 16 -3 34"/><path class="thin" d="M296 650 q-12 14 -2 28"/>');
+// Sweat flicks off the back of his head (drawn round the head's place in frame 0, then carried with it).
+const sweat = draw("pA", '<path class="thin" d="M300 640 q-14 16 -3 34"/><path class="thin" d="M280 684 q-12 14 -2 28"/>');
 const push = draw("pA", arrow(470, 742, 650, 742));
 const lDorong = text("pA", 560, 690, "dorong", "small");
-const lift = draw("pA", `${arrow(800, 800, 800, 600)}<path class="fat" d="M752 650 L848 748 M848 650 L752 748"/>`);
+// Lifting: an upward arrow with one stroke through it ('not this').
+const lift = draw("pA", `${arrow(800, 800, 800, 600)}<path class="fat" d="M744 742 L856 650"/>`);
 const lAngkat = text("pA", 800, 556, "angkat", "small");
-const qmark = draw("pA", '<path class="fat" d="M520 520 q0 -72 62 -72 q62 0 62 62 q0 46 -54 62 v46"/><path class="fat" d="M590 690 v4"/>');
+const qmark = draw("pA", '<path class="fat" d="M480 520 q0 -72 62 -72 q62 0 62 62 q0 46 -54 62 v46"/><path class="fat" d="M550 690 v4"/>');
 const lDiam = text("pA", 760, 600, "diam", "mid");
 const toDiam = leader("pA", 720, 634, 650, 790, -0.25);
-const lTetap = text("pA", 640, 512, "maunya tetap diam", "mid");
+const lTetap = text("pA", 600, 512, "maunya tetap diam", "mid");
 look("#pA svg > g:not(.figure)", 3);
 ink.boil("#pA svg");
 cams.pA = fit([100, 450, 900, 1180]);
 const CAM_A = { ...cams.pA };
+// The camera goes most of the way with the trolley as it gathers speed: the floor's tiles slide by.
+const follow = { k: 0.75 };
+cams.pA.dx = () => (ride.x - XA) * follow.k;
+// The arrows, the question and the labels are drawn about the trolley and him: they go where they go.
+const riders = [push, lift, qmark, toDiam], riderText = [lDorong, lAngkat, lDiam, lTetap];
+const homeX = new Map(riderText.map((el) => [el, parseFloat(el.style.left)]));
+film.each(() => {
+  const dx = ride.x - XA;
+  for (const g of riders) g.setAttribute("transform", `translate(${dx} 0)`);
+  for (const el of riderText) el.style.left = `${homeX.get(el) + dx}px`;
+});
+film.each(() => {
+  const h = man.hc ?? [375.5, 682];
+  sweat.setAttribute("transform", `translate(${h[0] - 375.5} ${h[1] - 682})`);
+});
 
 // s01: frame 0 is finished. The shove: a wind-back, then into it with a step; the trolley starts to creep and keeps
 // creeping, slowly gaining speed (it is not stuck: it is heavy to get going).
 tl.to(man, { lean: 12, kneeB: 0.03, duration: 0.4, ease: "power2.out" }, 0.35);
 tl.to(man, { lean: 32, front: 0.18, kneeF: 0.08, duration: 0.25, ease: "power3.in" }, 0.8);
 tl.to(man, { lean: 24, front: 0.12, kneeF: 0.04, duration: 0.5, ease: "back.out(2)" }, 1.05);
-tl.to(ride, { x: XA + 46, duration: s.s02.start - 0.9, ease: "power2.in" }, 0.9);
+// Heavy to get going, not stuck: it gathers speed under the push, 160 px by the end of the line.
+tl.to(ride, { x: XA + 160, duration: s.s02.start - 0.9, ease: "power2.in" }, 0.9);
 // he steps after it while the trolley creeps
 man.step = (t) => { if (t >= 1.2 && t < s.s02.start) man.back = Math.floor(t * 4) % 2 ? -0.22 : -0.16; };
 tl.to(sweat, { y: -10, duration: 0.35, repeat: 3, yoyo: true }, 1.2);
@@ -212,7 +237,10 @@ write(lAngkat, 3.5, { speed: 18 });
 // s02: push in on his face; a question mark is drawn beside it; the arrows are rubbed out.
 erase([push, lift], s.s02.start - 0.1, { duration: 0.25 });
 erase([lDorong, lAngkat], s.s02.start - 0.1, { duration: 0.25 });
-camTo("pA", fit([300, 430, 660, 760], [60, 300, 1020, 1150], 2.0), s.s02.start - 0.1, 0.55);
+// On his face and the question, in the upper part of the frame (the camera stops following).
+const FACE = fit([300, 420, 680, 760], [60, 260, 1020, 1000], 1.55);
+camTo("pA", { ...FACE, x: FACE.x + 160 }, s.s02.start - 0.1, 0.55);
+tl.to(follow, { k: 0, duration: 0.55, ease: "power2.inOut" }, s.s02.start - 0.1);
 tl.set(man, { face: "worried" }, s.s02.start);
 drawOn(qmark, s.s02.start + 0.1, { duration: 0.45 });
 
@@ -223,15 +251,17 @@ const tB = placed("pB", WB, { full: true });
 Object.assign(tB.st, { x: XB, y: GROUND });
 const wheelX = [XB + 0.15 * WB, XB + 0.85 * WB];
 // The weight goes down through the wheels; the floor pushes up as hard: equal arrows (f2).
-const down = draw("pB", wheelX.map((x) => arrow(x, 975, x, 1086)).join(""));
+const midX = [XB + 0.32 * WB, XB + 0.68 * WB];
+const down = draw("pB", midX.map((x) => arrow(x, 972, x, 1084)).join(""));
 const up = draw("pB", wheelX.map((x) => arrow(x, 1268, x, 1156)).join(""));
 const lBerat = text("pB", 215, 1035, "berat", "mid");
-const toBerat = leader("pB", 262, 1000, wheelX[0] - 16, 1010, -0.3);
-const lLantai = text("pB", 540, 1322, "lantai yang menahan", "small");
+const toBerat = leader("pB", 262, 990, midX[0] - 18, 1000, -0.3);
+const lLantai = text("pB", 540, 1306, "lantai yang menahan", "small");
 const lKel = text("pB", 540, 480, '<span class="mk">Kelembaman</span>', "big");
 look("#pB svg > g", 5);
+sketch(tB.g, s.s03.start - 0.3, 0.6);
 ink.boil("#pB svg");
-cams.pB = fit([150, 640, 800, 1350]);
+cams.pB = fit([150, 640, 800, 1330], [60, 300, 1020, 1240]);
 drawOn(down, s.s03.start + 0.35, { duration: 0.5 });
 write(lBerat, s.s03.start + 0.45, { speed: 16 });
 drawOn(toBerat, s.s03.start + 0.75, { duration: 0.2 });
@@ -247,14 +277,15 @@ ink.marker(lKel.querySelector(".mk"), 10.95, { colour: MARK, duration: 0.45 });
 // ═══ Sheet A again: at rest it wants to stay at rest (s05) ═══════════════════════════════════════════════════════
 // The same shove as s01: the trolley only creeps. Its labels: "diam", then "maunya tetap diam".
 tl.set(qmark, { opacity: 0 }, s.s05.start - 0.35);
-tl.set(cams.pA, { ...CAM_A }, s.s05.start - 0.35);
+tl.set(cams.pA, { x: CAM_A.x, y: CAM_A.y, z: CAM_A.z }, s.s05.start - 0.35);
+tl.set(follow, { k: 0.75 }, s.s05.start - 0.35);
 tl.set(ride, { x: XA }, s.s05.start - 0.35);
 tl.set(man, { ...PUSH, lean: 8, face: "calm" }, s.s05.start - 0.35);
 write(lDiam, 12.1, { speed: 12 });
 drawOn(toDiam, 12.3, { duration: 0.25 });
 tl.to(man, { lean: 32, front: 0.18, face: "strain", duration: 0.3, ease: "power3.in" }, 12.55);
 tl.to(man, { lean: 24, front: 0.12, duration: 0.4, ease: "back.out(2)" }, 12.85);
-tl.to(ride, { x: XA + 22, duration: s.s06.start - 12.7, ease: "power2.in" }, 12.7);
+tl.to(ride, { x: XA + 90, duration: s.s06.start + 0.25 - 12.7, ease: "power2.in" }, 12.7);
 write(lTetap, 12.6, { speed: 20 });
 
 // ═══ Sheet C: more mass, harder to change its motion (s06) ═══════════════════════════════════════════════════════
@@ -272,7 +303,8 @@ const barS = draw("pC", '<path class="fat" d="M235 1262 h100 v50 h-100 Z"/>');
 const barB = draw("pC", '<path class="fat" d="M585 1262 h300 v50 h-300 Z"/><path class="hatch" d="M615 1262 l-26 50 M665 1262 l-26 50 M715 1262 l-26 50 M765 1262 l-26 50 M815 1262 l-26 50 M865 1262 l-26 50"/>');
 look("#pC svg > g", 7);
 ink.boil("#pC svg");
-cams.pC = fit([120, 650, 920, 1330]);
+cams.pC = fit([60, 650, 920, 1330]);
+sketch([tC1.g, tC2.g], s.s06.start - 0.3, 0.6);
 write(lKecil, 14.0, { speed: 20 });
 write(lBesar, 14.35, { speed: 20 });
 write(lSusah, 15.1, { speed: 26 });
@@ -294,7 +326,9 @@ const three = text("pD", 560, 600, '<span class="mk">3×</span>', "huge");
 look("#pD svg > g", 9);
 ink.boil("#pD svg");
 cams.pD = fit([200, 370, 900, 1215]);
-tl.to(tD.st, { x: XD, duration: 1.0, ease: "power2.out" }, s.s07.start + 0.15);
+Object.assign(tD.st, { x: 40 });
+sketch(tD.g, s.s07.start - 0.3, 0.5);
+tl.to(tD.st, { x: XD, duration: 1.0, ease: "power2.out" }, s.s07.start - 0.1);
 film.each((t) => (reading.textContent = t >= s.s08b.start + 0.6 ? "63 kg" : t >= s.s07.start + 1.2 ? "21 kg" : ""));
 write(big21, 18.5, { speed: 9 });
 write(model, 19.0, { speed: 34 });
@@ -303,6 +337,8 @@ erase([big21, model], s.s08.start - 0.05, { duration: 0.25 });
 tl.set(tD.load, { visibility: "visible" }, s.s08.start);
 tD.items.forEach((item, i) => {
   const at = s.s08.start + 0.1 + i * 0.32;
+  gsap.set(item, { visibility: "hidden" });
+  tl.set(item, { visibility: "visible" }, at);
   tl.fromTo(item, { y: -300 }, { y: 0, duration: 0.25, ease: "power2.in", immediateRender: true }, at);
   tl.fromTo(item, { scaleY: 0.84, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.2, ease: "back.out(3)", immediateRender: false }, at + 0.25);
 });
@@ -314,12 +350,12 @@ write(three, 22.9, { duration: 0.3 });
 ink.marker(three.querySelector(".mk"), 23.25, { colour: MARK, duration: 0.4, height: 0.4 });
 
 // ═══ Sheet E: the same push, a third of the acceleration (s09) ═══════════════════════════════════════════════════
-const WE = 240, LANES = [650, 1150], X0 = 240;
+const WE = 240, LANES = [600, 1100], X0 = 240;
 draw("pE", `<path d="M40 ${LANES[0]} H1040"/><path d="M40 ${LANES[1]} H1040"/><path class="thin" d="M${X0} ${LANES[0] - 300} V${LANES[1] + 30}" stroke-dasharray="14 12"/>`);
 const tE1 = placed("pE", WE, { full: false });
 const tE2 = placed("pE", WE, { full: true });
-const lK = text("pE", 860, 345, "troli kosong", "small");
-const lP = text("pE", 700, 812, "troli penuh (3×)", "small");
+const lK = text("pE", 840, 300, "kosong", "mid");
+const lP = text("pE", 860, 772, "penuh (3×)", "mid");
 // The same push on both: equal arrows on the handles, while the push lasts.
 const fE = [draw("pE", arrow(-130, 0, -15, 0)), draw("pE", arrow(-130, 0, -15, 0))];
 const lF = [text("pE", 0, 0, "F", "mid"), text("pE", 0, 0, "F", "mid")];
@@ -335,9 +371,14 @@ film.each(() => {
   });
 });
 const brE = draw("pE", `<path d="M${X0} ${LANES[0] + 40} H${X0 + LANE} M${X0} ${LANES[0] + 22} v36 M${X0 + LANE} ${LANES[0] + 22} v36"/><path d="M${X0} ${LANES[1] + 40} H${X0 + FULL_RUN} M${X0} ${LANES[1] + 22} v36 M${X0 + FULL_RUN} ${LANES[1] + 22} v36"/>`);
-const lD1 = text("pE", X0 + LANE / 2, LANES[0] + 88, "jauh", "small");
-const lD2 = text("pE", X0 + FULL_RUN / 2 + 30, LANES[1] + 88, "cuma ⅓", "small");
+const lD1 = text("pE", X0 + LANE / 2, LANES[0] + 112, "1", "big");
+const lD2 = text("pE", X0 + FULL_RUN / 2 + 40, LANES[1] + 116, '<span class="mk">⅓</span>', "big");
+// Where each was when the push ended: a faint outline left on the page, so the brackets sit under something.
+const ghostE = [draw("pE", trolley(WE), "ghost"), draw("pE", trolley(WE, { full: true }), "ghost")];
+ghostE[0].firstElementChild.setAttribute("transform", `translate(${X0 + LANE} ${LANES[0]})`);
+ghostE[1].firstElementChild.setAttribute("transform", `translate(${X0 + FULL_RUN} ${LANES[1]})`);
 look("#pE svg > g", 11);
+sketch([tE1.g, tE2.g], s.s09.start - 0.3, 0.55);
 ink.boil("#pE svg");
 write([lK, lP], s.s09.start + 0.2, { speed: 26 });
 drawOn(fE, 24.75, { duration: 0.2 });
@@ -347,9 +388,11 @@ tl.to(race, { u: 1, duration: PUSH_FOR, ease: "none" }, PUSH_AT);
 tl.to(race, { u: 1 + (s.s10.start + 0.2 - PUSH_AT - PUSH_FOR) / PUSH_FOR, duration: s.s10.start + 0.2 - PUSH_AT - PUSH_FOR, ease: "none" }, PUSH_AT + PUSH_FOR);
 erase(fE, PUSH_AT + PUSH_FOR, { duration: 0.15 });
 erase(lF, PUSH_AT + PUSH_FOR, { duration: 0.15 });
-drawOn(brE, PUSH_AT + PUSH_FOR + 0.05, { duration: 0.35 });
-write(lD1, 26.65, { duration: 0.25 });
-write(lD2, 26.96, { duration: 0.35 });
+sketch(ghostE, PUSH_AT + PUSH_FOR, 0.3);
+drawOn(brE, PUSH_AT + PUSH_FOR + 0.2, { duration: 0.3 });
+write(lD1, 26.6, { duration: 0.2 });
+write(lD2, 26.96, { duration: 0.3 });
+ink.marker(lD2.querySelector(".mk"), 27.3, { colour: MARK, duration: 0.35 });
 
 // ═══ Sheet F: rolling, and it will not stop (s10, s11): the camera travels with it ════════════════════════════════
 const WF = 300, SF = WF * TALL;
@@ -358,14 +401,15 @@ draw("pF", Array.from({ length: 22 }, (_, i) => `<path class="thin" d="M${-880 +
 const tF = placed("pF", WF, { full: true });
 const roll = { x: 300 };
 tF.st.at = () => [roll.x, GROUND];
-const speed = draw("pF", `<path class="thin" d="M-20 ${-0.86 * WF} h-90 M-28 ${-0.72 * WF} h-110 M-20 ${-0.58 * WF} h-80"/>`);
+// Speed lines trail over the top of the basket, clear of whoever is behind it.
+const speed = draw("pF", `<path class="thin" d="M${0.35 * WF} ${-1.34 * WF} h-150 M${0.2 * WF} ${-1.46 * WF} h-120 M${0.45 * WF} ${-1.58 * WF} h-110"/>`);
 film.each(() => speed.setAttribute("transform", `translate(${roll.x} ${GROUND})`));
 const runner = figure("pF", SF);
-Object.assign(runner, { x: -300, y: GROUND, lean: 14, back: -0.18, front: 0.18, face: "worried", holding: 0 });
+Object.assign(runner, { x: -300, y: GROUND, lean: 32, back: -0.3, front: 0.26, face: "worried", holding: 0 });
 const gripF = () => [roll.x + gripOf(WF)[0], GROUND + gripOf(WF)[1]];
 runner.gripAt = gripF;
-const HOLD = -0.16 * SF; // leaning back on a straight arm, his feet are this far behind the grip
-const skid = draw("pF", '<path class="thin" d="M0 0 H1"/><path class="thin" d="M0 12 H1"/>', "live");
+const HOLD = -0.075 * SF; // leaning back 30 degrees on a straight arm, his feet are this far behind the grip
+const skid = draw("pF", '<path class="thin" d="M0 0 H1" stroke-dasharray="26 16"/><path class="thin" d="M0 12 H1" stroke-dasharray="18 22"/>', "live");
 const lJalan = text("pF", 0, 520, "maunya tetap jalan", "mid");
 look("#pF svg > g:not(.figure):not(.live)", 13);
 ink.boil("#pF svg");
@@ -378,26 +422,25 @@ tl.to(runner, { x: ROLL_AT_GRAB + gripOf(WF)[0] + HOLD, duration: GRAB - (s.s10.
 runner.step = (t) => {
   if (t < s.s10.start - 0.3 || t >= GRAB) return;
   const k = Math.floor(t * 6) % 2;
-  Object.assign(runner, { back: k ? -0.2 : -0.06, front: k ? 0.2 : 0.07, kneeF: k ? 0.04 : 0.08, swing: k ? 1 : -1 });
+  Object.assign(runner, { back: k ? -0.36 : -0.1, front: k ? 0.3 : 0.12, kneeB: k ? -0.06 : 0.04, kneeF: k ? 0.1 : 0.16, swing: k ? 1.8 : -1.8 });
 };
-erase(speed, GRAB - 0.3, { duration: 0.2 });
 // s11: he grabs the handle (his arm reaches over four drawings) and leans back, heels dug in; it drags him on and
 // slows, but it is still rolling when the page turns.
 // (a flag, not a function: the timeline would call a function to get a value)
 runner.follow = () => (runner.holding ? roll.x + gripOf(WF)[0] + HOLD : runner.x);
 tl.set(runner, { holding: 1, swing: 0, face: "strain" }, GRAB);
 tl.to(runner, { reach: 1, bend: 0.02, duration: 0.3, ease: "power2.out" }, GRAB - 0.1);
-tl.to(runner, { lean: -18, back: -0.3, front: 0.02, kneeB: 0.02, kneeF: -0.03, duration: 0.35, ease: "back.out(1.6)" }, GRAB + 0.1);
+tl.to(runner, { lean: -30, back: -0.05, front: 0.17, kneeB: 0.03, kneeF: -0.05, duration: 0.35, ease: "back.out(1.6)" }, GRAB + 0.1);
 tl.to(roll, { x: ROLL_AT_GRAB + 130 * 4.0, duration: 4.0, ease: "power1.out" }, GRAB);
-const heel0 = ROLL_AT_GRAB + gripOf(WF)[0] + HOLD + 0.02 * SF;
+const heel0 = ROLL_AT_GRAB + gripOf(WF)[0] + HOLD + 0.17 * SF;
 film.each((t) => {
   const on = t >= GRAB + 0.3;
   skid.style.visibility = on ? "visible" : "hidden";
   if (!on) return;
-  const now = roll.x + gripOf(WF)[0] + HOLD + 0.02 * SF;
+  const now = roll.x + gripOf(WF)[0] + HOLD + 0.17 * SF;
   const [a, b] = skid.querySelectorAll("path");
-  a.setAttribute("d", `M${heel0} ${GROUND - 2} H${now}`);
-  b.setAttribute("d", `M${heel0 + 14} ${GROUND + 10} H${now + 4}`);
+  a.setAttribute("d", `M${heel0} ${GROUND - 8} H${now - 10}`);
+  b.setAttribute("d", `M${heel0 + 14} ${GROUND - 20} H${now - 18}`);
 });
 film.each(() => (lJalan.style.left = `${roll.x + 120}px`));
 write(lJalan, 30.75, { speed: 18 });
@@ -406,7 +449,7 @@ write(lJalan, 30.75, { speed: 18 });
 const WG = 240, BRAKE = 300;
 draw("pG", `<path d="M40 ${LANES[0]} H1040"/><path d="M40 ${LANES[1]} H1040"/>`);
 const brakeLine = draw("pG", `<path class="thin" d="M${BRAKE} ${LANES[0] - 290} V${LANES[1] + 30}" stroke-dasharray="18 14"/>`);
-const lRem = text("pG", BRAKE + 20, LANES[0] - 320, "mulai ngerem", "small");
+const lRem = text("pG", BRAKE + 30, LANES[0] - 320, "mulai ngerem", "mid");
 const tG1 = placed("pG", WG, { full: false });
 const tG2 = placed("pG", WG, { full: true });
 // Skid marks and the distance brackets grow with each trolley as it brakes.
@@ -449,7 +492,8 @@ film.each(() => {
 });
 const RUN_AT = 32.6;
 tl.to(run, { t: T[1] + 0.05, duration: T[1] + 0.55, ease: "none" }, RUN_AT);
-write(lRem, s.s12.start + 0.15, { speed: 24 });
+drawOn(brakeLine, s.s12.start - 0.25, { duration: 0.35 });
+write(lRem, s.s12.start - 0.1, { speed: 24 });
 drawOn(ticks, RUN_AT + 0.5, { duration: 0.2 });
 write(lOne, RUN_AT + 0.5 + T[0] + 0.05, { duration: 0.15 });
 write(lThree, RUN_AT + 0.5 + T[1] + 0.05, { duration: 0.3 });
@@ -459,7 +503,7 @@ ink.marker(lThree.querySelector(".mk"), RUN_AT + 0.5 + T[1] + 0.4, { colour: MAR
 const lMassa = text("pH", 330, 410, '<span class="mk">massa ✓</span>', "big");
 const lBer = text("pH", 790, 410, "berat", "big");
 const cross = draw("pH", '<path class="fat" d="M680 400 L900 446"/>');
-const lHedge = text("pH", 560, 500, "(terutama saat mulai &amp; berhenti)", "small");
+const lHedge = text("pH", 560, 505, "(terutama saat mulai &amp; berhenti)", "lab");
 const WH = 200, SH = WH * TALL;
 draw("pH", `<path d="M50 860 H640"/><path d="M50 1240 H700"/>`);
 const tH1 = placed("pH", WH, { full: true });
@@ -472,26 +516,29 @@ const brakeH = figure("pH", SH);
 Object.assign(brakeH, { x: 420 + gripOf(WH)[0] - 0.155 * SH, y: 1240, lean: -22, back: -0.3, front: 0.02, kneeF: -0.03, reach: 1, bend: 0.02, face: "strain", gripAt: () => [420 + gripOf(WH)[0], 1240 + gripOf(WH)[1]] });
 const goH = draw("pH", arrow(585, 760, 690, 760));
 const stopH = draw("pH", `${arrow(440, 940, 330, 940)}<path class="thin" d="M120 1236 h70 M128 1248 h66"/>`);
-const lMulai = text("pH", 870, 680, "susah mulai", "mid");
-const lStop = text("pH", 840, 1000, "susah berhenti", "mid");
+const lMulai = text("pH", 840, 680, "susah mulai", "lab");
+const lStop = text("pH", 800, 1000, "susah berhenti", "lab");
 look("#pH svg > g:not(.figure)", 19);
 ink.boil("#pH svg");
 cams.pH = fit([50, 350, 1000, 1262]);
-write(lMassa, s.s13.start + 0.2, { speed: 14 });
+write(lMassa, s.s13.start - 0.05, { speed: 14 });
 write(lHedge, 37.0, { speed: 45 });
-tl.from([tH1.g, pushH.el], { opacity: 0, duration: 0.15 }, 37.2);
-drawOn(goH, 37.3, { duration: 0.2 });
-write(lMulai, 37.35, { speed: 22 });
-tl.from([tH2.g, brakeH.el], { opacity: 0, duration: 0.15 }, 37.65);
-drawOn(stopH, 37.75, { duration: 0.3 });
-write(lStop, 37.85, { speed: 22 });
+sketch(tH1.g, 36.3, 0.35);
+tl.from(pushH.el, { opacity: 0, duration: 0.08 }, 36.4);
+drawOn(goH, 36.6, { duration: 0.2 });
+write(lMulai, 36.65, { speed: 22 });
+sketch(tH2.g, 36.75, 0.35);
+tl.from(brakeH.el, { opacity: 0, duration: 0.08 }, 36.85);
+drawOn(stopH, 37.0, { duration: 0.3 });
+write(lStop, 37.1, { speed: 22 });
 ink.marker(lMassa.querySelector(".mk"), 37.95, { colour: MARK, duration: 0.4 });
 write(lBer, 38.3, { speed: 14 });
 drawOn(cross, 38.96, { duration: 0.25 });
 
 // ═══ s14: back to the opening picture, exactly as frame 0, a moment before the loop ═════════════════════════════
 tl.set([lDiam, toDiam, lTetap, qmark, push, lift, lDorong, lAngkat], { opacity: 0 }, s.s14.start - 0.35);
-tl.set(cams.pA, { ...CAM_A }, s.s14.start - 0.35);
+tl.set(cams.pA, { x: CAM_A.x, y: CAM_A.y, z: CAM_A.z }, s.s14.start - 0.35);
+tl.set(follow, { k: 0.75 }, s.s14.start - 0.35);
 tl.set(ride, { x: XA }, s.s14.start - 0.35);
 tl.set(man, { ...PUSH, lean: 12, back: -0.22, face: "strain" }, s.s14.start - 0.35);
 tl.to(man, { lean: 22, duration: Math.min(0.8, film.duration - s.s14.start - 0.5), ease: "power2.inOut" }, s.s14.start + 0.3);

@@ -241,7 +241,7 @@ export function createInk(film) {
       const chars = letters(el);
       const d = duration ?? Math.max(0.3, chars.length / speed);
       const per = d / Math.max(1, chars.length);
-      chars.forEach((c, i) => tl.fromTo(c, { clipPath: "inset(-40% 100% -40% -15%)" }, { clipPath: "inset(-40% -15% -40% -15%)", duration: per, ease, immediateRender: true }, at + i * per));
+      chars.forEach((c, i) => tl.fromTo(c, { clipPath: "inset(-40% 115% -40% -15%)" }, { clipPath: "inset(-40% -15% -40% -15%)", duration: per, ease, immediateRender: true }, at + i * per));
       end = Math.max(end, at + d);
     }
     return end;
@@ -260,7 +260,7 @@ export function createInk(film) {
       }
       const chars = letters(el);
       const per = duration / Math.max(1, chars.length);
-      [...chars].reverse().forEach((c, i) => tl.fromTo(c, { clipPath: "inset(-40% -15% -40% -15%)" }, { clipPath: "inset(-40% 100% -40% -15%)", duration: per, ease: "none", immediateRender: false }, at + i * per));
+      [...chars].reverse().forEach((c, i) => tl.fromTo(c, { clipPath: "inset(-40% -15% -40% -15%)" }, { clipPath: "inset(-40% 115% -40% -15%)", duration: per, ease: "none", immediateRender: false }, at + i * per));
       for (const m of el.querySelectorAll(".ink-marker")) tl.to(m, { scaleX: 0, transformOrigin: "100% 50%", duration: duration * 0.6, ease: "power1.in" }, at);
     }
     return at + duration;

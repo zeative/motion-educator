@@ -5,18 +5,23 @@
 .page { position: absolute; inset: 0; overflow: hidden; box-shadow: 0 0 36px 6px rgb(70 50 25 / 0.32); }
 .page .cam { position: absolute; inset: 0; transform-origin: 0 0; }
 .page svg { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
-.page svg path, .page svg circle, .page svg ellipse, .page svg line, .page svg rect { fill: none; stroke: var(--ink); stroke-width: 6px; stroke-linecap: round; stroke-linejoin: round; }
-.page svg .thin { stroke-width: 4px; }
-.page svg .fat { stroke-width: 9px; }
+/* Stroke widths are divided by the sheet's camera zoom (--z, set by film.js), so a line is the same pen at any zoom. */
+.page svg path, .page svg circle, .page svg ellipse, .page svg line, .page svg rect { fill: none; stroke: var(--ink); stroke-width: calc(6px / var(--z, 1)); stroke-linecap: round; stroke-linejoin: round; }
+.page svg .thin { stroke-width: calc(4px / var(--z, 1)); }
+.page svg .fat { stroke-width: calc(8px / var(--z, 1)); }
 .page svg .pf { fill: var(--paper); }
-.page svg .hatch { stroke-width: 3px; opacity: 0.85; }
-.page svg .figure path, .page svg .figure circle { stroke-width: 8px; }
+.page svg .hatch { stroke-width: calc(3px / var(--z, 1)); opacity: 0.85; }
+.page svg .figure path, .page svg .figure circle { stroke-width: calc(7px / var(--z, 1)); }
+/* A trolley's place left behind: a faint outline, like a pencil mark on the page. */
+.page svg .ghost path { stroke: rgb(27 27 27 / 0.32); }
+.page svg .ghost .pf { fill: none; }
 /* Lettering: hand-lettered marker type, written on letter by letter by ink.write. */
 .t { position: absolute; color: var(--ink); font: 400 64px / 1.05 var(--brand); white-space: nowrap; transform: translate(-50%, -50%); }
 .t.big { font-size: 128px; }
 .t.huge { font-size: 190px; }
 .t.mid { font-size: 76px; }
 .t.small { font-size: 46px; }
+.t.lab { font-size: 60px; }
 .t.left { transform: translate(0, -50%); }
 .mk { position: relative; display: inline-block; }
 /* The captions are lettered on the paper: a halo of paper round each letter keeps a line behind from crossing it. */

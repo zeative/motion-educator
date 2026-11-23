@@ -1,6 +1,6 @@
 # Stickman
 
-Hand-drawn 2D · 2D · default portrait 9:16, voice-over · concept: no sample film yet
+Hand-drawn 2D · 2D · default portrait 9:16, voice-over · ready
 
 Black-ink stick figures on warm paper, drawn line by line, with one marker colour for the point.
 
@@ -40,7 +40,10 @@ whatever the topic: the topic decides what is shown, the template decides how it
 
 ## Status
 
-A concept: no sample film yet. `golden/concept.jpg` is a drawn still; `golden/proof-1.jpg` and `proof-2.jpg` are
-frames of a five-second engine proof made with kit/engine/ink.js (lines drawn on, roughened and boiling over a pencil sketch, lettering written on, one marker swipe), which matches this template on every
-`lookmatch.mjs` measure, the held 12 drawings a second included. The first real film made in this template is its
-sample: check it against these lines and the stills, then add its frames to `golden/`.
+Ready: its first sample film is `examples/troli-penuh` (Why a full trolley is hard to push), made with the kit, checked by
+`check.mjs` and `lookmatch.mjs`, reviewed twice by an independent critic and revised after each review before it was published. `golden/` holds
+three of its frames beside the concept still and the engine proof, so later films are measured against a real one.
+
+## Sample films
+
+- `full-trolley`: Why a full trolley is hard to push (`examples/troli-penuh`)

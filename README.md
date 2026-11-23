@@ -188,8 +188,8 @@ the type, the caption skin, the palette, and for stop motion and drawings on two
 | Graphite Glass | Motion graphics | sample films | Isometric | Isometric diorama | engine proof |
 | Cosmos | 3D and light | sample films | Pixel | Pixel art | engine proof |
 | Micro | Illustrated 3D | sample films | Whiteboard | Marker sketch | engine proof |
-| Stickman | Hand-drawn 2D | engine proof | Watercolour | Painted | engine proof |
-| Clay | Claymation | engine proof | Neon Line | Glowing lines | engine proof |
+| Stickman | Hand-drawn 2D | sample film | Watercolour | Painted | engine proof |
+| Clay | Claymation | sample film | Neon Line | Glowing lines | engine proof |
 | Paper Cut-out | Layered paper | engine proof | Comic | Ink and halftone | engine proof |
 | Chalkboard | Chalk on board | engine proof | Low Poly | Faceted 3D | engine proof |
 

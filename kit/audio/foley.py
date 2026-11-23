@@ -11,6 +11,8 @@ library (fetch.sh, Mixkit) does not have. Seeded, so every run writes the same f
   thump_1..2   something soft and heavy landing in a basket
   squeak_1     a shoe's rubber heel sliding on a shop floor (1.4 s: trim it)
   scrape_1     wheels skidding on a hard floor (2.4 s: trim it)
+  squish_1..3  plasticine pressed down, for clay set in place
+  knock_1..2   a small wooden knock: a toothpick or a card set down
 Cue them like any effect in cues.json: "file": "lib/foley/pen_2.wav", with "trim": [0, stroke] for the line ones.
 """
 import sys
@@ -126,7 +128,26 @@ def scrape(rng):
     return x * chatter * env(n, 0.04, 0.3)
 
 
-MAKE = {"pen": (pen, 3), "write": (write, 3), "rub": (rub, 2), "boing": (boing, 1), "clap": (clap, 1), "thump": (thump, 2), "squeak": (squeak, 1), "scrape": (scrape, 1)}
+def squish(rng):
+    """Plasticine pressed down: a soft wet low thud with a short sticky release."""
+    n = int(0.32 * SR)
+    t_ = np.arange(n) / SR
+    f = 160 * np.exp(-t_ * 18) + 70
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t_ * 22)
+    stick = band(rng.standard_normal(n), 400, 2400) * np.exp(-((t_ - 0.06) ** 2) / 0.0008) * 0.6
+    return (body + stick) * env(n, 0.003, 0.06)
+
+
+def knock(rng):
+    """A small wooden knock: a toothpick or a card set down on a wooden table."""
+    n = int(0.22 * SR)
+    t_ = np.arange(n) / SR
+    x = sum(np.sin(2 * np.pi * f * t_ + rng.uniform(0, 6)) * np.exp(-t_ * d) * a for f, d, a in [(820, 60, 1), (1460, 80, 0.5), (2650, 120, 0.3)])
+    click = band(rng.standard_normal(n), 1500, 7000) * np.exp(-t_ * 400) * 0.6
+    return (x + click) * env(n, 0.001, 0.05)
+
+
+MAKE = {"pen": (pen, 3), "write": (write, 3), "rub": (rub, 2), "boing": (boing, 1), "clap": (clap, 1), "thump": (thump, 2), "squeak": (squeak, 1), "scrape": (scrape, 1), "squish": (squish, 3), "knock": (knock, 2)}
 
 
 def save(path, x, seed):

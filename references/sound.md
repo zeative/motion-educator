@@ -14,7 +14,8 @@ measurement, not by ear.
 The library has no hand on paper, so `kit/audio/foley.py` makes it from numbers (seeded, the same every run, written
 into `kit/audio/lib/foley/` by `fetch.sh`): `pen_1..3` (a marker drawing a line), `write_1..3` (a word written letter
 by letter), `rub_1..2` (an eraser), `boing_1`, `clap_1`, `thump_1..2` (something heavy landing in a basket),
-`squeak_1` (a rubber heel sliding) and `scrape_1` (wheels skidding). For a drawn film, log every line, word and
+`squeak_1` (a rubber heel sliding), `scrape_1` (wheels skidding), `squish_1..3` (plasticine pressed down) and
+`knock_1..2` (a toothpick or a card set down on wood). For a drawn film, log every line, word and
 erasure in `window.__events` as the film is built (`{kind, at, end}`), write them out with
 `node kit/tools/render.mjs films/NAME --events`, and let `cues.build.py` put a pen on each, trimmed to its length
 (`examples/troli-penuh` does this).
@@ -75,7 +76,11 @@ than the film and its tail is faded.
 A short that loops has no ending: ask for music that "keeps the same groove to the last second, with no ending, no
 final chord and no fade", and leave out "lands on a resolved chord". For a loop `music.mjs` composes four seconds past
 the film's end (a composed piece fades over its own last two or three); `mix.py` lays that run-on over the opening, so
-the music carries on when the player jumps back, and warns when the bed is already fading at the seam. Put no hit on the last frame: the last effect is a soft one that also works under the
+the music carries on when the player jumps back, and warns when the bed is already fading at the seam.
+
+A composed bed can drop near silence between phrases (a rest every other bar): under a voice the mix then falls to
+voice-only between sentences. `"fill": true` in cues.json's `music` patches every drop of 150 ms or more with the same
+music a bar away (four beats of the storyboard's `music.bpm`), crossfaded; the report says how many it patched. Put no hit on the last frame: the last effect is a soft one that also works under the
 first word.
 
 ## The cue sheet

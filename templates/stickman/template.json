@@ -3,7 +3,7 @@
   "name": "Stickman",
   "medium": "2D",
   "mode": "Hand-drawn 2D",
-  "status": "concept",
+  "status": "ready",
   "version": 1,
   "summary": "Black-ink stick figures on warm paper, drawn line by line, with one marker colour for the point.",
   "worksFor": "everyday physics, habits, history, quick explainers",
@@ -34,9 +34,14 @@
     "mono": "JetBrains Mono Variable"
   },
   "captions": "hand",
-  "samples": [],
+  "samples": [
+    "full-trolley"
+  ],
   "golden": [
     "concept.jpg",
+    "full-trolley-1.jpg",
+    "full-trolley-2.jpg",
+    "full-trolley-3.jpg",
     "proof-1.jpg",
     "proof-2.jpg"
   ]

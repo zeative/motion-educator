@@ -8,7 +8,8 @@ Reads films/NAME/cues.json and films/NAME/out/picture.mp4, writes films/NAME/out
 The sounds themselves live in kit/audio/lib (kit/audio/fetch.sh downloads them); a cue names one by its path there.
 
 cues.json:
-    music:  {file, start, lufs, fade_in, fade_out, duck_db}   start = where in the track the film begins
+    music:  {file, start, lufs, fade_in, fade_out, duck_db, fill}   start = where in the track the film begins;
+            fill true patches the bed's rests from a bar away
     events: [{t, file, db, align, duck, pan, trim, fade, fade_in, note}]   t = film time in seconds
             align "peak" puts the sound's loudest moment on t, "end" its last moment, "start" its first sample.
             db is the level of the sound's own peak, in dBFS, before the master gain.
@@ -80,6 +81,45 @@ if "--no-music" not in args:
     music[: len(cut)] = cut
     level = gain(m["lufs"] - loudness(music)[0])
     music *= level
+    # A composed bed can drop near silence between its phrases (a rest every other bar). With "fill": true, each such
+    # drop of 150 ms or more is patched with the same music a bar (or half a bar) away, crossfaded in and out, so the bed
+    # is still heard in the gaps between sentences. The bar is four beats of the storyboard's music bpm.
+    if m.get("fill"):
+        bpm = float(m.get("bpm") or (json.loads(board.read_text()).get("music") or {}).get("bpm") or 100)
+        bar, hop, fade = int(4 * 60 / bpm * SR), SR // 20, int(0.04 * SR)
+        blocks = len(music) // hop
+        rms = np.sqrt((music[: blocks * hop] ** 2).mean(axis=1).reshape(blocks, hop).mean(axis=1))
+        floor = np.median(rms) * gain(-12)
+        low = rms < floor
+        source, patched, i = music.copy(), 0, 0
+        while i < blocks:
+            if not low[i]:
+                i += 1
+                continue
+            j = i
+            while j < blocks and low[j]:
+                j += 1
+            if j - i >= 3:
+                s0, s1 = max(0, i * hop - fade), min(N, j * hop + fade)
+                # a bar away first (the same place in the phrase), then half a bar (a rest that falls on the same beat
+                # of every bar has notes two beats off it), then two bars
+                for src in (s0 - bar, s0 + bar, s0 - bar // 2, s0 + bar // 2, s0 - 2 * bar, s0 + 2 * bar):
+                    if src < 0 or src + (s1 - s0) > N:
+                        continue
+                    seg = source[src : src + (s1 - s0)]
+                    # the source must be playing all through the drop it covers, not only at its edges
+                    core = seg[fade : len(seg) - fade]
+                    nb = max(1, len(core) // hop)
+                    if np.sqrt((core[: nb * hop] ** 2).mean(axis=1).reshape(nb, -1).mean(axis=1)).min() < np.median(rms) * gain(-9):
+                        continue
+                    w = np.ones(s1 - s0)
+                    w[:fade] = np.linspace(0, 1, fade)
+                    w[-fade:] = np.linspace(1, 0, fade)
+                    music[s0:s1] = music[s0:s1] * (1 - w[:, None]) + seg * w[:, None]
+                    patched += 1
+                    break
+            i = j
+        report.append(f"fill: {patched} drop(s) in the bed patched from a bar away ({bpm:g} bpm)")
     if loop:
         # A film that loops has no ending: the bed runs on past the last frame, and that run-on is laid over the first
         # second and a half, fading out as the bed's own start fades in. When the player jumps from the last frame

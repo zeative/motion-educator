@@ -23,7 +23,7 @@ RUN_AT = 32.6
 GRAB = s["s11"]["start"]
 
 music = json.loads((HERE / "cues.json").read_text())["music"]
-music.update({"lufs": -20, "start": 0, "fade_in": 0.01, "fade_out": 0.6, "duck_db": -6,
+music.update({"lufs": -20, "start": 0, "fade_in": 0.01, "fade_out": 0.6, "duck_db": -6, "fill": True,
               "note": "Composed for this film (ElevenLabs Music, the prompt in music/bed.json); -20 LUFS under the voice."})
 voice = {"duck_db": -8, "note": "The bed dips 8 dB under the voice (not the default 11): it is light and must stay heard between sentences."}
 
@@ -36,11 +36,11 @@ for k, e in enumerate(json.loads((HERE / "events.json").read_text())):
     last[e["kind"]] = e["at"]
     d = max(0.12, e["end"] - e["at"])
     if e["kind"] == "line":
-        pen.append({"t": r(e["at"]), "file": f"{L}/foley/pen_{k % 3 + 1}.wav", "db": -21, "trim": [0, r(min(0.9, d + 0.04))], "fade": 0.05, "note": "a line drawn"})
+        pen.append({"t": r(e["at"]), "file": f"{L}/foley/pen_{k % 3 + 1}.wav", "db": -17, "trim": [0, r(min(0.9, d + 0.04))], "fade": 0.05, "note": "a line drawn"})
     elif e["kind"] == "write":
-        pen.append({"t": r(e["at"]), "file": f"{L}/foley/write_{k % 3 + 1}.wav", "db": -22, "trim": [0, r(min(1.8, d + 0.04))], "fade": 0.05, "note": "a word written"})
+        pen.append({"t": r(e["at"]), "file": f"{L}/foley/write_{k % 3 + 1}.wav", "db": -18, "trim": [0, r(min(1.8, d + 0.04))], "fade": 0.05, "note": "a word written"})
     elif e["kind"] == "erase":
-        pen.append({"t": r(e["at"]), "file": f"{L}/foley/rub_{k % 2 + 1}.wav", "db": -20, "trim": [0, r(min(0.6, d + 0.1))], "fade": 0.08, "note": "rubbed out"})
+        pen.append({"t": r(e["at"]), "file": f"{L}/foley/rub_{k % 2 + 1}.wav", "db": -17, "trim": [0, r(min(0.6, d + 0.1))], "fade": 0.08, "note": "rubbed out"})
 
 turns = ["s03", "s05", "s06", "s07", "s09", "s10", "s12", "s13", "s14"]
 events = pen + [
@@ -63,7 +63,7 @@ events = pen + [
     {"t": r(RUN_AT + 0.5), "file": f"{L}/foley/scrape_1.wav", "db": -19, "pan": 0.25, "trim": [0, r(T[1])], "fade": 0.25, "note": "the full one skids three times as far"},
     {"t": r(RUN_AT + 0.5 + T[0]), "file": f"{L}/sfx/tick_1.mp3", "db": -15, "align": "peak", "note": "the empty trolley has stopped"},
     {"t": r(RUN_AT + 0.5 + T[1]), "file": f"{L}/sfx/tick_1.mp3", "db": -13, "align": "peak", "note": "the full one stops, three times further on"},
-    {"t": 37.95, "file": f"{L}/foley/clap_1.wav", "db": -12, "align": "peak", "note": "THE PAYOFF: 'massa' gets its marker"},
+    {"t": 37.95, "file": f"{L}/foley/clap_1.wav", "db": -6, "align": "peak", "note": "THE PAYOFF: 'massa' gets its marker"},
 ]
 events.sort(key=lambda e: e["t"])
 cues = {"music": music, "voice": voice, "events": events}

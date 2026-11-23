@@ -244,3 +244,10 @@ sheen, fingerprints and tool marks in its normal map. `clay.update(t)` moves eve
 frame, the boil of clay re-handled between exposures. Size things in world units around the set (a sun of radius 4,
 a camera about 70 away); squash, stretch, plop and wobble are tweens of `scale` and `position`.
 
+`clay.set({ glow })` lifts the painted backdrop from within (default 0.32); lower it (about 0.1) when the backdrop must
+keep its colour on camera rather than read near white. Every new `seed` makes its own hand-marked surface (a height map
+and a normal map, built in the page): a set of a hundred pieces should cycle through a dozen or so seeds, or the page
+takes minutes to load. Where a light source is part of the lesson (a Sun lighting one half of the Earth), dim the studio
+(`space.key`, `rim`, `fill`, the `bounce` that `set()` returns, `scene.environmentIntensity`) in those shots and light
+the subject with a `PointLight` at the source, so the day and night halves read.
+

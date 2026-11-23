@@ -182,7 +182,7 @@ export function createClay(space, { stepped = 12 } = {}) {
 
   // The tabletop set: a card backdrop bent into the table (a cyclorama, so there is no seam), painted in a soft
   // vertical gradient; the table's card surface; a soft key from the upper left, a warm bounce from below.
-  function set({ backdrop = ["#ffe1cc", "#ffb69a"], table = "#e8c39e", width = 80, depth = 50, height = 60, warm = "#ffcf9e" } = {}) {
+  function set({ backdrop = ["#ffe1cc", "#ffb69a"], table = "#e8c39e", width = 80, depth = 50, height = 60, warm = "#ffcf9e", glow = 0.32 } = {}) {
     const c = canvasOf(64, 512), g = c.getContext("2d");
     const grad = g.createLinearGradient(0, 0, 0, 512);
     grad.addColorStop(0, backdrop[0]);
@@ -209,8 +209,8 @@ export function createClay(space, { stepped = 12 } = {}) {
     }
     geo.computeVertexNormals();
     // Painted card keeps its paint: lit, shadowed, but not pulled grey by the tone curve, and lifted a little from
-    // within, as a well-lit small set reads on camera.
-    const card = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex, emissive: "#ffffff", emissiveMap: tex, emissiveIntensity: 0.32, roughness: 0.92, metalness: 0, normalMap: surface(91), normalScale: new THREE.Vector2(0.15, 0.15), toneMapped: false }));
+    // within (`glow`), as a well-lit small set reads on camera. Lower it when the paint must keep its colour on camera.
+    const card = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex, emissive: "#ffffff", emissiveMap: tex, emissiveIntensity: glow, roughness: 0.92, metalness: 0, normalMap: surface(91), normalScale: new THREE.Vector2(0.15, 0.15), toneMapped: false }));
     card.material.normalMap.repeat.set(6, 6);
     card.receiveShadow = true;
     card.userData.castShadow = false;

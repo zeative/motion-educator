@@ -3,7 +3,7 @@
   "name": "Clay",
   "medium": "3D",
   "mode": "Claymation",
-  "status": "concept",
+  "status": "ready",
   "version": 1,
   "summary": "A handmade plasticine world on a little tabletop set, animated in stop motion.",
   "worksFor": "kids' science, nature, friendly explainers",
@@ -35,10 +35,15 @@
     "mono": "JetBrains Mono Variable"
   },
   "captions": "card",
-  "samples": [],
+  "samples": [
+    "seasons-clay"
+  ],
   "golden": [
     "concept.jpg",
     "proof-1.jpg",
-    "proof-2.jpg"
+    "proof-2.jpg",
+    "seasons-clay-1.jpg",
+    "seasons-clay-2.jpg",
+    "seasons-clay-3.jpg"
   ]
 }

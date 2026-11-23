@@ -35,14 +35,14 @@
       "name": "Stickman",
       "medium": "2D",
       "mode": "Hand-drawn 2D",
-      "status": "concept"
+      "status": "ready"
     },
     {
       "key": "clay",
       "name": "Clay",
       "medium": "3D",
       "mode": "Claymation",
-      "status": "concept"
+      "status": "ready"
     },
     {
       "key": "paper",

@@ -1,6 +1,6 @@
 # Clay
 
-Claymation · 3D · default portrait 9:16, voice-over · concept: no sample film yet
+Claymation · 3D · default portrait 9:16, voice-over · ready
 
 A handmade plasticine world on a little tabletop set, animated in stop motion.
 
@@ -41,7 +41,10 @@ whatever the topic: the topic decides what is shown, the template decides how it
 
 ## Status
 
-A concept: no sample film yet. `golden/concept.jpg` is a drawn still; `golden/proof-1.jpg` and `proof-2.jpg` are
-frames of a five-second engine proof made with kit/engine/clay.js (the tabletop set, plasticine with the hand's marks, the boil on every held pose, a paper flag), which matches this template on every
-`lookmatch.mjs` measure, the held 12 drawings a second included. The first real film made in this template is its
-sample: check it against these lines and the stills, then add its frames to `golden/`.
+Ready: its first sample film is `examples/kenapa-musim` (Why we have seasons, in clay), made with the kit, checked by
+`check.mjs` and `lookmatch.mjs`, reviewed by an independent critic and rebuilt from the review before it was published. `golden/` holds
+three of its frames beside the concept still and the engine proof, so later films are measured against a real one.
+
+## Sample films
+
+- `seasons-clay`: Why we have seasons, in clay (`examples/kenapa-musim`)
