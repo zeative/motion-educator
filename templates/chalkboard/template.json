@@ -11,7 +11,7 @@
   "defaults": {
     "format": "1920x1080",
     "narration": "voice",
-    "accent": "#9bd3ae"
+    "accent": "#f6d365"
   },
   "stage": "board",
   "paper": "#1f3b2d",

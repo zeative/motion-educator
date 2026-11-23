@@ -84,7 +84,13 @@ if (narrated) {
         if (STIFF_ID[word]) warn(`shot ${line.id}`, `"${word}" is written Indonesian; said aloud it is usually "${STIFF_ID[word]}"`);
         if (PERSONA_ID.includes(word)) warn(`shot ${line.id}`, `"${word}" belongs to a creator with a persona; a narrator with no face says "kamu" or "kita"`);
       }
-      for (const [phrase, instead] of Object.entries(STIFF_ID_PHRASES)) if (line.text.toLowerCase().includes(phrase)) warn(`shot ${line.id}`, `"${phrase}" is written Indonesian; said aloud: ${instead}`);
+      // "di mana" and "yang mana" are stiff as relative words ("rumah di mana ..."), plain speech as questions
+      // ("energinya disimpan di mana?"): a sentence ending in "?" keeps them.
+      const told = (line.text.toLowerCase().match(/[^.!?]+[.!?]*/g) ?? []).filter((sentence) => !sentence.trim().endsWith("?")).join(" ");
+      for (const [phrase, instead] of Object.entries(STIFF_ID_PHRASES)) {
+        const where = phrase === "di mana" || phrase === "yang mana" ? told : line.text.toLowerCase();
+        if (where.includes(phrase)) warn(`shot ${line.id}`, `"${phrase}" is written Indonesian; said aloud: ${instead}`);
+      }
     }
   }
   const total = count(script);

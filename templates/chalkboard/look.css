@@ -6,7 +6,7 @@
   font-style: normal;
 }
 :root[data-look="chalkboard"] {
-  --accent: #9bd3ae;
+  --accent: #f6d365;
   --ink: #f2f2ea;
   --paper: #1f3b2d;
   --brand: "Cabin Sketch", var(--sans);

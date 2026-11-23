@@ -6,7 +6,7 @@
   font-style: normal;
 }
 :root[data-look="pixel"] {
-  --accent: #ff4d6d;
+  --accent: #ff004d;
   --ink: #1d2b53;
   --brand: "Press Start 2P", var(--sans);
   --sans: "Press Start 2P", ui-sans-serif, sans-serif;

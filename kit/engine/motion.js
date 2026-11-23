@@ -29,6 +29,9 @@ export async function createFilm({ storyboard, duration = storyboard?.duration, 
   // the picture advances at, so nothing is drawn before it is in place.
   const look = await applyLook(storyboard);
   tint ??= storyboard?.look?.accent ?? look.defaults?.accent ?? "#ffb90e";
+  // The storyboard's accent is the film's: the stage light takes it, and so do the captions' key words and anything
+  // the film's CSS draws with var(--accent), over the template's own default.
+  if (storyboard?.look?.accent) document.documentElement.style.setProperty("--accent", storyboard.look.accent);
   const held = holder(look.stepped);
   await document.fonts.ready;
   // The frame's size comes from the storyboard: "1920x1080" for a landscape film, "1080x1920" for a short.
