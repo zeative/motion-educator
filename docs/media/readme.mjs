@@ -3,7 +3,8 @@
 //
 //   node docs/media/readme.mjs
 //
-// It writes docs/media/hero.jpg (the banner), docs/media/templates/KEY.jpg (one card per template) and rewrites the
+// It writes docs/media/hero.jpg (the banner), docs/media/social.jpg (the repository's social preview, to upload in
+// the repository's settings), docs/media/templates/KEY.jpg (one card per template) and rewrites the
 // table between the templates markers in README.md. Everything it reads is committed (templates/*/golden/), so it
 // needs no rendering. Run it again whenever a template gets a sample film (its golden/ gains SAMPLE-1..3.jpg).
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -123,6 +124,11 @@ await shoot(
   "hero",
 );
 await browser.close();
+// The repository's social preview (Settings → General → Social preview, 1280×640): the banner's left part, which
+// holds the title and the first frames of the wall. GitHub does not read it from the repository: upload it by hand.
+const { execFileSync } = await import("node:child_process");
+execFileSync("ffmpeg", ["-v", "error", "-y", "-i", join(here, "hero.jpg"), "-vf", "crop=1280:640:0:0", "-q:v", "3", join(here, "social.jpg")]);
+console.log("docs/media/social.jpg");
 
 // ── The table in README.md ─────────────────────────────────────────────────
 const cell = (t) => {
