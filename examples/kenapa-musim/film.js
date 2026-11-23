@@ -214,10 +214,10 @@ const fJan = flag("Januari · 147 juta km", -10.5, 0, 24, { side: 1, size: 1.1, 
 const fJul = flag("Juli · 152 juta km", 9.5, 0, 17, { side: -1, size: 1.1, height: 3 });
 const fJune = flag("Juni", 11.8, 0, 23, { side: -1, size: 1.1 });
 const fNorth = flag("utara condong", 8.5, 4.6, 19.5, { side: -1, height: 2.6, size: 0.8 });
-const fDec = flag("Desember", -9, 0, 23.5, { side: 1, size: 1.1 });
-const fSouth = flag("selatan condong", -8.6, -0.6, 21.6, { side: 1, height: 2.6, size: 0.8 });
-const fTilt = flag("miring ✓", -8.6, 0, 23.8, { side: 1, ink: "#e8574a", size: 1.3 });
-const fDist = flag("jarak ✗", 5, 0, 28, { side: 1, size: 1.2 });
+const fDec = flag("Desember", -9, 0, 23.5, { side: 1, size: 1.7, height: 3.6 });
+const fSouth = flag("selatan condong", -7.2, 0, 26.5, { side: 1, height: 2.4, size: 1.3 });
+const fTilt = flag("miring ✓", -8.6, 0, 23.8, { side: 1, ink: "#e8574a", size: 2.0, height: 4 });
+const fDist = flag("jarak ✗", 2.5, 0, 30, { side: 1, size: 2.0, height: 4 });
 const fWinter = flag("Eropa: musim dingin", -0.3, ER * 0.9, 0.4, { height: 1.5, size: 0.36, side: 1, lean: 0.35 });
 earthG.add(fWinter);
 // Seen from above (s03 to s04b), a flag stands edge-on to the lens: those lean back, paper up, to face it.
@@ -247,10 +247,10 @@ film.each(() => {
   patch.position.x = PIV.x + Math.tan(deg(T.tilt)) * 1.2;
   patch.material.opacity = 0.95 * k;
 });
-const fNarrow = flag("sempit = panas", 39.5, 0, 21.5, { side: 1, size: 1.1, height: 6 });
-const fWide = flag("lebar = dingin", 39.5, 0, 21.5, { side: 1, size: 1.1, height: 6 });
+const fNarrow = flag("sempit = panas", 46.5, 0, 23, { side: 1, size: 1.1, height: 4.5 });
+const fWide = flag("lebar = dingin", 46.5, 0, 23, { side: 1, size: 1.1, height: 4.5 });
 // The clock card: a clay disc on a stand, its day arc pressed on bead by bead.
-const clock = add(at(new THREE.Group(), 54, 0, 21));
+const clock = add(at(new THREE.Group(), 35.5, 0, 21));
 const face = at(lump(new THREE.CylinderGeometry(3.4, 3.4, 0.6, 40), "#fff6ea"), 0, 4.6, 0);
 face.rotation.x = Math.PI / 2;
 clock.add(face, at(lump(new THREE.BoxGeometry(1, 1.4, 1), "#d98a66"), 0, 0.7, 0));
@@ -259,7 +259,7 @@ const beads = Array.from({ length: 16 }, (_, i) => {
   return at(ball(0.42, "#ffb238"), Math.cos(a) * 2.5, 4.6 - Math.sin(a) * 2.5, 0.45);
 });
 clock.add(...beads);
-const fDay = flag("siang lebih panjang", 47, 0, 25, { side: 1, size: 1.0 });
+const fDay = flag("siang lebih panjang", 38, 0, 25, { side: 1, size: 1.0 });
 hidden(fNarrow, fWide, fDay, ...beads);
 
 // ── Two plates: the noon Sun in Jakarta and in Berlin (s13, s13b) ───────────────────────────────────────────────
@@ -294,10 +294,10 @@ const VIEW = {
   beach: { az: 0, el: 16, dist: 58, tx: BX, ty: 4.5, tz: 3, fov: 32 },
   qmark: { az: 0, el: 10, dist: 34, tx: QX, ty: 5.5, tz: 28, fov: 32 },
   top: { az: 0, el: 82, dist: 70, tx: 0, ty: 0, tz: 21, fov: 32 },
-  front: { az: 0, el: 22, dist: 86, tx: 0, ty: 1.5, tz: 20, fov: 32 },
+  front: { az: 0, el: 40, dist: 84, tx: 0, ty: 0, tz: 21, fov: 32 },
   june: { az: 0, el: 10, dist: 50, tx: 5, ty: 2.6, tz: 20, fov: 32 },
   torch: { az: 6, el: 16, dist: 44, tx: 45, ty: 7, tz: 18, fov: 32 },
-  clock: { az: 6, el: 14, dist: 40, tx: 50, ty: 4.5, tz: 20, fov: 32 },
+  clock: { az: -6, el: 14, dist: 40, tx: 39, ty: 4.5, tz: 21, fov: 32 },
   plates: { az: 0, el: 16, dist: 62, tx: 45, ty: 4.5, tz: 45, fov: 32 },
 };
 const earthView = (theta, dist = 15) => { const p = orbitAt(theta); return { az: 0, el: 20, dist, tx: p.x, ty: p.y + 0.9, tz: p.z, fov: 32 }; };
@@ -371,7 +371,7 @@ beads.forEach((b, i) => plop(b, s.s09b.start + 0.2 + i * 0.06, 1));
 plop(fDay, s.s09b.start + 1.2);
 // s10: back to the orbit; half a turn round the back to December; the south leans in now.
 move(VIEW.front, s.s10.start - 0.1, 0.9);
-[fJune, fNorth].forEach((f) => gone(f, s.s10.start));
+[fJune, fNorth, fDay].forEach((f) => gone(f, s.s10.start));
 tl.to(E, { theta: Math.PI, duration: 2.0, ease: "power1.inOut" }, s.s10.start + 0.3);
 plop(fDec, s.s10.start + 2.4);
 plop(fSouth, s.s10.start + 2.9, 1);
@@ -382,7 +382,7 @@ tl.to(T, { tilt: 52, duration: 1.3, ease: "power2.inOut" }, s.s11.start + 0.5);
 plop(fWide, s.s11.start + 2.2);
 // s12: close on the Earth: the equator band and Indonesia's flag.
 move(earthView(Math.PI, 12.5), s.s12.start - 0.1, 0.9);
-[fDec, fSouth, fWide, fDay].forEach((f) => gone(f, s.s12.start));
+[fDec, fSouth, fWide].forEach((f) => gone(f, s.s12.start));
 tl.set(T, { on: 0 }, s.s12.start);
 plop(band, s.s12.start + 1.4);
 plop(indo, s.s12.start + 2.5);
