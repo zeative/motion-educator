@@ -11,7 +11,7 @@
   "defaults": {
     "format": "1920x1080",
     "narration": "text",
-    "accent": "#5fa8ff"
+    "accent": "#ffd166"
   },
   "stage": "blueprint",
   "paper": "#0d3b66",

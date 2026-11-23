@@ -34,7 +34,7 @@ whatever the topic: the topic decides what is shown, the template decides how it
   picture advances at (every frame).
 - kit/engine/stage3d.js with an orthographic-looking camera (fov 8, far away) at az 45, el 35.26
 - or SVG with the isometric projection; blocks pop up with back.out
-- Palette: #eef1ff, #7b8cff, #ffb4a2, #9ee6c5, #ffe08a, #2d3047.
+- Palette: #eef1ff, #7b8cff, #ffb4a2, #9ee6c5, #ffe08a, #2d3047, and the accent #ff5d8f.
 - The render's finishing pass follows `template.json` `finish` (bloom 0, grain 0).
 - Check the look against `golden/` with `node kit/tools/lookmatch.mjs films/NAME` before the full render
   (`references/templates.md`).

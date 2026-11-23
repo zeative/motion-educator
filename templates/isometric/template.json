@@ -11,7 +11,7 @@
   "defaults": {
     "format": "1920x1080",
     "narration": "voice",
-    "accent": "#7b8cff"
+    "accent": "#ff5d8f"
   },
   "stage": "flat",
   "paper": "#eef1ff",
@@ -22,7 +22,8 @@
     "#ffb4a2",
     "#9ee6c5",
     "#ffe08a",
-    "#2d3047"
+    "#2d3047",
+    "#ff5d8f"
   ],
   "stepped": 0,
   "finish": {

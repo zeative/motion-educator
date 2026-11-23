@@ -6,7 +6,7 @@
   font-style: normal;
 }
 :root[data-look="isometric"] {
-  --accent: #7b8cff;
+  --accent: #ff5d8f;
   --ink: #2d3047;
   --paper: #eef1ff;
   --brand: "Manrope", var(--sans);

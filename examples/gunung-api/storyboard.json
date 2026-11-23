@@ -1,0 +1,5843 @@
+{
+  "title": "Kenapa gunung api bisa meledak?",
+  "template": "lowpoly",
+  "standard": 3,
+  "question": "Kenapa ada gunung api yang meledak, kayak Merapi, sementara yang lain lavanya cuma mengalir?",
+  "audience": "Pelajar SMA di Indonesia dan orang dewasa yang penasaran. Mereka tinggal di negeri gunung api, tahu Merapi dan kata 'magma', dan banyak yang mengira gunung meledak karena panas atau api di dalamnya, bukan karena gas.",
+  "promise": "Gunung api meledak karena gas: di kedalaman, gas larut di magma karena tekanan tinggi; waktu magma naik dan tekanannya turun, gas lepas jadi gelembung yang membesar, dan di magma yang kental seperti Merapi gelembung itu terjebak sampai tekanannya cukup untuk meledak dan menghancurkan magma jadi abu.",
+  "language": "id",
+  "format": "1920x1080",
+  "duration": 57.5,
+  "fps": 60,
+  "captions": "pop",
+  "loop": {
+    "line": "Itulah kenapa / gunung api bisa meledak begini.",
+    "picture": "The recap's third card grows into a low fly-over of a faceted hill that rises into the s01 framing: Merapi at dawn with its ash column, the drone orbit at frame 0's position and speed."
+  },
+  "look": {
+    "accent": "#ff9f1c",
+    "mood": "The Low Poly template, line by line: a faceted 3D world (hills, sky, objects built from flat triangles) under a soft gradient sky; one directional sun, so every facet has its own flat shade, and soft fog toward the horizon; one harmonious palette per scene (dawn for Merapi: orange #ff9f1c, sand #ffbf69, sky #cbf3f0, teal #2ec4b6, dark #293241; midday teal for Hawaii; a warm-dark ember palette inside the magma); flat-shaded facets with no textures, water, glass and the soda bottle slightly transparent; Merapi and Kīlauea built from their real terrain profiles at true scale with a few hundred triangles each, a cross-section as a sliced faceted model; Nunito with a slight drop shadow; captions two or three words at a time on a soft translucent panel at the bottom centre, the key word in the accent; floating tags with lines to the object; numbers at their real values; charts as faceted bars; slow drone-like orbits, fly-throughs and push-ins with gentle easing; objects assemble facet by facet and the world reshapes smoothly; cuts by flying through a cloud or over a hill; soft fog, a very light bloom on the sun, no grain; never smooth high-poly models, photo textures or cluttered scenes. Everything that must be read sits above y 850 and inside 80 px side margins; the caption panel sits at y 862 to 950."
+  },
+  "models": [
+    {
+      "name": "Gunung Merapi (Jawa Tengah / DI Yogyakarta)",
+      "variant": "Merapi as it stands since the 2010 eruption, seen from the south (the side Yogyakarta and Prambanan see it from): the steep summit cone with the shoulder on its east side and the summit crater breached towards the south-east, Merbabu behind to the north. This is the volcano an Indonesian viewer knows.",
+      "reference": "The real west-east terrain profile through the summit (AWS Terrain Tiles, SRTM-derived, zoom 12, sampled every 100 m; summit sample 2,915 m, about 1,000 m at 6 km from the summit, about 500 m at 15 km), drawn at true scale in reference/profil-merapi-kilauea.png; the USGS drawings of a composite volcano's and a lava dome's insides for the cut-away; photographs from Klangon and Prambanan for colour and silhouette.",
+      "blueprints": [
+        "reference/profil-merapi-kilauea.png: true-scale west-east profile of Merapi through the summit, from AWS Terrain Tiles (SRTM), made for this film",
+        "reference/usgs-composite-volcano.png: USGS 'Volcanoes' (Tilling), schematic of the internal structure of a typical composite volcano (filled central vent, radiating dikes, pyroclastic layers, lava flows)",
+        "reference/usgs-lava-dome.png: USGS 'Volcanoes' (Tilling), schematic of the internal structure of a typical volcanic dome",
+        "Surono et al. 2012, Fig. 1: index map of Merapi (summit, Kali Gendol, Yogyakarta 25-30 km south)"
+      ],
+      "photos": [
+        "Wikimedia Commons, 'The peak of Merapi seen from Klangon.jpg' (the post-2010 twin-peaked summit, bare grey-brown upper cone, green lower flanks)",
+        "Wikimedia Commons, 'Prambanan Java243.jpg' (Merapi from the south-south-east: steep summit cone with a shoulder on the right, a white steam plume)"
+      ],
+      "looks": "Upper cone above about 2,000 m bare and grey-brown, darker at the summit crater and dome; lower flanks deep green (forest and farmland), the plain below in rice-field greens and sand; a thin white steam plume at rest; in eruption a grey ash column. In the dawn palette the lit facets warm to sand and orange, the shaded ones to the template's dark #293241.",
+      "scale": "1 unit = 100 m, the same horizontally and vertically (true scale); the cut-away's reservoir and conduit are schematic and say so on screen",
+      "parts": [
+        "summit crater, breached to the south-east after 2010",
+        "lava dome plugging the conduit",
+        "central vent (the conduit)",
+        "magma reservoir (schematic)",
+        "upper cone of lava flows and pyroclastic layers",
+        "lower flanks and the rice-field plain",
+        "Merbabu, the neighbour peak to the north"
+      ],
+      "notShown": [
+        "radiating dikes (USGS drawing): not needed for the gas mechanism, and they would clutter the cut face",
+        "rivers and lahar channels other than the general south flank: clutter at this scale",
+        "the observatory posts and villages on the flanks: the film is about the mechanism, not the hazard map"
+      ]
+    },
+    {
+      "name": "Kīlauea (Hawaii)",
+      "variant": "Kīlauea as a broad basaltic shield with an effusive eruption: a low fountain at a vent and lava flows running down its gentle slope to the sea, the familiar picture of 'lava that flows'.",
+      "reference": "Its real south-north terrain profile through the summit caldera (AWS Terrain Tiles, SRTM-derived; reference/profil-merapi-kilauea.png, true scale), the USGS drawing of a shield volcano's insides, and a USGS photograph of the Mauna Ulu fountain and flows for colour.",
+      "blueprints": [
+        "reference/profil-merapi-kilauea.png: true-scale south-north profile of Kīlauea through the summit caldera, from AWS Terrain Tiles (SRTM)",
+        "reference/usgs-shield-volcano.png: USGS 'Volcanoes' (Tilling), the internal structure of a typical shield volcano (summit caldera, central vent, magma reservoir)"
+      ],
+      "photos": [
+        "Wikimedia Commons, 'Mauna Ulu eruption episode 12.jpg' (USGS photograph: orange fountain, black basalt crust, bright lava channels)"
+      ],
+      "looks": "Black and dark-grey basalt facets with a slight sheen, bright orange-yellow lava ribbons, a teal sea, white steam where lava meets water; very gentle slopes (a few degrees).",
+      "scale": "1 unit = 100 m, true scale both ways",
+      "parts": [
+        "summit caldera",
+        "gentle shield flanks",
+        "lava fountain at a vent",
+        "lava flows running to the sea",
+        "coastline and sea"
+      ],
+      "notShown": [
+        "Mauna Loa, the bigger shield behind it: it would confuse which volcano is meant",
+        "the rift zones' fissure lines: one vent is enough to show lava that flows"
+      ]
+    }
+  ],
+  "music": {
+    "track": "Composed for this film (to be made with kit/audio/music.mjs after the board is approved; not generated yet)",
+    "bpm": 72,
+    "beat": 0.833333,
+    "offset": 0,
+    "start": 0,
+    "note": "An ambient bed composed for the film, as the template's Sound line asks: a warm pad, soft wind, gentle chimes (kalimba and small bells) on the tags and cards, a slow pulse at 72 BPM, 57.5 s plus a tail that the mix lays over frame 0 so the loop is seamless. It sinks into a low warm drone inside the magma (s05 to s10), tightens with a slow rising tone under the pressure (s12 to s14), and swells after one deep, soft boom on the eruption (s15); it resolves on the recap. Every shot starts on a beat. Effects per shot are in each shot's 'sound': a muffled rumble under the opening column, surf and a lava gurgle for Kīlauea, a glassy clink for the bottle, soft presses and gauge ticks for pressure, sparse bubbling, light pops for the runny column, a thick creak for the trapped one, stony clicks and cracks for the dome. Nothing loud or harsh: a calm explainer, not a disaster film."
+  },
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "Magma is molten rock below the surface (lava once it erupts); besides a little crystal and rock it contains dissolved gases. It collects in a reservoir below the volcano and reaches the surface through a conduit (the central vent). On screen: 'magma: batu cair', 'saluran magma', 'kawah'.",
+      "source": "USGS, Robert I. Tilling, 'Volcanoes' (General Interest Publication, pubs.usgs.gov/gip/volc/): 'Molten rock below the surface of the Earth that rises in volcanic vents is known as magma, but after it erupts from a volcano it is called lava ... the ascending magma commonly contains some crystals, fragments of surrounding (unmelted) rocks, and dissolved gases'; 'The essential feature of a composite volcano is a conduit system through which magma from a reservoir deep in the Earth's crust rises to the surface'."
+    },
+    {
+      "id": "f2",
+      "claim": "Magma rises because it is lighter than the solid rock around it. On screen: 'lebih ringan, jadi naik'.",
+      "source": "USGS, Tilling, 'Volcanoes': 'Driven by buoyancy and gas pressure the molten rock, which is lighter than the surrounding solid rock forces its way upward'."
+    },
+    {
+      "id": "f3",
+      "claim": "The gas in magma is mostly water vapour, followed by carbon dioxide and sulfur dioxide (with smaller amounts of others). At Merapi's summit fumarole in 2010 the gas was 87-92% water vapour, 5.6-10% CO₂ and 0.8-1.0% SO₂ (mol %). On screen: tags 'uap air (H₂O)', 'CO₂', 'SO₂'; most molecules drawn are water.",
+      "source": "USGS Open-File Report 95-85, McGee & Gerlach, 'Volcanic gas': 'Water vapor is typically the most abundant volcanic gas, followed by carbon dioxide and sulfur dioxide' (also OFR 97-262, McGee et al.); Surono et al. 2012, J. Volcanol. Geotherm. Res. 241-242, Table 1 (Woro fumarole analyses, May and September 2010)."
+    },
+    {
+      "id": "f4",
+      "claim": "All magmas contain dissolved gases; as magma rises the confining pressure falls and the gases come out of solution, like the gas in a closed bottle of a fizzy drink that forms bubbles when the pressure is released. On screen: the soda bottle, 'Kayak soda dalam botol tertutup', 'tutup rapat: tekanan tinggi', 'tekanan tinggi menahan gasnya tetap larut', 'begitu magma naik, tekanannya turun', 'gasnya lepas jadi gelembung'. Simplification: 'tekanan' on the gauge is shown without numbers; the weight of the rock above is what sets it.",
+      "source": "USGS, Tilling, 'Volcanoes': 'All magmas contain dissolved gases, and as they rise to the surface to erupt, the confining pressures are reduced and the dissolved gases are liberated either quietly or explosively' and 'Gases in lava may be compared with the gas in a bottle of a carbonated soft drink'; British Geological Survey, 'Eruption styles' (bgs.ac.uk): 'It's a bit like a bottle of fizzy pop'."
+    },
+    {
+      "id": "f5",
+      "claim": "The bubbles expand as the pressure keeps falling, and their sudden expansion is what drives explosions. On screen: 'Makin ke atas, makin besar' (the bubble chart is marked 'ilustrasi' and has no numbers), 'tekanannya numpuk terus'.",
+      "source": "USGS, Tilling, 'Volcanoes': 'Their sudden expansion causes the terrible explosions that throw out great masses of solid rock as well as lava, dust, and ashes'; 'Explosive eruptions caused by gas rapidly expanding and escaping from molten lava'."
+    },
+    {
+      "id": "f6",
+      "claim": "Whether the gas escapes quietly or explosively depends on the magma: in thin, runny magma the gas escapes easily and the lava flows out; in thick, sticky magma it cannot move freely, pressure builds and it escapes with explosive violence. On screen: 'Kalau encer, gasnya lolos', 'gas lolos', 'Kalau kental, gasnya terjebak', 'mengalir', 'meledak'.",
+      "source": "USGS, Tilling, 'Volcanoes': 'If the lava is a thin fluid (not viscous), the gases may escape easily. But if the lava is thick and pasty (highly viscous), the gases will not move freely but will build up tremendous pressure, and ultimately escape with explosive violence'; British Geological Survey, 'Eruption styles': 'If a magma has low viscosity (it is runny), gas can escape easily, so when the magma erupts at the surface it forms lava flows'."
+    },
+    {
+      "id": "f7",
+      "claim": "In an explosive eruption the gas-filled froth of magma is shattered into small fragments: volcanic ash. On screen: '...sampai meledak. Magmanya hancur jadi abu.', 'magma hancur jadi abu'.",
+      "source": "USGS, Tilling, 'Volcanoes': 'The violent separation of gas from lava may produce rock froth called pumice ... In many eruptions, the froth is shattered explosively into small fragments that are hurled high into the air in the form of volcanic cinders, volcanic ash, and volcanic dust'."
+    },
+    {
+      "id": "f8",
+      "claim": "Kīlauea is a shield volcano built of fluid basalt lava flows; the Hawaiian shields are generally non-explosive, so its lava usually flows out. On screen: 'Tapi di Hawaii, lavanya mengalir', 'Kīlauea, Hawaii', 'mengalir'. Simplification: the source says 'generally' non-explosive; the film shows the usual behaviour and does not claim Kīlauea never explodes.",
+      "source": "USGS, Tilling, 'Volcanoes': shield volcanoes 'are built almost entirely of fluid lava flows ... the Hawaiian Islands are composed of linear chains of these volcanoes including Kilauea and Mauna Loa', and 'the generally non-explosive Hawaiian shield volcanoes'. Profile: AWS Terrain Tiles (reference/profil-merapi-kilauea.png)."
+    },
+    {
+      "id": "f9",
+      "claim": "Merapi is a stratovolcano about 2,910 m high on the border of Central Java and Yogyakarta, 25-30 km north of Yogyakarta. Its magma is basaltic andesite (55.8% SiO₂ in 2010), and it typically builds viscous lava domes that plug the top of the conduit. On screen: 'Merapi', 'Magma Merapi itu yang kental', 'magma kental: andesit basaltik', 'kubah lava menyumbat', '2,9 km'.",
+      "source": "Kementerian ESDM (Badan Geologi, PVMBG/BPPTKG), 'Mengenal Merapi Lebih Dekat: Merapi Dulu dan Kini' (esdm.go.id): Merapi 2,910 m, a stratovolcano (height quoted from the search summary of the same page); Surono et al. 2012: 'Merapi stratovolcano is located 25-30 km north of ... Yogyakarta ... composed mainly of basaltic-andesite', 'produced viscous lava domes', 'lava domes have typically plugged the uppermost part of the conduit', Table 1 SiO₂ 55.8 wt% (2010)."
+    },
+    {
+      "id": "f10",
+      "claim": "Merapi's 2010 eruption was its largest since 1872 (VEI about 4); the climactic explosion on 4 November 2010 sent an ash column to 17 km altitude. Mount Everest is 8,848.86 m, so the column rose 17 ÷ 8.85 ≈ 1.9 times as high: 'hampir 2× Everest'. On screen: 'Merapi, 2010', 'Tahun 2010, abunya sampai 17 km', '17 km', '8,8 km', 'hampir 2× Everest'.",
+      "source": "Surono et al. 2012, 'The 2010 explosive eruption of Java's Merapi volcano, a 100-year event', J. Volcanol. Geotherm. Res. 241-242: 121-135 (read in full: 'a VEI and Me of about 4'; 'produced an ash column that ascended to 17 km altitude'; the 1872 eruption named as the previous large explosive one); 'largest in more than a century': the USGS publication summary of the same paper (via search); Everest: Nepal and China's joint announcement of 8 December 2020 (The Kathmandu Post, 'It's official: Mount Everest is 8,848.86 metres tall'; NPR, same day)."
+    },
+    {
+      "id": "f11",
+      "claim": "Merapi's silhouette is its real profile: the west-east terrain profile through the summit sampled every 0.5 km (summit 2,915 m in the data; 1,441 m 3 km west; 1,455 m 3 km east; a shoulder of 2,481-2,417 m 1-1.5 km east), drawn at true scale (230 px per km both ways in s01, cropped to the part above 1,000 m). Since 2010 the summit crater opens to the south-east.",
+      "source": "AWS Terrain Tiles (Mapzen terrarium, SRTM-derived), zoom 12, sampled for this film (reference/profil-merapi-kilauea.png); crater opening: Kementerian ESDM, 'Mengenal Merapi Lebih Dekat' ('terbentuk kawah yang membuka ke arah tenggara/selatan')."
+    },
+    {
+      "id": "f12",
+      "claim": "The cut-away drawings (s04, s07, s08, s13, s14) are schematic: the reservoir, conduit and dome are drawn to show where things are, not their real sizes or depths, and the screen says 'skema · tidak sesuai skala'. Their layout follows the USGS drawings of a composite volcano and a lava dome.",
+      "source": "USGS, Tilling, 'Volcanoes', figures 'Schematic representation of the internal structure of a typical composite volcano' and '... of a typical volcanic dome' (pubs.usgs.gov/gip/volc/types.html; copies in reference/)."
+    }
+  ],
+  "acts": [
+    {
+      "id": "hook",
+      "title": "Pertanyaan",
+      "goal": "Merapi explodes, Kīlauea flows: why the difference?",
+      "rail": false
+    },
+    {
+      "id": "magma",
+      "title": "Gas di magma",
+      "goal": "Under the volcano: magma, gas dissolved in it like soda, held in by pressure.",
+      "rail": true
+    },
+    {
+      "id": "naik",
+      "title": "Magma naik",
+      "goal": "Rising magma, falling pressure: bubbles form and grow.",
+      "rail": true
+    },
+    {
+      "id": "kental",
+      "title": "Encer atau kental",
+      "goal": "Runny magma lets the gas go; thick magma like Merapi's traps it until it explodes into ash.",
+      "rail": true
+    },
+    {
+      "id": "merapi",
+      "title": "Merapi 2010",
+      "goal": "How big that was: a 17 km ash column, almost twice Everest.",
+      "rail": true
+    },
+    {
+      "id": "rangkum",
+      "title": "Jawaban",
+      "goal": "The chain in one frame, then the bridge into the first line.",
+      "rail": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "act": "hook",
+      "type": "wide",
+      "start": 0.0,
+      "end": 4.167,
+      "caption": "Gunung api bisa *meledak* begini.",
+      "teaches": "The puzzle, shown: a real volcano exploding, Merapi in 2010.",
+      "screen": "A faceted dawn world: a soft gradient sky (orange #ff9f1c at the top to sand #ffbf69 and pale #cbf3f0 at the horizon), one low sun at upper right with a faint bloom, soft fog towards the horizon. Merapi fills the middle of the frame, built from its real west-east profile at true scale (summit at (960, 260), the shoulder on the east side), grey-brown facets on the bare upper cone, green facets on the lower flanks, the breached summit crater; Merbabu behind on the left, pale in the fog; rice-field facets in the foreground. A faceted ash column rises from the summit and leaves the top of the frame. A floating tag 'Merapi, 2010' with a line to the summit.",
+      "camera": "A slow drone orbit: from 15 degrees west of south to 5 degrees east of south, about 14 km from the summit and 600 m above the plain, a 35 mm-equivalent lens; Merapi's summit in focus, the fog softening Merbabu.",
+      "motion": "Frame 0 is finished: the column is already rising. Main move: the orbit. Supporting: the ash puffs assemble facet by facet as they rise and the column widens. Detail: the fields' facets shimmer once as the sun catches them.",
+      "carries": "The ash column.",
+      "transition": "The camera rises into the ash and flies through the cloud (the template's cloud cut).",
+      "sound": "The bed starts from frame 0 (warm pad, soft wind); a low muffled rumble under the column; one gentle chime as the tag appears.",
+      "check": "Merapi's silhouette matches the reference profile (steep summit cone, east shoulder); the column leaves the frame (it reached 17 km, far above it); nothing smooth or textured.",
+      "facts": [
+        "f9",
+        "f10",
+        "f11"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Frame 0, finished: Merapi at dawn with its ash column rising, the tag on the summit.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M180 700 L420 430 L520 352 L600 410 L760 560 L820 700 Z",
+              "colour": "white",
+              "fill": "white",
+              "width": 4
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "horizon": [
+                740
+              ]
+            },
+            {
+              "path": "M80 790 L600 760 L1100 800 L1840 770 M80 840 L700 820 L1300 850 L1840 825",
+              "colour": "green",
+              "width": 3
+            },
+            {
+              "cloud": [
+                960,
+                250,
+                190
+              ]
+            },
+            {
+              "cloud": [
+                945,
+                185,
+                300
+              ]
+            },
+            {
+              "cloud": [
+                980,
+                115,
+                420
+              ]
+            },
+            {
+              "cloud": [
+                950,
+                45,
+                560
+              ]
+            },
+            {
+              "path": "M930 259.55 L900 200 M990 259.55 L1030 200",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "line": [
+                1250,
+                294,
+                1000,
+                270
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1250,
+                250
+              ],
+              "text": "Merapi, 2010"
+            },
+            {
+              "camera": "orbit"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "Gunung api bisa"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The orbit continues; the column assembles more facets and widens.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M180 700 L420 430 L520 352 L600 410 L760 560 L820 700 Z",
+              "colour": "white",
+              "fill": "white",
+              "width": 4
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "horizon": [
+                740
+              ]
+            },
+            {
+              "path": "M80 790 L600 760 L1100 800 L1840 770 M80 840 L700 820 L1300 850 L1840 825",
+              "colour": "green",
+              "width": 3
+            },
+            {
+              "cloud": [
+                960,
+                250,
+                190
+              ]
+            },
+            {
+              "cloud": [
+                945,
+                185,
+                300
+              ]
+            },
+            {
+              "cloud": [
+                980,
+                115,
+                420
+              ]
+            },
+            {
+              "cloud": [
+                950,
+                45,
+                560
+              ]
+            },
+            {
+              "path": "M930 259.55 L900 200 M990 259.55 L1030 200",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "line": [
+                1250,
+                294,
+                1000,
+                270
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1250,
+                250
+              ],
+              "text": "Merapi, 2010"
+            },
+            {
+              "move": [
+                960,
+                240,
+                960,
+                60
+              ],
+              "text": "abu naik"
+            },
+            {
+              "camera": "orbit"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "meledak begini."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The camera tilts up into the ash.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M180 700 L420 430 L520 352 L600 410 L760 560 L820 700 Z",
+              "colour": "white",
+              "fill": "white",
+              "width": 4
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "horizon": [
+                740
+              ]
+            },
+            {
+              "path": "M80 790 L600 760 L1100 800 L1840 770 M80 840 L700 820 L1300 850 L1840 825",
+              "colour": "green",
+              "width": 3
+            },
+            {
+              "cloud": [
+                960,
+                250,
+                190
+              ]
+            },
+            {
+              "cloud": [
+                945,
+                185,
+                300
+              ]
+            },
+            {
+              "cloud": [
+                980,
+                115,
+                420
+              ]
+            },
+            {
+              "cloud": [
+                950,
+                45,
+                560
+              ]
+            },
+            {
+              "path": "M930 259.55 L900 200 M990 259.55 L1030 200",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "line": [
+                1250,
+                294,
+                1000,
+                270
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1250,
+                250
+              ],
+              "text": "Merapi, 2010"
+            },
+            {
+              "camera": "up"
+            },
+            {
+              "cut": "terbang lewat awan abu"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "meledak begini."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "act": "hook",
+      "type": "compare",
+      "start": 4.167,
+      "end": 7.5,
+      "caption": "Tapi di Hawaii, lavanya *mengalir*.",
+      "teaches": "The contrast: at Kīlauea in Hawaii the same kind of molten rock just flows out as lava.",
+      "screen": "Through the cloud, a second faceted world in a midday palette (teal sea #2ec4b6, pale sky #cbf3f0, dark #293241 basalt): Kīlauea's broad, gentle shield at true scale (slopes of a few degrees, from its real profile), a low lava fountain at a vent and two orange faceted lava ribbons flowing down to the coastline and the sea. A floating tag 'Kīlauea, Hawaii'. In the last beat the frame splits, both volcanoes at the same true scale (110 px per km both ways): Merapi with its column on the left half, Kīlauea's low shield with its lava on the right, tags 'meledak' and 'mengalir'.",
+      "camera": "Out of the cloud the camera glides low over Kīlauea's coast, 20 km wide in frame, eye level 300 m, then pulls back to a two-panel split; the lava ribbons in focus.",
+      "motion": "Main move: the glide. Supporting: the lava ribbons move as facets sliding downhill (slow, steady); the fountain pulses a little. Detail: steam where the lava meets the sea. The split slides in from the left on the last beat.",
+      "carries": "The two halves, Merapi and Kīlauea.",
+      "transition": "The split dims behind the question panel of s03.",
+      "sound": "Soft wind and surf; a low lava gurgle; the same chime for the tag.",
+      "check": "The shield is visibly gentler than Merapi (both at true scale); the lava flows, nothing explodes.",
+      "facts": [
+        "f6",
+        "f8"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Out of the ash cloud: puffs part to show a gentle island shield.",
+          "draw": [
+            {
+              "cloud": [
+                200,
+                200,
+                700
+              ]
+            },
+            {
+              "cloud": [
+                1000,
+                320,
+                800
+              ]
+            },
+            {
+              "path": "M0 640 L500 560 L900 520 L1200 540 L1500 600 L1500 1080 L0 1080 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M0 760 L400 700 L700 820 L1100 720 L1500 800 M200 640 L400 1080 M700 545 L900 1080 M1100 535 L1200 1080",
+              "width": 2
+            },
+            {
+              "camera": "down"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "Tapi di Hawaii,"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Kīlauea: a low fountain and lava ribbons flowing to the sea.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                640
+              ],
+              "tone": "day"
+            },
+            {
+              "sun": [
+                1500,
+                150,
+                46
+              ]
+            },
+            {
+              "path": "M0 640 L500 560 L900 520 L1200 540 L1500 600 L1500 1080 L0 1080 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M0 760 L400 700 L700 820 L1100 720 L1500 800 M200 640 L400 1080 M700 545 L900 1080 M1100 535 L1200 1080",
+              "width": 2
+            },
+            {
+              "path": "M1500 600 L1920 600 L1920 1080 L1500 1080 Z",
+              "fill": "blue",
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "path": "M1560 680 L1700 660 L1840 700 M1540 780 L1720 760 L1880 800",
+              "colour": "blue",
+              "width": 3
+            },
+            {
+              "path": "M930 520 C 1000 560, 1100 590, 1250 640 M940 522 C 980 600, 1060 650, 1150 700",
+              "colour": "orange",
+              "width": 12
+            },
+            {
+              "path": "M915 520 L930 470 L945 520",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "line": [
+                1150,
+                344,
+                935,
+                480
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1150,
+                300
+              ],
+              "text": "Kīlauea, Hawaii"
+            },
+            {
+              "move": [
+                1000,
+                560,
+                1220,
+                630
+              ],
+              "text": "mengalir"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "lavanya mengalir."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Split, both at the same true scale: Merapi exploding (left), Kīlauea's low shield with lava flowing (right).",
+          "draw": [
+            {
+              "path": "M960 60 V840",
+              "width": 6
+            },
+            {
+              "path": "M40 671 L95 660 L150 651 L205 639 L260 620 L315 592 L370 559 L425 522 L480 489 L535 526 L590 537 L645 544 L700 581 L755 610 L810 650 L865 663 L920 669 L920 740 L40 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "cloud": [
+                480,
+                430,
+                160
+              ]
+            },
+            {
+              "cloud": [
+                470,
+                350,
+                240
+              ]
+            },
+            {
+              "cloud": [
+                490,
+                260,
+                320
+              ]
+            },
+            {
+              "path": "M1000 700 L1200 688 L1420 678 L1600 684 L1700 700",
+              "fill": "ink",
+              "width": 5
+            },
+            {
+              "path": "M1700 702 L1840 702",
+              "colour": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1420 680 C 1500 684, 1600 692, 1700 700",
+              "colour": "orange",
+              "width": 9
+            },
+            {
+              "path": "M1414 678 L1420 650 L1426 678",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "chip": [
+                340,
+                740
+              ],
+              "text": "meledak"
+            },
+            {
+              "chip": [
+                1240,
+                740
+              ],
+              "text": "mengalir"
+            },
+            {
+              "cut": "panel pertanyaan"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "lavanya mengalir."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "act": "hook",
+      "type": "type",
+      "start": 7.5,
+      "end": 10.0,
+      "teaches": "Asks the question the film answers: why does one explode and the other flow?",
+      "screen": "The split of s02 dimmed and softened behind a large soft translucent panel (white at 62%, rounded corners, a slight drop shadow) in the middle: 'Kok bisa beda?' in Nunito ExtraBold 150 px, 'beda?' in the accent orange.",
+      "motion": "The panel rises in with a gentle ease and a small overshoot; the words appear two at a time; the background facets keep moving slowly.",
+      "carries": "The question panel over Merapi's half.",
+      "transition": "The panel lifts away as the camera swings back to Merapi, now cut in half.",
+      "sound": "A soft two-note chime as the panel lands.",
+      "check": "Readable in under a second; the split behind stays legible as two volcanoes.",
+      "frames": [
+        {
+          "at": 0,
+          "note": "The panel rises in over the dimmed split.",
+          "draw": [
+            {
+              "path": "M960 60 V840",
+              "width": 6,
+              "colour": "white"
+            },
+            {
+              "path": "M40 671 L95 660 L150 651 L205 639 L260 620 L315 592 L370 559 L425 522 L480 489 L535 526 L590 537 L645 544 L700 581 L755 610 L810 650 L865 663 L920 669 L920 740 L40 740 Z",
+              "fill": "ink",
+              "width": 6,
+              "colour": "white"
+            },
+            {
+              "path": "M1000 700 L1200 688 L1420 678 L1600 684 L1700 700",
+              "fill": "ink",
+              "width": 5,
+              "colour": "white"
+            },
+            {
+              "path": "M1700 702 L1840 702",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "path": "M1420 680 C 1500 684, 1600 692, 1700 700",
+              "colour": "white",
+              "width": 9
+            },
+            {
+              "path": "M1414 678 L1420 650 L1426 678",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "card": [
+                460,
+                300,
+                1000,
+                360
+              ]
+            },
+            {
+              "move": [
+                960,
+                760,
+                960,
+                660
+              ],
+              "text": "panel naik"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "'Kok bisa beda?' with 'beda?' in orange.",
+          "draw": [
+            {
+              "path": "M960 60 V840",
+              "width": 6,
+              "colour": "white"
+            },
+            {
+              "path": "M40 671 L95 660 L150 651 L205 639 L260 620 L315 592 L370 559 L425 522 L480 489 L535 526 L590 537 L645 544 L700 581 L755 610 L810 650 L865 663 L920 669 L920 740 L40 740 Z",
+              "fill": "ink",
+              "width": 6,
+              "colour": "white"
+            },
+            {
+              "path": "M1000 700 L1200 688 L1420 678 L1600 684 L1700 700",
+              "fill": "ink",
+              "width": 5,
+              "colour": "white"
+            },
+            {
+              "path": "M1700 702 L1840 702",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "path": "M1420 680 C 1500 684, 1600 692, 1700 700",
+              "colour": "white",
+              "width": 9
+            },
+            {
+              "path": "M1414 678 L1420 650 L1426 678",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "card": [
+                460,
+                300,
+                1000,
+                360
+              ]
+            },
+            {
+              "title": [
+                960,
+                520
+              ],
+              "text": "Kok bisa beda?",
+              "size": 150,
+              "accent": "beda?"
+            },
+            {
+              "cut": "gunung dibelah"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "act": "magma",
+      "type": "object3d",
+      "start": 10.0,
+      "end": 13.333,
+      "caption": "Di bawahnya ada *magma*: batu cair.",
+      "teaches": "Under the volcano is magma: molten rock in a reservoir, joined to the summit by a conduit.",
+      "screen": "Merapi again, side-on, sliced in half by a vertical plane through the summit: the cut face shows the cone's layers of lava and pyroclastic deposits as flat bands of facets (laid out from the USGS drawing of a composite volcano, placed on this board), the central vent (conduit) as a narrow orange channel rising to the summit crater, and below the cone a faceted orange magma reservoir glowing softly. Floating tags with lines: 'magma' to the reservoir, 'saluran magma' to the conduit, 'kawah' to the summit crater. Small text top right: 'skema · tidak sesuai skala'.",
+      "camera": "The camera swings from the 3/4 view of s01 to exactly side-on (orthographic-looking, a long 85 mm lens from 25 km), the cut face square to the lens; the reservoir in focus as the cut opens.",
+      "motion": "Main move: a sweeping slice line crosses the mountain top to bottom; the near half slides away along its axis and out of frame. Supporting: the reservoir assembles facet by facet and starts to glow. Detail: a faint heat shimmer above the conduit.",
+      "carries": "The cut-away volcano and its reservoir.",
+      "transition": "Push into the reservoir until its facets fill the frame.",
+      "sound": "A soft stony slide as the half moves away; a low warm drone fades in under the magma.",
+      "check": "The plate's layers, conduit and crater line up with the silhouette; 'tidak sesuai skala' is on screen; the reservoir sits under the cone.",
+      "facts": [
+        "f1",
+        "f12"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Merapi side-on; a slicing line sweeps down through the summit.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "line": [
+                960,
+                120,
+                960,
+                860
+              ],
+              "dashed": true,
+              "width": 4
+            },
+            {
+              "move": [
+                1200,
+                140,
+                1200,
+                700
+              ],
+              "text": "dibelah"
+            },
+            {
+              "camera": "orbit"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "Di bawahnya ada"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The near half slides away: the cut face, drawn from the USGS composite-volcano drawing, the conduit rising.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 720 L950 200 M974 720 L970 200",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 760 L840 710 L1020 700 L1180 740 L1120 810 L810 815 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "move": [
+                1500,
+                400,
+                1800,
+                400
+              ],
+              "text": "separuh bergeser"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "magma: batu cair."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Tags: kawah, saluran magma, magma; the reservoir glows.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "line": [
+                1230,
+                194,
+                990,
+                150
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1230,
+                150
+              ],
+              "text": "kawah"
+            },
+            {
+              "line": [
+                1290,
+                424,
+                975,
+                420
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1290,
+                380
+              ],
+              "text": "saluran magma"
+            },
+            {
+              "line": [
+                1280,
+                744,
+                1150,
+                740
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1280,
+                700
+              ],
+              "text": "magma"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "cut": "masuk ke magma"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "magma: batu cair."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "act": "magma",
+      "type": "macro",
+      "start": 13.333,
+      "end": 16.667,
+      "caption": "Di magma ada *gas* yang larut.",
+      "teaches": "The magma carries dissolved gas: mostly water vapour, then carbon dioxide and sulfur dioxide.",
+      "screen": "Inside the reservoir: the frame is filled with deep-orange molten facets (a warm-dark palette for this scene: orange #ff9f1c, ember red, dark #293241 seams). Dissolved gas molecules drift in it, each a little faceted three-atom model (a central atom with two smaller ones; water bent, carbon dioxide straight). Three floating tags pick out one of each: 'uap air (H₂O)', 'CO₂', 'SO₂'. No bubbles yet.",
+      "camera": "The camera pushes through the cut face into the reservoir and stops with molecules at 1:1 'macro' scale, 50 mm, shallow focus on the middle row of molecules, the far ones softened by the glow.",
+      "motion": "Main move: the push-in, easing out. Supporting: the molecules drift slowly with the magma's flow, each rotating a little. Detail: the facets of the melt brighten and dim like embers.",
+      "carries": "The molecules in the melt.",
+      "transition": "The melt shrinks into a soda bottle's liquid in the next shot (a match cut on the dissolved molecules).",
+      "sound": "The warm drone; a soft glassy chime as each tag appears.",
+      "check": "No bubbles are shown: the gas is dissolved. Water vapour is the most common tag (most molecules are drawn bent).",
+      "facts": [
+        "f1",
+        "f3"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Pushing in: the reservoir's facets fill the frame.",
+          "draw": [
+            {
+              "path": "M80 80 L700 60 L1300 110 L1840 70 L1840 820 L1200 840 L600 800 L80 830 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "path": "M80 80 L600 800 M700 60 L1200 840 M1300 110 L600 800 M1840 70 L1200 840 M700 60 L80 830 M1300 110 L1840 820",
+              "colour": "orange",
+              "width": 2
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "Di magma ada"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Dissolved gas molecules drift in the melt.",
+          "draw": [
+            {
+              "path": "M80 80 L700 60 L1300 110 L1840 70 L1840 820 L1200 840 L600 800 L80 830 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "path": "M80 80 L600 800 M700 60 L1200 840 M1300 110 L600 800 M1840 70 L1200 840 M700 60 L80 830 M1300 110 L1840 820",
+              "colour": "orange",
+              "width": 2
+            },
+            {
+              "dot": [
+                233.6,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                260,
+                220,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                286.4,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                484.8,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                520,
+                330,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                555.2,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                733.6,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                760,
+                180,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                786.4,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                953.6,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                980,
+                380,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1006.4,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1174.8,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1210,
+                250,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1245.2,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1423.6,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1450,
+                360,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1476.4,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1653.6,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1680,
+                200,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1706.4,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                344.8,
+                560,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                380,
+                560,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                415.2,
+                560,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                673.6,
+                642.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                700,
+                620,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                726.4,
+                642.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1053.6,
+                622.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1080,
+                600,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1106.4,
+                622.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1324.8,
+                650,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1360,
+                650,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1395.2,
+                650,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1593.6,
+                582.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1620,
+                560,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1646.4,
+                582.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "move": [
+                300,
+                760,
+                600,
+                720
+              ],
+              "text": "hanyut"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "gas yang larut."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Tags on one of each: uap air (H₂O), CO₂, SO₂.",
+          "draw": [
+            {
+              "path": "M80 80 L700 60 L1300 110 L1840 70 L1840 820 L1200 840 L600 800 L80 830 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "path": "M80 80 L600 800 M700 60 L1200 840 M1300 110 L600 800 M1840 70 L1200 840 M700 60 L80 830 M1300 110 L1840 820",
+              "colour": "orange",
+              "width": 2
+            },
+            {
+              "dot": [
+                233.6,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                260,
+                220,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                286.4,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                484.8,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                520,
+                330,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                555.2,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                733.6,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                760,
+                180,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                786.4,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                953.6,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                980,
+                380,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1006.4,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1174.8,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1210,
+                250,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1245.2,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1423.6,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1450,
+                360,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1476.4,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1653.6,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1680,
+                200,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1706.4,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                344.8,
+                560,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                380,
+                560,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                415.2,
+                560,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                673.6,
+                642.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                700,
+                620,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                726.4,
+                642.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1053.6,
+                622.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1080,
+                600,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1106.4,
+                622.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1324.8,
+                650,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1360,
+                650,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1395.2,
+                650,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1593.6,
+                582.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1620,
+                560,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1646.4,
+                582.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "line": [
+                531,
+                134,
+                260,
+                210
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                120,
+                90
+              ],
+              "text": "uap air (H2O)"
+            },
+            {
+              "line": [
+                1300,
+                474,
+                1210,
+                260
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1300,
+                430
+              ],
+              "text": "CO2"
+            },
+            {
+              "line": [
+                1380,
+                784,
+                1360,
+                660
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1380,
+                740
+              ],
+              "text": "SO2"
+            },
+            {
+              "cut": "jadi botol soda"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "gas yang larut."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "act": "magma",
+      "type": "diagram",
+      "start": 16.667,
+      "end": 20.0,
+      "caption": "Kayak soda dalam botol *tertutup*.",
+      "teaches": "The everyday version: gas dissolved in a closed soda bottle, held in by pressure.",
+      "screen": "A soda bottle built from a few hundred flat facets (the silhouette of a common 1.5 litre PET soft-drink bottle), standing on a faceted table in the middle-left of a pale teal studio; the cap screwed on (accent orange); the drink inside slightly transparent with the same three-atom CO₂ molecules dissolved in it, no bubbles. Floating tags: 'tutup rapat: tekanan tinggi' to the cap, 'CO₂ larut' to the liquid. On the right, small, the reservoir of s05 with 'sama kayak magma'.",
+      "camera": "A gentle push-in from a medium shot to the bottle's shoulder, 50 mm, the cap in focus at the end.",
+      "motion": "The bottle assembles facet by facet from the bottom up; the liquid fills; the molecules appear inside; the tags float in.",
+      "carries": "The closed bottle.",
+      "transition": "The bottle slides left and the camera pans down into the ground under the volcano.",
+      "sound": "A small glassy clink as the bottle completes; a soft fizz-free silence (no bubbles).",
+      "check": "The cap is on and there are no bubbles; the molecules match the magma's CO₂ model.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The bottle assembles facet by facet from the bottom.",
+          "draw": [
+            {
+              "path": "M80 780 H1840",
+              "width": 4
+            },
+            {
+              "path": "M700 760 L930 760 L930 560 L700 560 Z",
+              "width": 5
+            },
+            {
+              "move": [
+                600,
+                760,
+                600,
+                560
+              ],
+              "text": "tersusun"
+            },
+            {
+              "chip": [
+                714,
+                862
+              ],
+              "text": "Kayak soda dalam"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "The closed bottle with dissolved CO₂ molecules, cap on.",
+          "draw": [
+            {
+              "path": "M80 780 H1840",
+              "width": 4
+            },
+            {
+              "path": "M820 160 L860 150 L860 210 L900 300 L930 420 L930 760 L700 760 L700 420 L730 300 L770 210 L770 150 Z",
+              "width": 6
+            },
+            {
+              "path": "M770 150 L860 150 L860 110 L770 110 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "dot": [
+                761.2,
+                500,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                790,
+                500,
+                16.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                818.8,
+                500,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                831.2,
+                610,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                860,
+                610,
+                16.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                888.8,
+                610,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                761.2,
+                700,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                790,
+                700,
+                16.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                818.8,
+                700,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "botol tertutup."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Tags: tutup rapat = tekanan tinggi; CO₂ larut; and 'sama kayak magma' with the reservoir.",
+          "draw": [
+            {
+              "path": "M80 780 H1840",
+              "width": 4
+            },
+            {
+              "path": "M820 160 L860 150 L860 210 L900 300 L930 420 L930 760 L700 760 L700 420 L730 300 L770 210 L770 150 Z",
+              "width": 6
+            },
+            {
+              "path": "M770 150 L860 150 L860 110 L770 110 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "dot": [
+                761.2,
+                500,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                790,
+                500,
+                16.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                818.8,
+                500,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                831.2,
+                610,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                860,
+                610,
+                16.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                888.8,
+                610,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                761.2,
+                700,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                790,
+                700,
+                16.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                818.8,
+                700,
+                12.6
+              ],
+              "colour": "white"
+            },
+            {
+              "line": [
+                889,
+                164,
+                770,
+                125
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                100,
+                120
+              ],
+              "text": "tutup rapat: tekanan tinggi"
+            },
+            {
+              "line": [
+                423,
+                424,
+                760,
+                560
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                120,
+                380
+              ],
+              "text": "CO2 larut"
+            },
+            {
+              "path": "M1300 560 L1420 500 L1600 510 L1760 560 L1700 640 L1350 640 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "label": [
+                1530,
+                700
+              ],
+              "text": "sama kayak magma",
+              "size": 40
+            },
+            {
+              "cut": "turun ke bawah gunung"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "botol tertutup."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "act": "magma",
+      "type": "diagram",
+      "start": 20.0,
+      "end": 23.333,
+      "caption": "Tekanan tinggi menahan gasnya tetap *larut*.",
+      "teaches": "Deep down, the weight of the rock above keeps the magma under high pressure, and that pressure keeps the gas dissolved.",
+      "screen": "The same cut-away Merapi as s04, in the same place (schematic, 'tidak sesuai skala'), the reservoir in orange; four arrows press down from the cone onto the reservoir; a faceted pressure gauge floats to the right with its needle at high; inside the reservoir the three-atom molecules, still dissolved. Tag: 'batuan di atasnya menekan'.",
+      "motion": "The arrows push down one after another (a small squash of the reservoir's facets); the gauge's needle rises to high; the molecules stay put.",
+      "carries": "The reservoir under pressure and the gauge.",
+      "transition": "The camera tilts up the conduit as a blob of magma starts to rise.",
+      "sound": "A deep, soft press for each arrow; the gauge clicks up.",
+      "check": "The needle is high; no bubbles in the reservoir.",
+      "facts": [
+        "f4",
+        "f12"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The cut-away volcano again, the reservoir glowing.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                741,
+                862
+              ],
+              "text": "Tekanan tinggi"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Arrows press down from the rock onto the reservoir.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "arrow": [
+                760,
+                300,
+                760,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "arrow": [
+                870,
+                300,
+                870,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "arrow": [
+                1050,
+                300,
+                1050,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "arrow": [
+                1160,
+                300,
+                1160,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "line": [
+                855,
+                244,
+                760,
+                300
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                120,
+                200
+              ],
+              "text": "batuan di atasnya menekan"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "tetap larut."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The gauge reads high; the gas stays dissolved.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "arrow": [
+                760,
+                300,
+                760,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "arrow": [
+                870,
+                300,
+                870,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "arrow": [
+                1050,
+                300,
+                1050,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "arrow": [
+                1160,
+                300,
+                1160,
+                650
+              ],
+              "colour": "red",
+              "width": 9
+            },
+            {
+              "path": "M1530 520 A90 90 0 0 1 1710 520",
+              "width": 6
+            },
+            {
+              "path": "M1684 456 A90 90 0 0 1 1710 520",
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "line": [
+                1620,
+                520,
+                1694,
+                496
+              ],
+              "width": 7
+            },
+            {
+              "dot": [
+                1620,
+                520,
+                10
+              ]
+            },
+            {
+              "label": [
+                1620,
+                570
+              ],
+              "text": "tekanan",
+              "size": 36
+            },
+            {
+              "dot": [
+                890.4,
+                748.0,
+                4.800000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                900,
+                740,
+                7.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                909.6,
+                748.0,
+                4.800000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1027.2,
+                730,
+                5.6000000000000005
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1040,
+                730,
+                7.2
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1052.8,
+                730,
+                5.6000000000000005
+              ],
+              "colour": "white"
+            },
+            {
+              "label": [
+                1620,
+                330
+              ],
+              "text": "gas tetap larut",
+              "size": 40
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "cut": "magma naik"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "tetap larut."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "act": "naik",
+      "type": "object3d",
+      "start": 23.333,
+      "end": 26.667,
+      "caption": "Begitu magma *naik*, tekanannya turun.",
+      "teaches": "Magma is lighter than the rock around it, so it rises; the higher it gets, the less rock presses on it.",
+      "screen": "The cut-away Merapi: a faceted blob of magma (orange) leaves the reservoir and climbs the conduit; the pressure gauge floating beside the conduit falls as the blob rises (high, middle, low). Tag 'lebih ringan, jadi naik' with a line to the blob.",
+      "camera": "The camera cranes up the conduit with the blob, from the reservoir to two thirds of the way to the summit, side-on, 85 mm; the blob in focus.",
+      "motion": "Main move: the blob rises in three eased steps; the gauge needle falls in step. Supporting: the conduit's walls glow where the blob passes. Detail: the molecules inside the blob jostle.",
+      "carries": "The rising blob.",
+      "transition": "Push into the blob: the molecules inside are about to change.",
+      "sound": "A slow rising tone under the blob; the gauge ticks down.",
+      "check": "The needle falls as the blob rises; the blob stays inside the conduit.",
+      "facts": [
+        "f2",
+        "f4",
+        "f12"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The blob leaves the reservoir; the gauge reads high.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M935 690 L985 690 L995 640 L960 615 L925 640 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1460 640 A90 90 0 0 1 1640 640",
+              "width": 6
+            },
+            {
+              "path": "M1614 576 A90 90 0 0 1 1640 640",
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "line": [
+                1550,
+                640,
+                1619,
+                605
+              ],
+              "width": 7
+            },
+            {
+              "dot": [
+                1550,
+                640,
+                10
+              ]
+            },
+            {
+              "label": [
+                1550,
+                690
+              ],
+              "text": "tekanan",
+              "size": 36
+            },
+            {
+              "camera": "up"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                687,
+                862
+              ],
+              "text": "Begitu magma naik,"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Half way up the conduit; the needle at the middle.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M935 470 L985 470 L995 420 L960 395 L925 420 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1460 440 A90 90 0 0 1 1640 440",
+              "width": 6
+            },
+            {
+              "path": "M1614 376 A90 90 0 0 1 1640 440",
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "line": [
+                1550,
+                440,
+                1550,
+                362
+              ],
+              "width": 7
+            },
+            {
+              "dot": [
+                1550,
+                440,
+                10
+              ]
+            },
+            {
+              "label": [
+                1550,
+                490
+              ],
+              "text": "tekanan",
+              "size": 36
+            },
+            {
+              "line": [
+                901,
+                424,
+                930,
+                440
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                220,
+                380
+              ],
+              "text": "lebih ringan, jadi naik"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "tekanannya turun."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Near the top; the needle low.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M935 300 L985 300 L995 250 L960 225 L925 250 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1460 280 A90 90 0 0 1 1640 280",
+              "width": 6
+            },
+            {
+              "path": "M1614 216 A90 90 0 0 1 1640 280",
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "line": [
+                1550,
+                280,
+                1481,
+                245
+              ],
+              "width": 7
+            },
+            {
+              "dot": [
+                1550,
+                280,
+                10
+              ]
+            },
+            {
+              "label": [
+                1550,
+                330
+              ],
+              "text": "tekanan",
+              "size": 36
+            },
+            {
+              "move": [
+                880,
+                560,
+                880,
+                280
+              ],
+              "text": "naik"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "cut": "masuk ke gumpalan"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "tekanannya turun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "act": "naik",
+      "type": "macro",
+      "start": 26.667,
+      "end": 29.167,
+      "caption": "Gasnya lepas jadi *gelembung*.",
+      "teaches": "With less pressure the gas comes out of solution: bubbles form in the magma.",
+      "screen": "Inside the rising blob, the macro view of s05 again (same molecules, same orange facets), but now the molecules gather and little faceted spheres of gas, transparent and lighter, appear among them: the first bubbles. Tag 'gelembung gas'.",
+      "camera": "Inside the melt at the scale of s05, the camera drifting upward with the magma, 50 mm, the newest bubble in focus.",
+      "motion": "Main move: molecules cluster and each cluster swells into a bubble (a facet-by-facet inflation). Supporting: the whole scene drifts up. Detail: a faint glint on each bubble's top facet.",
+      "carries": "The bubbles.",
+      "transition": "Pull out to a column of magma with bubbles from bottom to top.",
+      "sound": "Soft, low bubbling (small 'blub' sounds, sparse).",
+      "check": "The bubbles grow out of the molecules (the same gas, now separate), not from nowhere.",
+      "facts": [
+        "f4"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The melt with dissolved molecules, rising.",
+          "draw": [
+            {
+              "path": "M80 80 L700 60 L1300 110 L1840 70 L1840 820 L1200 840 L600 800 L80 830 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "path": "M80 80 L600 800 M700 60 L1200 840 M1300 110 L600 800 M1840 70 L1200 840 M700 60 L80 830 M1300 110 L1840 820",
+              "colour": "orange",
+              "width": 2
+            },
+            {
+              "dot": [
+                233.6,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                260,
+                220,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                286.4,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                484.8,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                520,
+                330,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                555.2,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                733.6,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                760,
+                180,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                786.4,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                953.6,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                980,
+                380,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1006.4,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1174.8,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1210,
+                250,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1245.2,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1423.6,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1450,
+                360,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1476.4,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1653.6,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1680,
+                200,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1706.4,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                344.8,
+                560,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                380,
+                560,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                415.2,
+                560,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                673.6,
+                642.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                700,
+                620,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                726.4,
+                642.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1053.6,
+                622.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1080,
+                600,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1106.4,
+                622.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1324.8,
+                650,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1360,
+                650,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1395.2,
+                650,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1593.6,
+                582.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1620,
+                560,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1646.4,
+                582.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "camera": "up"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "Gasnya lepas jadi"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The molecules cluster into small bubbles.",
+          "draw": [
+            {
+              "path": "M80 80 L700 60 L1300 110 L1840 70 L1840 820 L1200 840 L600 800 L80 830 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 4
+            },
+            {
+              "path": "M80 80 L600 800 M700 60 L1200 840 M1300 110 L600 800 M1840 70 L1200 840 M700 60 L80 830 M1300 110 L1840 820",
+              "colour": "orange",
+              "width": 2
+            },
+            {
+              "dot": [
+                233.6,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                260,
+                220,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                286.4,
+                242.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                484.8,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                520,
+                330,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                555.2,
+                330,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                733.6,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                760,
+                180,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                786.4,
+                202.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                953.6,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                980,
+                380,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1006.4,
+                402.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1174.8,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1210,
+                250,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1245.2,
+                250,
+                15.400000000000002
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1423.6,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1450,
+                360,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1476.4,
+                382.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1653.6,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                1680,
+                200,
+                19.8
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                1706.4,
+                222.0,
+                13.200000000000001
+              ],
+              "colour": "white"
+            },
+            {
+              "ring": [
+                380,
+                560,
+                34
+              ],
+              "width": 5
+            },
+            {
+              "ring": [
+                700,
+                620,
+                34
+              ],
+              "width": 5
+            },
+            {
+              "ring": [
+                1080,
+                600,
+                34
+              ],
+              "width": 5
+            },
+            {
+              "ring": [
+                1360,
+                650,
+                34
+              ],
+              "width": 5
+            },
+            {
+              "ring": [
+                1620,
+                560,
+                34
+              ],
+              "width": 5
+            },
+            {
+              "line": [
+                1200,
+                134,
+                1110,
+                560
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1200,
+                90
+              ],
+              "text": "gelembung gas"
+            },
+            {
+              "cut": "mundur ke kolom"
+            },
+            {
+              "chip": [
+                795,
+                862
+              ],
+              "text": "gelembung."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "act": "naik",
+      "type": "chart",
+      "start": 29.167,
+      "end": 31.667,
+      "caption": "Makin ke atas, makin *besar*.",
+      "teaches": "As the magma keeps rising and the pressure keeps falling, the bubbles grow.",
+      "screen": "A vertical slice of the conduit as a faceted orange column from bottom to top of the frame, bubbles small at the bottom and large near the top; beside it a chart of faceted bars (lying flat, one per depth) for the bubble's size: 'dalam' short, 'tengah' longer, 'dekat permukaan' longest in the accent. Labels 'ukuran gelembung (ilustrasi)' and the depth labels; no numbers.",
+      "motion": "Bubbles travel up the column and inflate as they go; each bar grows out to the right as a bubble passes its height.",
+      "carries": "The column with its bubbles.",
+      "transition": "The column is copied into two columns side by side.",
+      "sound": "Bubbles rising, each 'blub' a little lower and fuller than the last.",
+      "check": "Bubbles only grow going up; the chart has no numbers and says 'ilustrasi'.",
+      "facts": [
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The column; small bubbles at the bottom.",
+          "draw": [
+            {
+              "path": "M820 820 L840 80 L1100 80 L1120 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "ring": [
+                900,
+                760,
+                10
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1030,
+                640,
+                20
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                520,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "label": [
+                1350,
+                150
+              ],
+              "text": "ukuran gelembung (ilustrasi)",
+              "size": 34,
+              "align": "start"
+            },
+            {
+              "move": [
+                700,
+                760,
+                700,
+                300
+              ],
+              "text": "naik"
+            },
+            {
+              "chip": [
+                741,
+                862
+              ],
+              "text": "Makin ke atas,"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Bubbles large near the top; the bars dalam, tengah, dekat permukaan.",
+          "draw": [
+            {
+              "path": "M820 820 L840 80 L1100 80 L1120 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "ring": [
+                900,
+                760,
+                10
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1030,
+                640,
+                20
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                520,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1050,
+                400,
+                40
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                890,
+                280,
+                50
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                990,
+                160,
+                60
+              ],
+              "width": 4
+            },
+            {
+              "label": [
+                1350,
+                150
+              ],
+              "text": "ukuran gelembung (ilustrasi)",
+              "size": 34,
+              "align": "start"
+            },
+            {
+              "path": "M1350 262 H1730 L1750 290 L1730 318 H1350 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1350 472 H1520 L1540 500 L1520 528 H1350 Z",
+              "fill": "ink",
+              "colour": "ink",
+              "width": 5
+            },
+            {
+              "path": "M1350 682 H1400 L1420 710 L1400 738 H1350 Z",
+              "fill": "ink",
+              "colour": "ink",
+              "width": 5
+            },
+            {
+              "label": [
+                1350,
+                770
+              ],
+              "text": "dalam",
+              "size": 38,
+              "align": "start"
+            },
+            {
+              "label": [
+                1350,
+                560
+              ],
+              "text": "tengah",
+              "size": 38,
+              "align": "start"
+            },
+            {
+              "label": [
+                1350,
+                350
+              ],
+              "text": "dekat permukaan",
+              "size": 38,
+              "align": "start"
+            },
+            {
+              "cut": "jadi dua kolom"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "makin besar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "act": "kental",
+      "type": "compare",
+      "start": 31.667,
+      "end": 35.0,
+      "caption": "Kalau *encer*, gasnya lolos.",
+      "teaches": "In runny magma the bubbles rise freely and burst at the top: the gas escapes quietly.",
+      "screen": "Two faceted conduit slices side by side, the same height: left 'encer' (bright orange, glossy facets), right 'kental' (darker red-orange, matte, dimmed for now). In the left column bubbles rise quickly and pop at the top; small puffs of gas leave the surface; a little lava spills over the rim and runs down. Tags 'encer' and 'gas lolos'.",
+      "motion": "Left column: bubbles race up and burst one after another at the surface (each pop a small facet burst), the gas puffs drift away; the overflow slides down gently. Right column: still.",
+      "carries": "The two columns.",
+      "transition": "The light moves from the left column to the right one.",
+      "sound": "Light pops for each burst bubble, an easy gurgle.",
+      "check": "Nothing explodes on the left: the gas leaves in small puffs.",
+      "facts": [
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Two columns side by side; the right one dimmed.",
+          "draw": [
+            {
+              "path": "M300 820 L320 260 L620 260 L640 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1280 820 L1300 260 L1600 260 L1620 820 Z",
+              "colour": "red",
+              "fill": "red",
+              "width": 5
+            },
+            {
+              "label": [
+                470,
+                220
+              ],
+              "text": "encer",
+              "size": 52
+            },
+            {
+              "label": [
+                1450,
+                220
+              ],
+              "text": "kental",
+              "size": 52,
+              "colour": "white"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "Kalau encer,"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Bubbles race up the runny column.",
+          "draw": [
+            {
+              "path": "M300 820 L320 260 L620 260 L640 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1280 820 L1300 260 L1600 260 L1620 820 Z",
+              "colour": "red",
+              "fill": "red",
+              "width": 5
+            },
+            {
+              "ring": [
+                400,
+                760,
+                14
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                520,
+                650,
+                20
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                460,
+                540,
+                27
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                560,
+                430,
+                34
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                380,
+                320,
+                40
+              ],
+              "width": 4
+            },
+            {
+              "move": [
+                240,
+                760,
+                240,
+                320
+              ],
+              "text": "cepat"
+            },
+            {
+              "label": [
+                470,
+                220
+              ],
+              "text": "encer",
+              "size": 52
+            },
+            {
+              "label": [
+                1450,
+                220
+              ],
+              "text": "kental",
+              "size": 52,
+              "colour": "white"
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "gasnya lolos."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "They burst at the top; puffs of gas leave; lava spills gently.",
+          "draw": [
+            {
+              "path": "M300 820 L320 260 L620 260 L640 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1280 820 L1300 260 L1600 260 L1620 820 Z",
+              "colour": "red",
+              "fill": "red",
+              "width": 5
+            },
+            {
+              "ring": [
+                400,
+                760,
+                14
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                520,
+                580,
+                22
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                460,
+                400,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "cloud": [
+                380,
+                130,
+                120
+              ]
+            },
+            {
+              "cloud": [
+                520,
+                90,
+                100
+              ]
+            },
+            {
+              "path": "M620 262 C 680 300, 700 400, 720 520",
+              "colour": "orange",
+              "width": 10
+            },
+            {
+              "line": [
+                760,
+                164,
+                560,
+                180
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                760,
+                120
+              ],
+              "text": "gas lolos"
+            },
+            {
+              "label": [
+                1450,
+                220
+              ],
+              "text": "kental",
+              "size": 52,
+              "colour": "white"
+            },
+            {
+              "cut": "pindah ke kanan"
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "gasnya lolos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "act": "kental",
+      "type": "compare",
+      "start": 35.0,
+      "end": 37.5,
+      "caption": "Kalau *kental*, gasnya terjebak.",
+      "teaches": "In thick magma the bubbles cannot get out: they stay trapped and pile up.",
+      "screen": "The same two columns; now the right one ('kental', red-orange, matte) is lit and the left dims. Its bubbles barely move, crowd together and press on each other under a crust at the top; short arrows on them stop against the crust. Tag 'gas terjebak'.",
+      "motion": "The light crosses to the right; bubbles inch upward and stall; more crowd in from below; the crust holds.",
+      "carries": "The trapped bubbles.",
+      "transition": "The right column becomes Merapi's conduit inside the cut-away volcano.",
+      "sound": "A thick, slow creak; no pops.",
+      "check": "No bubble reaches the surface in the right column.",
+      "facts": [
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The light crosses to the thick column.",
+          "draw": [
+            {
+              "path": "M300 820 L320 260 L620 260 L640 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1280 820 L1300 260 L1600 260 L1620 820 Z",
+              "colour": "red",
+              "fill": "red",
+              "width": 5
+            },
+            {
+              "ring": [
+                1360,
+                700,
+                26
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1440,
+                640,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1530,
+                720,
+                24
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1380,
+                560,
+                34
+              ],
+              "width": 4
+            },
+            {
+              "label": [
+                470,
+                220
+              ],
+              "text": "encer",
+              "size": 52,
+              "colour": "white"
+            },
+            {
+              "label": [
+                1450,
+                220
+              ],
+              "text": "kental",
+              "size": 52
+            },
+            {
+              "move": [
+                700,
+                160,
+                1200,
+                160
+              ],
+              "text": "lampu pindah"
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "Kalau kental,"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Bubbles crowd and stall under the crust: trapped.",
+          "draw": [
+            {
+              "path": "M300 820 L320 260 L620 260 L640 820 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "path": "M1280 820 L1300 260 L1600 260 L1620 820 Z",
+              "colour": "red",
+              "fill": "red",
+              "width": 5
+            },
+            {
+              "ring": [
+                1360,
+                700,
+                26
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1440,
+                640,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1530,
+                720,
+                24
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1380,
+                560,
+                34
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1500,
+                500,
+                38
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1420,
+                420,
+                42
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1540,
+                360,
+                40
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1360,
+                320,
+                36
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1460,
+                300,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "path": "M1300 262 L1600 262",
+              "width": 14
+            },
+            {
+              "arrow": [
+                1420,
+                380,
+                1420,
+                350
+              ],
+              "width": 5
+            },
+            {
+              "arrow": [
+                1540,
+                320,
+                1540,
+                290
+              ],
+              "width": 5
+            },
+            {
+              "line": [
+                1384,
+                164,
+                1360,
+                300
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1000,
+                120
+              ],
+              "text": "gas terjebak"
+            },
+            {
+              "cut": "jadi Merapi"
+            },
+            {
+              "chip": [
+                714,
+                862
+              ],
+              "text": "gasnya terjebak."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "act": "kental",
+      "type": "object3d",
+      "start": 37.5,
+      "end": 40.833,
+      "caption": "Magma Merapi itu yang *kental*.",
+      "teaches": "Merapi's magma is the thick kind: it builds a lava dome that plugs the top of the conduit.",
+      "screen": "The cut-away Merapi (as s04, schematic), the camera close on the summit: a lava dome of blocky dark facets sits in the summit crater and plugs the conduit (laid out from the USGS drawing of a lava dome, placed on this board); below it the conduit's magma is the dark red-orange of s12, crowded with trapped bubbles. Tags: 'kubah lava menyumbat' to the dome, 'magma kental: andesit basaltik' to the conduit.",
+      "camera": "A crane up the cut face from the reservoir to the summit, ending side-on and close (the summit crater filling the upper half), 85 mm; the dome in focus.",
+      "motion": "Main move: the crane. Supporting: the dome grows a little, block by block, as thick lava is squeezed up under it. Detail: the trapped bubbles shuffle.",
+      "carries": "The plugged summit.",
+      "transition": "Hold on the dome; the gauge of s07 floats back in.",
+      "sound": "Stony clicks as the dome's blocks settle; the thick creak continues.",
+      "check": "The dome sits in the summit crater, over the conduit; the tags match the fact sheet (basaltic andesite, viscous domes).",
+      "facts": [
+        "f9",
+        "f12"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The cut-away again; the camera cranes up towards the summit.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-composite-volcano.png",
+              "at": [
+                600,
+                120,
+                720,
+                542
+              ],
+              "crop": [
+                0,
+                0,
+                348,
+                262
+              ]
+            },
+            {
+              "path": "M946 700 L950 150 M974 700 L970 150",
+              "colour": "orange",
+              "width": 6
+            },
+            {
+              "path": "M730 740 L840 690 L1020 680 L1180 720 L1120 790 L810 795 Z",
+              "fill": "orange",
+              "colour": "orange",
+              "width": 5
+            },
+            {
+              "camera": "up"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                714,
+                862
+              ],
+              "text": "Magma Merapi itu"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Close on the summit: the lava dome plugs the conduit (USGS lava-dome drawing placed).",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-lava-dome.png",
+              "at": [
+                560,
+                90,
+                800,
+                443
+              ],
+              "crop": [
+                0,
+                0,
+                300,
+                166
+              ]
+            },
+            {
+              "path": "M940 860 L946 533 M980 860 L974 533",
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "ring": [
+                960,
+                800,
+                13
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                720,
+                15
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                640,
+                14
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                570,
+                15
+              ],
+              "width": 4
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "yang kental."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Tags: kubah lava menyumbat; magma kental: andesit basaltik.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-lava-dome.png",
+              "at": [
+                560,
+                90,
+                800,
+                443
+              ],
+              "crop": [
+                0,
+                0,
+                300,
+                166
+              ]
+            },
+            {
+              "path": "M940 860 L946 533 M980 860 L974 533",
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "ring": [
+                960,
+                800,
+                13
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                720,
+                15
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                640,
+                14
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                570,
+                15
+              ],
+              "width": 4
+            },
+            {
+              "line": [
+                1300,
+                164,
+                1150,
+                200
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1300,
+                120
+              ],
+              "text": "kubah lava menyumbat"
+            },
+            {
+              "line": [
+                980,
+                644,
+                938,
+                680
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                110,
+                600
+              ],
+              "text": "magma kental: andesit basaltik"
+            },
+            {
+              "label": [
+                1810,
+                110
+              ],
+              "text": "skema · tidak sesuai skala",
+              "size": 34,
+              "align": "end"
+            },
+            {
+              "cut": "tekanan naik"
+            },
+            {
+              "chip": [
+                768,
+                862
+              ],
+              "text": "yang kental."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "act": "kental",
+      "type": "object3d",
+      "start": 40.833,
+      "end": 43.333,
+      "caption": "Tekanannya *numpuk* terus...",
+      "teaches": "Trapped and growing, the gas pushes harder and harder against the plug.",
+      "screen": "The same close cut-away of the summit: the bubbles under the dome swell and crowd; the dome bulges upward; hairline cracks open in its facets; the floating gauge beside it climbs into its red zone. Tag 'tekanan numpuk'.",
+      "camera": "A slow push-in on the dome from the framing of s13 to the dome filling the middle third, 85 mm, a slight handheld-free tremor added in the last beat (the camera itself stays smooth).",
+      "motion": "Main move: the push-in. Supporting: the bubbles swell, the dome lifts by a few facets, cracks run across it. Detail: little puffs of steam from the cracks.",
+      "carries": "The cracked, bulging dome.",
+      "transition": "The dome bursts: cut on the burst to the wide.",
+      "sound": "A rising low rumble; creaks; the gauge ticks fast.",
+      "check": "The gauge is in the red; the dome is cracked but still in place at the end.",
+      "facts": [
+        "f5",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Bubbles swell under the dome; the gauge climbs.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-lava-dome.png",
+              "at": [
+                560,
+                90,
+                800,
+                443
+              ],
+              "crop": [
+                0,
+                0,
+                300,
+                166
+              ]
+            },
+            {
+              "path": "M940 860 L946 533 M980 860 L974 533",
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "ring": [
+                960,
+                800,
+                17
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                720,
+                19
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                640,
+                20
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                570,
+                18
+              ],
+              "width": 4
+            },
+            {
+              "path": "M1510 640 A90 90 0 0 1 1690 640",
+              "width": 6
+            },
+            {
+              "path": "M1664 576 A90 90 0 0 1 1690 640",
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "line": [
+                1600,
+                640,
+                1646,
+                577
+              ],
+              "width": 7
+            },
+            {
+              "dot": [
+                1600,
+                640,
+                10
+              ]
+            },
+            {
+              "label": [
+                1600,
+                690
+              ],
+              "text": "tekanan",
+              "size": 36
+            },
+            {
+              "camera": "push"
+            },
+            {
+              "chip": [
+                700,
+                862
+              ],
+              "text": "Tekanannya numpuk"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The dome bulges and cracks; the needle in the red.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-lava-dome.png",
+              "at": [
+                560,
+                90,
+                800,
+                443
+              ],
+              "crop": [
+                0,
+                0,
+                300,
+                166
+              ]
+            },
+            {
+              "bolt": [
+                800,
+                260,
+                900,
+                120
+              ],
+              "seed": 3
+            },
+            {
+              "bolt": [
+                1050,
+                280,
+                1160,
+                130
+              ],
+              "seed": 5
+            },
+            {
+              "bolt": [
+                960,
+                300,
+                980,
+                100
+              ],
+              "seed": 7
+            },
+            {
+              "path": "M940 860 L946 533 M980 860 L974 533",
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "ring": [
+                960,
+                800,
+                24
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                715,
+                30
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                625,
+                32
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                960,
+                560,
+                28
+              ],
+              "width": 4
+            },
+            {
+              "path": "M1510 640 A90 90 0 0 1 1690 640",
+              "width": 6
+            },
+            {
+              "path": "M1664 576 A90 90 0 0 1 1690 640",
+              "colour": "red",
+              "width": 10
+            },
+            {
+              "line": [
+                1600,
+                640,
+                1678,
+                633
+              ],
+              "width": 7
+            },
+            {
+              "dot": [
+                1600,
+                640,
+                10
+              ]
+            },
+            {
+              "label": [
+                1600,
+                690
+              ],
+              "text": "tekanan",
+              "size": 36
+            },
+            {
+              "line": [
+                1330,
+                164,
+                1160,
+                160
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1330,
+                120
+              ],
+              "text": "tekanan numpuk"
+            },
+            {
+              "cut": "meledak"
+            },
+            {
+              "chip": [
+                822,
+                862
+              ],
+              "text": "terus..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "act": "kental",
+      "type": "wide",
+      "start": 43.333,
+      "end": 47.5,
+      "caption": "...sampai *meledak*. Magmanya hancur jadi abu.",
+      "teaches": "The explosion: the gas bursts out and tears the frothy magma into ash.",
+      "screen": "The dome blows apart into faceted blocks; the frothy magma under it shatters into tiny dark triangular fragments (ash) carried up by the gas; the camera pulls back through the cut-away to the whole of Merapi in its dawn world, the faceted ash column rising from the summit as in s01. Tag 'magma hancur jadi abu' on the fragments.",
+      "camera": "A fast-then-easing pull back: from the dome at 85 mm to the s01 framing (the whole mountain, 35 mm), the cut-away closing up as it goes so the mountain is whole again; the column in focus.",
+      "motion": "Main move: the burst (blocks fly out on curves, fragments stream up) and the pull back. Supporting: the column assembles puff by puff. Detail: a shock ring of facets in the sky.",
+      "carries": "The rising ash column over Merapi.",
+      "transition": "Cut to the chart: the column becomes the tallest bar.",
+      "sound": "One deep, soft boom (felt more than heard), then a long rushing rumble; the bed swells.",
+      "check": "The fragments come from the magma (they are dark and angular), not from the sky; the mountain is whole again by the end.",
+      "facts": [
+        "f5",
+        "f7"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The dome bursts; blocks fly; the magma shatters into fragments.",
+          "draw": [
+            {
+              "blueprint": "reference/usgs-lava-dome.png",
+              "at": [
+                560,
+                90,
+                800,
+                443
+              ],
+              "crop": [
+                0,
+                0,
+                300,
+                166
+              ]
+            },
+            {
+              "path": "M820 200 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M900 120 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M1010 150 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M1100 210 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M760 300 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M1180 290 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M950 60 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "glow": [
+                960,
+                200,
+                240
+              ],
+              "colour": "orange"
+            },
+            {
+              "path": "M940 860 L946 533 M980 860 L974 533",
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "line": [
+                1250,
+                424,
+                1100,
+                240
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1250,
+                380
+              ],
+              "text": "magma hancur jadi abu"
+            },
+            {
+              "chip": [
+                687,
+                862
+              ],
+              "text": "...sampai meledak."
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Pulling back: the column rises out of the summit.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "cloud": [
+                960,
+                250,
+                190
+              ]
+            },
+            {
+              "cloud": [
+                945,
+                185,
+                300
+              ]
+            },
+            {
+              "cloud": [
+                980,
+                115,
+                420
+              ]
+            },
+            {
+              "path": "M930 259.55 L900 200 M990 259.55 L1030 200",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "path": "M820 200 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M900 120 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M1010 150 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "path": "M1100 210 l18 -26 l14 30 Z",
+              "fill": "ink",
+              "width": 3
+            },
+            {
+              "camera": "pull"
+            },
+            {
+              "chip": [
+                728,
+                862
+              ],
+              "text": "Magmanya hancur"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The wide: Merapi and the ash column, as at the start.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M180 700 L420 430 L520 352 L600 410 L760 560 L820 700 Z",
+              "colour": "white",
+              "fill": "white",
+              "width": 4
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "horizon": [
+                740
+              ]
+            },
+            {
+              "path": "M80 790 L600 760 L1100 800 L1840 770 M80 840 L700 820 L1300 850 L1840 825",
+              "colour": "green",
+              "width": 3
+            },
+            {
+              "cloud": [
+                960,
+                250,
+                190
+              ]
+            },
+            {
+              "cloud": [
+                945,
+                185,
+                300
+              ]
+            },
+            {
+              "cloud": [
+                980,
+                115,
+                420
+              ]
+            },
+            {
+              "cloud": [
+                950,
+                45,
+                560
+              ]
+            },
+            {
+              "path": "M930 259.55 L900 200 M990 259.55 L1030 200",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "cut": "jadi grafik"
+            },
+            {
+              "chip": [
+                808,
+                862
+              ],
+              "text": "jadi abu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "act": "merapi",
+      "type": "chart",
+      "start": 47.5,
+      "end": 50.833,
+      "caption": "Tahun 2010, abunya sampai *17 km*.",
+      "teaches": "How big that was: Merapi's 2010 ash column reached 17 km, almost twice the height of Everest.",
+      "screen": "A faceted bar chart standing on the plain (the template's 'charts as faceted bars'), heights at their real values on one scale (40 px per km above sea level): Merapi itself 2.9 km, Everest 8.8 km, and Merapi's ash column of 4 November 2010, 17 km, in the accent. Values written on top of each bar; a tag 'hampir 2× Everest'.",
+      "camera": "A low, slow dolly along the bars from left to right, 35 mm, ending square to the tallest; the 17 km bar in focus.",
+      "motion": "The bars rise one by one, facet layers stacking, each stopping at its value (no counting through false values: the number appears when the bar is complete). The tallest rises last, on the beat.",
+      "carries": "The 17 km bar.",
+      "transition": "The bars fold down into three small cards for the recap.",
+      "sound": "A soft rising chime per bar, the third one fuller.",
+      "check": "Bars at 116, 354 and 680 px: 2.9 : 8.8 : 17 km.",
+      "facts": [
+        "f9",
+        "f10"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "The base line and Merapi's own height.",
+          "draw": [
+            {
+              "line": [
+                200,
+                800,
+                1700,
+                800
+              ],
+              "width": 4
+            },
+            {
+              "bar": [
+                330,
+                800,
+                240,
+                116
+              ]
+            },
+            {
+              "label": [
+                450,
+                850
+              ],
+              "text": "Merapi",
+              "size": 38
+            },
+            {
+              "label": [
+                450,
+                664
+              ],
+              "text": "2,9 km",
+              "size": 40
+            },
+            {
+              "bar": [
+                780,
+                800,
+                240,
+                354
+              ]
+            },
+            {
+              "camera": "right"
+            },
+            {
+              "chip": [
+                687,
+                862
+              ],
+              "text": "Tahun 2010, abunya"
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Everest's bar rises beside it.",
+          "draw": [
+            {
+              "line": [
+                200,
+                800,
+                1700,
+                800
+              ],
+              "width": 4
+            },
+            {
+              "bar": [
+                330,
+                800,
+                240,
+                116
+              ]
+            },
+            {
+              "label": [
+                450,
+                850
+              ],
+              "text": "Merapi",
+              "size": 38
+            },
+            {
+              "label": [
+                450,
+                664
+              ],
+              "text": "2,9 km",
+              "size": 40
+            },
+            {
+              "bar": [
+                780,
+                800,
+                240,
+                354
+              ]
+            },
+            {
+              "label": [
+                900,
+                850
+              ],
+              "text": "Everest",
+              "size": 38
+            },
+            {
+              "label": [
+                900,
+                426
+              ],
+              "text": "8,8 km",
+              "size": 40
+            },
+            {
+              "bar": [
+                1230,
+                800,
+                240,
+                680
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1350,
+                850
+              ],
+              "text": "abu Merapi, 2010",
+              "size": 38
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "sampai 17 km."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The ash column's 17 km, almost twice Everest.",
+          "draw": [
+            {
+              "line": [
+                200,
+                800,
+                1700,
+                800
+              ],
+              "width": 4
+            },
+            {
+              "bar": [
+                330,
+                800,
+                240,
+                116
+              ]
+            },
+            {
+              "label": [
+                450,
+                850
+              ],
+              "text": "Merapi",
+              "size": 38
+            },
+            {
+              "label": [
+                450,
+                664
+              ],
+              "text": "2,9 km",
+              "size": 40
+            },
+            {
+              "bar": [
+                780,
+                800,
+                240,
+                354
+              ]
+            },
+            {
+              "label": [
+                900,
+                850
+              ],
+              "text": "Everest",
+              "size": 38
+            },
+            {
+              "label": [
+                900,
+                426
+              ],
+              "text": "8,8 km",
+              "size": 40
+            },
+            {
+              "bar": [
+                1230,
+                800,
+                240,
+                680
+              ],
+              "colour": "orange"
+            },
+            {
+              "label": [
+                1350,
+                850
+              ],
+              "text": "abu Merapi, 2010",
+              "size": 38
+            },
+            {
+              "label": [
+                1350,
+                100
+              ],
+              "text": "17 km",
+              "size": 48,
+              "colour": "orange"
+            },
+            {
+              "line": [
+                1139,
+                214,
+                1230,
+                150
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                620,
+                170
+              ],
+              "text": "hampir 2× Everest"
+            },
+            {
+              "cut": "jadi kartu"
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "sampai 17 km."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "act": "rangkum",
+      "type": "recap",
+      "start": 50.833,
+      "end": 55.0,
+      "caption": "Gas larut. Magma naik. Gas terjebak. *Meledak*.",
+      "teaches": "The whole chain in one frame: dissolved gas, rising magma and bubbles, trapped in thick magma, explosion.",
+      "screen": "Three soft translucent cards across the frame over a blurred dawn world, each with a tiny faceted scene and two or three words: (1) the reservoir with dissolved molecules and a pressing arrow, 'gas larut'; (2) the conduit with bubbles growing upward, 'magma naik, gelembung'; (3) Merapi with its dome bursting into a column, 'kental: terjebak, meledak' with 'meledak' in the accent.",
+      "motion": "The cards fly in one per beat on gentle curves and settle; each little scene plays its one move once (molecules drift, bubbles rise and grow, the dome bursts).",
+      "carries": "The third card's little Merapi.",
+      "transition": "The third card grows to fill the frame and the camera flies over a faceted hill into the opening picture.",
+      "sound": "Three gentle chimes rising; the bed resolves.",
+      "check": "Readable with the sound off; the three words carry the chain in order.",
+      "facts": [
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Card 1 flies in: the reservoir, gas larut.",
+          "draw": [
+            {
+              "card": [
+                110,
+                140,
+                520,
+                620
+              ]
+            },
+            {
+              "path": "M170 480 L320 390 L560 400 L600 510 L440 600 L190 590 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "dot": [
+                289.6,
+                517.0,
+                10.2
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                310,
+                500,
+                15.299999999999999
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                330.4,
+                517.0,
+                10.2
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                442.8,
+                520,
+                11.9
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                470,
+                520,
+                15.299999999999999
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                497.2,
+                520,
+                11.9
+              ],
+              "colour": "white"
+            },
+            {
+              "arrow": [
+                390,
+                200,
+                390,
+                370
+              ],
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "label": [
+                370,
+                690
+              ],
+              "text": "gas larut",
+              "size": 44
+            },
+            {
+              "chip": [
+                795,
+                862
+              ],
+              "text": "Gas larut."
+            }
+          ]
+        },
+        {
+          "at": 0.5,
+          "note": "Card 2: magma naik, gelembung.",
+          "draw": [
+            {
+              "card": [
+                110,
+                140,
+                520,
+                620
+              ]
+            },
+            {
+              "card": [
+                700,
+                140,
+                520,
+                620
+              ]
+            },
+            {
+              "path": "M170 480 L320 390 L560 400 L600 510 L440 600 L190 590 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "dot": [
+                289.6,
+                517.0,
+                10.2
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                310,
+                500,
+                15.299999999999999
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                330.4,
+                517.0,
+                10.2
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                442.8,
+                520,
+                11.9
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                470,
+                520,
+                15.299999999999999
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                497.2,
+                520,
+                11.9
+              ],
+              "colour": "white"
+            },
+            {
+              "arrow": [
+                390,
+                200,
+                390,
+                370
+              ],
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "label": [
+                370,
+                690
+              ],
+              "text": "gas larut",
+              "size": 44
+            },
+            {
+              "path": "M880 660 L895 200 L1025 200 L1040 660 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "ring": [
+                930,
+                620,
+                12
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                990,
+                528,
+                22
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                955,
+                435,
+                31
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1000,
+                342,
+                40
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                940,
+                250,
+                50
+              ],
+              "width": 4
+            },
+            {
+              "label": [
+                960,
+                690
+              ],
+              "text": "magma naik, gelembung",
+              "size": 40
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "Gas terjebak."
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "Card 3: kental, terjebak, meledak.",
+          "draw": [
+            {
+              "card": [
+                110,
+                140,
+                520,
+                620
+              ]
+            },
+            {
+              "card": [
+                700,
+                140,
+                520,
+                620
+              ]
+            },
+            {
+              "card": [
+                1290,
+                140,
+                520,
+                620
+              ]
+            },
+            {
+              "path": "M170 480 L320 390 L560 400 L600 510 L440 600 L190 590 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "dot": [
+                289.6,
+                517.0,
+                10.2
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                310,
+                500,
+                15.299999999999999
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                330.4,
+                517.0,
+                10.2
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                442.8,
+                520,
+                11.9
+              ],
+              "colour": "white"
+            },
+            {
+              "dot": [
+                470,
+                520,
+                15.299999999999999
+              ],
+              "colour": "ink"
+            },
+            {
+              "dot": [
+                497.2,
+                520,
+                11.9
+              ],
+              "colour": "white"
+            },
+            {
+              "arrow": [
+                390,
+                200,
+                390,
+                370
+              ],
+              "colour": "red",
+              "width": 8
+            },
+            {
+              "label": [
+                370,
+                690
+              ],
+              "text": "gas larut",
+              "size": 44
+            },
+            {
+              "path": "M880 660 L895 200 L1025 200 L1040 660 Z",
+              "colour": "orange",
+              "fill": "orange",
+              "width": 5
+            },
+            {
+              "ring": [
+                930,
+                620,
+                12
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                990,
+                528,
+                22
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                955,
+                435,
+                31
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                1000,
+                342,
+                40
+              ],
+              "width": 4
+            },
+            {
+              "ring": [
+                940,
+                250,
+                50
+              ],
+              "width": 4
+            },
+            {
+              "label": [
+                960,
+                690
+              ],
+              "text": "magma naik, gelembung",
+              "size": 40
+            },
+            {
+              "path": "M1325 587 L1362 578 L1400 565 L1438 546 L1475 524 L1512 499 L1550 476 L1588 501 L1625 509 L1662 514 L1700 539 L1738 558 L1775 586 L1775 660 L1325 660 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "cloud": [
+                1550,
+                440,
+                150
+              ]
+            },
+            {
+              "cloud": [
+                1540,
+                360,
+                240
+              ]
+            },
+            {
+              "cloud": [
+                1560,
+                270,
+                330
+              ]
+            },
+            {
+              "label": [
+                1550,
+                690
+              ],
+              "text": "kental: terjebak, meledak",
+              "size": 38
+            },
+            {
+              "cut": "terbang ke awal"
+            },
+            {
+              "chip": [
+                822,
+                862
+              ],
+              "text": "Meledak."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "act": "rangkum",
+      "type": "wide",
+      "start": 55.0,
+      "end": 57.5,
+      "caption": "Itulah kenapa",
+      "teaches": "The bridge: the last caption runs into the first ('Itulah kenapa / gunung api bisa meledak begini').",
+      "screen": "The third card grows to the full frame and the camera flies low over a faceted hill on the plain, rising to reveal Merapi with its ash column at exactly the framing and orbit position of frame 0. Caption 'Itulah kenapa'.",
+      "camera": "A fly-over: from 50 m above a foreground hill, rising and tilting up to the s01 position (14 km from the summit, 600 m up, 35 mm), the last 0.4 s at frame 0's position and orbit speed.",
+      "motion": "The fly-over (eased); the column and fields as in s01; the orbit picks up at frame 0's speed so the loop cut is invisible.",
+      "carries": "Into s01: the same picture.",
+      "transition": "No cut: the film loops straight into s01.",
+      "sound": "The bed runs on into the opening (its tail is laid over frame 0 in the mix); the wind rises.",
+      "check": "The last frame matches frame 0 (check.mjs compares them).",
+      "frames": [
+        {
+          "at": 0,
+          "note": "Flying low over a faceted hill; Merapi appears behind it.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M180 700 L420 430 L520 352 L600 410 L760 560 L820 700 Z",
+              "colour": "white",
+              "fill": "white",
+              "width": 4
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "path": "M80 860 L500 620 L900 700 L1400 600 L1840 760 L1840 860 Z",
+              "fill": "green",
+              "colour": "green",
+              "width": 5
+            },
+            {
+              "camera": "up"
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "Itulah kenapa"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "The opening picture, a moment before frame 0.",
+          "draw": [
+            {
+              "sky": [
+                0,
+                700
+              ],
+              "tone": "dusk"
+            },
+            {
+              "sun": [
+                1610,
+                160,
+                46
+              ]
+            },
+            {
+              "path": "M180 700 L420 430 L520 352 L600 410 L760 560 L820 700 Z",
+              "colour": "white",
+              "fill": "white",
+              "width": 4
+            },
+            {
+              "path": "M-75 656 L40 640 L155 616 L270 599 L385 571 L500 533 L615 473 L730 405 L845 328 L960 260 L1075 336 L1190 359 L1305 374 L1420 451 L1535 511 L1650 595 L1765 622 L1880 635 L1995 650 L1995 740 L-75 740 Z",
+              "fill": "ink",
+              "width": 6
+            },
+            {
+              "path": "M-75 656 L-58 740 M40 640 L138 740 M155 616 L172 740 M270 599 L368 740 M385 571 L402 740 M500 533 L598 740 M615 473 L632 740 M730 405 L828 740 M845 328 L862 740 M960 260 L1058 740 M1075 336 L1092 740 M1190 359 L1288 740 M1305 374 L1322 740 M1420 451 L1518 740 M1535 511 L1552 740 M1650 595 L1748 740 M1765 622 L1782 740 M1880 635 L1978 740",
+              "width": 2
+            },
+            {
+              "horizon": [
+                740
+              ]
+            },
+            {
+              "path": "M80 790 L600 760 L1100 800 L1840 770 M80 840 L700 820 L1300 850 L1840 825",
+              "colour": "green",
+              "width": 3
+            },
+            {
+              "cloud": [
+                960,
+                250,
+                190
+              ]
+            },
+            {
+              "cloud": [
+                945,
+                185,
+                300
+              ]
+            },
+            {
+              "cloud": [
+                980,
+                115,
+                420
+              ]
+            },
+            {
+              "cloud": [
+                950,
+                45,
+                560
+              ]
+            },
+            {
+              "path": "M930 259.55 L900 200 M990 259.55 L1030 200",
+              "colour": "white",
+              "width": 5
+            },
+            {
+              "line": [
+                1250,
+                294,
+                1000,
+                270
+              ],
+              "width": 4
+            },
+            {
+              "chip": [
+                1250,
+                250
+              ],
+              "text": "Merapi, 2010"
+            },
+            {
+              "camera": "orbit"
+            },
+            {
+              "cut": "loop ke s01"
+            },
+            {
+              "chip": [
+                754,
+                862
+              ],
+              "text": "Itulah kenapa"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

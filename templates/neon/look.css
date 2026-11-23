@@ -7,6 +7,8 @@
 }
 :root[data-look="neon"] {
   --accent: #00f5d4;
+  /* the second neon colour: the key word of a caption (template.md, Captions) */
+  --key: #f15bb5;
   --ink: #e9fffb;
   --paper: #07070c;
   --brand: "Space Grotesk", var(--sans);
@@ -17,7 +19,7 @@
 :root[data-look="neon"] .caption.frame {
   color: var(--ink); font: 600 80px / 1.08 var(--brand); text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 4px #fff;
 }
-:root[data-look="neon"] .caption .key, :root[data-look="neon"] .caption .cw.key { color: var(--accent); text-shadow: none; }
+:root[data-look="neon"] .caption .key, :root[data-look="neon"] .caption .cw.key { color: var(--key); text-shadow: 0 0 14px color-mix(in srgb, var(--key) 60%, transparent); }
 :root[data-look="neon"] .caption::before { display: none; }
 :root[data-look="neon"] #vignette { opacity: 0.7; }
 :root[data-look="neon"] { --card: transparent; }
