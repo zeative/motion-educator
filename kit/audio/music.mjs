@@ -34,7 +34,9 @@ const prompt = flag("--prompt");
 if (prompt) {
   const key = process.env.ELEVENLABS_API_KEY;
   if (!key) throw new Error("composing needs ELEVENLABS_API_KEY in the environment");
-  const length = Math.round((sb.duration + 1.5) * 1000);
+  // A composed piece fades at its own end. A loop's run-on is laid over its start, so it needs music still playing
+  // after the last frame: four seconds of it, not one and a half.
+  const length = Math.round((sb.duration + (sb.loop ? 4 : 1.5)) * 1000);
   if (length > 300000) throw new Error("the film is longer than five minutes: compose its bed in parts");
   mkdirSync(dir, { recursive: true });
   const request = join(dir, ".request.json");

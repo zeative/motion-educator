@@ -1,6 +1,6 @@
 {
-  "prompt": "Instrumental, light and playful acoustic: ukulele and pizzicato strings with soft hand claps, about 96 BPM, a curious everyday mood. Sparse under a voice: no lead melody, nothing in the voice's range, no vocals. Starts at once, stays light, thins in the middle, a small lift near the end, and does not resolve: it loops.",
-  "length_ms": 43270,
-  "film_duration": 41.77,
+  "prompt": "Instrumental, light and playful acoustic: ukulele and pizzicato strings with soft hand claps and a gentle shaker that keeps going the whole time, about 96 BPM, a curious everyday mood. Continuous from the first second to the last with no breaks, stops or pauses. Sparse under a voice: no lead melody, nothing in the voice's range, no vocals. Starts at once, stays light, a small lift near the end, and does not resolve or fade out: it loops.",
+  "length_ms": 45170,
+  "film_duration": 41.17,
   "made": "2026-11-23"
 }

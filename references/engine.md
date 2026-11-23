@@ -205,16 +205,18 @@ const ink = createInk(film);
 ink.roughen("#s02 svg", { amount: 1.6, pencil: true });   // once: a hand's line, and a pencil sketch under it
 let t = ink.drawOn("#s02 svg .figure", s.s02.start, { speed: 1400 });  // stroke by stroke; returns when it ends
 ink.boil("#s02 svg");                                     // the lines live, redrawn a little 8 times a second
-ink.write("#s02 .label", t);                              // lettering written on, left to right
+ink.write("#s02 .label", t);                              // lettering written on, letter by letter
+ink.erase("#s02 .old", s.s03.start);                      // rubbed out (lines taken back, letters from the last)
 ink.marker("#title .key", t + 0.6);                       // the one highlight, swiped behind the word
 ```
 
 | Call | Does | Templates |
 | --- | --- | --- |
-| `roughen(sel, { amount, step, seed, pencil })` | resamples every stroke and pushes it sideways by smooth seeded noise; `pencil` lays a faint offset pass under it | Stickman, Whiteboard, Chalkboard |
+| `roughen(sel, { amount, step, seed, pencil })` | resamples every stroke and pushes it sideways by smooth seeded noise; `pencil` lays a faint pass under it, a little off and running on past both ends, so the sketch shows | Stickman, Whiteboard, Chalkboard |
 | `drawOn(sel, at, { speed, duration, gap })` | each stroke drawn on in document order at pen speed (px a second); a path of several `M` strokes is split into one per stroke | every drawn template |
 | `boil(sel, { rate, amount })` | the filter changes between three seeded variants `rate` times a second; on an `svg` or group it costs one filter a frame | Stickman, Paper, Comic |
-| `write(sel, at, { speed })` | lettering revealed left to right at `speed` characters a second | hand-lettered type |
+| `write(sel, at, { speed, duration })` | lettering written letter by letter at `speed` letters a second, each letter set a hair off its neighbours; never a straight wipe across the word | hand-lettered type |
+| `erase(sel, at, { duration })` | rubbed out instead of faded: lines taken back from end to start, letters from the last, marker swipes shrunk away | every drawn template |
 | `marker(sel, at, { colour })` | a flat marker swipe behind a word or part | Stickman, Whiteboard |
 | `wash(sel, at, { duration, origin })` | a watercolour wash (bleeding edge, darker rim, granulation) that blooms in from a point | Watercolour |
 | `halftone(sel, { colour, size })` | printed dot shading | Comic |

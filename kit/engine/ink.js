@@ -6,7 +6,8 @@
 //   ink.roughen("#s02 svg .ln", { amount: 1.6, pencil: true });   // once, before drawing: no vector-perfect lines
 //   ink.drawOn("#s02 svg .ln", s.s02.start + 0.2, { speed: 1600 });  // stroke by stroke, at pen speed
 //   ink.boil("#s02 svg");                                            // the line lives: redrawn a little every step
-//   ink.write("#s02 .label", s.s02.start + 1.4);                     // lettering written on, left to right
+//   ink.write("#s02 .label", s.s02.start + 1.4);                     // lettering written on, letter by letter
+//   ink.erase("#s02 .old", s.s03.start);                             // rubbed out, not faded
 //   ink.marker("#s02 .key", s.s02.start + 2.0);                      // the one highlight, swiped behind the word
 //
 // The filters (url(#chalk), url(#marker), url(#pencil), url(#cut), url(#wash), url(#halftone)) are installed once
@@ -122,12 +123,13 @@ export function createInk(film) {
     .flatMap((p) => (p.classList.contains("ink-pencil") ? [] : split(p)));
 
   // A hand's line: the path resampled every `step` px, each point pushed sideways by smooth seeded noise, and drawn
-  // back as curves. `pencil` lays a faint second pass under it, a little off, like the sketch under the ink.
+  // back as curves. `pencil` lays a faint second pass under it, a little off and running on past both ends, like the
+  // sketch the ink was drawn over.
   function roughen(sel, { amount = 1.6, step = 7, seed = 1, pencil = false } = {}) {
     const out = [];
     for (const [k, path] of paths(sel).entries()) {
       const rand = rng(seed * 997 + k * 31);
-      const make = (amp, r) => {
+      const make = (amp, r, over = 0, shift = [0, 0]) => {
         const length = path.getTotalLength();
         const n = Math.max(4, Math.round(length / step));
         const closed = /z\s*$/i.test(path.getAttribute("d")) || path.getPointAtLength(0).x === path.getPointAtLength(length).x && path.getPointAtLength(0).y === path.getPointAtLength(length).y;
@@ -142,6 +144,13 @@ export function createInk(film) {
           pts.push([a.x + Math.cos(ang) * off, a.y + Math.sin(ang) * off]);
         }
         if (closed) pts[pts.length - 1] = pts[0];
+        // A sketch runs on past where the ink stops: both ends carried on along their direction by `over` px.
+        if (over && !closed && pts.length > 2) {
+          const ext = (a, b) => { const l = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1; return [a[0] + ((a[0] - b[0]) / l) * over, a[1] + ((a[1] - b[1]) / l) * over]; };
+          pts.unshift(ext(pts[0], pts[1]));
+          pts.push(ext(pts.at(-1), pts.at(-2)));
+        }
+        for (const q of pts) { q[0] += shift[0]; q[1] += shift[1]; }
         let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
         for (let i = 1; i < pts.length - 1; i++) d += ` Q${pts[i][0].toFixed(1)} ${pts[i][1].toFixed(1)} ${((pts[i][0] + pts[i + 1][0]) / 2).toFixed(1)} ${((pts[i][1] + pts[i + 1][1]) / 2).toFixed(1)}`;
         d += ` L${pts.at(-1)[0].toFixed(1)} ${pts.at(-1)[1].toFixed(1)}`;
@@ -150,7 +159,8 @@ export function createInk(film) {
       if (pencil) {
         const under = path.cloneNode();
         under.removeAttribute("id");
-        under.setAttribute("d", make(amount * 2.2, rng(seed * 577 + k * 13)));
+        const r2 = rng(seed * 577 + k * 13);
+        under.setAttribute("d", make(amount * 2.2, r2, 10 + r2() * 12, [(r2() - 0.5) * 7, (r2() - 0.5) * 7]));
         under.setAttribute("class", "ink-pencil");
         under.style.cssText = "stroke:var(--pencil,rgba(40,36,30,.28));stroke-width:1.6px;fill:none;filter:url(#pencil)";
         path.before(under);
@@ -198,15 +208,62 @@ export function createInk(film) {
       for (const el of els) if (el.style.filter !== k) el.style.filter = k;
     });
   }
-  // Lettering written on, left to right, as a hand writes it: a clip that opens over the words.
+  // Lettering is split into letters once (spaces stay text), each set a hair off its neighbours as a hand letters.
+  function letters(el, seed = 7) {
+    if (el.__letters) return el.__letters;
+    const out = [], r = rng(seed + (el.textContent ?? "").length * 131);
+    const walk = (node) => {
+      for (const child of [...node.childNodes]) {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          for (const ch of child.textContent) {
+            if (/\s/.test(ch)) { frag.append(ch); continue; }
+            const span = document.createElement("span");
+            span.className = "ink-ch";
+            span.textContent = ch;
+            span.style.cssText = `display:inline-block;transform:translateY(${((r() - 0.5) * 3).toFixed(1)}px) rotate(${((r() - 0.5) * 3).toFixed(1)}deg)`;
+            frag.append(span);
+            out.push(span);
+          }
+          child.replaceWith(frag);
+        } else if (child.nodeType === 1 && !child.classList.contains("ink-marker")) walk(child);
+      }
+    };
+    walk(el);
+    el.__letters = out;
+    return out;
+  }
+  // Lettering written on as a hand writes it: letter after letter at `speed` letters a second, each one opening
+  // left to right as the pen goes through it, never a straight wipe across the whole word.
   function write(sel, at, { speed = 9, duration, ease = "none" } = {}) {
     let end = at;
     for (const el of $$(sel)) {
-      const d = duration ?? Math.max(0.3, (el.textContent ?? "").trim().length / speed);
-      tl.fromTo(el, { clipPath: "inset(-20% 100% -20% -2%)" }, { clipPath: "inset(-20% -2% -20% -2%)", duration: d, ease, immediateRender: true }, at);
+      const chars = letters(el);
+      const d = duration ?? Math.max(0.3, chars.length / speed);
+      const per = d / Math.max(1, chars.length);
+      chars.forEach((c, i) => tl.fromTo(c, { clipPath: "inset(-40% 100% -40% -15%)" }, { clipPath: "inset(-40% -15% -40% -15%)", duration: per, ease, immediateRender: true }, at + i * per));
       end = Math.max(end, at + d);
     }
     return end;
+  }
+  // Rubbed out instead of faded: lines are taken back from their end to their start, lettering goes letter by letter
+  // from the last, and marker swipes shrink away. All of it within `duration`.
+  function erase(sel, at, { duration = 0.3 } = {}) {
+    for (const el of $$(sel)) {
+      if (el instanceof SVGElement) {
+        const list = ["svg", "g"].includes(el.tagName) ? [...el.querySelectorAll("path")] : [el];
+        for (const path of list) {
+          if (!path.getAttribute("pathLength")) { path.setAttribute("pathLength", "1"); gsap.set(path, { strokeDasharray: "1 1.02", strokeDashoffset: 0 }); }
+          tl.fromTo(path, { strokeDashoffset: 0 }, { strokeDashoffset: 1, duration, ease: "power1.in", immediateRender: false }, at);
+        }
+        continue;
+      }
+      const chars = letters(el);
+      const per = duration / Math.max(1, chars.length);
+      [...chars].reverse().forEach((c, i) => tl.fromTo(c, { clipPath: "inset(-40% -15% -40% -15%)" }, { clipPath: "inset(-40% 100% -40% -15%)", duration: per, ease: "none", immediateRender: false }, at + i * per));
+      for (const m of el.querySelectorAll(".ink-marker")) tl.to(m, { scaleX: 0, transformOrigin: "100% 50%", duration: duration * 0.6, ease: "power1.in" }, at);
+    }
+    return at + duration;
   }
   // The one highlight: a flat marker swipe behind a word or a part, left to right, slightly tilted.
   function marker(sel, at, { colour = "var(--accent)", duration = 0.45, tilt = -1.5, pad = 0.12, height = 0.62 } = {}) {
@@ -253,5 +310,5 @@ export function createInk(film) {
   // Cut paper: the layer gets paper fibres and a soft shadow below, as if laid on the page.
   const paper = (sel) => { for (const el of $$(sel)) el.style.filter = "url(#cut)"; };
 
-  return { roughen, drawOn, boil, write, marker, wash, halftone, glow, paper, paths };
+  return { roughen, drawOn, boil, write, erase, marker, wash, halftone, glow, paper, paths, letters };
 }

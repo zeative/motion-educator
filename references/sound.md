@@ -11,6 +11,14 @@ where its loudest moment is, how much of it is sub-bass or hiss). `kit/audio/fet
 raw files on. `kit/audio/screen.py` measures a new candidate the same way. Sounds were chosen by title and
 measurement, not by ear.
 
+The library has no hand on paper, so `kit/audio/foley.py` makes it from numbers (seeded, the same every run, written
+into `kit/audio/lib/foley/` by `fetch.sh`): `pen_1..3` (a marker drawing a line), `write_1..3` (a word written letter
+by letter), `rub_1..2` (an eraser), `boing_1`, `clap_1`, `thump_1..2` (something heavy landing in a basket),
+`squeak_1` (a rubber heel sliding) and `scrape_1` (wheels skidding). For a drawn film, log every line, word and
+erasure in `window.__events` as the film is built (`{kind, at, end}`), write them out with
+`node kit/tools/render.mjs films/NAME --events`, and let `cues.build.py` put a pen on each, trimmed to its length
+(`examples/troli-penuh` does this).
+
 | Cue | Use |
 | --- | --- |
 | `whoosh_fast_1..8`, `whoosh_long_1..3` | a real transition: a whip, a push, a dive |
@@ -65,9 +73,9 @@ than the film and its tail is faded.
 ### A bed for a loop
 
 A short that loops has no ending: ask for music that "keeps the same groove to the last second, with no ending, no
-final chord and no fade", and leave out "lands on a resolved chord". `music.mjs` composes a second and a half past
-the film's end; with the storyboard's `loop`, `mix.py` lays that run-on over the opening, so the music carries on
-when the player jumps back. Put no hit on the last frame: the last effect is a soft one that also works under the
+final chord and no fade", and leave out "lands on a resolved chord". For a loop `music.mjs` composes four seconds past
+the film's end (a composed piece fades over its own last two or three); `mix.py` lays that run-on over the opening, so
+the music carries on when the player jumps back, and warns when the bed is already fading at the seam. Put no hit on the last frame: the last effect is a soft one that also works under the
 first word.
 
 ## The cue sheet

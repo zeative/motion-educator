@@ -64,5 +64,7 @@ lib/music/masking_the_masters.mp3 https://assets.mixkit.co/music/552/552.mp3
 lib/music/odd_beats_01.mp3 https://assets.mixkit.co/music/722/722.mp3
 lib/music/xceed_thru_johann.mp3 https://assets.mixkit.co/music/556/556.mp3
 LIST
+# The foley the library has no file for (pen, eraser, spring, clap, thumps) is made from numbers, not fetched.
+python3 foley.py || fail=1
 if command -v sha256sum >/dev/null && [ -f checksums.sha256 ]; then sha256sum --quiet -c checksums.sha256 || fail=1; fi
 exit $fail

@@ -87,9 +87,15 @@ if "--no-music" not in args:
         X = int(min(1.5, max(0.0, (len(track) - a - N) / SR)) * SR)
         if X >= int(0.3 * SR):
             tail = track[a + N : a + N + X] * level
+            # A composed bed fades at its own end: when its last second before the seam, or the run-on, is far below
+            # the rest, the music dips at the loop however well the run-on is joined.
+            rms = lambda x: 20 * np.log10(np.sqrt(np.mean(x**2)) + 1e-9)
+            body, end, run = rms(music[: N - SR]), rms(music[N - SR : N]), rms(tail)
             ramp = np.linspace(0, np.pi / 2, X)[:, None]
             music[:X] = music[:X] * np.sin(ramp) + tail * np.cos(ramp)
             report.append(f"loop: the bed's {X / SR:.1f} s after the last frame run on into the first")
+            if min(end, run) < body - 9:
+                report.append(f"  <- loop: the bed is fading at the seam (last second {end - body:+.0f} dB, run-on {run - body:+.0f} dB against the rest): compose it again for this length")
         else:
             report.append("  <- loop: the bed stops at the last frame, so the music jumps when the film loops: compose it again (music.mjs adds the run-on)")
     else:

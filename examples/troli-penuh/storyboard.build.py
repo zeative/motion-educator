@@ -21,11 +21,11 @@ EMPTY, SHOPPING = 21, 42
 FULL = EMPTY + SHOPPING  # 63 kg
 RATIO = FULL / EMPTY  # 3.0
 # s09: the same push F for the same time t; distance = a t^2 / 2 with a = F / m, so the full trolley goes 1/3 as far.
-LANE = 640  # px the empty trolley covers in the race
-FULL_RUN = LANE / RATIO  # 213 px
+LANE = 560  # px the empty trolley covers while it is pushed
+FULL_RUN = LANE / RATIO  # 187 px
 # s12: the same braking force from the same speed; stopping distance = m v^2 / (2 F), so the full trolley needs 3 times.
-STOP_EMPTY = 190
-STOP_FULL = STOP_EMPTY * RATIO  # 570 px
+STOP_EMPTY = 180
+STOP_FULL = STOP_EMPTY * RATIO  # 540 px
 assert RATIO == 3
 
 # ── Drawing helpers for the board (1080 x 1920; the drawing lives in the upper two thirds) ─────────────────────────
@@ -70,10 +70,10 @@ def shot(id, act, type_, start, end, voice, **more):
 
 
 shot("s01", "hook", "wide", 0, 4.4,
-     "Troli penuh lebih susah didorong, padahal *beratnya* nggak kamu angkat sama sekali.",
+     "Troli penuh lebih susah didorong, padahal beratnya nggak kamu *angkat* sama sekali.",
      teaches="The puzzle: a full trolley is hard to push, yet you never lift it.",
      screen="Warm paper. A hand-drawn floor across the frame at y 1150. A stick figure leans into a shopping trolley piled with three boxes of shopping; push arrow from the hands; sweat flicks by the head.",
-     motion="Frame 0 is finished. The figure shoves (anticipation back, then forward, on twos); the trolley gives a few pixels and stops. The word 'beratnya' gets a marker swipe in the caption.",
+     motion="Frame 0 is finished. The figure winds back, then shoves with a step (on twos); a horizontal arrow 'dorong' draws on from his hands, and the trolley starts to creep, slowly gaining speed: heavy to get going, not stuck. On 'angkat' an upward arrow is drawn and crossed out. The caption's key word is 'angkat'.",
      carries="The figure and the trolley.", transition="Hold, then the camera pushes in on the face.",
      sound="Paper bed starts; a strained 'hngg' is the voice's, a creak on the shove.",
      check="The trolley reads as a trolley at a glance; the figure is leaning, not standing.", facts=["f1"],
@@ -91,9 +91,9 @@ shot("s02", "hook", "type", 4.4, 5.8, "Kok bisa?",
 
 shot("s03", "massa", "diagram", 5.8, 9.4, "Semua beratnya ditahan roda ke lantai.",
      teaches="The weight goes down through the wheels into the floor; the floor holds it.",
-     screen="The trolley side-on, larger. Red arrows from the load down through the frame to the four wheels; blue arrows from the floor back up. Label 'berat' at the load, 'lantai menahan' at the floor.",
+     screen="The trolley side-on, larger. Ink arrows from the basket down to the two wheel pairs; arrows of the same length from the floor back up. Label 'berat' with a curved leader, 'lantai yang menahan' under the floor.",
      motion="The down arrows draw on from the load to the wheels; the up arrows answer from the floor.", carries="The loaded trolley.",
-     transition="The arrows erase; the word 'kelembaman' is written across the top.",
+     transition="The arrows are rubbed out; the camera pulls back over the whole trolley and 'Kelembaman' is written across the top.",
      sound="Two soft taps as the arrows land.", check="Down and up arrows are the same length.", facts=["f2"],
      frames=[fr(0, "The loaded trolley, larger, centred on the floor.", ground(), {"trolley": [350, GROUND, 470], "full": True}),
              fr(0.5, "Weight arrows from the load down to the wheels.", ground(), {"trolley": [350, GROUND, 470], "full": True}, {"arrow": [420, 820, 420, 1110], "colour": "red"}, {"arrow": [760, 820, 760, 1110], "colour": "red"}, label(590, 760, "berat", 46, colour="red")),
@@ -109,16 +109,16 @@ shot("s04", "massa", "type", 9.4, 12.6, "Yang kamu lawan itu hal lain: *kelembam
 
 shot("s05", "massa", "diagram", 12.6, 16.2, "Benda yang diam maunya tetap diam.",
      teaches="Inertia, part one: what is at rest stays at rest unless something pushes it.",
-     screen="The empty floor; a stick figure flicks a ball and it rolls; then pushes the full trolley and it barely moves. Label 'diam → tetap diam'.",
-     motion="The ball rolls off easily (on twos); the trolley jerks a few pixels and stops.", carries="The trolley and the figure.",
-     transition="A second trolley slides in beside it.", sound="A light roll; a heavy creak.", check="The contrast between the ball and the trolley is obvious on mute.", facts=["f3"],
+     screen="Back to the opening page: the figure shoves the full trolley again and it only creeps. Label 'diam' with a curved leader to the trolley, then 'maunya tetap diam' above. (Built without the ball: the same push on the same trolley carries the idea, and the page stays one picture.)",
+     motion="The shove, then the trolley creeps forward, slowly gaining speed.", carries="The trolley and the figure.",
+     transition="A second trolley slides in beside it.", sound="A light roll; a heavy creak.", check="It reads as heavy to start, not stuck: the trolley keeps creeping.", facts=["f3"],
      frames=[fr(0, "The trolley at rest; label 'diam'.", scene(push=False), label(710, 680, "diam", 54)),
              fr(0.5, "The figure pushes; arrow; the trolley hardly moves.", scene(), {"arrow": [450, 870, 530, 870], "colour": "red"}, {"move": [700, 650, 730, 650], "text": "sedikit"}),
              fr(1, "Label: 'maunya tetap diam'.", scene(), label(710, 600, "maunya tetap diam", 50), {"cut": "troli kedua masuk"})])
 
 shot("s06", "massa", "compare", 16.2, 19.8, "Makin besar massanya, makin susah diubah geraknya.",
      teaches="Inertia grows with mass: more mass, harder to change its motion.",
-     screen="Two trolleys side by side: empty (left, small label 'massa kecil') and full (right, 'massa besar'); a hand-drawn bar under each, the full one's three times longer.",
+     screen="Two trolleys side by side: empty (left, label 'massa kecil') and full (right, 'massa besar'); under the floor 'susah diubah geraknya:' and a hand-drawn bar under each trolley, the full one's three times longer and hatched.",
      motion="The bars draw on; the full one's marker swipe.", carries="The two trolleys.", transition="The empty trolley rolls onto a scale.",
      sound="Two pen strokes.", check="The bars are in the ratio 1 : 3.", facts=["f1", "f4"],
      frames=[fr(0, "Two trolleys side by side on one floor.", ground(), {"trolley": [130, GROUND, 300], "full": False}, {"trolley": [610, GROUND, 300], "full": True}),
@@ -152,8 +152,8 @@ shot("s08b", "angka", "chart", 25.8, 27.6, "massanya jadi *tiga kali lipat*.",
 
 shot("s09", "angka", "compare", 27.6, 31.8, "Artinya, dorongan yang sama cuma bikin dia ngebut *sepertiganya*.",
      teaches="Same push, three times the mass: a third of the acceleration, so in the same time it gets a third as far.",
-     screen=f"Two lanes, one above the other. Top: empty trolley with a push arrow F. Bottom: full trolley with the same arrow F. A start line; after the same time the empty one has gone {LANE} px, the full one {round(FULL_RUN)} px, ticks along each lane.",
-     motion="Both arrows are drawn the same length first; then both trolleys move for the same time (on twos); the full one lags at a third.", carries="The two lanes.",
+     screen=f"Two lanes, one above the other. Top: empty trolley with a push arrow F on its handle. Bottom: full trolley with the same arrow F. A dashed start line; when the push ends the empty one has gone {LANE} px, the full one {round(FULL_RUN)} px: brackets 'jauh' and 'cuma ⅓'.",
+     motion="Both arrows are drawn the same length first; both trolleys are pushed for the same time (on twos), the full one gaining speed at a third of the rate; the arrows are rubbed out when the push ends, the brackets are drawn, and both roll on at the speed they have (the empty one out of the frame).", carries="The two lanes.",
      transition="Hold on the gap, then the full lane fills the frame.", sound="Two rolls, one long, one short.", check=f"Distances are {LANE} and {round(FULL_RUN)} px: 3 : 1.", facts=["f4", "f5"],
      frames=[fr(0, "Two lanes, same push arrow F on each.", {"path": "M80 760 H1000 M80 1260 H1000", "width": 5}, {"trolley": [120, 760, 220], "full": False}, {"trolley": [120, 1260, 220], "full": True}, {"arrow": [40, 640, 110, 640], "colour": "red"}, {"arrow": [40, 1140, 110, 1140], "colour": "red"}, label(70, 600, "F", 50, colour="red"), label(70, 1100, "F", 50, colour="red")),
              fr(0.6, "Both move for the same time.", {"path": "M80 760 H1000 M80 1260 H1000", "width": 5}, {"trolley": [120 + LANE * 0.6, 760, 220], "full": False}, {"trolley": [120 + FULL_RUN * 0.6, 1260, 220], "full": True}, {"move": [120, 520, 120 + LANE * 0.6, 520], "text": "cepat"}, {"move": [120, 1020, 120 + FULL_RUN * 0.6, 1020], "text": "lambat"}),
@@ -162,7 +162,7 @@ shot("s09", "angka", "compare", 27.6, 31.8, "Artinya, dorongan yang sama cuma bi
 shot("s10", "berhenti", "wide", 31.8, 34.0, "Masalahnya belum selesai.",
      teaches="Turn: inertia also works the other way.",
      screen="The full trolley now rolling along the floor with speed lines; the figure walking behind it.",
-     motion="Speed lines flick on twos; the camera pans with the trolley.", carries="The rolling trolley.", transition="Continuous: the figure grabs the handle.",
+     motion="It rolls on at a steady speed with speed lines; the figure runs after it (on twos); the camera travels with the trolley along the floor, its tiles going by.", carries="The rolling trolley.", transition="Continuous: the figure grabs the handle.",
      sound="Wheels rumbling.", check="It reads as moving, not standing.",
      frames=[fr(0, "Rolling, speed lines behind.", ground(), {"trolley": [480, GROUND, 360], "full": True}, {"path": "M300 900 h120 M280 980 h140 M320 1060 h100", "width": 6}, {"camera": "right"}),
              fr(1, "Still rolling; the figure catches up.", ground(), {"trolley": [560, GROUND, 360], "full": True}, {"person": [380, GROUND, 400]}, {"cut": "tanpa potongan"})])
@@ -170,7 +170,7 @@ shot("s10", "berhenti", "wide", 31.8, 34.0, "Masalahnya belum selesai.",
 shot("s11", "berhenti", "diagram", 34.0, 37.2, "Begitu udah jalan, dia juga ogah *berhenti*.",
      teaches="Inertia, part two: what moves keeps moving; stopping a big mass is hard too.",
      screen="The figure leans back on the handle, heels dug in; the trolley keeps rolling and drags them along; label 'maunya tetap jalan'.",
-     motion="The figure leans back (pose held on twos), feet slide; the trolley keeps going.", carries="The figure and trolley.",
+     motion="His arm reaches the handle over four drawings; he leans back, heels dug in and sliding (skid lines); the trolley slows but is still rolling when the page turns.", carries="The figure and trolley.",
      transition="Split into two lanes again.", sound="Shoes squeak as the heels slide.", check="The figure leans backwards, the opposite of s01.", facts=["f3"],
      frames=[fr(0, "Grabbing the handle, starting to lean back.", ground(), {"trolley": [560, GROUND, 360], "full": True}, {"person": [400, GROUND, 400]}),
              fr(0.5, "Leaning back, heels skidding; the trolley rolls on.", ground(), {"trolley": [620, GROUND, 360], "full": True}, {"path": "M420 1150 l-60 -380 M420 1150 l40 -10", "width": 10}, {"move": [620, 700, 700, 700], "text": "tetap jalan"}),
@@ -178,8 +178,8 @@ shot("s11", "berhenti", "diagram", 34.0, 37.2, "Begitu udah jalan, dia juga ogah
 
 shot("s12", "berhenti", "compare", 37.2, 41.8, "Kalau kamu ngerem sekuat tadi, jaraknya *tiga kali* lebih panjang.",
      teaches="Same braking force from the same speed: the full trolley needs three times the distance to stop.",
-     screen=f"Two lanes again, both trolleys arriving at the same speed at a line; a brake mark from the line: {STOP_EMPTY} px for the empty one, {round(STOP_FULL)} px for the full one; '×3' in marker.",
-     motion="Both brake at the line at the same moment; the empty one stops early, the full one slides on; the marker writes ×3.", carries="The two stopping marks.",
+     screen=f"Two lanes again, both trolleys arriving at the same speed at a dashed line 'mulai ngerem'; while each brakes, the same arrow F as in s09 turned round on its handle ('sekuat tadi'); skid marks and brackets grow from the line: {STOP_EMPTY} px for the empty one, {round(STOP_FULL)} px for the full one; '1' and '× 3' in marker.",
+     motion="Both brake at the line at the same moment; the empty one stops early, the full one slides on; '× 3' is written as it stops, on 'tiga kali', and held for a second before the page turns.", carries="The two stopping marks.",
      transition="The lanes slide away; one frame of the summary.", sound="Two skids, the second three times as long.", check=f"Stopping marks {STOP_EMPTY} and {round(STOP_FULL)} px: 1 : 3.", facts=["f4", "f6"],
      frames=[fr(0, "Both arrive at the braking line at the same speed.", {"path": "M80 760 H1040 M80 1260 H1040", "width": 5}, {"path": "M300 540 V1290", "colour": "red", "dashed": True}, {"trolley": [80, 760, 220], "full": False}, {"trolley": [80, 1260, 220], "full": True}, label(300, 500, "mulai ngerem", 40, colour="red")),
              fr(0.6, "The empty one has stopped; the full one is still sliding.", {"path": "M80 760 H1040 M80 1260 H1040", "width": 5}, {"path": "M300 540 V1290", "colour": "red", "dashed": True}, {"trolley": [300 + STOP_EMPTY - 220, 760, 220], "full": False}, {"trolley": [300 + STOP_FULL * 0.6 - 220, 1260, 220], "full": True}),
@@ -187,9 +187,9 @@ shot("s12", "berhenti", "compare", 37.2, 41.8, "Kalau kamu ngerem sekuat tadi, j
 
 shot("s13", "recap", "recap", 41.8, 45.6, "Jadi yang bikin capek itu *massanya*, bukan beratnya.",
      teaches="The answer in one frame: you fight the mass (inertia), not the weight.",
-     screen="One page: the two ideas as small drawings in a column: 'susah mulai' (figure pushing), 'susah berhenti' (figure leaning back); at the top 'massa ✓' with the marker and 'berat ✗' crossed out.",
-     motion="The two small drawings draw on; 'berat' is crossed out on 'bukan'.", carries="The pushing figure.", transition="The page slides; the camera returns to the opening picture.",
-     sound="Two ticks and a cross-out scratch.", check="Readable as a summary with the sound off.", facts=["f3", "f4"],
+     screen="One page: at the top 'massa ✓' with the marker and 'berat' crossed out, and under them, small, '(terutama saat mulai & berhenti)' (f7); then the two ideas as small drawings in a column: 'susah mulai' (figure pushing, arrow forward), 'susah berhenti' (figure leaning back on a rolling trolley, arrow back, skid lines).",
+     motion="The two small drawings draw on; 'berat' is crossed out on 'bukan'.", carries="The pushing figure.", transition="The opening page is laid back over it.",
+     sound="Two ticks and a cross-out scratch.", check="Readable as a summary with the sound off.", facts=["f3", "f4", "f7"],
      frames=[fr(0, "The two words at the top.", marker(250, 450, 260), label(380, 420, "massa ✓", 70), label(720, 420, "berat", 70)),
              fr(0.5, "Two small drawings: hard to start, hard to stop.", label(380, 420, "massa ✓", 70), label(720, 420, "berat", 70), {"pusher": [300, 900, 260]}, {"trolley": [430, 900, 200], "full": True}, label(420, 960, "susah mulai", 40), {"person": [680, 1300, 260]}, {"trolley": [760, 1300, 200], "full": True}, label(760, 1360, "susah berhenti", 40)),
              fr(1, "'berat' crossed out.", label(380, 420, "massa ✓", 70), label(720, 420, "berat", 70), {"path": "M630 400 L820 430", "colour": "red", "width": 9}, {"pusher": [300, 900, 260]}, {"trolley": [430, 900, 200], "full": True}, {"person": [680, 1300, 260]}, {"trolley": [760, 1300, 200], "full": True}, {"cut": "kembali ke awal"})])
@@ -219,12 +219,12 @@ storyboard = {
     "voice": {"voice_id": "xlBOShi2835jfBgaEld4", "name": "Rafiq", "model": "eleven_v4", "language": "id", "direction": "[warmly]"},
     "look": {
         "accent": "#f2c14e",
-        "mood": "The Stickman template: warm off-white paper with grain and a soft vignette, black ink drawn on stroke by stroke and boiling, a faint pencil sketch under the ink, one marker colour (yellow) for the word or the number that matters. Red is only for forces (push and weight arrows), blue for the floor's answer and the motion marks. Characters on twos.",
+        "mood": "The Stickman template: warm off-white paper with grain and a soft vignette, black ink drawn on stroke by stroke and boiling over a faint pencil sketch that runs past it, lettering written letter by letter and rubbed out, never faded; one marker colour (yellow) for the word or the number that matters, and nothing else in colour. Each page is a sheet laid over the last. Characters on twos.",
     },
     "music": {
         "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
         "bpm": 96,
-        "note": "A light acoustic bed (ukulele, pizzicato, soft claps), composed to the take's length; it thins under the numbers and lifts on the payoff. Pen scratches as lines draw, a thump for each item of shopping, skids in s12. The cuts follow the take.",
+        "note": "A light acoustic bed (ukulele, pizzicato, soft claps), composed to the take's length; it thins under the numbers and lifts on the payoff. Pen scratches as lines draw and as letters are written, a rub for each erasure, a thump for each item of shopping, skids in s12. The cuts follow the take.",
     },
     "facts": [
         {"id": "f1", "claim": "A real supermarket trolley: the Wanzl ELT7/130, with a 131-litre basket, weighs 21 kg (load capacity 131 kg). The film calls the empty trolley 'sekitar dua puluh satu kilo' and writes '21 kg' and the model on screen.",
@@ -233,12 +233,14 @@ storyboard = {
          "source": "NASA Glenn Research Center, Beginner's Guide, 'Newton's Laws of Motion' and 'Weight' (grc.nasa.gov/www/k-12): a body at rest has balanced forces."},
         {"id": "f3", "claim": "Inertia (Newton's first law): a body at rest stays at rest, and a body in motion keeps moving at the same speed, unless an outside force acts on it.",
          "source": "NASA Glenn Research Center, 'Newton's First Law of Motion' (grc.nasa.gov/www/k-12/airplane/newton1g.html)."},
-        {"id": "f4", "claim": "Newton's second law: F = m × a, so a = F / m. With the same push F, three times the mass gives a third of the acceleration. Starting from rest for the same time t, the distance is a t² / 2, so the full trolley covers a third as far (the film's lanes: 640 px and 213 px).",
+        {"id": "f4", "claim": "Newton's second law: F = m × a, so a = F / m. With the same push F, three times the mass gives a third of the acceleration. Starting from rest for the same time t, the distance is a t² / 2, so the full trolley covers a third as far (the film's lanes: 560 px and 187 px).",
          "source": "NASA Glenn Research Center, 'Newton's Second Law of Motion' (grc.nasa.gov/www/k-12/BGP/newton2.html); 'Motion equations' (grc.nasa.gov/www/k-12/airplane/motion.html) for distance = a t² / 2."},
         {"id": "f5", "claim": "The shopping is an example: 42 kg (a big week's shop: drinks, rice, detergent). 21 + 42 = 63 kg, and 63 / 21 = 3: three times the empty trolley's mass. On screen: '21 + 42 = 63 kg' and '3×'.",
          "source": "Arithmetic from f1; the 42 kg is chosen for the example and is said as one ('Tambah belanjaan empat puluh dua kilo')."},
-        {"id": "f6", "claim": "Stopping: with the same braking force F from the same speed v, the deceleration is F / m and the stopping distance is v² / (2a) = m v² / (2F), proportional to the mass. Three times the mass: three times the distance (the film's marks: 190 px and 570 px). Rolling friction is ignored in both lanes.",
+        {"id": "f6", "claim": "Stopping: with the same braking force F from the same speed v, the deceleration is F / m and the stopping distance is v² / (2a) = m v² / (2F), proportional to the mass. Three times the mass: three times the distance (the film's marks: 180 px and 540 px). The braking arrow is drawn the same length as s09's push ('sekuat tadi'). Rolling friction is ignored in both lanes.",
          "source": "NASA Glenn Research Center, 'Newton's Second Law of Motion' and 'Motion equations' (v² = 2 a d), as f4; the arithmetic is shown in storyboard.build.py."},
+        {"id": "f7", "claim": "The weight is not irrelevant: rolling at a steady walk, the wheels' rolling resistance is about Crr × N, where N is the weight the wheels carry, so a full trolley also takes a little more push to keep going. For hard wheels on a smooth floor Crr is small, so it is a small force next to the push needed to start or stop the mass. The film says 'bukan beratnya' and writes '(terutama saat mulai & berhenti)' under it, so the claim is about starting and stopping.",
+         "source": "Rolling resistance, F = Crr × N (Wikipedia, 'Rolling resistance', en.wikipedia.org/wiki/Rolling_resistance: definition and typical coefficients); Newton's second law for the push to start or stop the mass (f4, f6)."},
     ],
     "acts": [
         {"id": "hook", "title": "Pertanyaan", "goal": "The puzzle: hard to push, yet never lifted.", "rail": False},

@@ -7,6 +7,8 @@
 //   node kit/tools/render.mjs films/NAME --serve            serve the film to watch it live in a browser (#play)
 //   --fps 30 halves the frames, --jobs 1 uses one browser, --raw skips the finishing pass, --dir writes elsewhere,
 //   --safe (stills only) shades the parts of the frame an app would cover.
+//   node kit/tools/render.mjs films/NAME --events          writes films/NAME/events.json: what the film logged in
+//   window.__events as it was built ({kind, at, end}: every line drawn, word written, ...), for cues.build.py
 //
 // The frame's size is the storyboard's "format": 1920x1080 unless it says otherwise (1080x1920 for a short).
 //
@@ -178,7 +180,13 @@ if (args.includes("--serve")) {
 
   // In time order: a film whose state cannot run backwards would draw a wrong frame after a seek back.
   const stills = flag("--stills")?.split(",").map(Number).sort((a, b) => a - b);
-  if (stills) {
+  if (args.includes("--events")) {
+    const { browser, page } = await openFilm();
+    const events = await page.evaluate(() => (window.__events ?? []).slice().sort((a, b) => a.at - b.at));
+    writeFileSync(join(film, "events.json"), `${JSON.stringify(events, null, 0).replaceAll("},{", "},\n{")}\n`);
+    console.log(`${events.length} events -> ${join(film, "events.json")}`);
+    await browser.close();
+  } else if (stills) {
     const dir = flag("--dir") ? out : join(out, "stills");
     mkdirSync(dir, { recursive: true });
     const { browser, page } = await openFilm();
