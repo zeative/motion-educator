@@ -1,39 +1,40 @@
 {
-  "title": "Baterai HP nyimpen energi di mana?",
-  "question": "Baterai HP yang penuh dan yang kosong isinya sama, terus energinya disimpan di mana?",
-  "audience": "Pelajar SMA di Indonesia dan orang dewasa yang penasaran, yang ngecas HP tiap hari. Banyak yang membayangkan baterai seperti tangki yang diisi listrik; mereka tahu kata 'ion' dan 'elektron' dari sekolah, tapi belum pernah melihat apa yang bergerak di dalam baterai.",
-  "promise": "Baterai HP nggak diisi listrik: waktu dicas, litium didorong ke grafit, tempat yang 'nggak betah' (seperti bola didorong naik bukit), dan waktu dipakai litium balik ke logam oksida sementara elektronnya terpaksa lewat HP; aliran elektron itulah listriknya.",
+  "title": "Where does a phone battery keep its energy?",
+  "question": "A full phone battery and an empty one hold the same stuff, so where is the energy?",
+  "audience": "Curious teenagers and adults anywhere who charge a phone every day, often watching with the sound off at first. Many picture a battery as a tank that gets filled with electricity; they know the words 'ion' and 'electron' from school but have never seen what moves inside a battery.",
+  "promise": "A phone battery isn't filled with electricity: charging pushes lithium into the graphite, where it is loosely held (like a ball pushed up a hill), and in use the lithium goes back to the metal oxide while its electrons are forced the long way round, through the phone; that flow is the current.",
   "template": "whiteboard",
   "standard": 3,
-  "language": "id",
+  "language": "en",
   "format": "1920x1080",
-  "duration": 62.17,
+  "subtitles": true,
+  "duration": 51.06,
   "fps": 60,
   "loop": {
-    "line": "Makanya, / baterai HP yang penuh sama yang kosong itu isinya sama persis.",
+    "line": "That's why / a full phone battery and an empty one hold exactly the same stuff.",
     "picture": "The last shot tracks back along the board to section A, which has not been touched since frame 0, and settles on frame 0's framing: the two phones and the '='."
   },
   "voice": {
-    "voice_id": "GdyFAZdMpKMBHw5pc1Bu",
-    "name": "Livna",
+    "voice_id": "xd8j2LFPw16XKmJ5qeBK",
+    "name": "Courtney",
     "model": "eleven_v4",
-    "language": "id",
+    "language": "en",
     "direction": "[warmly]"
   },
   "look": {
     "accent": "#2f80ed",
     "accent2": "#eb5757",
-    "mood": "The Whiteboard template: one long clean white board (#fbfbf8) with a faint shine and a few ghost marks, flat bright light with a slight vignette, clean, no grain and no glow. Black marker (#1e1e1e) for most lines, even weight with rounded ends and a dry edge, drawn on stroke by stroke at writing speed (ink.js drawOn and write under url(#marker)); blue (#2f80ed) only for the key idea: the lithium ions and the key words; red (#eb5757) only for the warning: the electron the separator turns back. No large colour fills. Hand lettering in Patrick Hand, written on as said. The camera tracks along the one board from drawing to drawing (stage.camx); a drawing is erased with a quick wipe. Nothing moves except by being drawn, apart from the elements that slide to show the change: the ions, the electrons on the wire and the ball on the hill."
+    "mood": "The Whiteboard template: one long clean white board (#fbfbf8) with a faint shine and a few ghost marks, flat bright light with a slight vignette, clean, no grain and no glow. Black marker (#1e1e1e) for most lines, even weight with rounded ends and a dry edge, drawn on stroke by stroke at writing speed (ink.js drawOn and write under url(#marker)); blue (#2f80ed) only for the key idea: the lithium ions and the key words; red (#eb5757) only for the warning: the electron the separator turns back. No large colour fills. Hand lettering in Patrick Hand, written on as said. Captions: every spoken line hand-lettered near the bottom as it is said (subtitles), its *key* word in blue; the question in s02 is already lettered on the board, so that shot has no caption. The camera tracks along the one board from drawing to drawing (stage.camx); a drawing is erased with a quick wipe. Nothing moves except by being drawn, apart from the elements that slide to show the change: the ions, the electrons on the wire and the ball on the hill."
   },
   "music": {
     "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
     "bpm": 104,
-    "note": "A light, upbeat bed composed to the take's length: ukulele and pizzicato with a soft glockenspiel and finger snaps, no lead melody, low under the voice; it drops to a thin pulse under the hill (s11, s12) so the analogy lands, picks up as the phone lights (s16) and dips on 'habis' (s17); its tail runs on over the opening so the loop is seamless. Effects per shot, from the template's Sound line: marker squeaks for every stroke and word written (all shots), a tap on the '=' (s01) and the '?' (s02), a plug-in click (s08), light ticks as electrons run along the wire (s08, s15, s16), soft slides and clicks as ions settle (s09, s13, s17), a rising squeak as the ball is pushed up (s11), a quick wipe of the eraser (s10, s13), a dull bump for the blocked electron (s14), a small chime as the screen lights (s16), and the air of the board tracking by under s19. The cuts follow the take."
+    "note": "A light, upbeat bed composed to the take's length: ukulele and pizzicato with a soft glockenspiel and finger snaps, no lead melody, low under the voice; it drops to a thin pulse under the hill (s11, s12) so the analogy lands, picks up as the phone lights (s16) and dips on 'empty' (s17); its tail runs on over the opening so the loop is seamless. Effects per shot, from the template's Sound line: marker squeaks for every stroke and word written (all shots), a tap on the '=' (s01) and the '?' (s02), a plug-in click (s08), light ticks as electrons run along the wire (s08, s15, s16), soft slides and clicks as ions settle (s09, s09b, s13, s17), a rising squeak as the ball is pushed up (s11), a quick wipe of the eraser (s10, s13), a dull bump for the blocked electron (s14), a small chime as the screen lights (s16), and the air of the board tracking by under s19. The cuts follow the take."
   },
   "facts": [
     {
       "id": "f1",
-      "claim": "Phones run on lithium-ion batteries; the usual phone chemistry is lithium cobalt oxide (LiCoO₂) at the positive side and graphite at the negative side. The film calls the positive side 'logam oksida' and writes '(di HP: litium kobalt oksida)' small.",
+      "claim": "Phones run on lithium-ion batteries; the usual phone chemistry is lithium cobalt oxide (LiCoO₂) at the positive side and graphite at the negative side. The film calls the positive side 'metal oxide' and writes '(in phones: lithium cobalt oxide)' small.",
       "source": "Battery University (Cadex Electronics), BU-205 'Types of Lithium-ion' (batteryuniversity.com/article/bu-205-types-of-lithium-ion): 'Its high specific energy makes Li-cobalt the popular choice for mobile phones, laptops and digital cameras. The battery consists of a cobalt oxide cathode and a graphite carbon anode.' UL Research Institutes, 'What Are Lithium-Ion Batteries?' (ul.org/library/what-lithium-ion-battery-factsheet): li-ion powers 'our mobile phones'."
     },
     {
@@ -68,44 +69,44 @@
     },
     {
       "id": "f8",
-      "claim": "'Habis' (empty) is when the lithium has moved back to the oxide. Simplification: a phone stops at a cut-off voltage (Battery University gives a usable range of about 3.70 to 2.80 V per cell) before every last lithium has left the graphite, and some lithium is never moved; the film says 'udah pada turun' (most have gone down) and draws all six back.",
+      "claim": "'Empty' is when the lithium has moved back to the oxide. Simplification: a phone stops at a cut-off voltage (Battery University gives a usable range of about 3.70 to 2.80 V per cell) before every last lithium has left the graphite, and some lithium is never moved; the film says 'once it's all home' and draws all six back.",
       "source": "Battery University BU-204: 'the flat discharge curve offers effective utilization of the stored energy in a desirable and flat voltage spectrum of 3.70–2.80V/cell'; the direction of the ions on discharge as f3."
     }
   ],
   "acts": [
     {
       "id": "hook",
-      "title": "Pertanyaan",
+      "title": "The question",
       "goal": "Full and empty hold the same things: so where is the energy?",
       "rail": false
     },
     {
-      "id": "dalam",
-      "title": "Di dalam",
+      "id": "inside",
+      "title": "Inside",
       "goal": "Open the phone's battery: graphite, separator and electrolyte, metal oxide, and the lithium that moves.",
       "rail": false
     },
     {
-      "id": "ngecas",
-      "title": "Ngecas",
+      "id": "charge",
+      "title": "Charging",
       "goal": "Charging pushes electrons round and lithium into the graphite, where it is not comfortable.",
       "rail": false
     },
     {
-      "id": "energi",
-      "title": "Bukit",
+      "id": "energy",
+      "title": "The hill",
       "goal": "The ball pushed up a hill: the energy is in the lithium's position.",
       "rail": false
     },
     {
-      "id": "pakai",
-      "title": "Dipakai",
+      "id": "use",
+      "title": "In use",
       "goal": "Lithium goes back; the electrons can only go round through the phone: that is the current.",
       "rail": false
     },
     {
-      "id": "jawab",
-      "title": "Jawaban",
+      "id": "answer",
+      "title": "The answer",
       "goal": "Charging lifts lithium back up; nothing is filled; then the bridge into the first line.",
       "rail": false
     }
@@ -116,12 +117,11 @@
       "act": "hook",
       "type": "wide",
       "start": 0.0,
-      "end": 4.47,
-      "voice": "Baterai HP yang penuh sama yang kosong itu isinya *sama persis*.",
-      "caption": "isinya *sama persis*",
+      "end": 4.36,
+      "voice": "A full phone battery and an empty one hold *exactly the same* stuff.",
       "teaches": "The surprise that opens the question: a full phone battery and an empty one contain exactly the same things.",
-      "screen": "Frame 0 is finished: a clean white board (#fbfbf8) with a faint shine and a few ghost marks. Two phones seen from the back with the cover off, drawn in black marker: left one with a full battery icon and '100%' above it, 'penuh' under it; right one with an empty icon, '0%', 'kosong'. Each shows its flat battery with a window on its insides: two thin bands and a dashed line between them, and the same six blue lithium ions, in the left band of the full one and in the right band of the empty one. A big blue '=' between the phones.",
-      "motion": "The camera holds, then pushes in slowly toward the '='; on 'sama persis' the marker taps the '=' (a squeak) and the caption's key words are boxed in blue.",
+      "screen": "Frame 0 is finished: a clean white board (#fbfbf8) with a faint shine and a few ghost marks. Two phones seen from the back with the cover off, drawn in black marker: left one with a full battery icon and '100%' above it, 'full' under it; right one with an empty icon, '0%', 'empty'. Each shows its flat battery with a window on its insides: two thin bands and a dashed line between them, and the same six blue lithium ions, in the left band of the full one and in the right band of the empty one. A big blue '=' between the phones.",
+      "motion": "The camera holds, then pushes in slowly toward the '='; on 'exactly the same' the marker taps the '=' (a squeak). The spoken line is hand-lettered as a caption beside the bottom edge, word by word, 'exactly the same' in blue.",
       "carries": "The two phones (section A of the board).",
       "transition": "The camera tracks right to a clean stretch of board.",
       "sound": "The light, upbeat bed starts under the first word; a marker squeak on the '='.",
@@ -454,7 +454,7 @@
                 490,
                 920
               ],
-              "text": "penuh",
+              "text": "full",
               "size": 50
             },
             {
@@ -462,7 +462,7 @@
                 1430,
                 920
               ],
-              "text": "kosong",
+              "text": "empty",
               "size": 50
             }
           ]
@@ -790,7 +790,7 @@
                 490,
                 920
               ],
-              "text": "penuh",
+              "text": "full",
               "size": 50
             },
             {
@@ -798,7 +798,7 @@
                 1430,
                 920
               ],
-              "text": "kosong",
+              "text": "empty",
               "size": 50
             },
             {
@@ -808,7 +808,7 @@
         },
         {
           "at": 1,
-          "note": "The '=' tapped on 'sama persis'.",
+          "note": "The '=' tapped on 'exactly the same'.",
           "draw": [
             {
               "path": "M344 220 H636 Q680 220 680 264 V816 Q680 860 636 860 H344 Q300 860 300 816 V264 Q300 220 344 220 Z",
@@ -1129,7 +1129,7 @@
                 490,
                 920
               ],
-              "text": "penuh",
+              "text": "full",
               "size": 50
             },
             {
@@ -1137,7 +1137,7 @@
                 1430,
                 920
               ],
-              "text": "kosong",
+              "text": "empty",
               "size": 50
             },
             {
@@ -1150,7 +1150,7 @@
               "dashed": true
             },
             {
-              "cut": "geser kanan"
+              "cut": "track right"
             }
           ]
         }
@@ -1160,12 +1160,13 @@
       "id": "s02",
       "act": "hook",
       "type": "type",
-      "start": 4.47,
-      "end": 6.96,
-      "voice": "Terus, energinya disimpan *di mana*?",
-      "teaches": "Asks the one question: where does the energy go?",
-      "screen": "A clean stretch of board: a flat phone battery drawn on the left with a '?' inside it; on the right, written large in marker lettering (Patrick Hand), 'Energinya / disimpan di mana?' with 'di mana?' boxed in blue.",
-      "motion": "The camera tracks right along the board to a clean stretch; the battery is outlined fast, the '?' drawn in it; the words are written on as said; the blue box is drawn round 'di mana?' on the word.",
+      "start": 4.36,
+      "end": 5.88,
+      "voice": "So where's the *energy*?",
+      "caption": false,
+      "teaches": "Asks the one question: where is the energy kept?",
+      "screen": "A clean stretch of board: a flat phone battery drawn on the left with a '?' inside it; on the right, written large in marker lettering (Patrick Hand), 'Where's the / energy?' with 'energy?' boxed in blue. The lettering is the line, so no caption repeats it.",
+      "motion": "The camera tracks right along the board to a clean stretch; the battery is outlined fast, the '?' drawn in it; the words are written on as said; the blue box is drawn round 'energy?' on the word.",
       "carries": "The battery outline.",
       "transition": "The camera tracks right; the battery is drawn large.",
       "sound": "Marker squeaks while writing; a tap for the '?'.",
@@ -1194,7 +1195,7 @@
         },
         {
           "at": 0.5,
-          "note": "'Energinya' written.",
+          "note": "'Where's the' written.",
           "draw": [
             {
               "path": "M224 260 H536 Q560 260 560 284 V756 Q560 780 536 780 H224 Q200 780 200 756 V284 Q200 260 224 260 Z",
@@ -1213,14 +1214,14 @@
                 1180,
                 420
               ],
-              "text": "Energinya",
+              "text": "Where's the",
               "size": 120
             }
           ]
         },
         {
           "at": 1,
-          "note": "'disimpan di mana?' with 'di mana?' boxed in blue.",
+          "note": "'energy?' boxed in blue.",
           "draw": [
             {
               "path": "M224 260 H536 Q560 260 560 284 V756 Q560 780 536 780 H224 Q200 780 200 756 V284 Q200 260 224 260 Z",
@@ -1239,24 +1240,24 @@
                 1180,
                 420
               ],
-              "text": "Energinya",
+              "text": "Where's the",
               "size": 120
             },
             {
               "label": [
                 1180,
-                580
+                600
               ],
-              "text": "disimpan di mana?",
-              "size": 120
+              "text": "energy?",
+              "size": 140
             },
             {
-              "path": "M1201 488 H1594 Q1610 488 1610 504 V597 Q1610 613 1594 613 H1201 Q1185 613 1185 597 V504 Q1185 488 1201 488 Z",
+              "path": "M978 480 H1382 Q1400 480 1400 498 V622 Q1400 640 1382 640 H978 Q960 640 960 622 V498 Q960 480 978 480 Z",
               "colour": "blue",
               "width": 6
             },
             {
-              "cut": "geser kanan"
+              "cut": "track right"
             }
           ]
         }
@@ -1264,15 +1265,14 @@
     },
     {
       "id": "s03",
-      "act": "dalam",
+      "act": "inside",
       "type": "diagram",
-      "start": 6.96,
-      "end": 8.26,
-      "voice": "Coba kita *buka*.",
-      "caption": "kita *buka*",
+      "start": 5.88,
+      "end": 7.18,
+      "voice": "Let's *open* one.",
       "teaches": "Look inside the real thing: a phone's battery is a flat sealed pouch.",
-      "screen": "A phone battery drawn large: a flat pouch 800 x 540 px with a thin circuit strip along its top edge and a little flex connector, labelled 'baterai HP' with a leader; a dashed cut line along its right edge.",
-      "motion": "The camera tracks right along the board to a clean stretch; the pouch is drawn at writing speed; the cut line is dashed down its right edge as the voice says 'buka'.",
+      "screen": "A phone battery drawn large: a flat pouch 800 x 540 px with a thin circuit strip along its top edge and a little flex connector, labelled 'phone battery' with a leader; a dashed cut line along its right edge.",
+      "motion": "The camera tracks right along the board to a clean stretch; the pouch is drawn at writing speed; the cut line is dashed down its right edge as the voice says 'open'.",
       "carries": "The pouch.",
       "transition": "Continuous: the pouch opens and its insides are drawn.",
       "sound": "A long marker stroke; a short squeak for each dash.",
@@ -1295,10 +1295,10 @@
             },
             {
               "label": [
-                1400,
+                1420,
                 300
               ],
-              "text": "baterai HP",
+              "text": "phone battery",
               "size": 54
             },
             {
@@ -1329,10 +1329,10 @@
             },
             {
               "label": [
-                1400,
+                1420,
                 300
               ],
-              "text": "baterai HP",
+              "text": "phone battery",
               "size": 54
             },
             {
@@ -1355,7 +1355,7 @@
               "width": 5
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -1363,19 +1363,18 @@
     },
     {
       "id": "s04",
-      "act": "dalam",
+      "act": "inside",
       "type": "diagram",
-      "start": 8.26,
-      "end": 11.32,
-      "voice": "Isinya lembaran tipis yang *digulung* rapat.",
-      "caption": "lembaran *digulung*",
+      "start": 7.18,
+      "end": 9.67,
+      "voice": "Inside, thin sheets, *rolled* up tight.",
       "teaches": "Inside are thin sheets wound tightly into a flat roll.",
-      "screen": "Inside the opened pouch, a flattened roll drawn as nested rounded rectangles; from its right side a strip unrolls across the board as three long layers, top to bottom: a thick line (grafit), a dashed line (sekat), a thick line (logam oksida), each labelled at its right end.",
+      "screen": "Inside the opened pouch, a flattened roll drawn as nested rounded rectangles; from its right side a strip unrolls across the board as three long layers, top to bottom: a thick line (graphite), a dashed line (separator), a thick line (metal oxide), each labelled at its right end.",
       "motion": "The nested turns are drawn from outside in; then the strip is pulled out to the right in one long stroke for each layer, and the three labels are written.",
       "carries": "The three layers of the strip.",
       "transition": "The camera tracks right along the strip, which grows into a big slice of the cell.",
       "sound": "A quick spiral of squeaks; three long strokes.",
-      "check": "Three layers in the order graphite, separator, oxide.",
+      "check": "Three layers in the order graphite, separator, metal oxide.",
       "facts": [
         "f2"
       ],
@@ -1466,7 +1465,7 @@
                 1760,
                 360
               ],
-              "text": "dibuka"
+              "text": "unrolled"
             }
           ]
         },
@@ -1520,7 +1519,7 @@
                 1640,
                 405
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 40
             },
             {
@@ -1528,7 +1527,7 @@
                 1640,
                 455
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 36
             },
             {
@@ -1536,11 +1535,11 @@
                 1640,
                 575
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 40
             },
             {
-              "cut": "ikuti lembaran"
+              "cut": "follow the strip"
             }
           ]
         }
@@ -1548,15 +1547,14 @@
     },
     {
       "id": "s05",
-      "act": "dalam",
+      "act": "inside",
       "type": "compare",
-      "start": 11.32,
-      "end": 14.52,
-      "voice": "Satu sisi *grafit*, sisi lainnya *logam oksida*,",
-      "caption": "grafit | *logam oksida*",
+      "start": 9.67,
+      "end": 12.8,
+      "voice": "*Graphite* on one side, *metal oxide* on the other,",
       "teaches": "The two sides of the sandwich: graphite on one side, a metal oxide on the other.",
-      "screen": "The slice of the cell, large: the graphite block on the left drawn as stacked sheets, labelled 'grafit'; the oxide block on the right drawn as rows of small rings, labelled 'logam oksida' and, small, '(di HP: litium kobalt oksida)'.",
-      "motion": "The camera tracks right along the board to a clean stretch; the graphite block is drawn sheet by sheet as 'grafit' is said, the oxide block ring by ring as 'logam oksida' is said.",
+      "screen": "The slice of the cell, large: the graphite block on the left drawn as stacked sheets, labelled 'graphite'; the oxide block on the right drawn as rows of small rings, labelled 'metal oxide' and, small, '(in phones: lithium cobalt oxide)'.",
+      "motion": "The camera tracks right along the board to a clean stretch; the graphite block is drawn sheet by sheet as 'graphite' is said, the oxide block ring by ring as 'metal oxide' is said.",
       "carries": "The two blocks.",
       "transition": "Continuous: the middle is filled.",
       "sound": "Short repeated strokes; a dotted tapping for the rings.",
@@ -1611,7 +1609,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -2014,14 +2012,14 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             }
           ]
         },
         {
           "at": 1,
-          "note": "Both labelled; '(di HP: litium kobalt oksida)' small.",
+          "note": "Both labelled; '(in phones: lithium cobalt oxide)' small.",
           "draw": [
             {
               "path": "M170 400 H470 V840 H170 Z",
@@ -2414,7 +2412,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -2422,7 +2420,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -2430,11 +2428,11 @@
                 1080,
                 370
               ],
-              "text": "(di HP: litium kobalt oksida)",
+              "text": "(in phones: lithium cobalt oxide)",
               "size": 30
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -2442,14 +2440,13 @@
     },
     {
       "id": "s06",
-      "act": "dalam",
+      "act": "inside",
       "type": "diagram",
-      "start": 14.52,
-      "end": 16.94,
-      "voice": "dan di tengahnya ada *sekat* tipis.",
-      "caption": "*sekat* + elektrolit",
+      "start": 12.8,
+      "end": 14.51,
+      "voice": "a thin *separator* between,",
       "teaches": "Between them: a thin separator, soaked in electrolyte.",
-      "screen": "The cell as a slice through its sheets, filling the left two thirds: on the left a block of graphite drawn as stacked horizontal sheets (x 170-470), on the right a block of metal oxide drawn as rows of small rings (x 930-1230), between them the electrolyte marked with a few '~' and the separator as a dashed vertical line at x 700; labels with leaders underneath ('grafit', 'elektrolit', 'logam oksida') and 'sekat' over the separator; small, bottom right, 'skema, bukan skala'.",
+      "screen": "The cell as a slice through its sheets, filling the left two thirds: on the left a block of graphite drawn as stacked horizontal sheets (x 170-470), on the right a block of metal oxide drawn as rows of small rings (x 930-1230), between them the electrolyte marked with a few '~' and the separator as a dashed vertical line at x 700; labels with leaders underneath ('graphite', 'electrolyte', 'metal oxide') and 'separator' over the separator; small, top right, 'schematic, not to scale'.",
       "motion": "The dashed separator is drawn down the middle; the '~' marks of the electrolyte are dotted in; the labels are written.",
       "carries": "The whole cell.",
       "transition": "Continuous: the lithium ions are drawn in.",
@@ -2856,7 +2853,7 @@
                 740,
                 840
               ],
-              "text": "sekat"
+              "text": "separator"
             }
           ]
         },
@@ -3255,7 +3252,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -3272,7 +3269,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -3289,7 +3286,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -3306,7 +3303,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -3314,11 +3311,11 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -3326,14 +3323,13 @@
     },
     {
       "id": "s07",
-      "act": "dalam",
+      "act": "inside",
       "type": "wide",
-      "start": 16.94,
-      "end": 20.35,
-      "voice": "Litium bisa *bolak-balik* di antara dua sisi itu.",
-      "caption": "*litium* bolak-balik",
+      "start": 14.51,
+      "end": 16.29,
+      "voice": "and *lithium* moving across.",
       "teaches": "The thing that moves: lithium, which can sit on either side and travel between them.",
-      "screen": "The whole cell, pulled back a little; six blue lithium ions (a ring with a plus) sitting between the oxide rows on the right; a blue double arrow across the middle, 'litium'; the external wire drawn over the top from the graphite to the oxide, with a gap in the middle where something will plug in.",
+      "screen": "The whole cell, pulled back a little; six blue lithium ions (a ring with a plus) sitting between the oxide rows on the right; a blue double arrow across the middle, 'lithium'; the external wire drawn over the top from the graphite to the oxide, with a gap in the middle where something will plug in.",
       "motion": "The six ions are drawn in, the double arrow, then the wire in two strokes.",
       "carries": "The cell with its six ions and the wire.",
       "transition": "Continuous: a charger is drawn into the gap.",
@@ -3738,7 +3734,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -3755,7 +3751,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -3772,7 +3768,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -3789,7 +3785,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -3797,7 +3793,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -3891,7 +3887,7 @@
         },
         {
           "at": 0.5,
-          "note": "A blue double arrow across the middle: 'litium'.",
+          "note": "A blue double arrow across the middle: 'lithium'.",
           "draw": [
             {
               "path": "M170 400 H470 V840 H170 Z",
@@ -4284,7 +4280,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -4301,7 +4297,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -4318,7 +4314,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -4335,7 +4331,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -4343,7 +4339,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -4453,7 +4449,7 @@
                 700,
                 280
               ],
-              "text": "litium",
+              "text": "lithium",
               "size": 40,
               "colour": "blue"
             }
@@ -4854,7 +4850,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -4871,7 +4867,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -4888,7 +4884,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -4905,7 +4901,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -4913,7 +4909,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -5005,7 +5001,7 @@
               "width": 6
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -5013,14 +5009,13 @@
     },
     {
       "id": "s08",
-      "act": "ngecas",
+      "act": "charge",
       "type": "diagram",
-      "start": 20.35,
-      "end": 24.82,
-      "voice": "Waktu kamu ngecas, charger ngedorong *elektron* masuk ke grafit.",
-      "caption": "ngecas: *elektron* ke grafit",
+      "start": 16.29,
+      "end": 19.23,
+      "voice": "Charging pushes *electrons* into the graphite,",
       "teaches": "Charging: the charger pushes electrons round the outside wire into the graphite.",
-      "screen": "The cell with a wall charger drawn in the gap of the wire (a box with two prongs, 'charger'); small black dots (electrons, the first tagged 'elektron') travelling along the wire from the oxide side, through the charger, down into the graphite; a black arrow on the wire shows the direction.",
+      "screen": "The cell with a wall charger drawn in the gap of the wire (a box with two prongs, 'charger'); small black dots (electrons, the first tagged 'electron') travelling along the wire from the oxide side, through the charger, down into the graphite; a black arrow on the wire shows the direction.",
       "motion": "The charger is drawn; the electrons slide along the wire (one of the few things that move without being drawn) from right to left, piling into the graphite.",
       "carries": "The charger and the electrons in the graphite.",
       "transition": "Continuous: the ions follow inside.",
@@ -5425,7 +5420,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -5442,7 +5437,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -5459,7 +5454,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -5476,7 +5471,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -5484,7 +5479,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -5988,7 +5983,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -6005,7 +6000,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -6022,7 +6017,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -6039,7 +6034,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -6047,7 +6042,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -6167,7 +6162,7 @@
                 1106,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -6600,7 +6595,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -6617,7 +6612,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -6634,7 +6629,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -6651,7 +6646,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -6659,7 +6654,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -6779,7 +6774,7 @@
                 1106,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -6840,7 +6835,7 @@
               ]
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -6848,12 +6843,11 @@
     },
     {
       "id": "s09",
-      "act": "ngecas",
+      "act": "charge",
       "type": "wide",
-      "start": 24.82,
-      "end": 26.89,
-      "voice": "Ion litiumnya ikut *nyebrang*,",
-      "caption": "litium *nyebrang*",
+      "start": 19.23,
+      "end": 21.07,
+      "voice": "and lithium ions *cross* over",
       "teaches": "At the same time the lithium ions leave the oxide and cross the electrolyte and the separator.",
       "screen": "The whole cell with the charger in the wire and the electrons piled in the graphite: the six blue ions slide out of the oxide, through the electrolyte and the dashed separator, toward the graphite; a blue arrow over the middle shows the way.",
       "motion": "The ions slide one after another (elements that slide to show a change), right to left, in step with the electrons arriving on the wire.",
@@ -7261,7 +7255,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -7278,7 +7272,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -7295,7 +7289,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -7312,7 +7306,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -7320,7 +7314,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -7356,7 +7350,7 @@
                 1106,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -7499,7 +7493,7 @@
                 720,
                 560
               ],
-              "text": "nyebrang"
+              "text": "crossing"
             }
           ]
         },
@@ -7898,7 +7892,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -7915,7 +7909,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -7932,7 +7926,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -7949,7 +7943,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -7957,7 +7951,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -7993,7 +7987,7 @@
                 1106,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -8139,7 +8133,7 @@
               "colour": "blue"
             },
             {
-              "cut": "dorong ke grafit"
+              "cut": "push in on the graphite"
             }
           ]
         }
@@ -8147,12 +8141,11 @@
     },
     {
       "id": "s09b",
-      "act": "ngecas",
+      "act": "charge",
       "type": "diagram",
-      "start": 26.89,
-      "end": 29.31,
-      "voice": "terus *nyelip* di sela-sela grafit.",
-      "caption": "*nyelip* di grafit",
+      "start": 21.07,
+      "end": 22.98,
+      "voice": "and *slip* between its layers.",
       "teaches": "The ions slip in between the graphite's sheets and stay there.",
       "screen": "Pushed in on the graphite: its sheets drawn as long parallel lines (110 px apart) ending at the block's edge, the separator dashed on the right; blue ions arrive from the right and slide into the gaps between the sheets.",
       "motion": "The camera pushes in; three ions slide in from the right and each settles in a gap between two sheets with a small click.",
@@ -8216,7 +8209,7 @@
                 560,
                 200
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 54
             },
             {
@@ -8224,7 +8217,7 @@
                 1500,
                 150
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 46
             },
             {
@@ -8276,7 +8269,7 @@
                 820,
                 330
               ],
-              "text": "nyelip"
+              "text": "slips in"
             },
             {
               "camera": "push"
@@ -8335,7 +8328,7 @@
                 560,
                 200
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 54
             },
             {
@@ -8343,7 +8336,7 @@
                 1500,
                 150
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 46
             },
             {
@@ -8442,7 +8435,7 @@
                 560,
                 200
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 54
             },
             {
@@ -8450,7 +8443,7 @@
                 1500,
                 150
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 46
             },
             {
@@ -8496,7 +8489,7 @@
               "width": 4
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -8504,14 +8497,13 @@
     },
     {
       "id": "s10",
-      "act": "ngecas",
+      "act": "charge",
       "type": "compare",
-      "start": 29.31,
-      "end": 32.16,
-      "voice": "Masalahnya, litium *nggak betah* di situ.",
-      "caption": "litium *nggak betah*",
+      "start": 22.98,
+      "end": 26.18,
+      "voice": "Here's the catch: lithium *doesn't like* it there.",
       "teaches": "In the graphite the lithium is only loosely held; in the oxide it is held tightly.",
-      "screen": "Two close-ups side by side: left, an ion between two graphite sheets with room round it and small wobble marks, 'longgar: nggak betah'; right, an ion wedged between rings of the oxide with short bond strokes to them, 'terikat kuat: betah'.",
+      "screen": "Two close-ups side by side: left, an ion between two graphite sheets with room round it and small wobble marks, 'loose: doesn't like it here'; right, an ion wedged between rings of the oxide with short bond strokes to them, 'held tight: at home'.",
       "motion": "From the graphite close-up the view narrows to one ion between two sheets in the left half; the oxide close-up is drawn on the right; the wobble marks on the left boil, the right ion stays still.",
       "carries": "The idea: graphite is the uncomfortable place.",
       "transition": "The close-ups are wiped; the camera pulls back and a hill is drawn beside the cell.",
@@ -8546,7 +8538,7 @@
                 490,
                 230
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 54
             },
             {
@@ -8568,7 +8560,7 @@
                 1440,
                 230
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 54
             },
             {
@@ -8727,7 +8719,7 @@
                 490,
                 230
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 54
             },
             {
@@ -8753,15 +8745,15 @@
                 490,
                 850
               ],
-              "text": "longgar: nggak betah",
-              "size": 50
+              "text": "loose: doesn't like it here",
+              "size": 48
             },
             {
               "label": [
                 1440,
                 230
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 54
             },
             {
@@ -8899,14 +8891,14 @@
                 1440,
                 850
               ],
-              "text": "terikat kuat: betah",
-              "size": 50
+              "text": "held tight: at home",
+              "size": 48
             }
           ]
         },
         {
           "at": 1,
-          "note": "Both labelled: 'nggak betah', 'betah'.",
+          "note": "Both labelled: 'doesn't like it here', 'at home'.",
           "draw": [
             {
               "path": "M120 300 H860",
@@ -8929,7 +8921,7 @@
                 490,
                 230
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 54
             },
             {
@@ -8955,15 +8947,15 @@
                 490,
                 850
               ],
-              "text": "longgar: nggak betah",
-              "size": 50
+              "text": "loose: doesn't like it here",
+              "size": 48
             },
             {
               "label": [
                 1440,
                 230
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 54
             },
             {
@@ -9101,11 +9093,11 @@
                 1440,
                 850
               ],
-              "text": "terikat kuat: betah",
-              "size": 50
+              "text": "held tight: at home",
+              "size": 48
             },
             {
-              "cut": "hapus, bukit"
+              "cut": "wipe, a hill"
             }
           ]
         }
@@ -9113,15 +9105,14 @@
     },
     {
       "id": "s11",
-      "act": "energi",
+      "act": "energy",
       "type": "chart",
-      "start": 32.16,
-      "end": 35.64,
-      "voice": "Ibaratnya bola yang didorong naik ke atas *bukit*:",
-      "caption": "naik *bukit*",
+      "start": 26.18,
+      "end": 28.15,
+      "voice": "It's a ball pushed up a *hill*:",
       "teaches": "An analogy: putting lithium into the graphite is like pushing a ball up a hill.",
-      "screen": "Back to the whole cell (charger, six ions in the graphite) and, in the right third of the board, a hill drawn as one marker line: high and flat on the left, labelled 'di grafit', curving down to 'di logam oksida' at the right; a blue ion as the ball, pushed up the slope to the top.",
-      "motion": "The camera pulls back; the hill is drawn in one stroke; the ball slides up the slope with a dashed blue arrow 'didorong naik' and stops on the top.",
+      "screen": "Back to the whole cell (charger, six ions in the graphite) and, in the right third of the board, a hill drawn as one marker line: high and flat on the left, labelled 'in graphite', curving down to 'in metal oxide' at the right; a blue ion as the ball, pushed up the slope to the top.",
+      "motion": "The camera pulls back; the hill is drawn in one stroke; the ball slides up the slope with a dashed blue arrow 'pushed up' and stops on the top.",
       "carries": "The hill with the ball on top.",
       "transition": "Continuous: the height is marked.",
       "sound": "A rising squeak as the ball goes up.",
@@ -9525,7 +9516,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -9542,7 +9533,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -9559,7 +9550,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -9576,7 +9567,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -9584,7 +9575,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -9714,7 +9705,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -9722,7 +9713,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -10125,7 +10116,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -10142,7 +10133,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -10159,7 +10150,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -10176,7 +10167,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -10184,7 +10175,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -10314,7 +10305,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -10322,7 +10313,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -10332,7 +10323,7 @@
                 1460,
                 420
               ],
-              "text": "didorong naik"
+              "text": "pushed up"
             }
           ]
         },
@@ -10731,7 +10722,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -10748,7 +10739,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -10765,7 +10756,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -10782,7 +10773,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -10790,7 +10781,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -10920,7 +10911,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -10928,11 +10919,11 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -10940,14 +10931,13 @@
     },
     {
       "id": "s12",
-      "act": "energi",
+      "act": "energy",
       "type": "chart",
-      "start": 35.64,
-      "end": 38.13,
-      "voice": "energinya tersimpan di *posisi* itu.",
-      "caption": "energi = *posisi*",
+      "start": 28.15,
+      "end": 30.19,
+      "voice": "the energy is in its *position*.",
       "teaches": "The stored energy is the lithium's position: up in the graphite.",
-      "screen": "The same board: a dashed ground line under the hill and, at its left, a measure from the ground up to the top where the ball sits, labelled 'energi tersimpan' in blue; in the cell the six ions in the graphite get a blue bracket: they are the ball at the top.",
+      "screen": "The same board: a dashed ground line under the hill and, at its left, a measure from the ground up to the top where the ball sits, labelled 'stored energy' in blue; in the cell the six ions in the graphite get a blue bracket: they are the ball at the top.",
       "motion": "The measure is drawn up beside the slope and written; then the bracket in the cell.",
       "carries": "Ball on top, ions in the graphite.",
       "transition": "The charger is wiped; a phone is drawn into the gap.",
@@ -11353,7 +11343,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -11370,7 +11360,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -11387,7 +11377,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -11404,7 +11394,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -11412,7 +11402,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -11542,7 +11532,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -11550,7 +11540,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -11567,7 +11557,7 @@
         },
         {
           "at": 1,
-          "note": "'energi tersimpan'; the ions bracketed.",
+          "note": "'stored energy'; the ions bracketed.",
           "draw": [
             {
               "path": "M170 400 H470 V840 H170 Z",
@@ -11960,7 +11950,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -11977,7 +11967,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -11994,7 +11984,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -12011,7 +12001,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -12019,7 +12009,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -12149,7 +12139,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -12157,7 +12147,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -12175,7 +12165,7 @@
                 1480,
                 680
               ],
-              "text": "energi",
+              "text": "stored",
               "size": 44,
               "colour": "blue"
             },
@@ -12184,7 +12174,7 @@
                 1480,
                 730
               ],
-              "text": "tersimpan",
+              "text": "energy",
               "size": 44,
               "colour": "blue"
             },
@@ -12194,7 +12184,7 @@
               "width": 6
             },
             {
-              "cut": "hapus charger, gambar HP"
+              "cut": "wipe the charger, draw the phone"
             }
           ]
         }
@@ -12202,15 +12192,14 @@
     },
     {
       "id": "s13",
-      "act": "pakai",
+      "act": "use",
       "type": "diagram",
-      "start": 38.13,
-      "end": 41.26,
-      "voice": "Begitu HP dipakai, litiumnya pengin *pulang*.",
-      "caption": "dipakai: *pulang*",
-      "teaches": "Using the phone: the lithium heads home, back down to the oxide ('pulang' answers 'nggak betah').",
-      "screen": "The charger is wiped out of the gap and a small phone is drawn there instead, 'HP'; in the cell the first ions leave the graphite toward the oxide; on the hill the ball starts to roll down.",
-      "motion": "A quick wipe takes the charger; the phone is drawn in its place; two ions slide right through the electrolyte; the ball rolls a little way down with a dashed arrow 'turun'.",
+      "start": 30.19,
+      "end": 33.32,
+      "voice": "Now use your phone, and the lithium heads *home*.",
+      "teaches": "Using the phone: the lithium heads home, back down to the oxide ('home' answers 'doesn't like it there').",
+      "screen": "The charger is wiped out of the gap and a small phone is drawn there instead, 'phone'; in the cell the first ions leave the graphite toward the oxide; on the hill the ball starts to roll down.",
+      "motion": "A quick wipe takes the charger; the phone is drawn in its place; two ions slide right through the electrolyte; the ball rolls a little way down with a dashed arrow 'rolls down'.",
       "carries": "The phone in the circuit, ions on the move.",
       "transition": "The camera pushes in on the separator.",
       "sound": "A quick wipe; a soft roll for the ball.",
@@ -12615,7 +12604,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -12632,7 +12621,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -12649,7 +12638,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -12666,7 +12655,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -12674,7 +12663,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -12694,7 +12683,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -12804,7 +12793,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -12812,7 +12801,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             }
           ]
@@ -13212,7 +13201,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -13229,7 +13218,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -13246,7 +13235,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -13263,7 +13252,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -13271,7 +13260,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -13291,7 +13280,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -13385,7 +13374,7 @@
                 900,
                 340
               ],
-              "text": "pulang"
+              "text": "home"
             },
             {
               "path": "M1320 430 H1440 C 1560 430, 1600 830, 1820 830",
@@ -13410,7 +13399,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -13418,7 +13407,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -13428,7 +13417,7 @@
                 1720,
                 780
               ],
-              "text": "turun"
+              "text": "rolls down"
             }
           ]
         },
@@ -13827,7 +13816,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -13844,7 +13833,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -13861,7 +13850,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -13878,7 +13867,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -13886,7 +13875,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -13906,7 +13895,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -14016,7 +14005,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -14024,11 +14013,11 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
-              "cut": "dorong ke sekat"
+              "cut": "push in on the separator"
             }
           ]
         }
@@ -14036,14 +14025,13 @@
     },
     {
       "id": "s14",
-      "act": "pakai",
+      "act": "use",
       "type": "compare",
-      "start": 41.26,
-      "end": 45.09,
-      "voice": "Ionnya bisa lewat sekat, tapi elektronnya *nggak bisa*.",
-      "caption": "elektron *nggak bisa* lewat",
+      "start": 33.32,
+      "end": 36.13,
+      "voice": "Ions cross the separator. Electrons *can't*.",
       "teaches": "The separator lets the ions through but not the electrons: the electron is stopped at the same kind of opening the ion used, so it is not a matter of size (the electrolyte and the separator carry ions, never electrons).",
-      "screen": "Close on the separator, drawn as a thick wall with gaps (pores): a blue ion passes through a pore to the right; a black electron dot runs at the wall and is stopped, a red cross on it and a red arrow turning it back, 'elektron nggak bisa lewat' in red.",
+      "screen": "Close on the separator, drawn as a thick wall with gaps (pores): a blue ion passes through a pore to the right, 'through a pore'; a black electron dot runs at the wall and is stopped, a red cross on it and a red arrow turning it back, 'electrons can't pass' in red.",
       "motion": "The camera pushes in; the ion slides through the pore; the electron bumps the wall, the red cross is drawn and it is turned back.",
       "carries": "The turned-back electron.",
       "transition": "The camera pulls back to the whole circuit.",
@@ -14070,7 +14058,7 @@
                 960,
                 110
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 52
             },
             {
@@ -14078,7 +14066,7 @@
                 470,
                 200
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 50
             },
             {
@@ -14094,7 +14082,7 @@
                 1450,
                 200
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 50
             },
             {
@@ -14149,7 +14137,7 @@
                 960,
                 110
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 52
             },
             {
@@ -14157,7 +14145,7 @@
                 470,
                 200
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 50
             },
             {
@@ -14173,7 +14161,7 @@
                 1450,
                 200
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 50
             },
             {
@@ -14211,7 +14199,7 @@
                 1250,
                 320
               ],
-              "text": "lewat pori",
+              "text": "through a pore",
               "size": 46,
               "colour": "blue"
             },
@@ -14232,7 +14220,7 @@
         },
         {
           "at": 1,
-          "note": "The electron turned back: 'elektron nggak bisa lewat'.",
+          "note": "The electron turned back: 'electrons can't pass'.",
           "draw": [
             {
               "path": "M900 140 V360 M900 420 V610 M900 670 V880 M1020 140 V360 M1020 420 V610 M1020 670 V880",
@@ -14247,7 +14235,7 @@
                 960,
                 110
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 52
             },
             {
@@ -14255,7 +14243,7 @@
                 470,
                 200
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 50
             },
             {
@@ -14271,7 +14259,7 @@
                 1450,
                 200
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 50
             },
             {
@@ -14309,7 +14297,7 @@
                 1250,
                 320
               ],
-              "text": "lewat pori",
+              "text": "through a pore",
               "size": 46,
               "colour": "blue"
             },
@@ -14340,12 +14328,12 @@
                 560,
                 830
               ],
-              "text": "elektron nggak bisa lewat",
-              "size": 48,
+              "text": "electrons can't pass",
+              "size": 50,
               "colour": "red"
             },
             {
-              "cut": "mundur ke rangkaian"
+              "cut": "pull back to the circuit"
             }
           ]
         }
@@ -14353,12 +14341,11 @@
     },
     {
       "id": "s15",
-      "act": "pakai",
+      "act": "use",
       "type": "diagram",
-      "start": 45.09,
-      "end": 48.22,
-      "voice": "Jadi elektron terpaksa *muter* lewat HP kamu.",
-      "caption": "elektron lewat *HP*",
+      "start": 36.13,
+      "end": 39.46,
+      "voice": "So they go the *long way* round, through your phone.",
       "teaches": "So the electrons take the long way round: out of the graphite, along the wire, through the phone, into the oxide.",
       "screen": "The whole circuit again: electrons running from the graphite up the wire, through the phone, and down into the oxide, with black arrows on the wire; inside, the ions keep crossing to the oxide.",
       "motion": "The camera pulls back; the electron dots run round the wire left to right while the ions cross inside, in step.",
@@ -14765,7 +14752,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -14782,7 +14769,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -14799,7 +14786,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -14816,7 +14803,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -14824,7 +14811,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -14844,7 +14831,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -14954,7 +14941,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -14962,7 +14949,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -15365,7 +15352,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -15382,7 +15369,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -15399,7 +15386,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -15416,7 +15403,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -15424,7 +15411,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -15444,7 +15431,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -15544,7 +15531,7 @@
                 346,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -15595,7 +15582,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -15603,7 +15590,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             }
           ]
@@ -16003,7 +15990,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -16020,7 +16007,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -16037,7 +16024,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -16054,7 +16041,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -16062,7 +16049,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -16082,7 +16069,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -16182,7 +16169,7 @@
                 346,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -16265,7 +16252,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -16273,11 +16260,11 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -16285,15 +16272,14 @@
     },
     {
       "id": "s16",
-      "act": "pakai",
+      "act": "use",
       "type": "wide",
-      "start": 48.22,
-      "end": 51.84,
-      "voice": "Aliran elektron itulah *listrik* yang nyalain HP-mu.",
-      "caption": "*arus listrik*",
+      "start": 39.46,
+      "end": 42.53,
+      "voice": "That flow is the *current* that runs your phone.",
       "teaches": "That flow of electrons through the phone is the electric current that runs it.",
-      "screen": "The same circuit: the phone's screen lights (three blue rays above it), a blue label 'arus listrik' along the wire with an arrow; electrons all along the wire.",
-      "motion": "The rays are drawn on 'listrik'; the label is written along the wire; the dots keep running.",
+      "screen": "The same circuit: the phone's screen lights (three blue rays above it), a blue label 'current' along the wire; electrons all along the wire.",
+      "motion": "The rays are drawn on 'current'; the label is written along the wire; the dots keep running.",
       "carries": "The lit phone, the current.",
       "transition": "Continuous: the last ions arrive in the oxide.",
       "sound": "A small bright chime as the screen lights.",
@@ -16697,7 +16683,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -16714,7 +16700,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -16731,7 +16717,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -16748,7 +16734,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -16756,7 +16742,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -16776,7 +16762,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -16876,7 +16862,7 @@
                 346,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -16951,7 +16937,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -16959,7 +16945,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             }
           ]
@@ -17359,7 +17345,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -17376,7 +17362,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -17393,7 +17379,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -17410,7 +17396,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -17418,7 +17404,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -17443,7 +17429,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -17543,7 +17529,7 @@
                 346,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -17618,7 +17604,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -17626,14 +17612,14 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             }
           ]
         },
         {
           "at": 1,
-          "note": "'arus listrik' along the wire.",
+          "note": "'current' along the wire.",
           "draw": [
             {
               "path": "M170 400 H470 V840 H170 Z",
@@ -18026,7 +18012,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -18043,7 +18029,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -18060,7 +18046,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -18077,7 +18063,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -18085,7 +18071,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -18110,7 +18096,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -18210,7 +18196,7 @@
                 346,
                 316
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -18267,7 +18253,7 @@
                 470,
                 160
               ],
-              "text": "arus listrik",
+              "text": "current",
               "size": 44,
               "colour": "blue"
             },
@@ -18294,7 +18280,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -18302,11 +18288,11 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
-              "cut": "tanpa potongan"
+              "cut": "continuous"
             }
           ]
         }
@@ -18314,12 +18300,11 @@
     },
     {
       "id": "s17",
-      "act": "pakai",
+      "act": "use",
       "type": "diagram",
-      "start": 51.84,
-      "end": 55.46,
-      "voice": "Kalau litiumnya udah pada turun, baterainya *habis*.",
-      "caption": "semua turun = *habis*",
+      "start": 42.53,
+      "end": 45.21,
+      "voice": "Once it's all home, the battery's *empty*.",
       "teaches": "When the lithium is back in the oxide, the battery is empty.",
       "screen": "All six ions back between the oxide rows (as in s07); the ball at the bottom of the hill; the phone's screen dark with a small empty battery icon, '0%'.",
       "motion": "The last ions slide home; the ball rolls to the bottom; the rays are wiped and the empty icon drawn.",
@@ -18727,7 +18712,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -18744,7 +18729,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -18761,7 +18746,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -18778,7 +18763,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -18786,7 +18771,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -18811,7 +18796,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -18911,7 +18896,7 @@
                 586,
                 186
               ],
-              "text": "elektron",
+              "text": "electron",
               "size": 34,
               "align": "start"
             },
@@ -18962,7 +18947,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -18970,7 +18955,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             }
           ]
@@ -19370,7 +19355,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -19387,7 +19372,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -19404,7 +19389,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -19421,7 +19406,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -19429,7 +19414,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -19449,7 +19434,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -19559,7 +19544,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -19567,7 +19552,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             }
           ]
@@ -19967,7 +19952,7 @@
                 320,
                 905
               ],
-              "text": "grafit",
+              "text": "graphite",
               "size": 46
             },
             {
@@ -19984,7 +19969,7 @@
                 1080,
                 905
               ],
-              "text": "logam oksida",
+              "text": "metal oxide",
               "size": 46
             },
             {
@@ -20001,7 +19986,7 @@
                 585,
                 905
               ],
-              "text": "elektrolit",
+              "text": "electrolyte",
               "size": 40
             },
             {
@@ -20018,7 +20003,7 @@
                 700,
                 370
               ],
-              "text": "sekat",
+              "text": "separator",
               "size": 42
             },
             {
@@ -20026,7 +20011,7 @@
                 1640,
                 110
               ],
-              "text": "skema, bukan skala",
+              "text": "schematic, not to scale",
               "size": 32
             },
             {
@@ -20046,7 +20031,7 @@
                 890,
                 160
               ],
-              "text": "HP",
+              "text": "phone",
               "size": 48
             },
             {
@@ -20156,7 +20141,7 @@
                 1400,
                 350
               ],
-              "text": "di grafit",
+              "text": "in graphite",
               "size": 40
             },
             {
@@ -20164,7 +20149,7 @@
                 1640,
                 905
               ],
-              "text": "di logam oksida",
+              "text": "in metal oxide",
               "size": 40
             },
             {
@@ -20180,7 +20165,7 @@
               "width": 3
             },
             {
-              "cut": "geser ke rangkuman"
+              "cut": "track to the summary"
             }
           ]
         }
@@ -20188,14 +20173,13 @@
     },
     {
       "id": "s18",
-      "act": "jawab",
+      "act": "answer",
       "type": "recap",
-      "start": 55.46,
-      "end": 60.77,
-      "voice": "Jadi ngecas itu bukan ngisi listrik, tapi *ngangkat litium* naik bukit lagi.",
-      "caption": "ngecas = *angkat litium*",
-      "teaches": "The answer in one frame: charging lifts the lithium back up; using the phone lets it roll down and the electrons run through the phone; nothing is added or used up.",
-      "screen": "A clean stretch: a heading 'ngecas = ngangkat litium naik bukit' across the top; under it three small drawings in a row: a hill with a ball pushed up and a plug, 'ngecas: litium naik'; a hill with the ball rolling down and an electron arrow into a phone, 'dipakai: turun, elektron lewat HP'; two batteries with three ions each, on opposite sides, and a blue '=', 'isinya sama, cuma pindah'.",
+      "start": 45.21,
+      "end": 49.76,
+      "voice": "Charging doesn't add electricity. It pushes lithium back *up the hill*.",
+      "teaches": "The answer in one frame: charging lifts the lithium back up; using the phone lets it roll down while the electrons run through the phone; nothing is added or used up.",
+      "screen": "A clean stretch: a heading 'charging = pushing lithium up the hill' across the top; under it three small drawings in a row: a hill with a ball pushed up and a plug, 'charging: lithium goes up'; a hill with the ball rolling down and an electron arrow into a phone, 'in use: lithium goes down'; two batteries with three ions each, on opposite sides, and a blue '=', 'same stuff, just moved'.",
       "motion": "The camera tracks right along the board to a clean stretch; the heading is written; the three drawings are drawn left to right as the line is said.",
       "carries": "The summary, which the camera passes on its way back.",
       "transition": "The camera tracks back left along the whole board.",
@@ -20217,8 +20201,8 @@
                 960,
                 190
               ],
-              "text": "ngecas = ngangkat litium naik bukit",
-              "size": 76
+              "text": "charging = pushing lithium up the hill",
+              "size": 72
             },
             {
               "path": "M120 400 H250 C 370 400, 400 760, 620 760",
@@ -20245,7 +20229,7 @@
                 280,
                 420
               ],
-              "text": "naik"
+              "text": "up"
             },
             {
               "path": "M482 280 H578 Q590 280 590 292 V352 Q590 364 578 364 H482 Q470 364 470 352 V292 Q470 280 482 280 Z",
@@ -20260,8 +20244,8 @@
                 370,
                 850
               ],
-              "text": "ngecas: litium naik",
-              "size": 50
+              "text": "charging: lithium goes up",
+              "size": 46
             },
             {
               "camera": "right"
@@ -20277,8 +20261,8 @@
                 960,
                 190
               ],
-              "text": "ngecas = ngangkat litium naik bukit",
-              "size": 76
+              "text": "charging = pushing lithium up the hill",
+              "size": 72
             },
             {
               "path": "M120 400 H250 C 370 400, 400 760, 620 760",
@@ -20305,7 +20289,7 @@
                 280,
                 420
               ],
-              "text": "naik"
+              "text": "up"
             },
             {
               "path": "M482 280 H578 Q590 280 590 292 V352 Q590 364 578 364 H482 Q470 364 470 352 V292 Q470 280 482 280 Z",
@@ -20320,8 +20304,8 @@
                 370,
                 850
               ],
-              "text": "ngecas: litium naik",
-              "size": 50
+              "text": "charging: lithium goes up",
+              "size": 46
             },
             {
               "path": "M700 400 H830 C 950 400, 980 760, 1200 760",
@@ -20348,7 +20332,7 @@
                 1080,
                 700
               ],
-              "text": "turun"
+              "text": "down"
             },
             {
               "path": "M1104 230 H1166 Q1180 230 1180 244 V386 Q1180 400 1166 400 H1104 Q1090 400 1090 386 V244 Q1090 230 1104 230 Z",
@@ -20375,8 +20359,8 @@
                 950,
                 850
               ],
-              "text": "dipakai: turun, elektron lewat HP",
-              "size": 44
+              "text": "in use: lithium goes down",
+              "size": 46
             }
           ]
         },
@@ -20389,8 +20373,8 @@
                 960,
                 190
               ],
-              "text": "ngecas = ngangkat litium naik bukit",
-              "size": 76
+              "text": "charging = pushing lithium up the hill",
+              "size": 72
             },
             {
               "path": "M120 400 H250 C 370 400, 400 760, 620 760",
@@ -20417,7 +20401,7 @@
                 280,
                 420
               ],
-              "text": "naik"
+              "text": "up"
             },
             {
               "path": "M482 280 H578 Q590 280 590 292 V352 Q590 364 578 364 H482 Q470 364 470 352 V292 Q470 280 482 280 Z",
@@ -20432,8 +20416,8 @@
                 370,
                 850
               ],
-              "text": "ngecas: litium naik",
-              "size": 50
+              "text": "charging: lithium goes up",
+              "size": 46
             },
             {
               "path": "M700 400 H830 C 950 400, 980 760, 1200 760",
@@ -20460,7 +20444,7 @@
                 1080,
                 700
               ],
-              "text": "turun"
+              "text": "down"
             },
             {
               "path": "M1104 230 H1166 Q1180 230 1180 244 V386 Q1180 400 1166 400 H1104 Q1090 400 1090 386 V244 Q1090 230 1104 230 Z",
@@ -20487,8 +20471,8 @@
                 950,
                 850
               ],
-              "text": "dipakai: turun, elektron lewat HP",
-              "size": 44
+              "text": "in use: lithium goes down",
+              "size": 46
             },
             {
               "path": "M1316 320 H1494 Q1510 320 1510 336 V724 Q1510 740 1494 740 H1316 Q1300 740 1300 724 V336 Q1300 320 1316 320 Z",
@@ -20616,11 +20600,11 @@
                 1555,
                 850
               ],
-              "text": "isinya sama, cuma pindah",
-              "size": 50
+              "text": "same stuff, just moved",
+              "size": 46
             },
             {
-              "cut": "geser balik ke awal"
+              "cut": "track back to the start"
             }
           ]
         }
@@ -20628,14 +20612,14 @@
     },
     {
       "id": "s19",
-      "act": "jawab",
+      "act": "answer",
       "type": "wide",
-      "start": 60.77,
-      "end": 62.17,
-      "voice": "Makanya,",
-      "teaches": "The bridge: the last word runs into the first line, the picture into frame 0.",
+      "start": 49.76,
+      "end": 51.06,
+      "voice": "That's why",
+      "teaches": "The bridge: the last words run into the first line, the picture into frame 0.",
       "screen": "The camera tracks back left past the cell, the roll and the question, and settles on section A: the two phones, full and empty, and the '=': the same picture as frame 0.",
-      "motion": "A fast track left along the board (about 1.2 s, eased), settling exactly on the framing of frame 0 a moment before the cut.",
+      "motion": "A fast track left along the board (about 1.1 s, eased), settling exactly on the framing of frame 0 a moment before the cut.",
       "carries": "Into s01.",
       "transition": "No cut: the film loops straight into s01.",
       "sound": "The bed runs on into the opening.",
@@ -20650,8 +20634,8 @@
                 960,
                 190
               ],
-              "text": "ngecas = ngangkat litium naik bukit",
-              "size": 76
+              "text": "charging = pushing lithium up the hill",
+              "size": 72
             },
             {
               "path": "M120 400 H250 C 370 400, 400 760, 620 760",
@@ -20678,7 +20662,7 @@
                 280,
                 420
               ],
-              "text": "naik"
+              "text": "up"
             },
             {
               "path": "M482 280 H578 Q590 280 590 292 V352 Q590 364 578 364 H482 Q470 364 470 352 V292 Q470 280 482 280 Z",
@@ -20693,8 +20677,8 @@
                 370,
                 850
               ],
-              "text": "ngecas: litium naik",
-              "size": 50
+              "text": "charging: lithium goes up",
+              "size": 46
             },
             {
               "path": "M700 400 H830 C 950 400, 980 760, 1200 760",
@@ -20721,7 +20705,7 @@
                 1080,
                 700
               ],
-              "text": "turun"
+              "text": "down"
             },
             {
               "path": "M1104 230 H1166 Q1180 230 1180 244 V386 Q1180 400 1166 400 H1104 Q1090 400 1090 386 V244 Q1090 230 1104 230 Z",
@@ -20748,8 +20732,8 @@
                 950,
                 850
               ],
-              "text": "dipakai: turun, elektron lewat HP",
-              "size": 44
+              "text": "in use: lithium goes down",
+              "size": 46
             },
             {
               "path": "M1316 320 H1494 Q1510 320 1510 336 V724 Q1510 740 1494 740 H1316 Q1300 740 1300 724 V336 Q1300 320 1316 320 Z",
@@ -20877,8 +20861,8 @@
                 1555,
                 850
               ],
-              "text": "isinya sama, cuma pindah",
-              "size": 50
+              "text": "same stuff, just moved",
+              "size": 46
             },
             {
               "camera": "left"
@@ -21208,7 +21192,7 @@
                 490,
                 920
               ],
-              "text": "penuh",
+              "text": "full",
               "size": 50
             },
             {
@@ -21216,11 +21200,11 @@
                 1430,
                 920
               ],
-              "text": "kosong",
+              "text": "empty",
               "size": 50
             },
             {
-              "cut": "loop ke s01"
+              "cut": "loop to s01"
             }
           ]
         }
