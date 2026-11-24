@@ -3,7 +3,7 @@
   "name": "Isometric",
   "medium": "3D",
   "mode": "Isometric diorama",
-  "status": "concept",
+  "status": "ready",
   "version": 1,
   "summary": "A soft pastel miniature world at a fixed isometric angle, where systems run like little cities.",
   "worksFor": "systems, the internet, economics, logistics",
@@ -36,9 +36,14 @@
     "mono": "JetBrains Mono Variable"
   },
   "captions": "pill",
-  "samples": [],
+  "samples": [
+    "internet-dns"
+  ],
   "golden": [
     "concept.jpg",
+    "internet-dns-1.jpg",
+    "internet-dns-2.jpg",
+    "internet-dns-3.jpg",
     "proof-1.jpg",
     "proof-2.jpg"
   ]

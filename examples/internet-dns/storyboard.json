@@ -96,6 +96,11 @@
       "id": "f13",
       "claim": "The reply is addressed to the source address the request carried, so it comes back to you. Simplification: most homes and mobile networks share one public IPv4 address through NAT; the reply reaches that shared address, and the router (or the operator's NAT) hands it on to your phone. The film says 'addressed to you'.",
       "source": "RFC 791 §3.1 (source address in every datagram); RFC 3022, Traditional IP Network Address Translator."
+    },
+    {
+      "id": "f14",
+      "claim": "Your home's own number on screen, 203.0.113.24, is an example: it is taken from 203.0.113.0/24 (TEST-NET-3), a block reserved for documentation that is never given to a real network, so it stands for no one's address. A real home's public IPv4 address is set by its ISP; the home Wi-Fi router holds it and shares it with every device at home (NAT, f13). The request carries it as its source address and the reply comes back to it.",
+      "source": "RFC 5737, IPv4 Address Blocks Reserved for Documentation (§3: 203.0.113.0/24, TEST-NET-3); RFC 791 §3.1 (source address); RFC 3022 (NAT)."
     }
   ],
   "acts": [
@@ -11050,7 +11055,8 @@
       "check": "The packet shows the destination number, the same as before.",
       "facts": [
         "f9",
-        "f13"
+        "f13",
+        "f14"
       ],
       "frames": [
         {
@@ -16060,7 +16066,8 @@
       "check": "The packets go into the phone, not the house.",
       "facts": [
         "f13",
-        "f9"
+        "f9",
+        "f14"
       ],
       "frames": [
         {

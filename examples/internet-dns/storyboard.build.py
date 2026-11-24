@@ -561,7 +561,7 @@ shot("s12", "route", "diagram", "Your request goes out as a *packet*, labelled w
      transition="Zoom out to the road network.",
      sound="A soft pop, a sticker slap.",
      check="The packet shows the destination number, the same as before.",
-     facts=["f9", "f13"],
+     facts=["f9", "f13", "f14"],
      frames=[fr(0, "Back home: the cube starts to rise from the phone.", packet_scene(label_on=False, rise=0.1)),
              fr(0.45, "The cube hangs above the phone.", packet_scene(label_on=False), {"move": [740, 300, 740, 190], "text": "packet"}),
              fr(1, "The label card on it: to, from, what.", packet_scene(), {"cut": "zoom out to the roads"})])
@@ -637,7 +637,7 @@ shot("s18", "back", "wide", "addressed to *you*.",
      transition="Lift up to the recap islands.",
      sound="Soft pops landing; a small chime when the page is complete.",
      check="The packets go into the phone, not the house.",
-     facts=["f13", "f9"],
+     facts=["f13", "f9", "f14"],
      frames=[fr(0, "The packets come in along the road.", home(typed=None, page=0.2, packets=[(3.2, 1.0), (2.2, 1.0), (1.2, 1.0), (0.2, 1.0)], where=False), HOME.tag(3.4, 1.0, 0.6, "to your address", lift=90, size=36, dx=60)),
              fr(1, "The page is complete on the phone.", home(typed=None, page=1.0, where=False), {"cut": "up to the recap"})])
 
@@ -720,6 +720,8 @@ storyboard = {
          "source": "Measured with curl on https://en.wikipedia.org/wiki/Main_Page with Accept-Encoding: gzip (size_download 52,254 and 52,307 bytes), 2026-11-23; RFC 894 (IP over Ethernet, 1,500-byte maximum); RFC 791 (20-byte minimum IPv4 header); RFC 9293 (20-byte minimum TCP header). The arithmetic is in storyboard.build.py."},
         {"id": "f13", "claim": "The reply is addressed to the source address the request carried, so it comes back to you. Simplification: most homes and mobile networks share one public IPv4 address through NAT; the reply reaches that shared address, and the router (or the operator's NAT) hands it on to your phone. The film says 'addressed to you'.",
          "source": "RFC 791 §3.1 (source address in every datagram); RFC 3022, Traditional IP Network Address Translator."},
+        {"id": "f14", "claim": "Your home's own number on screen, 203.0.113.24, is an example: it is taken from 203.0.113.0/24 (TEST-NET-3), a block reserved for documentation that is never given to a real network, so it stands for no one's address. A real home's public IPv4 address is set by its ISP; the home Wi-Fi router holds it and shares it with every device at home (NAT, f13). The request carries it as its source address and the reply comes back to it.",
+         "source": "RFC 5737, IPv4 Address Blocks Reserved for Documentation (§3: 203.0.113.0/24, TEST-NET-3); RFC 791 §3.1 (source address); RFC 3022 (NAT)."},
     ],
     "acts": [
         {"id": "hook", "title": "The question", "goal": "A name typed, a page appears: how does the internet know where to go?", "rail": False},

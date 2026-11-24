@@ -1,11 +1,12 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+/* This film's own pieces, on top of the Isometric template's look (templates/isometric/look.css). */
+/* The captions: two or three words at a time in the template's soft white pill, where the golden stills put it
+   (centred, its bottom about 70 px above the frame's edge). The key word takes the accent, as in the template's
+   proof: the accent is the request, its packets and the number it needs. */
+:root[data-look="isometric"] .caption.pop {
+  bottom: 0;
+  font-size: 52px;
+  letter-spacing: -0.01em;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
+:root[data-look="isometric"] .caption .cw.key {
+  color: var(--accent);
 }

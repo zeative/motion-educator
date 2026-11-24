@@ -1,6 +1,6 @@
 # Isometric
 
-Isometric diorama · 3D · default landscape 16:9, voice-over · concept: no sample film yet
+Isometric diorama · 3D · default landscape 16:9, voice-over · ready
 
 A soft pastel miniature world at a fixed isometric angle, where systems run like little cities.
 
@@ -41,7 +41,11 @@ whatever the topic: the topic decides what is shown, the template decides how it
 
 ## Status
 
-A concept: no sample film yet. `golden/concept.jpg` is a drawn still; `golden/proof-1.jpg` and `proof-2.jpg` are
-frames of a short engine proof made with SVG blocks in a fixed isometric projection (each face a step lighter or darker, popping up with overshoot, data flowing along a path), which matches this template on every `lookmatch.mjs` measure.
-The first real film made in this template is its sample: check it against these lines and the stills, then add its
-frames to `golden/`.
+Ready: its first sample film is `examples/internet-dns` (How does the internet know where to go?), made with the kit, checked by
+`check.mjs` and `lookmatch.mjs`, and reviewed by an independent critic and verified again before it was
+published. `golden/` holds three of its frames beside the concept still and the engine proof, so later films are
+measured against a real one.
+
+## Sample films
+
+- `internet-dns`: How does the internet know where to go? (`examples/internet-dns`)
