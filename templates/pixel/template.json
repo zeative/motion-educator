@@ -3,7 +3,7 @@
   "name": "Pixel",
   "medium": "2D",
   "mode": "Pixel art",
-  "status": "concept",
+  "status": "ready",
   "version": 1,
   "summary": "A retro game screen: sprites, a 16-colour palette, a HUD and dialogue boxes.",
   "worksFor": "biology, computing, games, young audiences",
@@ -45,9 +45,14 @@
     "mono": "JetBrains Mono Variable"
   },
   "captions": "dialog",
-  "samples": [],
+  "samples": [
+    "jantung-berlari"
+  ],
   "golden": [
     "concept.jpg",
+    "jantung-berlari-1.jpg",
+    "jantung-berlari-2.jpg",
+    "jantung-berlari-3.jpg",
     "proof-1.jpg",
     "proof-2.jpg"
   ]

@@ -1,11 +1,22 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
-}
-#title {
+/* Kenapa jantung makin cepat waktu kamu lari? The Pixel template's type and colours come from
+   templates/pixel/look.css; this film draws everything (the HUD and the dialogue box too) into one 270 x 480 canvas,
+   so here it is only shown: four screen pixels to a game pixel, nearest neighbour, nothing smoothed. */
+#game {
   position: absolute;
   left: 0;
-  right: 0;
-  top: 35%;
+  top: 0;
+  width: 1080px;
+  height: 1920px;
+  image-rendering: pixelated;
+  background: #29adff;
+}
+/* No soft vignette or flash over a pixel screen: the template has no gradients, and the film's flashes are drawn
+   in whole pixels. The captions are typed into the game's own dialogue box (film.js), not set as HTML text. */
+#vignette,
+#flash,
+#captions {
+  display: none !important;
+}
+body {
+  background: #1d2b53;
 }

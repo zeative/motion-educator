@@ -1,22 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Kenapa jantung makin cepat waktu kamu lari?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
-    <script type="importmap">
-      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
-    </script>
     <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
   </head>
   <body>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
-      </section>
+      <!-- The whole film is one game screen: a 270 x 480 canvas of the template's sixteen colours, shown four times
+           larger with hard edges (film.css). film.js draws every frame of it, HUD and dialogue box included. -->
+      <canvas id="game" width="270" height="480"></canvas>
     </div>
     <script type="module" src="film.js"></script>
   </body>

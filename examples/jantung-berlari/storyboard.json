@@ -7,7 +7,7 @@
   "language": "id",
   "format": "1080x1920",
   "captions": "pop",
-  "duration": 56.61,
+  "duration": 57.61,
   "fps": 60,
   "standard": 3,
   "loop": {
@@ -23,7 +23,7 @@
   },
   "look": {
     "accent": "#ff004d",
-    "mood": "The Pixel template: a retro game screen, a 270 x 480 canvas scaled up four times with hard edges, every shape rasterised at that one pixel size (no sprite is scaled up, so no mixed pixel sizes). The PICO-8 palette only: sky-blue sky, green and lime hills, navy HUD and windows with cream borders, flat colours with two or three shade steps lit from the top left, dithering instead of gradients. Red (#ff004d, the palette's red) is the accent and means the heart and its blood throughout; sky blue always means oxygen; yellow means a nerve signal. HUD at the top (beats a minute, litres a minute, at their real values), the action in the middle, the dialogue box at the bottom with the captions typed in (pop captions: two or three words, the key word red). Everything held at 12 frames a second; faint scanlines, no blur, no bloom. Note for the build: film.css sets --accent to #ff004d, because template.json's default accent (#ff4d6d) is not one of the template's sixteen colours."
+    "mood": "The Pixel template: a retro game screen, a 270 x 480 canvas scaled up four times with hard edges, every shape rasterised at that one pixel size (no sprite is scaled up, so no mixed pixel sizes). The PICO-8 palette only: sky-blue sky, green and lime hills, navy HUD and windows with cream borders, flat colours with two or three shade steps lit from the top left, dithering instead of gradients. Red (#ff004d, the palette's red) is the accent and means the heart and its blood throughout; sky blue always means oxygen; yellow means a nerve signal. HUD as a band across the top (beats a minute, an oxygen bar, litres a minute, always at their true values), the action in the open park in the middle, the dialogue box at the bottom with the captions typed in (pop captions: up to four words a page, a number never split; the key word in the colour of what it names). Everything held at 12 frames a second; no scanlines (the template makes them optional, and a one-pixel line pattern aliases into moire when an app rescales the video), no blur, no bloom. Note for the build: film.css sets --accent to #ff004d, because template.json's default accent (#ff4d6d) is not one of the template's sixteen colours."
   },
   "music": {
     "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
@@ -68,7 +68,7 @@
     },
     {
       "id": "f8",
-      "claim": "The beat strips in s12 are four seconds long: 75 beats a minute is 75 / 60 x 4 = 5 beats, 150 is 10; each spike is drawn at its real time. The blood blocks in s13 are 5 px a mL (350 and 650 px), and the bottles in s09 and s14 are one litre each.",
+      "claim": "The beat strips in s12 are four seconds long: 75 beats a minute is 75 / 60 x 4 = 5 beats, 150 is 10; each spike is drawn at its real time. The blood blocks in s13b are 4.8 px a mL, 1.2 game pixels (336 and 624 px), and the bottles in s09 and s14 are one litre each.",
       "source": "Arithmetic from f1 to f3, shown in storyboard.build.py."
     }
   ],
@@ -3483,8 +3483,9 @@
       "act": "santai",
       "type": "chart",
       "start": 25.51,
-      "end": 28.71,
+      "end": 29.21,
       "voice": "Totalnya kira-kira *lima liter* darah per menit.",
+      "hold": 0.5,
       "teaches": "Heart rate x stroke volume = cardiac output: 75 x 70 mL = 5,25 L a minute.",
       "screen": "A score screen: the sum in pixel lettering, '75 × 70 mL' and '= 5,25 L / MENIT' (the result in the accent). Under it six one-litre pixel bottles in a row: five full of red and the sixth filled a quarter, so the bottles show 5,25 L exactly. HUD: '75 BPM' and on the right '5,25 L/MNT'.",
       "motion": "The sum types on like a score tally; the bottles fill one after another with a coin blip each, the last to a quarter; the HUD's right counter appears at its value.",
@@ -3869,8 +3870,8 @@
       "id": "s10",
       "act": "gas",
       "type": "diagram",
-      "start": 28.71,
-      "end": 31.87,
+      "start": 29.21,
+      "end": 32.37,
       "voice": "Begitu kamu lari, otot ngirim *sinyal* ke otak,",
       "teaches": "Running starts a signal: sensors in the working muscles and joints report to the brain.",
       "screen": "The body map again (the silhouette, heart and thighs), now with a nerve drawn as a dotted yellow pixel line from each thigh up the spine to the brain (a plum pixel blob in the head). Yellow signal sparks (2 x 2 game pixels) travel up it. Tags 'SINYAL' by the sparks and 'OTAK' by the head. HUD '75 BPM' for now.",
@@ -4245,8 +4246,8 @@
       "id": "s11",
       "act": "gas",
       "type": "diagram",
-      "start": 31.87,
-      "end": 34.85,
+      "start": 32.37,
+      "end": 35.35,
       "voice": "dan otak nyuruh jantung *ngegas* lewat saraf.",
       "teaches": "The brain answers through the heart's nerves: the pacemaker (SA node) fires faster and the muscle squeezes harder.",
       "screen": "The heart big again (as in s08, closed), the nerve entering from the top left as a dotted yellow pixel line to a spark at the top of the right atrium: the heart's own pacemaker, tagged 'PACU ALAMI (NODUS SA)'. A yellow pixel 'GAS!' pops beside it. HUD: '75' turns to '150 BPM' on the beat the spark lands.",
@@ -4570,8 +4571,8 @@
       "id": "s12",
       "act": "gas",
       "type": "compare",
-      "start": 34.85,
-      "end": 38.65,
+      "start": 35.35,
+      "end": 39.15,
       "voice": "Detaknya naik sampai sekitar *seratus lima puluh* kali semenit.",
       "teaches": "The rate doubles: 75 to about 150 beats a minute (in four seconds, 5 beats become 10).",
       "screen": "Two beat strips, one above the other, each four seconds wide (x 120 to 960): top 'SANTAI 75 BPM' with 5 pixel heartbeat spikes; bottom 'LARI 150 BPM' with 10. Each spike is placed at its real time. A bracket '4 DETIK' under both; '×2' in the accent. HUD '150 BPM'.",
@@ -4877,8 +4878,8 @@
       "id": "s13",
       "act": "gas",
       "type": "diagram",
-      "start": 38.65,
-      "end": 40.43,
+      "start": 39.15,
+      "end": 40.93,
       "voice": "Tiap detak juga makin *kuat*:",
       "teaches": "The same nerves make each squeeze stronger, not only more frequent.",
       "screen": "The heart big again, closed (as in s11), the pacemaker still lit: on the beat its walls step in twice as far as in s08 (16 px, not 8) and a bigger pixel block of blood leaves up the aorta. Pixel tag 'LEBIH KUAT' in the accent by the squeezing wall, with two pairs of pixel squeeze marks. HUD '150 BPM'.",
@@ -5126,16 +5127,16 @@
       "id": "s13b",
       "act": "gas",
       "type": "compare",
-      "start": 40.43,
-      "end": 42.93,
+      "start": 40.93,
+      "end": 43.43,
       "voice": "sekitar seratus tiga puluh mililiter.",
       "teaches": "Each beat is also stronger: the stroke volume rises from about 70 to 130 mL.",
-      "screen": "Two blocks of blood made of pixel rows, standing on one floor (y 1200): left 'SANTAI' 70 mL (350 px tall), right 'LARI' 130 mL (650 px tall), both 240 px wide; over each a small heart sprite, the right one with squeeze lines. Values in pixel lettering on the blocks.",
+      "screen": "Two blocks of blood made of pixel rows, standing on one floor (y 1200): left 'SANTAI' 70 mL (336 px tall), right 'LARI' 130 mL (624 px tall), both 240 px wide; over each a small heart sprite, the right one with squeeze lines. Values in pixel lettering on the blocks.",
       "motion": "The left block stacks up row by row; then the right one, higher, one row a frame (12 fps), stopping at its value; a 2 px shake when it lands.",
       "carries": "The two blocks.",
       "transition": "Cut to the score screen.",
       "sound": "A rising square-wave sweep as the right block stacks; a thud on landing.",
-      "check": "Block heights 350 and 650 px: 70 : 130.",
+      "check": "Block heights 336 and 624 px: 70 : 130.",
       "facts": [
         "f3",
         "f6"
@@ -5171,13 +5172,13 @@
               "align": "start"
             },
             {
-              "path": "M200 850h240v16h-240ZM200 866h240v16h-240ZM200 882h240v16h-240ZM200 898h240v16h-240ZM200 914h240v16h-240ZM200 930h240v16h-240ZM200 946h240v16h-240ZM200 962h240v16h-240ZM200 978h240v16h-240ZM200 994h240v16h-240ZM200 1010h240v16h-240ZM200 1026h240v16h-240ZM200 1042h240v16h-240ZM200 1058h240v16h-240ZM200 1074h240v16h-240ZM200 1090h240v16h-240ZM200 1106h240v16h-240ZM200 1122h240v16h-240ZM200 1138h240v16h-240ZM200 1154h240v16h-240ZM200 1170h240v16h-240Z",
+              "path": "M200 864.0h240v16h-240ZM200 880.0h240v16h-240ZM200 896.0h240v16h-240ZM200 912.0h240v16h-240ZM200 928.0h240v16h-240ZM200 944.0h240v16h-240ZM200 960.0h240v16h-240ZM200 976.0h240v16h-240ZM200 992.0h240v16h-240ZM200 1008.0h240v16h-240ZM200 1024.0h240v16h-240ZM200 1040.0h240v16h-240ZM200 1056.0h240v16h-240ZM200 1072.0h240v16h-240ZM200 1088.0h240v16h-240ZM200 1104.0h240v16h-240ZM200 1120.0h240v16h-240ZM200 1136.0h240v16h-240ZM200 1152.0h240v16h-240ZM200 1168.0h240v16h-240ZM200 1184.0h240v16h-240Z",
               "colour": "#ff004d",
               "fill": "#ff004d",
               "width": 0
             },
             {
-              "path": "M200 850h240M200 1186h240M200 850v336M440 850v336",
+              "path": "M200 864.0h240M200 1200.0h240M200 864.0v336M440 864.0v336",
               "colour": "#7e2553",
               "width": 5
             },
@@ -5192,7 +5193,7 @@
             {
               "label": [
                 320,
-                820
+                834
               ],
               "text": "70 mL",
               "size": 52,
@@ -5265,24 +5266,24 @@
               "align": "start"
             },
             {
-              "path": "M200 850h240v16h-240ZM200 866h240v16h-240ZM200 882h240v16h-240ZM200 898h240v16h-240ZM200 914h240v16h-240ZM200 930h240v16h-240ZM200 946h240v16h-240ZM200 962h240v16h-240ZM200 978h240v16h-240ZM200 994h240v16h-240ZM200 1010h240v16h-240ZM200 1026h240v16h-240ZM200 1042h240v16h-240ZM200 1058h240v16h-240ZM200 1074h240v16h-240ZM200 1090h240v16h-240ZM200 1106h240v16h-240ZM200 1122h240v16h-240ZM200 1138h240v16h-240ZM200 1154h240v16h-240ZM200 1170h240v16h-240Z",
+              "path": "M200 864.0h240v16h-240ZM200 880.0h240v16h-240ZM200 896.0h240v16h-240ZM200 912.0h240v16h-240ZM200 928.0h240v16h-240ZM200 944.0h240v16h-240ZM200 960.0h240v16h-240ZM200 976.0h240v16h-240ZM200 992.0h240v16h-240ZM200 1008.0h240v16h-240ZM200 1024.0h240v16h-240ZM200 1040.0h240v16h-240ZM200 1056.0h240v16h-240ZM200 1072.0h240v16h-240ZM200 1088.0h240v16h-240ZM200 1104.0h240v16h-240ZM200 1120.0h240v16h-240ZM200 1136.0h240v16h-240ZM200 1152.0h240v16h-240ZM200 1168.0h240v16h-240ZM200 1184.0h240v16h-240Z",
               "colour": "#ff004d",
               "fill": "#ff004d",
               "width": 0
             },
             {
-              "path": "M200 850h240M200 1186h240M200 850v336M440 850v336",
+              "path": "M200 864.0h240M200 1200.0h240M200 864.0v336M440 864.0v336",
               "colour": "#7e2553",
               "width": 5
             },
             {
-              "path": "M640 875h240v16h-240ZM640 891h240v16h-240ZM640 907h240v16h-240ZM640 923h240v16h-240ZM640 939h240v16h-240ZM640 955h240v16h-240ZM640 971h240v16h-240ZM640 987h240v16h-240ZM640 1003h240v16h-240ZM640 1019h240v16h-240ZM640 1035h240v16h-240ZM640 1051h240v16h-240ZM640 1067h240v16h-240ZM640 1083h240v16h-240ZM640 1099h240v16h-240ZM640 1115h240v16h-240ZM640 1131h240v16h-240ZM640 1147h240v16h-240ZM640 1163h240v16h-240ZM640 1179h240v16h-240Z",
+              "path": "M640 888.0h240v16h-240ZM640 904.0h240v16h-240ZM640 920.0h240v16h-240ZM640 936.0h240v16h-240ZM640 952.0h240v16h-240ZM640 968.0h240v16h-240ZM640 984.0h240v16h-240ZM640 1000.0h240v16h-240ZM640 1016.0h240v16h-240ZM640 1032.0h240v16h-240ZM640 1048.0h240v16h-240ZM640 1064.0h240v16h-240ZM640 1080.0h240v16h-240ZM640 1096.0h240v16h-240ZM640 1112.0h240v16h-240ZM640 1128.0h240v16h-240ZM640 1144.0h240v16h-240ZM640 1160.0h240v16h-240ZM640 1176.0h240v16h-240Z",
               "colour": "#ff004d",
               "fill": "#ff004d",
               "width": 0
             },
             {
-              "path": "M640 875h240M640 1195h240M640 875v320M880 875v320",
+              "path": "M640 888.0h240M640 1192.0h240M640 888.0v304M880 888.0v304",
               "colour": "#7e2553",
               "width": 5
             },
@@ -5378,24 +5379,24 @@
               "align": "start"
             },
             {
-              "path": "M200 850h240v16h-240ZM200 866h240v16h-240ZM200 882h240v16h-240ZM200 898h240v16h-240ZM200 914h240v16h-240ZM200 930h240v16h-240ZM200 946h240v16h-240ZM200 962h240v16h-240ZM200 978h240v16h-240ZM200 994h240v16h-240ZM200 1010h240v16h-240ZM200 1026h240v16h-240ZM200 1042h240v16h-240ZM200 1058h240v16h-240ZM200 1074h240v16h-240ZM200 1090h240v16h-240ZM200 1106h240v16h-240ZM200 1122h240v16h-240ZM200 1138h240v16h-240ZM200 1154h240v16h-240ZM200 1170h240v16h-240Z",
+              "path": "M200 864.0h240v16h-240ZM200 880.0h240v16h-240ZM200 896.0h240v16h-240ZM200 912.0h240v16h-240ZM200 928.0h240v16h-240ZM200 944.0h240v16h-240ZM200 960.0h240v16h-240ZM200 976.0h240v16h-240ZM200 992.0h240v16h-240ZM200 1008.0h240v16h-240ZM200 1024.0h240v16h-240ZM200 1040.0h240v16h-240ZM200 1056.0h240v16h-240ZM200 1072.0h240v16h-240ZM200 1088.0h240v16h-240ZM200 1104.0h240v16h-240ZM200 1120.0h240v16h-240ZM200 1136.0h240v16h-240ZM200 1152.0h240v16h-240ZM200 1168.0h240v16h-240ZM200 1184.0h240v16h-240Z",
               "colour": "#ff004d",
               "fill": "#ff004d",
               "width": 0
             },
             {
-              "path": "M200 850h240M200 1186h240M200 850v336M440 850v336",
+              "path": "M200 864.0h240M200 1200.0h240M200 864.0v336M440 864.0v336",
               "colour": "#7e2553",
               "width": 5
             },
             {
-              "path": "M640 550h240v16h-240ZM640 566h240v16h-240ZM640 582h240v16h-240ZM640 598h240v16h-240ZM640 614h240v16h-240ZM640 630h240v16h-240ZM640 646h240v16h-240ZM640 662h240v16h-240ZM640 678h240v16h-240ZM640 694h240v16h-240ZM640 710h240v16h-240ZM640 726h240v16h-240ZM640 742h240v16h-240ZM640 758h240v16h-240ZM640 774h240v16h-240ZM640 790h240v16h-240ZM640 806h240v16h-240ZM640 822h240v16h-240ZM640 838h240v16h-240ZM640 854h240v16h-240ZM640 870h240v16h-240ZM640 886h240v16h-240ZM640 902h240v16h-240ZM640 918h240v16h-240ZM640 934h240v16h-240ZM640 950h240v16h-240ZM640 966h240v16h-240ZM640 982h240v16h-240ZM640 998h240v16h-240ZM640 1014h240v16h-240ZM640 1030h240v16h-240ZM640 1046h240v16h-240ZM640 1062h240v16h-240ZM640 1078h240v16h-240ZM640 1094h240v16h-240ZM640 1110h240v16h-240ZM640 1126h240v16h-240ZM640 1142h240v16h-240ZM640 1158h240v16h-240ZM640 1174h240v16h-240Z",
+              "path": "M640 576.0h240v16h-240ZM640 592.0h240v16h-240ZM640 608.0h240v16h-240ZM640 624.0h240v16h-240ZM640 640.0h240v16h-240ZM640 656.0h240v16h-240ZM640 672.0h240v16h-240ZM640 688.0h240v16h-240ZM640 704.0h240v16h-240ZM640 720.0h240v16h-240ZM640 736.0h240v16h-240ZM640 752.0h240v16h-240ZM640 768.0h240v16h-240ZM640 784.0h240v16h-240ZM640 800.0h240v16h-240ZM640 816.0h240v16h-240ZM640 832.0h240v16h-240ZM640 848.0h240v16h-240ZM640 864.0h240v16h-240ZM640 880.0h240v16h-240ZM640 896.0h240v16h-240ZM640 912.0h240v16h-240ZM640 928.0h240v16h-240ZM640 944.0h240v16h-240ZM640 960.0h240v16h-240ZM640 976.0h240v16h-240ZM640 992.0h240v16h-240ZM640 1008.0h240v16h-240ZM640 1024.0h240v16h-240ZM640 1040.0h240v16h-240ZM640 1056.0h240v16h-240ZM640 1072.0h240v16h-240ZM640 1088.0h240v16h-240ZM640 1104.0h240v16h-240ZM640 1120.0h240v16h-240ZM640 1136.0h240v16h-240ZM640 1152.0h240v16h-240ZM640 1168.0h240v16h-240ZM640 1184.0h240v16h-240Z",
               "colour": "#ff004d",
               "fill": "#ff004d",
               "width": 0
             },
             {
-              "path": "M640 550h240M640 1190h240M640 550v640M880 550v640",
+              "path": "M640 576.0h240M640 1200.0h240M640 576.0v624M880 576.0v624",
               "colour": "#7e2553",
               "width": 5
             },
@@ -5418,7 +5419,7 @@
             {
               "label": [
                 320,
-                820
+                834
               ],
               "text": "70 mL",
               "size": 52,
@@ -5427,7 +5428,7 @@
             {
               "label": [
                 760,
-                520
+                546
               ],
               "text": "130 mL",
               "size": 52,
@@ -5439,22 +5440,22 @@
               "width": 6
             },
             {
-              "path": "M304 712h8M328 712h8M300 716h4M312 716h4M324 716h16M296 720h4M312 720h32M296 724h4M308 724h36M296 728h48M300 732h40M304 736h32M308 740h24M312 744h16M316 748h8M320 752h0",
+              "path": "M304 726h8M328 726h8M300 730h4M312 730h4M324 730h16M296 734h4M312 734h32M296 738h4M308 738h36M296 742h48M300 746h40M304 750h32M308 754h24M312 758h16M316 762h8M320 766h0",
               "colour": "#ff004d",
               "width": 4
             },
             {
-              "path": "M308 716h0M304 720h4M304 724h0",
+              "path": "M308 730h0M304 734h4M304 738h0",
               "colour": "#fff1e8",
               "width": 4
             },
             {
-              "path": "M744 412h8M768 412h8M740 416h4M752 416h4M764 416h16M736 420h4M752 420h32M736 424h4M748 424h36M736 428h48M740 432h40M744 436h32M748 440h24M752 444h16M756 448h8M760 452h0",
+              "path": "M744 438h8M768 438h8M740 442h4M752 442h4M764 442h16M736 446h4M752 446h32M736 450h4M748 450h36M736 454h48M740 458h40M744 462h32M748 466h24M752 470h16M756 474h8M760 478h0",
               "colour": "#ff004d",
               "width": 4
             },
             {
-              "path": "M748 416h0M744 420h4M744 424h0",
+              "path": "M748 442h0M744 446h4M744 450h0",
               "colour": "#fff1e8",
               "width": 4
             },
@@ -5489,9 +5490,10 @@
       "id": "s14",
       "act": "gas",
       "type": "chart",
-      "start": 42.93,
-      "end": 46.41,
+      "start": 43.43,
+      "end": 47.41,
       "voice": "Hasilnya, hampir *dua puluh liter* darah per menit.",
+      "hold": 0.5,
       "teaches": "150 x 130 mL = 19,5 L a minute, against 5,25 at rest.",
       "screen": "The score screen again: '150 × 130 mL = 19,5 L / MENIT'. Under it two groups of one-litre bottles, five to a row: left 'SANTAI' 5,25 bottles (five full, one a quarter), right 'LARI' 19,5 bottles (nineteen full, one half). HUD: '150 BPM' and '19,5 L/MNT'.",
       "motion": "The sum tallies on; the right group fills bottle by bottle, a coin blip each, faster and faster; the HUD's right counter changes once to its value.",
@@ -6336,8 +6338,8 @@
       "id": "s15",
       "act": "gas",
       "type": "wide",
-      "start": 46.41,
-      "end": 50.59,
+      "start": 47.41,
+      "end": 51.59,
       "voice": "Nyaris empat kali lipat, semuanya buat ngantar oksigen ke otot.",
       "teaches": "Nearly four times as much blood (19,5 / 5,25 = 3.7), and it is all for the oxygen the muscles need.",
       "screen": "The running park again, scrolling. The inset window now shows the artery into the thigh with a dense stream of red cells, each with its O2 pixel, pouring into the muscle; under the stream, inside the inset, the status reads 'O2 OK' in lime and '≈ 3,7× DARAH' in the accent; the HUD reads '19,5 L/MNT'.",
@@ -7168,8 +7170,8 @@
       "id": "s16",
       "act": "recap",
       "type": "recap",
-      "start": 50.59,
-      "end": 54.69,
+      "start": 51.59,
+      "end": 55.69,
       "voice": "Jadi otot minta *oksigen*, dan jantung ngebut buat ngirimnya.",
       "teaches": "The answer in one frame: muscles ask for oxygen, nerves tell the heart, the heart pumps nearly four times the blood.",
       "screen": "A game summary panel (navy window, cream border) over the frozen park, filling the frame between the HUD and the dialogue box, title 'JADI:' in the accent and three rows, each a small sprite and its words: 1 'OTOT BUTUH O2' (a red muscle fibre with sky O2 pixels), 2 'SARAF: GAS!' (the brain, a yellow dotted nerve, the heart), 3 '5,25 → 19,5 L' (the heart and a red bottle, the numbers in the accent).",
@@ -7696,8 +7698,8 @@
       "id": "s17",
       "act": "recap",
       "type": "wide",
-      "start": 54.69,
-      "end": 56.61,
+      "start": 55.69,
+      "end": 57.61,
       "voice": "Dan itulah kenapa",
       "teaches": "The bridge back into the first line.",
       "screen": "The panel slides up and away: the running park, the player at x 360, the inset heart pumping, HUD '150 BPM', the same pixels as frame 0.",

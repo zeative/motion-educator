@@ -35,37 +35,37 @@ tiap detak mompa kurang lebih tujuh puluh mililiter.
 Totalnya kira-kira lima liter darah per menit.
 
 10
-00:00:28,790 --> 00:00:31,980
+00:00:29,290 --> 00:00:32,480
 Begitu kamu lari, otot ngirim sinyal ke otak,
 
 11
-00:00:31,910 --> 00:00:34,940
+00:00:32,410 --> 00:00:35,440
 dan otak nyuruh jantung ngegas lewat saraf.
 
 12
-00:00:34,910 --> 00:00:38,780
+00:00:35,410 --> 00:00:39,280
 Detaknya naik sampai sekitar seratus lima puluh kali semenit.
 
 13
-00:00:38,670 --> 00:00:40,540
+00:00:39,170 --> 00:00:41,040
 Tiap detak juga makin kuat:
 
 14
-00:00:40,470 --> 00:00:43,020
+00:00:40,970 --> 00:00:43,520
 sekitar seratus tiga puluh mililiter.
 
 15
-00:00:42,990 --> 00:00:46,540
+00:00:43,490 --> 00:00:47,040
 Hasilnya, hampir dua puluh liter darah per menit.
 
 16
-00:00:46,430 --> 00:00:50,700
+00:00:47,430 --> 00:00:51,700
 Nyaris empat kali lipat, semuanya buat ngantar oksigen ke otot.
 
 17
-00:00:50,630 --> 00:00:54,780
+00:00:51,630 --> 00:00:55,780
 Jadi otot minta oksigen, dan jantung ngebut buat ngirimnya.
 
 18
-00:00:54,750 --> 00:00:56,460
+00:00:55,750 --> 00:00:57,460
 Dan itulah kenapa

@@ -1,6 +1,6 @@
 # Pixel
 
-Pixel art · 2D · default portrait 9:16, voice-over · concept: no sample film yet
+Pixel art · 2D · default portrait 9:16, voice-over · ready
 
 A retro game screen: sprites, a 16-colour palette, a HUD and dialogue boxes.
 
@@ -40,7 +40,11 @@ whatever the topic: the topic decides what is shown, the template decides how it
 
 ## Status
 
-A concept: no sample film yet. `golden/concept.jpg` is a drawn still; `golden/proof-1.jpg` and `proof-2.jpg` are
-frames of a short engine proof made with a 270 x 480 canvas scaled up four times (the PICO-8 palette, sprites, a HUD and a typed dialogue box, held at 12 frames a second), which matches this template on every `lookmatch.mjs` measure.
-The first real film made in this template is its sample: check it against these lines and the stills, then add its
-frames to `golden/`.
+Ready: its first sample film is `examples/jantung-berlari` (Kenapa jantung makin cepat waktu kamu lari?), made with the kit, checked by
+`check.mjs` and `lookmatch.mjs`, and reviewed by an independent critic and verified again before it was
+published. `golden/` holds three of its frames beside the concept still and the engine proof, so later films are
+measured against a real one.
+
+## Sample films
+
+- `jantung-berlari`: Kenapa jantung makin cepat waktu kamu lari? (`examples/jantung-berlari`)
