@@ -39,41 +39,45 @@ and lithium ions cross over
 and slip between its layers.
 
 11
-00:00:22,310 --> 00:00:25,380
-Here's the catch: lithium doesn't like it there.
+00:00:22,310 --> 00:00:23,420
+Here's the catch:
 
 12
-00:00:25,270 --> 00:00:27,233
-It's a ball pushed up a hill:
+00:00:23,850 --> 00:00:25,880
+lithium doesn't like it there.
 
 13
-00:00:27,137 --> 00:00:29,220
-the energy is in its position.
+00:00:25,770 --> 00:00:27,733
+It's a ball pushed up a hill:
 
 14
-00:00:29,110 --> 00:00:31,980
-Now use your phone, and the lithium heads home.
+00:00:27,637 --> 00:00:29,720
+the energy is in its position.
 
 15
-00:00:31,910 --> 00:00:34,900
-Ions cross the separator. Electrons can't.
+00:00:30,110 --> 00:00:32,980
+Now use your phone, and the lithium heads home.
 
 16
-00:00:34,790 --> 00:00:37,740
-So they go the long way round, through your phone.
+00:00:32,910 --> 00:00:35,900
+Ions cross the separator. Electrons can't.
 
 17
-00:00:37,670 --> 00:00:40,433
-That flow is the current that runs your phone.
+00:00:36,290 --> 00:00:39,240
+So they go the long way round, through your phone.
 
 18
-00:00:40,337 --> 00:00:42,740
-Once it's all home, the battery's empty.
+00:00:39,170 --> 00:00:41,933
+That flow is the current that runs your phone.
 
 19
-00:00:42,630 --> 00:00:46,980
-Charging doesn't add electricity. It pushes lithium back up the hill.
+00:00:41,837 --> 00:00:44,240
+Once it's all home, the battery's empty.
 
 20
-00:00:46,870 --> 00:00:47,740
+00:00:44,130 --> 00:00:48,480
+Charging doesn't add electricity. It pushes lithium back up the hill.
+
+21
+00:00:48,370 --> 00:00:49,240
 That's why

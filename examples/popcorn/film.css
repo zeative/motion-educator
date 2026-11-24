@@ -1,11 +1,27 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
+/* Kenapa popcorn bisa meletus? The Comic template's type, colours and caption box come from templates/comic/look.css;
+   this is only the film's own pieces: the pages, the lettering faces in SVG, the caption key words. */
 :root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+  --blue: #007aff;
+  --yellow: #ffcc00;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
+.page { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.page svg { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+/* Sound words and numbers in Bangers (bold block letters); speech, callouts and labels in Kalam, as the template says. */
+.page .bang { font-family: "Bangers", sans-serif; font-weight: 400; letter-spacing: 0.02em; }
+.page .kal { font-family: "Kalam", sans-serif; font-weight: 700; }
+/* Each colour keeps one meaning: red is heat, pressure and POP; blue is water. A caption's key word takes the colour
+   of what it names: "air" is water (blue); "busa" names neither, so it is underlined in ink instead. */
+:root[data-look="comic"] .caption[data-shot="s03"] .key,
+:root[data-look="comic"] .caption[data-shot="s13"] .key { color: var(--blue); }
+:root[data-look="comic"] .caption[data-shot="s09b"] .key { color: var(--ink); text-decoration: underline; text-decoration-thickness: 5px; text-underline-offset: 6px; }
+/* Narration is lettered in Kalam (the template's hand-lettered face), the key word in bold: the regular weight too. */
+@font-face {
+  font-family: "Kalam";
+  src: url("../../node_modules/@fontsource/kalam/files/kalam-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
 }
+/* No soft gradients (the template's Never line): the kit's radial vignette is off on these pages. */
+:root[data-look="comic"] #vignette { opacity: 0; }
+/* The narration is lettered in the panels' own caption boxes (film.js), not in the kit's caption strip. */
+:root[data-look="comic"] #captions { display: none; }

@@ -17,9 +17,9 @@
   "missed": [],
   "lines": {
     "s01": {
-      "text": "Pohon bisa tumbuh segede ini, tapi tanah di bawahnya hampir nggak *berkurang*.",
+      "text": "Pohon bisa *tumbuh* segede ini,",
       "from": 0.08,
-      "to": 5.4,
+      "to": 2.32,
       "words": [
         [
           0.08,
@@ -45,7 +45,14 @@
           1.6,
           2.32,
           "ini,"
-        ],
+        ]
+      ]
+    },
+    "s01b": {
+      "text": "tapi tanah di bawahnya hampir nggak *berkurang*.",
+      "from": 2.56,
+      "to": 5.4,
+      "words": [
         [
           2.56,
           2.8,
@@ -706,7 +713,7 @@
   "film": {
     "s01": {
       "from": 0.15,
-      "to": 5.47,
+      "to": 2.39,
       "words": [
         [
           0.15,
@@ -732,7 +739,13 @@
           1.67,
           2.39,
           "ini,"
-        ],
+        ]
+      ]
+    },
+    "s01b": {
+      "from": 2.63,
+      "to": 5.47,
+      "words": [
         [
           2.63,
           2.87,

@@ -3,20 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Why does a bigger rear gear make hills easier?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
-    <script type="importmap">
-      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
-    </script>
     <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
   </head>
   <body>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
-      </section>
+      <!-- The sheets of one set of drawings (film.js makes them with draft.js): the bike, the spur gears, the cassette,
+           the distance per pedal turn and the summary. Each is a transparent layer of lines and lettering over the
+           blueprint stage, drawn in the frame's own coordinates (1920 x 1080); the bike and the summary are sheets of
+           their own paper, so they can slide in over the table. -->
     </div>
     <script type="module" src="film.js"></script>
   </body>

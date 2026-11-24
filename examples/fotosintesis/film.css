@@ -1,11 +1,39 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+/* Gimana tumbuhan bikin makanan dari cahaya? The Paper Cut-out template's type, colours and caption strip come
+   from templates/paper/look.css; this is only the film's own pieces: the sets, the paper sheets laid over them, the
+   printed lettering and the caption's key word on its orange tab. */
+.set, .sheet { position: absolute; inset: 0; overflow: hidden; }
+/* The leaf sheet is bigger than the frame: its rough edge leads as it slides in. */
+#sheetLeaf { overflow: visible; }
+.set svg, .sheet svg { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+
+/* Cut paper: an edge, fibre and a small shadow from the light above (index.html filters). */
+.pc { filter: url(#pc); }
+.up { filter: url(#pc-up); }
+.tg { filter: url(#pc-tag); }
+
+/* Printed lettering on the paper: Fraunces, in the template's deep teal. */
+.tx { font-family: "Fraunces", serif; font-weight: 600; fill: var(--ink); }
+.tx.b { font-weight: 700; }
+.tx.sans { font-family: "DM Sans", sans-serif; font-weight: 700; }
+.stamp-ink { filter: url(#stamp-ink); }
+
+/* A thread: thin, a little darker than the ink, tied from a tag to its part. */
+.thread { fill: none; stroke: #1d3540; stroke-width: 3px; stroke-linecap: round; }
+/* A cut guide: a dashed line printed on the card (the outline of the cutting the tree grew from). */
+.guide { fill: none; stroke: var(--ink); stroke-width: 5px; stroke-dasharray: 14 12; stroke-linecap: round; opacity: 0.8; }
+
+/* The caption strip (look.css) with its key word on an orange paper tab, as the template asks. */
+:root[data-look="paper"] .caption.pop .key {
+  display: inline-block;
+  color: var(--ink);
+  background: var(--accent);
+  padding: 0 0.16em 0.06em;
+  margin: 0 -0.04em;
+  border-radius: 2px;
+  box-shadow: 0 8px 10px -7px rgb(59 42 26 / 0.45);
+  transform: rotate(2.2deg) translateY(-2px);
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
-}
+
+/* The strips are laid as whole phrases: one line each, a little smaller than the template's 72 px so a phrase of four
+   words fits on a phone without wrapping. */
+:root[data-look="paper"] #captions .caption.pop { font-size: 64px; white-space: nowrap; max-width: none; }

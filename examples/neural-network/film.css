@@ -1,11 +1,13 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
-}
-#title {
+/* How does a neural network learn? The Neon Line look comes from templates/neon/look.css; this is only the film's own
+   pieces. The picture is one canvas, drawn by film.js.
+
+   Caption key words follow the template (template.md, Captions: "the key word in the second neon colour", magenta,
+   from look.css). In the picture magenta keeps its one meaning, the error and what it sends back; where a caption's
+   key was a guess the network gave (0.27, 0.40, 0.98), the storyboard moves the key to another word, so no guess is
+   ever printed in the error's colour. */
+#neon {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
+  inset: 0;
+  width: 1080px;
+  height: 1920px;
 }

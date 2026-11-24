@@ -1,11 +1,40 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+/* Where does a phone battery keep its energy? The Whiteboard template's look comes from templates/whiteboard/look.css;
+   this is only the film's own pieces: the board's ink, its lettering and the eraser. */
+#board { overflow: hidden; }
+#board .ink { position: absolute; inset: 0; filter: url(#marker); }
+#board .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+#world { position: absolute; left: 0; top: 0; overflow: visible; --g: 1.15; }
+
+/* Marker strokes: even weight, round ends. --w is the pen; --g brings the weights to the template's (outlines about
+   8 px, details about 5); --k (film.js) keeps a pen close to its own width when the camera pushes in; --s does the
+   same for a drawing made at half size. */
+#world path, #world circle, #world line, #world rect, #world ellipse {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: calc(var(--w, 5) * var(--k, 1) * var(--g, 1) * var(--s, 1) * 1px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
-}
+#world .b { stroke: var(--accent); }
+#world .r { stroke: #eb5757; }
+#world .fill { fill: var(--ink); }
+#world .dot { fill: var(--ink); stroke: none; }
+/* The eraser: its masks, and the faint smear that follows it across the board. */
+#world mask rect { stroke: none; }
+#world mask rect.keep { fill: #fff; }
+#world mask rect.edge { fill: url(#wipeEdge); }
+#world .smudge rect { fill: rgb(120 132 150); stroke: none; filter: blur(7px); opacity: 0; }
+/* Old ink that never quite came off the board. */
+#world .ghost path { stroke: rgb(120 140 170 / 0.11); stroke-width: 18px; filter: blur(3px); }
+#world .ghost .thin { stroke: rgb(120 130 150 / 0.09); stroke-width: 7px; }
+
+/* Lettering on the board: hand-lettered marker, written on letter by letter (ink.write). x, y is the baseline. */
+.cam .t { position: absolute; color: var(--ink); font-family: var(--brand); line-height: 1; white-space: nowrap; transform: translate(-50%, -85%); }
+.cam .t.start { transform: translate(0, -85%); }
+.cam .t.end { transform: translate(-100%, -85%); }
+.cam .t.b { color: var(--accent); }
+.cam .t.r { color: #eb5757; }
+.cam .t .hk { color: var(--accent); }
+/* Captions: short hand-written lines on the board beside the drawing, key words in blue and underlined. */
+.cam .cap .key { position: relative; display: inline-block; color: var(--accent); }
+.cam .cap .ul { position: absolute; left: -0.06em; right: -0.06em; bottom: 0.02em; height: 0.09em; border-radius: 0.05em; background: var(--accent); }

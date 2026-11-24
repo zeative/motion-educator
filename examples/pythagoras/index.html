@@ -3,20 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Why does a² + b² = c² always work?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
-    <script type="importmap">
-      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
-    </script>
     <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
   </head>
   <body>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
-      </section>
+      <!-- One long chalkboard. #board paints its surface (smudges of old chalk, dust grain) where the camera is; #cam
+           carries the chalk, one .sec per section of the board (A: the opening, B: squared = a square, C: 3-4-5,
+           D: the proof, E: every right triangle, then the recap), each drawn in film.js in that section's own
+           1920 x 1080 coordinates. The wooden frame and the chalk captions sit over it, fixed to the frame. -->
+      <canvas id="board"></canvas>
+      <section class="scene" id="world"><div id="cam"></div></section>
+      <canvas id="frame"></canvas>
+      <div id="caps"></div>
     </div>
     <script type="module" src="film.js"></script>
   </body>

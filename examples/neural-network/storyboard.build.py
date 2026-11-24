@@ -65,10 +65,12 @@ GUESS0 = forward(START, CAT)[1]
 ONE = nudge(START, CAT, 1)  # one nudge, on the cat
 GUESS1 = forward(ONE, CAT)[1]
 p, CURVE = ONE, [mse(START), mse(ONE)]
+CATERR = [1 - forward(ONE, CAT)[1]]  # the cat's own error, 1 - its guess: after the one nudge, then after each round
 for _ in range(ROUNDS):
     for _, x, t in DATA:
         p = nudge(p, x, t)
     CURVE.append(mse(p))
+    CATERR.append(1 - forward(p, CAT)[1])
 END = p
 FINAL = {name: forward(END, x)[1] for name, x, _ in DATA}
 SHOWN_W = 1  # the hidden -> output weight the film labels (the one the first nudge moves most visibly)
@@ -327,7 +329,7 @@ def two_lines(k=None):
 
 shot("s05", "weights", "compare", "Every connection has a *weight*: its strength.",
      teaches="Every connection has a weight: how strongly it passes its signal on.",
-     screen=f"Two connections, one above the other, each a cyan line between two outline nodes (x 200 to 880): the upper one thick and bright, labelled 'weight {n2(W_A)}: strong'; the lower one thin and dim, 'weight {n2(W_B)}: weak'. A pulse runs along each: a big bright one above, a small faint one below.",
+     screen=f"(As built: the two lines are bigger, 0.92 at y 560 and 0.28 at y 1000; a signal of 1 sits in each left node, and what arrives at the right is written: '1 × 0.92 = 0.92', '1 × 0.28 = 0.28'; 'line width = size of the weight' stays up from the pulse's start. The cut into this shot follows a pulse out of the phone's network.) Two connections, one above the other, each a cyan line between two outline nodes (x 200 to 880): the upper one thick and bright, labelled 'weight {n2(W_A)}: strong'; the lower one thin and dim, 'weight {n2(W_B)}: weak'. A pulse runs along each: a big bright one above, a small faint one below.",
      motion="The two lines draw on; a pulse leaves each left node at the same moment and runs to the right; the upper one arrives as a flash, the lower as a glint.",
      carries="The idea of a weight: line width means weight from here on.",
      transition="Pull back: the two lines become two of the toy network's twelve.",
@@ -365,7 +367,7 @@ shot("s07", "guess", "diagram", "First example: a *cat*.", beats=4,
 
 shot("s08", "guess", "diagram", "The signal flows through to a *guess*.",
      teaches="The signal flows through every weight and comes out as a guess.",
-     screen=f"White pulses leave the lit inputs and run down every line to the hidden nodes, then on to the output; the output ring flares and a number writes on beside it: '{n2(GUESS0)}'.",
+     screen=f"(As built: the camera rides the signal down; as it reaches the hidden row each node shows its value, 0.20, 0.45, 0.78, and under the guess the sum is written: '0.20×(−0.62) + 0.45×0.66 + 0.78×(−0.82)', '+ bias (−0.53) = −1.00 → 0.27', 'node value × line weight, added up, then squashed into 0 to 1'.) White pulses leave the lit inputs and run down every line to the hidden nodes, then on to the output; the output ring flares and a number writes on beside it: '{n2(GUESS0)}'.",
      motion="Pulses race down at a steady speed, brighter on the thicker lines; the hidden nodes flare as they arrive; the output flares last and the number appears at its value.",
      carries=f"The guess, {n2(GUESS0)}.",
      transition="Continuous: the meter draws under the output.",
@@ -376,7 +378,7 @@ shot("s08", "guess", "diagram", "The signal flows through to a *guess*.",
              fr(0.5, "They reach the hidden row and go on.", toy(x=CAT), pulses(0.6), grid(), {"move": [970, 560, 970, 1000], "text": "down"}),
              fr(1, f"The output flares: '{n2(GUESS0)}'.", toy(x=CAT, glow_out=True), label(380, 1088, n2(GUESS0), 56, colour=CY), grid(), {"cut": "the meter"})])
 
-shot("s09", "error", "chart", f"It guesses *{n2(GUESS0)}*. The answer is 1.",
+shot("s09", "error", "chart", f"It guesses {n2(GUESS0)}. The *answer* is 1.",
      teaches=f"Compare the guess with the right answer: {n2(GUESS0)}, when it should be 1.",
      screen=f"A horizontal outline meter under the output (x 200 to 794 at y 1200, '0' and '1' at its ends): a cyan tick at {n2(GUESS0)} labelled 'guess {n2(GUESS0)}', a white tick at 1 labelled 'answer: 1'.",
      motion="The meter draws on left to right; the cyan tick drops from the output to its place; the white tick lights at 1.",
@@ -429,7 +431,7 @@ def nudges(p=START, done=False):
 
 shot("s12", "nudge", "diagram", "Each weight gets nudged a *little*, to shrink the error.",
      teaches="Each weight is nudged a little, in the direction that makes the error smaller.",
-     screen=f"The toy network: every line the error touched changes width a little (the ones from the lit inputs); small magenta arrows beside them show up or down; the line from the middle hidden node to the output is labelled with its weight changing: '{n2(W_BEFORE)} → {n2(W_AFTER)}'.",
+     screen=f"(As built: the arrows carry the words 'thicker' and 'thinner'; then the camera goes close on the middle hidden → output line, '0.66 → 0.79' beside it, 'its weight' and a 0-to-1 gauge whose bar grows from 0.66 to 0.79 over a ghost of the old value, 'one nudge, made big so you can see it'.) The toy network: every line the error touched changes width a little (the ones from the lit inputs); small magenta arrows beside them show up or down; the line from the middle hidden node to the output is labelled with its weight changing: '{n2(W_BEFORE)} → {n2(W_AFTER)}'.",
      motion=f"All the touched lines swell or thin at once, eased over 0.6 s; the label's number ticks from {n2(W_BEFORE)} to {n2(W_AFTER)} once (no counting through other values); the arrows flash once.",
      carries="The nudged network.",
      transition="Continuous: a new guess runs down.",
@@ -440,7 +442,7 @@ shot("s12", "nudge", "diagram", "Each weight gets nudged a *little*, to shrink t
              fr(0.5, "The touched lines swell or thin; arrows show which way.", nudges(done=True), grid()),
              fr(1, f"The labelled weight now {n2(W_AFTER)}.", nudges(done=True), meter(GUESS0, error=True), grid(), {"cut": "guess again"})])
 
-shot("s13", "nudge", "compare", f"Guess again: *{n2(GUESS1)}*. Closer.",
+shot("s13", "nudge", "compare", f"Guess again: {n2(GUESS1)}. *Closer*.",
      teaches=f"The same cat again: the guess is now {n2(GUESS1)}, closer to 1: the error shrank.",
      screen=f"Pulses run down the nudged network again; on the meter the old guess stays as a faint cyan ghost at {n2(GUESS0)}, the new cyan tick lands at {n2(GUESS1)}, and the magenta gap is shorter: 'error {n2(1 - GUESS1)}'.",
      motion="One fast run of pulses down; the cyan tick slides from the ghost to its new place; the magenta gap shortens with it.",
@@ -483,7 +485,7 @@ def chart(upto):
 
 shot("s15", "repeat", "chart", "The *error* keeps falling.", beats=4,
      teaches="Round after round, the error falls.",
-     screen=f"A glowing outline chart, y 440 to 1100: 'error' up the side (0 to {n2(0.25)}), 'rounds (0 – {SHOW})' along the bottom; the line, in magenta (it is the error), is the network's real mean squared error over the three examples, from {n2(CURVE[0])} at the start, falling steeply and then lying almost flat on the floor.",
+     screen=f"(As built: the chart plots the cat's own error, 1 − its guess, so its numbers continue the meter's: from 0.60 after the one nudge, over rounds 0 to 60, the round written at the curve's head, and 'round 1,000: 0.02' at its end; y axis 0 to 0.75, labelled 'the cat's error'.) A glowing outline chart, y 440 to 1100: 'error' up the side (0 to {n2(0.25)}), 'rounds (0 – {SHOW})' along the bottom; the line, in magenta (it is the error), is the network's real mean squared error over the three examples, from {n2(CURVE[0])} at the start, falling steeply and then lying almost flat on the floor.",
      motion="The magenta line draws on left to right at a steady pace, a bright white pulse at its head; the white axes are already there.",
      carries="The flat end of the curve.",
      transition="The chart folds away; the three examples come back with their answers.",
@@ -506,7 +508,7 @@ def results(n=3):
     return out + grid()
 
 
-shot("s16", "repeat", "compare", f"{ROUNDS:,} rounds later: cat *{n2(FINAL['cat'])}*, dog {n2(FINAL['dog'])}.",
+shot("s16", "repeat", "compare", f"*{ROUNDS:,} rounds* later: cat {n2(FINAL['cat'])}, dog {n2(FINAL['dog'])}.",
      teaches="After a thousand rounds the guesses are right: near 1 for the cat, near 0 for the dog and the fish.",
      screen=f"Three rows, one per example: the white outline of the cat, the dog and the fish at the left, and beside each a meter from 0 to 1 with its cyan tick and number: cat {n2(FINAL['cat'])}, dog {n2(FINAL['dog'])}, fish {n2(FINAL['fish'])}. A small counter at the top: '{ROUNDS:,} rounds'.",
      motion="The rows slide in one per beat; each tick drops to its place and its number appears at its value.",
@@ -547,7 +549,7 @@ def scale(field=True, count=True):
 
 shot("s18", "repeat", "compare", "Big models work the same way: *175 billion* weights.",
      teaches="Big models learn the same way, just with far more weights: GPT-3 has 175 billion.",
-     screen=f"Left: the toy network as one small cyan ring, 'toy: {WEIGHTS} weights'. Right: a field of rings and lines fading off into the dark, too many to count, and under it 'GPT-3 (2020):' / '175,000,000,000' / 'weights (175 billion)'. Small at the bottom: 'not to scale'.",
+     screen=f"(As built: a zoom-out in three steps, centred: the toy network with '{WEIGHTS} weights', then a field of a million weights it is one dot of, then a field of 175,000,000,000 that field is one dot of; the number under the field at each step, 'GPT-3 (2020)' and 'not to scale' with the last.) Planned: Left: the toy network as one small cyan ring, 'toy: {WEIGHTS} weights'. Right: a field of rings and lines fading off into the dark, too many to count, and under it 'GPT-3 (2020):' / '175,000,000,000' / 'weights (175 billion)'. Small at the bottom: 'not to scale'.",
      motion="The camera pulls far back from the toy network until it is one ring; the field of nodes fills in to its right and runs on out of frame; the number writes on at its value.",
      carries="The field of nodes.",
      transition="Everything folds into four small pictures stacked down the frame.",
@@ -643,11 +645,11 @@ storyboard = {
          "source": "Google ML Crash Course, 'Linear regression: Gradient descent' (steps: calculate the loss, determine the direction that reduces it, move the weights and bias a small amount, repeat) and 'Neural networks: Training using backpropagation' ('Backpropagation is the most common training algorithm for neural networks'); Rumelhart, Hinton & Williams (1986), Nature 323, 533–536, abstract."},
         {"id": "n6", "claim": f"One nudge (one gradient step on the cat, step size {RATE}): the weight from the middle hidden neuron to the output goes {W_BEFORE:.3f} → {W_AFTER:.3f} (shown {n2(W_BEFORE)} → {n2(W_AFTER)}), every other weight touched by the error moves too, and the guess for the same cat goes {n2(GUESS0)} → {n2(GUESS1)}: the error {n2(1 - GUESS0)} → {n2(1 - GUESS1)}. The step size (learning rate) is set large in this toy so one step is visible; real training takes much smaller steps.",
          "source": f"Computed (storyboard.build.py); learning rate: Google ML Crash Course, 'Linear regression: Hyperparameters' ('The learning rate determines the magnitude of the changes to make to the weights and bias during each step')."},
-        {"id": "n7", "claim": f"Repeated over the three examples for {ROUNDS:,} rounds (one nudge per example per round), the network's answers become cat {FINAL['cat']:.3f}, dog {FINAL['dog']:.3f}, fish {FINAL['fish']:.3f} (shown {n2(FINAL['cat'])}, {n2(FINAL['dog'])}, {n2(FINAL['fish'])}). The mean squared error over the three falls from {CURVE[0]:.3f} to {CURVE[-1]:.5f}; the chart in s15 shows its first {SHOW} rounds, after which it lies flat (it is below 0.01 by round 50). A loss curve that falls and flattens is what training looks like.",
+        {"id": "n7", "claim": f"Repeated over the three examples for {ROUNDS:,} rounds (one nudge per example per round), the network's answers become cat {FINAL['cat']:.3f}, dog {FINAL['dog']:.3f}, fish {FINAL['fish']:.3f} (shown {n2(FINAL['cat'])}, {n2(FINAL['dog'])}, {n2(FINAL['fish'])}). The mean squared error over the three falls from {CURVE[0]:.3f} to {CURVE[-1]:.5f}; the chart in s15 shows its first {SHOW} rounds, after which it lies flat (it is below 0.01 by round 50). A loss curve that falls and flattens is what training looks like. As built, the chart in s15 plots the cat's own error (1 − its guess, the gap the meter shows): {n2(1 - GUESS0)} at the start, {n2(CATERR[0])} after the one nudge, {n2(CATERR[1])} after round 1, {n2(CATERR[60])} at round 60, and {n2(CATERR[-1])} after round {ROUNDS:,} (written at the right end of the chart), so its numbers continue the meter's; the mean squared error above is the measure training itself makes small.",
          "source": "Computed (storyboard.build.py); Google ML Crash Course, 'Linear regression: Gradient descent' (loss curves; 'A model is considered to have converged when further iterations do not significantly reduce the loss')."},
         {"id": "n8", "claim": f"Nobody set which input matters. At the start the lines from 'bark?' were the strongest (sum of the three weights' sizes: meow {strength(START, 0):.2f}, bark {strength(START, 1):.2f}, four legs {strength(START, 2):.2f}); after training the lines from 'meow?' are (meow {strength(END, 0):.2f}, bark {strength(END, 1):.2f}, four legs {strength(END, 2):.2f}). In the three examples, meowing is what tells a cat apart. This is the toy's result; in big networks what each weight 'means' is usually not readable like this.",
          "source": "Computed (storyboard.build.py); Rumelhart, Hinton & Williams (1986): as a result of the weight adjustments, hidden units 'come to represent important features of the task domain'."},
-        {"id": "n9", "claim": f"Big models learn the same way, with far more weights: GPT-3 (2020) has 175 billion parameters (on screen '175,000,000,000' and '175 billion weights'), trained with Adam (a form of gradient descent) on 300 billion tokens; its 'error' is how wrong its guess of the next word is. Against the toy's {WEIGHTS} weights the drawing cannot be to scale and says so. Simplifications: the film calls parameters 'weights' (they also include biases and embeddings), and Adam adjusts each step's size, but each step still moves the weights to reduce the error.",
+        {"id": "n9", "claim": f"Big models learn the same way, with far more weights: GPT-3 (2020) has 175 billion parameters (on screen '175,000,000,000' and '175 billion weights'), trained with Adam (a form of gradient descent) on 300 billion tokens; its 'error' is how wrong its guess of the next word is. Against the toy's {WEIGHTS} weights the drawing cannot be to scale and says so; the zoom-out passes a field of a million weights on the way, a scale mark between the two and not any particular model. Simplifications: the film calls parameters 'weights' (they also include biases and embeddings), and Adam adjusts each step's size, but each step still moves the weights to reduce the error.",
          "source": "Brown et al. (2020), 'Language Models are Few-Shot Learners', arXiv:2005.14165: 'we train GPT-3, an autoregressive language model with 175 billion parameters'; §2.3 and Appendix B: 'All models were trained for a total of 300 billion tokens'; 'To train all versions of GPT-3, we use Adam'."},
     ],
     "acts": [

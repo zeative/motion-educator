@@ -134,6 +134,9 @@ def board_a_view(k, fx, fy, sx=960, sy=500, underline_q=True):
     return out
 
 
+FIGC = dict(cx=640, cy=600, u=70)  # section C's figure, right of the opening's so the sums sit close beside it
+
+
 # ── Section D: the proof. Two squares of side a + b, side by side ───────────────────────────────────────────────────
 PU = 80
 PA, PB = LEG_A * PU, LEG_B * PU  # 240, 320
@@ -216,7 +219,7 @@ def proof_right(stage):
     return out
 
 
-XTRI = [poly([(1300, 500), (1300, 500 - PA), (1300 + PB, 500)], width=7, fill="ink"), label(1730, 420, "× 4", 80)]  # the triangle 'x 4', on the board from s11 to s13
+XTRI = [poly([(1000, 500), (1000, 500 - PA), (1000 + PB, 500)], width=7, fill="ink"), label(1430, 420, "× 4", 80)]  # the triangle 'x 4', on the board from s11 to s13
 
 
 # ── Section E: the same proof for other right triangles (mini), then the recap ──────────────────────────────────────
@@ -247,24 +250,26 @@ def general(stage):
         out += mini_pair(1010, 150, TALL[0] + TALL[1], *TALL)
     # each triangle itself, small, under its pair, with its right angle ringed
     out += [poly([(330, 720), (330, 720 - FLAT[0]), (330 + FLAT[1], 720)], width=6, fill="ink"), right_mark(330, 720, 1, -1),
-            {"ring": [342, 708, 30], "colour": C_KEY, "width": 5}, label(480, 800, "flat", 46)]
+            {"ring": [342, 708, 30], "width": 5}, label(480, 800, "flat", 46)]
     if stage >= 1:
         out += [poly([(1350, 790), (1350, 790 - TALL[0]), (1350 + TALL[1], 790)], width=6, fill="ink"), right_mark(1350, 790, 1, -1),
-                {"ring": [1362, 778, 30], "colour": C_KEY, "width": 5}, label(1470, 800, "tall", 46)]
+                {"ring": [1362, 778, 30], "width": 5}, label(1470, 800, "tall", 46)]
     if stage >= 2:
-        tick = lambda x, y: {"path": f"M{x} {y - 20} l16 18 l30 -40", "colour": C_KEY, "width": 7}  # a drawn tick, not a glyph
+        tick = lambda x, y: {"path": f"M{x} {y - 20} l16 18 l30 -40", "width": 7}  # a drawn tick, not a glyph
         out += [label(460, 880, "c² = a² + b²", 54, colour=C_KEY), tick(640, 878), label(1450, 880, "c² = a² + b²", 54, colour=C_KEY), tick(1630, 878)]
     return out
 
 
 def recap(stage):
-    out = [rect(140, 220, 360, 360, colour=C_PIECE, width=8), label(320, 198, "a", 50), label(108, 416, "a", 50),
-           label(320, 436, "a²", 110, colour=C_PIECE), label(320, 690, "a² = area of a square", 52)]
+    out = [rect(110, 160, 360, 360, colour=C_PIECE, width=8), label(290, 140, "a", 52), label(80, 360, "a", 52),
+           label(290, 380, "a²", 120, colour=C_PIECE), label(290, 610, "a² = area", 56)]
     if stage >= 1:
-        out += mini_pair(580, 220, 330, 142, 188, gap=120)
-        out += [label(970, 420, "=", 100), label(970, 690, "same big square, same 4 triangles", 44), label(970, 760, "so the gaps have the same area", 44)]
+        out += mini_pair(590, 160, 360, 154, 206, gap=110)
+        out += [label(1005, 380, "=", 90), label(1005, 610, "same area", 56),
+                poly([(1560, 420), (1560, 300), (1720, 420)], width=6), right_mark(1560, 420, 1, -1), {"ring": [1572, 408, 30], "width": 5},
+                label(1640, 500, "right", 52), label(1640, 560, "triangles only", 52)]
     if stage >= 2:
-        out += [rect(1420, 330, 400, 170, width=7), label(1620, 446, "c² = a² + b²", 74, colour=C_KEY), label(1620, 600, "right triangles only", 50)]
+        out += [rect(560, 690, 890, 190, width=7), label(1005, 822, "c² = a² + b²", 110, colour=C_KEY)]
     return out
 
 
@@ -284,13 +289,13 @@ def board_c(stage):
     """stage 1: the triangle 3-4-5; 2: the square on 3 counted; 3: on 4; 4: on 5 and the sum; 5: other triangles."""
     sq = (stage >= 2, stage >= 3, stage >= 4)
     cnt = ("9" if stage >= 2 else None, "16" if stage >= 3 else None, "25" if stage >= 4 else None)
-    out = figure(**FIG, names=("3", "4", "5"), squares=sq, grids=sq, counts=cnt)
+    out = figure(**FIGC, names=("3", "4", "5"), squares=sq, grids=sq, counts=cnt)
     if stage >= 2:
-        out.append(label(1480, 230, "3 × 3 = 9", 72, colour=C_PIECE))
+        out.append(label(1300, 230, "3 × 3 = 9", 72, colour=C_PIECE))
     if stage >= 3:
-        out.append(label(1480, 340, "4 × 4 = 16", 72, colour=C_PIECE))
+        out.append(label(1300, 340, "4 × 4 = 16", 72, colour=C_PIECE))
     if stage >= 4:
-        out += [label(1480, 470, "9 + 16 = 25", 84), underline(1640, 1740, 492), label(1480, 570, "= 5 × 5", 72, colour=C_KEY)]
+        out += [label(1300, 470, "9 + 16 = 25", 84), underline(1460, 1560, 492), label(1300, 570, "= 5 × 5", 72, colour=C_KEY)]
     if stage >= 5:
         out += [poly([(1180, 840), (1180, 790), (1450, 840)], width=6, fill="ink"), label(1500, 830, "?", 80),
                 poly([(1600, 840), (1600, 660), (1690, 840)], width=6, fill="ink"), label(1740, 760, "?", 80)]
@@ -312,7 +317,7 @@ def shot(id, act, type_, voice, **more):
     shots.append({"id": id, "act": act, "type": type_, "start": round(start, 3), "end": round(start + length, 3), "voice": voice, **more})
 
 
-SLIDE = "The camera slides right along the board to a clean section"
+SLIDE = "The camera glides right along the board (about 0.9 s, eased) and lands on the first chalk stroke of a clean section"
 
 shot("s01", "hook", "wide", "In any *right triangle* you draw,",
      teaches="Opens on the rule the viewer already knows, over the figure it is about: a right triangle with a square on each side.",
@@ -328,7 +333,7 @@ shot("s01", "hook", "wide", "In any *right triangle* you draw,",
 shot("s02", "hook", "type", "a squared plus b squared equals *c squared*.",
      teaches="States the rule as the formula on the board, term by term.",
      screen="Section A, the camera on the formula 'a² + b² = c²' in large chalk figures (about 140 px high on screen); the blue squares just in view at left.",
-     motion="The camera slides right and steadies on the formula; as each term is said the chalk taps under it (a², b², then c²), a puff of dust each time. Nothing new is drawn: section A stays as frame 0 drew it.",
+     motion="The camera eases right to take in the formula and the figure together; as each term is said the chalk taps under it (a², b², then c²), a puff of dust each time, and runs once round the square it names (the same lines, no new mark). Nothing new is drawn: section A stays as frame 0 drew it.",
      carries="The formula.", transition="The camera pulls back to the whole board.",
      sound="Three soft chalk taps, one a term.", check="The formula is the largest thing on screen and reads at a glance.", facts=["f1"],
      frames=[fr(0, "Sliding right from the triangle to the formula.", board_a_view(1.3, 1000, 520), {"camera": "right"}),
@@ -357,7 +362,7 @@ shot("s04", "square", "diagram", "Squared means an actual *square*:",
 shot("s05", "square", "type", "a squared is the *area* of a square with side a.",
      teaches="a² is the area of the square whose side is a.",
      screen="The same section: the blue square with 'a' on its top and left sides, and under it 'area = a × a' in large chalk lettering (about 100 px).",
-     motion="'area = a × a' is written on as the voice says it; 'area' gets a yellow underline on the word.",
+     motion="On 'area' the inside of the square is hatched in blue (the area is what it covers) and 'area' is written under it with a yellow underline; on 'side a' each side gets a dimension line with an 'a'; then '= a × a'.",
      carries="The idea that a square's area is side times side.", transition="The camera slides right to a clean section; a triangle is drawn there.",
      sound="Chalk writing; a short underline scratch.", check="The lettering reads 'area = a × a' and sits above the caption line.", facts=["f2"],
      frames=[fr(0, "The square with its sides lettered a.", board_b(2)),
@@ -376,11 +381,11 @@ shot("s06", "count", "diagram", "Try *three, four, five*.",
 shot("s07", "count", "chart", "The square on three holds *nine* little squares,",
      teaches="The square on the side 3 holds 9 unit squares.",
      screen="Pulled back: the 3-4-5 triangle at the same place and size as the opening figure. A blue-chalk square on the side 3 with a 3 x 3 grid inside, '9' in its middle; on the right of the board '3 × 3 = 9' in blue.",
-     motion="The camera pulls back; the square is drawn off the side 3, then its grid lines, then the cells are counted with quick chalk ticks (1 to 9) and '9' is written; the sum on the right writes on.",
+     motion="The camera pulls back to about 1.75x on the triangle; the square is drawn off the side 3, then its grid lines, then the cells are counted with chalk ticks (1 to 9, about a second) and '9' is written; the camera eases out to take in the sum on the right as it writes on.",
      carries="The triangle and its first square.", transition="Continuous: the next square grows off the side 4.",
      sound="Nine quick chalk ticks.", check="The grid is exactly 3 x 3 and each cell is the same size as a unit of the legs.", facts=["f3", "f2"],
      frames=[fr(0, "Pulled back: the triangle at the opening figure's size.", board_c(1), {"camera": "pull"}),
-             fr(0.5, "The square on 3 drawn, its 3 x 3 grid.", figure(**FIG, names=("3", "4", "5"), squares=(True, False, False), grids=(True, False, False))),
+             fr(0.5, "The square on 3 drawn, its 3 x 3 grid.", figure(**FIGC, names=("3", "4", "5"), squares=(True, False, False), grids=(True, False, False))),
              fr(1, "Counted: 9; '3 × 3 = 9' on the right.", board_c(2), {"cut": "continuous"})])
 
 shot("s08", "count", "chart", "the one on four, *sixteen*.",
@@ -398,8 +403,8 @@ shot("s09", "count", "compare", "Together, *twenty-five*: the square on the long
      motion="'9 + 16 = 25' writes on first; then the yellow square and its tilted grid are drawn off the long side and '25' is written in it; the underline joins the two 25s.",
      carries="The counted figure.", transition="Continuous: two other triangles appear lower right.",
      sound="A chalk scratch for the underline.", check="The tilted grid is 5 x 5 with cells the same size as the others; the sums are right.", facts=["f3"],
-     frames=[fr(0, "The sum writes on: 9 + 16 = 25.", board_c(3), label(1480, 470, "9 + 16 = 25", 84)),
-             fr(0.55, "The yellow square on 5 and its grid.", figure(**FIG, names=("3", "4", "5"), grids=(True, True, True), counts=("9", "16", None)), label(1480, 230, "3 × 3 = 9", 72, colour=C_PIECE), label(1480, 340, "4 × 4 = 16", 72, colour=C_PIECE), label(1480, 470, "9 + 16 = 25", 84)),
+     frames=[fr(0, "The sum writes on: 9 + 16 = 25.", board_c(3), label(1300, 470, "9 + 16 = 25", 84)),
+             fr(0.55, "The yellow square on 5 and its grid.", figure(**FIGC, names=("3", "4", "5"), grids=(True, True, True), counts=("9", "16", None)), label(1300, 230, "3 × 3 = 9", 72, colour=C_PIECE), label(1300, 340, "4 × 4 = 16", 72, colour=C_PIECE), label(1300, 470, "9 + 16 = 25", 84)),
              fr(1, "25 in the big square, '= 5 × 5' under the sum.", board_c(4), {"cut": "continuous"})])
 
 shot("s10", "count", "diagram", "But that's *one* triangle.",
@@ -417,7 +422,7 @@ shot("s11", "proof", "compare", "For every case, put four *identical* triangles"
      motion=f"{SLIDE}. The triangle and '× 4' are written; then the four copies are drawn into place one after another, a number in each.",
      carries="The four numbered triangles.", transition="Continuous: the square round them is closed.",
      sound="Four chalk strokes in a rhythm, a tap for each number.", check="The four triangles are the same size and shape (computed corners, not drawn by eye).", facts=["f4"],
-     frames=[fr(0, "A clean section; the triangle a, b, c and '× 4'.", poly([(1300, 500), (1300, 500 - PA), (1300 + PB, 500)], width=7, fill="ink"), right_mark(1300, 500, 1, -1), label(1270, 400, "a", 46), label(1460, 550, "b", 46), label(1480, 380, "c", 46), label(1730, 420, "× 4", 80), {"camera": "right"}),
+     frames=[fr(0, "A clean section; the triangle a, b, c and '× 4'.", poly([(1000, 500), (1000, 500 - PA), (1000 + PB, 500)], width=7, fill="ink"), right_mark(1000, 500, 1, -1), label(966, 400, "a", 48), label(1160, 552, "b", 48), label(1190, 378, "c", 48), label(1430, 420, "× 4", 80), {"camera": "right"}),
              fr(0.5, "Copies 1 and 2 drawn at two corners.", tri(corners(LX, PY)[1], 1), tri(corners(LX, PY)[2], 2), XTRI),
              fr(1, "All four copies, numbered.", proof_left(outline=False), XTRI, {"cut": "continuous"})])
 
@@ -431,29 +436,29 @@ shot("s12", "proof", "diagram", "inside a square with sides *a plus b*.",
              fr(0.5, "The square closed round them.", proof_left(), XTRI),
              fr(1, "Its sides lettered: b + a along the top, a + b down the side, bracket 'a + b'.", proof_left(sides=True), XTRI, {"cut": "continuous"})])
 
-shot("s13", "proof", "diagram", "That leaves a tilted square in the middle, side *c*.",
+shot("s13", "proof", "diagram", "That leaves a tilted square in the middle, side *c*.", hold=1.4,
      teaches="The space left in the middle is a tilted square on c, and it is a true square because each of its corners is 90 degrees.",
-     screen="The middle hatched in yellow chalk, 'c²' in it. At its top corner, small arc marks for the two triangles' acute angles (x and y) and a right-angle mark for the square's corner. Right half (the '× 4' wiped away): 'x + y = 90°' and 'so this corner is 90° too' with an arrow to that corner.",
-     motion="The hole is hatched in yellow; 'c²' is written; the camera pushes in a little; '× 4' is wiped with a cloth (a faint smear stays) and the angle note is written with its arrow.",
+     screen="The middle outlined and hatched in yellow chalk, each of its sides lettered c and 'c²' in it. At its right corner the two triangles' acute angles x and y (both also marked in triangle 2, round its right angle), the straight line marked 180° with a half circle, and a right-angle mark for the square's corner. Under the square (the bracket and the '× 4' wiped away), in large chalk: 'x + y = 90°' and 'so this corner is 90° too' with an arrow to that corner.",
+     motion="The hole is outlined and hatched in yellow; its sides are lettered c and then 'c²' is written; the camera pushes in toward the corner; '× 4' and the bracket are wiped with a cloth (a faint smear stays); the angles, the half circle and the note are written with its arrow in the pause after the line.",
      carries="The first arrangement: four triangles and c².", transition="The angle note is wiped; a second square of the same size is drawn on the right.",
-     sound="Chalk hatching; the soft wipe of the eraser.", check="The middle shape has four equal sides; the angle note is small but readable.", facts=["f4", "f5"],
+     sound="Chalk hatching; the soft wipe of the eraser.", check="The middle shape has four equal sides; the angle note is 60 px or more and stays on the board through s15.", facts=["f4", "f5"],
      frames=[fr(0, "The hole hatched yellow; c² written.", proof_left(middle=True, sides=True), XTRI),
-             fr(0.5, "'× 4' wiped; arc marks x and y at the top corner.", proof_left(middle=True, sides=True), {"path": f"M{LX + PB - 60} {PY} A60 60 0 0 0 {LX + PB - 48} {PY + 36}", "width": 5}, {"path": f"M{LX + PB + 60} {PY} A60 60 0 0 1 {LX + PB + 48} {PY + 36}", "width": 5}, label(LX + PB - 80, PY + 44, "x", 40), label(LX + PB + 80, PY + 44, "y", 40), {"path": "M1200 460 C 1400 440, 1600 470, 1800 450", "colour": "white", "width": 30}, {"camera": "push"}),
-             fr(1, "The angle note: x + y = 90°, so this corner is 90° too.", proof_left(middle=True, sides=True), label(1450, 300, "x + y = 90°", 72), label(1450, 400, "so this corner is 90° too", 52), {"arrow": [1160, 380, LX + PB + 40, PY + 60], "colour": C_KEY}, {"path": f"M{LX + PB - 16} {PY + 12} l16 12 l12 -16", "colour": C_KEY, "width": 5}, {"cut": "wipe, second square"})])
+             fr(0.5, "'× 4' and the bracket wiped; x and y at the right corner, the straight line marked 180°.", proof_left(middle=True, sides=True), {"path": f"M{LX + PS} {PY + PB - 44} A44 44 0 0 0 {LX + PS - 26} {PY + PB - 35}", "width": 5}, {"path": f"M{LX + PS} {PY + PB + 44} A44 44 0 0 1 {LX + PS - 35} {PY + PB + 26}", "width": 5}, {"path": f"M{LX + PS} {PY + PB - 70} A70 70 0 0 0 {LX + PS} {PY + PB + 70}", "width": 4}, label(LX + PS - 30, PY + PB - 64, "x", 48), label(LX + PS - 30, PY + PB + 96, "y", 48), label(LX + PS + 70, PY + PB + 16, "180°", 46), {"path": "M1200 460 C 1400 440, 1600 470, 1800 450", "colour": "white", "width": 30}, {"camera": "push"}),
+             fr(1, "The angle note: x + y = 90°, so this corner is 90° too.", proof_left(middle=True), label(LX + PB / 2 + 140, PY + 50, "y", 48), label(480, 780, "x + y = 90°", 70), label(480, 862, "so this corner is 90° too", 60), {"arrow": [820, 840, LX + PS + 18, PY + PB + 20]}, {"path": f"M{LX + PS - 26} {PY + PB - 20} l-14 20 l14 20", "width": 5}, {"cut": "continuous: a second square is drawn on the right"})])
 
 shot("s14", "proof", "wide", "Now *slide* two of them, without turning.",
      teaches="The same four triangles, moved without turning or resizing: two of them slide.",
-     screen=f"Both squares, side by side, the same size: left, the first arrangement with c². Right, a new square of side a + b: triangles 1 and 4 drawn where they were; triangles 2 and 3 first as dashed outlines in their old places, then chalk arrows to their new places (3 first, then 2) and a small note above the square, '3 first, then 2: slid, not turned', where they are drawn solid. Triangle 3 slides up-left by (a, b), triangle 2 down-left by (b, a).",
-     motion="The angle note is wiped; the right square and triangles 1 and 4 are drawn; ghosts of 2 and 3 are dotted in, the arrows drawn, then 3 is drawn at its new place, then 2 (one after the other, so the arrows never cross at the same moment), and the ghosts are wiped (leaving a faint smear).",
+     screen=f"Both squares, side by side, the same size: left, the first arrangement with c² and the angle note under it. Right, a new square of side a + b, lettered b, a along its top and a, b down its left, with the same four triangles copied into the same corners, numbered. Then triangle 3 slides up-left by (a, b) and triangle 2 down-left by (b, a), each with a white chalk arrow, leaving a dotted outline where it was; above the square 'slid, not turned'.",
+     motion="The right square is drawn in one stroke and lettered; each triangle is copied in turn (the chalk runs round the first square's triangle, then draws its copy); the arrow for 3 is drawn and 3 slides, then 2 (one after the other), each leaving a dotted outline; the dotted outlines and the arrows are wiped (a faint smear stays) and the bracket goes with them.",
      carries="Both arrangements, side by side.", transition="Continuous: the two holes on the right are hatched.",
-     sound="Chalk strokes; two soft wipes as the ghosts go.", check="2 and 3 keep their orientation (pure slides); the moved corners are the computed ones.", facts=["f4"],
+     sound="Chalk strokes; two soft wipes as the ghosts go.", check="2 and 3 keep their orientation (pure slides); the moved corners are the computed ones; the copies never overlap the first square.", facts=["f4"],
      frames=[fr(0, "Right square, 1 and 4 in place, 2 and 3 dashed where they were.", proof_left(middle=True), proof_right(0), {"camera": "pull"}),
              fr(0.5, "Arrows: 3 slides up-left, 2 slides down-left.", proof_left(middle=True), proof_right(1)),
              fr(1, "2 and 3 at their new places; ghosts wiped.", proof_left(middle=True), proof_right(2), {"cut": "continuous"})])
 
 shot("s15", "proof", "diagram", "The gap becomes two squares: *a squared* and *b squared*.",
      teaches="Now the empty space is two squares: one a by a, one b by b.",
-     screen=f"The right square's two holes hatched in blue chalk: top right a² ({PA} x {PA}), bottom right b² ({PB} x {PB}), each lettered. The left square with c² stays beside it.",
+     screen=f"The right square's two holes outlined and hatched in blue chalk: top right a² ({PA} x {PA}), bottom right b² ({PB} x {PB}), each lettered, and the right side of the square lettered a and b beside them. The left square with c² stays beside it.",
      motion="The small hole is hatched and lettered on 'a squared', the big one on 'b squared'.",
      carries="c² on the left, a² and b² on the right.", transition="Continuous: an '=' is written between the squares.",
      sound="Two runs of chalk hatching.", check=f"The holes measure {PA} and {PB} px: a and b exactly.", facts=["f4"],
@@ -461,29 +466,29 @@ shot("s15", "proof", "diagram", "The gap becomes two squares: *a squared* and *b
              fr(0.5, "a² hatched and lettered.", proof_left(middle=True), proof_right(2), rect(*A_SQ, colour=C_PIECE, fill=C_PIECE, width=7), label(A_SQ[0] + PA / 2, PY + PA / 2 + 26, "a²", 74, colour=C_PIECE)),
              fr(1, "b² hatched and lettered.", proof_left(middle=True), proof_right(3), {"cut": "continuous"})])
 
-shot("s16", "proof", "compare", "Same square, same triangles: the gaps must *match*.",
+shot("s16", "proof", "compare", "Same square, same triangles: the gaps must *match*.", hold=0.6,
      teaches="Same big square minus the same four triangles: what is left must be the same area.",
      screen="Both squares complete; a large '=' between them; under each 'big square - 4 triangles'; the outer edges retraced and the triangles ticked 1 to 4 on both sides.",
-     motion="The chalk runs round both outer squares (same size), ticks each pair of matching triangles, writes '=' between, then the two short lines under them.",
+     motion="The angle note is wiped; the chalk runs round both outer squares (same size), ticks each pair of matching triangles in white, writes the two short lines under them, then '=' between.",
      carries="The two equal leftovers.", transition="Continuous: the conclusion is written under them.",
      sound="Four ticks; a firm double stroke for '='.", check="Both outer squares are 560 px; the '=' sits midway between them.", facts=["f4"],
      frames=[fr(0, "Both arrangements complete.", proof_left(middle=True), proof_right(3)),
              fr(0.5, "'=' written between them.", proof_left(middle=True), proof_right(3), label(960, 450, "=", 150)),
              fr(1, "Under each: 'big square - 4 triangles'.", proof_left(middle=True), proof_right(3), label(960, 450, "=", 150), label(LX + PS / 2, 770, "big square - 4 triangles", 44), label(RX + PS / 2, 770, "big square - 4 triangles", 44), {"cut": "continuous"})])
 
-shot("s17", "proof", "type", "Which means c squared equals *a squared plus b squared*.",
+shot("s17", "proof", "type", "Which means c squared equals *a squared plus b squared*.", hold=1.4,
      teaches="The conclusion, read off the two squares: c² = a² + b².",
      screen="Under the two squares, large: 'c² = a² + b²', c² in yellow chalk and a² + b² in blue; thin chalk arrows from the c² in the left square and from a² and b² in the right one down to their terms. The spoken line runs as a caption below it.",
-     motion="The formula is written term by term with the voice; the arrows are drawn last.",
+     motion="The formula is written term by term with the voice, each arrow as its term is written; the camera settles on it and it holds, complete, for a second and a half (a pause after the line) before the board moves on.",
      carries="The proof and its formula.", transition="The camera slides right to a clean section.",
      sound="Chalk writing; a satisfied double tap at the end.", check="The formula sits clear of the caption line and is the largest lettering on screen.", facts=["f1", "f4"],
      frames=[fr(0, "'c² =' written under the squares.", proof_left(middle=True), proof_right(3), label(960, 450, "=", 150), label(800, 890, "c² =", 100, colour=C_KEY)),
              fr(0.5, "'a² + b²' follows in blue.", proof_left(middle=True), proof_right(3), label(960, 450, "=", 150), label(800, 890, "c² =", 100, colour=C_KEY), label(1080, 890, "a² + b²", 100, colour=C_PIECE)),
              fr(1, "'c² = a² + b²' complete, arrows from the squares.", proof_left(middle=True), proof_right(3), label(960, 450, "=", 150), label(800, 890, "c² =", 100, colour=C_KEY), label(1080, 890, "a² + b²", 100, colour=C_PIECE), {"arrow": [LX + PS / 2, PY + PS + 20, 760, 820], "colour": C_KEY}, {"arrow": [RX + 300, PY + PS + 20, 1100, 820], "colour": C_PIECE}, {"cut": "slide to a clean section"})])
 
-shot("s18", "general", "compare", "Flat or tall, any *right triangle* works.",
+shot("s18", "general", "compare", "Flat or tall, any *right triangle* works.", hold=0.55,
      teaches="The proof never used the numbers: it works the same for any right triangle, flat or tall.",
-     screen="Section E: the same two arrangements again, smaller, for a flat right triangle (left pair) and a tall one (right pair), each pair with its triangle drawn underneath, its right angle ringed in yellow, labelled 'flat' and 'tall', and under each 'c² = a² + b²' with a drawn tick.",
+     screen="Section E: the same two arrangements again, smaller, for a flat right triangle (left pair) and a tall one (right pair), each pair with its triangle drawn underneath, its right angle ringed in white chalk, labelled 'flat' and 'tall', and under each 'c² = a² + b²' with a drawn tick.",
      motion=f"{SLIDE}. Each pair is drawn quickly, the holes hatched (yellow on the left of the pair, blue on the right), then the ticks.",
      carries="The rule for every right triangle.", transition="The board is wiped with a cloth for the recap.",
      sound="Quick chalk strokes; two ticks.", check="Both pairs follow the same moves; the two triangles are clearly different shapes.", facts=["f6", "f7"],
@@ -491,20 +496,20 @@ shot("s18", "general", "compare", "Flat or tall, any *right triangle* works.",
              fr(0.5, "The tall triangle's pair drawn.", general(1)),
              fr(1, "Ticks: c² = a² + b² for both.", general(2), {"cut": "wipe clean"})])
 
-shot("s19", "answer", "recap", "The gap just changes shape, never its *area*.",
+shot("s19", "answer", "recap", "The gap just changes shape, never its *area*.", hold=0.9,
      teaches="The answer in one frame: the squares are areas, the same leftover space changes shape, so c² = a² + b².",
-     screen="One board after a cloth wipe (faint smears): left, a blue square with sides a and 'a² = area of a square'; middle, the two small arrangements with '=' between and 'same big square, same 4 triangles / so the gaps have the same area'; right, 'c² = a² + b²' boxed in white chalk with c² in yellow, and 'right triangles only' under it.",
+     screen="One board after a cloth wipe (faint smears), filled: above, a blue square with sides a and 'a² = area' under it; the two small arrangements with '=' between and 'same area' under them; a small right triangle, its right angle ringed, and 'right triangles only'. Below, across the middle, 'c² = a² + b²' large and boxed in white chalk, c² in yellow and a² + b² in blue.",
      motion="The cloth wipes left to right; the three small pictures are drawn in order, the box last.",
      carries="The proof's picture, which the camera passes on its way back.", transition="The camera slides back left along the whole board.",
      sound="The soft wipe of the eraser; chalk strokes.", check="Readable as a summary with the sound off.", facts=["f2", "f4", "f6"],
-     frames=[fr(0, "Wiped; the square and 'a² = area of a square'.", recap(0), {"path": "M120 860 C 600 840, 1200 870, 1800 850", "colour": "white", "width": 40}),
+     frames=[fr(0, "Wiped; the square and 'a² = area'.", recap(0), {"path": "M120 860 C 600 840, 1200 870, 1800 850", "colour": "white", "width": 40}),
              fr(0.5, "The two arrangements with '='.", recap(1)),
              fr(1, "'c² = a² + b²' boxed; 'right triangles only'.", recap(2), {"cut": "slide back to the start"})])
 
 shot("s20", "answer", "wide", "That's why", length=1.3,
      teaches="The bridge: the last words run into the first line, the picture into frame 0.",
      screen="The camera slides back left past the proof, the counted 3-4-5 and the square, and settles on section A: the opening figure, the question and the formula, the same picture as frame 0.",
-     motion="A fast slide left along the board (about 1.1 s, eased), settling exactly on the framing of frame 0 a moment before the cut.",
+     motion="A glide left along the whole board (about 1.1 s, eased), pulling back as it travels so the proof, the counted 3-4-5 and the square pass by, and pushing in to settle exactly on the framing of frame 0 on the last frame.",
      carries="Into s01.", transition="No cut: the film loops straight into s01.",
      sound="The bed runs on into the opening.", check="The last frame matches frame 0 (check.mjs SSIM).",
      frames=[fr(0, "Sliding back left along the board.", recap(2), {"camera": "left"}),
@@ -533,9 +538,9 @@ storyboard = {
         "mood": "The Chalkboard template: one long dark green board (#1f3b2d) in a wooden frame, faint smudges of old erased chalk, flat classroom light with a soft vignette and chalk-dust grain, no glow. White chalk (#f2f2ea) for everything; yellow chalk (#f6d365) only for c² and the point, blue chalk (#8fd3f4) only for a² and b², so the colour says which squares are the pieces and which is the whole. Every line and letter is drawn on stroke by stroke with grainy edges (ink.js drawOn and write under url(#chalk)); hatching for filled areas; corrections crossed out; a cloth wipe leaves a faint smear. Cabin Sketch for headings and the formula, numbers large and neat. The camera slides and pushes along the one board (stage.camx). Captions: every spoken line written in chalk near the bottom as it is said (subtitles), its *key* word in yellow (film.css should set --accent to #f6d365: look.css ships #9bd3ae, which is not in this template's palette); the question in s03 is already lettered on the board, so that shot has no caption.",
     },
     "music": {
-        "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
+        "track": "Composed for this film (ElevenLabs Music, music/bed.mp3; lengthened by two repeated bars in music/bed-long.mp3)",
         "bpm": 84,
-        "note": "A quiet classroom bed composed to the take's length: felt piano and soft pizzicato strings with a brushed pulse, no lead melody, low under the voice; it thins to piano alone under the proof (s11 to s16) and lifts gently on 'Which means' (s17); its tail runs on over the opening so the loop is seamless. Effects per shot, from the template's Sound line: chalk taps on the right angle and each formula term (s01, s02), a scratch for each stroke and letter drawn (s04 to s18), quick ticks while the cells are counted (s07 to s09), long hatching strokes when a hole is filled (s13, s15), the soft wipe of the eraser cloth (s13, s14, s19), and the air of the board sliding by under s20. The cuts follow the take.",
+        "note": "A quiet classroom bed composed to the take's length: felt piano and soft pizzicato strings with a brushed pulse, no lead melody, low under the voice; it thins to piano alone under the proof (s11 to s16) and lifts gently on 'Which means' (s17); its tail runs on over the opening so the loop is seamless. The pauses held after s13, s16, s17, s18 and s19 made the film longer than the bed was composed for, so two bars of it (at its measured 83 BPM) are played twice (music/bed.build.py writes music/bed-long.mp3); no new music was composed. Effects per shot, from the template's Sound line: chalk taps on the right angle and each formula term (s01, s02), a scratch for each stroke and letter drawn (s04 to s18), quick ticks while the cells are counted (s07 to s09), long hatching strokes when a hole is filled (s13, s15), the soft wipe of the eraser cloth (s13, s14, s19), and the air of the board sliding by under s20. The cuts follow the take.",
     },
     "facts": [
         {"id": "f1", "claim": "In any right triangle the square on the side opposite the right angle (the hypotenuse c) equals the sum of the squares on the two other sides (the legs a and b): a² + b² = c². The film says it for 'any right triangle you draw' and writes 'a² + b² = c²'.",

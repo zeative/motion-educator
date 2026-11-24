@@ -1,11 +1,34 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+/* Why does a bigger rear gear make hills easier? The Blueprint template's look comes from templates/blueprint/look.css;
+   this is only the film's own pieces: the sheets, the lettering on them and the caption's place. White lines in the
+   template's ink, one accent (#ffd166), no fills, no glow. */
+.sheet { position: absolute; inset: 0; overflow: hidden; }
+.sheet.lifted { box-shadow: 0 0 0 1px rgb(232 241 255 / 0.18), 0 0 46px 10px rgb(2 14 30 / 0.55); }
+.sheet .lines { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+.sheet .labs { position: absolute; inset: 0; pointer-events: none; }
+/* Annotations: technical capitals in Share Tech Mono, spaced like drawing lettering. */
+.lab {
+  position: absolute; left: 0; top: 0; white-space: nowrap; color: var(--ink);
+  font-family: "Share Tech Mono", monospace; font-weight: 400; line-height: 1; letter-spacing: 0.08em; text-transform: none;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
+.lab.acc, .lab .acc { color: var(--accent); }
+/* Lettering keeps a margin of clean paper round it: a centre line, a hatch or a tooth behind a note is broken there,
+   as a draughtsman breaks a line under lettering. */
+.lab { text-shadow: 0 0 3px #0f426f, 0 0 6px #0f426f, 0 0 9px #0f426f, 0 0 13px #0f426f; }
+.lab.big { letter-spacing: 0.12em; }
+.lab.tb { letter-spacing: 0.03em; text-shadow: none; }
+/* Big lettering over a drawing keeps a margin of clean paper round each letter, as a draughtsman letters over lines. */
+.lab.halo { text-shadow: 0 0 6px #0f416f, 0 0 12px #0f416f, 0 0 20px #0f416f; }
+.lab .arr { display: inline-block; width: 1.05em; height: 0.5em; vertical-align: 0.12em; margin: 0 0.12em; overflow: visible; }
+.lab .arr path { fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+/* The caption: one line of capitals along the bottom left, beside the title block, as a drawing's note. No pill, no
+   glass: the words arrive left to right, without blur or rise. */
+:root[data-look="blueprint"] #captions { bottom: 0; height: 200px; }
+:root[data-look="blueprint"] .caption.pill {
+  left: 100px; bottom: 86px; max-width: 1320px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none;
+  font-size: 40px; line-height: 1.2; letter-spacing: 0.08em; text-align: left; transform: none !important;
+  /* a margin of clean paper round the letters, as lettering is kept clear of the lines it sits over */
+  text-shadow: 0 0 5px #0f426f, 0 0 10px #0f426f, 0 0 16px #0f426f;
 }
+:root[data-look="blueprint"] .caption.pill .cw { filter: none !important; transform: none !important; }
+/* A unit keeps its own case inside a line of capitals: 2.2 m, not 2.2 M (mega). */
+:root[data-look="blueprint"] .caption[data-shot="s14"] .key { text-transform: none; }

@@ -331,14 +331,23 @@ shot("s09b", "charge", "diagram", "and *slip* between its layers.",
              fr(0.5, "The first ion slides between two sheets.", ZOOM_SHEETS, li(560, 425, 34), li(1300, 535, 34), li(1180, 645, 34)),
              fr(1, "All three lodged between the sheets.", ZOOM_SHEETS, li(560, 425, 34), li(380, 535, 34), li(760, 645, 34), {"cut": "continuous"})])
 
-shot("s10", "charge", "compare", "Here's the catch: lithium *doesn't like* it there.",
+shot("s10", "charge", "compare", "Here's the *catch*:", hold=0.5,
+     teaches="A turn: the lithium in the graphite is not where it wants to be.",
+     screen="Up the board above the cell, a clean stretch: two graphite sheets drawn large with one ion between them, 'in graphite'.",
+     motion="The camera tilts up the board from the graphite, staying close; the graphite close-up is drawn as the line is said; a beat of silence after 'catch'.",
+     carries="The ion between two sheets.", transition="Continuous: the oxide close-up is drawn beside it.",
+     sound="A marker stroke for each sheet.", check="It reads as a closer look at the graphite.", facts=["f5"],
+     frames=[fr(0, "Tilting up the board: the graphite close-up starts.", [d for d in close_bonds(0) if "ring" not in d or d.get("colour") == KEY][:6], {"camera": "up"}),
+             fr(1, "One ion between two graphite sheets, in the left half.", [d for d in close_bonds(0) if not (("ring" in d) and d.get("colour") != KEY)], {"cut": "continuous"})])
+
+shot("s10b", "charge", "compare", "lithium *doesn't like* it there.",
      teaches="In the graphite the lithium is only loosely held; in the oxide it is held tightly.",
      screen="Two close-ups side by side: left, an ion between two graphite sheets with room round it and small wobble marks, 'loose: doesn't like it here'; right, an ion wedged between rings of the oxide with short bond strokes to them, 'held tight: at home'.",
-     motion="From the graphite close-up the view narrows to one ion between two sheets in the left half; the oxide close-up is drawn on the right; the wobble marks on the left boil, the right ion stays still.",
+     motion="The oxide close-up is drawn on the right; the wobble marks on the left boil and the loose ion jitters, the right ion stays still.",
      carries="The idea: graphite is the uncomfortable place.", transition="The close-ups are wiped; the camera pulls back and a hill is drawn beside the cell.",
      sound="A small nervous wobble sound on the left ion.", check="The two places read as loose and tight without the words.", facts=["f5"],
-     frames=[fr(0, "One ion between two graphite sheets, now in the left half.", close_bonds(0), {"camera": "left"}),
-             fr(0.5, "Loose on the left; the snug oxide drawn on the right.", close_bonds(1)),
+     frames=[fr(0, "The snug oxide drawn on the right.", close_bonds(0)),
+             fr(0.5, "Loose on the left; held tight on the right.", close_bonds(1)),
              fr(1, "Both labelled: 'doesn't like it here', 'at home'.", close_bonds(1), {"cut": "wipe, a hill"})])
 
 shot("s11", "energy", "chart", "It's a ball pushed up a *hill*:",
@@ -351,7 +360,7 @@ shot("s11", "energy", "chart", "It's a ball pushed up a *hill*:",
              fr(0.5, "The ball pushed up the slope.", cell_body(), WIRE, charger(), ions("g"), hill(0.5, "up")),
              fr(1, "The ball resting on the top of the hill.", cell_body(), WIRE, charger(), ions("g"), hill(0.0), {"cut": "continuous"})])
 
-shot("s12", "energy", "chart", "the energy is in its *position*.",
+shot("s12", "energy", "chart", "the energy is in its *position*.", hold=0.5,
      teaches="The stored energy is the lithium's position: up in the graphite.",
      screen="The same board: a dashed ground line under the hill and, at its left, a measure from the ground up to the top where the ball sits, labelled 'stored energy' in blue; in the cell the six ions in the graphite get a blue bracket: they are the ball at the top.",
      motion="The measure is drawn up beside the slope and written; then the bracket in the cell.",
@@ -379,7 +388,7 @@ shot("s13", "use", "diagram", "Now use your phone, and the lithium heads *home*.
              fr(0.5, "Ions start back toward the oxide.", cell_body(), WIRE, phone_small(), ions(going_home(0, 2)), {"move": [520, 340, 900, 340], "text": "home"}, hill(0.25, "down")),
              fr(1, "The ball rolling; ions crossing.", cell_body(), WIRE, phone_small(), ions(going_home(0, 2)), hill(0.35), {"cut": "push in on the separator"})])
 
-shot("s14", "use", "compare", "Ions cross the separator. Electrons *can't*.",
+shot("s14", "use", "compare", "Ions cross the separator. Electrons *can't*.", hold=0.5,
      teaches="The separator lets the ions through but not the electrons: the electron is stopped at the same kind of opening the ion used, so it is not a matter of size (the electrolyte and the separator carry ions, never electrons).",
      screen="Close on the separator, drawn as a thick wall with gaps (pores): a blue ion passes through a pore to the right, 'through a pore'; a black electron dot runs at the wall and is stopped, a red cross on it and a red arrow turning it back, 'electrons can't pass' in red.",
      motion="The camera pushes in; the ion slides through the pore; the electron bumps the wall, the red cross is drawn and it is turned back.",

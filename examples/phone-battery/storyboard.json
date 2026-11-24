@@ -8,7 +8,7 @@
   "language": "en",
   "format": "1920x1080",
   "subtitles": true,
-  "duration": 47.89,
+  "duration": 49.39,
   "fps": 60,
   "loop": {
     "line": "That's why / a full phone battery and an empty one hold exactly the same stuff.",
@@ -8500,11 +8500,143 @@
       "act": "charge",
       "type": "compare",
       "start": 22.29,
-      "end": 25.25,
-      "voice": "Here's the catch: lithium *doesn't like* it there.",
+      "end": 23.81,
+      "voice": "Here's the *catch*:",
+      "hold": 0.5,
+      "teaches": "A turn: the lithium in the graphite is not where it wants to be.",
+      "screen": "Up the board above the cell, a clean stretch: two graphite sheets drawn large with one ion between them, 'in graphite'.",
+      "motion": "The camera tilts up the board from the graphite, staying close; the graphite close-up is drawn as the line is said; a beat of silence after 'catch'.",
+      "carries": "The ion between two sheets.",
+      "transition": "Continuous: the oxide close-up is drawn beside it.",
+      "sound": "A marker stroke for each sheet.",
+      "check": "It reads as a closer look at the graphite.",
+      "facts": [
+        "f5"
+      ],
+      "frames": [
+        {
+          "at": 0,
+          "note": "Tilting up the board: the graphite close-up starts.",
+          "draw": [
+            {
+              "path": "M120 300 H860",
+              "width": 7
+            },
+            {
+              "path": "M120 450 H860",
+              "width": 7
+            },
+            {
+              "path": "M120 600 H860",
+              "width": 7
+            },
+            {
+              "path": "M120 750 H860",
+              "width": 7
+            },
+            {
+              "label": [
+                490,
+                230
+              ],
+              "text": "in graphite",
+              "size": 54
+            },
+            {
+              "ring": [
+                490,
+                525,
+                42
+              ],
+              "colour": "blue",
+              "width": 5
+            },
+            {
+              "camera": "up"
+            }
+          ]
+        },
+        {
+          "at": 1,
+          "note": "One ion between two graphite sheets, in the left half.",
+          "draw": [
+            {
+              "path": "M120 300 H860",
+              "width": 7
+            },
+            {
+              "path": "M120 450 H860",
+              "width": 7
+            },
+            {
+              "path": "M120 600 H860",
+              "width": 7
+            },
+            {
+              "path": "M120 750 H860",
+              "width": 7
+            },
+            {
+              "label": [
+                490,
+                230
+              ],
+              "text": "in graphite",
+              "size": 54
+            },
+            {
+              "ring": [
+                490,
+                525,
+                42
+              ],
+              "colour": "blue",
+              "width": 5
+            },
+            {
+              "path": "M469 525 H511 M490 504 V546",
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "label": [
+                1440,
+                230
+              ],
+              "text": "in metal oxide",
+              "size": 54
+            },
+            {
+              "ring": [
+                1440,
+                525,
+                42
+              ],
+              "colour": "blue",
+              "width": 5
+            },
+            {
+              "path": "M1419 525 H1461 M1440 504 V546",
+              "colour": "blue",
+              "width": 4
+            },
+            {
+              "cut": "continuous"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10b",
+      "act": "charge",
+      "type": "compare",
+      "start": 23.81,
+      "end": 25.75,
+      "voice": "lithium *doesn't like* it there.",
       "teaches": "In the graphite the lithium is only loosely held; in the oxide it is held tightly.",
       "screen": "Two close-ups side by side: left, an ion between two graphite sheets with room round it and small wobble marks, 'loose: doesn't like it here'; right, an ion wedged between rings of the oxide with short bond strokes to them, 'held tight: at home'.",
-      "motion": "From the graphite close-up the view narrows to one ion between two sheets in the left half; the oxide close-up is drawn on the right; the wobble marks on the left boil, the right ion stays still.",
+      "motion": "The oxide close-up is drawn on the right; the wobble marks on the left boil and the loose ion jitters, the right ion stays still.",
       "carries": "The idea: graphite is the uncomfortable place.",
       "transition": "The close-ups are wiped; the camera pulls back and a hill is drawn beside the cell.",
       "sound": "A small nervous wobble sound on the left ion.",
@@ -8515,7 +8647,7 @@
       "frames": [
         {
           "at": 0,
-          "note": "One ion between two graphite sheets, now in the left half.",
+          "note": "The snug oxide drawn on the right.",
           "draw": [
             {
               "path": "M120 300 H860",
@@ -8688,15 +8820,12 @@
               "path": "M1419 525 H1461 M1440 504 V546",
               "colour": "blue",
               "width": 4
-            },
-            {
-              "camera": "left"
             }
           ]
         },
         {
           "at": 0.5,
-          "note": "Loose on the left; the snug oxide drawn on the right.",
+          "note": "Loose on the left; held tight on the right.",
           "draw": [
             {
               "path": "M120 300 H860",
@@ -9107,8 +9236,8 @@
       "id": "s11",
       "act": "energy",
       "type": "chart",
-      "start": 25.25,
-      "end": 27.11,
+      "start": 25.75,
+      "end": 27.61,
       "voice": "It's a ball pushed up a *hill*:",
       "teaches": "An analogy: putting lithium into the graphite is like pushing a ball up a hill.",
       "screen": "Back to the whole cell (charger, six ions in the graphite) and, in the right third of the board, a hill drawn as one marker line: high and flat on the left, labelled 'in graphite', curving down to 'in metal oxide' at the right; a blue ion as the ball, pushed up the slope to the top.",
@@ -10933,9 +11062,10 @@
       "id": "s12",
       "act": "energy",
       "type": "chart",
-      "start": 27.11,
-      "end": 29.09,
+      "start": 27.61,
+      "end": 30.09,
       "voice": "the energy is in its *position*.",
+      "hold": 0.5,
       "teaches": "The stored energy is the lithium's position: up in the graphite.",
       "screen": "The same board: a dashed ground line under the hill and, at its left, a measure from the ground up to the top where the ball sits, labelled 'stored energy' in blue; in the cell the six ions in the graphite get a blue bracket: they are the ball at the top.",
       "motion": "The measure is drawn up beside the slope and written; then the bracket in the cell.",
@@ -12194,8 +12324,8 @@
       "id": "s13",
       "act": "use",
       "type": "diagram",
-      "start": 29.09,
-      "end": 31.87,
+      "start": 30.09,
+      "end": 32.87,
       "voice": "Now use your phone, and the lithium heads *home*.",
       "teaches": "Using the phone: the lithium heads home, back down to the oxide ('home' answers 'doesn't like it there').",
       "screen": "The charger is wiped out of the gap and a small phone is drawn there instead, 'phone'; in the cell the first ions leave the graphite toward the oxide; on the hill the ball starts to roll down.",
@@ -14027,9 +14157,10 @@
       "id": "s14",
       "act": "use",
       "type": "compare",
-      "start": 31.87,
-      "end": 34.77,
+      "start": 32.87,
+      "end": 36.27,
       "voice": "Ions cross the separator. Electrons *can't*.",
+      "hold": 0.5,
       "teaches": "The separator lets the ions through but not the electrons: the electron is stopped at the same kind of opening the ion used, so it is not a matter of size (the electrolyte and the separator carry ions, never electrons).",
       "screen": "Close on the separator, drawn as a thick wall with gaps (pores): a blue ion passes through a pore to the right, 'through a pore'; a black electron dot runs at the wall and is stopped, a red cross on it and a red arrow turning it back, 'electrons can't pass' in red.",
       "motion": "The camera pushes in; the ion slides through the pore; the electron bumps the wall, the red cross is drawn and it is turned back.",
@@ -14343,8 +14474,8 @@
       "id": "s15",
       "act": "use",
       "type": "diagram",
-      "start": 34.77,
-      "end": 37.63,
+      "start": 36.27,
+      "end": 39.13,
       "voice": "So they go the *long way* round, through your phone.",
       "teaches": "So the electrons take the long way round: out of the graphite, along the wire, through the phone, into the oxide.",
       "screen": "The whole circuit again: electrons running from the graphite up the wire, through the phone, and down into the oxide, with black arrows on the wire; inside, the ions keep crossing to the oxide.",
@@ -16274,8 +16405,8 @@
       "id": "s16",
       "act": "use",
       "type": "wide",
-      "start": 37.63,
-      "end": 40.31,
+      "start": 39.13,
+      "end": 41.81,
       "voice": "That flow is the *current* that runs your phone.",
       "teaches": "That flow of electrons through the phone is the electric current that runs it.",
       "screen": "The same circuit: the phone's screen lights (three blue rays above it), a blue label 'current' along the wire; electrons all along the wire.",
@@ -18302,8 +18433,8 @@
       "id": "s17",
       "act": "use",
       "type": "diagram",
-      "start": 40.31,
-      "end": 42.61,
+      "start": 41.81,
+      "end": 44.11,
       "voice": "Once it's all home, the battery's *empty*.",
       "teaches": "When the lithium is back in the oxide, the battery is empty.",
       "screen": "All six ions back between the oxide rows (as in s07); the ball at the bottom of the hill; the phone's screen dark with a small empty battery icon, '0%'.",
@@ -20175,8 +20306,8 @@
       "id": "s18",
       "act": "answer",
       "type": "recap",
-      "start": 42.61,
-      "end": 46.85,
+      "start": 44.11,
+      "end": 48.35,
       "voice": "Charging doesn't add electricity. It pushes lithium back *up the hill*.",
       "teaches": "The answer in one frame: charging lifts the lithium back up; using the phone lets it roll down while the electrons run through the phone; nothing is added or used up.",
       "screen": "A clean stretch: a heading 'charging = pushing lithium up the hill' across the top; under it three small drawings in a row: a hill with a ball pushed up and a plug, 'charging: lithium goes up'; a hill with the ball rolling down and an electron arrow into a phone, 'in use: lithium goes down'; two batteries with three ions each, on opposite sides, and a blue '=', 'same stuff, just moved'.",
@@ -20614,8 +20745,8 @@
       "id": "s19",
       "act": "answer",
       "type": "wide",
-      "start": 46.85,
-      "end": 47.89,
+      "start": 48.35,
+      "end": 49.39,
       "voice": "That's why",
       "teaches": "The bridge: the last words run into the first line, the picture into frame 0.",
       "screen": "The camera tracks back left past the cell, the roll and the question, and settles on section A: the two phones, full and empty, and the '=': the same picture as frame 0.",

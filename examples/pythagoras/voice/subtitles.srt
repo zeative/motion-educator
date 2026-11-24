@@ -51,29 +51,29 @@ inside a square with sides a plus b.
 That leaves a tilted square in the middle, side c.
 
 14
-00:00:31,790 --> 00:00:34,220
+00:00:33,190 --> 00:00:35,620
 Now slide two of them, without turning.
 
 15
-00:00:34,110 --> 00:00:37,820
+00:00:35,510 --> 00:00:39,220
 The gap becomes two squares: a squared and b squared.
 
 16
-00:00:37,750 --> 00:00:41,500
+00:00:39,150 --> 00:00:42,900
 Same square, same triangles: the gaps must match.
 
 17
-00:00:41,430 --> 00:00:44,860
+00:00:43,430 --> 00:00:46,860
 Which means c squared equals a squared plus b squared.
 
 18
-00:00:44,790 --> 00:00:47,740
+00:00:48,190 --> 00:00:51,140
 Flat or tall, any right triangle works.
 
 19
-00:00:47,630 --> 00:00:50,620
+00:00:51,580 --> 00:00:54,570
 The gap just changes shape, never its area.
 
 20
-00:00:50,550 --> 00:00:51,420
+00:00:55,400 --> 00:00:56,270
 That's why

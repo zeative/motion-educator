@@ -1,11 +1,89 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
-:root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+/* Kenapa gunung api bisa meledak? The Low Poly look comes from templates/lowpoly/look.css; this is the film's own:
+   the canvas, floating tags with lines to things, the question panel, the recap cards. Everything read is Nunito
+   with a slight drop shadow, ink #293241 on soft translucent white, the key word in the accent. */
+#space { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+#ui { position: absolute; inset: 0; pointer-events: none; }
+
+/* Tags: a soft chip, a line to the thing, a dot on it (film.js places them from the 3D every frame). */
+#tags { position: absolute; inset: 0; }
+#tag-lines { position: absolute; inset: 0; overflow: visible; }
+.tag {
+  position: absolute; left: 0; top: 0;
+  padding: 10px 24px 12px;
+  border-radius: 20px;
+  background: rgb(255 255 255 / 0.8);
+  box-shadow: 0 6px 18px -6px rgb(41 50 65 / 0.45);
+  color: var(--ink);
+  font: 800 36px / 1.1 "Nunito", sans-serif;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.6);
+  visibility: hidden;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
+.tag .key { color: #c45f00; }
+.tag.big { font-size: 44px; padding: 12px 28px 14px; }
+.tag.small { font-size: 32px; padding: 8px 20px 10px; }
+.tag-line { fill: none; stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.tag-dot { fill: #fff; stroke: var(--ink); stroke-width: 3.5; }
+
+/* Small notes on the frame (above the caption band, inside the side margins). */
+.note {
+  position: absolute; margin: 0;
+  padding: 8px 18px 9px; border-radius: 14px;
+  background: rgb(255 255 255 / 0.62);
+  color: var(--ink); font: 700 28px / 1.1 "Nunito", sans-serif;
+  box-shadow: 0 4px 14px -6px rgb(41 50 65 / 0.4);
+  visibility: hidden;
 }
+#schema { right: 84px; top: 60px; }
+#same-scale { left: 50%; top: 60px; transform: translateX(-50%); }
+#illus { left: 1290px; top: 150px; }
+
+/* The split between Merapi and Kīlauea (s02, s03). */
+#split-line { position: absolute; left: 958px; top: 0; width: 4px; height: 1080px; background: rgb(255 255 255 / 0.9); box-shadow: 0 0 0 1px rgb(41 50 65 / 0.25); visibility: hidden; transform-origin: 50% 0; }
+#dim { position: absolute; inset: 0; background: rgb(41 50 65 / 0.34); visibility: hidden; }
+
+/* The question (s03): a large soft translucent panel, two words then the third in the accent. */
+.lp-panel {
+  position: absolute; left: 50%; top: 50%;
+  padding: 44px 84px 52px;
+  border-radius: 40px;
+  background: rgb(255 255 255 / 0.72);
+  box-shadow: 0 24px 60px -24px rgb(41 50 65 / 0.55);
+  color: var(--ink);
+  font: 800 150px / 1 "Nunito", sans-serif;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  text-shadow: 0 4px 0 rgb(41 50 65 / 0.12);
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+.lp-panel .qw { display: inline-block; }
+.lp-panel .key { color: #d06a00; }
+
+/* The recap (s17): three soft cards, each a tiny faceted scene drawn by the 3D layer and two or three words. */
+#cards { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.card {
+  position: absolute; top: 150px; width: 500px; height: 590px;
+  padding: 20px; box-sizing: border-box;
+  border-radius: 34px;
+  background: rgb(255 255 255 / 0.66);
+  box-shadow: 0 24px 50px -22px rgb(41 50 65 / 0.55);
+  visibility: hidden;
+}
+#card1 { left: 140px; }
+#card2 { left: 710px; }
+#card3 { left: 1280px; }
+.card canvas { position: relative; inset: auto; display: block; width: 460px; height: 400px; border-radius: 22px; }
+.card p { margin: 22px 0 0; text-align: center; color: var(--ink); font: 800 44px / 1.12 "Nunito", sans-serif; letter-spacing: -0.015em; }
+.card p b { color: #c45f00; font-weight: 900; }
+/* The accent on a light panel: the template's orange taken down to a burnt orange, so the key word holds about 3:1
+   against the frosted panel (the template's #ff9f1c is about 1.5:1 there). */
+:root[data-look="lowpoly"] .caption .key, :root[data-look="lowpoly"] .caption .cw.key { color: #c45f00; }
+/* "Bukan panasnya": the word struck through (s05) */
+.tag.no { color: #e4572e; }
+.tag s { text-decoration-thickness: 6px; text-decoration-color: #e4572e; }
+.card p { font-size: 40px; }
+
+/* Inside the cloud (s01 to s02, s15 to s16): the frame goes fully white for a moment while one world becomes the next. */
+#flash { position: absolute; inset: 0; background: #fbfdfc; opacity: 0; }

@@ -36,6 +36,7 @@ assert CHO == 96
 
 # ── The paper (five craft papers on cream, each with one meaning) ─────────────────────────────────────────────────
 TEAL, GREEN, YELLOW, ORANGE, RED, CREAM = "#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51", "#fbf6ea"
+LEAFG = "#6a9a4f"  # the leaf's own green (the template's concept still); the teal green is the hills
 W, H = 1080, 1920
 READ = (60, 1020, 230, 1300)  # what must be read stays inside these x and y bounds (captions sit at 1340-1420)
 problems = []
@@ -124,21 +125,55 @@ def soil(y=1195):
     return paper(f"M0 {y + 5} C 280 {y - 25}, 700 {y + 25}, 1080 {y - 5} V1910 H0 Z", TEAL)
 
 
+CLUSTERS = [(545, 395, 122), (400, 468, 112), (690, 462, 112), (345, 612, 110), (738, 606, 106), (482, 592, 102), (622, 612, 98)]
+BRANCHES = [((540, 860), (352, 628)), ((540, 850), (736, 622)), ((540, 840), (545, 420)), ((528, 760), (402, 488)), ((556, 730), (690, 478))]
+
+
 def tree(cx=540, base=1195, k=1.0):
-    """The paper tree: an orange trunk (it is made of sugar) under four green discs of canopy."""
-    t = lambda dx, dy: f"{cx + dx * k:.0f} {base - dy * k:.0f}"
-    trunk = f"M{t(-45, 0)} L{t(-22, 380)} L{t(-110, 470)} L{t(-90, 488)} L{t(-12, 420)} L{t(-8, 520)} L{t(12, 520)} L{t(16, 410)} L{t(110, 500)} L{t(128, 482)} L{t(28, 370)} L{t(45, 0)} Z"
-    discs = [(-120, 560, 170), (135, 585, 180), (0, 710, 200), (-10, 500, 140)]
-    return [paper(trunk, ORANGE, 6)] + [paper(circ(cx + dx * k, base - dy * k, r * k), GREEN, 6) for dx, dy, r in discs]
+    """The paper tree: an orange trunk and branches (built from sugar) under seven clusters of cut leaves."""
+    P = lambda x, y: (cx + (x - 540) * k, base - (1195 - y) * k)
+    (a, b), (c, d) = P(493, 1195), P(587, 1195)
+    (e, f), (g, h) = P(515, 830), P(565, 830)
+    out = [paper(f"M{a:.0f} {b:.0f} L{e:.0f} {f:.0f} L{g:.0f} {h:.0f} L{c:.0f} {d:.0f} Z", ORANGE, 6)]
+    for p0, p1 in BRANCHES:
+        (x0, y0), (x1, y1) = P(*p0), P(*p1)
+        out.append({"line": [round(x0), round(y0), round(x1), round(y1)], "colour": ORANGE, "width": max(4, round(22 * k))})
+    for x, y, r in CLUSTERS:
+        (X, Y) = P(x, y)
+        out.append(paper(circ(X, Y, r * k * 0.95), LEAFG, 6))
+        out += [{"path": f"M{X - r * k * 0.55:.0f} {Y:.0f} q{r * k * 0.3:.0f} {-r * k * 0.25:.0f} {r * k * 0.6:.0f} {-r * k * 0.1:.0f} M{X - r * k * 0.2:.0f} {Y + r * k * 0.45:.0f} q{r * k * 0.25:.0f} {-r * k * 0.3:.0f} {r * k * 0.55:.0f} {-r * k * 0.25:.0f}", "colour": "#4f7f3e", "width": 4}]
+    return out
 
 
 def roots(cx=540, base=1195):
     return {"path": f"M{cx} {base} C {cx - 30} {base + 50}, {cx - 120} {base + 80}, {cx - 230} {base + 95} M{cx} {base} C {cx + 30} {base + 60}, {cx + 140} {base + 70}, {cx + 240} {base + 100} M{cx} {base} C {cx - 5} {base + 60}, {cx + 10} {base + 90}, {cx - 20} {base + 110}", "colour": ORANGE, "width": 9}
 
 
-def opening():
-    """Frame 0, and the picture the film loops back into: the big paper tree on its hill, the soil under it."""
-    return [sun(), hills(), soil(), roots()] + tree()
+def lifted(d, dy=-60):
+    """An absolute-coordinate path (M L C H V Z) moved up by the opening camera's 60 px."""
+    out, cmd, nums = [], None, []
+    for tok in re.findall(r"[MLCHVZ]|-?[0-9.]+", d):
+        if tok.isalpha():
+            cmd = tok
+            out.append(tok)
+            continue
+        v = float(tok)
+        if cmd == "H":
+            out.append(f"{v:.0f}")
+        elif cmd == "V":
+            out.append(f"{v + dy:.0f}")
+        else:
+            nums.append(v)
+            if len(nums) == 2:
+                out.append(f"{nums[0]:.0f} {nums[1] + dy:.0f}")
+                nums = []
+    return " ".join(out)
+
+
+def opening(k=1.0):
+    """Frame 0, and the picture the film loops back into: the paper tree on its hill, the soil under it (as the
+    film's opening camera frames it, 60 px higher than the set, so the roots stay above the captions)."""
+    return [sun(820, 370, 112), paper(lifted(hills()["path"]), GREEN), soil(1135), roots(540, 1135)] + tree(540, 1135, k)
 
 
 def atom(x, y, r, colour):
@@ -180,9 +215,13 @@ def figure(x, y, s, reach=None):
     return out
 
 
+POT, POT_L = "#7e8e90", "#97a4a4"  # the soil's teal made lighter: an earthen pot, cut away to show the soil
+
+
 def pot(cx=620, top=860, bottom=1250, wt=460, wb=360):
-    return [paper(f"M{cx - wt / 2:.0f} {top} H{cx + wt / 2:.0f} L{cx + wb / 2:.0f} {bottom} H{cx - wb / 2:.0f} Z", TEAL, 7),
-            paper(f"M{cx - wt / 2 - 22:.0f} {top - 46} H{cx + wt / 2 + 22:.0f} V{top + 10} H{cx - wt / 2 - 22:.0f} Z", ORANGE, 6)]
+    return [paper(f"M{cx - wt / 2:.0f} {top} H{cx + wt / 2:.0f} L{cx + wb / 2:.0f} {bottom} H{cx - wb / 2:.0f} Z", POT, 7),
+            paper(f"M{cx - wt / 2 + 24:.0f} {top + 10} H{cx + wt / 2 - 24:.0f} L{cx + wb / 2 - 22:.0f} {bottom - 24} H{cx - wb / 2 + 22:.0f} Z", TEAL, 4),
+            paper(f"M{cx - wt / 2 - 22:.0f} {top - 46} H{cx + wt / 2 + 22:.0f} V{top + 10} H{cx - wt / 2 - 22:.0f} Z", POT_L, 6)]
 
 
 def willow(cx, base, height, spread):
@@ -280,166 +319,238 @@ def shot(id, act, type_, voice, **more):
     t += dur
 
 
-shot("s01", "hook", "wide", "Pohon bisa tumbuh segede ini, tapi tanah di bawahnya hampir nggak *berkurang*.",
-     teaches="The puzzle: a tree grows huge, yet the soil it stands in barely gets less.",
-     screen="Cream card backdrop. Three paper layers: a yellow paper sun top right (820, 430); a green hill across the middle (top edge about y 1000); in front, the deep-teal soil from y 1195 down, cut like a cross-section, with the tree's orange roots on it. In the middle a big paper tree: an orange trunk (sugar is what it is built from, so the trunk is the sugar colour all film) under four overlapping discs of green canopy, top at y 300. Every layer casts a small soft shadow on the one behind.",
-     motion="Frame 0 is finished. On 'tumbuh' the canopy grows a step: each green disc pops up and a size larger, one after another, at 12 drawings a second, and a dashed paper outline of the cutting it grew from stays at its foot. On 'tanah di bawahnya' the rostrum camera tilts down to the soil; on 'berkurang' a dashed thread is pinned along the soil's top edge and a tag flips up: 'tanah ≈ tetap'.",
-     carries="The tree on its hill and the soil.", transition="A cream paper layer slides across from the left and covers the scene.",
-     sound="The acoustic bed starts (nylon guitar). A paper rustle as each canopy disc pops up; a soft tap as the pin goes into the soil line.",
-     check="The tree fills the upper two thirds; the soil's level line does not move while the tree grows.", facts=["f1", "f2"],
+shot("s01", "hook", "wide", "Pohon bisa *tumbuh* segede ini,",
+     teaches="A tree grows huge: the first half of the puzzle, the picture of a big tree and the small cutting it grew from.",
+     screen="Cream card backdrop. Three paper layers: a yellow paper sun top right (820, 430); a green hill across the middle (top edge about y 1000); in front, the deep-teal soil from y 1195 down, cut like a cross-section, with the tree's orange roots on it. In the middle a big paper tree: an orange trunk and branches (sugar is what it is built from, so wood is the sugar colour all film; s14 opens the bark to show it) under seven clusters of cut leaves in leaf green, top at y 240. A leafy sprig hangs into the top corner and grass stands at the bottom corners, nearest the lens. Every layer casts a small soft shadow on the one behind.",
+     motion="Frame 0 is finished. On 'tumbuh' the canopy grows a step: each leaf cluster pops up and a size larger, one after another, at 12 drawings a second, and a dashed paper outline of the cutting it grew from stays at its foot. A slow rostrum push (9 %) all the while, the layers moving with parallax.",
+     carries="The tree on its hill and the soil.", transition="The rostrum camera tilts down to the soil.",
+     sound="The acoustic bed starts (nylon guitar). A paper rustle as each canopy disc pops up.",
+     check="The tree fills the upper two thirds; the soil's top edge stays where it is while the tree grows.", facts=["f1", "f2"],
      frames=[fr(0, "Frame 0 is finished: the big paper tree on the hill, the sun behind it, the soil cut open under it.", opening(), {"move": [940, 980, 940, 700], "text": "tumbuh"}),
-             fr(0.5, "The canopy discs pop up a size larger; the dashed outline of the small cutting it grew from stays at its foot.", [sun(), hills(), soil(), roots()], tree(k=1.06), {"path": "M530 1195 V1040 M530 1100 l-40 -40 M530 1070 l40 -40", "colour": TEAL, "width": 5, "dashed": True}, {"camera": "down"}),
-             fr(1, "The thread along the soil's top edge, and the tag: 'tanah ≈ tetap'.", opening(), {"path": "M60 1196 C 340 1170, 700 1218, 1020 1192", "colour": RED, "width": 6, "dashed": True}, tag(300, 1272, "tanah ≈ tetap", (330, 1196), 62), {"cut": "lapisan kertas menutup"})])
+             fr(1, "The leaf clusters have popped up a size larger; the dashed outline of the small cutting it grew from stays at its foot. A slow push all the while.", opening(1.06), {"path": "M530 1135 V1000 M530 1060 l-30 -30 M530 1032 l30 -30", "colour": TEAL, "width": 5, "dashed": True}, {"camera": "push"})])
+
+# s01b: the rostrum camera tilted down and pushed in on the soil: (x, y) of the opening set is drawn at
+# (540 + (x - 540) * 1.25, 880 + (y - 1195) * 1.25), so the soil's top edge sits at y 880 on screen.
+def zoomed(d, k=1.25, fx=540, fy=1195, tx=540, ty=880):
+    """An absolute-coordinate path (M L C H V Z) of the opening set, as the pushed-in camera sees it."""
+    out, cmd, nums = [], None, []
+    X = lambda v: f"{tx + (v - fx) * k:.0f}"
+    Y = lambda v: f"{ty + (v - fy) * k:.0f}"
+    for tok in re.findall(r"[MLCHVZ]|-?[0-9.]+", d):
+        if tok.isalpha():
+            cmd = tok
+            out.append(tok)
+            continue
+        v = float(tok)
+        if cmd == "H":
+            out.append(X(v))
+        elif cmd == "V":
+            out.append(Y(v))
+        else:
+            nums.append(v)
+            if len(nums) == 2:
+                out.append(f"{X(nums[0])} {Y(nums[1])}")
+                nums = []
+    return " ".join(out)
+
+
+ZOOM_SOIL = [paper(zoomed(hills()["path"]), GREEN), paper(zoomed(soil()["path"].replace("V1910", "V2200")), TEAL), {**roots(), "path": "M540 880 C 502 942, 390 980, 252 999 M540 880 C 578 955, 715 968, 840 1005 M540 880 C 534 955, 552 992, 515 1018", "width": 11},
+             tree(540, 880, 1.06 * 1.25), {"path": "M528 880 V686 M528 761 l-50 -50 M528 724 l50 -50", "colour": TEAL, "width": 6, "dashed": True}]
+shot("s01b", "hook", "diagram", "tapi tanah di bawahnya hampir nggak *berkurang*.",
+     teaches="The soil it stands in barely gets less: the second half of the puzzle, measured against a thread pinned at the soil's top edge.",
+     screen="The same set, the rostrum camera tilted down and pushed in to 1.25x: the trunk's foot and the lower canopy at the top, the hill behind, the deep-teal soil cut open from y 880 down with the orange roots on it. A cream thread is pinned along the soil's top edge with two yellow pins; a tag tied to it: 'tanah ≈ tetap'.",
+     motion="The camera tilts down on 'tanah di bawahnya' (on twelves); the two pins go in at the ends of the soil's top edge and the thread is pulled taut between them; on 'berkurang' the tag flips up on its thread. The tree grows one more step above (the canopy discs pop a size larger) and the soil's edge stays on the thread.",
+     carries="The soil and its thread, under the cream layer.", transition="A cream paper layer slides across from the left and covers the scene.",
+     sound="Two soft taps as the pins go in; a tag flick; a paper rustle as the canopy pops.",
+     check="The soil's top edge sits exactly on the thread before and after the tree grows; the tag reads 'tanah ≈ tetap'.", facts=["f1", "f2"],
+     frames=[fr(0, "Tilted down and pushed in: the trunk's foot, the hill, the soil cut open with its roots.", ZOOM_SOIL, {"move": [540, 360, 540, 560], "text": "kamera turun"}, {"camera": "down"}),
+             fr(1, "The thread pinned along the soil's top edge, the tag 'tanah ≈ tetap'; the canopy above has popped one size larger and the edge has not moved.", ZOOM_SOIL, {"path": "M80 874 C 350 870, 679 892, 1000 885", "colour": CREAM, "width": 6}, atom(80, 874, 12, YELLOW), atom(1000, 885, 12, YELLOW), tag(330, 1010, "tanah ≈ tetap", (330, 876), 62), {"cut": "lapisan kertas menutup"})])
+
+def soil_block():
+    return [paper("M150 1150 C 260 1136, 520 1160, 640 1146 L646 1286 L146 1290 Z", TEAL)] + tree(395, 1150, 0.46)
+
+
+QMARK = "M642 1000 q0 -132 132 -132 q132 0 132 120 q0 96 -106 120 v62 h-56 v-112 q104 -12 104 -76 q0 -64 -74 -64 q-76 0 -76 82 Z M744 1206 h56 v56 h-56 Z"
+
+
+def lidded_pot(cx=620, top=860):
+    """Helmont's earthen pot cut away: crumbly soil inside, a tinned plate with many holes over its mouth (f1)."""
+    out = pot(cx, top)
+    out += [atom(cx - 160 + (i % 8) * 46, top + 60 + (i // 8) * 70 + (i % 3) * 10, 13, "#3b5f6b") for i in range(32)]
+    out.append({"path": f"M{cx - 250} {top - 62} H{cx + 250}", "colour": TEAL, "width": 12})
+    out += [atom(cx - 216 + i * 36, top - 62, 4, CREAM) for i in range(13)]
+    return out
+
+
+def balance(a=0.0, left=None, right=0):
+    """A 17th-century equal-arm balance: post, beam on a pivot at (540, 430), two pans hung on chains."""
+    import math as m
+    ca, sa = m.cos(m.radians(a)), m.sin(m.radians(a))
+    L, R = (540 - 320 * ca, 430 - 320 * sa), (540 + 320 * ca, 430 + 320 * sa)
+    out = [paper("M470 1258 L486 1206 H594 L610 1258 Z", TEAL), {"line": [540, 1210, 540, 440], "colour": TEAL, "width": 18},
+           {"line": [round(L[0]), round(L[1]), round(R[0]), round(R[1])], "colour": TEAL, "width": 18}, atom(540, 430, 12, YELLOW)]
+    for (hx, hy) in (L, R):
+        py = hy + 640
+        out += [{"path": f"M{hx:.0f} {hy:.0f} L{hx - 146:.0f} {py:.0f} M{hx:.0f} {hy:.0f} L{hx + 146:.0f} {py:.0f}", "colour": TEAL, "width": 3, "dashed": True},
+                paper(f"M{hx - 150:.0f} {py:.0f} H{hx + 150:.0f} C {hx + 130:.0f} {py + 44:.0f}, {hx - 130:.0f} {py + 44:.0f}, {hx - 150:.0f} {py:.0f} Z", TEAL, 5)]
+    if right:
+        x, y = R[0], R[1] + 640
+        out += [paper(f"M{x - 100:.0f} {y:.0f} H{x + 100:.0f} V{y - 70:.0f} H{x - 100:.0f} Z", CREAM, 4), paper(f"M{x - 85:.0f} {y - 82:.0f} H{x + 85:.0f} V{y - 142:.0f} H{x - 85:.0f} Z", CREAM, 4)]
+        if right > 1:
+            out.append(paper(f"M{x - 70:.0f} {y - 154:.0f} H{x + 70:.0f} V{y - 206:.0f} H{x - 70:.0f} Z", CREAM, 4))
+    return out
+
 
 shot("s02", "hook", "type", "Terus, bahannya dari mana?",
-     teaches="Asks the question out loud: what is the tree made of, if not the soil?",
-     screen="A cream paper layer has slid over the scene. Printed on a paper strip, in Fraunces: 'Bahannya / dari mana?', the word 'mana?' on an orange tab. Beside it a big cut-out question mark in deep teal, standing up from the layer like a pop-up.",
-     motion="The layer slides in from the left (12 drawings a second); the strip drops onto it with a little bounce; the question mark folds up from flat as the voice asks.",
-     carries="The cream layer.", transition="The layer slides off to the right, uncovering a workbench with a pot.",
-     sound="A long paper slide, then a crisp fold for the question mark.", check="The question reads in under a second, with the sound off.",
-     frames=[fr(0, "The cream layer sliding across the tree from the left.", opening(), layer_slide(620), {"move": [120, 560, 560, 560], "text": "lapisan geser"}),
-             fr(0.5, "The layer covers the frame; the strip drops onto it.", layer_slide(1100), strip(540, 640, "Bahannya\ndari mana?", 116, "mana?"), {"move": [540, 330, 540, 480], "text": "jatuh"}),
-             fr(1, "The question mark folds up beside the strip.", layer_slide(1100), strip(540, 640, "Bahannya\ndari mana?", 116, "mana?"), paper("M430 1000 q0 -110 110 -110 q110 0 110 100 q0 80 -90 100 v70 h-44 v-110 q90 -10 90 -70 q0 -55 -66 -55 q-66 0 -66 65 Z M520 1220 h44 v44 h-44 Z", TEAL, 6), {"cut": "geser ke pot"})])
+     teaches="Asks the question out loud: what is the tree made of? The soil, as most people think?",
+     screen="A sheet of cream paper has slid over the scene. Printed on a paper strip, in Fraunces: 'Bahannya / dari mana?', the word 'mana?' on an orange tab. Below it a small copy of the tree in a block of soil, a tag on the soil 'tanah?', and a big cut-out question mark in deep teal standing up beside it.",
+     motion="The sheet slides in from the left (12 drawings a second); the strip drops onto it with a little bounce; the soil block and the tree pop up; the question mark folds up as the voice asks; the tag flips down on 'dari'. A slow push on the sheet.",
+     carries="The sheet.", transition="The sheet slides off to the right, uncovering Helmont and his pot.",
+     sound="A paper slide, the strip landing, a pop for the tree, a crisp fold for the question mark, a tag flick.", check="The question reads in under a second, with the sound off; 'tanah?' is a question, not a claim.",
+     frames=[fr(0, "The sheet sliding across the tree from the left; the strip dropping onto it.", opening(), layer_slide(620), strip(300, 560, "Bahannya\ndari mana?", 70, "mana?"), {"move": [120, 560, 560, 560], "text": "lapisan geser"}),
+             fr(0.5, "The strip has landed; the tree in its soil and the question mark pop up.", layer_slide(1100), strip(540, 570, "Bahannya\ndari mana?", 116, "mana?"), soil_block(), paper(QMARK, TEAL, 6), {"move": [774, 1240, 774, 1000], "text": "berdiri"}),
+             fr(1, "The tag on the soil: 'tanah?'.", layer_slide(1100), strip(540, 570, "Bahannya\ndari mana?", 116, "mana?"), soil_block(), paper(QMARK, TEAL, 6), tag(330, 1250, "tanah?", (300, 1186), 52), {"cut": "geser ke pot"})])
 
 shot("s03", "bukti", "diagram", "Dulu ada yang pernah nyoba: pohon kecil ditanam di *pot*,",
-     teaches="The test: a small tree planted in a pot of weighed, dried soil.",
-     screen="A workbench scene on the cream card. A big deep-teal paper pot with an orange rim fills the lower middle (x 280-800, y 820-1250), dry soil inside. A cut-out figure on split pins (deep-teal clothes, cream face, yellow pins at the joints) holds a willow cutting over it. A tag tied to the pot: 'tanah 91 kg'; a tag on the cutting: 'pohon 2,3 kg'. A strip at the top: 'Van Helmont · abad ke-17'.",
-     motion="The figure's arm turns on its pins and lowers the cutting into the soil (on twelves); the cutting's leaves unfold; the two tags flip up on their threads one after the other; the strip slides in at the top.",
-     carries="The pot with its tags.", transition="The camera pulls back; the pot is outside, a paper calendar beside it.",
-     sound="A soft thump of soil; two tag flicks; guitar continues.", check="The tags read 91 kg and 2,3 kg (f1); the cutting is small next to the pot.", facts=["f1"],
-     frames=[fr(0, "The pot of dried soil, tag 'tanah 91 kg'; the figure holds the cutting above it.", pot(), tag(620, 1110, "tanah 91 kg"), figure(210, 1250, 640, (520, 700)), willow(560, 760, 160, 40), {"move": [600, 560, 600, 740], "text": "tanam"}),
-             fr(0.5, "The cutting is in the soil; its tag 'pohon 2,3 kg' flips up.", pot(), tag(620, 1110, "tanah 91 kg"), figure(210, 1250, 640, (560, 770)), willow(620, 860, 230, 50), tag(810, 520, "pohon 2,3 kg", (640, 640))),
-             fr(1, "The strip at the top names who tried it: 'Van Helmont · abad ke-17'.", pot(), tag(620, 1110, "tanah 91 kg"), figure(210, 1250, 640), willow(620, 860, 230, 50), tag(810, 520, "pohon 2,3 kg", (640, 640)), tag(540, 330, "Van Helmont · abad ke-17"), {"cut": "mundur, kalender"})])
+     teaches="The test: a small tree planted in a pot of weighed, dried soil, the pot covered against dust.",
+     screen="On the cream card over a strip of grass: Helmont as a cut-out figure on split pins (deep-teal coat, a cream ruff, yellow pins at the joints) holds a willow cutting over a big earthen pot, cut away to show its dry soil as many crumbs of deep teal. A stamped tag tied to the pot: 'tanah 91 kg'; a stamped tag on the cutting: 'pohon 2,3 kg'; a strip at the top: 'Van Helmont · abad ke-17'. After planting, a tinned plate with many holes slides over the pot's mouth.",
+     motion="'tanah 91 kg' flips down at the start (on screen for 3.4 s); the strip slides in on 'ada'; 'pohon 2,3 kg' on 'pohon'; the arm turns on its pins and lowers the cutting into the soil (on twelves); its leaves unfold; on 'pot' the lid slides on. A slow push (8 %).",
+     carries="The pot with its tags.", transition="The camera pulls back; the tags fold up one after the other; hills pop up behind: the pot is outside.",
+     sound="Tag flicks, a soft thump of soil, a slide for the lid.", check="The tags read 91 kg and 2,3 kg (f1); the cutting is small next to the pot; the soil is in pieces, not a flat fill.", facts=["f1"],
+     frames=[fr(0, "The pot of dried soil, cut away, tag 'tanah 91 kg'; Helmont holds the cutting above it.", lidded_pot()[:-14] if False else pot() + [atom(460 + (i % 8) * 46, 920 + (i // 8) * 70, 13, "#3b5f6b") for i in range(32)], tag(620, 1110, "tanah 91 kg", (395, 842)), figure(270, 1250, 640, (530, 644)), willow(540, 740, 160, 40), {"move": [600, 560, 600, 740], "text": "tanam"}),
+             fr(0.5, "The strip names who tried it; the cutting's tag 'pohon 2,3 kg'.", pot() + [atom(460 + (i % 8) * 46, 920 + (i // 8) * 70, 13, "#3b5f6b") for i in range(32)], tag(620, 1110, "tanah 91 kg", (395, 842)), figure(270, 1250, 640, (610, 784)), willow(620, 880, 230, 50), tag(720, 530, "pohon 2,3 kg", (626, 730), 52), tag(540, 330, "Van Helmont · abad ke-17")),
+             fr(1, "Planted, and the lid with many holes slides over the pot's mouth.", lidded_pot(), tag(620, 1110, "tanah 91 kg", (395, 842)), figure(270, 1250, 640), willow(620, 880, 230, 50), tag(720, 530, "pohon 2,3 kg", (626, 730), 52), tag(540, 330, "Van Helmont · abad ke-17"), {"move": [1000, 790, 760, 790], "text": "tutup"}, {"cut": "mundur, kalender"})])
 
 shot("s03b", "bukti", "wide", "terus dirawat *lima tahun*.",
      teaches="Five years go by; the only thing added is rainwater.",
-     screen="The pot outside on the green hill. A paper cloud top left drips cream raindrops into it, tag 'cuma disiram air hujan'. Right, a little stack of paper calendar sheets: 'tahun 1' turning to 'tahun 5'. The willow in the pot grows in pop-up steps into a small tree with long hanging leaves.",
-     motion="The calendar sheets flip over one by one (five flips, on twelves); with each flip the willow pops up a size; rain strips drop from the cloud.",
-     carries="The grown willow in its pot.", transition="The figure lifts the willow out and onto a scale.",
-     sound="Five page flips, light rain ticks on paper.", check="Five flips, five steps of growth; nothing but water goes into the pot.", facts=["f1"],
-     frames=[fr(0, "The pot outside, the small cutting; the calendar reads 'tahun 1'; the cloud starts to rain.", hills(), pot(540), willow(540, 860, 230, 50), {"cloud": [300, 430, 360]}, {"path": "M220 470 v40 M300 480 v40 M380 470 v40", "colour": TEAL, "width": 6}, {"card": [770, 360, 210, 250]}, label(875, 450, "tahun", 50), label(875, 570, "1", 96, colour=TEAL), {"move": [875, 640, 875, 720], "text": "dibalik"}),
-             fr(1, "Five years on: the willow is a small tree; the calendar reads 'tahun 5'; the tag 'cuma disiram air hujan'.", hills(), pot(540), willow(540, 860, 560, 230), {"cloud": [300, 430, 360]}, {"path": "M220 470 v40 M300 480 v40 M380 470 v40", "colour": TEAL, "width": 6}, {"card": [770, 360, 210, 250]}, label(875, 450, "tahun", 50), label(875, 570, "5", 96, colour=TEAL), tag(410, 640, "cuma disiram air hujan", (330, 540), 54), {"cut": "angkat ke timbangan"})])
+     screen="The pot outside, hills popped up behind it. A cream paper cloud top left drips cream raindrops into it, tag 'cuma disiram air hujan'. Right, a little paper calendar: 'tahun 1' turning to 'tahun 5'. The willow grows through the lid in pop-up steps into a small weeping willow, orange stem, leaf-green hanging leaves.",
+     motion="The tags of s03 fold up one after the other and the camera pulls back (0.8 s); the calendar sheets flip over one by one (on twelves); with each flip the willow pops up a size; the rain falls the whole time.",
+     carries="The grown willow in its pot.", transition="The willow is lifted out with its roots and carried to a balance that stands up from the ground.",
+     sound="Page flips, light rain ticks on paper.", check="Five steps of growth; nothing but water goes into the pot.", facts=["f1"],
+     frames=[fr(0, "The pot outside, the small cutting; the calendar reads 'tahun 1'; the cloud starts to rain.", hills(), lidded_pot(540), willow(540, 860, 230, 50), {"cloud": [300, 430, 360]}, {"path": "M220 470 v40 M300 480 v40 M380 470 v40", "colour": TEAL, "width": 6}, {"card": [760, 360, 170, 230]}, label(845, 450, "tahun", 44), label(845, 560, "1", 96, colour=TEAL), {"move": [845, 640, 845, 720], "text": "dibalik"}),
+             fr(1, "Five years on: the willow is a small tree; the calendar reads 'tahun 5'; the tag 'cuma disiram air hujan'.", hills(), lidded_pot(540), willow(540, 860, 520, 205), {"cloud": [300, 430, 360]}, {"path": "M220 470 v40 M300 480 v40 M380 470 v40", "colour": TEAL, "width": 6}, {"card": [760, 360, 170, 230]}, label(845, 450, "tahun", 44), label(845, 560, "5", 96, colour=TEAL), tag(390, 300, "cuma disiram air hujan", (320, 400), 50), {"cut": "angkat ke timbangan"})])
 
 shot("s04", "bukti", "diagram", "Pohonnya nambah *tujuh puluh kilo* lebih,",
-     teaches="The tree gained about 74 kg.",
-     screen="A paper platform scale on the bench (deep-teal platform x 200-720 at y 1200, a cream dial on a post at the right, centre (860, 760)). The willow, lifted out of its pot with its bare orange roots, stands on the platform. A big stamped tag hangs from the dial: '+74 kg'.",
-     motion="The figure lifts the willow out (on twelves) and sets it on the platform; the dial's paper needle swings round and stops; the stamped tag drops in on its thread with a little swing.",
-     carries="The scale and the willow.", transition="The willow slides off; the scale is folded down into a bar chart.",
-     sound="A creak as it is lifted, a paper clunk on the platform, a stamp thud.", check="The stamped number is +74 kg (164 lb, f1), at its value, no counting up.", facts=["f1"],
-     frames=[fr(0, "The figure lifts the willow out of the pot, bare roots, on its way to the platform.", figure(150, 1250, 600, (330, 820)), willow(380, 900, 600, 230), {"path": "M370 900 c-40 40 -90 50 -140 60 M390 900 c40 40 90 50 140 60", "colour": ORANGE, "width": 8}, paper("M200 1200 H720 V1250 H200 Z", TEAL), paper(circ(860, 760, 120), CREAM), {"line": [860, 880, 860, 1200], "width": 10, "colour": TEAL}, {"move": [380, 980, 460, 1120], "text": "angkat"}),
-             fr(1, "On the platform; the needle has swung; the stamp '+74 kg'.", willow(460, 1140, 680, 250), {"path": "M450 1140 c-40 30 -90 40 -140 50 M470 1140 c40 30 90 40 140 50", "colour": ORANGE, "width": 8}, paper("M200 1200 H720 V1250 H200 Z", TEAL), paper(circ(860, 760, 120), CREAM), {"line": [860, 760, 930, 690], "width": 8, "colour": RED}, {"line": [860, 880, 860, 1200], "width": 10, "colour": TEAL}, stamp(830, 1010, "+74 kg", 84), {"cut": "jadi grafik"})])
+     teaches="The tree gained about 74 kg: it is weighed on a balance, out of its soil.",
+     screen="The willow comes up out of the pot with its bare roots and is carried left; the pot is carried off right. A 17th-century equal-arm balance stands up from the ground (a post, a beam on a pivot at (540, 430), two pans hung on chains); the willow is set on the left pan, plain cream weights go on the right pan until the beam is level. A stamped tag hangs from the pivot: '+74 kg'.",
+     motion="Lift (0.4 s), carry; the balance pops up like a pop-up page, its pans drop on their chains; the willow goes down onto the pan, which sinks; three weights drop on the other pan one after another and the beam swings level; the stamp drops on its thread with a little swing. A slow push.",
+     carries="The balance.", transition="The willow and its weights come off; the pot of soil is lowered onto the pan.",
+     sound="Soil crumbling as the roots come out, a pop for the balance, a clunk on the pan, a tick per weight, a stamp.", check="The stamp reads +74 kg (164 lb, f1), at its value; a balance, not a dial scale (none existed in 1648).", facts=["f1"],
+     frames=[fr(0, "The willow lifted out of its pot with bare roots, carried left; the balance standing up.", willow(230, 700, 520, 205), {"path": "M230 700 c-30 40 -70 50 -110 60 M230 700 c30 40 70 50 110 60 M230 700 c0 40 4 60 -6 90", "colour": ORANGE, "width": 8}, lidded_pot(1000), balance(), {"move": [620, 700, 260, 700], "text": "angkat"}),
+             fr(0.5, "On the left pan, which sinks; weights going onto the right pan.", balance(-7, right=1), willow(220, 1020, 520, 205), {"move": [860, 700, 860, 960], "text": "beban"}),
+             fr(1, "The beam level; the stamp '+74 kg' on its thread.", balance(0, right=2), willow(220, 1020, 520, 205), {"path": "M540 450 L560 744", "colour": TEAL, "width": 3}, stamp(560, 820, "+74 kg", 78), {"cut": "ganti tanah"})])
 
-shot("s05", "bukti", "chart", "tapi tanahnya cuma berkurang sekitar *setengah ons*.",
-     teaches="The soil lost only about 57 grams: on the same scale, nothing.",
-     screen=f"A bar chart made of paper on the cream card, one scale for both: left, a green paper column 260 wide and {BAR} px tall for the tree's gain, stamped '+74 kg'; right, the soil's loss on the same scale is {SOIL_BAR:.2f} px tall, a hairline on the base. A paper magnifier slides over it: inside, '−57 g'. Under it a tag '< 0,1 %'. Words under the bars on paper strips: 'pohon', 'tanah'.",
-     motion="The tree's column rises like a pop-up (on twelves); the soil's column 'rises' and stays a hairline; the magnifier slides in on a paper arm and the '−57 g' tag flips up inside it, then '< 0,1 %'.",
-     carries="The tall green column.", transition="The chart folds flat and the opening tree pops back up behind it.",
-     sound="A paper rustle for the column, a small 'tik' for the hairline, a stamp for '−57 g'.", check=f"Bars are {BAR} px and {SOIL_BAR:.2f} px: the same scale (164 lb against 2 oz, f1).", facts=["f1", "f10"],
-     frames=[fr(0, "The tree's column rising, stamped '+74 kg'; the base line for both.", {"path": "M120 1180 H960", "colour": TEAL, "width": 8}, paper(f"M170 1180 V{1180 - BAR * 0.7:.0f} H430 V1180 Z", GREEN), label(300, 1260, "pohon", 60, colour=TEAL), label(780, 1260, "tanah", 60, colour=TEAL), {"move": [300, 1000, 300, 600], "text": "naik"}),
-             fr(0.5, "Full height; the soil's column on the same scale is a hairline.", {"path": "M120 1180 H960", "colour": TEAL, "width": 8}, paper(f"M170 1180 V{1180 - BAR:.0f} H430 V1180 Z", GREEN), stamp(300, 380, "+74 kg", 80), {"path": f"M650 1180 H910 V{1180 - SOIL_BAR:.2f} H650 Z", "colour": RED, "width": 4}, label(300, 1260, "pohon", 60, colour=TEAL), label(780, 1260, "tanah", 60, colour=TEAL), {"move": [960, 700, 820, 1020], "text": "kaca pembesar"}),
-             fr(1, "Under the magnifier: '−57 g', and '< 0,1 %' of what the tree gained.", {"path": "M120 1180 H960", "colour": TEAL, "width": 8}, paper(f"M170 1180 V{1180 - BAR:.0f} H430 V1180 Z", GREEN), stamp(300, 380, "+74 kg", 80), {"magnifier": [780, 1040, 120]}, label(780, 1060, "−57 g", 72, colour=RED), tag(760, 800, "< 0,1 %", (780, 915)), label(300, 1260, "pohon", 60, colour=TEAL), label(780, 1260, "tanah", 60, colour=TEAL), {"cut": "pohon muncul lagi"})])
+shot("s05", "bukti", "diagram", "tapi tanahnya cuma berkurang sekitar *setengah ons*.",
+     teaches="The soil, weighed again after five years, lost only about 57 grams: almost nothing.",
+     screen="The same balance. The willow and its weights are gone; the pot of soil (dried again) is lowered onto the left pan; the weights for its first weighing go on the right pan, tagged 'dulu 91 kg', and the beam is level. The smallest weight is lifted off the top of the stack and held up: a stamped tag '−57 g', and under it '< 0,1 %'. The beam does not move: 57 g of 91 kg cannot be seen.",
+     motion="Willow off left, weights off up; the pot comes down onto the pan, which sinks; the weights drop one by one and the beam swings level; on 'berkurang' the tiny weight is lifted off in an arc; '−57 g' flips down on 'setengah', '< 0,1 %' on 'ons'. A slow push.",
+     carries="The balance with the soil on it.", transition="A sheet of paper slides across from the right; behind it the tree stands up from the page.",
+     sound="A slide, a clunk, ticks for the weights, a tick for the tiny one, a stamp for '−57 g'.", check="'dulu 91 kg', '−57 g', '< 0,1 %' (f1, f10): 2 oz of 200 lb; the beam stays level.", facts=["f1", "f10"],
+     frames=[fr(0, "The pot of soil lowered onto the left pan; the willow carried off left.", balance(-8), pot(220, 690), willow(-60, 900, 520, 205), {"move": [220, 300, 220, 640], "text": "turun"}),
+             fr(0.5, "Weighed again: the weights 'dulu 91 kg' and the beam level.", balance(0, right=2), pot(220, 690), tag(662, 990, "dulu 91 kg", (760, 960), 46)),
+             fr(1, "The tiny weight lifted off: '−57 g', '< 0,1 %'.", balance(0, right=2), pot(220, 690), tag(662, 990, "dulu 91 kg", (760, 960), 46), paper("M676 660 H704 V642 H676 Z", CREAM, 3), tag(676, 566, "−57 g", (690, 640), 64), tag(650, 800, "< 0,1 %", (690, 664), 50), {"cut": "lapisan geser"})])
 
 shot("s06", "bahan", "wide", "Ternyata bahannya dari *udara* dan air.",
      teaches="The answer to where it comes from: air and water.",
-     screen="Back to the opening tree on its hill. In the sky, three paper CO₂ molecules (a deep-teal carbon disc between two red oxygen discs) drift towards the leaves; a tag 'udara (CO₂)' flips up on a thread. In the soil, three paper water molecules (a red oxygen disc with two small cream hydrogen discs) sit by the roots; a tag 'air (H₂O)'. Two cut-paper arrows: one from the sky into the canopy, one up the trunk from the roots.",
-     motion="The chart folds away and the tree pops up again; the CO₂ molecules slide in from the left edge on the twelves; the tag flips; then the soil layer lifts a little and the water molecules appear by the roots, their tag flipping.",
-     carries="The tree, the CO₂ by the leaves, the water by the roots.", transition="The camera pushes into one leaf.",
-     sound="Two soft tag flicks; a light paper slide for the molecules.", check="Same colours as everywhere: carbon teal, oxygen red, hydrogen cream.", facts=["f3"],
-     frames=[fr(0, "The opening tree pops back up as the chart folds away.", opening(), {"camera": "pull"}),
-             fr(0.5, "CO₂ molecules slide in towards the leaves; tag 'udara (CO₂)'.", opening(), co2(150, 520), co2(170, 760), co2(900, 700), paper_arrow(150, 600, 330, 640, TEAL), tag(250, 400, "udara (CO₂)", (180, 500)), {"move": [80, 300, 280, 300], "text": "masuk"}),
-             fr(1, "Water molecules by the roots; tag 'air (H₂O)'; an arrow up the trunk.", opening(), co2(150, 520), co2(170, 760), co2(900, 700), paper_arrow(150, 600, 330, 640, TEAL), tag(250, 400, "udara (CO₂)", (180, 500)), h2o(430, 1240), h2o(760, 1245), paper_arrow(540, 1170, 540, 980, CREAM, 30), tag(230, 1275, "air (H₂O)", (400, 1238)), {"cut": "masuk ke daun"})])
+     screen="Behind the sheet the tree stands up from the page layer by layer (hills, soil, tree, the near grass). The camera frames the canopy and the sky: three CO₂ molecules (a deep-teal carbon disc between two red oxygen discs) slide in towards the leaves, an arrow, a tag 'udara (CO₂)'. Then a rostrum tilt down the trunk to the roots: three water molecules (a red oxygen disc with two cream hydrogen discs) by the roots, an arrow up the trunk, a tag 'air (H₂O)'.",
+     motion="The sheet slides across (0.9 s) and the layers pop up behind it, back to front; a slow push on the canopy; the CO₂ slides in on 'udara'; a 0.75 s tilt down to the roots on 'air'; the soil lifts a little and the water appears.",
+     carries="The tree, the CO₂ by the leaves, the water by the roots.", transition="A 1 s rostrum push into one leaf of the canopy.",
+     sound="A slide for the sheet, a big pop as the tree stands up, a slide for the molecules, a tag flick, air for the tilt.", check="Same colours as everywhere: carbon teal, oxygen red, hydrogen cream.", facts=["f3"],
+     frames=[fr(0, "The sheet sliding off; the tree standing up from the page.", opening(), layer_slide(500), {"move": [900, 900, 300, 900], "text": "lapisan geser"}),
+             fr(0.5, "Framed on the canopy: CO₂ slides in towards the leaves; tag 'udara (CO₂)'.", sun(840, 260, 130), tree(540, 1395, 1.2), co2(72, 744), co2(120, 948), co2(940, 828), paper_arrow(60, 852, 222, 816, TEAL), tag(275, 519, "udara (CO₂)", (72, 720), 52), {"camera": "push"}),
+             fr(1, "Tilted down to the roots: water by the roots, an arrow up the trunk; tag 'air (H₂O)'.", paper(lifted(hills()["path"], 0), GREEN), soil(1110), roots(540, 1110), {"path": "M490 1110 L500 400 L580 400 L590 1110 Z", "colour": ORANGE, "fill": ORANGE, "width": 6}, h2o(400, 1190), h2o(680, 1196), h2o(810, 1176), paper_arrow(540, 1090, 540, 840, CREAM, 30), tag(720, 1038, "air (H₂O)", (810, 1150), 52), {"camera": "down"}, {"cut": "masuk ke daun"})])
 
 shot("s07", "bahan", "diagram", "Karbon dioksida masuk lewat pori-pori kecil di *daun*,",
      teaches="Carbon dioxide gets in through tiny pores on the underside of the leaf (stomata).",
-     screen="One leaf fills the frame: green paper with deep-teal veins (x 110-980, y 470-1060). Its top layer peels back from the right like a flap, showing the underside dotted with pores; then one pore close up, as big as the frame allows: two green paper guard cells round a slit (centre 540, 820), a CO₂ molecule passing through it. Tags on threads: 'pori daun (stomata)', 'CO₂'.",
-     motion="Rostrum push from the tree to the leaf; the leaf's top layer peels back (fold on twelves); the camera pushes again onto one pore; the CO₂ molecule slides through the slit and disappears behind the paper.",
-     carries="The leaf.", transition="The camera tilts down the trunk to the roots.",
-     sound="A paper peel; a soft 'pff' as the molecule slips through.", check="The pore is drawn on the underside (the peeled side), as it is in most leaves.", facts=["f4"],
-     frames=[fr(0, "Push in: one leaf fills the frame.", leaf_big(), {"camera": "push"}),
-             fr(0.5, "The top layer peels back from the right: the underside is dotted with pores.", paper("M110 820 C 280 520, 760 460, 980 760 C 760 1020, 290 1080, 110 820 Z", GREEN, 8), paper("M620 520 C 760 520, 900 600, 980 760 C 900 700, 800 690, 700 720 Z", CREAM, 6), stoma(300, 820, 36, 60), stoma(460, 720, 36, 60), stoma(500, 900, 36, 60), stoma(660, 820, 36, 60), {"move": [900, 640, 760, 560], "text": "dikelupas"}),
-             fr(1, "One pore up close: the guard cells, the slit, a CO₂ molecule slipping through; tags.", paper(ell(540, 830, 420, 330), GREEN, 6), stoma(540, 830, 230, 400), co2(540, 690, 30), tag(540, 380, "pori daun (stomata)", (540, 630)), tag(840, 560, "CO₂", (600, 680)), {"move": [380, 560, 520, 690], "text": "masuk"}, {"cut": "turun ke akar"})])
+     screen="A rostrum push lands on one leaf of the tree, which now fills the frame (x 95-995, y 470-1090), other leaves of the canopy paler behind it. The leaf turns over on its midrib to show its paler underside dotted with pores. Tiny CO₂ molecules (smaller than a pore) drift up to them; tags 'CO₂', 'pori daun'. A second push onto one pore: two leaf-green guard cells round a dark slit (centre 540, 820) on a field of skin cells; a CO₂ molecule slips through the slit; tags 'pori daun (stomata)', 'CO₂'.",
+     motion="Push from the tree into the leaf (1 s, with parallax); the leaf turns over (on twelves); CO₂ drifts up; push onto the pore (0.75 s); the guard cells part a little and the molecule sinks through the slit, behind the paper.",
+     carries="The leaf.", transition="A sheet of paper slides down over the pore; under it the tree, tilted down to its roots.",
+     sound="Air for the pushes, a paper flip as the leaf turns, tag flicks, a soft 'pff' as the molecule slips through.", check="The pores are on the underside; the molecules are drawn smaller than the pores they enter (neither is to scale).", facts=["f4"],
+     frames=[fr(0, "Landed in one leaf: it fills the frame, other leaves paler behind.", leaf_big(), {"camera": "push"}),
+             fr(0.5, "Turned over: the paler underside, dotted with pores; tiny CO₂ drifts up to them.", paper("M110 820 C 280 520, 760 460, 980 760 C 760 1020, 290 1080, 110 820 Z", "#a8c49a", 8), stoma(300, 820, 30, 50), stoma(460, 720, 30, 50), stoma(500, 900, 30, 50), stoma(660, 820, 30, 50), stoma(780, 760, 30, 50), co2(470, 960, 6), co2(760, 1000, 6), tag(340, 470, "pori daun", (450, 700), 50), {"move": [540, 600, 540, 1000], "text": "dibalik"}),
+             fr(1, "One pore up close: the guard cells, the slit, a CO₂ molecule slipping through; tags.", paper(ell(540, 830, 420, 330), "#8fb57e", 6), stoma(540, 830, 230, 400), co2(540, 690, 30), tag(410, 1190, "pori daun (stomata)", (430, 1010)), tag(820, 300, "CO₂", (600, 680)), {"move": [380, 560, 520, 690], "text": "masuk"}, {"cut": "lapisan turun"})])
 
 shot("s08", "bahan", "wide", "air naik dari *akar*.",
      teaches="Water comes up from the roots, through the stem, to the leaves.",
-     screen="The camera has tilted down: the ground at y 880, the trunk rising out of frame. The front soil layer folds down like a flap to show the orange roots spreading to y 1250. Water molecules (red with two cream discs) sit at the root tips and climb in a line up a cream channel in the trunk. Tags: 'akar', 'air (H₂O)'.",
-     motion="The soil flap folds down (on twelves); the water molecules step up the channel one after another, a drawing at a time; the 'akar' tag flips up on its thread.",
-     carries="The water climbing the trunk.", transition="The camera rises up the trunk into a leaf and the leaf's top layer is lifted.",
-     sound="A paper fold; small taps as each molecule steps up.", check="The water goes up, from roots to leaves, never down.", facts=["f5"],
-     frames=[fr(0, "Tilted down: the ground, the trunk, the soil flap starting to fold down.", paper("M0 880 C 300 860, 700 900, 1080 870 V1910 H0 Z", TEAL), paper("M480 880 L505 300 L575 300 L600 880 Z", ORANGE), paper(circ(540, 240, 200), GREEN), {"move": [900, 900, 900, 1120], "text": "dibuka"}, {"camera": "down"}),
-             fr(1, "Roots shown; water molecules climb the cream channel; tags 'akar' and 'air (H₂O)'.", paper("M0 880 C 300 860, 700 900, 1080 870 V1910 H0 Z", TEAL), paper("M480 880 L505 300 L575 300 L600 880 Z", ORANGE), paper("M528 1000 L532 300 L548 300 L552 1000 Z", CREAM, 4), paper(circ(540, 240, 200), GREEN), {"path": "M540 880 C 500 980, 380 1060, 230 1150 M540 880 C 590 990, 700 1060, 850 1160 M540 880 C 530 1000, 560 1120, 520 1250 M380 1060 C 330 1100, 300 1180, 280 1240 M700 1060 C 760 1110, 790 1180, 800 1250", "colour": ORANGE, "width": 12}, h2o(230, 1190, 22), h2o(850, 1200, 22), h2o(540, 1060, 20), h2o(540, 900, 20), h2o(540, 740, 20), h2o(540, 580, 20), {"move": [640, 1000, 640, 560], "text": "naik"}, tag(200, 980, "akar", (280, 1080)), tag(850, 760, "air (H₂O)", (580, 740)), {"cut": "naik ke daun"})])
+     screen="Under the sheet: the tree, the camera tilted down to the ground (at y 760) and pushed in, the trunk rising out of frame. The soil's front layer has folded down like a flap to show the whole root system on the deep soil, with root hairs at the tips. A strip of bark is lifted aside on the trunk: a cream channel (the xylem). Small water molecules (red with two cream discs, narrower than the channel) climb from the root tips up the channel one after another. Tags: 'akar', 'air (H₂O)'.",
+     motion="The sheet slides down across the frame (0.8 s); the flap is down; the bark strip folds aside; the water molecules step up the channel, a drawing at a time; the tags flip down.",
+     carries="The water climbing the trunk.", transition="A 1 s rostrum move up the trunk and into a leaf; its surface lifts.",
+     sound="A slide for the sheet, a paper fold, small ticks as the molecules climb, tag flicks.", check="The water goes up, from roots to leaves, never down; the molecules fit inside the channel.", facts=["f5"],
+     frames=[fr(0, "Tilted down: the ground, the trunk, the soil flap folded down, the deep roots.", paper("M0 760 C 300 740, 700 780, 1080 750 V1910 H0 Z", TEAL), paper("M480 760 L500 200 L580 200 L600 760 Z", ORANGE), {"path": "M540 760 C 500 860, 380 940, 230 1040 M540 760 C 590 870, 700 940, 850 1050 M540 760 C 530 880, 560 1000, 520 1130", "colour": ORANGE, "width": 12}, {"move": [900, 800, 900, 1020], "text": "dibuka"}, {"camera": "down"}),
+             fr(1, "Water molecules climb the cream channel; tags 'akar' and 'air (H₂O)'.", paper("M0 760 C 300 740, 700 780, 1080 750 V1910 H0 Z", TEAL), paper("M480 760 L500 200 L580 200 L600 760 Z", ORANGE), paper("M520 900 L522 200 L558 200 L560 900 Z", CREAM, 4), {"path": "M540 760 C 500 860, 380 940, 230 1040 M540 760 C 590 870, 700 940, 850 1050 M540 760 C 530 880, 560 1000, 520 1130", "colour": ORANGE, "width": 12}, h2o(230, 1070, 12), h2o(850, 1080, 12), h2o(540, 620, 12), h2o(540, 460, 12), h2o(540, 300, 12), {"move": [640, 900, 640, 400], "text": "naik"}, tag(216, 1007, "akar", (300, 1000)), tag(720, 620, "air (H₂O)", (556, 470)), {"cut": "naik ke daun"})])
 
 shot("s09", "bahan", "diagram", "Nah, di daun ada *klorofil*, zat hijau yang nangkep cahaya matahari.",
-     teaches="Inside the leaf, chlorophyll (the green stuff) catches the sunlight.",
-     screen="The leaf opened like a pop-up: a row of six tall cream paper cells (x 130-950, y 560-980) under a thin green top layer, each holding small green paper discs (chloroplasts). Strips of yellow paper (sunlight) slant in from the top right and land on them. Then a push into one chloroplast: stacks of green paper coins (the grana), tag 'klorofil (zat hijau)'.",
-     motion="The top layer lifts and the cells pop up behind it; the yellow strips slide in one after another (on twelves) and stop on the green discs; the camera pushes into one disc; the coin stacks unfold up from flat; the tag flips.",
-     carries="The chloroplast with its green coin stacks.", transition="Continuous: the camera stays inside the chloroplast.",
-     sound="A pop-up unfold; a warm chime as the light strips land.", check="The light lands on the green parts; the label sits on the stacks it names.", facts=["f6"],
-     frames=[fr(0, "The leaf's top layer lifts: a row of tall cells, each full of green discs.", paper("M100 520 H980 V560 H100 Z", GREEN), [paper(f"M{130 + i * 140} 570 h126 v410 h-126 Z", CREAM, 5) for i in range(6)], [atom(130 + i * 140 + 40 + (j % 2) * 46, 620 + j * 70, 20, GREEN) for i in range(6) for j in range(5)], {"camera": "push"}),
-             fr(0.5, "Yellow strips of sunlight slant in and land on the green discs; tag 'kloroplas'.", paper("M100 520 H980 V560 H100 Z", GREEN), [paper(f"M{130 + i * 140} 570 h126 v410 h-126 Z", CREAM, 5) for i in range(6)], [atom(130 + i * 140 + 40 + (j % 2) * 46, 620 + j * 70, 20, GREEN) for i in range(6) for j in range(5)], beam(980, 280, 640, 700), beam(980, 420, 820, 640), tag(330, 360, "kloroplas", (300, 640)), {"move": [1000, 260, 760, 520], "text": "cahaya"}),
-             fr(1, "Inside one chloroplast: stacks of green coins; tag 'klorofil (zat hijau)'.", chloroplast(), beam(990, 300, 600, 700, 80), tag(470, 330, "klorofil (zat hijau)", (520, 700)), {"cut": "tetap di dalam"})])
+     teaches="Inside the leaf, chlorophyll (the green stuff in the chloroplasts) catches the sunlight.",
+     screen="A rostrum move up the trunk lands in a leaf; its surface lifts away like a flap, and the leaf is there in cross-section, filling the frame (y 280-1260 on screen) and held for 3 s: the waxy cuticle, the upper skin as a row of flat clear cells, tall palisade cells packed with leaf-green chloroplasts (each with its nucleus), spongy cells round air spaces, a vein (xylem rings for water, small orange phloem cells for sugar, a ring of sheath cells), the lower skin with a stoma opening into an air space. Tags 'kloroplas' and 'klorofil = zat hijau'. Strips of yellow paper (sunlight) slant in from the top right onto the palisade. Then a 0.8 s push into one chloroplast of a palisade cell.",
+     motion="Move up and in (1 s); the flap lifts (on twelves); a slow push across the section (1.14 to 1.2); the tags flip down on 'ada' and 'zat'; the light strips slide in on 'nangkep'; the push into a chloroplast, which opens into the next set at the same size.",
+     carries="The chloroplast.", transition="Continuous: the push goes on into the chloroplast.",
+     sound="Air for the moves, a paper peel for the flap, tag flicks, a warm chime as the light lands.", check="Every layer of a leaf section in its place; the light lands on the green; the section is on screen for 3 s.", facts=["f6"],
+     frames=[fr(0, "Landed in a leaf: its surface, a green flap, lifts away.", paper("M0 300 H1080 V1300 H0 Z", LEAFG), {"path": "M0 800 H1080", "colour": "#4f7f3e", "width": 14}, {"move": [540, 900, 540, 380], "text": "dibuka"}, {"camera": "push"}),
+             fr(0.5, "The leaf in cross-section: cuticle, upper skin, palisade with chloroplasts, spongy cells and air spaces, a vein, lower skin with a stoma; tags 'kloroplas', 'klorofil = zat hijau'.", paper("M0 282 H1080 V340 H0 Z", CREAM, 3), [paper(f"M{-40 + i * 166} 346 h150 v450 h-150 Z", CREAM, 4) for i in range(7)], [atom(-40 + i * 166 + (30 if j % 2 else 120), 380 + j * 52, 18, LEAFG) for i in range(7) for j in range(8)], [paper(ell(x, y, 80, 56), CREAM, 4) for x, y in ((80, 930), (280, 960), (900, 950), (1040, 1010), (160, 1090))], paper(ell(700, 1010, 130, 105), CREAM, 4), [atom(700 + dx, 990 + dy, 22, CREAM) for dx, dy in ((-40, -20), (0, -36), (40, -20))], [atom(660 + i * 20, 1050, 9, ORANGE) for i in range(5)], paper("M0 1200 H1080 V1246 H0 Z", CREAM, 3), stoma(330, 1222, 24, 40), tag(250, 330, "kloroplas", (210, 432), 56), tag(680, 330, "klorofil = zat hijau", (470, 640), 50)),
+             fr(1, "Sunlight slants in onto the palisade; the push into one chloroplast begins.", [paper(f"M{-40 + i * 166} 346 h150 v450 h-150 Z", CREAM, 4) for i in range(7)], [atom(-40 + i * 166 + (30 if j % 2 else 120), 380 + j * 52, 18, LEAFG) for i in range(7) for j in range(8)], beam(1080, 60, 700, 520, 60), beam(1080, 220, 860, 560, 60), {"camera": "push"}, {"cut": "masuk kloroplas"})])
 
 shot("s10", "dapur", "diagram", "Energi cahayanya dipakai buat *mecah* air.",
-     teaches="The light's energy splits water apart.",
-     screen="Inside the chloroplast, filling the frame (a green paper oval, x 60-1020, y 420-1200) with three stacks of green coins. A water molecule (red disc, two cream discs, as big as a fist: r 40) drifts to the middle stack; a yellow strip of light lands on it; the molecule is snipped apart: the red oxygen to one side, the two cream hydrogens to the other. Tags: 'H₂O', then 'O' and 'H'.",
-     motion="The molecule drifts in (on twelves); the light strip slides in and touches the stack; a paper snip: the three discs jump apart along cut lines, each landing with a little bounce.",
-     carries="The loose red O and the cream H discs.", transition="The camera follows the red O as it drifts up and out.",
-     sound="A soft guitar swell; a crisp scissor snip on 'mecah'.", check="One red disc and two cream discs come out of one water molecule: nothing appears from nowhere.", facts=["f7"],
-     frames=[fr(0, "A water molecule drifts to the middle stack; tag 'H₂O'.", chloroplast(), h2o(560, 620, 40), tag(250, 330, "H₂O", (510, 590), 64), {"move": [760, 380, 600, 560], "text": "air masuk"}),
-             fr(0.5, "The light strip lands on the stack, on the molecule.", chloroplast(), h2o(560, 650, 40), beam(1000, 260, 600, 640, 80)),
-             fr(1, "Snip: the oxygen jumps one way, the two hydrogens the other; tags 'O' and 'H'.", chloroplast(), beam(1000, 260, 600, 640, 80), atom(420, 600, 40, RED), atom(700, 590, 24, CREAM), atom(760, 650, 24, CREAM), {"path": "M520 560 l40 30 l-30 20 l40 30 M620 560 l-20 40 l30 10 l-20 40", "colour": TEAL, "width": 5}, tag(250, 330, "O", (400, 560), 72), tag(860, 330, "H", (720, 570), 72), {"cut": "O keluar"})])
+     teaches="The light, caught by the chlorophyll, gives its energy to split water apart.",
+     screen="Inside the chloroplast, filling the frame: its double envelope (two membranes), the pale stroma, four grana (stacks of green thylakoid coins) joined by thin lamellae, a few starch grains. A water molecule (red disc, two cream discs, r 50) comes in from the left to beside the second granum. A yellow strip of light lands on that granum (on its chlorophyll, tag 'klorofil'), not on the water; a yellow zigzag of energy passes from the granum to the water; a snip: the red oxygen jumps up-left, the two cream hydrogens jump right. Tags 'H₂O', then 'O' and 'H'.",
+     motion="The molecule slides in (on twelves); the light strip slides in and lands on the stack; the zigzag travels from the stack to the molecule; a dashed cut line and the snip on 'mecah': the three discs jump apart along it, each landing with a little bounce. A slow push.",
+     carries="The loose red O and the cream H discs.", transition="The O drifts up and out; a sheet of paper slides up across the frame.",
+     sound="A slide, a warm chime as the light lands, a softer chime as the energy passes, a crisp scissor snip on 'mecah'.", check="One red disc and two cream discs come out of one water molecule; the light goes through the chlorophyll, not straight onto the water.", facts=["f7", "f6"],
+     frames=[fr(0, "The chloroplast: double envelope, stroma, four grana and lamellae; the water comes in.", paper(ell(540, 820, 600, 420), "#4f7f3e", 8), paper(ell(540, 820, 552, 374), "#c5d8b8", 4), [granum(x, y, 6, 84, 20, 28) for x, y in ((200, 900), (400, 830), (610, 910), (380, 1060))], h2o(230, 676, 50), tag(300, 380, "H₂O", (240, 626), 64), {"move": [-100, 660, 200, 676], "text": "air masuk"}),
+             fr(0.5, "The light lands on the second granum (its chlorophyll); a zigzag of energy passes to the water.", paper(ell(540, 820, 600, 420), "#4f7f3e", 8), paper(ell(540, 820, 552, 374), "#c5d8b8", 4), [granum(x, y, 6, 84, 20, 28) for x, y in ((200, 900), (400, 830), (610, 910), (380, 1060))], h2o(230, 676, 50), beam(1150, 160, 460, 700, 70), {"path": "M380 700 l-20 -14 l-10 16 l-20 -14 l-10 16 l-20 -14", "colour": YELLOW, "width": 8}, tag(560, 380, "klorofil", (420, 700), 56)),
+             fr(1, "Snip: the oxygen jumps one way, the two hydrogens the other; tags 'O' and 'H'.", paper(ell(540, 820, 600, 420), "#4f7f3e", 8), paper(ell(540, 820, 552, 374), "#c5d8b8", 4), [granum(x, y, 6, 84, 20, 28) for x, y in ((200, 900), (400, 830), (610, 910), (380, 1060))], beam(1150, 160, 460, 700, 70), atom(150, 520, 50, RED), atom(560, 630, 32, CREAM), atom(660, 690, 32, CREAM), tag(200, 380, "O", (150, 470), 64), tag(720, 420, "H", (566, 598), 64), {"cut": "O keluar"})])
 
 shot("s11", "dapur", "wide", "Oksigennya dilepas, terus kita *hirup*.",
      teaches="The oxygen from the water is let out into the air, and it is what we breathe.",
-     screen="Pulled back: the tree on the left (trunk at x 380), a cut-out figure on split pins standing on the right under the canopy's edge. Pairs of red discs (O₂) float out of the leaves and drift to the figure's face. A tag 'O₂ (oksigen)' tied to one pair.",
-     motion="Two red discs join into a pair and drift out of the canopy on the twelves; the figure's chest rises (its torso piece tilts on its pin) as the pairs reach its face.",
-     carries="The tree and the figure.", transition="Back into the chloroplast for the cream hydrogens left behind.",
-     sound="A soft breath in, timed to the chest; light paper rustle.", check="The O₂ comes out of the leaves, not out of the trunk or the soil.", facts=["f7"],
-     frames=[fr(0, "O₂ pairs float out of the canopy; tag 'O₂ (oksigen)'.", [sun(900, 380, 100), hills(), soil(), roots(380)], tree(380), figure(860, 1195, 480), o2(640, 520), o2(700, 640), o2(620, 760), tag(760, 330, "O₂ (oksigen)", (680, 500)), {"move": [620, 560, 760, 700], "text": "keluar"}),
-             fr(1, "The pairs reach the figure's face; its chest rises: breathing in.", [sun(900, 380, 100), hills(), soil(), roots(380)], tree(380), figure(860, 1195, 480), o2(760, 700), o2(800, 760), o2(700, 620), tag(760, 330, "O₂ (oksigen)", (680, 500)), {"move": [700, 720, 830, 780], "text": "dihirup"}, {"cut": "balik ke kloroplas"})])
+     screen="Under the sheet: the tree on the left (the camera to its right), a cut-out person on split pins standing under the canopy's edge on the right (x 775-880, clear of the app's rail). Two red discs join into a pair in the canopy; pairs of red discs (O₂) float out of the leaves to the person's face. A tag 'O₂ (oksigen)' tied to one pair.",
+     motion="The sheet slides up across the frame (0.8 s); two O discs meet and pair; the pairs drift out on the twelves; the person's chest rises (the body piece swings up on its pin) as the pairs reach the face. A slow push.",
+     carries="The tree and the person.", transition="A sheet of paper slides across from the left; under it the chloroplast again.",
+     sound="A slide, a small click as the pair forms, pops as pairs come out, one breath in, timed to the chest.", check="The O₂ comes out of the leaves, not out of the trunk or the soil.", facts=["f7"],
+     frames=[fr(0, "Two O discs pair in the canopy; O₂ pairs float out; tag 'O₂ (oksigen)'.", sun(780, 330, 100), paper(lifted(hills()["path"], -40), GREEN), soil(1155), tree(380, 1155, 1.0), figure(830, 1155, 460), o2(560, 500), o2(620, 620), o2(500, 740), tag(680, 290, "O₂ (oksigen)", (560, 470), 50), {"move": [560, 540, 760, 660], "text": "keluar"}),
+             fr(1, "The pairs reach the person's face; the chest rises: breathing in.", sun(780, 330, 100), paper(lifted(hills()["path"], -40), GREEN), soil(1155), tree(380, 1155, 1.0), figure(830, 1155, 460), o2(760, 730), o2(780, 790), tag(680, 290, "O₂ (oksigen)", (760, 700), 50), {"move": [700, 720, 800, 760], "text": "dihirup"}, {"cut": "lapisan geser"})])
 
 shot("s12", "dapur", "diagram", "Hidrogennya digabung sama karbon dioksida, jadi *gula*.",
-     teaches="The hydrogen from the water is joined with carbon dioxide to make sugar.",
-     screen="The chloroplast again (the green oval, its coin stacks now at the left). Cream hydrogen discs slide in from the left; CO₂ molecules (teal between two reds) come down from the top; they meet in the middle and are pressed together into one orange paper hexagon, the sugar, centre (620, 860), r 150. A stamped tag: 'gula (C₆H₁₂O₆)'.",
-     motion="The pieces slide in from two sides (on twelves) and click together; the hexagon pops up out of them like a pop-up page, a size too big, then settles; the tag drops on its thread.",
-     carries="The orange sugar hexagon.", transition="Pull back out of the leaf to the whole tree.",
-     sound="Little paper clicks as the pieces meet; a warm pluck as the hexagon pops up.", check="The sugar is made of the cream H and the teal-and-red CO₂, nothing else.", facts=["f8", "f3"],
-     frames=[fr(0, "Hydrogens come in from the left, CO₂ from above.", chloroplast(grana=((240, 900), (240, 760))), [atom(380 + i * 40, 720 + (i % 2) * 70, 22, CREAM) for i in range(4)], co2(620, 600, 26), co2(800, 660, 26), {"move": [300, 1000, 520, 900], "text": "H"}, {"move": [760, 480, 700, 640], "text": "CO₂"}),
-             fr(0.5, "They meet in the middle and are pressed together.", chloroplast(grana=((240, 900), (240, 760))), [atom(560 + i * 34, 840 + (i % 2) * 40, 22, CREAM) for i in range(4)], co2(640, 780, 26), co2(700, 900, 26)),
-             fr(1, "The orange sugar hexagon pops up; tag 'gula (C₆H₁₂O₆)'.", chloroplast(grana=((240, 900), (240, 760))), hexagon(620, 860, 150), label(620, 880, "gula", 64, colour=TEAL), tag(600, 330, "gula (C₆H₁₂O₆)", (620, 710)), {"cut": "mundur ke pohon"})])
+     teaches="The hydrogen from the water is joined with carbon dioxide, in the chloroplast's fluid, to make sugar.",
+     screen="Under the sheet: the same chloroplast, the same four grana, the camera moved right to the stroma. Cream hydrogen discs come from the grana (where the water was split); two CO₂ molecules come in from outside, through the envelope at the right edge; they meet in the stroma and are pressed together into one orange paper hexagon, the sugar (centre 670, 820 on screen, r 130). A tag: 'gula'. (Fewer pieces than one glucose needs, f8; the formula is on the recipe card, not here.)",
+     motion="The sheet slides across from the left (0.9 s); the hydrogens slide in from the grana (on twelves); the CO₂ slides in from the right; they click together; the hexagon pops up out of them, a size too big, then settles; the tag flips down. A slow push.",
+     carries="The orange sugar hexagon.", transition="Pull back out of the chloroplast and the leaf to the whole tree.",
+     sound="A slide, little paper clicks as the pieces meet, a warm pluck as the hexagon pops up, a tag flick.", check="The sugar is made of the cream H and the teal-and-red CO₂, nothing else; four grana, as before.", facts=["f8", "f3"],
+     frames=[fr(0, "Hydrogens from the grana, CO₂ from the right edge.", paper(ell(390, 810, 600, 420), "#4f7f3e", 8), paper(ell(390, 810, 552, 374), "#c5d8b8", 4), [granum(x, y, 6, 84, 20, 28) for x, y in ((50, 890), (250, 820), (460, 900), (230, 1050))], [atom(400 + (i % 2) * 40, 700 + i * 70, 28, CREAM) for i in range(4)], co2(980, 690, 28), co2(980, 950, 28), {"move": [1060, 820, 820, 820], "text": "CO₂"}),
+             fr(0.5, "They meet in the stroma and are pressed together.", paper(ell(390, 810, 600, 420), "#4f7f3e", 8), paper(ell(390, 810, 552, 374), "#c5d8b8", 4), [granum(x, y, 6, 84, 20, 28) for x, y in ((50, 890), (250, 820), (460, 900), (230, 1050))], [atom(630 + (i % 2) * 40, 780 + (i // 2) * 40, 20, CREAM) for i in range(4)], co2(720, 800, 22), co2(700, 880, 22)),
+             fr(1, "The orange sugar hexagon pops up; tag 'gula'.", paper(ell(390, 810, 600, 420), "#4f7f3e", 8), paper(ell(390, 810, 552, 374), "#c5d8b8", 4), [granum(x, y, 6, 84, 20, 28) for x, y in ((50, 890), (250, 820), (460, 900), (230, 1050))], hexagon(670, 820, 130), tag(610, 430, "gula", (640, 690), 64), {"cut": "mundur ke pohon"})])
 
 shot("s13", "gula", "wide", "Gula inilah *makanan* tumbuhan,",
      teaches="That sugar is the plant's food: it is sent all over the plant.",
-     screen="The whole tree again. Small orange paper hexagons appear in the canopy and travel down the trunk and out along the roots, and up to the top of the canopy; a tag 'makanan' tied to one of them.",
-     motion="Pull back from the leaf; the hexagons slide along the branches and down the trunk in steps (on twelves), like beads on a thread.",
-     carries="The tree with its sugar.", transition="Push in on the trunk; a flap of its surface lifts.",
-     sound="A soft run of plucked notes as the hexagons travel.", check="The sugar goes from the leaves to the rest of the plant.", facts=["f9"],
-     frames=[fr(0, "Pulled back: sugar hexagons appear in the leaves.", opening(), [hexagon(x, y, 36) for x, y in ((420, 640), (660, 620), (540, 480), (480, 790))], tag(820, 300, "makanan", (680, 600)), {"camera": "pull"}),
-             fr(1, "The hexagons travel down the trunk to the roots, and up to the top of the canopy.", opening(), [hexagon(x, y, 34) for x, y in ((540, 880), (540, 1000), (540, 1120), (400, 1260), (700, 1262), (540, 470))], tag(820, 300, "makanan", (570, 900)), {"move": [620, 820, 620, 1150], "text": "dikirim"}, {"cut": "dekat ke batang"})])
+     screen="The chloroplast shrinks away and the camera pulls back out of the leaf to the tree, framed on the canopy (1.12x). Small orange paper hexagons appear in the leaves and travel along the branches, down the trunk and out along the roots, and up to the top of the canopy, like beads on a thread; a tag 'makanan' tied to one of them. The camera tilts down after them.",
+     motion="Pull back (0.8 s); the hexagons pop up and slide along in steps (on twelves); a tilt down the trunk following them.",
+     carries="The tree with its sugar.", transition="A sheet of paper slides across; under it a growing branch tip.",
+     sound="Air for the pull-back, a pop as the sugars appear, a soft run of plucked notes as they travel.", check="The sugar goes from the leaves to the rest of the plant.", facts=["f9"],
+     frames=[fr(0, "Pulled back: sugar hexagons appear in the leaves; tag 'makanan'.", sun(860, 240, 120), tree(540, 1450, 1.12), [hexagon(x, y, 26) for x, y in ((300, 700), (760, 680), (545, 470), (420, 545), (690, 540))], tag(770, 300, "makanan", (545, 440)), {"camera": "pull"}),
+             fr(1, "The hexagons travel down the trunk to the roots and up to the top of the canopy; the camera follows down.", paper(lifted(hills()["path"], -200), GREEN), soil(995), roots(540, 995), {"path": "M490 995 L510 100 L570 100 L590 995 Z", "colour": ORANGE, "fill": ORANGE, "width": 6}, [hexagon(x, y, 26) for x, y in ((540, 300), (540, 560), (540, 820), (420, 1060), (680, 1062))], {"move": [640, 300, 640, 900], "text": "dikirim"}, {"camera": "down"}, {"cut": "lapisan geser"})])
 
 shot("s14", "gula", "diagram", "yang disusun jadi daun, batang, sampai *kayu*.",
-     teaches="The sugar is also the building material: chained up, it becomes the stuff of leaves, stems and wood.",
-     screen="Close on the trunk, an orange band filling most of the frame (x 250-830, y 240-1300). A flap of its surface lifts at the right; underneath, the orange hexagons link up into long vertical chains packed side by side, like grain in wood. Tags: 'rantai gula = selulosa' and 'kayu'.",
-     motion="Push in; the flap lifts; the hexagons slide into line one after another and link (on twelves) until the chains fill the cut; the tags flip up.",
-     carries="The wood made of chains of sugar.", transition="A cream recipe card slides in over it.",
-     sound="Quick soft clicks as each hexagon links; a wooden tap for 'kayu'.", check="The chains are made of the same orange hexagons as the sugar in s12.", facts=["f9"],
-     frames=[fr(0, "Close on the trunk; single hexagons arrive.", TRUNK, [hexagon(x, y, 40) for x, y in ((430, 520), (600, 650), (470, 840), (660, 960))], {"camera": "push"}, {"move": [960, 380, 720, 560], "text": "gula datang"}),
-             fr(0.5, "They line up and link into chains.", TRUNK, chain(380, 600, 4), chain(500, 520, 6), chain(620, 640, 3), {"move": [860, 1000, 860, 640], "text": "disusun"}),
-             fr(1, "The chains fill the cut like wood grain; tags 'rantai gula = selulosa' and 'kayu'.", TRUNK, [chain(320 + c * 110, 470, 11) for c in range(5)], paper("M800 300 C 920 360, 960 560, 940 760 L800 760 Z", ORANGE), tag(540, 380, "rantai gula = selulosa", (540, 470), 54), tag(900, 1060, "kayu", (790, 1000), 64), {"cut": "kartu resep"})])
+     teaches="The sugar is also the building material: a new leaf, a longer stem, and wood, whose cell walls are chains of the sugar (cellulose).",
+     screen="Under the sheet: a branch close up, thick at the bottom left, its tip at the upper right, a twig and old leaves on it. A flap of its bark opens: under it the wood's long cells, their walls laid as chains of small orange hexagons (cellulose), one wall after another, tag 'dinding sel = rantai gula'. Sugar beads ride up the branch; on 'daun' a new leaf pops up at the tip (tag 'daun baru'); on 'batang' the stem grows on, with another leaf; on 'kayu' the tag 'kayu' on the wood.",
+     motion="The sheet slides across (0.8 s); the flap opens; the walls are laid down in sequence (on twelves); beads ride up; the leaf and the stem pop up on their words; the tags flip down. A slow push.",
+     carries="The branch, built from sugar.", transition="The recipe card, folded, slides in over it on a sheet of its own.",
+     sound="A slide, a paper peel for the flap, quick soft clicks as the walls are laid, pops for the leaf and the stem, a wooden knock for 'kayu'.", check="The walls are made of the same orange hexagons as the sugar in s12; the leaf and stem appear on their words.", facts=["f9"],
+     frames=[fr(0, "The branch; the bark flap opens on the wood's cells.", paper("M-140 1430 L240 1000 L540 690 L760 470 L810 520 L590 760 L300 1120 L120 1500 Z", ORANGE, 6), paper("M60 1100 L300 840 L500 1060 L260 1320 Z", "#f9cfa8", 4), {"move": [200, 1300, 260, 1000], "text": "dibuka"}),
+             fr(0.5, "Cell walls of chained hexagons; tag 'dinding sel = rantai gula'; a new leaf at the tip, tag 'daun baru'.", paper("M-140 1430 L240 1000 L540 690 L760 470 L810 520 L590 760 L300 1120 L120 1500 Z", ORANGE, 6), paper("M60 1100 L300 840 L500 1060 L260 1320 Z", "#f9cfa8", 4), [hexagon(120 + i * 30, 1060 - i * 32, 10) for i in range(7)], [hexagon(200 + i * 30, 1140 - i * 32, 10) for i in range(7)], [hexagon(280 + i * 30, 1220 - i * 32, 10) for i in range(7)], paper("M760 450 C 720 380, 650 360, 560 380 C 640 420, 700 450, 760 450 Z", LEAFG, 5), tag(600, 1110, "dinding sel = rantai gula", (330, 1060), 46), tag(280, 290, "daun baru", (650, 400), 50)),
+             fr(1, "The stem grown on; the tag 'kayu' on the wood.", paper("M-140 1430 L240 1000 L540 690 L760 470 L810 520 L590 760 L300 1120 L120 1500 Z", ORANGE, 6), paper("M60 1100 L300 840 L500 1060 L260 1320 Z", "#f9cfa8", 4), [hexagon(120 + i * 30, 1060 - i * 32, 10) for i in range(7)], [hexagon(200 + i * 30, 1140 - i * 32, 10) for i in range(7)], [hexagon(280 + i * 30, 1220 - i * 32, 10) for i in range(7)], paper("M760 450 C 720 380, 650 360, 560 380 C 640 420, 700 450, 760 450 Z", LEAFG, 5), paper("M780 500 L880 330 L900 345 L805 515 Z", ORANGE, 5), tag(700, 990, "kayu", (440, 1060), 60), {"cut": "kartu resep"})])
 
 shot("s15", "recap", "recap", "Jadi tumbuhan bikin makanannya sendiri, dari *cahaya*, udara, dan air.",
-     teaches="The answer in one frame: light, air and water go into the leaf; sugar and oxygen come out.",
-     screen="A cream recipe card (x 70-1010, y 260-1295) laid over the scene with a shadow. Top row, three ingredients with paper tags: the yellow sun 'cahaya', a CO₂ molecule 'udara', a water molecule 'air'. Arrows into a green paper leaf in the middle. Out of it: the orange hexagon 'gula' and a red O₂ pair 'oksigen'. Printed along the bottom strip: '6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂'.",
-     motion="The card slides in; the three ingredients pop up one per word ('cahaya', 'udara', 'air'); paper arrows fold down into the leaf; the outputs pop up; the equation strip slides in last.",
-     carries="The card, until the layer slides away.", transition="The card slides off to the right, uncovering the opening tree.",
-     sound="Three soft taps, one per ingredient; a warm guitar chord on the outputs.", check="Readable as a summary with the sound off; the equation balances (f3).", facts=["f3", "f6", "f7", "f8"],
-     frames=[fr(0, "The recipe card slides in; the three ingredients pop up.", recipe(1), {"move": [1060, 800, 900, 800], "text": "kartu"}),
-             fr(0.5, "Arrows fold down into the leaf.", recipe(2)),
-             fr(1, "Out come sugar and oxygen; the equation strip.", recipe(3), {"cut": "kartu geser keluar"})])
+     teaches="The answer in one frame: light, air and water go into the leaf; sugar and oxygen come out; the sugar becomes the plant's body and wood; not from the soil.",
+     screen="A recipe card (x 70-1010, y 246-1290) on a sheet of its own, folded in half when it arrives; it opens like a pop-up. Middle: a leaf-green leaf. Bottom row: the orange hexagon 'gula' with an arrow to a small tree 'tubuh, kayu', and a red O₂ pair 'oksigen', with arrows from the leaf. Top row, one per word: the yellow sun 'cahaya', a CO₂ molecule 'udara', a water molecule 'air', each with an arrow into the leaf. Printed along the bottom strip: '6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂'. Stamped at the top: 'bukan dari tanah'.",
+     motion="The sheet slides in; the card's top half opens up from the fold (pop-up); the leaf pops up; on 'tumbuhan' the small tree; on 'makanannya' the sugar and its arrow to the tree; on 'sendiri' the oxygen; the three ingredients pop up one per word with their arrows folding down; the equation strip slides in; the stamp lands on 'air'. A slow push.",
+     carries="The card, until its sheet slides away.", transition="The sheet slides off to the right, uncovering the opening tree.",
+     sound="A slide, a fold as the card opens, pops, a pluck for the sugar, a warm chord on the outputs, taps for the ingredients, a stamp.", check="Readable as a summary with the sound off; the equation balances (f3); nothing collides with the labels.", facts=["f3", "f2", "f9"],
+     frames=[fr(0, "The card arrives folded and opens up from its fold; the leaf pops up.", layer_slide(1100), paper("M72 770 L1006 770 L1002 1290 L76 1284 Z", CREAM, 6), paper("M72 246 L1006 252 L1006 772 L72 772 Z", CREAM, 6), paper("M340 802 C 420 676, 660 676, 740 802 C 660 928, 420 928, 340 802 Z", LEAFG, 6), {"move": [540, 760, 540, 300], "text": "dibuka"}),
+             fr(0.5, "Out: gula (and from it the tree's body and wood) and oksigen.", layer_slide(1100), paper("M72 246 L1006 252 L1002 1290 L76 1284 Z", CREAM, 6), paper("M340 802 C 420 676, 660 676, 740 802 C 660 928, 420 928, 340 802 Z", LEAFG, 6), paper_arrow(470, 905, 320, 962, TEAL, 22), paper_arrow(610, 905, 770, 962, TEAL, 22), hexagon(260, 1018, 64), paper_arrow(338, 1018, 452, 1018, TEAL, 22), tree(560, 1098, 0.17), o2(830, 1018, 36), label(260, 1140, "gula", 50, colour=TEAL), label(560, 1140, "tubuh, kayu", 50, colour=TEAL), label(830, 1140, "oksigen", 50, colour=TEAL)),
+             fr(1, "In: cahaya, udara, air; the equation; the stamp 'bukan dari tanah'.", layer_slide(1100), paper("M72 246 L1006 252 L1002 1290 L76 1284 Z", CREAM, 6), sun(220, 450, 76), co2(540, 455, 30), h2o(860, 440, 34), label(220, 588, "cahaya", 56, colour=TEAL), label(540, 588, "udara", 56, colour=TEAL), label(860, 588, "air", 56, colour=TEAL), paper_arrow(250, 625, 410, 722, TEAL, 24), paper_arrow(540, 625, 540, 706, TEAL, 24), paper_arrow(830, 625, 670, 722, TEAL, 24), paper("M340 802 C 420 676, 660 676, 740 802 C 660 928, 420 928, 340 802 Z", LEAFG, 6), hexagon(260, 1018, 64), tree(560, 1098, 0.17), o2(830, 1018, 36), label(260, 1140, "gula", 50, colour=TEAL), label(560, 1140, "tubuh, kayu", 50, colour=TEAL), label(830, 1140, "oksigen", 50, colour=TEAL), label(540, 1250, "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", 40, colour=TEAL), stamp(540, 335, "bukan dari tanah", 50), {"cut": "kartu geser keluar"})])
 
 shot("s16", "recap", "wide", "Makanya,",
      teaches="The bridge back into the first line.",
      screen="The recipe card slides off to the right and the opening picture is under it: the big paper tree on the hill, the sun, the soil, the same layers in the same places as frame 0.",
-     motion="The card slides right (on twelves) with its shadow; the canopy discs settle into the frame-0 pose a moment before the film loops.",
+     motion="The card slides right (on twelves) with its shadow; the leaf clusters settle into the frame-0 pose a moment before the film loops.",
      carries="Into s01.", transition="No cut: the film loops straight into s01.",
      sound="The bed runs on into the opening.", check="The last frame matches frame 0 (check.mjs SSIM).",
      frames=[fr(0, "The card slides off to the right, uncovering the opening tree.", opening(), paper("M560 280 H1100 V1300 H560 Z", CREAM, 7), {"move": [600, 760, 900, 760], "text": "geser"}),
@@ -464,7 +575,7 @@ storyboard = {
     "voice": {"voice_id": "GdyFAZdMpKMBHw5pc1Bu", "name": "Livna", "model": "eleven_v4", "language": "id", "direction": "[warmly]"},
     "look": {
         "accent": "#f4a261",
-        "mood": "The Paper Cut-out template: layers of craft paper cut out and stacked with small gaps on a cream card backdrop (#f8f1e5), one soft light from above so each layer drops a small shadow on the one behind, visible fibre and slightly rough cut edges, the odd fold line. Five papers, each with one meaning all film: sun yellow #e9c46a is light, orange #f4a261 is sugar and what is built from it (the trunk, the key words), red #e76f51 is oxygen, deep teal #264653 is carbon and soil and the printed type, green #2a9d8f is the leaf. Hydrogen is a cream disc. Everything slides, flips, folds and pops up like a pop-up book, stepped at 12 frames a second; a top-down rostrum camera with parallax between the layers; cuts by a paper layer sliding across. Labels are paper tags tied with thread; numbers are stamped tags at their real values; captions are two or three words on a paper strip, the key word on an orange tab. No gradients, no glow, no clean vector edges.",
+        "mood": "The Paper Cut-out template: layers of craft paper cut out and stacked with small gaps on a cream card backdrop (#f8f1e5), one soft light from above so each layer drops a small shadow on the one behind, visible fibre, slightly rough cut edges and the odd fold line, a foreground layer nearest the lens in most shots. Papers keep one meaning each all film: sun yellow #e9c46a is light, orange #f4a261 is sugar and what is built from it (the trunk and branches, the wood: s14 opens the bark to show it), red #e76f51 is oxygen, deep teal #264653 is carbon, soil and the printed type, leaf green #6a9a4f (the concept still's leaf) is the leaf and its chlorophyll, the teal greens are the hills. Hydrogen is a cream disc; the cloud and the rain are cream. Everything slides, flips, folds and pops up like a pop-up book, stepped at 12 frames a second; a rostrum camera with parallax between the layers makes 0.8-1 s moves and slow pushes; cuts are those moves or a sheet of paper slid across the frame. Labels are paper tags tied with thread; numbers are stamped tags at their real values; captions are phrases on a paper strip laid down as they are said, the key word on an orange tab. No gradients, no glow, no clean vector edges.",
     },
     "music": {
         "track": "Composed for this film (ElevenLabs Music, music/bed.mp3), written to the take's length",
@@ -472,7 +583,7 @@ storyboard = {
         "note": "A gentle acoustic bed: fingerpicked nylon-string guitar, a soft upright piano and a brushed shaker, in a warm major key, composed to the take's length so it ends under the bridge and runs on into the opening. It thins to guitar alone under the pot experiment and the numbers (s03-s05), adds the piano when the leaf opens (s09), and lifts on the recipe card (s15). Sound effects are paper: a rustle for every pop-up, a slide for every layer that wipes the frame, a snip on 'mecah' (s10), soft taps for tags and stamps, light rain ticks in s03b, one breath in for s11. The cuts follow the take, not the beat.",
     },
     "facts": [
-        {"id": "f1", "claim": f"Van Helmont's willow experiment (published 1648, so 'abad ke-17' on screen): 200 pounds of oven-dried earth in an earthen pot, a willow stem of 5 pounds, watered only with rainwater or distilled water; after five years the tree weighed 169 pounds and about 3 ounces, 'therefore 164 pounds of Wood, Barks, and Roots', while the dried earth was 'the same two hundred pounds, wanting about two ounces'. At the avoirdupois pound (0.45359 kg): soil 200 lb = {SOIL:.1f} kg (screen: 91 kg), the stem 5 lb = {TREE_START:.2f} kg (screen: 2,3 kg), the gain 164 lb = {TREE_GAIN:.1f} kg (screen: +74 kg; voice: 'tujuh puluh kilo lebih'), the soil's loss 2 oz = {SOIL_LOSS * 1000:.0f} g (screen: −57 g; voice: 'sekitar setengah ons', f10). {SOIL_LOSS * 1000:.1f} g / {TREE_GAIN * 1000:.0f} g = {SHARE * 100:.3f} %, under 0.1 % (screen: '< 0,1 %'). The bars in s05 are {BAR} px and {SOIL_BAR:.2f} px. Caveats kept off screen: the pound Helmont used may differ from the avoirdupois pound by some per cent (the rounded figures hold either way); he weighed the tree fresh but the soil dry; and his weighing could not have been very accurate (Hershey). The film uses it only for what it shows: very little of the tree's weight came from the soil.",
+        {"id": "f1", "claim": f"Van Helmont's willow experiment (published 1648, so 'abad ke-17' on screen): 200 pounds of oven-dried earth in an earthen pot, a willow stem of 5 pounds, watered only with rainwater or distilled water, the mouth of the pot covered against dust with 'an iron plate covered with tin, and easily passable with many holes' (s03 draws that lid); after five years the tree weighed 169 pounds and about 3 ounces, 'therefore 164 pounds of Wood, Barks, and Roots', while the dried earth was 'the same two hundred pounds, wanting about two ounces'. At the avoirdupois pound (0.45359 kg): soil 200 lb = {SOIL:.1f} kg (screen: 91 kg), the stem 5 lb = {TREE_START:.2f} kg (screen: 2,3 kg), the gain 164 lb = {TREE_GAIN:.1f} kg (screen: +74 kg; voice: 'tujuh puluh kilo lebih'), the soil's loss 2 oz = {SOIL_LOSS * 1000:.0f} g (screen: −57 g; voice: 'sekitar setengah ons', f10). {SOIL_LOSS * 1000:.1f} g / {TREE_GAIN * 1000:.0f} g = {SHARE * 100:.3f} %, under 0.1 % (screen: '< 0,1 %'). In s05 the soil is weighed again on the same balance: the weights for its first weighing ('dulu 91 kg') and the smallest one, the 57 g, lifted off; on a balance carrying 91 kg the beam cannot show 57 g, so it does not move. The scale is an equal-arm balance, as used in the 17th century (the dial platform scale is a 19th-century invention). Caveats kept off screen: the pound Helmont used may differ from the avoirdupois pound by some per cent (the rounded figures hold either way); he weighed the tree fresh but the soil dry; and his weighing could not have been very accurate (Hershey). The film uses it only for what it shows: very little of the tree's weight came from the soil.",
          "source": "J. B. van Helmont, Ortus Medicinae (1648), English translation 1662, as quoted in D. R. Hershey, 'Misconceptions about Helmont's Willow Experiment', Plant Science Bulletin 49(3): 78-83 (2003), Botanical Society of America (botany.org, PSB_2003_49_3.pdf), including the caveats on fresh vs dry weight and accuracy."},
         {"id": "f2", "claim": f"A tree does not eat the soil: the dry matter of a plant is on average about 45 % carbon, 45 % oxygen and 6 % hydrogen ({CHO} % together), and the carbon, taken from the CO₂ in the air, makes up the majority of the dry mass; mineral nutrients from the soil are the few per cent that remain. So a growing tree takes very little from the soil itself ('tanah di bawahnya hampir nggak berkurang'). Simplification: the film does not mention the minerals; the water does come up through the soil (f5).",
          "source": "OpenStax, Biology 2e, 31.1 'Nutritional Requirements of Plants' (openstax.org/books/biology-2e/pages/31-1-nutritional-requirements-of-plants): 'Carbon that was obtained from atmospheric CO2 ... composes the majority of the dry mass within most plants'; 'the dry weight ... of a cell is 45 percent carbon ... oxygen (45 percent) and hydrogen (6 percent)'."},
@@ -486,9 +597,9 @@ storyboard = {
          "source": "OpenStax, Biology 2e, 8.1 ('Embedded in the thylakoid membrane is chlorophyll, a pigment (molecule that absorbs light)') and 8.2 'The Light-Dependent Reactions of Photosynthesis' ('Chlorophyll a absorbs wavelengths from either end of the visible spectrum (blue and red), but not green ... chlorophyll appears green')."},
         {"id": "f7", "claim": "Light energy drives the splitting of water in the light-dependent reactions: splitting one H₂O releases two electrons, two hydrogen ions and one oxygen atom; two split waters make one O₂. The oxygen given off by photosynthesis comes from this water; most of it escapes to the atmosphere, where aerobic organisms (us) use it to breathe. s10 shows one molecule split; s11 shows O₂ (pairs) reaching a person.",
          "source": "OpenStax, Biology 2e, 8.2: 'water is \"split\" during this stage of photosynthesis ... Splitting one H2O molecule releases two electrons, two hydrogen atoms, and one atom of oxygen ... splitting two molecules is required to form one molecule of diatomic O2 gas ... The remainder escapes to the atmosphere where it is used by aerobic organisms to support respiration'."},
-        {"id": "f8", "claim": "The hydrogen and the energy from the light reactions (carried as NADPH and ATP) are used in the Calvin cycle to turn carbon dioxide into sugar (G3P; two G3P make a glucose, which takes six turns of the cycle, one CO₂ each). Simplification, on screen and in the voice: 'Hidrogennya digabung sama karbon dioksida, jadi gula'; NADPH, ATP and G3P are not named, the hexagon stands for the sugar molecule (glucose's ring), and s12 shows fewer pieces than one glucose needs.",
+        {"id": "f8", "claim": "The hydrogen and the energy from the light reactions (carried as NADPH and ATP) are used in the Calvin cycle to turn carbon dioxide into sugar (G3P; two G3P make a glucose, which takes six turns of the cycle, one CO₂ each). Simplification, on screen and in the voice: 'Hidrogennya digabung sama karbon dioksida, jadi gula'; NADPH, ATP and G3P are not named, the hexagon stands for the sugar molecule (glucose's ring), and s12 shows fewer pieces than one glucose needs, so its tag says only 'gula' (the formula is shown once, whole, on the recipe card in s15).",
          "source": "OpenStax, Biology 2e, 8.3 'Using Light Energy to Make Organic Molecules' (openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules): NADPH loses 'both energy and a hydrogen atom' in making G3P from CO2; 'six times to produce a six-carbon glucose molecule'; and 8.1 ('Glucose ... is made from two three-carbon G3Ps')."},
-        {"id": "f9", "claim": "The sugars made by photosynthesis are the plant's food (its source of energy) and its building material: they are carried from the leaves to the growing parts through the phloem, and glucose chains make cellulose, the main part of plant cell walls (over thirty per cent of plant matter); wood is mostly cellulose. s14 draws cellulose as chains of the sugar hexagon. Simplification: wood also holds hemicellulose and lignin, which are made from the same sugars but are not shown.",
+        {"id": "f9", "claim": "The sugars made by photosynthesis are the plant's food (its source of energy) and its building material: they are carried from the leaves to the growing parts through the phloem, and glucose chains make cellulose, the main part of plant cell walls (over thirty per cent of plant matter); wood is mostly cellulose. s14 draws the cell walls of wood as chains of the sugar hexagon, and a new leaf and stem at a branch tip built as the sugar arrives. Simplification: wood also holds hemicellulose and lignin, which are made from the same sugars but are not shown.",
          "source": "OpenStax, Biology 2e, 30.5 ('The products of photosynthesis are called photosynthates ... Sugars produced in sources, such as leaves, need to be delivered to growing parts of the plant via the phloem'); 3.2 'Carbohydrates' ('Wood and paper are mostly cellulosic in nature. Glucose monomers comprise cellulose'); 31.1 (cellulose 'makes up over thirty percent of plant matter')."},
         {"id": "f10", "claim": f"In Indonesian everyday use one ons is one hundred grams, so the soil's loss of about {SOIL_LOSS * 1000:.0f} g is said as 'sekitar setengah ons' (half an ons is 50 g; the screen shows the exact −57 g).",
          "source": "Kamus Besar Bahasa Indonesia, entry 'ons': 'satuan ukuran berat (massa) seratus gram' (read at kbbi.web.id/ons; kbbi.kemdikbud.go.id did not answer)."},

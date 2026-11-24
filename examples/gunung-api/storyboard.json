@@ -107,7 +107,7 @@
     },
     {
       "id": "f5",
-      "claim": "The bubbles expand as the pressure keeps falling, and their sudden expansion is what drives explosions. On screen: 'Makin ke atas, makin besar' (the bubble chart is marked 'ilustrasi' and has no numbers), 'tekanannya numpuk terus'.",
+      "claim": "The bubbles expand as the pressure keeps falling, and their sudden expansion is what drives explosions. On screen: 'Makin ke atas, makin besar' (the bubble chart is marked 'ilustrasi' and has no numbers), 'tekanannya numpuk terus', and the misconception answered: 'Bukan panasnya' (it is the gas expanding, not the heat, that makes the explosion).",
       "source": "USGS, Tilling, 'Volcanoes': 'Their sudden expansion causes the terrible explosions that throw out great masses of solid rock as well as lava, dust, and ashes'; 'Explosive eruptions caused by gas rapidly expanding and escaping from molten lava'."
     },
     {
@@ -122,12 +122,12 @@
     },
     {
       "id": "f8",
-      "claim": "Kīlauea is a shield volcano built of fluid basalt lava flows; the Hawaiian shields are generally non-explosive, so its lava usually flows out. On screen: 'Tapi di Hawaii, lavanya mengalir', 'Kīlauea, Hawaii', 'mengalir'. Simplification: the source says 'generally' non-explosive; the film shows the usual behaviour and does not claim Kīlauea never explodes.",
+      "claim": "Kīlauea is a shield volcano built of fluid basalt lava flows; the Hawaiian shields are generally non-explosive, so its lava usually flows out. On screen: 'Tapi di Hawaii, lavanya mengalir', 'Kīlauea, Hawaii', 'mengalir', and in s11 'Magma Hawaii encer' with the runny column labelled 'encer · Kīlauea'. Simplification: the source says 'generally' non-explosive; the film shows the usual behaviour and does not claim Kīlauea never explodes.",
       "source": "USGS, Tilling, 'Volcanoes': shield volcanoes 'are built almost entirely of fluid lava flows ... the Hawaiian Islands are composed of linear chains of these volcanoes including Kilauea and Mauna Loa', and 'the generally non-explosive Hawaiian shield volcanoes'. Profile: AWS Terrain Tiles (reference/profil-merapi-kilauea.png)."
     },
     {
       "id": "f9",
-      "claim": "Merapi is a stratovolcano about 2,910 m high on the border of Central Java and Yogyakarta, 25-30 km north of Yogyakarta. Its magma is basaltic andesite (55.8% SiO₂ in 2010), and it typically builds viscous lava domes that plug the top of the conduit. On screen: 'Merapi', 'Magma Merapi itu yang kental', 'magma kental: andesit basaltik', 'kubah lava menyumbat', '2,9 km'.",
+      "claim": "Merapi is a stratovolcano about 2,910 m high on the border of Central Java and Yogyakarta, 25-30 km north of Yogyakarta. Its magma is basaltic andesite (55.8% SiO₂ in 2010), and it typically builds viscous lava domes that plug the top of the conduit. On screen: 'Merapi', 'Magma Merapi itu yang kental', 'magma kental', 'kubah lava menyumbat', '2,9 km'.",
       "source": "Kementerian ESDM (Badan Geologi, PVMBG/BPPTKG), 'Mengenal Merapi Lebih Dekat: Merapi Dulu dan Kini' (esdm.go.id): Merapi 2,910 m, a stratovolcano (height quoted from the search summary of the same page); Surono et al. 2012: 'Merapi stratovolcano is located 25-30 km north of ... Yogyakarta ... composed mainly of basaltic-andesite', 'produced viscous lava domes', 'lava domes have typically plugged the uppermost part of the conduit', Table 1 SiO₂ 55.8 wt% (2010)."
     },
     {
@@ -1126,7 +1126,7 @@
       "type": "macro",
       "start": 13.333,
       "end": 16.667,
-      "caption": "Di magma ada *gas* yang larut.",
+      "caption": "Bukan panasnya. Di magma ada *gas* yang larut.",
       "teaches": "The magma carries dissolved gas: mostly water vapour, then carbon dioxide and sulfur dioxide.",
       "screen": "Inside the reservoir: the frame is filled with deep-orange molten facets (a warm-dark palette for this scene: orange #ff9f1c, ember red, dark #293241 seams). Dissolved gas molecules drift in it, each a little faceted three-atom model (a central atom with two smaller ones; water bent, carbon dioxide straight). Three floating tags pick out one of each: 'uap air (H₂O)', 'CO₂', 'SO₂'. No bubbles yet.",
       "camera": "The camera pushes through the cut face into the reservoir and stops with molecules at 1:1 'macro' scale, 50 mm, shallow focus on the middle row of molecules, the far ones softened by the glow.",
@@ -1137,7 +1137,8 @@
       "check": "No bubbles are shown: the gas is dissolved. Water vapour is the most common tag (most molecules are drawn bent).",
       "facts": [
         "f1",
-        "f3"
+        "f3",
+        "f5"
       ],
       "frames": [
         {
@@ -1160,10 +1161,10 @@
             },
             {
               "chip": [
-                768,
+                728,
                 862
               ],
-              "text": "Di magma ada"
+              "text": "Bukan panasnya."
             }
           ]
         },
@@ -3617,7 +3618,7 @@
       "type": "compare",
       "start": 31.667,
       "end": 35.0,
-      "caption": "Kalau *encer*, gasnya lolos.",
+      "caption": "Hawaii: magmanya *encer*, gas lolos.",
       "teaches": "In runny magma the bubbles rise freely and burst at the top: the gas escapes quietly.",
       "screen": "Two faceted conduit slices side by side, the same height: left 'encer' (bright orange, glossy facets), right 'kental' (darker red-orange, matte, dimmed for now). In the left column bubbles rise quickly and pop at the top; small puffs of gas leave the surface; a little lava spills over the rim and runs down. Tags 'encer' and 'gas lolos'.",
       "motion": "Left column: bubbles race up and burst one after another at the surface (each pop a small facet burst), the gas puffs drift away; the overflow slides down gently. Right column: still.",
@@ -3626,7 +3627,8 @@
       "sound": "Light pops for each burst bubble, an easy gurgle.",
       "check": "Nothing explodes on the left: the gas leaves in small puffs.",
       "facts": [
-        "f6"
+        "f6",
+        "f8"
       ],
       "frames": [
         {
@@ -3664,10 +3666,10 @@
             },
             {
               "chip": [
-                768,
+                714,
                 862
               ],
-              "text": "Kalau encer,"
+              "text": "Hawaii: magmanya"
             }
           ]
         },
@@ -3755,10 +3757,10 @@
             },
             {
               "chip": [
-                754,
+                700,
                 862
               ],
-              "text": "gasnya lolos."
+              "text": "encer, gas lolos."
             }
           ]
         },
@@ -3851,10 +3853,10 @@
             },
             {
               "chip": [
-                754,
+                700,
                 862
               ],
-              "text": "gasnya lolos."
+              "text": "encer, gas lolos."
             }
           ]
         }

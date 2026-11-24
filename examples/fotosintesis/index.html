@@ -1,22 +1,69 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Gimana tumbuhan bikin makanan dari cahaya?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
-    <script type="importmap">
-      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
-    </script>
     <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
   </head>
   <body>
+    <!-- The paper's own filters: a cut edge with fibre and a soft shadow from one light above, at three heights
+         (a piece lying on the one below, a piece lifted as it pops up, a layer high over the set), and stamp ink. -->
+    <svg width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden" aria-hidden="true">
+      <defs>
+        <filter id="pc" x="-6%" y="-6%" width="112%" height="120%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.11" numOctaves="1" seed="4" result="edge" />
+          <feDisplacementMap in="SourceGraphic" in2="edge" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="cutout" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="2" result="fibre" />
+          <feColorMatrix in="fibre" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.1 -0.012" result="flecks" />
+          <feComposite in="flecks" in2="cutout" operator="in" result="tex" />
+          <feMerge result="paper"><feMergeNode in="cutout" /><feMergeNode in="tex" /></feMerge>
+          <feDropShadow in="paper" dx="0" dy="5" stdDeviation="4.5" flood-color="#3b2a1a" flood-opacity="0.3" />
+        </filter>
+        <filter id="pc-up" x="-8%" y="-8%" width="116%" height="128%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.11" numOctaves="1" seed="7" result="edge" />
+          <feDisplacementMap in="SourceGraphic" in2="edge" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="cutout" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="5" result="fibre" />
+          <feColorMatrix in="fibre" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.1 -0.012" result="flecks" />
+          <feComposite in="flecks" in2="cutout" operator="in" result="tex" />
+          <feMerge result="paper"><feMergeNode in="cutout" /><feMergeNode in="tex" /></feMerge>
+          <feDropShadow in="paper" dx="0" dy="11" stdDeviation="8" flood-color="#3b2a1a" flood-opacity="0.32" />
+        </filter>
+        <!-- Printed lettering: the same fibre, no cut edge (the letters stay crisp), a shadow only on the card. -->
+        <filter id="pc-tag" x="-6%" y="-10%" width="112%" height="135%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="9" result="fibre" />
+          <feColorMatrix in="fibre" type="matrix" values="0 0 0 0 0.23  0 0 0 0 0.16  0 0 0 0 0.1  0 0 0 0.12 -0.02" result="flecks" />
+          <feComposite in="flecks" in2="SourceGraphic" operator="in" result="tex" />
+          <feMerge result="paper"><feMergeNode in="SourceGraphic" /><feMergeNode in="tex" /></feMerge>
+          <feDropShadow in="paper" dx="0" dy="6" stdDeviation="5" flood-color="#3b2a1a" flood-opacity="0.3" />
+        </filter>
+        <!-- Stamp ink: the print breaks up where the rubber did not touch. -->
+        <filter id="stamp-ink" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="13" result="grain" />
+          <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.75" result="holes" />
+          <feComposite in="SourceGraphic" in2="holes" operator="in" />
+        </filter>
+      </defs>
+    </svg>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
-      </section>
+      <!-- The sets, in the order they are stacked. Each is drawn in film.js in the real frame's coordinates
+           (1080 x 1920): layers of cut paper, each at a depth, so the rostrum camera moves them with parallax. -->
+      <section class="scene set" id="setTree"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene set" id="setPot"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene set" id="setLeaf"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene set" id="setPore"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene set" id="setCells"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene set" id="setChloro"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene set" id="setTrunk"><svg viewBox="0 0 1080 1920"></svg></section>
+      <!-- A sheet of paper slid across the frame between two sets (the template's cut). -->
+      <section class="scene sheet" id="sheetWipe"></section>
+      <!-- A leaf bigger than the frame, slid over it on the way into a leaf (s07, s09). -->
+      <section class="scene sheet" id="sheetLeaf"><svg viewBox="0 0 1080 1920"></svg></section>
+      <!-- Layers of paper laid over a set: the question (s02) and the recipe card (s15). -->
+      <section class="scene sheet" id="sheetAsk"><svg viewBox="0 0 1080 1920"></svg></section>
+      <section class="scene sheet" id="sheetCard"><svg viewBox="0 0 1080 1920"></svg></section>
     </div>
     <script type="module" src="film.js"></script>
   </body>

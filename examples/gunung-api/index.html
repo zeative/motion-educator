@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Kenapa gunung api bisa meledak?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
     <script type="importmap">
@@ -13,9 +13,24 @@
   </head>
   <body>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
+      <!-- One faceted 3D world drawn by one WebGL canvas (lowpoly.js, film.js): Merapi and Kīlauea from their real
+           elevations, the cut-away, the inside of the magma, the soda bottle, the conduit columns, the chart. HTML
+           carries only what is read: tags on things, the question panel, the recap cards, the schematic note. -->
+      <canvas id="space" width="1920" height="1080"></canvas>
+      <section class="scene" id="ui">
+        <div id="tags"><svg id="tag-lines" width="1920" height="1080"></svg></div>
+        <div id="dim"></div>
+        <div id="split-line"></div>
+        <p class="note" id="same-scale">skala sama</p>
+        <p class="note" id="schema">skema · tidak sesuai skala</p>
+        <p class="note" id="illus">ukuran gelembung (ilustrasi)</p>
+        <div id="question" class="lp-panel"><span class="qw">Kok</span> <span class="qw">bisa</span> <span class="qw key">beda?</span></div>
+        <div id="flash"></div>
+        <div id="cards">
+          <div class="card" id="card1"><canvas width="460" height="400"></canvas><p>tekanan tinggi: gas larut</p></div>
+          <div class="card" id="card2"><canvas width="460" height="400"></canvas><p>naik, tekanan turun: gelembung</p></div>
+          <div class="card" id="card3"><canvas width="460" height="400"></canvas><p>kental: gas terjebak, <b>meledak</b></p></div>
+        </div>
       </section>
     </div>
     <script type="module" src="film.js"></script>

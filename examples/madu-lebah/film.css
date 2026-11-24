@@ -1,11 +1,46 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
+/* Gimana lebah bikin madu? The Watercolour template's look comes from templates/watercolour/look.css; these are only
+   the film's own pieces: the plates, the ink, the italic labels on their leaders. */
 :root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+  --accent-2: #3d5a98;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
-}
+/* A plate: a sheet of the template's paper (film.js paints it), its painted layers moved by the camera. */
+.plate { position: absolute; inset: 0; overflow: hidden; }
+.plate > .sheet, .plate > .tint { position: absolute; inset: 0; }
+.plate > .tint { mix-blend-mode: multiply; }
+.plate > .rim { position: absolute; display: none; mix-blend-mode: multiply; pointer-events: none; }
+#deckle { z-index: 30; } #captions { z-index: 31; } #vignette { z-index: 32; } #flash { z-index: 33; }
+.plate .layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.plate svg { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+/* Fine ink: widths in px on the page whatever the drawing's own units; --k thins them as the camera pushes in. */
+/* --s: the scale of the drawing's own units (mm drawn at 34 px a mm: --s 34), set on its group */
+.plate svg [class^="k"] { fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
+.plate svg .k0 { stroke-width: calc(1.1px * var(--k, 1) / var(--s, 1)); stroke-opacity: 0.85; }
+.plate svg .k1 { stroke-width: calc(1.7px * var(--k, 1) / var(--s, 1)); }
+.plate svg .k2 { stroke-width: calc(2.4px * var(--k, 1) / var(--s, 1)); }
+.plate svg .k3 { stroke-width: calc(3.4px * var(--k, 1) / var(--s, 1)); }
+.plate svg .k4 { stroke-width: calc(5px * var(--k, 1) / var(--s, 1)); }
+.plate svg .dot { fill: var(--ink); }
+.plate svg .hair { fill: none; stroke: #8a6a44; stroke-width: calc(1.1px * var(--k, 1) / var(--s, 1)); stroke-opacity: 0.7; stroke-linecap: round; }
+.plate svg .stam { fill: none; stroke: #d2566e; stroke-width: calc(1.5px * var(--k, 1) / var(--s, 1)); stroke-opacity: 0.85; stroke-linecap: round; }
+.plate svg .tips { fill: none; stroke: #d9a92e; stroke-width: calc(3px * var(--k, 1) / var(--s, 1)); stroke-opacity: 0.8; stroke-linecap: round; }
+/* A plate's paint blends like glazes: each wash darkens what is under it. */
+.plate svg .paint { mix-blend-mode: multiply; }
+/* Lettering: an elegant serif in ink, labels in italic, like a scientific plate. */
+.lab { position: absolute; color: var(--ink); font: italic 500 54px / 1.05 "Cormorant Garamond", serif; white-space: nowrap; transform: translate(-50%, -50%); }
+.lab.s { font-size: 44px; }
+.lab.m { font-size: 60px; }
+.lab.l { font-size: 72px; }
+.lab.big { font-size: 88px; font-style: italic; }
+.lab.left { transform: translate(0, -50%); }
+.lab.right { transform: translate(-100%, -50%); }
+.lab.up { font-style: normal; font-weight: 600; }
+.lab .num { font-style: normal; font-weight: 600; font-variant-numeric: lining-nums; }
+.lab.c { text-align: center; }
+.title { position: absolute; color: var(--ink); font: 600 132px / 1.02 "Cormorant Garamond", serif; text-align: center; white-space: nowrap; transform: translate(-50%, -50%); }
+.title em { font-style: italic; font-weight: 500; }
+/* The deckled edge of the sheet: over every plate, a torn margin of paper's own edge. */
+#deckle { position: absolute; inset: 0; pointer-events: none; }
+/* The captions are lettered in ink on the paper, no glow; the key word in ink on a swatch of the accent wash. */
+:root[data-look="watercolour"] #root .caption .cw.key { color: var(--ink); background: var(--swatch) center / 100% 100% no-repeat; padding: 0 0.2em; margin: 0 -0.08em; }
+/* s02 letters its question on the plate itself; the caption would say it a second time. */
+:root[data-look="watercolour"] #root .caption[data-shot="s02"] { display: none !important; }

@@ -1,22 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Film</title>
+    <title>Kenapa popcorn bisa meletus?</title>
     <link rel="stylesheet" href="../../kit/css/film.css" />
     <link rel="stylesheet" href="film.css" />
-    <script type="importmap">
-      { "imports": { "three": "../../node_modules/three/build/three.module.min.js", "three/addons/": "../../node_modules/three/examples/jsm/" } }
-    </script>
     <script src="../../node_modules/gsap/dist/gsap.min.js"></script>
   </head>
   <body>
     <div id="root">
-      <!-- One scene per shot, or per run of shots that share a picture. The kit adds the stage behind them. -->
-      <section class="scene" id="s01">
-        <h1 class="display huge" id="title"><span class="ln">The question,</span><span class="ln">in the <em class="key">viewer's words?</em></span></h1>
-      </section>
+      <!-- The comic's pages, in the order they are laid on top of each other. Each is one SVG in the real frame's
+           coordinates (1080 x 1920); film.js draws its panels and moves its camera (.cam). -->
+      <section class="scene page" id="pA"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pB"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pC"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pD"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pE"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pF"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pG"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pH"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pI"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pJ"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pK"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <section class="scene page" id="pM"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
+      <!-- The back of a turning page, over everything else. -->
+      <section class="scene page" id="pTurn"><svg viewBox="0 0 1080 1920"><g class="cam"></g></svg></section>
     </div>
     <script type="module" src="film.js"></script>
   </body>

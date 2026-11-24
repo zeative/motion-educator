@@ -1,11 +1,67 @@
-/* This film's own pieces, on top of the kit's look. Set the accent to the subject's colour. */
+/* Why does a² + b² = c² always work? The Chalkboard template's look comes from templates/chalkboard/look.css; this is
+   only the film's own pieces: the long board, its sections, the chalk and the chalk captions. White chalk for
+   everything, yellow chalk for c² and the point, blue chalk for a² and b². */
+@font-face {
+  font-family: "Kalam";
+  src: url("../../node_modules/@fontsource/kalam/files/kalam-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
 :root {
-  --accent: #ffb90e;
-  --accent-2: #4da3ff;
+  --accent: #f6d365;
+  --accent-2: #8fd3f4;
+  --chalk: #f2f2ea;
+  --yel: #f6d365;
+  --blue: #8fd3f4;
+  --board: #1f3b2d;
+  /* a neat chalk hand for the notes and captions; Cabin Sketch for the formulas, the labels and the question */
+  --hand: "Kalam", "Cabin Sketch", sans-serif;
+  --sketch: "Cabin Sketch", sans-serif;
 }
-#title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35%;
-}
+#board, #frame { position: absolute; inset: 0; }
+#world { overflow: hidden; }
+#cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+/* A section of the board: its own 2000-px stretch, drawn in chalk (url(#chalk): grainy edges, dust holes). */
+.sec { position: absolute; top: 0; width: 2000px; height: 1080px; filter: url(#chalk); }
+.sec .layer { position: absolute; inset: 0; }
+.sec svg { position: absolute; left: 0; top: 0; width: 2000px; height: 1080px; overflow: visible; }
+.sec svg path { fill: none; stroke: var(--chalk); stroke-width: 7px; stroke-linecap: round; stroke-linejoin: round; opacity: 0.94; }
+.sec svg .y { stroke: var(--yel); }
+.sec svg .b { stroke: var(--blue); }
+.sec svg .thin { stroke-width: 4px; }
+.sec svg .fine { stroke-width: 3px; }
+.sec svg .fat { stroke-width: 9px; }
+/* Hatching: the side of the chalk dragged back and forth. Light and sparse in a triangle, dense in a coloured gap. */
+.sec svg .hl { stroke-width: 3px; opacity: 0.42; }
+.sec svg .hd { stroke-width: 4.5px; opacity: 0.78; }
+.sec svg .dash { stroke-dasharray: 14 13; stroke-width: 4px; opacity: 0.7; }
+.sec svg circle.dust { fill: var(--chalk); stroke: none; }
+.sec svg .tip { stroke-width: 11px; opacity: 1; }
+/* Lettering: (left, top) is the baseline's middle (or its start with .start), as on the storyboard. */
+.t { position: absolute; color: var(--chalk); font: 700 48px / 1 var(--sketch); white-space: nowrap; transform: translate(-50%, -0.8em); }
+.t.start { transform: translate(0, -0.8em); }
+.t.hand { font-family: var(--hand); transform: translate(-50%, -0.9em); }
+.t.hand.start { transform: translate(0, -0.9em); }
+.t .y, .t.y { color: var(--yel); }
+.t .b, .t.b { color: var(--blue); }
+/* The cloth's smear: chalk rubbed into a faint haze where something was wiped away. */
+.smear { position: absolute; }
+.smear i { position: absolute; border-radius: 48% 52% 46% 50% / 50%; background: rgb(236 240 228 / 0.06); filter: blur(8px); }
+/* The board eraser: a felt pad on a wooden back, seen from the front as the hand sweeps it along. */
+.eraser { position: absolute; left: 0; top: 0; width: 72px; height: 170px; border-radius: 10px; background: #8a5a34;
+  box-shadow: 0 8px 14px rgb(0 0 0 / 0.35), inset 0 0 0 3px #6e4526; z-index: 20; visibility: hidden; filter: none; }
+.eraser i { position: absolute; right: -6px; top: 6px; bottom: 6px; width: 16px; border-radius: 4px; background: #4a4d50;
+  box-shadow: inset -5px 0 0 #b9bbb5; }
+/* lettering written over grid lines keeps a little board round it */
+.t.on { text-shadow: 0 0 4px var(--board), 0 0 9px var(--board), 0 0 14px var(--board); }
+/* Captions: the spoken line written in chalk at the foot of the board, as it is said. A halo of board round the
+   letters keeps a line behind from crossing them. */
+#caps { position: absolute; left: 0; right: 0; bottom: 0; height: 140px; pointer-events: none; }
+.cap { position: absolute; left: 50%; bottom: 52px; width: max-content; transform: translateX(-50%); color: var(--chalk);
+  font: 700 54px / 1 var(--hand); white-space: nowrap; filter: url(#chalk); visibility: hidden;
+  text-shadow: 0 0 6px var(--board), 0 0 12px var(--board), 0 0 20px var(--board), 0 0 30px rgb(31 59 45 / 0.9); }
+.cap .w { position: relative; display: inline-block; }
+.cap .w.y { color: var(--yel); }
+.cap .w.b { color: var(--blue); }
+.cap .w svg { position: absolute; left: -6px; top: 0; overflow: visible; }
+.cap .w svg path { fill: none; stroke-width: 5px; stroke-linecap: round; }

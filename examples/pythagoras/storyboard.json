@@ -8,7 +8,7 @@
   "language": "en",
   "format": "1920x1080",
   "subtitles": true,
-  "duration": 51.57,
+  "duration": 56.42,
   "fps": 60,
   "loop": {
     "line": "That's why / in any right triangle you draw, a squared plus b squared equals c squared.",
@@ -27,9 +27,9 @@
     "mood": "The Chalkboard template: one long dark green board (#1f3b2d) in a wooden frame, faint smudges of old erased chalk, flat classroom light with a soft vignette and chalk-dust grain, no glow. White chalk (#f2f2ea) for everything; yellow chalk (#f6d365) only for c² and the point, blue chalk (#8fd3f4) only for a² and b², so the colour says which squares are the pieces and which is the whole. Every line and letter is drawn on stroke by stroke with grainy edges (ink.js drawOn and write under url(#chalk)); hatching for filled areas; corrections crossed out; a cloth wipe leaves a faint smear. Cabin Sketch for headings and the formula, numbers large and neat. The camera slides and pushes along the one board (stage.camx). Captions: every spoken line written in chalk near the bottom as it is said (subtitles), its *key* word in yellow (film.css should set --accent to #f6d365: look.css ships #9bd3ae, which is not in this template's palette); the question in s03 is already lettered on the board, so that shot has no caption."
   },
   "music": {
-    "track": "Composed for this film (ElevenLabs Music, music/bed.mp3)",
+    "track": "Composed for this film (ElevenLabs Music, music/bed.mp3; lengthened by two repeated bars in music/bed-long.mp3)",
     "bpm": 84,
-    "note": "A quiet classroom bed composed to the take's length: felt piano and soft pizzicato strings with a brushed pulse, no lead melody, low under the voice; it thins to piano alone under the proof (s11 to s16) and lifts gently on 'Which means' (s17); its tail runs on over the opening so the loop is seamless. Effects per shot, from the template's Sound line: chalk taps on the right angle and each formula term (s01, s02), a scratch for each stroke and letter drawn (s04 to s18), quick ticks while the cells are counted (s07 to s09), long hatching strokes when a hole is filled (s13, s15), the soft wipe of the eraser cloth (s13, s14, s19), and the air of the board sliding by under s20. The cuts follow the take."
+    "note": "A quiet classroom bed composed to the take's length: felt piano and soft pizzicato strings with a brushed pulse, no lead melody, low under the voice; it thins to piano alone under the proof (s11 to s16) and lifts gently on 'Which means' (s17); its tail runs on over the opening so the loop is seamless. The pauses held after s13, s16, s17, s18 and s19 made the film longer than the bed was composed for, so two bars of it (at its measured 83 BPM) are played twice (music/bed.build.py writes music/bed-long.mp3); no new music was composed. Effects per shot, from the template's Sound line: chalk taps on the right angle and each formula term (s01, s02), a scratch for each stroke and letter drawn (s04 to s18), quick ticks while the cells are counted (s07 to s09), long hatching strokes when a hole is filled (s13, s15), the soft wipe of the eraser cloth (s13, s14, s19), and the air of the board sliding by under s20. The cuts follow the take."
   },
   "facts": [
     {
@@ -483,7 +483,7 @@
       "voice": "a squared plus b squared equals *c squared*.",
       "teaches": "States the rule as the formula on the board, term by term.",
       "screen": "Section A, the camera on the formula 'a² + b² = c²' in large chalk figures (about 140 px high on screen); the blue squares just in view at left.",
-      "motion": "The camera slides right and steadies on the formula; as each term is said the chalk taps under it (a², b², then c²), a puff of dust each time. Nothing new is drawn: section A stays as frame 0 drew it.",
+      "motion": "The camera eases right to take in the formula and the figure together; as each term is said the chalk taps under it (a², b², then c²), a puff of dust each time, and runs once round the square it names (the same lines, no new mark). Nothing new is drawn: section A stays as frame 0 drew it.",
       "carries": "The formula.",
       "transition": "The camera pulls back to the whole board.",
       "sound": "Three soft chalk taps, one a term.",
@@ -1112,7 +1112,7 @@
       "voice": "Squared means an actual *square*:",
       "teaches": "The key idea: 'squared' is not just a sum to do; a² is an actual square.",
       "screen": "Section B, a clean stretch of board. Left: 'a²' in blue chalk, very large (about 230 px). Middle: '='. Right: a blue-chalk square 420 px on a side, labelled 'square' with a leader line from the right.",
-      "motion": "The camera slides right along the board to a clean section. 'a²' is written on stroke by stroke; '=' follows; the square is drawn side by side, its four strokes at chalk speed; the leader and the word 'square' last.",
+      "motion": "The camera glides right along the board (about 0.9 s, eased) and lands on the first chalk stroke of a clean section. 'a²' is written on stroke by stroke; '=' follows; the square is drawn side by side, its four strokes at chalk speed; the leader and the word 'square' last.",
       "carries": "The square.",
       "transition": "Continuous: its sides get their letters.",
       "sound": "Chalk scratches for each stroke; a tap as the square closes.",
@@ -1251,7 +1251,7 @@
       "voice": "a squared is the *area* of a square with side a.",
       "teaches": "a² is the area of the square whose side is a.",
       "screen": "The same section: the blue square with 'a' on its top and left sides, and under it 'area = a × a' in large chalk lettering (about 100 px).",
-      "motion": "'area = a × a' is written on as the voice says it; 'area' gets a yellow underline on the word.",
+      "motion": "On 'area' the inside of the square is hatched in blue (the area is what it covers) and 'area' is written under it with a yellow underline; on 'side a' each side gets a dimension line with an 'a'; then '= a × a'.",
       "carries": "The idea that a square's area is side times side.",
       "transition": "The camera slides right to a clean section; a triangle is drawn there.",
       "sound": "Chalk writing; a short underline scratch.",
@@ -1409,7 +1409,7 @@
       "voice": "Try *three, four, five*.",
       "teaches": "A concrete case first: the right triangle with sides 3, 4 and 5.",
       "screen": "Section C, the camera close: one right triangle in white chalk, legs 3 (up) and 4 (along), hypotenuse 5, each side's number written beside it in large chalk numerals; the right angle marked.",
-      "motion": "The camera slides right along the board to a clean section. The three sides are drawn in turn (up, along, across) and each number is written as it is said.",
+      "motion": "The camera glides right along the board (about 0.9 s, eased) and lands on the first chalk stroke of a clean section. The three sides are drawn in turn (up, along, across) and each number is written as it is said.",
       "carries": "The 3-4-5 triangle.",
       "transition": "The camera pulls back as squares grow off its sides.",
       "sound": "Three strokes of chalk, three taps for the numbers.",
@@ -1522,7 +1522,7 @@
       "voice": "The square on three holds *nine* little squares,",
       "teaches": "The square on the side 3 holds 9 unit squares.",
       "screen": "Pulled back: the 3-4-5 triangle at the same place and size as the opening figure. A blue-chalk square on the side 3 with a 3 x 3 grid inside, '9' in its middle; on the right of the board '3 × 3 = 9' in blue.",
-      "motion": "The camera pulls back; the square is drawn off the side 3, then its grid lines, then the cells are counted with quick chalk ticks (1 to 9) and '9' is written; the sum on the right writes on.",
+      "motion": "The camera pulls back to about 1.75x on the triangle; the square is drawn off the side 3, then its grid lines, then the cells are counted with chalk ticks (1 to 9, about a second) and '9' is written; the camera eases out to take in the sum on the right as it writes on.",
       "carries": "The triangle and its first square.",
       "transition": "Continuous: the next square grows off the side 4.",
       "sound": "Nine quick chalk ticks.",
@@ -1537,17 +1537,17 @@
           "note": "Pulled back: the triangle at the opening figure's size.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -1556,7 +1556,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -1564,7 +1564,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -1580,32 +1580,32 @@
           "note": "The square on 3 drawn, its 3 x 3 grid.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -1614,7 +1614,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -1622,7 +1622,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -1635,32 +1635,32 @@
           "note": "Counted: 9; '3 × 3 = 9' on the right.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -1669,7 +1669,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -1677,7 +1677,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -1685,7 +1685,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -1694,7 +1694,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -1731,32 +1731,32 @@
           "note": "The square on 4 starts off the bottom leg.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -1765,7 +1765,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -1773,7 +1773,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -1781,7 +1781,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -1790,7 +1790,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -1813,52 +1813,52 @@
           "note": "Counted: 16; '4 × 4 = 16' on the right.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "path": "M640 600 L920 600 L920 880 L640 880 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M600 600 V880 M530 670 H810",
+              "path": "M710 600 V880 M640 670 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M670 600 V880 M530 740 H810",
+              "path": "M780 600 V880 M640 740 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M740 600 V880 M530 810 H810",
+              "path": "M850 600 V880 M640 810 H920",
               "colour": "blue",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -1867,7 +1867,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -1875,7 +1875,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -1883,7 +1883,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -1892,7 +1892,7 @@
             },
             {
               "label": [
-                670,
+                780,
                 762
               ],
               "text": "16",
@@ -1901,7 +1901,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -1910,7 +1910,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 340
               ],
               "text": "4 × 4 = 16",
@@ -1947,52 +1947,52 @@
           "note": "The sum writes on: 9 + 16 = 25.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "path": "M640 600 L920 600 L920 880 L640 880 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M600 600 V880 M530 670 H810",
+              "path": "M710 600 V880 M640 670 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M670 600 V880 M530 740 H810",
+              "path": "M780 600 V880 M640 740 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M740 600 V880 M530 810 H810",
+              "path": "M850 600 V880 M640 810 H920",
               "colour": "blue",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -2001,7 +2001,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -2009,7 +2009,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -2017,7 +2017,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -2026,7 +2026,7 @@
             },
             {
               "label": [
-                670,
+                780,
                 762
               ],
               "text": "16",
@@ -2035,7 +2035,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -2044,7 +2044,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 340
               ],
               "text": "4 × 4 = 16",
@@ -2053,7 +2053,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 470
               ],
               "text": "9 + 16 = 25",
@@ -2066,77 +2066,77 @@
           "note": "The yellow square on 5 and its grid.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "path": "M640 600 L920 600 L920 880 L640 880 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "path": "M640 390 L920 600 L1130 320 L850 110 Z",
               "colour": "yellow",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M600 600 V880 M530 670 H810",
+              "path": "M710 600 V880 M640 670 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M670 600 V880 M530 740 H810",
+              "path": "M780 600 V880 M640 740 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M740 600 V880 M530 810 H810",
+              "path": "M850 600 V880 M640 810 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M586 432 L796 152 M572 334 L852 544",
+              "path": "M696 432 L906 152 M682 334 L962 544",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M642 474 L852 194 M614 278 L894 488",
+              "path": "M752 474 L962 194 M724 278 L1004 488",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M698 516 L908 236 M656 222 L936 432",
+              "path": "M808 516 L1018 236 M766 222 L1046 432",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M754 558 L964 278 M698 166 L978 376",
+              "path": "M864 558 L1074 278 M808 166 L1088 376",
               "colour": "yellow",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -2145,7 +2145,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -2153,7 +2153,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -2161,7 +2161,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -2170,7 +2170,7 @@
             },
             {
               "label": [
-                670,
+                780,
                 762
               ],
               "text": "16",
@@ -2179,7 +2179,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -2188,7 +2188,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 340
               ],
               "text": "4 × 4 = 16",
@@ -2197,7 +2197,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 470
               ],
               "text": "9 + 16 = 25",
@@ -2210,77 +2210,77 @@
           "note": "25 in the big square, '= 5 × 5' under the sum.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "path": "M640 600 L920 600 L920 880 L640 880 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "path": "M640 390 L920 600 L1130 320 L850 110 Z",
               "colour": "yellow",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M600 600 V880 M530 670 H810",
+              "path": "M710 600 V880 M640 670 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M670 600 V880 M530 740 H810",
+              "path": "M780 600 V880 M640 740 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M740 600 V880 M530 810 H810",
+              "path": "M850 600 V880 M640 810 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M586 432 L796 152 M572 334 L852 544",
+              "path": "M696 432 L906 152 M682 334 L962 544",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M642 474 L852 194 M614 278 L894 488",
+              "path": "M752 474 L962 194 M724 278 L1004 488",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M698 516 L908 236 M656 222 L936 432",
+              "path": "M808 516 L1018 236 M766 222 L1046 432",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M754 558 L964 278 M698 166 L978 376",
+              "path": "M864 558 L1074 278 M808 166 L1088 376",
               "colour": "yellow",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -2289,7 +2289,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -2297,7 +2297,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -2305,7 +2305,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -2314,7 +2314,7 @@
             },
             {
               "label": [
-                670,
+                780,
                 762
               ],
               "text": "16",
@@ -2323,7 +2323,7 @@
             },
             {
               "label": [
-                775,
+                885,
                 379
               ],
               "text": "25",
@@ -2332,7 +2332,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -2341,7 +2341,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 340
               ],
               "text": "4 × 4 = 16",
@@ -2350,20 +2350,20 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 470
               ],
               "text": "9 + 16 = 25",
               "size": 84
             },
             {
-              "path": "M1640 492 C 1670 498, 1710 488, 1740 494",
+              "path": "M1460 492 C 1490 498, 1530 488, 1560 494",
               "colour": "yellow",
               "width": 7
             },
             {
               "label": [
-                1480,
+                1300,
                 570
               ],
               "text": "= 5 × 5",
@@ -2400,77 +2400,77 @@
           "note": "The counted figure; a flat triangle sketched lower right.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "path": "M640 600 L920 600 L920 880 L640 880 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "path": "M640 390 L920 600 L1130 320 L850 110 Z",
               "colour": "yellow",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M600 600 V880 M530 670 H810",
+              "path": "M710 600 V880 M640 670 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M670 600 V880 M530 740 H810",
+              "path": "M780 600 V880 M640 740 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M740 600 V880 M530 810 H810",
+              "path": "M850 600 V880 M640 810 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M586 432 L796 152 M572 334 L852 544",
+              "path": "M696 432 L906 152 M682 334 L962 544",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M642 474 L852 194 M614 278 L894 488",
+              "path": "M752 474 L962 194 M724 278 L1004 488",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M698 516 L908 236 M656 222 L936 432",
+              "path": "M808 516 L1018 236 M766 222 L1046 432",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M754 558 L964 278 M698 166 L978 376",
+              "path": "M864 558 L1074 278 M808 166 L1088 376",
               "colour": "yellow",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -2479,7 +2479,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -2487,7 +2487,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -2495,7 +2495,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -2504,7 +2504,7 @@
             },
             {
               "label": [
-                670,
+                780,
                 762
               ],
               "text": "16",
@@ -2513,7 +2513,7 @@
             },
             {
               "label": [
-                775,
+                885,
                 379
               ],
               "text": "25",
@@ -2522,7 +2522,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -2531,7 +2531,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 340
               ],
               "text": "4 × 4 = 16",
@@ -2540,20 +2540,20 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 470
               ],
               "text": "9 + 16 = 25",
               "size": 84
             },
             {
-              "path": "M1640 492 C 1670 498, 1710 488, 1740 494",
+              "path": "M1460 492 C 1490 498, 1530 488, 1560 494",
               "colour": "yellow",
               "width": 7
             },
             {
               "label": [
-                1480,
+                1300,
                 570
               ],
               "text": "= 5 × 5",
@@ -2572,77 +2572,77 @@
           "note": "Both other triangles with their question marks.",
           "draw": [
             {
-              "path": "M530 390 L530 600 L810 600 Z",
+              "path": "M640 390 L640 600 L920 600 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M530 578 h22 v22",
+              "path": "M640 578 h22 v22",
               "width": 4
             },
             {
-              "path": "M320 390 L530 390 L530 600 L320 600 Z",
+              "path": "M430 390 L640 390 L640 600 L430 600 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 600 L810 600 L810 880 L530 880 Z",
+              "path": "M640 600 L920 600 L920 880 L640 880 Z",
               "colour": "blue",
               "width": 7
             },
             {
-              "path": "M530 390 L810 600 L1020 320 L740 110 Z",
+              "path": "M640 390 L920 600 L1130 320 L850 110 Z",
               "colour": "yellow",
               "width": 7
             },
             {
-              "path": "M390 390 V600 M320 460 H530",
+              "path": "M500 390 V600 M430 460 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M460 390 V600 M320 530 H530",
+              "path": "M570 390 V600 M430 530 H640",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M600 600 V880 M530 670 H810",
+              "path": "M710 600 V880 M640 670 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M670 600 V880 M530 740 H810",
+              "path": "M780 600 V880 M640 740 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M740 600 V880 M530 810 H810",
+              "path": "M850 600 V880 M640 810 H920",
               "colour": "blue",
               "width": 3
             },
             {
-              "path": "M586 432 L796 152 M572 334 L852 544",
+              "path": "M696 432 L906 152 M682 334 L962 544",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M642 474 L852 194 M614 278 L894 488",
+              "path": "M752 474 L962 194 M724 278 L1004 488",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M698 516 L908 236 M656 222 L936 432",
+              "path": "M808 516 L1018 236 M766 222 L1046 432",
               "colour": "yellow",
               "width": 3
             },
             {
-              "path": "M754 558 L964 278 M698 166 L978 376",
+              "path": "M864 558 L1074 278 M808 166 L1088 376",
               "colour": "yellow",
               "width": 3
             },
             {
               "label": [
-                546,
+                656,
                 512
               ],
               "text": "3",
@@ -2651,7 +2651,7 @@
             },
             {
               "label": [
-                684,
+                794,
                 586
               ],
               "text": "4",
@@ -2659,7 +2659,7 @@
             },
             {
               "label": [
-                648,
+                758,
                 525
               ],
               "text": "5",
@@ -2667,7 +2667,7 @@
             },
             {
               "label": [
-                425,
+                535,
                 517
               ],
               "text": "9",
@@ -2676,7 +2676,7 @@
             },
             {
               "label": [
-                670,
+                780,
                 762
               ],
               "text": "16",
@@ -2685,7 +2685,7 @@
             },
             {
               "label": [
-                775,
+                885,
                 379
               ],
               "text": "25",
@@ -2694,7 +2694,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 230
               ],
               "text": "3 × 3 = 9",
@@ -2703,7 +2703,7 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 340
               ],
               "text": "4 × 4 = 16",
@@ -2712,20 +2712,20 @@
             },
             {
               "label": [
-                1480,
+                1300,
                 470
               ],
               "text": "9 + 16 = 25",
               "size": 84
             },
             {
-              "path": "M1640 492 C 1670 498, 1710 488, 1740 494",
+              "path": "M1460 492 C 1490 498, 1530 488, 1560 494",
               "colour": "yellow",
               "width": 7
             },
             {
               "label": [
-                1480,
+                1300,
                 570
               ],
               "text": "= 5 × 5",
@@ -2774,7 +2774,7 @@
       "voice": "For every case, put four *identical* triangles",
       "teaches": "The proof uses four identical copies of one right triangle (any one: legs a and b).",
       "screen": "Section D. Right half: the triangle (legs a and b, hypotenuse c, in the 3 : 4 shape) with '× 4' beside it. Left half: four identical copies drawn, numbered 1 to 4, at the four corners of what will be a square of side a + b (560 px), each turned a quarter turn from the last.",
-      "motion": "The camera slides right along the board to a clean section. The triangle and '× 4' are written; then the four copies are drawn into place one after another, a number in each.",
+      "motion": "The camera glides right along the board (about 0.9 s, eased) and lands on the first chalk stroke of a clean section. The triangle and '× 4' are written; then the four copies are drawn into place one after another, a number in each.",
       "carries": "The four numbered triangles.",
       "transition": "Continuous: the square round them is closed.",
       "sound": "Four chalk strokes in a rhythm, a tap for each number.",
@@ -2788,41 +2788,41 @@
           "note": "A clean section; the triangle a, b, c and '× 4'.",
           "draw": [
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
-              "path": "M1300 478 h22 v22",
+              "path": "M1000 478 h22 v22",
               "width": 4
             },
             {
               "label": [
-                1270,
+                966,
                 400
               ],
               "text": "a",
-              "size": 46
+              "size": 48
             },
             {
               "label": [
-                1460,
-                550
+                1160,
+                552
               ],
               "text": "b",
-              "size": 46
+              "size": 48
             },
             {
               "label": [
-                1480,
-                380
+                1190,
+                378
               ],
               "text": "c",
-              "size": 46
+              "size": 48
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -2864,13 +2864,13 @@
               "size": 42
             },
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -2935,13 +2935,13 @@
               "size": 42
             },
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -3029,13 +3029,13 @@
               "size": 42
             },
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -3117,13 +3117,13 @@
               "size": 42
             },
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -3236,13 +3236,13 @@
               "size": 52
             },
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -3260,15 +3260,16 @@
       "act": "proof",
       "type": "diagram",
       "start": 28.75,
-      "end": 31.73,
+      "end": 33.13,
       "voice": "That leaves a tilted square in the middle, side *c*.",
+      "hold": 1.4,
       "teaches": "The space left in the middle is a tilted square on c, and it is a true square because each of its corners is 90 degrees.",
-      "screen": "The middle hatched in yellow chalk, 'c²' in it. At its top corner, small arc marks for the two triangles' acute angles (x and y) and a right-angle mark for the square's corner. Right half (the '× 4' wiped away): 'x + y = 90°' and 'so this corner is 90° too' with an arrow to that corner.",
-      "motion": "The hole is hatched in yellow; 'c²' is written; the camera pushes in a little; '× 4' is wiped with a cloth (a faint smear stays) and the angle note is written with its arrow.",
+      "screen": "The middle outlined and hatched in yellow chalk, each of its sides lettered c and 'c²' in it. At its right corner the two triangles' acute angles x and y (both also marked in triangle 2, round its right angle), the straight line marked 180° with a half circle, and a right-angle mark for the square's corner. Under the square (the bracket and the '× 4' wiped away), in large chalk: 'x + y = 90°' and 'so this corner is 90° too' with an arrow to that corner.",
+      "motion": "The hole is outlined and hatched in yellow; its sides are lettered c and then 'c²' is written; the camera pushes in toward the corner; '× 4' and the bracket are wiped with a cloth (a faint smear stays); the angles, the half circle and the note are written with its arrow in the pause after the line.",
       "carries": "The first arrangement: four triangles and c².",
       "transition": "The angle note is wiped; a second square of the same size is drawn on the right.",
       "sound": "Chalk hatching; the soft wipe of the eraser.",
-      "check": "The middle shape has four equal sides; the angle note is small but readable.",
+      "check": "The middle shape has four equal sides; the angle note is 60 px or more and stays on the board through s15.",
       "facts": [
         "f4",
         "f5"
@@ -3394,13 +3395,13 @@
               "size": 52
             },
             {
-              "path": "M1300 500 L1300 260 L1620 500 Z",
+              "path": "M1000 500 L1000 260 L1320 500 Z",
               "width": 7,
               "fill": "ink"
             },
             {
               "label": [
-                1730,
+                1430,
                 420
               ],
               "text": "× 4",
@@ -3410,7 +3411,7 @@
         },
         {
           "at": 0.5,
-          "note": "'× 4' wiped; arc marks x and y at the top corner.",
+          "note": "'× 4' and the bracket wiped; x and y at the right corner, the straight line marked 180°.",
           "draw": [
             {
               "path": "M200 130 L760 130 L760 690 L200 690 Z",
@@ -3528,28 +3529,40 @@
               "size": 52
             },
             {
-              "path": "M460 130 A60 60 0 0 0 472 166",
+              "path": "M760 406 A44 44 0 0 0 734 415",
               "width": 5
             },
             {
-              "path": "M580 130 A60 60 0 0 1 568 166",
+              "path": "M760 494 A44 44 0 0 1 725 476",
               "width": 5
+            },
+            {
+              "path": "M760 380 A70 70 0 0 0 760 520",
+              "width": 4
             },
             {
               "label": [
-                440,
-                174
+                730,
+                386
               ],
               "text": "x",
-              "size": 40
+              "size": 48
             },
             {
               "label": [
-                600,
-                174
+                730,
+                546
               ],
               "text": "y",
-              "size": 40
+              "size": 48
+            },
+            {
+              "label": [
+                830,
+                466
+              ],
+              "text": "180°",
+              "size": 46
             },
             {
               "path": "M1200 460 C 1400 440, 1600 470, 1800 450",
@@ -3638,80 +3651,42 @@
             },
             {
               "label": [
-                360,
-                112
+                500,
+                180
               ],
-              "text": "b",
-              "size": 46
-            },
-            {
-              "label": [
-                640,
-                112
-              ],
-              "text": "a",
-              "size": 46
-            },
-            {
-              "label": [
-                166,
-                266
-              ],
-              "text": "a",
-              "size": 46
-            },
-            {
-              "label": [
-                166,
-                546
-              ],
-              "text": "b",
-              "size": 46
-            },
-            {
-              "path": "M200 724 V748 H760 V724",
-              "width": 5
+              "text": "y",
+              "size": 48
             },
             {
               "label": [
                 480,
-                802
-              ],
-              "text": "a + b",
-              "size": 52
-            },
-            {
-              "label": [
-                1450,
-                300
+                780
               ],
               "text": "x + y = 90°",
-              "size": 72
+              "size": 70
             },
             {
               "label": [
-                1450,
-                400
+                480,
+                862
               ],
               "text": "so this corner is 90° too",
-              "size": 52
+              "size": 60
             },
             {
               "arrow": [
-                1160,
-                380,
-                560,
-                190
-              ],
-              "colour": "yellow"
+                820,
+                840,
+                778,
+                470
+              ]
             },
             {
-              "path": "M504 142 l16 12 l12 -16",
-              "colour": "yellow",
+              "path": "M734 430 l-14 20 l14 20",
               "width": 5
             },
             {
-              "cut": "wipe, second square"
+              "cut": "continuous: a second square is drawn on the right"
             }
           ]
         }
@@ -3721,16 +3696,16 @@
       "id": "s14",
       "act": "proof",
       "type": "wide",
-      "start": 31.73,
-      "end": 34.09,
+      "start": 33.13,
+      "end": 35.49,
       "voice": "Now *slide* two of them, without turning.",
       "teaches": "The same four triangles, moved without turning or resizing: two of them slide.",
-      "screen": "Both squares, side by side, the same size: left, the first arrangement with c². Right, a new square of side a + b: triangles 1 and 4 drawn where they were; triangles 2 and 3 first as dashed outlines in their old places, then chalk arrows to their new places (3 first, then 2) and a small note above the square, '3 first, then 2: slid, not turned', where they are drawn solid. Triangle 3 slides up-left by (a, b), triangle 2 down-left by (b, a).",
-      "motion": "The angle note is wiped; the right square and triangles 1 and 4 are drawn; ghosts of 2 and 3 are dotted in, the arrows drawn, then 3 is drawn at its new place, then 2 (one after the other, so the arrows never cross at the same moment), and the ghosts are wiped (leaving a faint smear).",
+      "screen": "Both squares, side by side, the same size: left, the first arrangement with c² and the angle note under it. Right, a new square of side a + b, lettered b, a along its top and a, b down its left, with the same four triangles copied into the same corners, numbered. Then triangle 3 slides up-left by (a, b) and triangle 2 down-left by (b, a), each with a white chalk arrow, leaving a dotted outline where it was; above the square 'slid, not turned'.",
+      "motion": "The right square is drawn in one stroke and lettered; each triangle is copied in turn (the chalk runs round the first square's triangle, then draws its copy); the arrow for 3 is drawn and 3 slides, then 2 (one after the other), each leaving a dotted outline; the dotted outlines and the arrows are wiped (a faint smear stays) and the bracket goes with them.",
       "carries": "Both arrangements, side by side.",
       "transition": "Continuous: the two holes on the right are hatched.",
       "sound": "Chalk strokes; two soft wipes as the ghosts go.",
-      "check": "2 and 3 keep their orientation (pure slides); the moved corners are the computed ones.",
+      "check": "2 and 3 keep their orientation (pure slides); the moved corners are the computed ones; the copies never overlap the first square.",
       "facts": [
         "f4"
       ],
@@ -4170,11 +4145,11 @@
       "id": "s15",
       "act": "proof",
       "type": "diagram",
-      "start": 34.09,
-      "end": 37.71,
+      "start": 35.49,
+      "end": 39.11,
       "voice": "The gap becomes two squares: *a squared* and *b squared*.",
       "teaches": "Now the empty space is two squares: one a by a, one b by b.",
-      "screen": "The right square's two holes hatched in blue chalk: top right a² (240 x 240), bottom right b² (320 x 320), each lettered. The left square with c² stays beside it.",
+      "screen": "The right square's two holes outlined and hatched in blue chalk: top right a² (240 x 240), bottom right b² (320 x 320), each lettered, and the right side of the square lettered a and b beside them. The left square with c² stays beside it.",
       "motion": "The small hole is hatched and lettered on 'a squared', the big one on 'b squared'.",
       "carries": "c² on the left, a² and b² on the right.",
       "transition": "Continuous: an '=' is written between the squares.",
@@ -4637,12 +4612,13 @@
       "id": "s16",
       "act": "proof",
       "type": "compare",
-      "start": 37.71,
-      "end": 41.39,
+      "start": 39.11,
+      "end": 43.39,
       "voice": "Same square, same triangles: the gaps must *match*.",
+      "hold": 0.6,
       "teaches": "Same big square minus the same four triangles: what is left must be the same area.",
       "screen": "Both squares complete; a large '=' between them; under each 'big square - 4 triangles'; the outer edges retraced and the triangles ticked 1 to 4 on both sides.",
-      "motion": "The chalk runs round both outer squares (same size), ticks each pair of matching triangles, writes '=' between, then the two short lines under them.",
+      "motion": "The angle note is wiped; the chalk runs round both outer squares (same size), ticks each pair of matching triangles in white, writes the two short lines under them, then '=' between.",
       "carries": "The two equal leftovers.",
       "transition": "Continuous: the conclusion is written under them.",
       "sound": "Four ticks; a firm double stroke for '='.",
@@ -5181,12 +5157,13 @@
       "id": "s17",
       "act": "proof",
       "type": "type",
-      "start": 41.39,
-      "end": 44.75,
+      "start": 43.39,
+      "end": 48.15,
       "voice": "Which means c squared equals *a squared plus b squared*.",
+      "hold": 1.4,
       "teaches": "The conclusion, read off the two squares: c² = a² + b².",
       "screen": "Under the two squares, large: 'c² = a² + b²', c² in yellow chalk and a² + b² in blue; thin chalk arrows from the c² in the left square and from a² and b² in the right one down to their terms. The spoken line runs as a caption below it.",
-      "motion": "The formula is written term by term with the voice; the arrows are drawn last.",
+      "motion": "The formula is written term by term with the voice, each arrow as its term is written; the camera settles on it and it holds, complete, for a second and a half (a pause after the line) before the board moves on.",
       "carries": "The proof and its formula.",
       "transition": "The camera slides right to a clean section.",
       "sound": "Chalk writing; a satisfied double tap at the end.",
@@ -5781,12 +5758,13 @@
       "id": "s18",
       "act": "general",
       "type": "compare",
-      "start": 44.75,
-      "end": 47.61,
+      "start": 48.15,
+      "end": 51.56,
       "voice": "Flat or tall, any *right triangle* works.",
+      "hold": 0.55,
       "teaches": "The proof never used the numbers: it works the same for any right triangle, flat or tall.",
-      "screen": "Section E: the same two arrangements again, smaller, for a flat right triangle (left pair) and a tall one (right pair), each pair with its triangle drawn underneath, its right angle ringed in yellow, labelled 'flat' and 'tall', and under each 'c² = a² + b²' with a drawn tick.",
-      "motion": "The camera slides right along the board to a clean section. Each pair is drawn quickly, the holes hatched (yellow on the left of the pair, blue on the right), then the ticks.",
+      "screen": "Section E: the same two arrangements again, smaller, for a flat right triangle (left pair) and a tall one (right pair), each pair with its triangle drawn underneath, its right angle ringed in white chalk, labelled 'flat' and 'tall', and under each 'c² = a² + b²' with a drawn tick.",
+      "motion": "The camera glides right along the board (about 0.9 s, eased) and lands on the first chalk stroke of a clean section. Each pair is drawn quickly, the holes hatched (yellow on the left of the pair, blue on the right), then the ticks.",
       "carries": "The rule for every right triangle.",
       "transition": "The board is wiped with a cloth for the recap.",
       "sound": "Quick chalk strokes; two ticks.",
@@ -5881,7 +5859,6 @@
                 708,
                 30
               ],
-              "colour": "yellow",
               "width": 5
             },
             {
@@ -6048,7 +6025,6 @@
                 708,
                 30
               ],
-              "colour": "yellow",
               "width": 5
             },
             {
@@ -6074,7 +6050,6 @@
                 778,
                 30
               ],
-              "colour": "yellow",
               "width": 5
             },
             {
@@ -6238,7 +6213,6 @@
                 708,
                 30
               ],
-              "colour": "yellow",
               "width": 5
             },
             {
@@ -6264,7 +6238,6 @@
                 778,
                 30
               ],
-              "colour": "yellow",
               "width": 5
             },
             {
@@ -6286,7 +6259,6 @@
             },
             {
               "path": "M640 858 l16 18 l30 -40",
-              "colour": "yellow",
               "width": 7
             },
             {
@@ -6300,7 +6272,6 @@
             },
             {
               "path": "M1630 858 l16 18 l30 -40",
-              "colour": "yellow",
               "width": 7
             },
             {
@@ -6314,11 +6285,12 @@
       "id": "s19",
       "act": "answer",
       "type": "recap",
-      "start": 47.61,
-      "end": 50.51,
+      "start": 51.56,
+      "end": 55.36,
       "voice": "The gap just changes shape, never its *area*.",
+      "hold": 0.9,
       "teaches": "The answer in one frame: the squares are areas, the same leftover space changes shape, so c² = a² + b².",
-      "screen": "One board after a cloth wipe (faint smears): left, a blue square with sides a and 'a² = area of a square'; middle, the two small arrangements with '=' between and 'same big square, same 4 triangles / so the gaps have the same area'; right, 'c² = a² + b²' boxed in white chalk with c² in yellow, and 'right triangles only' under it.",
+      "screen": "One board after a cloth wipe (faint smears), filled: above, a blue square with sides a and 'a² = area' under it; the two small arrangements with '=' between and 'same area' under them; a small right triangle, its right angle ringed, and 'right triangles only'. Below, across the middle, 'c² = a² + b²' large and boxed in white chalk, c² in yellow and a² + b² in blue.",
       "motion": "The cloth wipes left to right; the three small pictures are drawn in order, the box last.",
       "carries": "The proof's picture, which the camera passes on its way back.",
       "transition": "The camera slides back left along the whole board.",
@@ -6332,45 +6304,45 @@
       "frames": [
         {
           "at": 0,
-          "note": "Wiped; the square and 'a² = area of a square'.",
+          "note": "Wiped; the square and 'a² = area'.",
           "draw": [
             {
-              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "path": "M110 160 L470 160 L470 520 L110 520 Z",
               "colour": "blue",
               "width": 8
             },
             {
               "label": [
-                320,
-                198
+                290,
+                140
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                108,
-                416
+                80,
+                360
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                320,
-                436
+                290,
+                380
               ],
               "text": "a²",
-              "size": 110,
+              "size": 120,
               "colour": "blue"
             },
             {
               "label": [
-                320,
-                690
+                290,
+                610
               ],
-              "text": "a² = area of a square",
-              "size": 52
+              "text": "a² = area",
+              "size": 56
             },
             {
               "path": "M120 860 C 600 840, 1200 870, 1800 850",
@@ -6384,132 +6356,156 @@
           "note": "The two arrangements with '='.",
           "draw": [
             {
-              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "path": "M110 160 L470 160 L470 520 L110 520 Z",
               "colour": "blue",
               "width": 8
             },
             {
               "label": [
-                320,
-                198
+                290,
+                140
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                108,
-                416
+                80,
+                360
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                320,
-                436
+                290,
+                380
               ],
               "text": "a²",
-              "size": 110,
+              "size": 120,
               "colour": "blue"
             },
             {
               "label": [
-                320,
-                690
+                290,
+                610
               ],
-              "text": "a² = area of a square",
-              "size": 52
+              "text": "a² = area",
+              "size": 56
             },
             {
-              "path": "M580 220 L910 220 L910 550 L580 550 Z",
+              "path": "M590 160 L950 160 L950 520 L590 520 Z",
               "width": 5
             },
             {
-              "path": "M580 220 L768 220 L580 362 Z",
+              "path": "M590 160 L796 160 L590 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M910 220 L768 220 L910 408 Z",
+              "path": "M950 160 L796 160 L950 366 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M910 550 L910 408 L722 550 Z",
+              "path": "M950 520 L950 366 L744 520 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M580 550 L722 550 L580 362 Z",
+              "path": "M590 520 L744 520 L590 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M768 220 L910 408 L722 550 L580 362 Z",
+              "path": "M796 160 L950 366 L744 520 L590 314 Z",
               "colour": "yellow",
               "fill": "yellow",
               "width": 5
             },
             {
-              "path": "M1030 220 L1360 220 L1360 550 L1030 550 Z",
+              "path": "M1060 160 L1420 160 L1420 520 L1060 520 Z",
               "width": 5
             },
             {
-              "path": "M1030 220 L1218 220 L1030 362 Z",
+              "path": "M1060 160 L1266 160 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1172 362 L1030 362 L1172 550 Z",
+              "path": "M1214 314 L1060 314 L1214 520 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1218 362 L1218 220 L1030 362 Z",
+              "path": "M1266 314 L1266 160 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1030 550 L1172 550 L1030 362 Z",
+              "path": "M1060 520 L1214 520 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1218 220 L1360 220 L1360 362 L1218 362 Z",
+              "path": "M1266 160 L1420 160 L1420 314 L1266 314 Z",
               "colour": "blue",
               "fill": "blue",
               "width": 5
             },
             {
-              "path": "M1172 362 L1360 362 L1360 550 L1172 550 Z",
+              "path": "M1214 314 L1420 314 L1420 520 L1214 520 Z",
               "colour": "blue",
               "fill": "blue",
               "width": 5
             },
             {
               "label": [
-                970,
-                420
+                1005,
+                380
               ],
               "text": "=",
-              "size": 100
+              "size": 90
             },
             {
               "label": [
-                970,
-                690
+                1005,
+                610
               ],
-              "text": "same big square, same 4 triangles",
-              "size": 44
+              "text": "same area",
+              "size": 56
+            },
+            {
+              "path": "M1560 420 L1560 300 L1720 420 Z",
+              "width": 6
+            },
+            {
+              "path": "M1560 398 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                1572,
+                408,
+                30
+              ],
+              "width": 5
             },
             {
               "label": [
-                970,
-                760
+                1640,
+                500
               ],
-              "text": "so the gaps have the same area",
-              "size": 44
+              "text": "right",
+              "size": 52
+            },
+            {
+              "label": [
+                1640,
+                560
+              ],
+              "text": "triangles only",
+              "size": 52
             }
           ]
         },
@@ -6518,153 +6514,169 @@
           "note": "'c² = a² + b²' boxed; 'right triangles only'.",
           "draw": [
             {
-              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "path": "M110 160 L470 160 L470 520 L110 520 Z",
               "colour": "blue",
               "width": 8
             },
             {
               "label": [
-                320,
-                198
+                290,
+                140
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                108,
-                416
+                80,
+                360
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                320,
-                436
+                290,
+                380
               ],
               "text": "a²",
-              "size": 110,
+              "size": 120,
               "colour": "blue"
             },
             {
               "label": [
-                320,
-                690
+                290,
+                610
               ],
-              "text": "a² = area of a square",
-              "size": 52
+              "text": "a² = area",
+              "size": 56
             },
             {
-              "path": "M580 220 L910 220 L910 550 L580 550 Z",
+              "path": "M590 160 L950 160 L950 520 L590 520 Z",
               "width": 5
             },
             {
-              "path": "M580 220 L768 220 L580 362 Z",
+              "path": "M590 160 L796 160 L590 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M910 220 L768 220 L910 408 Z",
+              "path": "M950 160 L796 160 L950 366 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M910 550 L910 408 L722 550 Z",
+              "path": "M950 520 L950 366 L744 520 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M580 550 L722 550 L580 362 Z",
+              "path": "M590 520 L744 520 L590 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M768 220 L910 408 L722 550 L580 362 Z",
+              "path": "M796 160 L950 366 L744 520 L590 314 Z",
               "colour": "yellow",
               "fill": "yellow",
               "width": 5
             },
             {
-              "path": "M1030 220 L1360 220 L1360 550 L1030 550 Z",
+              "path": "M1060 160 L1420 160 L1420 520 L1060 520 Z",
               "width": 5
             },
             {
-              "path": "M1030 220 L1218 220 L1030 362 Z",
+              "path": "M1060 160 L1266 160 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1172 362 L1030 362 L1172 550 Z",
+              "path": "M1214 314 L1060 314 L1214 520 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1218 362 L1218 220 L1030 362 Z",
+              "path": "M1266 314 L1266 160 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1030 550 L1172 550 L1030 362 Z",
+              "path": "M1060 520 L1214 520 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1218 220 L1360 220 L1360 362 L1218 362 Z",
+              "path": "M1266 160 L1420 160 L1420 314 L1266 314 Z",
               "colour": "blue",
               "fill": "blue",
               "width": 5
             },
             {
-              "path": "M1172 362 L1360 362 L1360 550 L1172 550 Z",
+              "path": "M1214 314 L1420 314 L1420 520 L1214 520 Z",
               "colour": "blue",
               "fill": "blue",
               "width": 5
             },
             {
               "label": [
-                970,
-                420
+                1005,
+                380
               ],
               "text": "=",
-              "size": 100
+              "size": 90
             },
             {
               "label": [
-                970,
-                690
+                1005,
+                610
               ],
-              "text": "same big square, same 4 triangles",
-              "size": 44
+              "text": "same area",
+              "size": 56
+            },
+            {
+              "path": "M1560 420 L1560 300 L1720 420 Z",
+              "width": 6
+            },
+            {
+              "path": "M1560 398 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                1572,
+                408,
+                30
+              ],
+              "width": 5
             },
             {
               "label": [
-                970,
-                760
+                1640,
+                500
               ],
-              "text": "so the gaps have the same area",
-              "size": 44
+              "text": "right",
+              "size": 52
             },
             {
-              "path": "M1420 330 L1820 330 L1820 500 L1420 500 Z",
+              "label": [
+                1640,
+                560
+              ],
+              "text": "triangles only",
+              "size": 52
+            },
+            {
+              "path": "M560 690 L1450 690 L1450 880 L560 880 Z",
               "width": 7
             },
             {
               "label": [
-                1620,
-                446
+                1005,
+                822
               ],
               "text": "c² = a² + b²",
-              "size": 74,
+              "size": 110,
               "colour": "yellow"
-            },
-            {
-              "label": [
-                1620,
-                600
-              ],
-              "text": "right triangles only",
-              "size": 50
             },
             {
               "cut": "slide back to the start"
@@ -6677,12 +6689,12 @@
       "id": "s20",
       "act": "answer",
       "type": "wide",
-      "start": 50.51,
-      "end": 51.57,
+      "start": 55.36,
+      "end": 56.42,
       "voice": "That's why",
       "teaches": "The bridge: the last words run into the first line, the picture into frame 0.",
       "screen": "The camera slides back left past the proof, the counted 3-4-5 and the square, and settles on section A: the opening figure, the question and the formula, the same picture as frame 0.",
-      "motion": "A fast slide left along the board (about 1.1 s, eased), settling exactly on the framing of frame 0 a moment before the cut.",
+      "motion": "A glide left along the whole board (about 1.1 s, eased), pulling back as it travels so the proof, the counted 3-4-5 and the square pass by, and pushing in to settle exactly on the framing of frame 0 on the last frame.",
       "carries": "Into s01.",
       "transition": "No cut: the film loops straight into s01.",
       "sound": "The bed runs on into the opening.",
@@ -6693,153 +6705,169 @@
           "note": "Sliding back left along the board.",
           "draw": [
             {
-              "path": "M140 220 L500 220 L500 580 L140 580 Z",
+              "path": "M110 160 L470 160 L470 520 L110 520 Z",
               "colour": "blue",
               "width": 8
             },
             {
               "label": [
-                320,
-                198
+                290,
+                140
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                108,
-                416
+                80,
+                360
               ],
               "text": "a",
-              "size": 50
+              "size": 52
             },
             {
               "label": [
-                320,
-                436
+                290,
+                380
               ],
               "text": "a²",
-              "size": 110,
+              "size": 120,
               "colour": "blue"
             },
             {
               "label": [
-                320,
-                690
+                290,
+                610
               ],
-              "text": "a² = area of a square",
-              "size": 52
+              "text": "a² = area",
+              "size": 56
             },
             {
-              "path": "M580 220 L910 220 L910 550 L580 550 Z",
+              "path": "M590 160 L950 160 L950 520 L590 520 Z",
               "width": 5
             },
             {
-              "path": "M580 220 L768 220 L580 362 Z",
+              "path": "M590 160 L796 160 L590 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M910 220 L768 220 L910 408 Z",
+              "path": "M950 160 L796 160 L950 366 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M910 550 L910 408 L722 550 Z",
+              "path": "M950 520 L950 366 L744 520 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M580 550 L722 550 L580 362 Z",
+              "path": "M590 520 L744 520 L590 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M768 220 L910 408 L722 550 L580 362 Z",
+              "path": "M796 160 L950 366 L744 520 L590 314 Z",
               "colour": "yellow",
               "fill": "yellow",
               "width": 5
             },
             {
-              "path": "M1030 220 L1360 220 L1360 550 L1030 550 Z",
+              "path": "M1060 160 L1420 160 L1420 520 L1060 520 Z",
               "width": 5
             },
             {
-              "path": "M1030 220 L1218 220 L1030 362 Z",
+              "path": "M1060 160 L1266 160 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1172 362 L1030 362 L1172 550 Z",
+              "path": "M1214 314 L1060 314 L1214 520 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1218 362 L1218 220 L1030 362 Z",
+              "path": "M1266 314 L1266 160 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1030 550 L1172 550 L1030 362 Z",
+              "path": "M1060 520 L1214 520 L1060 314 Z",
               "width": 4,
               "fill": "ink"
             },
             {
-              "path": "M1218 220 L1360 220 L1360 362 L1218 362 Z",
+              "path": "M1266 160 L1420 160 L1420 314 L1266 314 Z",
               "colour": "blue",
               "fill": "blue",
               "width": 5
             },
             {
-              "path": "M1172 362 L1360 362 L1360 550 L1172 550 Z",
+              "path": "M1214 314 L1420 314 L1420 520 L1214 520 Z",
               "colour": "blue",
               "fill": "blue",
               "width": 5
             },
             {
               "label": [
-                970,
-                420
+                1005,
+                380
               ],
               "text": "=",
-              "size": 100
+              "size": 90
             },
             {
               "label": [
-                970,
-                690
+                1005,
+                610
               ],
-              "text": "same big square, same 4 triangles",
-              "size": 44
+              "text": "same area",
+              "size": 56
+            },
+            {
+              "path": "M1560 420 L1560 300 L1720 420 Z",
+              "width": 6
+            },
+            {
+              "path": "M1560 398 h22 v22",
+              "width": 4
+            },
+            {
+              "ring": [
+                1572,
+                408,
+                30
+              ],
+              "width": 5
             },
             {
               "label": [
-                970,
-                760
+                1640,
+                500
               ],
-              "text": "so the gaps have the same area",
-              "size": 44
+              "text": "right",
+              "size": 52
             },
             {
-              "path": "M1420 330 L1820 330 L1820 500 L1420 500 Z",
+              "label": [
+                1640,
+                560
+              ],
+              "text": "triangles only",
+              "size": 52
+            },
+            {
+              "path": "M560 690 L1450 690 L1450 880 L560 880 Z",
               "width": 7
             },
             {
               "label": [
-                1620,
-                446
+                1005,
+                822
               ],
               "text": "c² = a² + b²",
-              "size": 74,
+              "size": 110,
               "colour": "yellow"
-            },
-            {
-              "label": [
-                1620,
-                600
-              ],
-              "text": "right triangles only",
-              "size": 50
             },
             {
               "camera": "left"
